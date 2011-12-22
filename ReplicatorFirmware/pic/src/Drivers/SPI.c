@@ -4,7 +4,7 @@
  *  Created on: Apr 4, 2010
  *      Author: hephaestus
  */
-#include "UserApp.h"
+#include "PicUserApp.h"
 
 
 void InitSPI(void){

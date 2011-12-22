@@ -4,7 +4,7 @@
  *  Created on: Nov 23, 2009
  *      Author: hephaestus
  */
-#include "UserApp.h"
+#include "PicUserApp.h"
 
 STORAGE self;
 extern DATA_STRUCT DATA __attribute__ ((section (".scs_global_var")));

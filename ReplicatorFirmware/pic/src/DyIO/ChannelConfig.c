@@ -4,7 +4,7 @@
  *  Created on: Jan 30, 2010
  *      Author: hephaestus
  */
-#include "UserApp.h"
+#include "PicUserApp.h"
 
 BOOL ConfigChannel(BowlerPacket * Packet){
 	return FALSE;

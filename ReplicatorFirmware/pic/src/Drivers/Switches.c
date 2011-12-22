@@ -5,7 +5,7 @@
  *      Author: hephaestus
  */
 
-#include "UserApp.h"
+#include "PicUserApp.h"
 
 static BYTE switched;
 static BYTE bankState[2];

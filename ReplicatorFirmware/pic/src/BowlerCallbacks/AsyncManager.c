@@ -4,7 +4,7 @@
  *  Created on: Mar 19, 2010
  *      Author: hephaestus
  */
-#include "UserApp.h"
+#include "PicUserApp.h"
 
 extern DATA_STRUCT DATA;
 #define ADCINIT 0xFFFF

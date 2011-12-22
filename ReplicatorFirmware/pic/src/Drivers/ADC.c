@@ -5,7 +5,7 @@
  *      Author: hephaestus
  */
 
-#include "UserApp.h"
+#include "PicUserApp.h"
 float getVolt(BYTE chan);
 
 BOOL init = FALSE;
