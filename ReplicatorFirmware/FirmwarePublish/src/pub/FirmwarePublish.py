@@ -9,14 +9,14 @@ class FirmwarePublishDriver():
     def __init__(self):
         rev = self.getRevision()
         out = self.getFiles(rev,'release','644p')
-        filename = "dyio-firmware-"+rev+".xml"
+        filename = "replicator-firmware-"+rev+".xml"
         print "Making ",filename
         f=open("../../Release/"+filename, 'w')
         f.write(out)
         
         rev = self.getRevision()
         out = self.getFiles(rev,'release','324p')
-        filename = "dyio-firmware-"+rev+"_legacy.xml"
+        filename = "replicator-firmware-"+rev+"_legacy.xml"
         print "Making ",filename
         f=open("../../Release/legacy/"+filename, 'w')
         f.write(out)
@@ -25,37 +25,37 @@ class FirmwarePublishDriver():
         
         rev = self.getRevision()
         out = self.getFiles(rev,'release','644p')
-        filename = "dyio-firmware-"+rev+"_dev_"+strftime("%b_%d_%Y", gmtime())+".xml"
+        filename = "replicator-firmware-"+rev+"_dev_"+strftime("%b_%d_%Y", gmtime())+".xml"
         print "Making ",filename
         f=open("../../Dev/"+filename, 'w')
         f.write(out)
     
         out = self.getFiles(rev,'debug','debug')
-        filename = "DyIO_Firmware_"+rev+"_debug_"+strftime("%b_%d_%Y", gmtime())+".xml"
+        filename = "replicator_Firmware_"+rev+"_debug_"+strftime("%b_%d_%Y", gmtime())+".xml"
         print "Making ",filename
         f=open("../../Dev/"+filename, 'w')
         f.write(out)
         
         out = self.getFiles(rev,'debug','644p')
-        filename = "DyIO_Firmware_"+rev+"_PIC_debug_"+strftime("%b_%d_%Y", gmtime())+".xml"
+        filename = "replicator_Firmware_"+rev+"_PIC_debug_"+strftime("%b_%d_%Y", gmtime())+".xml"
         print "Making ",filename
         f=open("../../Dev/"+filename, 'w')
         f.write(out)
 
         out = self.getFiles(rev,'debug','324p')
-        filename = "DyIO_Firmware_"+rev+"_PIC_debug_legacy_"+strftime("%b_%d_%Y", gmtime())+".xml"
+        filename = "replicator_Firmware_"+rev+"_PIC_debug_legacy_"+strftime("%b_%d_%Y", gmtime())+".xml"
         print "Making ",filename
         f=open("../../Dev/"+filename, 'w')
         f.write(out)
         
         out = self.getFiles(rev,'release','debug')
-        filename = "DyIO_Firmware_"+rev+"_AVR_debug_"+strftime("%b_%d_%Y", gmtime())+".xml"
+        filename = "replicator_Firmware_"+rev+"_AVR_debug_"+strftime("%b_%d_%Y", gmtime())+".xml"
         print "Making ",filename
         f=open("../../Dev/"+filename, 'w')
         f.write(out)
         print "OK"
     def getRevision(self):
-        f = open('../../../common/include/DyIO/DyIO_def.h', 'r')
+        f = open('../../../common/include/replicator/replicator_def.h', 'r')
         contents=f.read()
         lines=contents.split('\n')
         MAJOR_REV=0

@@ -21,7 +21,7 @@
 #endif
 
 #include "Bowler/Bowler.h"
-#include "DyIO/DyIO_def.h"
+#include "replicator/replicator_def.h"
 #include "CoProcCom.h"
 #include "PIC_IO.h"
 #include "PID.h"

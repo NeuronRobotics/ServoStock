@@ -29,7 +29,7 @@
 								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.1969002640" languageId="org.eclipse.cdt.core.g++" languageName="GNU C++" sourceContentType="org.eclipse.cdt.core.cxxSource,org.eclipse.cdt.core.cxxHeader" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
 							</tool>
 							<tool id="org.eclipse.cdt.build.core.settings.holder.307028136" name="GNU C" superClass="org.eclipse.cdt.build.core.settings.holder">
-								<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.1540406518" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
+								<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.1540406518" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ReplicatorFirmware/common/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ReplicatorFirmware/NR-Clib/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ReplicatorFirmware/avr/include}&quot;"/>

@@ -1,6 +1,6 @@
 
 #include "Bowler/Bowler.h"
-#include "DyIO/DyIO_def.h"
+#include "replicator/replicator_def.h"
 
 void buttonCheck(BYTE code){
 //	StartCritical();

@@ -7,7 +7,7 @@
 
 #ifndef DEBUG_DYIO_H_
 #define DEBUG_DYIO_H_
-#include "DyIO/DyIO_def.h"
+#include "replicator/replicator_def.h"
 void printMode(BYTE mode);
 
 #endif /* DEBUG_DYIO_H_ */
