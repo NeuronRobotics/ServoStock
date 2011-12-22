@@ -28,5 +28,3 @@ pub:
 	if (test -e FirmwarePublish/Dev/*.xml);				then rm FirmwarePublish/Dev/*.xml; 				fi	
 	cd FirmwarePublish/src/pub;python FirmwarePublish.py
 	if(rm ../NRSDK/fw/*); then echo OK; fi
-	cp FirmwarePublish/Dev/dyio* ../NRSDK/fw/
-	cp FirmwarePublish/Release/*.xml ../NRConsole/src/com/neuronrobotics/nrconsole/plugin/bootloader/fw/

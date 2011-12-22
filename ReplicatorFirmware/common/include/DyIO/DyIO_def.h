@@ -26,8 +26,8 @@
 #define NUM_PINS   			24
 
 #define MAJOR_REV			3
-#define MINOR_REV			7
-#define FIRMWARE_VERSION	19
+#define MINOR_REV			10
+#define FIRMWARE_VERSION	1
 
 #define NO_CHANGE	 	 		0x00
 #define HIGH_IMPEDANCE 	 		0x01
