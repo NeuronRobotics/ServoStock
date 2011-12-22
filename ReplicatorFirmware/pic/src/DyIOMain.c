@@ -1,6 +1,5 @@
 
-#include "Bowler/Bowler.h"
-#include "replicator/replicator_def.h"
+#include "UserApp.h"
 
 void buttonCheck(BYTE code){
 //	StartCritical();

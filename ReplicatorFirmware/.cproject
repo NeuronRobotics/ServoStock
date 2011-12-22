@@ -34,6 +34,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ReplicatorFirmware/NR-Clib/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ReplicatorFirmware/avr/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ReplicatorFirmware/pic/include}&quot;"/>
+									<listOptionValue builtIn="false" value="/home/opt/microchip/mplabc32/v2.01/pic32mx/include"/>
 								</option>
 								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.1577556018" languageId="org.eclipse.cdt.core.gcc" languageName="GNU C" sourceContentType="org.eclipse.cdt.core.cSource,org.eclipse.cdt.core.cHeader" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
 							</tool>
