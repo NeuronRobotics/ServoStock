@@ -5,7 +5,7 @@
  *      Author: hephaestus
  */
 
-#include "PicUserApp.h"
+#include "UserApp.h"
 
 static AbsPID 			pidGroups[NUM_PID_GROUPS];
 static DYIO_PID 		dyPid[NUM_PID_GROUPS];

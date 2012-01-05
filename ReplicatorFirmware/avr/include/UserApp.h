@@ -13,7 +13,7 @@
 #include "Bowler/Bowler.h"
 #include "DyIOApp/HardwareProfile.h"
 
-#include "replicator/replicator_def.h"
+#include "DyIO/DyIO_def.h"
 #include "DyIOApp/Power.h"
 #include "DyIOApp/Servo.h"
 #include "DyIOApp/AVR_IO.h"

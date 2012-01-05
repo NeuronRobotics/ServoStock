@@ -5,7 +5,7 @@
  *      Author: hephaestus
  */
 
-#include "PicUserApp.h"
+#include "UserApp.h"
 
 #if defined(USE_DMA)
 #define DMA_SIZE 255

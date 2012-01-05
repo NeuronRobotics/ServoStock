@@ -1,8 +1,14 @@
+-include common/Version.mk
+REVISION=$(MAJOR_VER).$(MINOR_VER).$(FIRMWARE_VER)
+PUB=java -jar FirmwarePublish/Publish.jar -revision=$(REVISION)
+
 all: main  coproc pub
 	echo ok
 upload:svnupdate update all commit
 	if (test -d ../NR-Clib/);then cd ../NR-Clib/;make commit;	fi
 	echo upload ok
+dyioUpdate:update
+	if (test -d ../DyIO/); then 	rsync -raupE --exclude=.svn* ../DyIO/* 				./; fi	
 update:
 	echo Updating...
 	if (test -d ../NR-Clib/);					then cd ../NR-Clib/;svn update;					fi
@@ -26,5 +32,14 @@ coproc:
 pub:
 	if (test -e FirmwarePublish/Release/*.xml);			then rm FirmwarePublish/Release/*.xml; rm FirmwarePublish/Release/legacy/*.xml; 			fi
 	if (test -e FirmwarePublish/Dev/*.xml);				then rm FirmwarePublish/Dev/*.xml; 				fi	
-	cd FirmwarePublish/src/pub;python FirmwarePublish.py
+	#Release
+	$(PUB) -core=0,pic32mx440f128h,4,pic/output/release/output.hex -core=1,avr_atmexaxx4p,2,avr/output/644p/output.hex -output=FirmwarePublish/Release/dyio-$(REVISION).xml
+	$(PUB) -core=0,pic32mx440f128h,4,pic/output/release/output.hex -core=1,avr_atmexaxx4p,2,avr/output/324p/output.hex -output=FirmwarePublish/Release/legacy/dyio-$(REVISION)_legacy.xml
+	#Debug
+	$(PUB) -core=0,pic32mx440f128h,4,pic/output/release/output.hex 	-core=1,avr_atmexaxx4p,2,avr/output/644p/output.hex -output=FirmwarePublish/Dev/dyio-DEV-$(REVISION)
+	$(PUB) -core=0,pic32mx440f128h,4,pic/output/release/output.hex 	-core=1,avr_atmexaxx4p,2,avr/output/debug/output.hex -output=FirmwarePublish/Dev/dyio-DEV-AVRDEBUG-$(REVISION)
+	$(PUB) -core=0,pic32mx440f128h,4,pic/output/debug/output.hex 	-core=1,avr_atmexaxx4p,2,avr/output/debug/output.hex -output=FirmwarePublish/Dev/dyio-DEV-AVRDEBUG-PICDEBUG-$(REVISION)
+	$(PUB) -core=0,pic32mx440f128h,4,pic/output/debug/output.hex 	-core=1,avr_atmexaxx4p,2,avr/output/644p/output.hex -output=FirmwarePublish/Dev/dyio-DEV-PICDEBUG-$(REVISION)
 	if(rm ../NRSDK/fw/*); then echo OK; fi
+	cp FirmwarePublish/Dev/dyio* ../NRSDK/fw/
+	cp FirmwarePublish/Release/*.xml ../NRConsole/src/com/neuronrobotics/nrconsole/plugin/bootloader/fw/

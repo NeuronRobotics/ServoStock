@@ -1,5 +1,5 @@
 
-#include "replicator/replicator_def.h"
+#include "DyIO/Debug_DyIO.h"
 #include "Bowler/Bowler.h"
 
 void printMode(BYTE mode){

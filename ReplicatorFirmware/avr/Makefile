@@ -1,3 +1,4 @@
+-include ../common/Version.mk
 INCLUDES	    = -I../NR-Clib/include/ -I./include/ -I ../common/include -I ../NR-Clib/include/arch/avr -I/usr/lib/avr/include/ 
 
 DEVICEA         = atmega644p
@@ -5,7 +6,7 @@ CPU_SPD       	= 18432000UL
 LOW_FUSE     	= 0xce
 HIGH_FUSE    	= 0xd9
 EXT_FUSE      	= 0xff
-GCCA            = avr-gcc
+GCCA            = avr-gcc  $(DYIO_VER)
 CCA             = $(GCCA) -Wall -Os -fpack-struct -fshort-enums -funsigned-char -funsigned-bitfields -mmcu=$(DEVICEA) -DF_CPU=$(CPU_SPD) $(INCLUDES) -c
 CCA324          = $(GCCA) -Wall -Os -fpack-struct -fshort-enums -funsigned-char -funsigned-bitfields -mmcu=atmega324p -DF_CPU=$(CPU_SPD) $(INCLUDES) -c
 

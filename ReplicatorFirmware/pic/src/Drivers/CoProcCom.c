@@ -4,7 +4,7 @@
  *  Created on: Nov 21, 2009
  *      Author: hephaestus
  */
-#include "PicUserApp.h"
+#include "UserApp.h"
 
 #define MAX_RETRY 5
 #define DELAY_TIMEOUT 150

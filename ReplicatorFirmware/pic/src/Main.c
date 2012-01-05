@@ -16,7 +16,7 @@
  *
  */
 #include "Bowler/Bowler.h"
-#include "PicUserApp.h"
+#include "UserApp.h"
 /**
  * Main loop
  * 		This is the cooperative main loop

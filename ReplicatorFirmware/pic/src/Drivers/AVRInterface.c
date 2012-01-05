@@ -4,7 +4,7 @@
  *  Created on: May 23, 2010
  *      Author: acamilo
  */
-#include "PicUserApp.h"
+#include "UserApp.h"
 
 	// acamilo:
 	// 		change fuses to f7

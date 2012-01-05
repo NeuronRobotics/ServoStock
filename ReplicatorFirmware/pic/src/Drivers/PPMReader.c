@@ -5,7 +5,7 @@
  * @author Kevin Harrington
  */
 
-#include "PicUserApp.h"
+#include "UserApp.h"
 static BYTE ppmData[]={128,128,128,128,128,128};
 static BYTE ppmLastSent[]={255,255,255,255,255,255};
 static BYTE ppmLink[]={255,255,255,255,255,255};

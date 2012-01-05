@@ -5,7 +5,7 @@
  *      Author: hephaestus
  */
 
-#include "PicUserApp.h"
+#include "UserApp.h"
 
 #define ENCIPL ipl1
 #define INTPRI EXT_INT_PRI_1

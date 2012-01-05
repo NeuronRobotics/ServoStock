@@ -5,7 +5,7 @@
  *      Author: hephaestus
  */
 
-#include "PicUserApp.h"
+#include "UserApp.h"
 void setAsync(BYTE channel,BOOL async);
 //extern DATA_STRUCT DATA;
 static BYTE temp0;
