@@ -8,7 +8,7 @@ upload:svnupdate update all commit
 	if (test -d ../NR-Clib/);then cd ../NR-Clib/;make commit;	fi
 	echo upload ok
 dyioUpdate:update
-	if (test -d ../DyIO/); then 	rsync -raupE --exclude=.svn* ../DyIO/* 				./; fi	
+	if (test -d ../DyIO/); then 	rsync -raupE --exclude=.svn* --exclude=.project --exclude=.cproject ../DyIO/* 				./; fi	
 update:
 	echo Updating...
 	if (test -d ../NR-Clib/);					then cd ../NR-Clib/;svn update;					fi
