@@ -17,6 +17,7 @@
 #if !defined(__PIC32MX__)
 #define __PIC32MX__
 #define __C32__
+#define __32MX440F128H__
 #include "arch/pic32/BowlerConfig.h"
 #endif
 

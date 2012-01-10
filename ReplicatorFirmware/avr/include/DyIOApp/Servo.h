@@ -27,7 +27,7 @@ void setPowerOverride(BOOL set);
  * SetServoPos
  * @param PIN the DyIO pin to use
  * @param val the position to set the servo to
- * @param time the time in Ms for the travil to take
+ * @param time the time in Ms for the travel to take
  */
 void SetServoPos(BYTE PIN,BYTE val,float time);
 BYTE GetServoPos(BYTE PIN);
