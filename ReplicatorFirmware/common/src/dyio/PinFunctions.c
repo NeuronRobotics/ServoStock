@@ -2,9 +2,11 @@
 
 DATA_STRUCT DATA;
 
-void InitPinFunction(void){
+void InitPinFunction(void)
+{
 	int i;
-	for (i=0;i<NUM_PINS;i++){
+	for (i=0;i<NUM_PINS;i++)
+	{
 		DATA.FUNCTION[i].HAS_ANALOG_IN=FALSE;
 		DATA.FUNCTION[i].HAS_PWM=FALSE;
 		DATA.FUNCTION[i].HAS_UART=FALSE;
