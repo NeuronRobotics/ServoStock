@@ -63,13 +63,14 @@
 <pad name="P$5" x="5.08" y="5.08" drill="0.8" diameter="1.09" shape="octagon"/>
 <pad name="P$1" x="5.08" y="-5.08" drill="0.8" diameter="1.09" shape="octagon"/>
 <wire x1="5.9" y1="7.18125" x2="-7.9" y2="7.18125" width="0.127" layer="25"/>
-<wire x1="6.18" y1="-7.28125" x2="-8" y2="-7.28125" width="0.127" layer="25"/>
-<wire x1="-7.92" y1="-7.28" x2="-8.16" y2="-7.28" width="0.127" layer="25"/>
-<wire x1="-8.16" y1="-7.28" x2="-8.16" y2="7.18" width="0.127" layer="25"/>
+<wire x1="6.18" y1="-9.82125" x2="-8" y2="-9.82125" width="0.127" layer="25"/>
+<wire x1="-7.92" y1="-9.82" x2="-8.16" y2="-9.82" width="0.127" layer="25"/>
+<wire x1="-8.16" y1="-9.82" x2="-8.16" y2="7.18" width="0.127" layer="25"/>
 <wire x1="-8.16" y1="7.18" x2="-7.81" y2="7.18" width="0.127" layer="25"/>
-<wire x1="6.13" y1="-7.28" x2="6.15" y2="-7.28" width="0.127" layer="20"/>
-<wire x1="6.15" y1="-7.28" x2="6.15" y2="7.18" width="0.127" layer="25"/>
+<wire x1="6.13" y1="-7.28" x2="6.15" y2="-9.82" width="0.127" layer="25"/>
+<wire x1="6.15" y1="-9.82" x2="6.15" y2="7.18" width="0.127" layer="25"/>
 <wire x1="6.15" y1="7.18" x2="5.81" y2="7.18" width="0.127" layer="25"/>
+<pad name="P$6" x="5.08" y="-7.62" drill="0.8" diameter="1.09" shape="octagon"/>
 </package>
 </packages>
 <symbols>
@@ -80,11 +81,12 @@
 <pin name="4" x="33.02" y="10.16" length="middle" rot="R180"/>
 <pin name="5" x="33.02" y="2.54" length="middle" rot="R180"/>
 <wire x1="-7.62" y1="40.64" x2="27.94" y2="40.64" width="0.254" layer="94"/>
-<wire x1="27.94" y1="40.64" x2="27.94" y2="-5.08" width="0.254" layer="94"/>
-<wire x1="27.94" y1="-5.08" x2="-7.62" y2="-5.08" width="0.254" layer="94"/>
-<wire x1="-7.62" y1="-5.08" x2="-7.62" y2="40.64" width="0.254" layer="94"/>
+<wire x1="27.94" y1="40.64" x2="27.94" y2="-12.7" width="0.254" layer="94"/>
+<wire x1="27.94" y1="-12.7" x2="-7.62" y2="-12.7" width="0.254" layer="94"/>
+<wire x1="-7.62" y1="-12.7" x2="-7.62" y2="40.64" width="0.254" layer="94"/>
 <text x="5.08" y="43.18" size="1.778" layer="94">&gt;NAME</text>
-<text x="2.54" y="-7.62" size="1.778" layer="94">70553-0109</text>
+<pin name="6" x="33.02" y="-5.08" length="middle" rot="R180"/>
+<text x="5.08" y="-15.24" size="1.778" layer="94">70553-0040</text>
 </symbol>
 </symbols>
 <devicesets>
@@ -100,6 +102,7 @@
 <connect gate="G$1" pin="3" pad="P$3"/>
 <connect gate="G$1" pin="4" pad="P$4"/>
 <connect gate="G$1" pin="5" pad="P$5"/>
+<connect gate="G$1" pin="6" pad="P$6"/>
 </connects>
 <technologies>
 <technology name=""/>
