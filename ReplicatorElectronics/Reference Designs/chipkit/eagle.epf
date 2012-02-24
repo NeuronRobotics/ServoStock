@@ -1,0 +1,20 @@
+[Eagle]
+Version="05 11 00"
+Platform="Windows"
+Serial="661D4277B1-LSR-WLM-3CP"
+Globals="Globals"
+Desktop="Desktop"
+
+[Globals]
+AutoSaveProject=1
+UsedLibrary="c:/tools/eagle/lbr/Doc.lbr"
+
+[Win_1]
+Type="Control Panel"
+Loc="66 66 665 465"
+State=2
+Number=0
+
+[Desktop]
+Screen="3840 1200"
+Window="Win_1"
