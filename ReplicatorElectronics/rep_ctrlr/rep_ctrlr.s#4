@@ -6936,6 +6936,12 @@ wave soldering</description>
 <part name="P+8" library="supply1" deviceset="VCC" device=""/>
 <part name="Q1" library="semicon-smd-ipc" deviceset="NPN-TRANSISTOR_" device="SOT23"/>
 <part name="SUPPLY7" library="supply2" deviceset="DGND" device=""/>
+<part name="SUPPLY8" library="supply2" deviceset="DGND" device=""/>
+<part name="SUPPLY9" library="supply2" deviceset="DGND" device=""/>
+<part name="SUPPLY10" library="supply2" deviceset="DGND" device=""/>
+<part name="P+9" library="supply1" deviceset="VCC" device=""/>
+<part name="P+10" library="supply1" deviceset="VCC" device=""/>
+<part name="SUPPLY11" library="supply2" deviceset="DGND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -6997,6 +7003,12 @@ wave soldering</description>
 <instance part="P+8" gate="VCC" x="302.26" y="-83.82"/>
 <instance part="Q1" gate="G$1" x="266.7" y="-119.38"/>
 <instance part="SUPPLY7" gate="G$1" x="269.24" y="-132.08"/>
+<instance part="SUPPLY8" gate="G$1" x="304.8" y="-101.6" rot="R270"/>
+<instance part="SUPPLY9" gate="G$1" x="302.26" y="-60.96" rot="R270"/>
+<instance part="SUPPLY10" gate="G$1" x="304.8" y="-134.62" rot="R270"/>
+<instance part="P+9" gate="VCC" x="297.18" y="-127"/>
+<instance part="P+10" gate="VCC" x="294.64" y="-58.42"/>
+<instance part="SUPPLY11" gate="G$1" x="302.26" y="-76.2" rot="R270"/>
 </instances>
 <busses>
 </busses>
@@ -7104,6 +7116,18 @@ wave soldering</description>
 <wire x1="320.04" y1="-88.9" x2="302.26" y2="-88.9" width="0.1524" layer="91"/>
 <pinref part="P+8" gate="VCC" pin="VCC"/>
 <wire x1="302.26" y1="-88.9" x2="302.26" y2="-86.36" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="U$1" gate="G$1" pin="VCC@1"/>
+<pinref part="P+10" gate="VCC" pin="VCC"/>
+<wire x1="320.04" y1="-63.5" x2="294.64" y2="-63.5" width="0.1524" layer="91"/>
+<wire x1="294.64" y1="-63.5" x2="294.64" y2="-60.96" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="U$1" gate="G$1" pin="VCC@2"/>
+<wire x1="320.04" y1="-132.08" x2="297.18" y2="-132.08" width="0.1524" layer="91"/>
+<pinref part="P+9" gate="VCC" pin="VCC"/>
+<wire x1="297.18" y1="-132.08" x2="297.18" y2="-129.54" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="GND" class="0">
@@ -7499,6 +7523,26 @@ wave soldering</description>
 <wire x1="269.24" y1="-124.46" x2="269.24" y2="-129.54" width="0.1524" layer="91"/>
 <pinref part="SUPPLY7" gate="G$1" pin="DGND"/>
 </segment>
+<segment>
+<pinref part="SUPPLY10" gate="G$1" pin="DGND"/>
+<pinref part="U$1" gate="G$1" pin="GND@2"/>
+<wire x1="307.34" y1="-134.62" x2="320.04" y2="-134.62" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="SUPPLY9" gate="G$1" pin="DGND"/>
+<pinref part="U$1" gate="G$1" pin="GND@1"/>
+<wire x1="304.8" y1="-60.96" x2="320.04" y2="-60.96" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="SUPPLY8" gate="G$1" pin="DGND"/>
+<pinref part="U$1" gate="G$1" pin="NC@2"/>
+<wire x1="307.34" y1="-101.6" x2="320.04" y2="-101.6" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="U$1" gate="G$1" pin="NC@1"/>
+<wire x1="320.04" y1="-76.2" x2="304.8" y2="-76.2" width="0.1524" layer="91"/>
+<pinref part="SUPPLY11" gate="G$1" pin="DGND"/>
+</segment>
 </net>
 <net name="DB0" class="0">
 <segment>
@@ -7801,10 +7845,39 @@ wave soldering</description>
 <junction x="269.24" y="-111.76"/>
 </segment>
 </net>
-<net name="N$11" class="0">
+<net name="LCD_LED" class="0">
 <segment>
 <pinref part="Q1" gate="G$1" pin="B"/>
 <wire x1="264.16" y1="-119.38" x2="251.46" y2="-119.38" width="0.1524" layer="91"/>
+<label x="251.46" y="-119.38" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="LCD_CS" class="0">
+<segment>
+<pinref part="U$1" gate="G$1" pin="CS"/>
+<wire x1="320.04" y1="-66.04" x2="307.34" y2="-66.04" width="0.1524" layer="91"/>
+<label x="309.88" y="-66.04" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="LCD_WR" class="0">
+<segment>
+<pinref part="U$1" gate="G$1" pin="WR"/>
+<wire x1="320.04" y1="-71.12" x2="307.34" y2="-71.12" width="0.1524" layer="91"/>
+<label x="309.88" y="-71.12" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="LCD_RD" class="0">
+<segment>
+<pinref part="U$1" gate="G$1" pin="RD"/>
+<wire x1="320.04" y1="-73.66" x2="307.34" y2="-73.66" width="0.1524" layer="91"/>
+<label x="309.88" y="-73.66" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="LCD_RST" class="0">
+<segment>
+<pinref part="U$1" gate="G$1" pin="RESET"/>
+<wire x1="320.04" y1="-127" x2="307.34" y2="-127" width="0.1524" layer="91"/>
+<label x="309.88" y="-127" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>

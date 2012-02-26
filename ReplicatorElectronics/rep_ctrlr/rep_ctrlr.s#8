@@ -65,15 +65,23 @@
 <layer number="105" name="tPlate" color="7" fill="1" visible="no" active="yes"/>
 <layer number="106" name="bPlate" color="7" fill="1" visible="no" active="yes"/>
 <layer number="107" name="Crop" color="7" fill="1" visible="no" active="yes"/>
+<layer number="108" name="fp8" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="109" name="fp9" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="110" name="fp0" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="116" name="Patch_BOT" color="9" fill="4" visible="no" active="yes"/>
 <layer number="121" name="AlttPlace" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="122" name="_bsilk" color="7" fill="1" visible="no" active="yes"/>
+<layer number="123" name="tTestmark" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="124" name="bTestmark" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="125" name="_tNames" color="7" fill="1" visible="no" active="yes"/>
 <layer number="128" name="128bmp" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="129" name="129bmp" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="130" name="130bmp" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="131" name="tAdjust" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="132" name="bAdjust" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="144" name="Drill_legend" color="7" fill="1" visible="no" active="yes"/>
 <layer number="151" name="HeatSink" color="7" fill="1" visible="no" active="yes"/>
+<layer number="199" name="Contour" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="200" name="200bmp" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="201" name="201bmp" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="202" name="202bmp" color="7" fill="1" visible="yes" active="yes"/>
@@ -6497,6 +6505,248 @@ In this library the device names are the same as the pin names of the symbols, t
 </deviceset>
 </devicesets>
 </library>
+<library name="microtouch">
+<description>Generated from &lt;b&gt;microtouch.sch&lt;/b&gt;&lt;p&gt;
+by exp-project-lbr.ulp</description>
+<packages>
+<package name="PETERATMEGA644_LCD371MM">
+<description>1MM 320x240 LCD</description>
+<wire x1="-3" y1="20.5" x2="-26" y2="20.5" width="0.127" layer="21"/>
+<wire x1="-26" y1="20.5" x2="-26" y2="-20.5" width="0.127" layer="21"/>
+<wire x1="-26" y1="-20.5" x2="-3" y2="-20.5" width="0.127" layer="21"/>
+<smd name="1" x="0" y="18" dx="3" dy="0.6" layer="1"/>
+<smd name="2" x="0" y="17" dx="3" dy="0.6" layer="1"/>
+<smd name="3" x="0" y="16" dx="3" dy="0.6" layer="1"/>
+<smd name="4" x="0" y="15" dx="3" dy="0.6" layer="1"/>
+<smd name="5" x="0" y="14" dx="3" dy="0.6" layer="1"/>
+<smd name="6" x="0" y="13" dx="3" dy="0.6" layer="1"/>
+<smd name="7" x="0" y="12" dx="3" dy="0.6" layer="1"/>
+<smd name="8" x="0" y="11" dx="3" dy="0.6" layer="1"/>
+<smd name="9" x="0" y="10" dx="3" dy="0.6" layer="1"/>
+<smd name="10" x="0" y="9" dx="3" dy="0.6" layer="1"/>
+<smd name="11" x="0" y="8" dx="3" dy="0.6" layer="1"/>
+<smd name="12" x="0" y="7" dx="3" dy="0.6" layer="1"/>
+<smd name="13" x="0" y="6" dx="3" dy="0.6" layer="1"/>
+<smd name="14" x="0" y="5" dx="3" dy="0.6" layer="1"/>
+<smd name="15" x="0" y="4" dx="3" dy="0.6" layer="1"/>
+<smd name="16" x="0" y="3" dx="3" dy="0.6" layer="1"/>
+<smd name="17" x="0" y="2" dx="3" dy="0.6" layer="1"/>
+<smd name="18" x="0" y="1" dx="3" dy="0.6" layer="1"/>
+<smd name="19" x="0" y="0" dx="3" dy="0.6" layer="1"/>
+<smd name="20" x="0" y="-1" dx="3" dy="0.6" layer="1"/>
+<smd name="21" x="0" y="-2" dx="3" dy="0.6" layer="1"/>
+<smd name="22" x="0" y="-3" dx="3" dy="0.6" layer="1"/>
+<smd name="23" x="0" y="-4" dx="3" dy="0.6" layer="1"/>
+<smd name="24" x="0" y="-5" dx="3" dy="0.6" layer="1"/>
+<smd name="25" x="0" y="-6" dx="3" dy="0.6" layer="1"/>
+<smd name="26" x="0" y="-7" dx="3" dy="0.6" layer="1"/>
+<smd name="27" x="0" y="-8" dx="3" dy="0.6" layer="1"/>
+<smd name="28" x="0" y="-9" dx="3" dy="0.6" layer="1"/>
+<smd name="29" x="0" y="-10" dx="3" dy="0.6" layer="1"/>
+<smd name="30" x="0" y="-11" dx="3" dy="0.6" layer="1"/>
+<smd name="31" x="0" y="-12" dx="3" dy="0.6" layer="1"/>
+<smd name="32" x="0" y="-13" dx="3" dy="0.6" layer="1"/>
+<smd name="33" x="0" y="-14" dx="3" dy="0.6" layer="1"/>
+<smd name="34" x="0" y="-15" dx="3" dy="0.6" layer="1"/>
+<smd name="35" x="0" y="-16" dx="3" dy="0.6" layer="1"/>
+<smd name="36" x="0" y="-17" dx="3" dy="0.6" layer="1"/>
+<smd name="37" x="0" y="-18" dx="3" dy="0.6" layer="1"/>
+<smd name="P$1" x="-0.5" y="19.5" dx="4" dy="1.5" layer="1"/>
+<smd name="P$2" x="-0.5" y="-19.5" dx="4" dy="1.5" layer="1"/>
+<text x="-3" y="17" size="1.27" layer="21">1</text>
+<text x="-4" y="-18.5" size="1.27" layer="21">37</text>
+</package>
+<package name="PETERATMEGA644_LCD37N">
+<circle x="0" y="15.8" radius="0.4" width="0.127" layer="21"/>
+<circle x="0" y="-15.8" radius="0.4123" width="0.127" layer="21"/>
+<wire x1="-1.6" y1="17.2" x2="1.6" y2="17.2" width="0.127" layer="21"/>
+<wire x1="1.6" y1="17.2" x2="1.6" y2="-17.2" width="0.127" layer="21"/>
+<wire x1="1.6" y1="-17.2" x2="-1.6" y2="-17.2" width="0.127" layer="21"/>
+<wire x1="-1.6" y1="-17.2" x2="-1.6" y2="17.2" width="0.127" layer="21"/>
+<wire x1="0" y1="-19.2" x2="-20" y2="-19.2" width="0.127" layer="21"/>
+<smd name="1" x="0" y="14.4" dx="2.1" dy="0.5" layer="1"/>
+<smd name="2" x="0" y="13.6" dx="2.1" dy="0.5" layer="1"/>
+<smd name="3" x="0" y="12.8" dx="2.1" dy="0.5" layer="1"/>
+<smd name="4" x="0" y="12" dx="2.1" dy="0.5" layer="1"/>
+<smd name="5" x="0" y="11.2" dx="2.1" dy="0.5" layer="1"/>
+<smd name="6" x="0" y="10.4" dx="2.1" dy="0.5" layer="1"/>
+<smd name="7" x="0" y="9.6" dx="2.1" dy="0.5" layer="1"/>
+<smd name="8" x="0" y="8.8" dx="2.1" dy="0.5" layer="1"/>
+<smd name="9" x="0" y="8" dx="2.1" dy="0.5" layer="1"/>
+<smd name="10" x="0" y="7.2" dx="2.1" dy="0.5" layer="1"/>
+<smd name="11" x="0" y="6.4" dx="2.1" dy="0.5" layer="1"/>
+<smd name="12" x="0" y="5.6" dx="2.1" dy="0.5" layer="1"/>
+<smd name="13" x="0" y="4.8" dx="2.1" dy="0.5" layer="1"/>
+<smd name="14" x="0" y="4" dx="2.1" dy="0.5" layer="1"/>
+<smd name="15" x="0" y="3.2" dx="2.1" dy="0.5" layer="1"/>
+<smd name="16" x="0" y="2.4" dx="2.1" dy="0.5" layer="1"/>
+<smd name="17" x="0" y="1.6" dx="2.1" dy="0.5" layer="1"/>
+<smd name="18" x="0" y="0.8" dx="2.1" dy="0.5" layer="1"/>
+<smd name="19" x="0" y="0" dx="2.1" dy="0.5" layer="1"/>
+<smd name="20" x="0" y="-0.8" dx="2.1" dy="0.5" layer="1"/>
+<smd name="21" x="0" y="-1.6" dx="2.1" dy="0.5" layer="1"/>
+<smd name="22" x="0" y="-2.4" dx="2.1" dy="0.5" layer="1"/>
+<smd name="23" x="0" y="-3.2" dx="2.1" dy="0.5" layer="1"/>
+<smd name="24" x="0" y="-4" dx="2.1" dy="0.5" layer="1"/>
+<smd name="25" x="0" y="-4.8" dx="2.1" dy="0.5" layer="1"/>
+<smd name="26" x="0" y="-5.6" dx="2.1" dy="0.5" layer="1"/>
+<smd name="27" x="0" y="-6.4" dx="2.1" dy="0.5" layer="1"/>
+<smd name="28" x="0" y="-7.2" dx="2.1" dy="0.5" layer="1"/>
+<smd name="29" x="0" y="-8" dx="2.1" dy="0.5" layer="1"/>
+<smd name="30" x="0" y="-8.8" dx="2.1" dy="0.5" layer="1"/>
+<smd name="31" x="0" y="-9.6" dx="2.1" dy="0.5" layer="1"/>
+<smd name="32" x="0" y="-10.4" dx="2.1" dy="0.5" layer="1"/>
+<smd name="33" x="0" y="-11.2" dx="2.1" dy="0.5" layer="1"/>
+<smd name="34" x="0" y="-12" dx="2.1" dy="0.5" layer="1"/>
+<smd name="35" x="0" y="-12.8" dx="2.1" dy="0.5" layer="1"/>
+<smd name="36" x="0" y="-13.6" dx="2.1" dy="0.5" layer="1"/>
+<smd name="37" x="0" y="-14.4" dx="2.1" dy="0.5" layer="1"/>
+</package>
+</packages>
+<symbols>
+<symbol name="PETERATMEGA644_LCD37">
+<wire x1="10.16" y1="50.8" x2="10.16" y2="-50.8" width="0.254" layer="94"/>
+<wire x1="10.16" y1="-50.8" x2="-10.16" y2="-50.8" width="0.254" layer="94"/>
+<wire x1="-10.16" y1="-50.8" x2="-10.16" y2="50.8" width="0.254" layer="94"/>
+<wire x1="-10.16" y1="50.8" x2="10.16" y2="50.8" width="0.254" layer="94"/>
+<pin name="CS" x="-15.24" y="30.48" length="middle"/>
+<pin name="DB0" x="-15.24" y="45.72" length="middle"/>
+<pin name="DB1" x="-15.24" y="43.18" length="middle"/>
+<pin name="DB2" x="-15.24" y="40.64" length="middle"/>
+<pin name="DB3" x="-15.24" y="38.1" length="middle"/>
+<pin name="DB4" x="-15.24" y="-7.62" length="middle"/>
+<pin name="DB5" x="-15.24" y="-40.64" length="middle"/>
+<pin name="DB6" x="-15.24" y="-43.18" length="middle"/>
+<pin name="DB7" x="-15.24" y="-45.72" length="middle"/>
+<pin name="DB10" x="-15.24" y="-10.16" length="middle"/>
+<pin name="DB11" x="-15.24" y="-12.7" length="middle"/>
+<pin name="DB12" x="-15.24" y="-15.24" length="middle"/>
+<pin name="DB13" x="-15.24" y="-17.78" length="middle"/>
+<pin name="DB14" x="-15.24" y="-20.32" length="middle"/>
+<pin name="DB15" x="-15.24" y="-22.86" length="middle"/>
+<pin name="DB16" x="-15.24" y="-25.4" length="middle"/>
+<pin name="DB17" x="-15.24" y="-27.94" length="middle"/>
+<pin name="GND@1" x="-15.24" y="35.56" length="middle"/>
+<pin name="GND@2" x="-15.24" y="-38.1" length="middle"/>
+<pin name="LEDA" x="-15.24" y="7.62" length="middle"/>
+<pin name="LEDK1" x="-15.24" y="5.08" length="middle"/>
+<pin name="LEDK2" x="-15.24" y="2.54" length="middle"/>
+<pin name="LEDK3" x="-15.24" y="0" length="middle"/>
+<pin name="LEDK4" x="-15.24" y="-2.54" length="middle"/>
+<pin name="NC@1" x="-15.24" y="20.32" length="middle"/>
+<pin name="NC@2" x="-15.24" y="-5.08" length="middle"/>
+<pin name="RD" x="-15.24" y="22.86" length="middle"/>
+<pin name="RESET" x="-15.24" y="-30.48" length="middle"/>
+<pin name="RS(A0)" x="-15.24" y="27.94" length="middle"/>
+<pin name="VCC@1" x="-15.24" y="33.02" length="middle"/>
+<pin name="VCC@2" x="-15.24" y="-35.56" length="middle"/>
+<pin name="VCI" x="-15.24" y="-33.02" length="middle"/>
+<pin name="WR" x="-15.24" y="25.4" length="middle"/>
+<pin name="X+" x="-15.24" y="17.78" length="middle"/>
+<pin name="X-" x="-15.24" y="12.7" length="middle"/>
+<pin name="Y+" x="-15.24" y="15.24" length="middle"/>
+<pin name="Y-" x="-15.24" y="10.16" length="middle"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="PETERATMEGA644_LCD37">
+<description>2.4 Inch LCD Panel JCTTQ2437PS01-T01</description>
+<gates>
+<gate name="G$1" symbol="PETERATMEGA644_LCD37" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="PETERATMEGA644_LCD371MM">
+<connects>
+<connect gate="G$1" pin="CS" pad="7"/>
+<connect gate="G$1" pin="DB0" pad="1"/>
+<connect gate="G$1" pin="DB1" pad="2"/>
+<connect gate="G$1" pin="DB10" pad="23"/>
+<connect gate="G$1" pin="DB11" pad="24"/>
+<connect gate="G$1" pin="DB12" pad="25"/>
+<connect gate="G$1" pin="DB13" pad="26"/>
+<connect gate="G$1" pin="DB14" pad="27"/>
+<connect gate="G$1" pin="DB15" pad="28"/>
+<connect gate="G$1" pin="DB16" pad="29"/>
+<connect gate="G$1" pin="DB17" pad="30"/>
+<connect gate="G$1" pin="DB2" pad="3"/>
+<connect gate="G$1" pin="DB3" pad="4"/>
+<connect gate="G$1" pin="DB4" pad="22"/>
+<connect gate="G$1" pin="DB5" pad="35"/>
+<connect gate="G$1" pin="DB6" pad="36"/>
+<connect gate="G$1" pin="DB7" pad="37"/>
+<connect gate="G$1" pin="GND@1" pad="5"/>
+<connect gate="G$1" pin="GND@2" pad="34"/>
+<connect gate="G$1" pin="LEDA" pad="16"/>
+<connect gate="G$1" pin="LEDK1" pad="17"/>
+<connect gate="G$1" pin="LEDK2" pad="18"/>
+<connect gate="G$1" pin="LEDK3" pad="19"/>
+<connect gate="G$1" pin="LEDK4" pad="20"/>
+<connect gate="G$1" pin="NC@1" pad="11"/>
+<connect gate="G$1" pin="NC@2" pad="21"/>
+<connect gate="G$1" pin="RD" pad="10"/>
+<connect gate="G$1" pin="RESET" pad="31"/>
+<connect gate="G$1" pin="RS(A0)" pad="8"/>
+<connect gate="G$1" pin="VCC@1" pad="6"/>
+<connect gate="G$1" pin="VCC@2" pad="33"/>
+<connect gate="G$1" pin="VCI" pad="32"/>
+<connect gate="G$1" pin="WR" pad="9"/>
+<connect gate="G$1" pin="X+" pad="12"/>
+<connect gate="G$1" pin="X-" pad="14"/>
+<connect gate="G$1" pin="Y+" pad="13"/>
+<connect gate="G$1" pin="Y-" pad="15"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="BOARDBOUNDS" package="PETERATMEGA644_LCD37N">
+<connects>
+<connect gate="G$1" pin="CS" pad="7"/>
+<connect gate="G$1" pin="DB0" pad="1"/>
+<connect gate="G$1" pin="DB1" pad="2"/>
+<connect gate="G$1" pin="DB10" pad="23"/>
+<connect gate="G$1" pin="DB11" pad="24"/>
+<connect gate="G$1" pin="DB12" pad="25"/>
+<connect gate="G$1" pin="DB13" pad="26"/>
+<connect gate="G$1" pin="DB14" pad="27"/>
+<connect gate="G$1" pin="DB15" pad="28"/>
+<connect gate="G$1" pin="DB16" pad="29"/>
+<connect gate="G$1" pin="DB17" pad="30"/>
+<connect gate="G$1" pin="DB2" pad="3"/>
+<connect gate="G$1" pin="DB3" pad="4"/>
+<connect gate="G$1" pin="DB4" pad="22"/>
+<connect gate="G$1" pin="DB5" pad="35"/>
+<connect gate="G$1" pin="DB6" pad="36"/>
+<connect gate="G$1" pin="DB7" pad="37"/>
+<connect gate="G$1" pin="GND@1" pad="5"/>
+<connect gate="G$1" pin="GND@2" pad="34"/>
+<connect gate="G$1" pin="LEDA" pad="16"/>
+<connect gate="G$1" pin="LEDK1" pad="17"/>
+<connect gate="G$1" pin="LEDK2" pad="18"/>
+<connect gate="G$1" pin="LEDK3" pad="19"/>
+<connect gate="G$1" pin="LEDK4" pad="20"/>
+<connect gate="G$1" pin="NC@1" pad="11"/>
+<connect gate="G$1" pin="NC@2" pad="21"/>
+<connect gate="G$1" pin="RD" pad="10"/>
+<connect gate="G$1" pin="RESET" pad="31"/>
+<connect gate="G$1" pin="RS(A0)" pad="8"/>
+<connect gate="G$1" pin="VCC@1" pad="6"/>
+<connect gate="G$1" pin="VCC@2" pad="33"/>
+<connect gate="G$1" pin="VCI" pad="32"/>
+<connect gate="G$1" pin="WR" pad="9"/>
+<connect gate="G$1" pin="X+" pad="12"/>
+<connect gate="G$1" pin="X-" pad="14"/>
+<connect gate="G$1" pin="Y+" pad="13"/>
+<connect gate="G$1" pin="Y-" pad="15"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -6544,6 +6794,8 @@ In this library the device names are the same as the pin names of the symbols, t
 <part name="R8" library="resistor" deviceset="R-US_" device="R0805" value="FERRITE"/>
 <part name="SUPPLY6" library="supply2" deviceset="DGND" device=""/>
 <part name="GND1" library="supply1" deviceset="GND" device=""/>
+<part name="U$1" library="microtouch" deviceset="PETERATMEGA644_LCD37" device=""/>
+<part name="U$2" library="microtouch" deviceset="PETERATMEGA644_LCD37" device="BOARDBOUNDS"/>
 </parts>
 <sheets>
 <sheet>
@@ -6597,6 +6849,8 @@ In this library the device names are the same as the pin names of the symbols, t
 <instance part="R8" gate="G$1" x="177.8" y="-154.94"/>
 <instance part="SUPPLY6" gate="G$1" x="165.1" y="-160.02"/>
 <instance part="GND1" gate="1" x="190.5" y="-160.02"/>
+<instance part="U$1" gate="G$1" x="302.26" y="-99.06"/>
+<instance part="U$2" gate="G$1" x="340.36" y="-99.06"/>
 </instances>
 <busses>
 </busses>
