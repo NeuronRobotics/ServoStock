@@ -1,7 +1,13 @@
 package com.neuronrobotics.replicator.driver;
 
-import com.neuronrobotics.sdk.common.BowlerAbstractDevice;
-import com.neuronrobotics.sdk.common.BowlerAbstractConnection;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import com.neuronrobotics.replicator.common.STLObject;
+import com.neuronrobotics.replicator.driver.PrinterStatus.DriverState;
+
+//import com.neuronrobotics.sdk.common.BowlerAbstractDevice;
+//import com.neuronrobotics.sdk.common.BowlerAbstractConnection;
 
 public class DeltaPrinter extends GenericPIDDevice{
 	
@@ -13,6 +19,7 @@ public class DeltaPrinter extends GenericPIDDevice{
 	 */
 	public DeltaPrinter(){
 		super();
+		theStatus = new PrinterStatus();
 		//TODO
 	}
 	
@@ -22,25 +29,29 @@ public class DeltaPrinter extends GenericPIDDevice{
 	 */
 	public DeltaPrinter(BowlerAbstractConnection connection){
 		super(connection);
+		theStatus = new PrinterStatus();
 		//TODO
 	}
 	
 	/**
 	 * Takes in the STLFile and slices that mother up into 
-	 * a SlicedObject, passes along PrinterStatus object if necessary
-	 * @param stl: STLFile containing model to be sliced
+	 * a sliced format and outputs to given output stream
+	 * @param stlInput: input stream containing model to be sliced
 	 * @return true if 
 	 */
-	public boolean slice(STLObject stl){
-		//TODO
+	public boolean slice(InputStream stlInput, OutputStream slicedOutput){
+		return true;
+		//
 	}
 	
 	/**
 	 * Takes in the sliced model and begins to print
-	 * @param s: SlicedModel object which holds the sliced data
+	 * @param slicedInput: input stream which holds the sliced data
 	 * @return true if print is started, false otherwise
 	 */
-	public boolean print(SlicedObject so){
+	public boolean print(InputStream slicedInput){
+		if(theStatus.getDriverState()==DriverState.PRINTING) return false;
+		return true;
 		//TODO
 	}
 	
@@ -49,6 +60,7 @@ public class DeltaPrinter extends GenericPIDDevice{
 	 * @return true if there is a print to cancel and it is canceled, false otherwise
 	 */
 	public boolean cancel(){
+		return false;
 		//TODO
 	}
 	
