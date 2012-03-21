@@ -25,7 +25,8 @@ public class PrinterTest implements PrinterStatusListener {
 			//This is time consuming
 			printer.slice(PrinterTest.class.getResourceAsStream("bottle.stl"),new FileOutputStream(gcode));
 			//...
-			printer.print(new FileInputStream(gcode));
+			if(printer.isReady())
+				printer.print(new FileInputStream(gcode));
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

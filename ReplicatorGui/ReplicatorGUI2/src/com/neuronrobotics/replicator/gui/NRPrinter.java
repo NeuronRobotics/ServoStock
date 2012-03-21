@@ -41,6 +41,10 @@ public class NRPrinter {
 	public boolean cancelPrint() {
 		return parser.cancel();
 	}
+	public boolean isReady() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 	public void addPrinterStatusListener(PrinterStatusListener l) {
 		parser.addPrinterStatusListener(l);
@@ -60,4 +64,5 @@ public class NRPrinter {
 	public GCodeParser getParser() {
 		return parser;
 	}
+	
 }
