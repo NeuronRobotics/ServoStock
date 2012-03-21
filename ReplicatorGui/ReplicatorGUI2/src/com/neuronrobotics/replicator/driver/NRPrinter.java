@@ -1,11 +1,9 @@
-package com.neuronrobotics.replicator.gui;
+package com.neuronrobotics.replicator.driver;
 
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import com.neuronrobotics.replicator.driver.DeltaRobotPrinterPrototype;
-import com.neuronrobotics.replicator.driver.GCodeParser;
-import com.neuronrobotics.replicator.driver.StlSlicer;
+import com.neuronrobotics.replicator.gui.PrinterStatusListener;
 import com.neuronrobotics.sdk.dyio.DyIO;
 
 public class NRPrinter {
@@ -35,11 +33,11 @@ public class NRPrinter {
 	 * @return
 	 */
 	public boolean print(InputStream gcode) {
-		return parser.print(gcode);
+		return getParser().print(gcode);
 	}
 	
 	public boolean cancelPrint() {
-		return parser.cancel();
+		return getParser().cancel();
 	}
 	public boolean isReady() {
 		// TODO Auto-generated method stub
@@ -47,10 +45,12 @@ public class NRPrinter {
 	}
 	
 	public void addPrinterStatusListener(PrinterStatusListener l) {
-		parser.addPrinterStatusListener(l);
+		getParser().addPrinterStatusListener(l);
+		getSlicer().addPrinterStatusListener(l);
 	}
 	public void removePrinterStatusListener(PrinterStatusListener l) {
-		parser.removePrinterStatusListener(l);
+		getParser().removePrinterStatusListener(l);
+		getSlicer().removePrinterStatusListener(l);
 	}
 	private void setSlicer(StlSlicer slicer) {
 		this.slicer = slicer;

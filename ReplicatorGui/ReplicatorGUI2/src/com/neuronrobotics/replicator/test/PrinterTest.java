@@ -5,9 +5,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
+import com.neuronrobotics.replicator.driver.NRPrinter;
 import com.neuronrobotics.replicator.driver.PrinterStatus;
 import com.neuronrobotics.replicator.driver.SliceStatusData;
-import com.neuronrobotics.replicator.gui.NRPrinter;
 import com.neuronrobotics.replicator.gui.PrinterStatusListener;
 import com.neuronrobotics.sdk.dyio.DyIO;
 import com.neuronrobotics.sdk.ui.ConnectionDialog;
