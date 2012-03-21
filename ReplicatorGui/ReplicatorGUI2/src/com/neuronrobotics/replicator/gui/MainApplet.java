@@ -30,6 +30,7 @@ import javax.swing.JToolBar;
 
 import com.neuronrobotics.replicator.driver.DeltaPrinter;
 import com.neuronrobotics.replicator.driver.PrinterStatus;
+import com.neuronrobotics.replicator.driver.SliceStatusData;
 
 
 public class MainApplet extends Applet implements PrinterStatusListener{
@@ -180,6 +181,12 @@ public class MainApplet extends Applet implements PrinterStatusListener{
 	@Override
 	public void statusChanged(PrinterStatus psl) {
 		// TODO Auto-generated method stub		
+	}
+
+	@Override
+	public void sliceStatus(SliceStatusData ssd) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

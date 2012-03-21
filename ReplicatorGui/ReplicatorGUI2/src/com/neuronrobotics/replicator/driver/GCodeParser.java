@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import com.neuronrobotics.replicator.gui.PrinterStatusListener;
-import com.neuronrobotics.sdk.addons.kinematics.delta.DeltaRobotPrinterPrototype;
 
 public class GCodeParser {
 	private ArrayList<PrinterStatusListener> listeners = new ArrayList<PrinterStatusListener>();

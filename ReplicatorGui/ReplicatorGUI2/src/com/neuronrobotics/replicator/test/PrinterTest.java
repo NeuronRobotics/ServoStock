@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 import com.neuronrobotics.replicator.driver.PrinterStatus;
+import com.neuronrobotics.replicator.driver.SliceStatusData;
 import com.neuronrobotics.replicator.gui.NRPrinter;
 import com.neuronrobotics.replicator.gui.PrinterStatusListener;
 import com.neuronrobotics.sdk.dyio.DyIO;
@@ -43,6 +44,10 @@ public class PrinterTest implements PrinterStatusListener {
 	@Override
 	public void statusChanged(PrinterStatus psl) {
 		System.out.println("Printer status: "+psl);
+	}
+	@Override
+	public void sliceStatus(SliceStatusData ssd) {
+		System.out.println("Printer status: "+ssd);
 	}
 
 }

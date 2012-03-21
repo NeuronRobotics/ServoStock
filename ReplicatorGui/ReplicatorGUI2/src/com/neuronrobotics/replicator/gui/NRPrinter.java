@@ -3,9 +3,9 @@ package com.neuronrobotics.replicator.gui;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import com.neuronrobotics.replicator.driver.DeltaRobotPrinterPrototype;
 import com.neuronrobotics.replicator.driver.GCodeParser;
 import com.neuronrobotics.replicator.driver.StlSlicer;
-import com.neuronrobotics.sdk.addons.kinematics.delta.DeltaRobotPrinterPrototype;
 import com.neuronrobotics.sdk.dyio.DyIO;
 
 public class NRPrinter {
