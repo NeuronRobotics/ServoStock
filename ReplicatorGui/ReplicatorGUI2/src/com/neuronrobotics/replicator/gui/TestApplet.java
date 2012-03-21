@@ -137,6 +137,13 @@ public class TestApplet extends Applet{
 		
 		mainToolbar = new JToolBar();
 		printButton = new JButton("PRINT");
+		printButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("Printing file "+currentFile.getAbsolutePath());
+			}
+		});
 		cancelButton = new JButton("CANCEL");
 		
 		mainToolbar.add(printButton);
