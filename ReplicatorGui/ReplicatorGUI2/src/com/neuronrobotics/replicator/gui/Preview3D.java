@@ -24,7 +24,7 @@ import com.sun.j3d.utils.geometry.ColorCube;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 import com.sun.j3d.utils.behaviors.mouse.*;
 
-import org.j3d.loaders.InvalidFormatException;
+//import org.j3d.loaders.InvalidFormatException;
 import com.sun.j3d.utils.geometry.Sphere;
 
 public class Preview3D extends Applet {
@@ -36,7 +36,7 @@ public class Preview3D extends Applet {
 	private STLObject theSTL;
 	//private Shape3D theModel;
 
-	public Preview3D(File f) throws InvalidFormatException, IOException {
+	public Preview3D(File f) throws IOException {
 
 		setLayout(new BorderLayout());
 		GraphicsConfiguration config = SimpleUniverse
@@ -79,7 +79,7 @@ public class Preview3D extends Applet {
 	}
 
 	@SuppressWarnings("restriction")
-	public BranchGroup createSceneGraph(final File f) throws InvalidFormatException,
+	public BranchGroup createSceneGraph(final File f) throws 
 			IOException {
 		objRoot = new BranchGroup();
 		

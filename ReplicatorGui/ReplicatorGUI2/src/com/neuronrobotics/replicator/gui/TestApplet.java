@@ -26,7 +26,7 @@ import javax.swing.JToolBar;
 import javax.swing.JTree;
 import javax.swing.tree.TreeNode;
 
-import org.j3d.loaders.InvalidFormatException;
+//import org.j3d.loaders.InvalidFormatException;
 
 import com.neuronrobotics.replicator.driver.DeltaPrinter;
 import com.neuronrobotics.replicator.driver.PrinterStatus;
@@ -121,10 +121,6 @@ public class TestApplet extends Applet{
 			       currentFile = fileChooser.getSelectedFile();
 			       try {
 					addPreview(currentFile);
-				} catch (InvalidFormatException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					System.out.println("Incorrectly formatted file");
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -190,7 +186,7 @@ public class TestApplet extends Applet{
 		onResize();
 	}
 	
-	public boolean addPreview(File f) throws InvalidFormatException, IOException{
+	public boolean addPreview(File f) throws IOException{
 		if(!previewFiles.contains(f)){
 			Preview3D tempPreview = new Preview3D(f);
 			previewFiles.add(f);

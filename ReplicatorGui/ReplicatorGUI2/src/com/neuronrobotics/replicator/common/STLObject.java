@@ -11,7 +11,7 @@ import java.util.StringTokenizer;
 import javax.media.j3d.*;
 import javax.vecmath.*;
 
-import org.j3d.loaders.InvalidFormatException;
+//import org.j3d.loaders.InvalidFormatException;
 
 public class STLObject {
 

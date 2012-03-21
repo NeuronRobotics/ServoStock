@@ -12,7 +12,7 @@ import java.util.StringTokenizer;
 import javax.media.j3d.*;
 import javax.vecmath.*;
 
-import org.j3d.loaders.InvalidFormatException;
+//import org.j3d.loaders.InvalidFormatException;
 import com.sun.j3d.utils.behaviors.mouse.*;
 import com.sun.j3d.utils.geometry.NormalGenerator;
 import com.sun.j3d.utils.geometry.GeometryInfo;

@@ -26,7 +26,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
-import org.j3d.loaders.InvalidFormatException;
+//import org.j3d.loaders.InvalidFormatException;
 
 import com.neuronrobotics.replicator.driver.DeltaPrinter;
 import com.neuronrobotics.replicator.driver.PrinterStatus;
@@ -152,9 +152,6 @@ public class MainApplet extends Applet implements PrinterStatusListener{
 			preview = new Preview3D(f);
 			//preview.setModel(f);
 			this.add(preview);
-		} catch (InvalidFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
