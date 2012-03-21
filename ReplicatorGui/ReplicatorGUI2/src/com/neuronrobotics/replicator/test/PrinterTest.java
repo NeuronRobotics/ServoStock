@@ -42,7 +42,7 @@ public class PrinterTest implements PrinterStatusListener {
 		new PrinterTest();
 	}
 	@Override
-	public void statusChanged(PrinterStatus psl) {
+	public void printStatus(PrinterStatus psl) {
 		System.out.println("Printer status: "+psl);
 	}
 	@Override

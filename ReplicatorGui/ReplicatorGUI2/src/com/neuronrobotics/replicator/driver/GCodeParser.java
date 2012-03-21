@@ -23,7 +23,7 @@ public class GCodeParser {
 	
 	private void fireStatus(PrinterStatus p) {
 		for(PrinterStatusListener l: listeners) {
-			l.statusChanged(p);
+			l.printStatus(p);
 		}
 	}
 

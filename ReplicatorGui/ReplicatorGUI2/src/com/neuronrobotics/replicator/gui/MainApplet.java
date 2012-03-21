@@ -179,7 +179,7 @@ public class MainApplet extends Applet implements PrinterStatusListener{
 
 
 	@Override
-	public void statusChanged(PrinterStatus psl) {
+	public void printStatus(PrinterStatus psl) {
 		// TODO Auto-generated method stub		
 	}
 

@@ -8,6 +8,6 @@ public interface PrinterStatusListener {
 	
 	public void sliceStatus(SliceStatusData ssd);
 	
-	public void statusChanged(PrinterStatus psl);
+	public void printStatus(PrinterStatus psl);
 	
 }

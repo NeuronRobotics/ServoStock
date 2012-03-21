@@ -54,7 +54,7 @@ public class PrinterStatus {
 	}
 	
 	private void notifyStatusListeners(){
-		for(PrinterStatusListener l:listeners) l.statusChanged(this); 
+		for(PrinterStatusListener l:listeners) l.printStatus(this); 
 	}
 	
 }
