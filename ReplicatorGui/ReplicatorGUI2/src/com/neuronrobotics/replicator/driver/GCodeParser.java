@@ -36,5 +36,10 @@ public class GCodeParser {
 		if(listeners.contains(l))
 			listeners.remove(l);
 	}
+
+	public boolean isReady() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }

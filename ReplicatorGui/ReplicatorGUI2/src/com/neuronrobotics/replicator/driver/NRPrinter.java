@@ -41,7 +41,7 @@ public class NRPrinter {
 	}
 	public boolean isReady() {
 		// TODO Auto-generated method stub
-		return false;
+		return getParser().isReady();
 	}
 	
 	public void addPrinterStatusListener(PrinterStatusListener l) {
