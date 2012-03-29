@@ -4,7 +4,7 @@ import java.util.Vector;
 
 import javax.media.j3d.*;
 
-import com.neuronrobotics.replicator.driver.DeltaPrinter;
+import com.neuronrobotics.replicator.driver.SliceStatusData;
 import com.sun.j3d.utils.*;
 import javax.vecmath.*;
 import java.applet.Applet;
@@ -28,24 +28,10 @@ public class Main {
 
 	public static void main(String[] argv) {
 		
-		TestApplet tapp = new TestApplet();
-		Frame f = new MainFrame(tapp,1200,700);
+		//DesktopApplet tapp = new DesktopApplet();
+		//Frame f = new MainFrame(tapp,1200,700);
 		
-		/*
-		MainApplet gui;
+		SliceStatusData ssd;
 		
-		try {
-		
-		DeltaPrinter thePrinter = new DeltaPrinter();
-		
-		gui = new MainApplet(thePrinter);		
-		
-		Frame f = new MainFrame(gui,1200,700);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
-		//preview.setSize(200,234);		
 	}
 }

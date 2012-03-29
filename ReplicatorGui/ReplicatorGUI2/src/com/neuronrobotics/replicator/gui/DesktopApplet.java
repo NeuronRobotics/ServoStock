@@ -28,11 +28,11 @@ import javax.swing.tree.TreeNode;
 
 //import org.j3d.loaders.InvalidFormatException;
 
-import com.neuronrobotics.replicator.driver.DeltaPrinter;
+import com.neuronrobotics.replicator.driver.NRPrinter;
 import com.neuronrobotics.replicator.driver.PrinterStatus;
 
 
-public class TestApplet extends Applet{
+public class DesktopApplet extends Applet{
 	
 	private Container menuContainer,toolbarContainer;
 	private Container leftContainer,previewContainer,bottomContainer;
@@ -49,7 +49,7 @@ public class TestApplet extends Applet{
 	
 	private JTree fileNavigator;
 	
-	private DeltaPrinter theDeltaPrinter;
+	private NRPrinter thePrinter;
 	private PrinterStatus thePrinterStatus;
 	
 	private JMenuItem openFileItem;
@@ -85,9 +85,6 @@ public class TestApplet extends Applet{
 		previewContainer.setLayout(new GridLayout(1,1));
 		
 		previewTab = new JTabbedPane();
-		//previewTab.add(new JButton("TestButton"+(ct++)));
-		//previewTab.add(new JButton("TestButton"+(ct++)));
-		//previewTab.add(new JButton("TestButton"+(ct++)));
 		
 		previewContainer.add(previewTab);
 		
@@ -141,10 +138,17 @@ public class TestApplet extends Applet{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Printing file "+currentFile.getAbsolutePath());
+				printButtonHandler();
 			}
 		});
 		cancelButton = new JButton("CANCEL");
+		cancelButton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				cancelButtonHandler();
+			}});
 		
 		mainToolbar.add(printButton);
 		mainToolbar.add(cancelButton);
@@ -193,6 +197,17 @@ public class TestApplet extends Applet{
 		onResize();
 	}
 	
+	public void printButtonHandler(){
+		//TODO
+		currentFile = previewFiles.get(previewTab.getSelectedIndex());
+		System.out.println("Printing file "+currentFile.getAbsolutePath());
+	}
+	
+	public void cancelButtonHandler(){
+		//TODO
+		
+	}
+	
 	public boolean addPreview(File f) throws IOException{
 		if(!previewFiles.contains(f)){
 			Preview3D tempPreview = new Preview3D(f);
@@ -204,11 +219,12 @@ public class TestApplet extends Applet{
 			}
 			previewTab.add(name,tempPreview);
 		
-			
+			previewTab.setSelectedIndex(previews.size()-1);
 			
 			repaint();
 			return true;
 		}
+		previewTab.setSelectedIndex(previewFiles.indexOf(f));
 		return false;
 	}
 	
