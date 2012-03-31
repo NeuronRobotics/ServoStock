@@ -5833,13 +5833,13 @@ DIN A4, landscape with location and doc. field</description>
 <part name="P+2" library="supply1" deviceset="VCC" device=""/>
 <part name="GND7" library="supply1" deviceset="GND" device=""/>
 <part name="U$2" library="AS5055" deviceset="AS5055" device=""/>
-<part name="R3" library="rcl" deviceset="R-US_" device="R0603" value="15"/>
 <part name="P+1" library="supply1" deviceset="VCC" device=""/>
 <part name="GND1" library="supply1" deviceset="GND" device=""/>
 <part name="GND2" library="supply1" deviceset="GND" device=""/>
 <part name="GND3" library="supply1" deviceset="GND" device=""/>
 <part name="U$1" library="70553-0109" deviceset="70553-0106" device=""/>
 <part name="R2" library="rcl" deviceset="R-US_" device="R0603" value="33"/>
+<part name="R3" library="rcl" deviceset="R-US_" device="R0603" value="15"/>
 </parts>
 <sheets>
 <sheet>
@@ -5861,7 +5861,6 @@ DIN A4, landscape with location and doc. field</description>
 </instance>
 <instance part="GND7" gate="1" x="-17.78" y="-12.7"/>
 <instance part="U$2" gate="G$1" x="40.64" y="22.86"/>
-<instance part="R3" gate="G$1" x="123.19" y="54.61" rot="R90"/>
 <instance part="P+1" gate="VCC" x="123.19" y="71.12" smashed="yes">
 <attribute name="VALUE" x="123.19" y="74.93" size="1.778" layer="96" rot="R90"/>
 </instance>
@@ -5870,6 +5869,7 @@ DIN A4, landscape with location and doc. field</description>
 <instance part="GND3" gate="1" x="57.15" y="46.99"/>
 <instance part="U$1" gate="G$1" x="-73.66" y="-33.02"/>
 <instance part="R2" gate="G$1" x="-1.27" y="25.4" rot="R180"/>
+<instance part="R3" gate="G$1" x="123.19" y="54.61" rot="R270"/>
 </instances>
 <busses>
 </busses>
@@ -5917,7 +5917,6 @@ DIN A4, landscape with location and doc. field</description>
 </segment>
 <segment>
 <pinref part="P+1" gate="VCC" pin="VCC"/>
-<pinref part="R3" gate="G$1" pin="2"/>
 <wire x1="123.19" y1="59.69" x2="123.19" y2="64.77" width="0.1524" layer="91"/>
 <pinref part="C4" gate="G$1" pin="1"/>
 <wire x1="123.19" y1="64.77" x2="123.19" y2="68.58" width="0.1524" layer="91"/>
@@ -5931,6 +5930,7 @@ DIN A4, landscape with location and doc. field</description>
 <pinref part="R1" gate="G$1" pin="2"/>
 <wire x1="104.14" y1="60.96" x2="104.14" y2="64.77" width="0.1524" layer="91"/>
 <wire x1="104.14" y1="64.77" x2="123.19" y2="64.77" width="0.1524" layer="91"/>
+<pinref part="R3" gate="G$1" pin="1"/>
 </segment>
 <segment>
 <pinref part="U$2" gate="G$1" pin="VDDP"/>
@@ -5987,13 +5987,13 @@ DIN A4, landscape with location and doc. field</description>
 </net>
 <net name="VDD" class="0">
 <segment>
-<pinref part="R3" gate="G$1" pin="1"/>
 <pinref part="C2" gate="G$1" pin="1"/>
 <wire x1="123.19" y1="49.53" x2="123.19" y2="48.26" width="0.1524" layer="91"/>
 <wire x1="123.19" y1="48.26" x2="123.19" y2="45.72" width="0.1524" layer="91"/>
 <wire x1="123.19" y1="48.26" x2="115.57" y2="48.26" width="0.1524" layer="91"/>
 <junction x="123.19" y="48.26"/>
 <label x="115.57" y="48.26" size="1.778" layer="95"/>
+<pinref part="R3" gate="G$1" pin="2"/>
 </segment>
 <segment>
 <pinref part="U$2" gate="G$1" pin="VDD"/>

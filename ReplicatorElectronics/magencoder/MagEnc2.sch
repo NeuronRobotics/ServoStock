@@ -5757,86 +5757,6 @@ DIN A4, landscape with location and doc. field</description>
 </deviceset>
 </devicesets>
 </library>
-<library name="SBH11-PBPC-D07-ST-BK">
-<packages>
-<package name="SBH11-PBPC-D07-ST-BK">
-<pad name="1" x="0" y="0" drill="0.9906" shape="square"/>
-<pad name="2" x="2.54" y="0" drill="0.9906" shape="octagon"/>
-<pad name="3" x="0" y="-2.54" drill="0.9906" shape="octagon"/>
-<pad name="4" x="2.54" y="-2.54" drill="0.9906" shape="octagon"/>
-<pad name="5" x="0" y="-5.08" drill="0.9906" shape="octagon"/>
-<pad name="6" x="2.54" y="-5.08" drill="0.9906" shape="octagon"/>
-<pad name="7" x="0" y="-7.62" drill="0.9906" shape="octagon"/>
-<pad name="8" x="2.54" y="-7.62" drill="0.9906" shape="octagon"/>
-<pad name="9" x="0" y="-10.16" drill="0.9906" shape="octagon"/>
-<pad name="10" x="2.54" y="-10.16" drill="0.9906" shape="octagon"/>
-<pad name="11" x="0" y="-12.7" drill="0.9906" shape="octagon"/>
-<pad name="12" x="2.54" y="-12.7" drill="0.9906" shape="octagon"/>
-<pad name="13" x="0" y="-15.24" drill="0.9906" shape="octagon"/>
-<pad name="14" x="2.54" y="-15.24" drill="0.9906" shape="octagon"/>
-<wire x1="-2.032" y1="0" x2="-2.032" y2="1.27" width="0.127" layer="25"/>
-<wire x1="-2.032" y1="1.27" x2="-2.032" y2="5.08" width="0.127" layer="25"/>
-<wire x1="-2.032" y1="5.08" x2="4.572" y2="5.08" width="0.127" layer="25"/>
-<wire x1="4.572" y1="5.08" x2="4.572" y2="-20.32" width="0.127" layer="25"/>
-<wire x1="4.572" y1="-20.32" x2="-2.032" y2="-20.32" width="0.127" layer="25"/>
-<wire x1="-2.032" y1="-20.32" x2="-2.032" y2="0" width="0.127" layer="25"/>
-</package>
-</packages>
-<symbols>
-<symbol name="SBH11-PBPC-D07-ST-BK">
-<pin name="1" x="-7.62" y="15.24" length="middle"/>
-<pin name="3" x="-7.62" y="10.16" length="middle"/>
-<pin name="5" x="-7.62" y="5.08" length="middle"/>
-<pin name="7" x="-7.62" y="0" length="middle"/>
-<pin name="9" x="-7.62" y="-5.08" length="middle"/>
-<pin name="11" x="-7.62" y="-10.16" length="middle"/>
-<pin name="13" x="-7.62" y="-15.24" length="middle"/>
-<pin name="14" x="20.32" y="-15.24" length="middle" rot="R180"/>
-<pin name="12" x="20.32" y="-10.16" length="middle" rot="R180"/>
-<pin name="10" x="20.32" y="-5.08" length="middle" rot="R180"/>
-<pin name="8" x="20.32" y="0" length="middle" rot="R180"/>
-<pin name="6" x="20.32" y="5.08" length="middle" rot="R180"/>
-<pin name="4" x="20.32" y="10.16" length="middle" rot="R180"/>
-<pin name="2" x="20.32" y="15.24" length="middle" rot="R180"/>
-<wire x1="-2.54" y1="17.78" x2="15.24" y2="17.78" width="0.254" layer="94"/>
-<wire x1="15.24" y1="17.78" x2="15.24" y2="-17.78" width="0.254" layer="94"/>
-<wire x1="15.24" y1="-17.78" x2="-2.54" y2="-17.78" width="0.254" layer="94"/>
-<wire x1="-2.54" y1="-17.78" x2="-2.54" y2="17.78" width="0.254" layer="94"/>
-<text x="2.54" y="20.32" size="1.778" layer="94">&gt;NAME</text>
-<text x="-7.62" y="-20.32" size="1.778" layer="94">SBH11-PBPC-D07-ST-BK</text>
-</symbol>
-</symbols>
-<devicesets>
-<deviceset name="SBH11-PBPC-D07-ST-BK">
-<gates>
-<gate name="G$1" symbol="SBH11-PBPC-D07-ST-BK" x="-5.08" y="0"/>
-</gates>
-<devices>
-<device name="" package="SBH11-PBPC-D07-ST-BK">
-<connects>
-<connect gate="G$1" pin="1" pad="1"/>
-<connect gate="G$1" pin="10" pad="10"/>
-<connect gate="G$1" pin="11" pad="11"/>
-<connect gate="G$1" pin="12" pad="12"/>
-<connect gate="G$1" pin="13" pad="13"/>
-<connect gate="G$1" pin="14" pad="14"/>
-<connect gate="G$1" pin="2" pad="2"/>
-<connect gate="G$1" pin="3" pad="3"/>
-<connect gate="G$1" pin="4" pad="4"/>
-<connect gate="G$1" pin="5" pad="5"/>
-<connect gate="G$1" pin="6" pad="6"/>
-<connect gate="G$1" pin="7" pad="7"/>
-<connect gate="G$1" pin="8" pad="8"/>
-<connect gate="G$1" pin="9" pad="9"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
-</devicesets>
-</library>
 <library name="supply2">
 <description>&lt;b&gt;Supply Symbols&lt;/b&gt;&lt;p&gt;
 GND, VCC, 0V, +5V, -5V, etc.&lt;p&gt;
@@ -6153,6 +6073,87 @@ wire to board 2.54 mm (0.100") pitch header</description>
 </deviceset>
 </devicesets>
 </library>
+<library name="SBH11-PBPC-D07-ST-BK">
+<packages>
+<package name="SBH11-PBPC-D07-ST-BK">
+<pad name="1" x="0" y="0" drill="0.9906" shape="square"/>
+<pad name="2" x="2.54" y="0" drill="0.9906" shape="octagon"/>
+<pad name="3" x="0" y="-2.54" drill="0.9906" shape="octagon"/>
+<pad name="4" x="2.54" y="-2.54" drill="0.9906" shape="octagon"/>
+<pad name="5" x="0" y="-5.08" drill="0.9906" shape="octagon"/>
+<pad name="6" x="2.54" y="-5.08" drill="0.9906" shape="octagon"/>
+<pad name="7" x="0" y="-7.62" drill="0.9906" shape="octagon"/>
+<pad name="8" x="2.54" y="-7.62" drill="0.9906" shape="octagon"/>
+<pad name="9" x="0" y="-10.16" drill="0.9906" shape="octagon"/>
+<pad name="10" x="2.54" y="-10.16" drill="0.9906" shape="octagon"/>
+<pad name="11" x="0" y="-12.7" drill="0.9906" shape="octagon"/>
+<pad name="12" x="2.54" y="-12.7" drill="0.9906" shape="octagon"/>
+<pad name="13" x="0" y="-15.24" drill="0.9906" shape="octagon"/>
+<pad name="14" x="2.54" y="-15.24" drill="0.9906" shape="octagon"/>
+<wire x1="-2.032" y1="0" x2="-2.032" y2="1.27" width="0.127" layer="21"/>
+<wire x1="-2.032" y1="1.27" x2="-2.032" y2="5.08" width="0.127" layer="21"/>
+<wire x1="-2.032" y1="5.08" x2="4.572" y2="5.08" width="0.127" layer="21"/>
+<wire x1="4.572" y1="5.08" x2="4.572" y2="-20.32" width="0.127" layer="21"/>
+<wire x1="4.572" y1="-20.32" x2="-2.032" y2="-20.32" width="0.127" layer="21"/>
+<wire x1="-2.032" y1="-20.32" x2="-2.032" y2="0" width="0.127" layer="21"/>
+<text x="-1.27" y="6.35" size="1.27" layer="25">&gt;NAME</text>
+</package>
+</packages>
+<symbols>
+<symbol name="SBH11-PBPC-D07-ST-BK">
+<pin name="1" x="-7.62" y="15.24" length="middle"/>
+<pin name="3" x="-7.62" y="10.16" length="middle"/>
+<pin name="5" x="-7.62" y="5.08" length="middle"/>
+<pin name="7" x="-7.62" y="0" length="middle"/>
+<pin name="9" x="-7.62" y="-5.08" length="middle"/>
+<pin name="11" x="-7.62" y="-10.16" length="middle"/>
+<pin name="13" x="-7.62" y="-15.24" length="middle"/>
+<pin name="14" x="20.32" y="-15.24" length="middle" rot="R180"/>
+<pin name="12" x="20.32" y="-10.16" length="middle" rot="R180"/>
+<pin name="10" x="20.32" y="-5.08" length="middle" rot="R180"/>
+<pin name="8" x="20.32" y="0" length="middle" rot="R180"/>
+<pin name="6" x="20.32" y="5.08" length="middle" rot="R180"/>
+<pin name="4" x="20.32" y="10.16" length="middle" rot="R180"/>
+<pin name="2" x="20.32" y="15.24" length="middle" rot="R180"/>
+<wire x1="-2.54" y1="17.78" x2="15.24" y2="17.78" width="0.254" layer="94"/>
+<wire x1="15.24" y1="17.78" x2="15.24" y2="-17.78" width="0.254" layer="94"/>
+<wire x1="15.24" y1="-17.78" x2="-2.54" y2="-17.78" width="0.254" layer="94"/>
+<wire x1="-2.54" y1="-17.78" x2="-2.54" y2="17.78" width="0.254" layer="94"/>
+<text x="2.54" y="20.32" size="1.778" layer="94">&gt;NAME</text>
+<text x="-7.62" y="-20.32" size="1.778" layer="94">SBH11-PBPC-D07-ST-BK</text>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="SBH11-PBPC-D07-ST-BK">
+<gates>
+<gate name="G$1" symbol="SBH11-PBPC-D07-ST-BK" x="-5.08" y="0"/>
+</gates>
+<devices>
+<device name="" package="SBH11-PBPC-D07-ST-BK">
+<connects>
+<connect gate="G$1" pin="1" pad="1"/>
+<connect gate="G$1" pin="10" pad="10"/>
+<connect gate="G$1" pin="11" pad="11"/>
+<connect gate="G$1" pin="12" pad="12"/>
+<connect gate="G$1" pin="13" pad="13"/>
+<connect gate="G$1" pin="14" pad="14"/>
+<connect gate="G$1" pin="2" pad="2"/>
+<connect gate="G$1" pin="3" pad="3"/>
+<connect gate="G$1" pin="4" pad="4"/>
+<connect gate="G$1" pin="5" pad="5"/>
+<connect gate="G$1" pin="6" pad="6"/>
+<connect gate="G$1" pin="7" pad="7"/>
+<connect gate="G$1" pin="8" pad="8"/>
+<connect gate="G$1" pin="9" pad="9"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -6172,7 +6173,6 @@ wire to board 2.54 mm (0.100") pitch header</description>
 <part name="C1" library="rcl" deviceset="C-EU" device="C0805K" value="4.7u"/>
 <part name="C2" library="rcl" deviceset="C-EU" device="C0805K" value="100n"/>
 <part name="LED1" library="led" deviceset="LED" device="CHIPLED_0805" value="GREEN"/>
-<part name="J1" library="SBH11-PBPC-D07-ST-BK" deviceset="SBH11-PBPC-D07-ST-BK" device=""/>
 <part name="GND4" library="supply1" deviceset="GND" device=""/>
 <part name="SUPPLY1" library="supply2" deviceset="DGND" device=""/>
 <part name="P+3" library="supply1" deviceset="VCC" device=""/>
@@ -6181,6 +6181,7 @@ wire to board 2.54 mm (0.100") pitch header</description>
 <part name="SUPPLY4" library="supply2" deviceset="DGND" device=""/>
 <part name="J2" library="con-molex" deviceset="C-GRID-03" device="-70553" value="70553-0037"/>
 <part name="GND1" library="supply1" deviceset="GND" device=""/>
+<part name="J1" library="SBH11-PBPC-D07-ST-BK" deviceset="SBH11-PBPC-D07-ST-BK" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -6207,7 +6208,6 @@ wire to board 2.54 mm (0.100") pitch header</description>
 <instance part="C1" gate="G$1" x="121.92" y="43.18"/>
 <instance part="C2" gate="G$1" x="137.16" y="43.18"/>
 <instance part="LED1" gate="G$1" x="104.14" y="45.72"/>
-<instance part="J1" gate="G$1" x="-68.58" y="53.34"/>
 <instance part="GND4" gate="1" x="-27.94" y="63.5"/>
 <instance part="SUPPLY1" gate="G$1" x="-27.94" y="45.72"/>
 <instance part="P+3" gate="VCC" x="-17.78" y="43.18" smashed="yes">
@@ -6220,25 +6220,26 @@ wire to board 2.54 mm (0.100") pitch header</description>
 <instance part="J2" gate="-2" x="-55.88" y="2.54"/>
 <instance part="J2" gate="-3" x="-55.88" y="0"/>
 <instance part="GND1" gate="1" x="-78.74" y="0"/>
+<instance part="J1" gate="G$1" x="-68.58" y="53.34"/>
 </instances>
 <busses>
 </busses>
 <nets>
 <net name="GND" class="0">
 <segment>
-<pinref part="J1" gate="G$1" pin="2"/>
 <wire x1="-48.26" y1="68.58" x2="-40.64" y2="68.58" width="0.1524" layer="91"/>
-<pinref part="J1" gate="G$1" pin="4"/>
 <wire x1="-48.26" y1="63.5" x2="-40.64" y2="63.5" width="0.1524" layer="91"/>
 <wire x1="-40.64" y1="63.5" x2="-40.64" y2="68.58" width="0.1524" layer="91"/>
 <junction x="-40.64" y="68.58"/>
-<pinref part="J1" gate="G$1" pin="6"/>
 <wire x1="-48.26" y1="58.42" x2="-40.64" y2="58.42" width="0.1524" layer="91"/>
 <wire x1="-40.64" y1="58.42" x2="-40.64" y2="63.5" width="0.1524" layer="91"/>
 <junction x="-40.64" y="63.5"/>
 <pinref part="GND4" gate="1" pin="GND"/>
 <wire x1="-40.64" y1="68.58" x2="-27.94" y2="68.58" width="0.1524" layer="91"/>
 <wire x1="-27.94" y1="68.58" x2="-27.94" y2="66.04" width="0.1524" layer="91"/>
+<pinref part="J1" gate="G$1" pin="6"/>
+<pinref part="J1" gate="G$1" pin="4"/>
+<pinref part="J1" gate="G$1" pin="2"/>
 </segment>
 <segment>
 <pinref part="GND1" gate="1" pin="GND"/>
@@ -6266,10 +6267,10 @@ wire to board 2.54 mm (0.100") pitch header</description>
 <label x="43.18" y="48.26" size="1.778" layer="95" rot="R90"/>
 </segment>
 <segment>
-<pinref part="J1" gate="G$1" pin="14"/>
 <wire x1="-48.26" y1="38.1" x2="-17.78" y2="38.1" width="0.1524" layer="91"/>
 <wire x1="-17.78" y1="38.1" x2="-17.78" y2="40.64" width="0.1524" layer="91"/>
 <pinref part="P+3" gate="VCC" pin="VCC"/>
+<pinref part="J1" gate="G$1" pin="14"/>
 </segment>
 <segment>
 <pinref part="R3" gate="G$1" pin="1"/>
@@ -6292,9 +6293,9 @@ wire to board 2.54 mm (0.100") pitch header</description>
 <label x="8.89" y="15.24" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="J1" gate="G$1" pin="7"/>
 <wire x1="-76.2" y1="53.34" x2="-86.36" y2="53.34" width="0.1524" layer="91"/>
 <label x="-83.82" y="53.34" size="1.778" layer="95"/>
+<pinref part="J1" gate="G$1" pin="7"/>
 </segment>
 </net>
 <net name="SCLK" class="0">
@@ -6304,9 +6305,9 @@ wire to board 2.54 mm (0.100") pitch header</description>
 <label x="8.89" y="20.32" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="J1" gate="G$1" pin="9"/>
 <wire x1="-76.2" y1="48.26" x2="-86.36" y2="48.26" width="0.1524" layer="91"/>
 <label x="-83.82" y="48.26" size="1.778" layer="95"/>
+<pinref part="J1" gate="G$1" pin="9"/>
 </segment>
 </net>
 <net name="MOSI" class="0">
@@ -6316,9 +6317,9 @@ wire to board 2.54 mm (0.100") pitch header</description>
 <label x="8.89" y="30.48" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="J1" gate="G$1" pin="11"/>
 <wire x1="-76.2" y1="43.18" x2="-86.36" y2="43.18" width="0.1524" layer="91"/>
 <label x="-83.82" y="43.18" size="1.778" layer="95"/>
+<pinref part="J1" gate="G$1" pin="11"/>
 </segment>
 </net>
 <net name="VDD" class="0">
@@ -6344,9 +6345,9 @@ wire to board 2.54 mm (0.100") pitch header</description>
 <label x="-15.24" y="25.4" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="J1" gate="G$1" pin="13"/>
 <wire x1="-76.2" y1="38.1" x2="-86.36" y2="38.1" width="0.1524" layer="91"/>
 <label x="-83.82" y="38.1" size="1.778" layer="95"/>
+<pinref part="J1" gate="G$1" pin="13"/>
 </segment>
 </net>
 <net name="N$4" class="0">
@@ -6365,18 +6366,18 @@ wire to board 2.54 mm (0.100") pitch header</description>
 </net>
 <net name="5V_SERVO" class="0">
 <segment>
-<pinref part="J1" gate="G$1" pin="1"/>
 <wire x1="-76.2" y1="68.58" x2="-86.36" y2="68.58" width="0.1524" layer="91"/>
-<pinref part="J1" gate="G$1" pin="3"/>
 <wire x1="-86.36" y1="68.58" x2="-91.44" y2="68.58" width="0.1524" layer="91"/>
 <wire x1="-76.2" y1="63.5" x2="-86.36" y2="63.5" width="0.1524" layer="91"/>
 <wire x1="-86.36" y1="63.5" x2="-86.36" y2="68.58" width="0.1524" layer="91"/>
 <junction x="-86.36" y="68.58"/>
-<pinref part="J1" gate="G$1" pin="5"/>
 <wire x1="-76.2" y1="58.42" x2="-86.36" y2="58.42" width="0.1524" layer="91"/>
 <wire x1="-86.36" y1="58.42" x2="-86.36" y2="63.5" width="0.1524" layer="91"/>
 <junction x="-86.36" y="63.5"/>
 <label x="-88.9" y="68.58" size="1.778" layer="95"/>
+<pinref part="J1" gate="G$1" pin="1"/>
+<pinref part="J1" gate="G$1" pin="3"/>
+<pinref part="J1" gate="G$1" pin="5"/>
 </segment>
 <segment>
 <pinref part="J2" gate="-2" pin="S"/>
@@ -6386,9 +6387,9 @@ wire to board 2.54 mm (0.100") pitch header</description>
 </net>
 <net name="SERVO_CTRL" class="0">
 <segment>
-<pinref part="J1" gate="G$1" pin="8"/>
 <wire x1="-48.26" y1="53.34" x2="-35.56" y2="53.34" width="0.1524" layer="91"/>
 <label x="-45.72" y="53.34" size="1.778" layer="95"/>
+<pinref part="J1" gate="G$1" pin="8"/>
 </segment>
 <segment>
 <pinref part="J2" gate="-3" pin="S"/>
@@ -6398,14 +6399,14 @@ wire to board 2.54 mm (0.100") pitch header</description>
 </net>
 <net name="DGND" class="0">
 <segment>
-<pinref part="J1" gate="G$1" pin="10"/>
 <wire x1="-48.26" y1="48.26" x2="-40.64" y2="48.26" width="0.1524" layer="91"/>
-<pinref part="J1" gate="G$1" pin="12"/>
 <wire x1="-40.64" y1="48.26" x2="-27.94" y2="48.26" width="0.1524" layer="91"/>
 <wire x1="-48.26" y1="43.18" x2="-40.64" y2="43.18" width="0.1524" layer="91"/>
 <wire x1="-40.64" y1="43.18" x2="-40.64" y2="48.26" width="0.1524" layer="91"/>
 <junction x="-40.64" y="48.26"/>
 <pinref part="SUPPLY1" gate="G$1" pin="DGND"/>
+<pinref part="J1" gate="G$1" pin="12"/>
+<pinref part="J1" gate="G$1" pin="10"/>
 </segment>
 <segment>
 <pinref part="SUPPLY2" gate="G$1" pin="DGND"/>
