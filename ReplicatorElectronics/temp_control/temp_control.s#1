@@ -8068,7 +8068,7 @@ by exp-project-lbr.ulp</description>
 </class>
 </classes>
 <parts>
-<part name="Q1" library="transistor-fet" deviceset="SUP75N06-08" device="" value="IRL640A"/>
+<part name="Q1" library="transistor-fet" deviceset="SUP75N06-08" device="" value="IRL540N"/>
 <part name="J1" library="SBH11-PBPC-D05-ST-BK" deviceset="SBH11-PBPC-D05-ST-BK" device=""/>
 <part name="P+1" library="supply1" deviceset="VCC" device=""/>
 <part name="GND1" library="supply1" deviceset="GND" device=""/>
@@ -8083,7 +8083,7 @@ by exp-project-lbr.ulp</description>
 <part name="C1" library="resistor" deviceset="C-US" device="C0603" value="0.1uF"/>
 <part name="P+2" library="supply1" deviceset="VCC" device=""/>
 <part name="FRAME1" library="frames" deviceset="FRAME_C_L" device=""/>
-<part name="D1" library="chipKIT_Max32" deviceset="DISCRETE_DIODE" device="SMA"/>
+<part name="D1" library="chipKIT_Max32" deviceset="DISCRETE_DIODE" device="SMA" value="B340A-13-F"/>
 </parts>
 <sheets>
 <sheet>
