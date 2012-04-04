@@ -66,5 +66,3 @@ class StreamDump implements Runnable {
 	}
 }
 
-class MaterialData {
-}
