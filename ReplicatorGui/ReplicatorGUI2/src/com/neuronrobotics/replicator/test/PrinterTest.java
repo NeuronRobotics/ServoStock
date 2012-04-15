@@ -14,6 +14,7 @@ import com.neuronrobotics.sdk.ui.ConnectionDialog;
 
 public class PrinterTest implements PrinterStatusListener {
 	private PrinterTest() {
+		DyIO.disableFWCheck();
 		DyIO dyio = new DyIO();
 		if(!ConnectionDialog.getBowlerDevice(dyio)) {
 			System.out.println("Fail");

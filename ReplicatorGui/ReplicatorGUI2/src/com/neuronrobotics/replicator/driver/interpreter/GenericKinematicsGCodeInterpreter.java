@@ -60,7 +60,7 @@ public class GenericKinematicsGCodeInterpreter extends GCodeInterpreter {
 				Transform t = new Transform(next.getWord('X'), next.getWord('Y'), next.getWord('Z'), new Rotation());
 				double destination[] = machine.setDesiredTaskSpaceTransform(t,0.0);
 				// Loop to wait, I guess.
-				waitForMachine(destination, 0.1);
+				waitForMachine(destination, 10);
 			}
 		});
 		//G1 - no handler.
@@ -78,7 +78,7 @@ public class GenericKinematicsGCodeInterpreter extends GCodeInterpreter {
 				if(time>=0)
 					Thread.currentThread().sleep(time); //Should truncate.
 				// Loop to wait, I guess.
-				waitForMachine(destination, 0.1);
+				waitForMachine(destination, 10);
 			}
 		});
 	}
