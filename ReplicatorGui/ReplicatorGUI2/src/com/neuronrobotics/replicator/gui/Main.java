@@ -27,11 +27,7 @@ import com.sun.j3d.utils.universe.*;
 public class Main {
 
 	public static void main(String[] argv) {
-		
-		//DesktopApplet tapp = new DesktopApplet();
-		//Frame f = new MainFrame(tapp,1200,700);
-		
-		SliceStatusData ssd;
-		
+		DesktopApplet tapp = new DesktopApplet(new GUIDriver());
+		Frame f = new MainFrame(tapp,1200,700);	
 	}
 }

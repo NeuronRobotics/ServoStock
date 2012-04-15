@@ -24,6 +24,8 @@ import javax.swing.JProgressBar;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
 
 //import org.j3d.loaders.InvalidFormatException;
@@ -34,6 +36,8 @@ import com.neuronrobotics.replicator.driver.PrinterStatus;
 
 public class DesktopApplet extends Applet{
 	
+	private File defaultWorkspaceDirectory;
+	
 	private Container menuContainer,toolbarContainer;
 	private Container leftContainer,previewContainer,bottomContainer;
 	
@@ -42,32 +46,42 @@ public class DesktopApplet extends Applet{
 	private JMenuBar menuBar;
 	private JToolBar mainToolbar;
 	private JMenu fileMenu, editMenu, helpMenu;
-	private File currentFile;
 	
 	private JButton printButton;
 	private JButton cancelButton;
+	private JButton connectButton;
 	
-	private JTree fileNavigator;
-	
-	private NRPrinter thePrinter;
-	private PrinterStatus thePrinterStatus;
-	
+	private WorkspaceNavigator fileNavigator;
+	private DefaultMutableTreeNode treeRoot;
+		
 	private JMenuItem openFileItem;
+	private JMenuItem newProjectItem;
 	
 	private JProgressBar printProgress;
-	
-	private ArrayList<File> previewFiles;
+
+
+	private ArrayList<File> stlFiles;
+	private ArrayList<File> gcodeFiles;
 	private ArrayList<Preview3D> previews;
+		
+	private GUIDriver theGUIDriver;
+	
+	public DesktopApplet(GUIDriver theGUIDriver){
+		super();
+		this.theGUIDriver = theGUIDriver;
+	}
 	
 	public void init(){
-				
-		previewFiles = new ArrayList<File>();
+		
+		//TODO un-hard code this
+		defaultWorkspaceDirectory = new File("DefaultWorkspaceFolder");
+		
+		stlFiles = new ArrayList<File>();
+		gcodeFiles = new ArrayList<File>();
 		previews = new ArrayList<Preview3D>();
 		
 		this.setLayout(null); 
-		
-		int ct= 0;
-		
+				
 		menuContainer = new Container();
 		menuContainer.setLayout(new GridLayout(1,1));
 		
@@ -79,8 +93,7 @@ public class DesktopApplet extends Applet{
 		
 		leftTab = new JTabbedPane();
 		leftContainer.add(leftTab);
-		
-		
+				
 		previewContainer = new Container();
 		previewContainer.setLayout(new GridLayout(1,1));
 		
@@ -115,11 +128,11 @@ public class DesktopApplet extends Applet{
 			    if(returnVal == JFileChooser.APPROVE_OPTION) {
 			       System.out.println("You chose to open this file: " +
 			            fileChooser.getSelectedFile().getName());
-			       currentFile = fileChooser.getSelectedFile();
+			       File newFile = fileChooser.getSelectedFile();
 			       try {
-					addPreview(currentFile);
+					addPreview(newFile);
+					
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 					System.out.println("IO Exception dun happen'd");
 				}
@@ -138,7 +151,7 @@ public class DesktopApplet extends Applet{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				printButtonHandler();
+				toolbarPrintButtonHandler();
 			}
 		});
 		cancelButton = new JButton("CANCEL");
@@ -146,39 +159,46 @@ public class DesktopApplet extends Applet{
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				cancelButtonHandler();
 			}});
 		
+		connectButton = new JButton("CONNECT");
+		connectButton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				connectButtonHandler();
+			}
+
+			
+		});
+		
 		mainToolbar.add(printButton);
 		mainToolbar.add(cancelButton);
+		mainToolbar.add(connectButton);
 		
 		toolbarContainer.add(mainToolbar);	
 		
-		fileNavigator = new JTree();
-		fileNavigator.removeAll();
+		//DefaultMutableTreeNode root = new DefaultMutableTreeNode();
+		fileNavigator = WorkspaceNavigator.getNavigator(defaultWorkspaceDirectory);
+		
+		
 		
 		leftTab.add("Navigator",fileNavigator);
-		
+						
 		printProgress = new JProgressBar();
-		printProgress.setValue(0); //TODO just to see how it looks
-		printProgress.setName("SDFSD");
-		
-		
+				
 		bottomContainer.add(printProgress);
-		
-		
-		
+						
 		this.addComponentListener(new ComponentListener(){
 
 			@Override
 			public void componentHidden(ComponentEvent arg0) {
-				// TODO Auto-generated method stub
+				
 			}
 
 			@Override
 			public void componentMoved(ComponentEvent arg0) {
-				// TODO Auto-generated method stub
 			}
 
 			@Override
@@ -187,33 +207,49 @@ public class DesktopApplet extends Applet{
 			}
 
 			@Override
-			public void componentShown(ComponentEvent arg0) {
-				// TODO Auto-generated method stub				
+			public void componentShown(ComponentEvent arg0) {				
 			}
 			
 		});
-		
-		
 		onResize();
 	}
 	
-	public void printButtonHandler(){
+	public void workspaceNavigatorPrintHandler(){
 		//TODO
-		currentFile = previewFiles.get(previewTab.getSelectedIndex());
+	}
+	
+	public void toolbarPrintButtonHandler(){
+		//TODO prompt user
+		if(stlFiles.size()==0){
+			//TODO change status to nothing to print
+			return;
+		}
+		File currentFile = stlFiles.get(previewTab.getSelectedIndex());
+		File currentGCodeFile = gcodeFiles.get(previewTab.getSelectedIndex());
+		if (currentGCodeFile==null) theGUIDriver.requestPrint(currentFile,currentGCodeFile);
+		else {
+			//TODO prompt user
+			theGUIDriver.requestPrint(currentGCodeFile);
+		}
 		System.out.println("Printing file "+currentFile.getAbsolutePath());
 	}
 	
 	public void cancelButtonHandler(){
-		//TODO
-		
+		theGUIDriver.requestCancel();		
+	}
+	
+	private void connectButtonHandler() {
+		theGUIDriver.connectPrinter();		
 	}
 	
 	public boolean addPreview(File f) throws IOException{
-		if(!previewFiles.contains(f)){
+		
+		if(!stlFiles.contains(f)){
 			Preview3D tempPreview = new Preview3D(f);
-			previewFiles.add(f);
+			stlFiles.add(f);
+			gcodeFiles.add(new File(f.getName()+".sliced"));
 			previews.add(tempPreview);
-			String name=tempPreview.getSTLObject().getName();// = tempPreview.;
+			String name=tempPreview.getSTLObject().getName();
 			if (name==null||name.equals("Default")){
 				name = f.getName();
 			}
@@ -224,7 +260,7 @@ public class DesktopApplet extends Applet{
 			repaint();
 			return true;
 		}
-		previewTab.setSelectedIndex(previewFiles.indexOf(f));
+		previewTab.setSelectedIndex(stlFiles.indexOf(f));
 		return false;
 	}
 	
