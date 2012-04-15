@@ -39,7 +39,12 @@ public class PrinterTest implements PrinterStatusListener {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		new PrinterTest();
+		try {
+			new PrinterTest();
+		}catch (Exception ex) {
+			ex.printStackTrace();
+			System.exit(1);
+		}
 	}
 	@Override
 	public void printStatus(PrinterStatus psl) {
