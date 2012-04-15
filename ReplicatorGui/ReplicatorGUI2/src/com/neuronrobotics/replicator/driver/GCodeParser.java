@@ -1,5 +1,5 @@
 package com.neuronrobotics.replicator.driver;
-
+import com.neuronrobotics.replicator.driver.interpreter;
 import java.io.InputStream;
 import java.util.ArrayList;
 
@@ -7,17 +7,31 @@ import com.neuronrobotics.replicator.gui.PrinterStatusListener;
 
 public class GCodeParser {
 	private ArrayList<PrinterStatusListener> listeners = new ArrayList<PrinterStatusListener>();
-	
+	private GenericKinematicsGCodeInterpreter interpreter;
+	DeltaRobotPrinterPrototype device;
+
 	public GCodeParser(DeltaRobotPrinterPrototype device) {
 		// TODO Auto-generated constructor stub
+		this.device=device;
 	}
 
 	public boolean print(InputStream gcode) {
 		//this should be a thread that takes the gcode and sends it to the printer
+		interp=new GenericKinematicsGCodeInterpreter(device); // Could reuse.
+		try {
+			interp.tryInterpretStream(gcode);
+			return true;
+		} catch (Exception e) { 
+			// um... this is bad. Ideally, the kinematics methods probably shouldn't through Exception, but we'll just catch it here for now.
+			System.err.println(e);
+		}
 		return false;
 	}
 
 	public boolean cancel() {
+		if(interp!=null) {
+			return interp.cancel();
+		}
 		return false;
 	}
 	

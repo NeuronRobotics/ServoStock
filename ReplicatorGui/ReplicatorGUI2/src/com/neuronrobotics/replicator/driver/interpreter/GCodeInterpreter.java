@@ -79,6 +79,13 @@ public class GCodeInterpreter {
 	 */
 	GCodeLineData nextLine;
 	
+	/**
+	 * The thread that is currently parsing G-code; for sending interruptions to cancel prints.
+	 */
+
+	Thread interpretingThread;
+
+	ReentrantLock executingLock;
 
 	/** 
 	 * Default Constructor. This builds an interpreter and adds the default
@@ -160,11 +167,49 @@ public class GCodeInterpreter {
 	 * @throws Exception 
 	 */
 	public void interpretStream(InputStream in) throws Exception {
-		Scanner s=new Scanner(in);
-		while(s.hasNext()) {
-			parseWord(s);
+		executingLock.lock();
+		interpretingThread=Thread.currentThread();
+		try {
+			Scanner s=new Scanner(in);
+			while(s.hasNext()) {
+				parseWord(s);
+			}
+			//} catch(InterruptedException e) {
+			// Expected cancel behavior; possibly feed out a status report?
+		} finally {
+			interpretingThread=null;
+			executingLock.unlock();
 		}
 	}
+
+	/**
+	 * Nonblocking version of interpretStream(); fails rather than waiting.
+	 */
+
+	public void tryInterpretStream() throws Exception {
+		if(executingLock.tryLock()) {
+			try {
+				interpretStream(in);
+			} finally {
+				executingLock.unlock(); 
+			}
+		} else {
+			throw(new PrinterNotReadyException());
+		}
+	}
+	
+	/**
+	 * Cancel a run of a G-code stream.
+	 * This interrupts the thread that is currently parsing a G-code stream, canceling its execution.
+	 */
+	public boolean cancel() {
+		if(interpretingThread) {
+			interpretingThread.interrupt();
+			return true;
+		}
+		return false;
+	}
+
 
 	/** 
 	 * Add a handler for a G code. The new handler executes before any
@@ -330,6 +375,8 @@ public class GCodeInterpreter {
 		gClearOnSet[91]=Arrays.asList(90,91,92); // Incremental and setting positions makes no sense.
 		gOneShot = Arrays.asList(28, 92);
 	}
+
+
 
 	/** 
 	 * Default executable; runs as a pipe, parsing standard input with the
