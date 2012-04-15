@@ -27,7 +27,7 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematics{
 		//parse delta robot configs
 		
 		kinematics = new DeltaRobotKinematics(new DeltaRobotConfig(e, f, re, rf));
-		setNoFlush(true);
+		//setNoFlush(true);
 	}
 	
 	public MaterialData getMaterialData() {

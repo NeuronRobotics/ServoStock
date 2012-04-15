@@ -23,7 +23,7 @@
 		<dGain>0</dGain>
 		<isInverted>false</isInverted>
 		<isLatch>true</isLatch>
-		<indexLatch>0</indexLatch>
+		<indexLatch>128</indexLatch>
 		<isStopOnLatch>false</isStopOnLatch>	
 		<homingTPS>500</homingTPS>			
 	</link>
@@ -45,7 +45,7 @@
 		<dGain>0</dGain>
 		<isInverted>false</isInverted>
 		<isLatch>true</isLatch>
-		<indexLatch>0</indexLatch>
+		<indexLatch>128</indexLatch>
 		<isStopOnLatch>false</isStopOnLatch>	
 		<homingTPS>500</homingTPS>	
 	</link>
@@ -68,7 +68,7 @@
 		<dGain>0</dGain>
 		<isInverted>true</isInverted>
 		<isLatch>true</isLatch>
-		<indexLatch>0</indexLatch>
+		<indexLatch>128</indexLatch>
 		<isStopOnLatch>false</isStopOnLatch>	
 		<homingTPS>500</homingTPS>			
 	</link>
