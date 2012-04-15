@@ -108,7 +108,7 @@ public class DeltaRobotKinematics {
 	     theta1= delta_calcAngleYZ(x0, y0, z0);
 	     theta2 = delta_calcAngleYZ(x0*cos120 + y0*sin120, y0*cos120-x0*sin120, z0);  // rotate coords to +120 deg
 	     theta3 = delta_calcAngleYZ(x0*cos120 - y0*sin120, y0*cos120+x0*sin120, z0);  // rotate coords to -120 deg
-	     return new double[] {theta1,theta2,theta3};
+	     return new double[] {Math.toDegrees(theta1),Math.toDegrees(theta2),Math.toDegrees(theta3)};
 	 }
 
 	public double getE() {

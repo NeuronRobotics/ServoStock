@@ -13,7 +13,7 @@
 			<outputMode>servo</outputMode>
 		</dypid>
 		<name>Link0</name>
-		<type>servo</type>
+		<type>servo-rotory</type>
 		<index>12</index>
 		<scale>1</scale>
 		<upperLimit>10000000</upperLimit>
@@ -23,7 +23,7 @@
 		<dGain>0</dGain>
 		<isInverted>false</isInverted>
 		<isLatch>true</isLatch>
-		<indexLatch>128</indexLatch>
+		<indexLatch>127</indexLatch>
 		<isStopOnLatch>false</isStopOnLatch>	
 		<homingTPS>500</homingTPS>			
 	</link>
@@ -35,7 +35,7 @@
 			<outputMode>servo</outputMode>
 		</dypid>
 		<name>Link1</name>
-		<type>servo</type>
+		<type>servo-rotory</type>
 		<index>13</index>
 		<scale>1</scale>
 		<upperLimit>10000000</upperLimit>
@@ -45,7 +45,7 @@
 		<dGain>0</dGain>
 		<isInverted>false</isInverted>
 		<isLatch>true</isLatch>
-		<indexLatch>128</indexLatch>
+		<indexLatch>127</indexLatch>
 		<isStopOnLatch>false</isStopOnLatch>	
 		<homingTPS>500</homingTPS>	
 	</link>
@@ -58,7 +58,7 @@
 			<outputMode>servo</outputMode>
 		</dypid>
 		<name>Link2</name>
-		<type>servo</type>
+		<type>servo-rotory</type>
 		<index>14</index>
 		<scale>1</scale>
 		<upperLimit>10000000</upperLimit>
@@ -68,7 +68,7 @@
 		<dGain>0</dGain>
 		<isInverted>true</isInverted>
 		<isLatch>true</isLatch>
-		<indexLatch>128</indexLatch>
+		<indexLatch>127</indexLatch>
 		<isStopOnLatch>false</isStopOnLatch>	
 		<homingTPS>500</homingTPS>			
 	</link>
@@ -83,7 +83,7 @@
 				<outputMode>servo</outputMode>
 			</dypid>
 			<name>extruder1</name>
-			<type>servo</type>
+			<type>servo-rotory</type>
 			<index>3</index>
 			<scale>1</scale>
 			<upperLimit>10000000</upperLimit>
