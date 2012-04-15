@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Collections;
+import java.util.concurrent.locks.ReentrantLock;
 import java.io.InputStream;
 
 
@@ -98,6 +99,7 @@ public class GCodeInterpreter {
 		nextLine=new GCodeLineData();
 		lastLine=new GCodeLineData();
 		addDefaultHandlers();
+		executingLock=new ReentrantLock();
 	}
 	
 
@@ -186,7 +188,7 @@ public class GCodeInterpreter {
 	 * Nonblocking version of interpretStream(); fails rather than waiting.
 	 */
 
-	public void tryInterpretStream() throws Exception {
+	public void tryInterpretStream(InputStream in) throws Exception {
 		if(executingLock.tryLock()) {
 			try {
 				interpretStream(in);
@@ -194,7 +196,7 @@ public class GCodeInterpreter {
 				executingLock.unlock(); 
 			}
 		} else {
-			throw(new PrinterNotReadyException());
+//			throw(new PrinterNotReadyException());
 		}
 	}
 	
@@ -203,7 +205,7 @@ public class GCodeInterpreter {
 	 * This interrupts the thread that is currently parsing a G-code stream, canceling its execution.
 	 */
 	public boolean cancel() {
-		if(interpretingThread) {
+		if(interpretingThread != null) {
 			interpretingThread.interrupt();
 			return true;
 		}

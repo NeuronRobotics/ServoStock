@@ -54,6 +54,8 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematics{
 	}
 	@Override
 	public Transform forwardKinematics(double[] jointSpaceVector) {
+		if(kinematics == null)
+			return new Transform();
 		return kinematics.delta_calcForward(jointSpaceVector);
 	}
 }

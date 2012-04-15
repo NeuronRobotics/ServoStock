@@ -33,6 +33,7 @@ public class NRPrinter {
 	 * @return
 	 */
 	public boolean print(InputStream gcode) {
+		System.out.println("Printing now.");
 		return getParser().print(gcode);
 	}
 	

@@ -24,7 +24,7 @@ public class PrinterTest implements PrinterStatusListener {
 		File gcode = new File("test.gcode");
 		try {
 			//This is time consuming
-			printer.slice(PrinterTest.class.getResourceAsStream("bottle.stl"),new FileOutputStream(gcode));
+//			printer.slice(PrinterTest.class.getResourceAsStream("bottle.stl"),new FileOutputStream(gcode));
 			//...
 			if(printer.isReady())
 				printer.print(new FileInputStream(gcode));

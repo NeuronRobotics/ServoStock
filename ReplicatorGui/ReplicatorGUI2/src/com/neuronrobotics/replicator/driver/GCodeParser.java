@@ -1,13 +1,13 @@
 package com.neuronrobotics.replicator.driver;
-import com.neuronrobotics.replicator.driver.interpreter;
+import com.neuronrobotics.replicator.driver.interpreter.*;
 import java.io.InputStream;
 import java.util.ArrayList;
-
+import java.util.concurrent.locks.ReentrantLock;
 import com.neuronrobotics.replicator.gui.PrinterStatusListener;
 
 public class GCodeParser {
 	private ArrayList<PrinterStatusListener> listeners = new ArrayList<PrinterStatusListener>();
-	private GenericKinematicsGCodeInterpreter interpreter;
+	private GenericKinematicsGCodeInterpreter interp;
 	DeltaRobotPrinterPrototype device;
 
 	public GCodeParser(DeltaRobotPrinterPrototype device) {
@@ -18,12 +18,14 @@ public class GCodeParser {
 	public boolean print(InputStream gcode) {
 		//this should be a thread that takes the gcode and sends it to the printer
 		interp=new GenericKinematicsGCodeInterpreter(device); // Could reuse.
+		System.out.println("Reached print.");
 		try {
 			interp.tryInterpretStream(gcode);
 			return true;
 		} catch (Exception e) { 
 			// um... this is bad. Ideally, the kinematics methods probably shouldn't through Exception, but we'll just catch it here for now.
 			System.err.println(e);
+			e.printStackTrace();
 		}
 		return false;
 	}
@@ -53,7 +55,8 @@ public class GCodeParser {
 
 	public boolean isReady() {
 		// TODO Auto-generated method stub
-		return false;
+//		return false;
+		return true;
 	}
 	
 }
