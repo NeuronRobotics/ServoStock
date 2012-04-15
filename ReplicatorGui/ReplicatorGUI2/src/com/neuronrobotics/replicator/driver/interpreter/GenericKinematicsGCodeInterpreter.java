@@ -73,7 +73,10 @@ public class GenericKinematicsGCodeInterpreter extends GCodeInterpreter {
 				double secondsAtFeed = t.getOffsetVectorMagnitude(prevt) / next.getWord('F');
 
 				double destination[] = machine.setDesiredTaskSpaceTransform(t,secondsAtFeed);
-				Thread.currentThread().sleep(((long)(secondsAtFeed*1000.0))-200); //Should truncate.
+				
+				long time = ((long)(secondsAtFeed*1000.0))-200;
+				if(time>=0)
+					Thread.currentThread().sleep(time); //Should truncate.
 				// Loop to wait, I guess.
 				waitForMachine(destination, 0.1);
 			}

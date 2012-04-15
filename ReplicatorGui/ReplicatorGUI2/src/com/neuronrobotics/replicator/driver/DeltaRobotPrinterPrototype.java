@@ -2,10 +2,10 @@ package com.neuronrobotics.replicator.driver;
 
 import java.io.InputStream;
 
+import com.neuronrobotics.replicator.driver.delta.DeltaRobotConfig;
+import com.neuronrobotics.replicator.driver.delta.DeltaRobotKinematics;
 import com.neuronrobotics.sdk.addons.kinematics.AbstractKinematics;
 import com.neuronrobotics.sdk.addons.kinematics.LinkFactory;
-import com.neuronrobotics.sdk.addons.kinematics.delta.DeltaRobotConfig;
-import com.neuronrobotics.sdk.addons.kinematics.delta.DeltaRobotKinematics;
 import com.neuronrobotics.sdk.addons.kinematics.math.Transform;
 import com.neuronrobotics.sdk.addons.kinematics.xml.XmlFactory;
 import com.neuronrobotics.sdk.dyio.DyIO;
@@ -19,10 +19,10 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematics{
 	private  double re = 232.0;
 	private  double rf = 112.0;
 	
-	static InputStream s = XmlFactory.getDefaultConfigurationStream("DeltaPrototype.xml");
+	//static InputStream s = XmlFactory.getDefaultConfigurationStream("DeltaPrototype.xml");
 	
 	public DeltaRobotPrinterPrototype(DyIO dyio) {
-		super(s,new LinkFactory( dyio));
+		super(DeltaRobotKinematics.class.getResourceAsStream("DeltaPrototype.xml"),new LinkFactory( dyio));
 		//parse out the extruder configs
 		//parse delta robot configs
 		
