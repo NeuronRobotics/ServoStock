@@ -4,9 +4,12 @@ import com.neuronrobotics.replicator.driver.DeltaRobotPrinterPrototype;
 import com.neuronrobotics.sdk.addons.kinematics.AbstractKinematics;
 import com.neuronrobotics.sdk.addons.kinematics.ITaskSpaceUpdateListener;
 import com.neuronrobotics.sdk.addons.kinematics.TrobotKinematics;
+import com.neuronrobotics.sdk.addons.kinematics.math.Rotation;
 import com.neuronrobotics.sdk.addons.kinematics.math.Transform;
 import com.neuronrobotics.sdk.common.BowlerAbstractConnection;
+import com.neuronrobotics.sdk.common.Log;
 import com.neuronrobotics.sdk.dyio.DyIO;
+import com.neuronrobotics.sdk.serial.SerialConnection;
 import com.neuronrobotics.sdk.ui.ConnectionDialog;
 import com.neuronrobotics.sdk.util.ThreadUtil;
 
@@ -19,7 +22,7 @@ public class DirectControl implements ITaskSpaceUpdateListener {
 		/**
 		 * First create the Bowler device connection
 		 */
-		BowlerAbstractConnection connection = ConnectionDialog.promptConnection();
+		BowlerAbstractConnection connection = new SerialConnection("/dev/DyIO1");
 		DyIO.disableFWCheck();
 		DyIO master = new DyIO(connection);
 		if(!master.connect()){
@@ -30,13 +33,22 @@ public class DirectControl implements ITaskSpaceUpdateListener {
 		
 		model.addPoseUpdateListener(this);
 		
-		DyIO delt = new DyIO(ConnectionDialog.promptConnection());
+		DyIO delt = new DyIO(new SerialConnection("/dev/DyIO0"));
 		delt.connect();
 		delt.enableBrownOutDetect(false);
 		deltaRobot = new DeltaRobotPrinterPrototype(delt);
+		Log.enableDebugPrint(false);
+		deltaRobot.setCurrentPoseTarget(new Transform());
 		while (delt.isAvailable() && master.isAvailable()) {
-			ThreadUtil.wait(100);
-			deltaRobot.setCurrentPoseTarget(current);
+			//ThreadUtil.wait(30);
+			long time = System.currentTimeMillis();
+			try {
+				deltaRobot.setDesiredTaskSpaceTransform(current,0);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("Took "+(System.currentTimeMillis()-time)+"ms");
 		}
 	}
 
@@ -50,7 +62,11 @@ public class DirectControl implements ITaskSpaceUpdateListener {
 
 	@Override
 	public void onTaskSpaceUpdate(AbstractKinematics source, Transform pose) {
-		current = pose;
+		current = new Transform(-pose.getX(),
+				pose.getY(),
+				-pose.getZ(),
+				new Rotation());
+		System.out.println("Current = "+pose);
 	}
 
 	@Override
