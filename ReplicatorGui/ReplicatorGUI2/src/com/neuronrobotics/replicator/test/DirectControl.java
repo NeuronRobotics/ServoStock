@@ -8,10 +8,12 @@ import com.neuronrobotics.sdk.addons.kinematics.math.Transform;
 import com.neuronrobotics.sdk.common.BowlerAbstractConnection;
 import com.neuronrobotics.sdk.dyio.DyIO;
 import com.neuronrobotics.sdk.ui.ConnectionDialog;
+import com.neuronrobotics.sdk.util.ThreadUtil;
 
 public class DirectControl implements ITaskSpaceUpdateListener {
 	TrobotKinematics model;
 	DeltaRobotPrinterPrototype deltaRobot;
+	Transform current = new Transform();
 	public DirectControl() {
 		
 		/**
@@ -32,7 +34,10 @@ public class DirectControl implements ITaskSpaceUpdateListener {
 		delt.connect();
 		delt.enableBrownOutDetect(false);
 		deltaRobot = new DeltaRobotPrinterPrototype(delt);
-		
+		while (delt.isAvailable() && master.isAvailable()) {
+			ThreadUtil.wait(100);
+			deltaRobot.setCurrentPoseTarget(current);
+		}
 	}
 
 	/**
@@ -40,12 +45,12 @@ public class DirectControl implements ITaskSpaceUpdateListener {
 	 */
 	public static void main(String[] args) {
 
-
+		new DirectControl();
 	}
 
 	@Override
 	public void onTaskSpaceUpdate(AbstractKinematics source, Transform pose) {
-		deltaRobot.setCurrentPoseTarget(pose);
+		current = pose;
 	}
 
 	@Override
