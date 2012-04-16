@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import com.neuronrobotics.replicator.gui.PrinterStatusListener;
+import com.neuronrobotics.sdk.common.Log;
 import com.neuronrobotics.sdk.dyio.DyIO;
 
 public class NRPrinter {
@@ -13,6 +14,10 @@ public class NRPrinter {
 	
 	
 	public NRPrinter(DyIO d) {
+		Log.enableDebugPrint(true);
+		//Allow for low voltage power supply
+		d.enableBrownOutDetect(false);
+		
 		device = new DeltaRobotPrinterPrototype(d);
 		setParser(new GCodeParser(device));
 		setSlicer(new StlSlicer(device.getMaterialData()));
