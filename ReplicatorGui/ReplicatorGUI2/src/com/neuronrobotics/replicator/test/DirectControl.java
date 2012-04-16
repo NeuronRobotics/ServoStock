@@ -11,7 +11,7 @@ import com.neuronrobotics.sdk.ui.ConnectionDialog;
 
 public class DirectControl implements ITaskSpaceUpdateListener {
 	TrobotKinematics model;
-	DeltaRobotPrinterPrototype device;
+	DeltaRobotPrinterPrototype deltaRobot;
 	public DirectControl() {
 		
 		/**
@@ -31,7 +31,7 @@ public class DirectControl implements ITaskSpaceUpdateListener {
 		DyIO delt = new DyIO(ConnectionDialog.promptConnection());
 		delt.connect();
 		delt.enableBrownOutDetect(false);
-		device = new DeltaRobotPrinterPrototype(delt);
+		deltaRobot = new DeltaRobotPrinterPrototype(delt);
 		
 	}
 
@@ -45,13 +45,11 @@ public class DirectControl implements ITaskSpaceUpdateListener {
 
 	@Override
 	public void onTaskSpaceUpdate(AbstractKinematics source, Transform pose) {
-		// TODO Auto-generated method stub
-		
+		deltaRobot.setCurrentPoseTarget(pose);
 	}
 
 	@Override
-	public void onTargetTaskSpaceUpdate(AbstractKinematics source,
-			Transform pose) {
+	public void onTargetTaskSpaceUpdate(AbstractKinematics source,Transform pose) {
 		// TODO Auto-generated method stub
 		
 	}
