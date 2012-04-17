@@ -4,13 +4,13 @@ import java.io.InputStream;
 
 import com.neuronrobotics.replicator.driver.delta.DeltaRobotConfig;
 import com.neuronrobotics.replicator.driver.delta.DeltaRobotKinematics;
-import com.neuronrobotics.sdk.addons.kinematics.AbstractKinematics;
+import com.neuronrobotics.sdk.addons.kinematics.AbstractKinematicsNR;
 import com.neuronrobotics.sdk.addons.kinematics.LinkFactory;
-import com.neuronrobotics.sdk.addons.kinematics.math.Transform;
+import com.neuronrobotics.sdk.addons.kinematics.math.TransformNR;
 import com.neuronrobotics.sdk.addons.kinematics.xml.XmlFactory;
 import com.neuronrobotics.sdk.dyio.DyIO;
 
-public class DeltaRobotPrinterPrototype extends AbstractKinematics{
+public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 	DeltaRobotKinematics kinematics;
 	
 	//Configuration hard coded
@@ -40,7 +40,7 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematics{
 	public void setBedTempreture(double bedTemp) {
 		
 	}
-	public double[] setDesiredPrintLocetion(Transform taskSpaceTransform,double extrusionLegnth, double seconds) throws Exception{
+	public double[] setDesiredPrintLocetion(TransformNR taskSpaceTransform,double extrusionLegnth, double seconds) throws Exception{
 		double[] back = super.setDesiredTaskSpaceTransform(taskSpaceTransform, seconds);
 		//Set the extruder value
 		
@@ -49,13 +49,13 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematics{
 	}
 
 	@Override
-	public double[] inverseKinematics(Transform taskSpaceTransform)throws Exception {
+	public double[] inverseKinematics(TransformNR taskSpaceTransform)throws Exception {
 		return kinematics.delta_calcInverse(taskSpaceTransform);
 	}
 	@Override
-	public Transform forwardKinematics(double[] jointSpaceVector) {
+	public TransformNR forwardKinematics(double[] jointSpaceVector) {
 		if(kinematics == null)
-			return new Transform();
+			return new TransformNR();
 		return kinematics.delta_calcForward(jointSpaceVector);
 	}
 }

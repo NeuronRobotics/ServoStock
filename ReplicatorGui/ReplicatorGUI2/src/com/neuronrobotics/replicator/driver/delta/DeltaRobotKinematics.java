@@ -1,7 +1,7 @@
 package com.neuronrobotics.replicator.driver.delta;
 
-import com.neuronrobotics.sdk.addons.kinematics.math.Rotation;
-import com.neuronrobotics.sdk.addons.kinematics.math.Transform;
+import com.neuronrobotics.sdk.addons.kinematics.math.RotationNR;
+import com.neuronrobotics.sdk.addons.kinematics.math.TransformNR;
 
 public class DeltaRobotKinematics {
 	//Sample code from http://forums.trossenrobotics.com/tutorials/introduction-129/delta-robot-kinematics-3276/
@@ -31,7 +31,7 @@ public class DeltaRobotKinematics {
 	 
 	 // forward kinematics: (theta1, theta2, theta3) -> (x0, y0, z0)
 	 // returned status:  CartesianCoordinante=OK, null=non-existing position
-	 public Transform delta_calcForward(double [] input) {
+	 public TransformNR delta_calcForward(double [] input) {
 		 double x0, y0, z0;
 		 double theta1 = input[0];
 		 double theta2 = input[1];
@@ -75,7 +75,7 @@ public class DeltaRobotKinematics {
 	     z0 = -(double)0.5*(b+Math.sqrt(d))/a;
 	     x0 = (a1*z0 + b1)/dnm;
 	     y0 = (a2*z0 + b2)/dnm;
-	     return new Transform(x0, y0, z0, new Rotation());
+	     return new TransformNR(x0, y0, z0, new RotationNR());
 	 }
 	 
 	 // inverse kinematics
@@ -99,7 +99,7 @@ public class DeltaRobotKinematics {
 	 
 	 // inverse kinematics: (x0, y0, z0) -> (theta1, theta2, theta3)
 	 // returned status: 0=OK, -1=non-existing position
-	 public double [] delta_calcInverse(Transform input ) {
+	 public double [] delta_calcInverse(TransformNR input ) {
 		 double theta1, theta2,  theta3;
 		 double x0 = input.getX();
 		 double y0 = input.getY();

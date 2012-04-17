@@ -1,15 +1,15 @@
 package com.neuronrobotics.replicator.driver.interpreter;
-import com.neuronrobotics.sdk.addons.kinematics.AbstractKinematics;
-import com.neuronrobotics.sdk.addons.kinematics.GenericKinematicsModel;
-import com.neuronrobotics.sdk.addons.kinematics.math.Transform;
-import com.neuronrobotics.sdk.addons.kinematics.math.Rotation;
+import com.neuronrobotics.sdk.addons.kinematics.AbstractKinematicsNR;
+import com.neuronrobotics.sdk.addons.kinematics.GenericKinematicsModelNR;
+import com.neuronrobotics.sdk.addons.kinematics.math.TransformNR;
+import com.neuronrobotics.sdk.addons.kinematics.math.RotationNR;
 
 /** 
  * A G-code interpreter for a generic AbstractKinematics object.
  * Has default implementations for G00 and G01 linear motion. Does not support rotational positions of end effector.
  */
 public class GenericKinematicsGCodeInterpreter extends GCodeInterpreter {
-	AbstractKinematics machine;
+	AbstractKinematicsNR machine;
 
 
 	/** 
@@ -17,7 +17,7 @@ public class GenericKinematicsGCodeInterpreter extends GCodeInterpreter {
 	 * 
 	 * @param m the kinematics object to drive.
 	 */
-	public GenericKinematicsGCodeInterpreter(AbstractKinematics m) {
+	public GenericKinematicsGCodeInterpreter(AbstractKinematicsNR m) {
 		super();
 		machine=m; // Okay, checked, member fields of the enclosing class do get updates visible to the inner class.
 	}
@@ -57,7 +57,7 @@ public class GenericKinematicsGCodeInterpreter extends GCodeInterpreter {
 		//G0 - no handler.
 		addGHandler(0, new CodeHandler() {
 			public void execute(GCodeLineData prev, GCodeLineData next) throws Exception {
-				Transform t = new Transform(next.getWord('X'), next.getWord('Y'), next.getWord('Z'), new Rotation());
+				TransformNR t = new TransformNR(next.getWord('X'), next.getWord('Y'), next.getWord('Z'), new RotationNR());
 				double destination[] = machine.setDesiredTaskSpaceTransform(t,0.0);
 				// Loop to wait, I guess.
 				waitForMachine(destination, 10);
@@ -68,8 +68,8 @@ public class GenericKinematicsGCodeInterpreter extends GCodeInterpreter {
 			public void execute(GCodeLineData prev, GCodeLineData next) throws Exception {
 				// This is basically garbage and assumes that linear motion in cartesian space maps to linear motion in joint space. Interpolation would be vastly preferred.
 
-				Transform t = new Transform(next.getWord('X'), next.getWord('Y'), next.getWord('Z'), new Rotation());
-				Transform prevt = new Transform(prev.getWord('X'), prev.getWord('Y'), prev.getWord('Z'), new Rotation());
+				TransformNR t = new TransformNR(next.getWord('X'), next.getWord('Y'), next.getWord('Z'), new RotationNR());
+				TransformNR prevt = new TransformNR(prev.getWord('X'), prev.getWord('Y'), prev.getWord('Z'), new RotationNR());
 				double secondsAtFeed = t.getOffsetVectorMagnitude(prevt) / next.getWord('F');
 
 				double destination[] = machine.setDesiredTaskSpaceTransform(t,secondsAtFeed);
@@ -84,7 +84,7 @@ public class GenericKinematicsGCodeInterpreter extends GCodeInterpreter {
 	}
 
 	public static void main(String args[]) throws Exception {
-		AbstractKinematics kin = new GenericKinematicsModel();
+		AbstractKinematicsNR kin = new GenericKinematicsModelNR();
 		GenericKinematicsGCodeInterpreter interp = new GenericKinematicsGCodeInterpreter(kin);
 		interp.interpretStream(System.in);
 	}
