@@ -12,6 +12,7 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR {
 	TrobotKinematics model;
 	DeltaRobotPrinterPrototype deltaRobot;
 	TransformNR current = new TransformNR();
+	double scale=.75;
 	public DirectControl() {
 		DyIO.disableFWCheck();
 		DyIO master = new DyIO(new SerialConnection("/dev/DyIO1"));
@@ -34,15 +35,15 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			System.out.println("Took "+(System.currentTimeMillis()-time)+"ms");
+			//System.out.println("Took "+(System.currentTimeMillis()-time)+"ms");
 		}
 	}
 	public static void main(String[] args) {
 		new DirectControl();
 	}
 	public void onTaskSpaceUpdate(AbstractKinematicsNR source, TransformNR pose) {
-		current = new TransformNR(-pose.getX(),pose.getY(),-pose.getZ(),new RotationNR());
-		//System.out.println("Current = "+pose);
+		current = new TransformNR(-pose.getX()*scale,pose.getY()*scale,-pose.getZ()*scale,new RotationNR());
+		System.out.println("Current = "+pose);
 	}
 	public void onTargetTaskSpaceUpdate(AbstractKinematicsNR source,TransformNR pose) {}
 }
