@@ -16,7 +16,8 @@ public class NRPrinter {
 	public NRPrinter(DyIO d) {
 		Log.enableDebugPrint(true);
 		//Allow for low voltage power supply
-		d.enableBrownOutDetect(false);
+		if(d!=null)
+			d.enableBrownOutDetect(false);
 		
 		device = new DeltaRobotPrinterPrototype(d);
 		setParser(new GCodeParser(device));
