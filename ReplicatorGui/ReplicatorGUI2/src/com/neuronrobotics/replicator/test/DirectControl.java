@@ -54,7 +54,7 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR {
 				tabs.add("Display [ERROR]",error);
 				ex.printStackTrace();
 			}
-			frame.pack();
+			
 			frame.setLocationRelativeTo(null);
 			zero();
 			
@@ -64,6 +64,7 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR {
 			frame.getContentPane().add(tabs);
 			//frame.setSize(640, 480);
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frame.pack();
 			frame.setLocationRelativeTo(null);
 			frame.setVisible(true);
 			
@@ -75,7 +76,7 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR {
 		while (delt.isAvailable() && master.isAvailable()) {
 			long time = System.currentTimeMillis();
 			try {
-				deltaRobot.setDesiredTaskSpaceTransform(current,0);
+				deltaRobot.setDesiredTaskSpaceTransform(current,.1);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -96,7 +97,7 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR {
 		new DirectControl();
 	}
 	public void onTaskSpaceUpdate(AbstractKinematicsNR source, TransformNR pose) {
-		current = new TransformNR(-pose.getX()*scale,pose.getY()*scale,-pose.getZ()*scale,new RotationNR());
+		current = new TransformNR(pose.getX()*scale,pose.getY()*scale,-pose.getZ()*scale,new RotationNR());
 		//System.out.println("Current = "+pose);
 	}
 	public void onTargetTaskSpaceUpdate(AbstractKinematicsNR source,TransformNR pose) {}
