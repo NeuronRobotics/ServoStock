@@ -21155,6 +21155,8 @@ Source: www.tycoelectronics.com .. ENG_DS_1654001_1099_RJ_L_0507.pdf</descriptio
 <junction x="-81.28" y="15.24"/>
 <pinref part="SUPPLY42" gate="G$1" pin="DGND"/>
 <junction x="-73.66" y="15.24"/>
+<pinref part="C29" gate="G$1" pin="1"/>
+<wire x1="-116.84" y1="10.16" x2="-116.84" y2="15.24" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="R44" gate="G$1" pin="1"/>
@@ -22462,12 +22464,6 @@ Source: www.tycoelectronics.com .. ENG_DS_1654001_1099_RJ_L_0507.pdf</descriptio
 <label x="40.64" y="-38.1" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="N$22" class="0">
-<segment>
-<pinref part="C29" gate="G$1" pin="1"/>
-<wire x1="-116.84" y1="15.24" x2="-116.84" y2="10.16" width="0.1524" layer="91"/>
-</segment>
-</net>
 <net name="5V" class="0">
 <segment>
 <wire x1="256.54" y1="-210.82" x2="256.54" y2="-208.28" width="0.1524" layer="91"/>
@@ -22508,6 +22504,18 @@ Source: www.tycoelectronics.com .. ENG_DS_1654001_1099_RJ_L_0507.pdf</descriptio
 <wire x1="274.32" y1="-213.36" x2="281.94" y2="-213.36" width="0.1524" layer="91"/>
 <pinref part="C33" gate="G$1" pin="1"/>
 <pinref part="U18" gate="G$1" pin="BYPASS"/>
+</segment>
+</net>
+<net name="ETXEN" class="0">
+<segment>
+<pinref part="R27" gate="G$1" pin="1"/>
+<wire x1="-127" y1="86.36" x2="-160.02" y2="86.36" width="0.1524" layer="91"/>
+<label x="-154.94" y="86.36" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="IC1" gate="PA" pin="AETXEN/SDA1/INT4/RA15"/>
+<wire x1="-63.5" y1="-53.34" x2="-48.26" y2="-53.34" width="0.1524" layer="91"/>
+<label x="-60.96" y="-53.34" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>

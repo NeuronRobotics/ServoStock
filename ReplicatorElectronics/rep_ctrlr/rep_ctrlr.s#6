@@ -8345,6 +8345,8 @@ Source: http://www.linear.com/pc/downloadDocument.do?navId=H0,C3,P2222,D3148</de
 <text x="609.6" y="40.64" size="1.778" layer="91">ASSUMING 10K THERMISTOR</text>
 <text x="617.22" y="-104.14" size="1.778" layer="91">ASSUMING 10K THERMISTOR</text>
 <text x="142.24" y="27.94" size="1.778" layer="91">LIKELY CHOICE</text>
+<text x="-53.34" y="-152.4" size="1.778" layer="91">EXT OSCILLATOR?</text>
+<text x="-48.26" y="-88.9" size="1.778" layer="91">NEED PROGRAMMING HDR</text>
 </plain>
 <instances>
 <instance part="IC1" gate="MISC" x="104.14" y="-111.76"/>
@@ -9591,14 +9593,10 @@ Source: http://www.linear.com/pc/downloadDocument.do?navId=H0,C3,P2222,D3148</de
 <wire x1="871.22" y1="-27.94" x2="871.22" y2="-22.86" width="0.1524" layer="91"/>
 <pinref part="J6" gate="G$1" pin="12"/>
 <wire x1="848.36" y1="-22.86" x2="861.06" y2="-22.86" width="0.1524" layer="91"/>
-<pinref part="J6" gate="G$1" pin="8"/>
 <wire x1="861.06" y1="-22.86" x2="871.22" y2="-22.86" width="0.1524" layer="91"/>
-<wire x1="848.36" y1="-12.7" x2="861.06" y2="-12.7" width="0.1524" layer="91"/>
 <pinref part="J6" gate="G$1" pin="10"/>
 <wire x1="848.36" y1="-17.78" x2="861.06" y2="-17.78" width="0.1524" layer="91"/>
-<wire x1="861.06" y1="-12.7" x2="861.06" y2="-17.78" width="0.1524" layer="91"/>
 <wire x1="861.06" y1="-17.78" x2="861.06" y2="-22.86" width="0.1524" layer="91"/>
-<junction x="861.06" y="-17.78"/>
 <junction x="861.06" y="-22.86"/>
 </segment>
 <segment>
@@ -9626,14 +9624,10 @@ Source: http://www.linear.com/pc/downloadDocument.do?navId=H0,C3,P2222,D3148</de
 <wire x1="871.22" y1="-162.56" x2="871.22" y2="-157.48" width="0.1524" layer="91"/>
 <pinref part="J7" gate="G$1" pin="12"/>
 <wire x1="848.36" y1="-157.48" x2="861.06" y2="-157.48" width="0.1524" layer="91"/>
-<pinref part="J7" gate="G$1" pin="8"/>
 <wire x1="861.06" y1="-157.48" x2="871.22" y2="-157.48" width="0.1524" layer="91"/>
-<wire x1="848.36" y1="-147.32" x2="861.06" y2="-147.32" width="0.1524" layer="91"/>
 <pinref part="J7" gate="G$1" pin="10"/>
 <wire x1="848.36" y1="-152.4" x2="861.06" y2="-152.4" width="0.1524" layer="91"/>
-<wire x1="861.06" y1="-147.32" x2="861.06" y2="-152.4" width="0.1524" layer="91"/>
 <wire x1="861.06" y1="-152.4" x2="861.06" y2="-157.48" width="0.1524" layer="91"/>
-<junction x="861.06" y="-152.4"/>
 <junction x="861.06" y="-157.48"/>
 </segment>
 <segment>
@@ -9661,14 +9655,10 @@ Source: http://www.linear.com/pc/downloadDocument.do?navId=H0,C3,P2222,D3148</de
 <wire x1="662.94" y1="-20.32" x2="662.94" y2="-15.24" width="0.1524" layer="91"/>
 <pinref part="J9" gate="G$1" pin="12"/>
 <wire x1="640.08" y1="-15.24" x2="652.78" y2="-15.24" width="0.1524" layer="91"/>
-<pinref part="J9" gate="G$1" pin="8"/>
 <wire x1="652.78" y1="-15.24" x2="662.94" y2="-15.24" width="0.1524" layer="91"/>
-<wire x1="640.08" y1="-5.08" x2="652.78" y2="-5.08" width="0.1524" layer="91"/>
 <pinref part="J9" gate="G$1" pin="10"/>
 <wire x1="640.08" y1="-10.16" x2="652.78" y2="-10.16" width="0.1524" layer="91"/>
-<wire x1="652.78" y1="-5.08" x2="652.78" y2="-10.16" width="0.1524" layer="91"/>
 <wire x1="652.78" y1="-10.16" x2="652.78" y2="-15.24" width="0.1524" layer="91"/>
-<junction x="652.78" y="-10.16"/>
 <junction x="652.78" y="-15.24"/>
 </segment>
 <segment>
@@ -9696,14 +9686,10 @@ Source: http://www.linear.com/pc/downloadDocument.do?navId=H0,C3,P2222,D3148</de
 <wire x1="670.56" y1="-165.1" x2="670.56" y2="-160.02" width="0.1524" layer="91"/>
 <pinref part="J11" gate="G$1" pin="12"/>
 <wire x1="647.7" y1="-160.02" x2="660.4" y2="-160.02" width="0.1524" layer="91"/>
-<pinref part="J11" gate="G$1" pin="8"/>
 <wire x1="660.4" y1="-160.02" x2="670.56" y2="-160.02" width="0.1524" layer="91"/>
-<wire x1="647.7" y1="-149.86" x2="660.4" y2="-149.86" width="0.1524" layer="91"/>
 <pinref part="J11" gate="G$1" pin="10"/>
 <wire x1="647.7" y1="-154.94" x2="660.4" y2="-154.94" width="0.1524" layer="91"/>
-<wire x1="660.4" y1="-149.86" x2="660.4" y2="-154.94" width="0.1524" layer="91"/>
 <wire x1="660.4" y1="-154.94" x2="660.4" y2="-160.02" width="0.1524" layer="91"/>
-<junction x="660.4" y="-154.94"/>
 <junction x="660.4" y="-160.02"/>
 </segment>
 <segment>
@@ -9711,14 +9697,10 @@ Source: http://www.linear.com/pc/downloadDocument.do?navId=H0,C3,P2222,D3148</de
 <wire x1="601.98" y1="-248.92" x2="601.98" y2="-243.84" width="0.1524" layer="91"/>
 <pinref part="J12" gate="G$1" pin="12"/>
 <wire x1="579.12" y1="-243.84" x2="591.82" y2="-243.84" width="0.1524" layer="91"/>
-<pinref part="J12" gate="G$1" pin="8"/>
 <wire x1="591.82" y1="-243.84" x2="601.98" y2="-243.84" width="0.1524" layer="91"/>
-<wire x1="579.12" y1="-233.68" x2="591.82" y2="-233.68" width="0.1524" layer="91"/>
 <pinref part="J12" gate="G$1" pin="10"/>
 <wire x1="579.12" y1="-238.76" x2="591.82" y2="-238.76" width="0.1524" layer="91"/>
-<wire x1="591.82" y1="-233.68" x2="591.82" y2="-238.76" width="0.1524" layer="91"/>
 <wire x1="591.82" y1="-238.76" x2="591.82" y2="-243.84" width="0.1524" layer="91"/>
-<junction x="591.82" y="-238.76"/>
 <junction x="591.82" y="-243.84"/>
 </segment>
 <segment>
@@ -9726,14 +9708,10 @@ Source: http://www.linear.com/pc/downloadDocument.do?navId=H0,C3,P2222,D3148</de
 <wire x1="713.74" y1="-251.46" x2="713.74" y2="-246.38" width="0.1524" layer="91"/>
 <pinref part="J13" gate="G$1" pin="12"/>
 <wire x1="690.88" y1="-246.38" x2="703.58" y2="-246.38" width="0.1524" layer="91"/>
-<pinref part="J13" gate="G$1" pin="8"/>
 <wire x1="703.58" y1="-246.38" x2="713.74" y2="-246.38" width="0.1524" layer="91"/>
-<wire x1="690.88" y1="-236.22" x2="703.58" y2="-236.22" width="0.1524" layer="91"/>
 <pinref part="J13" gate="G$1" pin="10"/>
 <wire x1="690.88" y1="-241.3" x2="703.58" y2="-241.3" width="0.1524" layer="91"/>
-<wire x1="703.58" y1="-236.22" x2="703.58" y2="-241.3" width="0.1524" layer="91"/>
 <wire x1="703.58" y1="-241.3" x2="703.58" y2="-246.38" width="0.1524" layer="91"/>
-<junction x="703.58" y="-241.3"/>
 <junction x="703.58" y="-246.38"/>
 </segment>
 <segment>
@@ -9741,14 +9719,10 @@ Source: http://www.linear.com/pc/downloadDocument.do?navId=H0,C3,P2222,D3148</de
 <wire x1="822.96" y1="-254" x2="822.96" y2="-248.92" width="0.1524" layer="91"/>
 <pinref part="J14" gate="G$1" pin="12"/>
 <wire x1="800.1" y1="-248.92" x2="812.8" y2="-248.92" width="0.1524" layer="91"/>
-<pinref part="J14" gate="G$1" pin="8"/>
 <wire x1="812.8" y1="-248.92" x2="822.96" y2="-248.92" width="0.1524" layer="91"/>
-<wire x1="800.1" y1="-238.76" x2="812.8" y2="-238.76" width="0.1524" layer="91"/>
 <pinref part="J14" gate="G$1" pin="10"/>
 <wire x1="800.1" y1="-243.84" x2="812.8" y2="-243.84" width="0.1524" layer="91"/>
-<wire x1="812.8" y1="-238.76" x2="812.8" y2="-243.84" width="0.1524" layer="91"/>
 <wire x1="812.8" y1="-243.84" x2="812.8" y2="-248.92" width="0.1524" layer="91"/>
-<junction x="812.8" y="-243.84"/>
 <junction x="812.8" y="-248.92"/>
 </segment>
 <segment>
@@ -9756,14 +9730,10 @@ Source: http://www.linear.com/pc/downloadDocument.do?navId=H0,C3,P2222,D3148</de
 <wire x1="927.1" y1="-256.54" x2="927.1" y2="-251.46" width="0.1524" layer="91"/>
 <pinref part="J15" gate="G$1" pin="12"/>
 <wire x1="904.24" y1="-251.46" x2="916.94" y2="-251.46" width="0.1524" layer="91"/>
-<pinref part="J15" gate="G$1" pin="8"/>
 <wire x1="916.94" y1="-251.46" x2="927.1" y2="-251.46" width="0.1524" layer="91"/>
-<wire x1="904.24" y1="-241.3" x2="916.94" y2="-241.3" width="0.1524" layer="91"/>
 <pinref part="J15" gate="G$1" pin="10"/>
 <wire x1="904.24" y1="-246.38" x2="916.94" y2="-246.38" width="0.1524" layer="91"/>
-<wire x1="916.94" y1="-241.3" x2="916.94" y2="-246.38" width="0.1524" layer="91"/>
 <wire x1="916.94" y1="-246.38" x2="916.94" y2="-251.46" width="0.1524" layer="91"/>
-<junction x="916.94" y="-246.38"/>
 <junction x="916.94" y="-251.46"/>
 </segment>
 </net>
@@ -9972,9 +9942,9 @@ Source: http://www.linear.com/pc/downloadDocument.do?navId=H0,C3,P2222,D3148</de
 <label x="264.16" y="-88.9" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="IC1" gate="PB" pin="PGEC2/AN6/OCFA/RB6"/>
-<wire x1="-63.5" y1="-88.9" x2="-48.26" y2="-88.9" width="0.1524" layer="91"/>
-<label x="-60.96" y="-88.9" size="1.778" layer="95"/>
+<pinref part="IC1" gate="PB" pin="AN8/C1OUT/RB8"/>
+<wire x1="-63.5" y1="-93.98" x2="-48.26" y2="-93.98" width="0.1524" layer="91"/>
+<label x="-60.96" y="-93.98" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="Y-" class="0">
@@ -9984,9 +9954,9 @@ Source: http://www.linear.com/pc/downloadDocument.do?navId=H0,C3,P2222,D3148</de
 <label x="264.16" y="-91.44" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="IC1" gate="PB" pin="PGED2/AN7/RB7"/>
-<wire x1="-63.5" y1="-91.44" x2="-48.26" y2="-91.44" width="0.1524" layer="91"/>
-<label x="-60.96" y="-91.44" size="1.778" layer="95"/>
+<pinref part="IC1" gate="PB" pin="AN9/C2OUT/RB9"/>
+<wire x1="-63.5" y1="-96.52" x2="-48.26" y2="-96.52" width="0.1524" layer="91"/>
+<label x="-60.96" y="-96.52" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="A0" class="0">
@@ -10161,9 +10131,9 @@ Source: http://www.linear.com/pc/downloadDocument.do?navId=H0,C3,P2222,D3148</de
 <label x="261.62" y="-76.2" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="IC1" gate="PB" pin="AN8/C1OUT/RB8"/>
-<wire x1="-63.5" y1="-93.98" x2="-48.26" y2="-93.98" width="0.1524" layer="91"/>
-<label x="-60.96" y="-93.98" size="1.778" layer="95"/>
+<pinref part="IC1" gate="PC" pin="T2CK/RC1"/>
+<wire x1="-63.5" y1="-132.08" x2="-48.26" y2="-132.08" width="0.1524" layer="91"/>
+<label x="-60.96" y="-132.08" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="LCD_RD" class="0">
@@ -10173,9 +10143,9 @@ Source: http://www.linear.com/pc/downloadDocument.do?navId=H0,C3,P2222,D3148</de
 <label x="261.62" y="-78.74" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="IC1" gate="PB" pin="AN9/C2OUT/RB9"/>
-<wire x1="-63.5" y1="-96.52" x2="-48.26" y2="-96.52" width="0.1524" layer="91"/>
-<label x="-60.96" y="-96.52" size="1.778" layer="95"/>
+<pinref part="IC1" gate="PC" pin="T3CK/AC2TX/RC2"/>
+<wire x1="-63.5" y1="-134.62" x2="-48.26" y2="-134.62" width="0.1524" layer="91"/>
+<label x="-60.96" y="-134.62" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="LCD_RST" class="0">
@@ -10220,30 +10190,48 @@ Source: http://www.linear.com/pc/downloadDocument.do?navId=H0,C3,P2222,D3148</de
 </net>
 <net name="SERVO0" class="0">
 <segment>
-<pinref part="IC1" gate="PA" pin="VREF-/CVREF-/AERXD2/PMA7/RA9"/>
-<wire x1="-63.5" y1="-45.72" x2="-48.26" y2="-45.72" width="0.1524" layer="91"/>
-<label x="-60.96" y="-45.72" size="1.778" layer="95"/>
+<pinref part="IC1" gate="PC" pin="SOSCI/CN1/RC13"/>
+<wire x1="-63.5" y1="-144.78" x2="-48.26" y2="-144.78" width="0.1524" layer="91"/>
+<label x="-60.96" y="-144.78" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="J9" gate="G$1" pin="8"/>
+<wire x1="640.08" y1="-5.08" x2="652.78" y2="-5.08" width="0.1524" layer="91"/>
+<label x="642.62" y="-5.08" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="SERVO1" class="0">
 <segment>
-<pinref part="IC1" gate="PA" pin="VREF+/CVREF+/AERXD3/PMA6/RA10"/>
-<wire x1="-63.5" y1="-48.26" x2="-48.26" y2="-48.26" width="0.1524" layer="91"/>
-<label x="-60.96" y="-48.26" size="1.778" layer="95"/>
+<pinref part="IC1" gate="PC" pin="SOSCO/T1CK/CN0/RC14"/>
+<wire x1="-63.5" y1="-147.32" x2="-48.26" y2="-147.32" width="0.1524" layer="91"/>
+<label x="-60.96" y="-147.32" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="J6" gate="G$1" pin="8"/>
+<wire x1="848.36" y1="-12.7" x2="861.06" y2="-12.7" width="0.1524" layer="91"/>
+<label x="850.9" y="-12.7" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="SERVO2" class="0">
 <segment>
-<pinref part="IC1" gate="PA" pin="AETXCLK/SCL1/INT3/RA14"/>
-<wire x1="-63.5" y1="-50.8" x2="-48.26" y2="-50.8" width="0.1524" layer="91"/>
-<label x="-60.96" y="-50.8" size="1.778" layer="95"/>
+<pinref part="IC1" gate="PF" pin="SDA1A/SDI1A/U1ARX/RF2"/>
+<wire x1="38.1" y1="-124.46" x2="50.8" y2="-124.46" width="0.1524" layer="91"/>
+<label x="40.64" y="-124.46" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="J11" gate="G$1" pin="8"/>
+<wire x1="647.7" y1="-149.86" x2="660.4" y2="-149.86" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="SERVO3" class="0">
 <segment>
-<pinref part="IC1" gate="PA" pin="AETXEN/SDA1/INT4/RA15"/>
-<wire x1="-63.5" y1="-53.34" x2="-48.26" y2="-53.34" width="0.1524" layer="91"/>
-<label x="-60.96" y="-53.34" size="1.778" layer="95"/>
+<pinref part="IC1" gate="PF" pin="SCL1A/SDO1A/U1ATX/RF8"/>
+<wire x1="38.1" y1="-134.62" x2="50.8" y2="-134.62" width="0.1524" layer="91"/>
+<label x="40.64" y="-134.62" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="J7" gate="G$1" pin="8"/>
+<wire x1="848.36" y1="-147.32" x2="861.06" y2="-147.32" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="SERVO4" class="0">
@@ -10252,12 +10240,20 @@ Source: http://www.linear.com/pc/downloadDocument.do?navId=H0,C3,P2222,D3148</de
 <wire x1="38.1" y1="-27.94" x2="50.8" y2="-27.94" width="0.1524" layer="91"/>
 <label x="40.64" y="-27.94" size="1.778" layer="95"/>
 </segment>
+<segment>
+<pinref part="J12" gate="G$1" pin="8"/>
+<wire x1="579.12" y1="-233.68" x2="591.82" y2="-233.68" width="0.1524" layer="91"/>
+</segment>
 </net>
 <net name="SERVO5" class="0">
 <segment>
 <pinref part="IC1" gate="PD" pin="OC3/RD2"/>
 <wire x1="38.1" y1="-30.48" x2="50.8" y2="-30.48" width="0.1524" layer="91"/>
 <label x="40.64" y="-30.48" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="J13" gate="G$1" pin="8"/>
+<wire x1="690.88" y1="-236.22" x2="703.58" y2="-236.22" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="SERVO6" class="0">
@@ -10266,12 +10262,20 @@ Source: http://www.linear.com/pc/downloadDocument.do?navId=H0,C3,P2222,D3148</de
 <wire x1="38.1" y1="-33.02" x2="50.8" y2="-33.02" width="0.1524" layer="91"/>
 <label x="40.64" y="-33.02" size="1.778" layer="95"/>
 </segment>
+<segment>
+<pinref part="J14" gate="G$1" pin="8"/>
+<wire x1="800.1" y1="-238.76" x2="812.8" y2="-238.76" width="0.1524" layer="91"/>
+</segment>
 </net>
 <net name="SERVO7" class="0">
 <segment>
 <pinref part="IC1" gate="PD" pin="OC5/PMWR/CN13/RD4"/>
 <wire x1="38.1" y1="-35.56" x2="50.8" y2="-35.56" width="0.1524" layer="91"/>
 <label x="40.64" y="-35.56" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="J15" gate="G$1" pin="8"/>
+<wire x1="904.24" y1="-241.3" x2="916.94" y2="-241.3" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$9" class="0">
@@ -10360,6 +10364,7 @@ Source: http://www.linear.com/pc/downloadDocument.do?navId=H0,C3,P2222,D3148</de
 <segment>
 <pinref part="J6" gate="G$1" pin="14"/>
 <wire x1="848.36" y1="-27.94" x2="861.06" y2="-27.94" width="0.1524" layer="91"/>
+<label x="853.44" y="-27.94" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="J1" gate="G$1" pin="3.3V@0"/>
@@ -10378,6 +10383,41 @@ Source: http://www.linear.com/pc/downloadDocument.do?navId=H0,C3,P2222,D3148</de
 <wire x1="269.24" y1="66.04" x2="269.24" y2="68.58" width="0.1524" layer="91"/>
 <junction x="269.24" y="68.58"/>
 <label x="266.7" y="73.66" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="J12" gate="G$1" pin="14"/>
+<wire x1="579.12" y1="-248.92" x2="591.82" y2="-248.92" width="0.1524" layer="91"/>
+<label x="584.2" y="-248.92" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="J13" gate="G$1" pin="14"/>
+<wire x1="690.88" y1="-251.46" x2="703.58" y2="-251.46" width="0.1524" layer="91"/>
+<label x="695.96" y="-251.46" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="J14" gate="G$1" pin="14"/>
+<wire x1="800.1" y1="-254" x2="812.8" y2="-254" width="0.1524" layer="91"/>
+<label x="805.18" y="-254" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="J15" gate="G$1" pin="14"/>
+<wire x1="904.24" y1="-256.54" x2="916.94" y2="-256.54" width="0.1524" layer="91"/>
+<label x="906.78" y="-256.54" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="J7" gate="G$1" pin="14"/>
+<wire x1="848.36" y1="-162.56" x2="861.06" y2="-162.56" width="0.1524" layer="91"/>
+<label x="853.44" y="-162.56" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="J11" gate="G$1" pin="14"/>
+<wire x1="647.7" y1="-165.1" x2="660.4" y2="-165.1" width="0.1524" layer="91"/>
+<label x="652.78" y="-165.1" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="J9" gate="G$1" pin="14"/>
+<wire x1="640.08" y1="-20.32" x2="652.78" y2="-20.32" width="0.1524" layer="91"/>
+<label x="642.62" y="-20.32" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="SD_SP_MISO" class="0">
@@ -10465,12 +10505,6 @@ Source: http://www.linear.com/pc/downloadDocument.do?navId=H0,C3,P2222,D3148</de
 <pinref part="C13" gate="G$1" pin="1"/>
 </segment>
 </net>
-<net name="ENC_3_3V1" class="0">
-<segment>
-<pinref part="J7" gate="G$1" pin="14"/>
-<wire x1="848.36" y1="-162.56" x2="861.06" y2="-162.56" width="0.1524" layer="91"/>
-</segment>
-</net>
 <net name="N$16" class="0">
 <segment>
 <pinref part="J8" gate="G$1" pin="9"/>
@@ -10503,12 +10537,6 @@ Source: http://www.linear.com/pc/downloadDocument.do?navId=H0,C3,P2222,D3148</de
 <junction x="551.18" y="86.36"/>
 <pinref part="R21" gate="G$1" pin="1"/>
 <pinref part="C15" gate="G$1" pin="1"/>
-</segment>
-</net>
-<net name="ENC_3_3V2" class="0">
-<segment>
-<pinref part="J9" gate="G$1" pin="14"/>
-<wire x1="640.08" y1="-20.32" x2="652.78" y2="-20.32" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$19" class="0">
@@ -10545,34 +10573,18 @@ Source: http://www.linear.com/pc/downloadDocument.do?navId=H0,C3,P2222,D3148</de
 <pinref part="C17" gate="G$1" pin="1"/>
 </segment>
 </net>
-<net name="ENC_3_3V3" class="0">
+<net name="PGEC" class="0">
 <segment>
-<pinref part="J11" gate="G$1" pin="14"/>
-<wire x1="647.7" y1="-165.1" x2="660.4" y2="-165.1" width="0.1524" layer="91"/>
+<pinref part="IC1" gate="PB" pin="PGEC2/AN6/OCFA/RB6"/>
+<wire x1="-63.5" y1="-88.9" x2="-48.26" y2="-88.9" width="0.1524" layer="91"/>
+<label x="-60.96" y="-88.9" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="ENC_3_3V4" class="0">
+<net name="PGED" class="0">
 <segment>
-<pinref part="J12" gate="G$1" pin="14"/>
-<wire x1="579.12" y1="-248.92" x2="591.82" y2="-248.92" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="ENC_3_3V5" class="0">
-<segment>
-<pinref part="J13" gate="G$1" pin="14"/>
-<wire x1="690.88" y1="-251.46" x2="703.58" y2="-251.46" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="ENC_3_3V6" class="0">
-<segment>
-<pinref part="J14" gate="G$1" pin="14"/>
-<wire x1="800.1" y1="-254" x2="812.8" y2="-254" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="ENC_3_3V7" class="0">
-<segment>
-<pinref part="J15" gate="G$1" pin="14"/>
-<wire x1="904.24" y1="-256.54" x2="916.94" y2="-256.54" width="0.1524" layer="91"/>
+<pinref part="IC1" gate="PB" pin="PGED2/AN7/RB7"/>
+<wire x1="-63.5" y1="-91.44" x2="-48.26" y2="-91.44" width="0.1524" layer="91"/>
+<label x="-60.96" y="-91.44" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
