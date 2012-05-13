@@ -7,11 +7,11 @@ import javax.swing.JTabbedPane;
 import net.miginfocom.swing.MigLayout;
 
 import com.neuronrobotics.replicator.driver.DeltaRobotPrinterPrototype;
-import com.neuronrobotics.replicator.test.trobot.TrobotViewer;
 import com.neuronrobotics.sdk.addons.kinematics.AbstractKinematicsNR;
 import com.neuronrobotics.sdk.addons.kinematics.ITaskSpaceUpdateListenerNR;
 import com.neuronrobotics.sdk.addons.kinematics.TrobotKinematics;
 import com.neuronrobotics.sdk.addons.kinematics.gui.SampleGuiNR;
+import com.neuronrobotics.sdk.addons.kinematics.gui.TrobotViewer;
 import com.neuronrobotics.sdk.addons.kinematics.math.RotationNR;
 import com.neuronrobotics.sdk.addons.kinematics.math.TransformNR;
 import com.neuronrobotics.sdk.common.Log;
