@@ -72,10 +72,55 @@
 <pad name="13" x="0" y="-15.24" drill="0.9906" shape="octagon"/>
 <pad name="14" x="2.54" y="-15.24" drill="0.9906" shape="octagon"/>
 <wire x1="-3.302" y1="5.08" x2="5.842" y2="5.08" width="0.127" layer="25"/>
-<wire x1="5.842" y1="5.08" x2="5.842" y2="-20.32" width="0.127" layer="25"/>
-<wire x1="5.842" y1="-20.32" x2="-3.302" y2="-20.32" width="0.127" layer="25"/>
-<wire x1="-3.302" y1="-20.32" x2="-3.302" y2="5.08" width="0.127" layer="25"/>
-<text x="-1.778" y="5.588" size="1.27" layer="21">&gt;NAME</text>
+<wire x1="5.842" y1="5.08" x2="5.842" y2="-35.56" width="0.127" layer="25"/>
+<wire x1="5.842" y1="-35.56" x2="-3.302" y2="-35.56" width="0.127" layer="25"/>
+<wire x1="-3.302" y1="-35.56" x2="-3.302" y2="5.08" width="0.127" layer="25"/>
+<pad name="15" x="0" y="-17.78" drill="0.9906" shape="octagon"/>
+<pad name="16" x="2.54" y="-17.78" drill="0.9906" shape="octagon"/>
+<pad name="17" x="0" y="-20.32" drill="0.9906" shape="octagon"/>
+<pad name="18" x="2.54" y="-20.32" drill="0.9906" shape="octagon"/>
+<pad name="19" x="0" y="-22.86" drill="0.9906" shape="octagon"/>
+<pad name="20" x="2.54" y="-22.86" drill="0.9906" shape="octagon"/>
+<pad name="21" x="0" y="-25.4" drill="0.9906" shape="octagon"/>
+<pad name="22" x="2.54" y="-25.4" drill="0.9906" shape="octagon"/>
+<pad name="23" x="0" y="-27.94" drill="0.9906" shape="octagon"/>
+<pad name="24" x="2.54" y="-27.94" drill="0.9906" shape="octagon"/>
+<pad name="25" x="0" y="-30.48" drill="0.9906" shape="octagon"/>
+<pad name="26" x="2.54" y="-30.48" drill="0.9906" shape="octagon"/>
+<text x="-2.032" y="6.096" size="1.27" layer="21">&gt;NAME</text>
+</package>
+<package name="SBH11-PBPC-D13-ST-BK">
+<pad name="1" x="0" y="0" drill="0.9906" shape="square"/>
+<pad name="2" x="2.54" y="0" drill="0.9906" shape="octagon"/>
+<pad name="3" x="0" y="-2.54" drill="0.9906" shape="octagon"/>
+<pad name="4" x="2.54" y="-2.54" drill="0.9906" shape="octagon"/>
+<pad name="5" x="0" y="-5.08" drill="0.9906" shape="octagon"/>
+<pad name="6" x="2.54" y="-5.08" drill="0.9906" shape="octagon"/>
+<pad name="7" x="0" y="-7.62" drill="0.9906" shape="octagon"/>
+<pad name="8" x="2.54" y="-7.62" drill="0.9906" shape="octagon"/>
+<pad name="9" x="0" y="-10.16" drill="0.9906" shape="octagon"/>
+<pad name="10" x="2.54" y="-10.16" drill="0.9906" shape="octagon"/>
+<pad name="11" x="0" y="-12.7" drill="0.9906" shape="octagon"/>
+<pad name="12" x="2.54" y="-12.7" drill="0.9906" shape="octagon"/>
+<pad name="13" x="0" y="-15.24" drill="0.9906" shape="octagon"/>
+<pad name="14" x="2.54" y="-15.24" drill="0.9906" shape="octagon"/>
+<wire x1="-3.302" y1="5.08" x2="5.842" y2="5.08" width="0.127" layer="25"/>
+<wire x1="5.842" y1="5.08" x2="5.842" y2="-35.56" width="0.127" layer="25"/>
+<wire x1="5.842" y1="-35.56" x2="-3.302" y2="-35.56" width="0.127" layer="25"/>
+<wire x1="-3.302" y1="-35.56" x2="-3.302" y2="5.08" width="0.127" layer="25"/>
+<pad name="15" x="0" y="-17.78" drill="0.9906" shape="octagon"/>
+<pad name="16" x="2.54" y="-17.78" drill="0.9906" shape="octagon"/>
+<pad name="17" x="0" y="-20.32" drill="0.9906" shape="octagon"/>
+<pad name="18" x="2.54" y="-20.32" drill="0.9906" shape="octagon"/>
+<pad name="19" x="0" y="-22.86" drill="0.9906" shape="octagon"/>
+<pad name="20" x="2.54" y="-22.86" drill="0.9906" shape="octagon"/>
+<pad name="21" x="0" y="-25.4" drill="0.9906" shape="octagon"/>
+<pad name="22" x="2.54" y="-25.4" drill="0.9906" shape="octagon"/>
+<pad name="23" x="0" y="-27.94" drill="0.9906" shape="octagon"/>
+<pad name="24" x="2.54" y="-27.94" drill="0.9906" shape="octagon"/>
+<pad name="25" x="0" y="-30.48" drill="0.9906" shape="octagon"/>
+<pad name="26" x="2.54" y="-30.48" drill="0.9906" shape="octagon"/>
+<text x="-2.032" y="6.096" size="1.27" layer="21">&gt;NAME</text>
 </package>
 </packages>
 <symbols>
@@ -95,11 +140,23 @@
 <pin name="4" x="20.32" y="10.16" length="middle" rot="R180"/>
 <pin name="2" x="20.32" y="15.24" length="middle" rot="R180"/>
 <wire x1="-2.54" y1="17.78" x2="15.24" y2="17.78" width="0.254" layer="94"/>
-<wire x1="15.24" y1="17.78" x2="15.24" y2="-17.78" width="0.254" layer="94"/>
-<wire x1="15.24" y1="-17.78" x2="-2.54" y2="-17.78" width="0.254" layer="94"/>
-<wire x1="-2.54" y1="-17.78" x2="-2.54" y2="17.78" width="0.254" layer="94"/>
+<wire x1="15.24" y1="17.78" x2="15.24" y2="-48.26" width="0.254" layer="94"/>
+<wire x1="15.24" y1="-48.26" x2="-2.54" y2="-48.26" width="0.254" layer="94"/>
 <text x="2.54" y="20.32" size="1.778" layer="94">&gt;NAME</text>
-<text x="-7.62" y="-20.32" size="1.778" layer="94">SBH11-PBPC-D07-ST-BK</text>
+<text x="-7.62" y="-53.34" size="1.778" layer="94">SBH11-PBPC-D13-ST-BK</text>
+<pin name="15" x="-7.62" y="-20.32" length="middle"/>
+<pin name="16" x="20.32" y="-20.32" length="middle" rot="R180"/>
+<wire x1="-2.54" y1="-48.26" x2="-2.54" y2="17.78" width="0.254" layer="94"/>
+<pin name="17" x="-7.62" y="-25.4" length="middle"/>
+<pin name="18" x="20.32" y="-25.4" length="middle" rot="R180"/>
+<pin name="19" x="-7.62" y="-30.48" length="middle"/>
+<pin name="20" x="20.32" y="-30.48" length="middle" rot="R180"/>
+<pin name="21" x="-7.62" y="-35.56" length="middle"/>
+<pin name="22" x="20.32" y="-35.56" length="middle" rot="R180"/>
+<pin name="23" x="-7.62" y="-40.64" length="middle"/>
+<pin name="24" x="20.32" y="-40.64" length="middle" rot="R180"/>
+<pin name="25" x="-7.62" y="-45.72" length="middle"/>
+<pin name="26" x="20.32" y="-45.72" length="middle" rot="R180"/>
 </symbol>
 </symbols>
 <devicesets>
