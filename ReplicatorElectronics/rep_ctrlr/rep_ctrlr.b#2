@@ -2132,7 +2132,7 @@ design rules under a new name.</description>
 <element name="R22" library="resistor" package="R0603" value="10K" x="-87.63" y="109.22"/>
 <element name="R23" library="resistor" package="R0603" value="10" x="-92.71" y="109.22"/>
 <element name="C16" library="resistor" package="C0603" value="0.1u" x="-26.67" y="127"/>
-<element name="IC5" library="chipKIT_Max32" package="MICROCHIP_SC70-5-LT" value="MICROCHIP_MCP6001-LT" x="49.5" y="5.27" rot="R90"/>
+<element name="IC5" library="chipKIT_Max32" package="MICROCHIP_SC70-5-LT" value="MICROCHIP_MCP6001-LT" x="50.25" y="4.77" rot="R90"/>
 <element name="R24" library="resistor" package="R0603" value="10" x="-97.79" y="109.22"/>
 <element name="C17" library="resistor" package="C0603" value="0.1u" x="-31.75" y="127"/>
 <element name="U$2" library="SMSC8720a_Ethernet_PHY" package="QFN24" value="8720A_PHY" x="81" y="58.5"/>
@@ -2355,7 +2355,7 @@ design rules under a new name.</description>
 <vertex x="23.75" y="32.5"/>
 <vertex x="23.75" y="71"/>
 </polygon>
-<polygon width="0.1548" layer="1">
+<polygon width="0.1548" layer="1" isolate="0.254">
 <vertex x="84.5" y="4.75"/>
 <vertex x="86.25" y="4.75"/>
 <vertex x="86.25" y="7.25"/>
@@ -3180,8 +3180,8 @@ design rules under a new name.</description>
 <contactref element="IC5" pad="1"/>
 <wire x1="65.8" y1="24.5" x2="63" y2="24.5" width="0.1548" layer="1"/>
 <wire x1="63" y1="24.5" x2="59" y2="20.5" width="0.1548" layer="1"/>
-<wire x1="48.55" y1="5.92" x2="59" y2="20.5" width="0" layer="19" extent="1-1"/>
-<wire x1="50.45" y1="4.62" x2="48.55" y2="5.92" width="0" layer="19" extent="1-1"/>
+<wire x1="49.3" y1="5.42" x2="59" y2="20.5" width="0" layer="19" extent="1-1"/>
+<wire x1="51.2" y1="4.12" x2="49.3" y2="5.42" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="TEMP3_BUF">
 <contactref element="IC1" pad="22"/>
@@ -3612,8 +3612,8 @@ design rules under a new name.</description>
 <contactref element="R22" pad="2"/>
 <contactref element="IC5" pad="3"/>
 <contactref element="J8" pad="9"/>
-<wire x1="50.45" y1="5.92" x2="56.84" y2="6" width="0" layer="19" extent="1-1"/>
-<wire x1="-86.78" y1="109.22" x2="50.45" y2="5.92" width="0" layer="19" extent="1-1"/>
+<wire x1="51.2" y1="5.42" x2="56.84" y2="6" width="0" layer="19" extent="1-1"/>
+<wire x1="-86.78" y1="109.22" x2="51.2" y2="5.42" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="N$20">
 <contactref element="C16" pad="1"/>
@@ -3627,7 +3627,7 @@ design rules under a new name.</description>
 <contactref element="R24" pad="1"/>
 <contactref element="C17" pad="1"/>
 <wire x1="-98.64" y1="109.22" x2="-32.6" y2="127" width="0" layer="19" extent="1-1"/>
-<wire x1="50.45" y1="5.27" x2="-32.6" y2="127" width="0" layer="19" extent="1-1"/>
+<wire x1="51.2" y1="4.77" x2="-32.6" y2="127" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="PGEC">
 <contactref element="IC1" pad="26"/>
