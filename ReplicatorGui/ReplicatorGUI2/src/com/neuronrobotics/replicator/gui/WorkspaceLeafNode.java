@@ -20,34 +20,49 @@ public class WorkspaceLeafNode extends WorkspaceNode{
 	 */
 	private static final long serialVersionUID = 883748291178354077L;
 	
-	private STLPreviewContainer object;
-	private WorkspaceFolderNode parent;
+	private File theSTL, theGCode;
 	
-	public WorkspaceLeafNode(WorkspaceFolderNode p,STLPreviewContainer obj){
+	private WorkspaceFolderNode parent;
+		
+	public WorkspaceLeafNode(WorkspaceFolderNode p,File theSTL, File theGCode){
 		this.parent = p;
-		if(this.parent!=null) parent.addChild(this); 
-		this.object = obj;
+		if(this.parent!=null) parent.addChild(this);
+		this.theSTL = theSTL;
+		this.theGCode = theGCode;
 	}
 	
 	public File getTheSTLFile() {
-		return object.getSTL();
+		return theSTL;
 	}
 
 	public File getTheGCodeFile() {
-		return object.getGCode();
+		return theGCode;
 	}
 	
-	public Preview3D getPreview(){
+	/*
+	public STLPreview getPreview(){
 		return object.getPreview();
 	}
-
+*/
 	public String toString(){
-		return object.getSTL().getName();
+		return theSTL.getName();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public Enumeration children() {
+	public Enumeration<TreeNode> children() {
 		return null;
+		/*return new Enumeration<TreeNode>(){
+
+			@Override
+			public boolean hasMoreElements() {
+				return false;
+			}
+
+			@Override
+			public TreeNode nextElement() {
+				return null;
+			}};*/
 	}
 
 	@Override

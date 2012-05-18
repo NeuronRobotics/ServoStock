@@ -1,4 +1,4 @@
-package com.neuronrobotics.replicator.common;
+package com.neuronrobotics.replicator.gui.stl;
 import javax.vecmath.*;
 
 public class STLFacet {
@@ -32,5 +32,8 @@ public class STLFacet {
 		return vertex3;
 	}
 
+	public String toString(){
+		return "Normal: "+normal+"\nVertices: "+vertex1+""+vertex2+""+vertex3;
+	}
 	
 }

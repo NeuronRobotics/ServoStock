@@ -11,29 +11,16 @@ public class SliceStatusData {
 	 * WARNING_SLICING indicates a possible problem detected but the slice has not been terminated
 	 * WARNING_DONE indicates the slice has terminated with a warning
 	 * SUCCESS indicates slice has terminated with no warnings or errors
-	 * NOTE: option to set messages for the state. Recommended for ERROR and WARNING
-	 * or might be better to define more specific types?
 	 */
 	public enum SlicerState {
 		SLICING, ERROR, WARNING_DONE,WARNING_SLICING, SUCCESS;
-		private String message;
-		
-		private void setMessage(String m) {
-			message = m;
-		}
-
-		public String getMessage() {
-			return message;
-		}
-
-		public boolean hasMessage() {
-			return message != null;
-		}
 	};
 
 	private int layers;
 	
 	private int sliceProgress;
+	
+	private String message;
 	
 	private SlicerState currentSlicerState;
 	
@@ -47,7 +34,9 @@ public class SliceStatusData {
 		this.layers = layers;
 		this.sliceProgress = sliceProgress;
 		this.currentSlicerState = currentSlicerState;
+		this.message = "";
 	}
+	
 	/**
 	 * Constructor with ability to set state message
 	 * @param layers
@@ -59,7 +48,8 @@ public class SliceStatusData {
 		this.layers = layers;
 		this.sliceProgress = sliceProgress;
 		this.currentSlicerState = currentSlicerState;
-		this.currentSlicerState.setMessage(stateMessage);
+		this.message = stateMessage; 
+		//this.currentSlicerState.setMessage(stateMessage);
 	}
 	
 	/**
@@ -72,7 +62,7 @@ public class SliceStatusData {
 	}
 	
 	/**
-	 * sliceProgress should be an integer between 0 and 100 specifiying how far
+	 * sliceProgress should be an integer between 0 and 100 specifying how far
 	 * along in the slice we are
 	 * @return sliceProgress
 	 */
@@ -80,6 +70,19 @@ public class SliceStatusData {
 		return sliceProgress;
 	}
 	
+	/**
+	 * If there is a message to send, it will be stored in message.
+	 * Recommended for errors and warnings
+	 *  @return message string 
+	 */
+	public String getMessage(){
+		return message;
+	}
+	
+	/**
+	 * Returns the current state of the slicer
+	 * @return currentSlicerState
+	 */
 	public SlicerState getCurrentSlicerState(){
 		return currentSlicerState;
 	}

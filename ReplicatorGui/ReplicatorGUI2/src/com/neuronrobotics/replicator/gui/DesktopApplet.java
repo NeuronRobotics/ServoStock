@@ -1,8 +1,13 @@
 package com.neuronrobotics.replicator.gui;
 
 import java.applet.Applet;
-import java.awt.Color;
+//import java.awt.Color;
+import java.awt.Button;
 import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,106 +15,163 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Enumeration;
+//import java.util.ArrayList;
+import java.util.Hashtable;
+//import java.util.Enumeration;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+//import javax.swing.JLabel;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
-import javax.swing.JTree;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.MutableTreeNode;
-import javax.swing.tree.TreeNode;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+//import javax.swing.JTree;
+//import javax.swing.tree.DefaultMutableTreeNode;
+//import javax.swing.tree.MutableTreeNode;
+//import javax.swing.tree.TreeNode;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.vecmath.Point3f;
 
 //import org.j3d.loaders.InvalidFormatException;
 
-import com.neuronrobotics.replicator.driver.NRPrinter;
-import com.neuronrobotics.replicator.driver.PrinterStatus;
+//import com.neuronrobotics.replicator.driver.NRPrinter;
+//import com.neuronrobotics.replicator.driver.PrinterStatus;
 
+public class DesktopApplet extends Applet implements GUIFrontendInterface {
 
-public class DesktopApplet extends Applet{
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7003760875384715160L;
+
 	private File defaultWorkspaceDirectory;
-	
-	private Container menuContainer,toolbarContainer;
-	private Container leftContainer,previewContainer,bottomContainer;
-	
-	private JTabbedPane leftTab, previewTab;
-	
+
+	private Container menuContainer, toolbarContainer;
+	private Container leftContainer, bottomContainer;// previewContainer
+
+	private STLPreviewContainer previewContainer;
+
+	private JTabbedPane leftTab;// , previewTab;
+
 	private JMenuBar menuBar;
 	private JToolBar mainToolbar;
 	private JMenu fileMenu, editMenu, helpMenu;
-	
+
 	private JButton printButton;
 	private JButton cancelButton;
 	private JButton connectButton;
-	
+
 	private WorkspaceNavigator fileNavigator;
-	private DefaultMutableTreeNode treeRoot;
-		
+
 	private JMenuItem openFileItem;
-	private JMenuItem newProjectItem;
-	
+	// private JMenuItem newProjectItem;
+
+	private JLabel statusLabel;
 	private JProgressBar printProgress;
 
+	private GUIBackendInterface theGUIDriver;
 
-	private ArrayList<File> stlFiles;
-	private ArrayList<File> gcodeFiles;
-	private ArrayList<Preview3D> previews;
-		
-	private GUIDriver theGUIDriver;
-	
-	public DesktopApplet(GUIDriver theGUIDriver){
+	private Point3f workspaceDimensions;
+
+	public DesktopApplet(GUIBackendInterface theGUIDriver) {
 		super();
 		this.theGUIDriver = theGUIDriver;
+		this.theGUIDriver.setFrontend(this);
+		workspaceDimensions = new Point3f(5, 5, 5); // TODO extract to factory
 	}
-	
-	public void init(){
+
+	public void init() {
+
+		//Setting a differenet look and feel
+		String lookAndFeel = UIManager.getSystemLookAndFeelClassName();
+		try {
+			UIManager.setLookAndFeel(lookAndFeel);
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (InstantiationException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IllegalAccessException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
-		//TODO un-hard code this
+		
+		GridBagLayout gridbag = new GridBagLayout();
+		GridBagConstraints c = new GridBagConstraints();
+
+		setFont(new Font("Helvetica", Font.PLAIN, 14));
+		setLayout(gridbag);
+
+		// TODO remove to factory
 		defaultWorkspaceDirectory = new File("DefaultWorkspaceFolder");
-		
-		stlFiles = new ArrayList<File>();
-		gcodeFiles = new ArrayList<File>();
-		previews = new ArrayList<Preview3D>();
-		
-		this.setLayout(null); 
-				
+
 		menuContainer = new Container();
-		menuContainer.setLayout(new GridLayout(1,1));
-		
-		toolbarContainer= new Container();
-		toolbarContainer.setLayout(new GridLayout(1,1));
-		
+		menuContainer.setLayout(new GridLayout(1, 1));
+
+		toolbarContainer = new Container();
+		toolbarContainer.setLayout(new GridLayout(1, 1));
+
 		leftContainer = new Container();
-		leftContainer.setLayout(new GridLayout(1,1));
-		
+		leftContainer.setLayout(new GridLayout(1, 1));
+
 		leftTab = new JTabbedPane();
 		leftContainer.add(leftTab);
-				
-		previewContainer = new Container();
-		previewContainer.setLayout(new GridLayout(1,1));
-		
-		previewTab = new JTabbedPane();
-		
-		previewContainer.add(previewTab);
-		
+
+		previewContainer = new STLPreviewContainer();
+
 		bottomContainer = new Container();
-		bottomContainer.setLayout(new GridLayout(1,1));
+		bottomContainer.setLayout(new GridLayout(2, 1));
+
+		Dimension d = leftContainer.getPreferredSize();
+		d.width = 225;
+		leftContainer.setPreferredSize(d);
 		
-		this.add(menuContainer);
-		this.add(toolbarContainer);
-		this.add(leftContainer);
+		d = bottomContainer.getPreferredSize();
+		d.height=50;
+		bottomContainer.setPreferredSize(d);
+
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 1.0;
+
+		c.gridwidth = GridBagConstraints.REMAINDER;
+		gridbag.setConstraints(menuContainer, c);
+		add(menuContainer);
+		gridbag.setConstraints(toolbarContainer, c);
+		add(toolbarContainer);
+
+		c.weightx = 0.0;
+		c.gridheight = GridBagConstraints.RELATIVE;
+		c.gridwidth = GridBagConstraints.RELATIVE;
+		gridbag.setConstraints(leftContainer, c);
+		add(leftContainer);
+
+		c.weightx = 1.0;
+		c.gridwidth = GridBagConstraints.REMAINDER;
+		c.weighty = 1.0;
+		gridbag.setConstraints(previewContainer, c);
 		this.add(previewContainer);
+
+		c.weighty = 0.0;
+		c.gridheight = 1;// GridBagConstraints.REMAINDER;
+		gridbag.setConstraints(bottomContainer, c);
 		this.add(bottomContainer);
-		
+
+		// //////
+
 		menuBar = new JMenuBar();
 		fileMenu = new JMenu("File");
 		editMenu = new JMenu("Edit");
@@ -117,174 +179,171 @@ public class DesktopApplet extends Applet{
 		menuBar.add(fileMenu);
 		menuBar.add(editMenu);
 		menuBar.add(helpMenu);
-		
+
 		openFileItem = new JMenuItem("Open File...");
-		openFileItem.addActionListener(new ActionListener(){
+		openFileItem.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				JFileChooser fileChooser = new JFileChooser();
 				int returnVal = fileChooser.showOpenDialog(new JDialog());
-			    if(returnVal == JFileChooser.APPROVE_OPTION) {
-			       System.out.println("You chose to open this file: " +
-			            fileChooser.getSelectedFile().getName());
-			       File newFile = fileChooser.getSelectedFile();
-			       try {
-					addPreview(newFile);
-					
-				} catch (IOException e) {
-					e.printStackTrace();
-					System.out.println("IO Exception dun happen'd");
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+					System.out.println("You chose to open this file: "
+							+ fileChooser.getSelectedFile().getName());
+					File newFile = fileChooser.getSelectedFile();
+					try {
+						addPreview(newFile);
+
+					} catch (IOException e) {
+						e.printStackTrace();
+						System.out.println("IO Exception dun happen'd");
+					}
 				}
-			    }
 			}
-			
+
 		});
-		
+
 		fileMenu.add(openFileItem);
-		
+
 		menuContainer.add(menuBar);
-		
+
 		mainToolbar = new JToolBar();
 		printButton = new JButton("PRINT");
 		printButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				toolbarPrintButtonHandler();
 			}
 		});
 		cancelButton = new JButton("CANCEL");
-		cancelButton.addActionListener(new ActionListener(){
+		cancelButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				cancelButtonHandler();
-			}});
-		
+			}
+		});
+
 		connectButton = new JButton("CONNECT");
-		connectButton.addActionListener(new ActionListener(){
+		connectButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				connectButtonHandler();
 			}
 
-			
 		});
-		
+
 		mainToolbar.add(printButton);
 		mainToolbar.add(cancelButton);
 		mainToolbar.add(connectButton);
-		
-		toolbarContainer.add(mainToolbar);	
-		
-		//DefaultMutableTreeNode root = new DefaultMutableTreeNode();
-		fileNavigator = WorkspaceNavigator.getNavigator(defaultWorkspaceDirectory);
-		
-		
-		
-		leftTab.add("Navigator",fileNavigator);
-						
-		printProgress = new JProgressBar();
-				
-		bottomContainer.add(printProgress);
-						
-		this.addComponentListener(new ComponentListener(){
+
+		toolbarContainer.add(mainToolbar);
+
+		// DefaultMutableTreeNode root = new DefaultMutableTreeNode();
+		fileNavigator = WorkspaceNavigator
+				.getNavigator(defaultWorkspaceDirectory);
+		fileNavigator.addTreeSelectionListener(new TreeSelectionListener() {
 
 			@Override
-			public void componentHidden(ComponentEvent arg0) {
-				
+			public void valueChanged(TreeSelectionEvent arg0) {
+				// arg0.getPath();
+				// System.out.println(arg0.getPath().getLastPathComponent().getClass());
+				if (WorkspaceLeafNode.class == arg0.getPath()
+						.getLastPathComponent().getClass()) {
+					WorkspaceLeafNode selected = (WorkspaceLeafNode) arg0
+							.getPath().getLastPathComponent();
+					File stl = selected.getTheSTLFile();
+					File gcode = selected.getTheGCodeFile();
+					System.out.print("Selection event fired");
+					try {
+						addPreview(stl);
+					} catch (IOException e) {
+						e.printStackTrace();
+						statusLabel.setText("IO Error");
+						errorDialog("Couldn't load file");
+					}
+				}
 			}
 
-			@Override
-			public void componentMoved(ComponentEvent arg0) {
-			}
-
-			@Override
-			public void componentResized(ComponentEvent arg0) {
-				onResize();
-			}
-
-			@Override
-			public void componentShown(ComponentEvent arg0) {				
-			}
-			
 		});
-		onResize();
+
+		leftTab.add("Navigator", fileNavigator);
+
+		printProgress = new JProgressBar();
+
+		statusLabel = new JLabel("Welcome (Printer Not Connected)");
+
+		bottomContainer.add(statusLabel);
+		bottomContainer.add(printProgress);
+
 	}
-	
-	public void workspaceNavigatorPrintHandler(){
-		//TODO
+
+	public void workspaceNavigatorPrintHandler() {
+		// TODO
 	}
-	
-	public void toolbarPrintButtonHandler(){
-		//TODO prompt user
-		if(stlFiles.size()==0){
-			//TODO change status to nothing to print
+
+	public void toolbarPrintButtonHandler() {
+		// TODO prompt user
+		boolean reSlice = true;
+		if (previewContainer.hasNoPreviews()) {
+			this.statusLabel.setText("Nothing to print");
+			this.errorDialog("Nothing to print!");
 			return;
 		}
-		File currentFile = stlFiles.get(previewTab.getSelectedIndex());
-		File currentGCodeFile = gcodeFiles.get(previewTab.getSelectedIndex());
-		if (currentGCodeFile==null) theGUIDriver.requestPrint(currentFile,currentGCodeFile);
-		else {
-			//TODO prompt user
+		File currentFile = previewContainer.getCurrentSTLFile();
+		File currentGCodeFile = previewContainer.getCurrentGCodeFile();
+
+		if (reSlice)
+			theGUIDriver.requestPrint(currentFile, currentGCodeFile);
+		else
 			theGUIDriver.requestPrint(currentGCodeFile);
-		}
-		System.out.println("Printing file "+currentFile.getAbsolutePath());
+		System.out.println("Printing file " + currentFile.getAbsolutePath());
 	}
-	
-	public void cancelButtonHandler(){
-		theGUIDriver.requestCancel();		
+
+	public void cancelButtonHandler() {
+		theGUIDriver.requestCancel();
 	}
-	
+
 	private void connectButtonHandler() {
-		theGUIDriver.connectPrinter();		
+		theGUIDriver.connectPrinter();
 	}
-	
-	public boolean addPreview(File f) throws IOException{
+
+	public boolean addPreview(File f) throws IOException {
+
+		File gcode = new File(f.getAbsolutePath() + ".gcode");
 		
-		if(!stlFiles.contains(f)){
-			Preview3D tempPreview = new Preview3D(f);
-			stlFiles.add(f);
-			gcodeFiles.add(new File(f.getName()+".sliced"));
-			previews.add(tempPreview);
-			String name=tempPreview.getSTLObject().getName();
-			if (name==null||name.equals("Default")){
-				name = f.getName();
-			}
-			previewTab.add(name,tempPreview);
-		
-			previewTab.setSelectedIndex(previews.size()-1);
-			
-			repaint();
-			return true;
-		}
-		previewTab.setSelectedIndex(stlFiles.indexOf(f));
-		return false;
+		return this.previewContainer.addPreview(f, gcode, workspaceDimensions);
+
 	}
-	
-	private void onResize(){
-		
-		int maxX = this.getWidth();
-		int maxY = this.getHeight();
-		
-		int currY = 0;
-		
-		menuContainer.setBounds(0,currY,maxX,menuBar.getPreferredSize().height);
-		currY+=menuContainer.getHeight();
-		toolbarContainer.setBounds(0,currY,maxX,mainToolbar.getPreferredSize().height);
-		currY += toolbarContainer.getHeight();
-		
-		leftContainer.setBounds(0,currY,150,maxY-100);
-		previewContainer.setBounds(150, currY, maxX-150, maxY-100);
-		
-		currY+=leftContainer.getHeight();
-		
-		bottomContainer.setBounds(0, currY, maxX, maxY-currY);		
-		
-		
-		repaint();
+
+	@Override
+	public boolean userPrompt(String prompt) {
+		return (JOptionPane.showConfirmDialog(this, prompt, "",
+				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) ? true
+				: false;
+	}
+
+	@Override
+	public void errorDialog(String errorMessage) {
+		JOptionPane.showMessageDialog(this, errorMessage, "Error",
+				JOptionPane.ERROR_MESSAGE);
+	}
+
+	@Override
+	public void alertStatusUpdated() {
+		this.statusLabel.setText(theGUIDriver.getStatusString());
+		if (theGUIDriver.getCurrentDriverState() == GUIBackendInterface.DriverState.SLICING)
+			this.printProgress.setOrientation(theGUIDriver.getSliceProgress());
+		else
+			this.printProgress.setOrientation(theGUIDriver.getPrintProgress());
+	}
+
+	@Override
+	public boolean errorDialogWithFix(String errorMessage, String fixPrompt) {
+		int op = JOptionPane.showConfirmDialog(this,errorMessage+"\n\n"+fixPrompt,"Error",JOptionPane.YES_NO_OPTION);
+		return op==JOptionPane.YES_OPTION;
 	}
 
 }

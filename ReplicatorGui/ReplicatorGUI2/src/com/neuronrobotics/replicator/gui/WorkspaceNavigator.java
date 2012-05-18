@@ -20,9 +20,6 @@ public class WorkspaceNavigator extends JTree{
 	private WorkspaceFolderNode root;
 	private File mainDirectory;
 	
-	private ArrayList<STLPreviewContainer> objects;
-	private ArrayList<File> previewFiles;
-	private ArrayList<String> previewNames;
 	
 	public static WorkspaceNavigator getNavigator(File mainDirectory){
 		WorkspaceFolderNode root = new WorkspaceFolderNode(mainDirectory);
@@ -39,22 +36,18 @@ public class WorkspaceNavigator extends JTree{
 		
 		File[] theSTLFiles = mainDirectory.listFiles(filter);
 		
-		ArrayList<STLPreviewContainer> tempObjects = new ArrayList<STLPreviewContainer>();
 		
 		for(File f:theSTLFiles){
-			File temp = new File(f.getName()+".sliced");
-			STLPreviewContainer newObject = new STLPreviewContainer(f,temp,null);
-			WorkspaceLeafNode newNode = new WorkspaceLeafNode(root,newObject);
-			tempObjects.add(newObject);
+			File temp = new File(f.getName()+".gcode");
+			
+			WorkspaceLeafNode newNode = new WorkspaceLeafNode(root,f,temp);
+			//tempObjects.add(newObject);
 		}
 		
 		WorkspaceNavigator theNavigator = new WorkspaceNavigator(root,mainDirectory);
 		theNavigator.setRootVisible(true);
-		//theNavigator.setEditable(true);		
-		theNavigator.objects.addAll(tempObjects);
-		 int x = 0;		
-		 x=4;
-		
+		//theNavigator.setEditable(true);
+				
 		 theNavigator.treeDidChange();
 		return theNavigator; 
 	}
@@ -74,9 +67,6 @@ public class WorkspaceNavigator extends JTree{
 		super(root);
 		this.root = root;
 		this.mainDirectory = mainDirectory;
-		objects = new ArrayList<STLPreviewContainer>();
-		previewNames = new ArrayList<String>();
-		previewFiles = new ArrayList<File>();
 	}
 	/*
 	public boolean addFolder(String name){

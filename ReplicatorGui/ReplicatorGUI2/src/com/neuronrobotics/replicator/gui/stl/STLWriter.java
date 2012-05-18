@@ -1,4 +1,4 @@
-package com.neuronrobotics.replicator.common;
+package com.neuronrobotics.replicator.gui.stl;
 
 import java.io.File;
 import java.io.FileWriter;

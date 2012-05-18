@@ -1,4 +1,4 @@
-package com.neuronrobotics.replicator.common;
+package com.neuronrobotics.replicator.gui.stl;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -7,6 +7,8 @@ import java.util.Scanner;
 
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
+
+import com.neuronrobotics.replicator.driver.DataConvertion;
 
 
 public class BinarySTLParser extends STLParser {
@@ -39,6 +41,7 @@ public class BinarySTLParser extends STLParser {
 		Point3f v1 = extractVertex();
 		Point3f v2 = extractVertex();
 		Point3f v3 = extractVertex();
+		System.out.println(v1+""+v2+""+v3);//TODO
 		int colorInfo = dataStream.readUnsignedShort();
 		tempFacet.setNormal(normal);
 		tempFacet.setVertices(v1, v2, v3);
@@ -52,11 +55,21 @@ public class BinarySTLParser extends STLParser {
 	 * @throws IOException 
 	 */
 	private Point3f extractVertex() throws IOException {
-		// TODO Auto-generated method stub
+		//TODO
 		float x, y, z;
-		x=dataStream.readFloat();
+		byte[] data = new byte[4];
+		int le = dataStream.read(data, 0, 4);
+		if(le!=4) throw new IOException();
+		x = (float)DataConvertion.decodeDouble(data, 0);
+		le = dataStream.read(data, 0, 4);
+		if(le!=4) throw new IOException();
+		y = (float)DataConvertion.decodeDouble(data, 0);
+		le = dataStream.read(data, 0, 4);
+		if(le!=4) throw new IOException();
+		z = (float)DataConvertion.decodeDouble(data, 0);
+		/*x=dataStream.readFloat();
 		y=dataStream.readFloat();
-		z=dataStream.readFloat();
+		z=dataStream.readFloat();*/
 		return new Point3f(x,y,z);
 	}
 
@@ -68,9 +81,19 @@ public class BinarySTLParser extends STLParser {
 	 */
 	private Vector3f extractNormal() throws IOException {
 		float x, y, z;
-		x=dataStream.readFloat();
+		byte[] data = new byte[4];
+		int le = dataStream.read(data, 0, 4);
+		if(le!=4) throw new IOException();
+		x = (float)DataConvertion.decodeDouble(data, 0);
+		le = dataStream.read(data, 0, 4);
+		if(le!=4) throw new IOException();
+		y = (float)DataConvertion.decodeDouble(data, 0);
+		le = dataStream.read(data, 0, 4);
+		if(le!=4) throw new IOException();
+		z = (float)DataConvertion.decodeDouble(data, 0);
+		/*x=dataStream.readFloat();
 		y=dataStream.readFloat();
-		z=dataStream.readFloat();
+		z=dataStream.readFloat();*/
 		return new Vector3f(x,y,z);
 	}
 

@@ -1,4 +1,4 @@
-package com.neuronrobotics.replicator.common;
+package com.neuronrobotics.replicator.gui.stl;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -13,30 +13,21 @@ import javax.vecmath.*;
 
 //import org.j3d.loaders.InvalidFormatException;
 
-public class STLObject {
+public class STLObject implements Iterable<STLFacet>{
 
-	private File theFile;
 	private String name;
 	private ArrayList<STLFacet> facets;
-	private boolean loaded;
 	private Point3f center;
 	private Point3f min, max;
 	
 
-	public STLObject(File file, String name, ArrayList<STLFacet> facets,
+	public STLObject(String name, ArrayList<STLFacet> facets,
 			Point3f center, Point3f min, Point3f max) {
-		this.theFile = file;
 		this.name = name;
 		this.facets=facets;
 		this.center = center;
 		this.min = min;
 		this.max = max;
-		//TODO not sure if needed anymore, probably won't allow unloaded STLObjects to exist at all
-		loaded=true; 	}
-
-	public Iterator<STLFacet> getFacetIterator() {
-		//TODO Use ITerable instead
-		return facets.iterator();
 	}
 	
 	public Iterable<STLFacet> getFacetIterable(){
@@ -47,13 +38,8 @@ public class STLObject {
 		return facets.size();
 	}
 
-	public boolean isLoaded() {
-		return loaded;
-	}
 
 	public Point3f getCenter() {
-		if (!loaded)
-			return null;// TODO should throw an appropriate exception
 		if (center != null)
 			return center;
 		int numVertices = facets.size() * 3;
@@ -84,9 +70,30 @@ public class STLObject {
 	public float getZDistance() {
 		return max.z - min.z;
 	}
+	
 
 	public String getName() {
 		return name;
+	}
+	
+	public Point3f getMax(){
+		return max;
+	}
+	
+	public Point3f getMin(){
+		return min;
+	}
+	
+	@Override
+	public String toString(){
+		String res = "";
+		res+="Name: "+this.name+"\n";		
+		return res;
+	}
+
+	@Override
+	public Iterator<STLFacet> iterator() {
+		return facets.iterator();
 	}
 
 }

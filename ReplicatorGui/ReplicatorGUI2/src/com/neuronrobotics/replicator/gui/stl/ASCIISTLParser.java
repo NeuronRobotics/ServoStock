@@ -1,6 +1,7 @@
-package com.neuronrobotics.replicator.common;
+package com.neuronrobotics.replicator.gui.stl;
 
 import java.io.InputStream;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -20,11 +21,11 @@ public class ASCIISTLParser extends STLParser {
 	}
 	
 	@Override
-	public STLFacet nextFacet() throws Exception {
+	public STLFacet nextFacet() throws NoSuchElementException {
 		if (name==null) getName();
 		STLFacet tempFacet = new STLFacet();
 				
-		if (!hasNextFacet()) throw new Exception();//TODO use more appropriate exception 
+		if (!hasNextFacet()) throw new NoSuchElementException();
 					
 		s.nextLine();//Skip line, should just say "outer loop" of "outerloop"
 		
@@ -36,10 +37,11 @@ public class ASCIISTLParser extends STLParser {
 		tempFacet.setVertices(v1, v2, v3);
 		
 		//
-		String normalLine[] = nextLine.split(" ");
+		String normalLine[] = nextLine.split("\\s+");
+		//System.out.println(nextLine);
 		
 		//Process Normal information, may not be included
-		if (normalLine.length==5){
+		if (normalLine.length==50){
 			float nx, ny, nz;
 			nx = parseFloatUtil(normalLine[2]);
 			ny = parseFloatUtil(normalLine[3]);
@@ -48,7 +50,15 @@ public class ASCIISTLParser extends STLParser {
 			tempFacet.setNormal(new Vector3f(nx,ny,nz));
 		}
 		else{
-			//TODO calculate normal if not given
+			Vector3f normal = new Vector3f();
+			
+			Vector3f vec1 = new Vector3f(v1);
+			vec1.sub(v2);
+			Vector3f vec2 = new Vector3f(v1);
+			vec2.sub(v3);
+			normal.cross(vec1, vec2);
+			normal.normalize();		
+			tempFacet.setNormal(normal);
 		}
 		
 		s.nextLine();//skip over next line should say "endloop" or "end loop"
@@ -63,7 +73,7 @@ public class ASCIISTLParser extends STLParser {
 	@Override
 	public String getName() {
 		if (name==null){
-			String line[] = s.nextLine().split(" ");
+			String line[] = s.nextLine().split("\\s+");
 			if (line.length>1) name=line[1].trim();
 			else name = "default";
 			nextLine = s.nextLine(); 
