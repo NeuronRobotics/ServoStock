@@ -5849,6 +5849,10 @@ DIN A4, landscape with location and doc. field</description>
 <text x="-50.8" y="106.68" size="6.4516" layer="94">SuperModified V2 - MagEnc</text>
 <text x="-71.12" y="99.06" size="3.81" layer="94">Copyright 2010 under the Creative Commons Attribution-Share Alike 3.0 License. </text>
 <text x="-71.12" y="93.98" size="3.81" layer="94">http://creativecommons.org/licenses/by-sa/3.0/</text>
+<text x="76.2" y="82.55" size="1.778" layer="91">VDD is 3.3V after a lowpass filter with fc=2.25kHz (see AS5055 datasheet)</text>
+<text x="13.97" y="-6.35" size="1.778" layer="91">EPAD, Pins 5-8, Pins 15-16 to be left unconnected.</text>
+<text x="-38.1" y="31.75" size="1.778" layer="91">33 ohm source termination for MISO.</text>
+<text x="87.63" y="45.72" size="1.778" layer="91">Power LED.</text>
 </plain>
 <instances>
 <instance part="LED1" gate="G$1" x="104.14" y="48.26"/>
@@ -5942,6 +5946,11 @@ DIN A4, landscape with location and doc. field</description>
 <junction x="68.58" y="25.4"/>
 <label x="66.04" y="25.4" size="1.778" layer="95"/>
 </segment>
+<segment>
+<pinref part="U$2" gate="G$1" pin="WIRE_MODE"/>
+<wire x1="43.18" y1="45.72" x2="43.18" y2="55.88" width="0.1524" layer="91"/>
+<label x="43.18" y="48.26" size="1.778" layer="95" rot="R90"/>
+</segment>
 </net>
 <net name="N$1" class="0">
 <segment>
@@ -5999,13 +6008,6 @@ DIN A4, landscape with location and doc. field</description>
 <pinref part="U$2" gate="G$1" pin="VDD"/>
 <wire x1="63.5" y1="30.48" x2="74.93" y2="30.48" width="0.1524" layer="91"/>
 <label x="66.04" y="30.48" size="1.778" layer="95"/>
-</segment>
-</net>
-<net name="VDDP" class="0">
-<segment>
-<pinref part="U$2" gate="G$1" pin="WIRE_MODE"/>
-<wire x1="43.18" y1="45.72" x2="43.18" y2="55.88" width="0.1524" layer="91"/>
-<label x="43.18" y="48.26" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
 <net name="MISO" class="0">

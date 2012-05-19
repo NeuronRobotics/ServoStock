@@ -398,6 +398,9 @@
 <rectangle x1="0.254" y1="35.56" x2="9.017" y2="44.196" layer="42"/>
 <rectangle x1="35.433" y1="35.56" x2="44.196" y2="44.196" layer="42"/>
 <rectangle x1="35.433" y1="0.127" x2="44.196" y2="8.763" layer="42"/>
+<text x="37.846" y="10.541" size="0.6096" layer="21">Rev. 5</text>
+<text x="35.814" y="9.652" size="0.6096" layer="21">Francesco Bivona</text>
+<text x="46.101" y="6.096" size="0.6096" layer="101">Mounting holes are 8-32 (0.173")</text>
 </plain>
 <libraries>
 <library name="rcl">
