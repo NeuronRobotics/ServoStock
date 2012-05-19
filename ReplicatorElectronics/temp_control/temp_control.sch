@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="6.1">
+<eagle version="6.2">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -8005,11 +8005,11 @@ by exp-project-lbr.ulp</description>
 <pad name="8" x="2.54" y="-7.62" drill="0.9906" shape="octagon"/>
 <pad name="9" x="0" y="-10.16" drill="0.9906" shape="octagon"/>
 <pad name="10" x="2.54" y="-10.16" drill="0.9906" shape="octagon"/>
-<wire x1="-2.032" y1="5.08" x2="4.572" y2="5.08" width="0.127" layer="21"/>
-<wire x1="4.572" y1="5.08" x2="4.572" y2="-15.24" width="0.127" layer="21"/>
-<wire x1="4.572" y1="-15.24" x2="-2.032" y2="-15.24" width="0.127" layer="21"/>
-<wire x1="-2.032" y1="-15.24" x2="-2.032" y2="5.08" width="0.127" layer="21"/>
-<text x="-1.27" y="6.35" size="1.27" layer="21">&gt;NAME</text>
+<wire x1="-3.302" y1="5.08" x2="5.842" y2="5.08" width="0.127" layer="25"/>
+<wire x1="5.842" y1="5.08" x2="5.842" y2="-15.24" width="0.127" layer="25"/>
+<wire x1="5.842" y1="-15.24" x2="-3.302" y2="-15.24" width="0.127" layer="25"/>
+<wire x1="-3.302" y1="-15.24" x2="-3.302" y2="5.08" width="0.127" layer="25"/>
+<text x="-2.54" y="6.35" size="1.27" layer="21">&gt;NAME</text>
 </package>
 </packages>
 <symbols>
