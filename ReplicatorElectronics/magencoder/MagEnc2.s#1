@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="6.1">
+<eagle version="6.2">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -6090,13 +6090,11 @@ wire to board 2.54 mm (0.100") pitch header</description>
 <pad name="12" x="2.54" y="-12.7" drill="0.9906" shape="octagon"/>
 <pad name="13" x="0" y="-15.24" drill="0.9906" shape="octagon"/>
 <pad name="14" x="2.54" y="-15.24" drill="0.9906" shape="octagon"/>
-<wire x1="-2.032" y1="0" x2="-2.032" y2="1.27" width="0.127" layer="21"/>
-<wire x1="-2.032" y1="1.27" x2="-2.032" y2="5.08" width="0.127" layer="21"/>
-<wire x1="-2.032" y1="5.08" x2="4.572" y2="5.08" width="0.127" layer="21"/>
-<wire x1="4.572" y1="5.08" x2="4.572" y2="-20.32" width="0.127" layer="21"/>
-<wire x1="4.572" y1="-20.32" x2="-2.032" y2="-20.32" width="0.127" layer="21"/>
-<wire x1="-2.032" y1="-20.32" x2="-2.032" y2="0" width="0.127" layer="21"/>
-<text x="-1.27" y="6.35" size="1.27" layer="25">&gt;NAME</text>
+<wire x1="-3.302" y1="5.08" x2="5.842" y2="5.08" width="0.127" layer="25"/>
+<wire x1="5.842" y1="5.08" x2="5.842" y2="-20.32" width="0.127" layer="25"/>
+<wire x1="5.842" y1="-20.32" x2="-3.302" y2="-20.32" width="0.127" layer="25"/>
+<wire x1="-3.302" y1="-20.32" x2="-3.302" y2="5.08" width="0.127" layer="25"/>
+<text x="-1.778" y="5.588" size="1.27" layer="21">&gt;NAME</text>
 </package>
 </packages>
 <symbols>
