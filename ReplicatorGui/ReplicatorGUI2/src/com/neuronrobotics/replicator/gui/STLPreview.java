@@ -30,6 +30,7 @@ import javax.vecmath.Vector3f;
 import com.neuronrobotics.replicator.gui.stl.ASCIISTLWriter;
 import com.neuronrobotics.replicator.gui.stl.STLLoader;
 import com.neuronrobotics.replicator.gui.stl.STLObject;
+import com.neuronrobotics.replicator.gui.stl.STLTransformGroup;
 import com.sun.j3d.utils.geometry.ColorCube;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
@@ -39,7 +40,9 @@ public class STLPreview extends Canvas3D {
 	
 	private SimpleUniverse simpleU;
 	private BranchGroup mainBranch;
-	private TransformGroup stlTransform;
+	private STLTransformGroup stlTransform;
+	
+	private DirectionalLight theLight;
 	
 	private Shape3D stlModel,facetOutline; //TODO
 	
@@ -69,25 +72,33 @@ public class STLPreview extends Canvas3D {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		
+		stlTransform.getModel().getAppearance().setColoringAttributes(new ColoringAttributes());
+		stlTransform.getModel().getAppearance().getColoringAttributes().setCapability(ColoringAttributes.SHADE_GOURAUD);
 		mainBranch.addChild(RectangularWorkspace(new Point3f(0, 0, 0),
 				workspaceDimensions));
 		// ////////
 		AmbientLight lightA = new AmbientLight();
 		lightA.setInfluencingBounds(new BoundingSphere());
 		mainBranch.addChild(lightA);
+		
+		theLight = new DirectionalLight();
+		theLight.setInfluencingBounds(new BoundingSphere(new Point3d(0,0,0),900));
+		//theLight.setDirection(-1,-1,-1);
+		theLight.setCapability(DirectionalLight.ALLOW_DIRECTION_WRITE);
+		//theLight.setColor(new Color3f(.2f,.4f,.8f));
+		// customize DirectionalLight object		
+		mainBranch.addChild(theLight);
 
-		DirectionalLight lightD1 = new DirectionalLight();
-		lightD1.setInfluencingBounds(new BoundingSphere());
-		// lightD1.setDirection(-1,-1,-1);
-		// customize DirectionalLight object
-		mainBranch.addChild(lightD1);
-
+		
 		// objects in the scene can be viewed.
 		simpleU.addBranchGraph(mainBranch);
+		
 	
 		//Initialize camera position
 		resetCamera();
+		
+		
 		
 		//centerOnWorkspace();
 		
@@ -234,10 +245,18 @@ public class STLPreview extends Canvas3D {
 		viewTransform.setTransform(t3d);
 		
 		cameraPosition = position;
+		cameraDirection = lookAt;
+		
+		Vector3f lightDir = new Vector3f(cameraPosition);
+		Vector3f temp = new Vector3f(cameraDirection);
+		temp.sub(lightDir);
+		
+		theLight.setDirection(temp);
+		
 		
 	}
 
-	private TransformGroup assembleSTLTransform(File f) throws IOException {
+	private STLTransformGroup assembleSTLTransform(File f) throws IOException {
 		// BranchGroup objRoot = new BranchGroup();
 
 		try {
@@ -255,7 +274,7 @@ public class STLPreview extends Canvas3D {
 				System.out.println(theSTLObject.getYDistance());
 				System.out.println(theSTLObject.getZDistance());
 			}
-			stlTransform = STLLoader.getSTLTransform(theSTLObject, mainBranch);
+			stlTransform = STLLoader.createSTLTransform(theSTLObject, mainBranch);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -313,6 +332,8 @@ public class STLPreview extends Canvas3D {
 		cameraPosition = new Point3d(2*m,2*m,2*m);
 		cameraDirection = new Point3d(0,0,0); //TODO point at center of model?
 		setCamera(cameraPosition,cameraDirection);
+		
+			
 	}
 	
 	public void rotateCameraXZ(double rot){
@@ -398,7 +419,7 @@ public class STLPreview extends Canvas3D {
 		setCamera(cameraPosition, cameraDirection);		
 	}
 	
-	//Model moving functions
+	//Model transform functions
 	public void rotateX(double rad){
 		Transform3D temp = new Transform3D();
 		temp.rotX(rad);
@@ -438,6 +459,14 @@ public class STLPreview extends Canvas3D {
 		translate(tran);
 	}
 	
+	public void setOutlineVisibility(boolean vis){
+		stlTransform.setOutlineVisibility(vis);
+	}
+	
+	public void setModelVisibility(boolean vis){
+		stlTransform.setModelVisibility(vis);
+	}
+	
 	//Getters
 	public STLObject getSTLObject(){
 		return this.theSTLObject;
@@ -449,6 +478,15 @@ public class STLPreview extends Canvas3D {
 	
 	public File getGCodeFile(){
 		return theGcode;
+	}
+
+	
+	public boolean getOutlineVisibility() {
+		return stlTransform.getOutlineVisibility();
+	}
+	
+	public boolean getModelVisibility() {
+		return stlTransform.getModelVisibility();
 	}
 
 }

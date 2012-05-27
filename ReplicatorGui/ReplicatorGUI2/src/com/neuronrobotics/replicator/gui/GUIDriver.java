@@ -8,18 +8,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.LinkedList;
-import java.util.Queue;
+//import java.util.Queue;
 
 import com.neuronrobotics.replicator.driver.NRPrinter;
 import com.neuronrobotics.replicator.driver.PrinterStatus;
 import com.neuronrobotics.replicator.driver.SliceStatusData;
-import com.neuronrobotics.replicator.driver.SliceStatusData.SlicerState;
+//import com.neuronrobotics.replicator.driver.SliceStatusData.SlicerState;
 import com.neuronrobotics.sdk.dyio.DyIO;
 import com.neuronrobotics.sdk.ui.ConnectionDialog;
 
 public class GUIDriver implements PrinterStatusListener, GUIBackendInterface {
 
-	private File tempGCodeFile;
+	//private File tempGCodeFile;
 
 	private DriverState currentDriverState;
 

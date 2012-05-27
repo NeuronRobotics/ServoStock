@@ -5,43 +5,29 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
 
+import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
 
-public class WorkspaceFolderNode extends WorkspaceNode{
+public class WorkspaceFolderNode implements MutableTreeNode{
 	
 	private File directory;
 	
 	private WorkspaceFolderNode parent;
-	private ArrayList<WorkspaceNode> children;
+	private ArrayList<MutableTreeNode> children;
 	
 	public WorkspaceFolderNode(File d){
 		this.directory = d;
-		children = new ArrayList<WorkspaceNode>();
+		children = new ArrayList<MutableTreeNode>();
 		this.parent = null;
 	}
 	
 	public WorkspaceFolderNode(WorkspaceFolderNode p,File d){
 		this.directory=d;
 		this.parent=p;
-		children = new ArrayList<WorkspaceNode>();
+		children = new ArrayList<MutableTreeNode>();
 	}
 	
-	public void setParent(WorkspaceFolderNode fn){
-		parent.removeChild(this);
-		//TODO maybe want to actually move files around
-		parent=fn;
-	}
-	
-	public boolean removeChild(WorkspaceNode child){
-		//TODO maybe want to actually move files around?
-		return children.remove(child);
-	}
-	
-	public boolean addChild(WorkspaceNode wn){
-		return children.add(wn);
-	}
-	
-	public Iterable<WorkspaceNode> getChildren(){
+	public Iterable<MutableTreeNode> getChildren(){
 		return children;
 	}
 
@@ -82,6 +68,56 @@ public class WorkspaceFolderNode extends WorkspaceNode{
 	
 	public String toString(){
 		return this.directory.getName();
+	}
+
+	@Override
+	public void insert(MutableTreeNode child, int index) {
+		children.add(index,child);		
+	}
+	
+	public void insert(MutableTreeNode wn){
+		children.add(wn);
+	}
+
+	@Override
+	public void remove(int index) {
+		this.children.remove(index);		
+	}
+
+	@Override
+	public void remove(MutableTreeNode node) {
+		this.children.remove(node);		
+	}
+	
+	public boolean remove(WorkspaceFolderNode child){
+		return children.remove(child);
+	}
+	
+	public boolean remove(WorkspaceLeafNode child){
+		return children.remove(child);
+	}	
+
+	@Override
+	public void removeFromParent() {
+		//this.parent.remove(this);
+		this.parent=null;
+		
+	}
+
+	@Override
+	public void setParent(MutableTreeNode newParent) {
+		this.parent = (WorkspaceFolderNode)newParent;
+	}
+	
+	public void setParent(WorkspaceFolderNode fn){
+		parent.remove(this);
+		//TODO maybe want to actually move files around
+		parent=fn;
+	}
+
+	@Override
+	public void setUserObject(Object object) {
+		//TODO		
 	}
 
 }

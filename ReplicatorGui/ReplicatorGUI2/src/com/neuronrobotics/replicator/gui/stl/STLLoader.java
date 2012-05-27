@@ -34,21 +34,40 @@ public class STLLoader {
 	@SuppressWarnings("restriction")
 	public static TransformGroup getSTLTransform(STLObject stl,BranchGroup root) throws IOException{
 		TransformGroup tg = new TransformGroup();
+		
+		
 		tg.addChild(createModel(stl));
 		
-		tg.addChild(createModelOutline(stl));
+		//Outline with visibility option
+		Shape3D outline = createModelOutline(stl);
+		
+		//RenderingAttributes ra = new RenderingAttributes();
+		//ra.setVisible(true);		
+		//ra.setCapability(RenderingAttributes.ALLOW_VISIBLE_READ|RenderingAttributes.ALLOW_VISIBLE_WRITE);
+		
+		//Appearance outlineAppearance = new Appearance();
+		//outlineAppearance.setRenderingAttributes(ra);
+		
+		//outline.setAppearance(outlineAppearance);
+		
+		
+		tg.addChild(outline);
+		
+		//end outline creation
 		
 		tg.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
 		tg.setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
+		
+		
 		
 		/*
 		MouseRotate myMouseRotate = new MouseRotate();
 		myMouseRotate.setTransformGroup(tg);
 		myMouseRotate.setSchedulingBounds(new BoundingSphere());
 		
-		root.addChild(myMouseRotate);//TODO find out why this needs to be a child here and eb connected to the transformgroup
+		root.addChild(myMouseRotate);
 		*/
-		return tg; //TODO implement
+		return tg; 
 	}
 		
 	public static STLObject loadFile(File theFile) throws IOException{
@@ -137,7 +156,7 @@ public class STLLoader {
 			olA.setCoordinate(currV++,centeredScale( fac.getVertex2(),center,scale));
 			olA.setCoordinate(currV++,centeredScale( fac.getVertex3(),center,scale));
 			/*
-			 * olA.setCoordinate(currV++, fac.getVertex1());
+			olA.setCoordinate(currV++, fac.getVertex1());
 			olA.setCoordinate(currV++, fac.getVertex2());
 			
 			olA.setCoordinate(currV++, fac.getVertex1());
@@ -160,7 +179,7 @@ public class STLLoader {
 
 		Appearance modelAppearance = new Appearance();
 		modelAppearance.setColoringAttributes(new ColoringAttributes(new Color3f(.7f,0.7f,0.7f),ColoringAttributes.NICEST));
-		modelAppearance.setMaterial(new Material());//TODO what?
+		modelAppearance.setMaterial(new Material());
 		
 		TriangleArray model = new TriangleArray(numVertices,
 				TriangleArray.COORDINATES);
@@ -171,16 +190,16 @@ public class STLLoader {
 		
 		float scale = 1f/Math.max(Math.max(stlo.getXDistance(),stlo.getYDistance()),stlo.getZDistance());
 		
-		Vector3f[] normals = new Vector3f[stlo.getFacetAmount()];
+		//Vector3f[] normals = new Vector3f[stlo.getFacetAmount()];
 		
-		
+		//TODO clean up
 		
 		Point3f center = stlo.getCenter();
 		for(STLFacet sf:stlo){
 			model.setCoordinate(currVertex++, centeredScale(sf.getVertex1(),center,scale));
 			model.setCoordinate(currVertex++, centeredScale(sf.getVertex2(),center,scale));
 			model.setCoordinate(currVertex++, centeredScale(sf.getVertex3(),center,scale));
-			normals[(currVertex/3)-1]=sf.getNormal();
+			//normals[(currVertex/3)-1]=sf.getNormal();
 		}
 		
 		GeometryInfo gi = new GeometryInfo(model);
@@ -190,8 +209,17 @@ public class STLLoader {
 		model.setCapability(TriangleArray.NORMALS);
 		//model.setNormals(0,normals);
 		
+		Shape3D theModel = new Shape3D(gi.getIndexedGeometryArray(), modelAppearance);
 		
-		return new Shape3D(model, modelAppearance);
+		Appearance appearance = new Appearance();
+		Material material = new Material(); 
+		material.setDiffuseColor(0.1f, 0.2f, 0.4f);
+		material.setSpecularColor(0.2f, 0.2f, 0.2f);  // reduce default values
+		appearance.setMaterial(material);
+		
+		theModel.setAppearance(appearance);
+		
+		return theModel;
 	}
 	
 	private static Point3f centeredScale(Point3f p,Point3f c, float scale){
@@ -216,4 +244,54 @@ public class STLLoader {
 		return new Point3f(x,y,z);
 	}
 
+	@SuppressWarnings("restriction")
+	public static STLTransformGroup createSTLTransform(String filename,BranchGroup root) throws IOException{
+		return createSTLTransform(new File(filename),root);
+	}
+	
+	@SuppressWarnings("restriction")
+	public static STLTransformGroup createSTLTransform(File f,BranchGroup root) throws IOException{
+		STLObject stl = loadFile(f);
+		return createSTLTransform(stl,root);	
+	}
+	
+	@SuppressWarnings("restriction")
+	public static STLTransformGroup createSTLTransform(STLObject stl,BranchGroup root) throws IOException{
+		STLTransformGroup tg = new STLTransformGroup();
+		
+		
+		tg.setModel(createModel(stl));
+		
+		//Outline with visibility option
+		Shape3D outline = createModelOutline(stl);
+		
+		RenderingAttributes ra = new RenderingAttributes();
+		ra.setVisible(true);		
+		ra.setCapability(RenderingAttributes.ALLOW_VISIBLE_READ|RenderingAttributes.ALLOW_VISIBLE_WRITE);
+		
+		Appearance outlineAppearance = new Appearance();
+		outlineAppearance.setRenderingAttributes(ra);
+		
+		outline.setAppearance(outlineAppearance);
+		
+		
+		tg.setOutline(outline);
+		
+		//end outline creation
+		
+		tg.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
+		tg.setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
+		
+		
+		
+		/*
+		MouseRotate myMouseRotate = new MouseRotate();
+		myMouseRotate.setTransformGroup(tg);
+		myMouseRotate.setSchedulingBounds(new BoundingSphere());
+		
+		root.addChild(myMouseRotate);
+		*/
+		return tg; 
+	}
+	
 }

@@ -11,6 +11,7 @@ import java.util.Hashtable;
 import javax.swing.JTree;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
@@ -31,6 +32,8 @@ public class WorkspaceNavigator extends JTree{
 			}
 	
 		};
+		
+		DefaultTreeModel dtm = new DefaultTreeModel(root);
 
 		File[] allFiles = mainDirectory.listFiles();
 		
@@ -44,21 +47,16 @@ public class WorkspaceNavigator extends JTree{
 			//tempObjects.add(newObject);
 		}
 		
-		WorkspaceNavigator theNavigator = new WorkspaceNavigator(root,mainDirectory);
+		WorkspaceNavigator theNavigator = new WorkspaceNavigator(dtm,mainDirectory);
 		theNavigator.setRootVisible(true);
 		//theNavigator.setEditable(true);
-				
+		
+		theNavigator.setSize(theNavigator.getMaximumSize());
+		
 		 theNavigator.treeDidChange();
 		return theNavigator; 
 	}
-	/*
-	private void addNode(WorkspaceLeafNode newNode) {
-		if(newNode.getParent().equals(this.root)) return;
-		newNode.setParent(this.root);
-		root.addChild(newNode);
-	}
-	*/
-	
+		
 	public WorkspaceNavigator(TreeNode root){
 		super(root);
 	}
@@ -67,7 +65,31 @@ public class WorkspaceNavigator extends JTree{
 		super(root);
 		this.root = root;
 		this.mainDirectory = mainDirectory;
+		treeModel = new DefaultTreeModel(root);
+		((DefaultTreeModel)treeModel).reload();
 	}
+	
+	private WorkspaceNavigator(DefaultTreeModel dtm,File mainDirectory){
+		super(dtm);
+		this.root = (WorkspaceFolderNode) dtm.getRoot();
+		this.mainDirectory = mainDirectory;
+		treeModel = new DefaultTreeModel(root);
+		((DefaultTreeModel)treeModel).reload();
+	}
+	
+	public void addTestNode(){
+		((DefaultTreeModel)treeModel).insertNodeInto(new DefaultMutableTreeNode("Blah"), root, 0);
+		//((DefaultTreeModel)treeModel).reload();
+	}
+	
+	/*
+	private void addNode(WorkspaceLeafNode newNode) {
+		if(newNode.getParent().equals(this.root)) return;
+		newNode.setParent(this.root);
+		root.addChild(newNode);
+	}
+	*/
+	
 	/*
 	public boolean addFolder(String name){
 		return false; //TODO

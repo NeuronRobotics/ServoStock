@@ -13,6 +13,7 @@ import java.util.Hashtable;
 
 import javax.swing.JButton;
 import javax.swing.JTabbedPane;
+import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.vecmath.Point3f;
 
@@ -27,12 +28,13 @@ public class STLPreviewContainer extends Container implements ActionListener {
 
 	private JToolBar cameraControls;
 	private JButton resetCamera, zoomIn, zoomOut,rotateXZPlus,rotateXZMinus,rotateUp,rotateDown;
+	private JToggleButton toggleOutline;
 	
-	private boolean layoutSet;
+	//private boolean layoutSet;
 
 	public STLPreviewContainer() {
 		
-		layoutSet = false;
+		//layoutSet = false;
 		
 		GridBagLayout gridbag = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
@@ -51,6 +53,7 @@ public class STLPreviewContainer extends Container implements ActionListener {
 		rotateXZMinus = new JButton("Camera Right");
 		rotateUp = new JButton("Camera Up");
 		rotateDown = new JButton("Camera Down");
+		toggleOutline = new JToggleButton("Toggle Outline",true);
 
 		resetCamera.addActionListener(this);
 		zoomIn.addActionListener(this);
@@ -58,7 +61,9 @@ public class STLPreviewContainer extends Container implements ActionListener {
 		rotateXZPlus.addActionListener(this);
 		rotateXZMinus.addActionListener(this);
 		rotateUp.addActionListener(this);
-		rotateDown.addActionListener(this);		
+		rotateDown.addActionListener(this);
+		toggleOutline.addActionListener(this);
+				
 
 		cameraControls.add(resetCamera);
 		cameraControls.add(zoomIn);
@@ -67,6 +72,8 @@ public class STLPreviewContainer extends Container implements ActionListener {
 		cameraControls.add(rotateXZMinus);
 		cameraControls.add(rotateUp);
 		cameraControls.add(rotateDown);
+		cameraControls.add(toggleOutline);
+		
 		
 
 		c.fill = GridBagConstraints.BOTH;
@@ -98,13 +105,20 @@ public class STLPreviewContainer extends Container implements ActionListener {
 					workspaceDimensions);
 			String name = stl.getName();
 			if(!tempPreview.getSTLObject().getName().equalsIgnoreCase("Default")) 
-				name+="("+tempPreview.getSTLObject().getName()+")";
+				name+=" ("+tempPreview.getSTLObject().getName()+")";
 			previewTabs.add(name,tempPreview);
 			thePreviews.put(stl, tempPreview);
 			previewTabs.setSelectedComponent(tempPreview);
+			
+			new STLPreviewListener(tempPreview);
+			
+			tempPreview.setOutlineVisibility(toggleOutline.isSelected());
+			
 			return true;
 		}
-		previewTabs.setSelectedComponent(thePreviews.get(stl));
+		STLPreview tempPreview = thePreviews.get(stl);
+		tempPreview.setOutlineVisibility(toggleOutline.isSelected());
+		previewTabs.setSelectedComponent(tempPreview);
 		return false;
 	}
 
@@ -129,7 +143,6 @@ public class STLPreviewContainer extends Container implements ActionListener {
 	public boolean hasNoPreviews() {
 		return thePreviews.size() == 0;
 	}
-
 	
 	@Override
 	public void actionPerformed(ActionEvent event) {
@@ -150,15 +163,18 @@ public class STLPreviewContainer extends Container implements ActionListener {
 			current.rotateCameraUp(.15);
 		} else if (event.getSource().equals(rotateDown)){
 			current.rotateCameraUp(-.15);
+		} else if (event.getSource().equals(toggleOutline)){
+			current.setOutlineVisibility(!current.getOutlineVisibility());
 		}
 
 	}
 
+	/*
 	public void setLayout(LayoutManager lm){
 		if(!layoutSet){
 			super.setLayout(lm);
 			layoutSet = true;
 		}
-	}
+	}*/
 		
 }

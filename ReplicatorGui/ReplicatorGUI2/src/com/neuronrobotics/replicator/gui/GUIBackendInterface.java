@@ -4,6 +4,7 @@ import java.io.File;
 
 public interface GUIBackendInterface {
 	
+	
 	public enum DriverState{NOT_READY,IDLE,SLICING,PRINTING,BOTH}
 		
 	public boolean connectPrinter();

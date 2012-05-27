@@ -13,6 +13,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 //import java.util.ArrayList;
@@ -73,7 +75,7 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface {
 	private WorkspaceNavigator fileNavigator;
 
 	private JMenuItem openFileItem;
-	// private JMenuItem newProjectItem;
+	private JMenuItem newProjectItem;
 
 	private JLabel statusLabel;
 	private JProgressBar printProgress;
@@ -91,21 +93,17 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface {
 
 	public void init() {
 
-		//Setting a differenet look and feel
+		//Setting a different look and feel
 		String lookAndFeel = UIManager.getSystemLookAndFeelClassName();
 		try {
 			UIManager.setLookAndFeel(lookAndFeel);
 		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (InstantiationException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (IllegalAccessException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (UnsupportedLookAndFeelException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -203,7 +201,17 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface {
 
 		});
 
+		this.newProjectItem = new JMenuItem("New Folder");
+		newProjectItem.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				fileNavigator.addTestNode();//TODO testing only				
+			}
+		});
+		
 		fileMenu.add(openFileItem);
+		fileMenu.add(newProjectItem);
 
 		menuContainer.add(menuBar);
 
@@ -244,12 +252,52 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface {
 		// DefaultMutableTreeNode root = new DefaultMutableTreeNode();
 		fileNavigator = WorkspaceNavigator
 				.getNavigator(defaultWorkspaceDirectory);
+		
+		//MouseListener ml = new MouseListener(){};
+		
+		fileNavigator.addMouseListener(new MouseListener(){
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if(e.getClickCount()==2){
+					
+				}
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
 		fileNavigator.addTreeSelectionListener(new TreeSelectionListener() {
 
 			@Override
 			public void valueChanged(TreeSelectionEvent arg0) {
 				// arg0.getPath();
 				// System.out.println(arg0.getPath().getLastPathComponent().getClass());
+			
 				if (WorkspaceLeafNode.class == arg0.getPath()
 						.getLastPathComponent().getClass()) {
 					WorkspaceLeafNode selected = (WorkspaceLeafNode) arg0
@@ -265,7 +313,10 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface {
 						errorDialog("Couldn't load file");
 					}
 				}
+				
+				
 			}
+			
 
 		});
 

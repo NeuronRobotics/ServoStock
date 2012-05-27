@@ -13,7 +13,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
 
-public class WorkspaceLeafNode extends WorkspaceNode{
+public class WorkspaceLeafNode implements MutableTreeNode{
 	
 	/**
 	 * 
@@ -26,7 +26,7 @@ public class WorkspaceLeafNode extends WorkspaceNode{
 		
 	public WorkspaceLeafNode(WorkspaceFolderNode p,File theSTL, File theGCode){
 		this.parent = p;
-		if(this.parent!=null) parent.addChild(this);
+		if(this.parent!=null) parent.insert(this);
 		this.theSTL = theSTL;
 		this.theGCode = theGCode;
 	}
@@ -96,9 +96,39 @@ public class WorkspaceLeafNode extends WorkspaceNode{
 	}
 
 	@Override
-	public void setParent(WorkspaceFolderNode wn) {
-		if(parent!=null) parent.removeChild(this);
-		parent = wn;
+	public void insert(MutableTreeNode child, int index) {
+		//nothing
+		
+	}
+
+	@Override
+	public void remove(int index) {
+		//nothing		
+	}
+
+	@Override
+	public void remove(MutableTreeNode node) {
+		//do nothing		
+	}
+
+	@Override
+	public void removeFromParent() {
+		this.parent = null;		
+	}
+
+	@Override
+	public void setParent(MutableTreeNode newParent) {
+		this.parent = (WorkspaceFolderNode)newParent;		
+	}
+	
+	public void setParent(WorkspaceFolderNode newParent){
+		this.parent = newParent;
+	}
+
+	@Override
+	public void setUserObject(Object object) {
+		//nothing
+		
 	}
 	
 }
