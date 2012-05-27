@@ -17,6 +17,7 @@ import com.neuronrobotics.sdk.addons.kinematics.math.TransformNR;
 import com.neuronrobotics.sdk.common.Log;
 import com.neuronrobotics.sdk.dyio.DyIO;
 import com.neuronrobotics.sdk.serial.SerialConnection;
+import com.neuronrobotics.sdk.ui.ConnectionDialog;
 public class DirectControl implements ITaskSpaceUpdateListenerNR {
 	TrobotKinematics model;
 	DeltaRobotPrinterPrototype deltaRobot;
@@ -25,7 +26,7 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR {
 	double [] startVect = new double [] { 0,0,0,0,0,0};
 	public DirectControl() {
 		DyIO.disableFWCheck();
-		DyIO master = new DyIO(new SerialConnection("/dev/DyIO1"));
+		DyIO master = new DyIO(ConnectionDialog.promptConnection());
 		if(!master.connect()){
 			throw new RuntimeException("Not a bowler Device on connection: ");
 		}
@@ -67,12 +68,14 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR {
 			frame.pack();
 			frame.setLocationRelativeTo(null);
 			frame.setVisible(true);
+			frame.pack();
 			
 		}catch(Exception ex){
 			ex.printStackTrace();
 			System.exit(1);
 		}
 		
+
 		while (delt.isAvailable() && master.isAvailable()) {
 			long time = System.currentTimeMillis();
 			try {
@@ -82,6 +85,7 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR {
 			}
 			//System.out.println("Took "+(System.currentTimeMillis()-time)+"ms");
 		}
+
 	}
 	
 	private void zero(){
@@ -98,6 +102,10 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR {
 	}
 	public void onTaskSpaceUpdate(AbstractKinematicsNR source, TransformNR pose) {
 		current = new TransformNR(pose.getX()*scale,pose.getY()*scale,-pose.getZ()*scale,new RotationNR());
+		try {
+			//deltaRobot.setDesiredTaskSpaceTransform(current,0);
+		} catch (Exception e) {
+		}
 		//System.out.println("Current = "+pose);
 	}
 	public void onTargetTaskSpaceUpdate(AbstractKinematicsNR source,TransformNR pose) {}
