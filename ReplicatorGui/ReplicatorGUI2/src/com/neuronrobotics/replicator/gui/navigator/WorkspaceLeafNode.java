@@ -1,4 +1,4 @@
-package com.neuronrobotics.replicator.gui;
+package com.neuronrobotics.replicator.gui.navigator;
 
 
 import java.io.File;
@@ -12,6 +12,7 @@ import java.util.Enumeration;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
+
 
 public class WorkspaceLeafNode implements MutableTreeNode{
 	

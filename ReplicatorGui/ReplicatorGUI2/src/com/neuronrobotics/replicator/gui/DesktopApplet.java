@@ -43,6 +43,12 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.vecmath.Point3f;
 
+import com.neuronrobotics.replicator.gui.navigator.WorkspaceLeafNode;
+import com.neuronrobotics.replicator.gui.navigator.WorkspaceNavigator;
+import com.neuronrobotics.replicator.gui.preview.STLPreviewContainer;
+import com.neuronrobotics.replicator.gui.stl.ASCIISTLWriter;
+import com.neuronrobotics.replicator.gui.stl.STLObject;
+
 //import org.j3d.loaders.InvalidFormatException;
 
 //import com.neuronrobotics.replicator.driver.NRPrinter;
@@ -88,7 +94,7 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface {
 		super();
 		this.theGUIDriver = theGUIDriver;
 		this.theGUIDriver.setFrontend(this);
-		workspaceDimensions = new Point3f(5, 5, 5); // TODO extract to factory
+		workspaceDimensions = new Point3f(60, 60, 60); // TODO extract to factory
 	}
 
 	public void init() {
@@ -332,7 +338,6 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface {
 	}
 
 	public void workspaceNavigatorPrintHandler() {
-		// TODO
 	}
 
 	public void toolbarPrintButtonHandler() {
@@ -343,13 +348,46 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface {
 			this.errorDialog("Nothing to print!");
 			return;
 		}
-		File currentFile = previewContainer.getCurrentSTLFile();
+		
+		boolean rewrite = this.userPrompt("Rewrite STL with current Transforms?");
+		File currentFile = null;
+		System.out.println(rewrite);
+		if(rewrite){
+			currentFile = new File("tempTransform.stl");
+			//currentFile.delete();
+			if(!currentFile.exists())
+				try {
+					currentFile.createNewFile();
+				} catch (IOException e) {
+					this.statusLabel.setText("Rewrite failed");
+					this.errorDialog("Rewrite failed!");
+					e.printStackTrace();
+					return;
+				}
+			STLObject tranObj = previewContainer.getCurrentPreview().getSTLObject().getTransformedSTLObject(previewContainer.getCurrentPreview().getTransform3D());
+			ASCIISTLWriter aw =new ASCIISTLWriter(tranObj);
+			try {
+				this.statusLabel.setText("Rewriting new STL");
+				aw.writeSTLToFile(currentFile);
+			} catch (IOException e) {
+				this.statusLabel.setText("Rewrite failed. Aborting print.");
+				this.errorDialog("Rewrite failed!");
+				e.printStackTrace();
+				return;
+			}
+			
+		}
+		
+		if(!rewrite) currentFile = previewContainer.getCurrentSTLFile();
 		File currentGCodeFile = previewContainer.getCurrentGCodeFile();
-
+		
+		boolean isPrinting;
 		if (reSlice)
-			theGUIDriver.requestPrint(currentFile, currentGCodeFile);
+			isPrinting= theGUIDriver.requestPrint(currentFile, currentGCodeFile);
 		else
-			theGUIDriver.requestPrint(currentGCodeFile);
+			isPrinting = theGUIDriver.requestPrint(currentGCodeFile);
+		
+		
 		System.out.println("Printing file " + currentFile.getAbsolutePath());
 	}
 

@@ -1,4 +1,4 @@
-package com.neuronrobotics.replicator.gui;
+package com.neuronrobotics.replicator.gui.preview;
 
 
 import java.awt.Container;
@@ -29,6 +29,8 @@ public class STLPreviewContainer extends Container implements ActionListener {
 	private JToolBar cameraControls;
 	private JButton resetCamera, zoomIn, zoomOut,rotateXZPlus,rotateXZMinus,rotateUp,rotateDown;
 	private JToggleButton toggleOutline;
+	private JButton translateLeft, translateRight; //TODO these are only for testing
+	private JButton rotateModel;
 	
 	//private boolean layoutSet;
 
@@ -54,6 +56,9 @@ public class STLPreviewContainer extends Container implements ActionListener {
 		rotateUp = new JButton("Camera Up");
 		rotateDown = new JButton("Camera Down");
 		toggleOutline = new JToggleButton("Toggle Outline",true);
+		translateLeft = new JButton("Translate Left");
+		translateRight = new JButton("Translate Right");
+		rotateModel = new JButton("Rotate Model");
 
 		resetCamera.addActionListener(this);
 		zoomIn.addActionListener(this);
@@ -63,8 +68,10 @@ public class STLPreviewContainer extends Container implements ActionListener {
 		rotateUp.addActionListener(this);
 		rotateDown.addActionListener(this);
 		toggleOutline.addActionListener(this);
-				
-
+		translateLeft.addActionListener(this);
+		translateRight.addActionListener(this);
+		rotateModel.addActionListener(this);
+		
 		cameraControls.add(resetCamera);
 		cameraControls.add(zoomIn);
 		cameraControls.add(zoomOut);
@@ -73,9 +80,10 @@ public class STLPreviewContainer extends Container implements ActionListener {
 		cameraControls.add(rotateUp);
 		cameraControls.add(rotateDown);
 		cameraControls.add(toggleOutline);
+		cameraControls.add(translateLeft);
+		cameraControls.add(translateRight);
+		cameraControls.add(rotateModel);
 		
-		
-
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1.0;
 
@@ -110,7 +118,7 @@ public class STLPreviewContainer extends Container implements ActionListener {
 			thePreviews.put(stl, tempPreview);
 			previewTabs.setSelectedComponent(tempPreview);
 			
-			new STLPreviewListener(tempPreview);
+			new STLPreviewMouseControls(tempPreview);
 			
 			tempPreview.setOutlineVisibility(toggleOutline.isSelected());
 			
@@ -148,11 +156,12 @@ public class STLPreviewContainer extends Container implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 		if (hasNoPreviews())
 			return;
+		
 		STLPreview current = ((STLPreview) previewTabs.getSelectedComponent());
 		if (event.getSource().equals(zoomIn)) {
-			current.zoom(3);
+			current.zoom(current.getWorkspaceDimensions().x/2);
 		} else if (event.getSource().equals(zoomOut)) {
-			current.zoom(-3);
+			current.zoom(-current.getWorkspaceDimensions().x/2);
 		} else if (event.getSource().equals(resetCamera)) {
 			current.resetCamera();
 		} else if (event.getSource().equals(rotateXZPlus)){
@@ -165,6 +174,12 @@ public class STLPreviewContainer extends Container implements ActionListener {
 			current.rotateCameraUp(-.15);
 		} else if (event.getSource().equals(toggleOutline)){
 			current.setOutlineVisibility(!current.getOutlineVisibility());
+		} else if (event.getSource().equals(translateLeft)){
+			current.translateX(-.3);
+		} else if (event.getSource().equals(translateRight)){
+			current.translateX(.3);
+		} else if (event.getSource().equals(rotateModel)){
+			current.rotateY(.3);
 		}
 
 	}

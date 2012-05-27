@@ -1,4 +1,4 @@
-package com.neuronrobotics.replicator.gui;
+package com.neuronrobotics.replicator.gui.preview;
 
 import java.awt.Color;
 import java.awt.GraphicsConfiguration;
@@ -10,6 +10,7 @@ import java.util.Hashtable;
 import javax.media.j3d.AmbientLight;
 import javax.media.j3d.Appearance;
 import javax.media.j3d.BoundingSphere;
+import javax.media.j3d.Bounds;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Canvas3D;
 import javax.media.j3d.ColoringAttributes;
@@ -18,6 +19,7 @@ import javax.media.j3d.GeometryArray;
 import javax.media.j3d.IndexedLineArray;
 import javax.media.j3d.IndexedQuadArray;
 import javax.media.j3d.J3DGraphics2D;
+import javax.media.j3d.LineArray;
 import javax.media.j3d.Shape3D;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
@@ -41,10 +43,11 @@ public class STLPreview extends Canvas3D {
 	private SimpleUniverse simpleU;
 	private BranchGroup mainBranch;
 	private STLTransformGroup stlTransform;
+	private TransformGroup theWorkspace;
 	
 	private DirectionalLight theLight;
 	
-	private Shape3D stlModel,facetOutline; //TODO
+	//private Shape3D stlModel,facetOutline;
 	
 	private Point3d cameraPosition,cameraDirection;
 	private static final Vector3d CAMERA_ORIENTATION = new Vector3d(0,1,0);
@@ -75,8 +78,11 @@ public class STLPreview extends Canvas3D {
 		
 		stlTransform.getModel().getAppearance().setColoringAttributes(new ColoringAttributes());
 		stlTransform.getModel().getAppearance().getColoringAttributes().setCapability(ColoringAttributes.SHADE_GOURAUD);
-		mainBranch.addChild(RectangularWorkspace(new Point3f(0, 0, 0),
-				workspaceDimensions));
+		
+		theWorkspace = RectangularWorkspace(new Point3f(0, 0, 0),
+				workspaceDimensions);
+		
+		mainBranch.addChild(theWorkspace);
 		// ////////
 		AmbientLight lightA = new AmbientLight();
 		lightA.setInfluencingBounds(new BoundingSphere());
@@ -86,10 +92,12 @@ public class STLPreview extends Canvas3D {
 		theLight.setInfluencingBounds(new BoundingSphere(new Point3d(0,0,0),900));
 		//theLight.setDirection(-1,-1,-1);
 		theLight.setCapability(DirectionalLight.ALLOW_DIRECTION_WRITE);
+		theLight.setCapability(DirectionalLight.ALLOW_COLOR_WRITE);
 		//theLight.setColor(new Color3f(.2f,.4f,.8f));
 		// customize DirectionalLight object		
 		mainBranch.addChild(theLight);
-
+		
+		updateIndicatorLightColor();
 		
 		// objects in the scene can be viewed.
 		simpleU.addBranchGraph(mainBranch);
@@ -98,9 +106,9 @@ public class STLPreview extends Canvas3D {
 		//Initialize camera position
 		resetCamera();
 		
+		this.getView().setBackClipDistance(1000); //TODO do this dynamically?
 		
-		
-		//centerOnWorkspace();
+		centerOnWorkspace();
 		
 	}
 
@@ -108,7 +116,7 @@ public class STLPreview extends Canvas3D {
 		super(arg0);
 	}
 
-	public TransformGroup RectangularWorkspace(Point3f center,
+	private TransformGroup RectangularWorkspace(Point3f center,
 			Point3f dimensions) {
 		TransformGroup workspaceGroup = new TransformGroup();
 
@@ -162,62 +170,40 @@ public class STLPreview extends Canvas3D {
 		workspaceGroup.addChild(workArea);
 
 		// Work surface
-		IndexedQuadArray surfaceRectangles = new IndexedQuadArray(8,
-				GeometryArray.COORDINATES, 24);
-
-		surfaceRectangles.setCoordinate(0, new Point3f(center.x-dimensions.x
-				/2, center.y - dimensions.y / 2 - .1f, center.z - dimensions.z
-				/ 2));
-		surfaceRectangles.setCoordinate(1, new Point3f(center.x - dimensions.x
-				/ 2, center.y - dimensions.y / 2, center.z - dimensions.z / 2));
-		surfaceRectangles.setCoordinate(2, new Point3f(center.x + dimensions.x
-				/ 2, center.y - dimensions.y / 2 - .1f, center.z - dimensions.z
-				/ 2));
-		surfaceRectangles.setCoordinate(3, new Point3f(center.x + dimensions.x
-				/ 2, center.y - dimensions.y / 2, center.z - dimensions.z / 2));
-		surfaceRectangles.setCoordinate(4, new Point3f(center.x - dimensions.x
-				/ 2, center.y - dimensions.y / 2 - .1f, center.z + dimensions.z
-				/ 2));
-		surfaceRectangles.setCoordinate(5, new Point3f(center.x - dimensions.x
-				/ 2, center.y - dimensions.y / 2, center.z + dimensions.z / 2));
-		surfaceRectangles.setCoordinate(6, new Point3f(center.x + dimensions.x
-				/ 2, center.y - dimensions.y / 2 - .1f, center.z + dimensions.z
-				/ 2));
-		surfaceRectangles.setCoordinate(7, new Point3f(center.x + dimensions.x
-				/ 2, center.y - dimensions.y / 2, center.z + dimensions.z / 2));
-
-		surfaceRectangles.setCoordinateIndex(0, 0);
-		surfaceRectangles.setCoordinateIndex(1, 1);
-		surfaceRectangles.setCoordinateIndex(2, 3);
-		surfaceRectangles.setCoordinateIndex(3, 2);
-
-		surfaceRectangles.setCoordinateIndex(4, 4);
-		surfaceRectangles.setCoordinateIndex(5, 5);
-		surfaceRectangles.setCoordinateIndex(6, 7);
-		surfaceRectangles.setCoordinateIndex(7, 6);
-
-		surfaceRectangles.setCoordinateIndex(8, 1);
-		surfaceRectangles.setCoordinateIndex(9, 5);
-		surfaceRectangles.setCoordinateIndex(10, 4);
-		surfaceRectangles.setCoordinateIndex(11, 0);
-
-		surfaceRectangles.setCoordinateIndex(12, 3);
-		surfaceRectangles.setCoordinateIndex(13, 7);
-		surfaceRectangles.setCoordinateIndex(14, 6);
-		surfaceRectangles.setCoordinateIndex(15, 2);
-
-		surfaceRectangles.setCoordinateIndex(16, 0);
-		surfaceRectangles.setCoordinateIndex(17, 4);
-		surfaceRectangles.setCoordinateIndex(18, 6);
-		surfaceRectangles.setCoordinateIndex(19, 2);
-
-		surfaceRectangles.setCoordinateIndex(20, 1);
-		surfaceRectangles.setCoordinateIndex(21, 5);
-		surfaceRectangles.setCoordinateIndex(22, 7);
-		surfaceRectangles.setCoordinateIndex(23, 3);
-
+		LineArray surfaceLines = new LineArray(12,GeometryArray.COORDINATES);
+		
+		
+		float xDelta = dimensions.x/4.0f;
+		float zDelta = dimensions.z/4.0f;
+		Point3f backLeft = new Point3f(center.x-dimensions.x
+				/2, center.y - dimensions.y / 2, center.z - dimensions.z
+				/ 2);
+		
+		int vt = 0;
+		
+		surfaceLines.setCoordinate(vt++, new Point3d(backLeft.x+xDelta,backLeft.y,backLeft.z));
+		surfaceLines.setCoordinate(vt++, new Point3d(backLeft.x+xDelta,backLeft.y,backLeft.z+dimensions.z));
+		
+		surfaceLines.setCoordinate(vt++, new Point3d(backLeft.x+(2*xDelta),backLeft.y,backLeft.z));
+		surfaceLines.setCoordinate(vt++, new Point3d(backLeft.x+(2*xDelta),backLeft.y,backLeft.z+dimensions.z));
+		
+		surfaceLines.setCoordinate(vt++, new Point3d(backLeft.x+(3*xDelta),backLeft.y,backLeft.z));
+		surfaceLines.setCoordinate(vt++, new Point3d(backLeft.x+(3*xDelta),backLeft.y,backLeft.z+dimensions.z));
+		
+		surfaceLines.setCoordinate(vt++, new Point3d(backLeft.x,backLeft.y,backLeft.z+zDelta));
+		surfaceLines.setCoordinate(vt++, new Point3d(backLeft.x+dimensions.x,backLeft.y,backLeft.z+zDelta));
+		
+		surfaceLines.setCoordinate(vt++, new Point3d(backLeft.x,backLeft.y,backLeft.z+(2*zDelta)));
+		surfaceLines.setCoordinate(vt++, new Point3d(backLeft.x+dimensions.x,backLeft.y,backLeft.z+(2*zDelta)));
+		
+		surfaceLines.setCoordinate(vt++, new Point3d(backLeft.x,backLeft.y,backLeft.z+(3*zDelta)));
+		surfaceLines.setCoordinate(vt++, new Point3d(backLeft.x+dimensions.x,backLeft.y,backLeft.z+(3*zDelta)));
+		
+		
+		
+		
 		Shape3D workspaceSurface = new Shape3D();
-		workspaceSurface.setGeometry(surfaceRectangles);
+		workspaceSurface.setGeometry(surfaceLines);
 
 		Appearance app = new Appearance();
 		ColoringAttributes ca = new ColoringAttributes();
@@ -278,18 +264,6 @@ public class STLPreview extends Canvas3D {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		AmbientLight lightA = new AmbientLight();
-		lightA.setInfluencingBounds(new BoundingSphere(new Point3d(0,0,0),100));
-		stlTransform.addChild(lightA);
-
-		DirectionalLight lightD1 = new DirectionalLight();
-		lightD1.setInfluencingBounds(new BoundingSphere(new Point3d(0,0,0),100));
-		//lightD1.setDirection(-1, -1, -1);
-		// customize DirectionalLight object
-		stlTransform.addChild(lightD1);
-		
-		
 		
 		return stlTransform;
 	}
@@ -303,7 +277,8 @@ public class STLPreview extends Canvas3D {
 		dirVector.scale(d);
 		//System.out.println(dirVector);
 		
-		//TODO don't zoom past focus
+		//Prevents zooming pest focal point
+		if(d<=cameraPosition.distance(cameraDirection))
 		cameraPosition.add(dirVector);
 		
 		setCamera(cameraPosition,cameraDirection);	
@@ -330,7 +305,8 @@ public class STLPreview extends Canvas3D {
 	public void resetCamera(){
 		double m = Math.max(this.workspaceDimensions.z,Math.max(this.workspaceDimensions.x,this.workspaceDimensions.y));
 		cameraPosition = new Point3d(2*m,2*m,2*m);
-		cameraDirection = new Point3d(0,0,0); //TODO point at center of model?
+		cameraDirection = new Point3d(0,0,0); 
+		//TODO will need to switch between focusing on workspace and model
 		setCamera(cameraPosition,cameraDirection);
 		
 			
@@ -419,20 +395,73 @@ public class STLPreview extends Canvas3D {
 		setCamera(cameraPosition, cameraDirection);		
 	}
 	
+	//light transform functions
+	public void updateIndicatorLightColor(){
+		if(modelInWorkspace()) theLight.setColor(new Color3f(.0f,5.5f,.0f));
+		else theLight.setColor(new Color3f(5.5f,.0f,.0f));
+	}
+	
+	public boolean modelInWorkspace(){
+		
+		Point3f min = stlTransform.getCurrentMin();
+		Point3f max = stlTransform.getCurrentMax();
+		
+		System.out.println(min);
+		System.out.println(max);
+		
+		if(min.x<(0-workspaceDimensions.x/2)) return false;
+		if(min.y<(0-workspaceDimensions.y/2)) return false;
+		if(min.z<(0-workspaceDimensions.z/2)) return false;
+		if(max.x>workspaceDimensions.x/2) return false;
+		if(max.y>workspaceDimensions.y/2) return false;
+		if(max.z>workspaceDimensions.z/2) return false;
+				
+		return true;
+	}
+		
 	//Model transform functions
 	public void rotateX(double rad){
+		Transform3D curr = new Transform3D();
+		stlTransform.getTransform(curr);
+		
 		Transform3D temp = new Transform3D();
 		temp.rotX(rad);
-		stlTransform.setTransform(temp);
+		curr.mul(temp);
+		stlTransform.setTransform(curr);
+		updateIndicatorLightColor();
+	}
+	
+	public void rotateY(double rad){
+		Transform3D curr = new Transform3D();
+		stlTransform.getTransform(curr);
+		
+		Transform3D temp = new Transform3D();
+		temp.rotY(rad);
+		curr.mul(temp);
+		stlTransform.setTransform(curr);
+		updateIndicatorLightColor();
+	}
+	
+	public void rotateZ(double rad){
+		Transform3D curr = new Transform3D();
+		stlTransform.getTransform(curr);
+		
+		Transform3D temp = new Transform3D();
+		temp.rotZ(rad);
+		curr.mul(temp);
+		stlTransform.setTransform(curr);
+		updateIndicatorLightColor();
 	}
 	
 	public void centerOnWorkspace(){
-		Point3f cent = theSTLObject.getCenter();
-		double xTrans = -cent.x;
-		double zTrans = -cent.z;
-		double yTrans = -theSTLObject.getMin().y-(workspaceDimensions.y/2);
+		//Point3f cent = stlTransform.getCurrentCenter();
+		//Point3f cent = theSTLObject.getCenter();
+		double xTrans = 0;//-cent.x;
+		double zTrans = 0;//-cent.z;
+		double yTrans = -stlTransform.getBaseMin().y-(workspaceDimensions.y/2);
 		Vector3d tran = new Vector3d(xTrans,yTrans,zTrans);
 		translate(tran);
+		updateIndicatorLightColor();
 	}
 	
 	public void translate(Vector3d tran){
@@ -442,6 +471,7 @@ public class STLPreview extends Canvas3D {
 		temp.setTranslation(tran);
 		temp2.mul(temp);
 		stlTransform.setTransform(temp2);
+		updateIndicatorLightColor();
 	}
 
 	public void translateX(double x){
@@ -479,6 +509,10 @@ public class STLPreview extends Canvas3D {
 	public File getGCodeFile(){
 		return theGcode;
 	}
+	
+	public Point3f getWorkspaceDimensions(){
+		return workspaceDimensions;
+	}
 
 	
 	public boolean getOutlineVisibility() {
@@ -487,6 +521,12 @@ public class STLPreview extends Canvas3D {
 	
 	public boolean getModelVisibility() {
 		return stlTransform.getModelVisibility();
+	}
+
+	public Transform3D getTransform3D() {
+		Transform3D curr = new Transform3D();
+		stlTransform.getTransform(curr);
+		return curr;
 	}
 
 }

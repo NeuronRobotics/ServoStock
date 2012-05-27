@@ -229,8 +229,8 @@ public class STLLoader {
 		float y = p.y;//(p.y-c.y)*scale;
 		float z = p.z;//(p.z-c.z)*scale;
 		*/
-		
-		boolean noScale = false;
+		scale*=3;
+		boolean noScale = true;
 		if(noScale){
 			scale = 1;
 			c.x = 0;

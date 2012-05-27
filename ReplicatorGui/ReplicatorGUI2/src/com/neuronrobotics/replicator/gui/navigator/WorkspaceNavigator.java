@@ -1,4 +1,4 @@
-package com.neuronrobotics.replicator.gui;
+package com.neuronrobotics.replicator.gui.navigator;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -15,6 +15,7 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
+
 
 public class WorkspaceNavigator extends JTree{
 	

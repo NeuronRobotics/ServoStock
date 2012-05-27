@@ -1,4 +1,4 @@
-package com.neuronrobotics.replicator.gui;
+package com.neuronrobotics.replicator.gui.preview;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,7 +9,7 @@ import java.awt.geom.Point2D;
 
 import javax.vecmath.Point2d;
 
-public class STLPreviewListener implements MouseListener, MouseMotionListener{
+public class STLPreviewMouseControls implements MouseListener, MouseMotionListener{
 
 	STLPreview thePreview;
 	
@@ -17,7 +17,7 @@ public class STLPreviewListener implements MouseListener, MouseMotionListener{
 	
 	boolean mousePressed;
 		
-	public STLPreviewListener(STLPreview prev){
+	public STLPreviewMouseControls(STLPreview prev){
 		thePreview = prev;
 		thePreview.addMouseListener(this);
 		thePreview.addMouseMotionListener(this);
