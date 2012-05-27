@@ -128,7 +128,7 @@ public class STLTransformGroup extends TransformGroup{
 	}
 	
 	public Point3f getCurrentMin() {
-
+		/*
 		if (min == null)
 			this.getBaseMin();
 
@@ -139,19 +139,46 @@ public class STLTransformGroup extends TransformGroup{
 		currT.transform(currMin); //TODO have to actually go through everything again
 
 		return currMin;
+		*/
+		
+		Point3f currMin = new Point3f(0f,0f,0f);
+		GeometryArray ga = (GeometryArray)(theModel.getGeometry());
+		
+		Transform3D currT = new Transform3D();
+		this.getTransform(currT);
+		
+		int vc = ga.getVertexCount();
+		Point3f tempCoord = new Point3f(0f,0f,0f);
+		for(int i=0;i<vc;i++){
+			ga.getCoordinate(i,tempCoord);
+			currT.transform(tempCoord);
+			if(tempCoord.x<currMin.x) currMin.set(tempCoord.x,currMin.y,currMin.z);
+			if(tempCoord.y<currMin.y) currMin.set(currMin.x,tempCoord.y,currMin.z);
+			if(tempCoord.z<currMin.z) currMin.set(currMin.x,currMin.y,tempCoord.z);
+		}
+					
+		return currMin;
+		
 	}
 	
 	public Point3f getCurrentMax() {
 
-		if (max == null)
-			this.getBaseMax();
-
+		Point3f currMax = new Point3f(0f,0f,0f);
+		GeometryArray ga = (GeometryArray)(theModel.getGeometry());
+		
 		Transform3D currT = new Transform3D();
 		this.getTransform(currT);
-
-		Point3f currMax = new Point3f(max);
-		currT.transform(currMax);
 		
+		int vc = ga.getVertexCount();
+		Point3f tempCoord = new Point3f(0f,0f,0f);
+		for(int i=0;i<vc;i++){
+			ga.getCoordinate(i,tempCoord);
+			currT.transform(tempCoord);
+			if(tempCoord.x>currMax.x) currMax.set(tempCoord.x,currMax.y,currMax.z);
+			if(tempCoord.y>currMax.y) currMax.set(currMax.x,tempCoord.y,currMax.z);
+			if(tempCoord.z>currMax.z) currMax.set(currMax.x,currMax.y,tempCoord.z);
+		}
+					
 		return currMax;
 	}
 	
