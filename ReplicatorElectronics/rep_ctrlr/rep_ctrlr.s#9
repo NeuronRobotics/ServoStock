@@ -6500,7 +6500,7 @@ In this library the device names are the same as the pin names of the symbols, t
 </library>
 <library name="rcl">
 <packages>
-<package name="C0402">
+<package name="C0402@1">
 <description>&lt;b&gt;CAPACITOR&lt;/b&gt;</description>
 <wire x1="-0.245" y1="0.224" x2="0.245" y2="0.224" width="0.1524" layer="51"/>
 <wire x1="0.245" y1="-0.224" x2="-0.245" y2="-0.224" width="0.1524" layer="51"/>
@@ -14431,7 +14431,7 @@ Source: http://products.nichicon.co.jp/en/pdf/XJA043/e-ud.pdf</description>
 </package>
 </packages>
 <symbols>
-<symbol name="C-US">
+<symbol name="C-US@1">
 <wire x1="-2.54" y1="0" x2="2.54" y2="0" width="0.254" layer="94"/>
 <wire x1="0" y1="-1.016" x2="0" y2="-2.54" width="0.1524" layer="94"/>
 <wire x1="0" y1="-1" x2="2.4892" y2="-1.8542" width="0.254" layer="94" curve="-37.878202"/>
@@ -14473,10 +14473,10 @@ Source: http://products.nichicon.co.jp/en/pdf/XJA043/e-ud.pdf</description>
 <deviceset name="C-US" prefix="C" uservalue="yes">
 <description>&lt;B&gt;CAPACITOR&lt;/B&gt;, American symbol</description>
 <gates>
-<gate name="G$1" symbol="C-US" x="0" y="0"/>
+<gate name="G$1" symbol="C-US@1" x="0" y="0"/>
 </gates>
 <devices>
-<device name="C0402" package="C0402">
+<device name="C0402" package="C0402@1">
 <connects>
 <connect gate="G$1" pin="1" pad="1"/>
 <connect gate="G$1" pin="2" pad="2"/>
@@ -19181,14 +19181,14 @@ Source: http://www.abracon.com/Oscillators/asf1-L-L1.pdf</description>
 <part name="C4" library="resistor" deviceset="C-US" device="C0603" value="0.1u"/>
 <part name="C5" library="resistor" deviceset="C-US" device="C0603" value="0.1u"/>
 <part name="C6" library="resistor" deviceset="C-US" device="C0603" value="0.1u"/>
-<part name="C7" library="resistor" deviceset="C-US" device="C0603" value="0.1u"/>
+<part name="C7" library="resistor" deviceset="C-US" device="C0402" value="0.1u"/>
 <part name="FRAME1" library="frames" deviceset="FRAME_C_L" device=""/>
-<part name="C8" library="resistor" deviceset="C-US" device="C0603" value="10u"/>
-<part name="R1" library="resistor" deviceset="R-US_" device="R0603" value="4.7k"/>
+<part name="C8" library="resistor" deviceset="C-US" device="C0402" value="10u"/>
+<part name="R1" library="resistor" deviceset="R-US_" device="R0402" value="4.7k"/>
 <part name="J1" library="SparkFun-Connectors" deviceset="ATX24" device="RH"/>
 <part name="J2" library="con-berg" deviceset="PN61729" device=""/>
-<part name="R2" library="resistor" deviceset="R-US_" device="R0603" value="10"/>
-<part name="C9" library="resistor" deviceset="C-US" device="C0603" value="0.1u"/>
+<part name="R2" library="resistor" deviceset="R-US_" device="R0402" value="10"/>
+<part name="C9" library="resistor" deviceset="C-US" device="C0402" value="0.1u"/>
 <part name="SUPPLY1" library="supply2" deviceset="DGND" device=""/>
 <part name="SUPPLY3" library="supply2" deviceset="DGND" device=""/>
 <part name="SUPPLY4" library="supply2" deviceset="DGND" device=""/>
@@ -19198,53 +19198,53 @@ Source: http://www.abracon.com/Oscillators/asf1-L-L1.pdf</description>
 <part name="GND1" library="supply1" deviceset="GND" device=""/>
 <part name="SUPPLY12" library="supply2" deviceset="DGND" device=""/>
 <part name="FRAME2" library="frames" deviceset="FRAME_C_L" device=""/>
-<part name="R13" library="resistor" deviceset="R-US_" device="R0603" value="10K"/>
-<part name="R14" library="resistor" deviceset="R-US_" device="R0603" value="10"/>
-<part name="C10" library="resistor" deviceset="C-US" device="C0603" value="0.1u"/>
+<part name="R13" library="resistor" deviceset="R-US_" device="R0402" value="10K"/>
+<part name="R14" library="resistor" deviceset="R-US_" device="R0402" value="10"/>
+<part name="C10" library="resistor" deviceset="C-US" device="C0402" value="0.1u"/>
 <part name="SUPPLY13" library="supply2" deviceset="DGND" device=""/>
 <part name="SUPPLY14" library="supply2" deviceset="DGND" device=""/>
 <part name="IC2" library="chipKIT_Max32" deviceset="MICROCHIP_MCP6001" device="-LT"/>
-<part name="R15" library="resistor" deviceset="R-US_" device="R0603" value="10"/>
-<part name="C11" library="resistor" deviceset="C-US" device="C0603" value="0.1u"/>
+<part name="R15" library="resistor" deviceset="R-US_" device="R0402" value="10"/>
+<part name="C11" library="resistor" deviceset="C-US" device="C0402" value="0.1u"/>
 <part name="SUPPLY15" library="supply2" deviceset="DGND" device=""/>
 <part name="SUPPLY16" library="supply2" deviceset="DGND" device=""/>
 <part name="GND2" library="supply1" deviceset="GND" device=""/>
 <part name="SUPPLY17" library="supply2" deviceset="DGND" device=""/>
 <part name="GND4" library="supply1" deviceset="GND" device=""/>
-<part name="R16" library="resistor" deviceset="R-US_" device="R0603" value="10K"/>
-<part name="R17" library="resistor" deviceset="R-US_" device="R0603" value="10"/>
-<part name="C12" library="resistor" deviceset="C-US" device="C0603" value="0.1u"/>
+<part name="R16" library="resistor" deviceset="R-US_" device="R0402" value="10K"/>
+<part name="R17" library="resistor" deviceset="R-US_" device="R0402" value="10"/>
+<part name="C12" library="resistor" deviceset="C-US" device="C0402" value="0.1u"/>
 <part name="SUPPLY18" library="supply2" deviceset="DGND" device=""/>
 <part name="SUPPLY19" library="supply2" deviceset="DGND" device=""/>
 <part name="IC3" library="chipKIT_Max32" deviceset="MICROCHIP_MCP6001" device="-LT"/>
-<part name="R18" library="resistor" deviceset="R-US_" device="R0603" value="10"/>
-<part name="C13" library="resistor" deviceset="C-US" device="C0603" value="0.1u"/>
+<part name="R18" library="resistor" deviceset="R-US_" device="R0402" value="10"/>
+<part name="C13" library="resistor" deviceset="C-US" device="C0402" value="0.1u"/>
 <part name="SUPPLY20" library="supply2" deviceset="DGND" device=""/>
 <part name="SUPPLY21" library="supply2" deviceset="DGND" device=""/>
 <part name="GND5" library="supply1" deviceset="GND" device=""/>
 <part name="SUPPLY22" library="supply2" deviceset="DGND" device=""/>
 <part name="GND6" library="supply1" deviceset="GND" device=""/>
-<part name="R19" library="resistor" deviceset="R-US_" device="R0603" value="10K"/>
-<part name="R20" library="resistor" deviceset="R-US_" device="R0603" value="10"/>
-<part name="C14" library="resistor" deviceset="C-US" device="C0603" value="0.1u"/>
+<part name="R19" library="resistor" deviceset="R-US_" device="R0402" value="10K"/>
+<part name="R20" library="resistor" deviceset="R-US_" device="R0402" value="10"/>
+<part name="C14" library="resistor" deviceset="C-US" device="C0402" value="0.1u"/>
 <part name="SUPPLY23" library="supply2" deviceset="DGND" device=""/>
 <part name="SUPPLY24" library="supply2" deviceset="DGND" device=""/>
 <part name="IC4" library="chipKIT_Max32" deviceset="MICROCHIP_MCP6001" device="-LT"/>
-<part name="R21" library="resistor" deviceset="R-US_" device="R0603" value="10"/>
-<part name="C15" library="resistor" deviceset="C-US" device="C0603" value="0.1u"/>
+<part name="R21" library="resistor" deviceset="R-US_" device="R0402" value="10"/>
+<part name="C15" library="resistor" deviceset="C-US" device="C0402" value="0.1u"/>
 <part name="SUPPLY25" library="supply2" deviceset="DGND" device=""/>
 <part name="SUPPLY26" library="supply2" deviceset="DGND" device=""/>
 <part name="GND7" library="supply1" deviceset="GND" device=""/>
 <part name="SUPPLY27" library="supply2" deviceset="DGND" device=""/>
 <part name="GND8" library="supply1" deviceset="GND" device=""/>
-<part name="R22" library="resistor" deviceset="R-US_" device="R0603" value="10K"/>
-<part name="R23" library="resistor" deviceset="R-US_" device="R0603" value="10"/>
-<part name="C16" library="resistor" deviceset="C-US" device="C0603" value="0.1u"/>
+<part name="R22" library="resistor" deviceset="R-US_" device="R0402" value="10K"/>
+<part name="R23" library="resistor" deviceset="R-US_" device="R0402" value="10"/>
+<part name="C16" library="resistor" deviceset="C-US" device="C0402" value="0.1u"/>
 <part name="SUPPLY28" library="supply2" deviceset="DGND" device=""/>
 <part name="SUPPLY29" library="supply2" deviceset="DGND" device=""/>
 <part name="IC5" library="chipKIT_Max32" deviceset="MICROCHIP_MCP6001" device="-LT"/>
-<part name="R24" library="resistor" deviceset="R-US_" device="R0603" value="10"/>
-<part name="C17" library="resistor" deviceset="C-US" device="C0603" value="0.1u"/>
+<part name="R24" library="resistor" deviceset="R-US_" device="R0402" value="10"/>
+<part name="C17" library="resistor" deviceset="C-US" device="C0402" value="0.1u"/>
 <part name="SUPPLY30" library="supply2" deviceset="DGND" device=""/>
 <part name="SUPPLY31" library="supply2" deviceset="DGND" device=""/>
 <part name="GND9" library="supply1" deviceset="GND" device=""/>
@@ -19292,7 +19292,7 @@ Source: http://www.abracon.com/Oscillators/asf1-L-L1.pdf</description>
 <part name="R44" library="resistor" deviceset="R-US_" device="R0603" value="10k"/>
 <part name="SUPPLY43" library="supply2" deviceset="DGND" device=""/>
 <part name="R45" library="resistor" deviceset="R-US_" device="R0603" value="10k"/>
-<part name="C30" library="rcl" deviceset="C-US" device="C0603" value="0.1uF"/>
+<part name="C30" library="resistor" deviceset="C-US" device="C0402" value="0.1uF"/>
 <part name="J6" library="SBH11-PBPC-D05-ST-BK" deviceset="SBH11-PBPC-D05-ST-BK" device=""/>
 <part name="J7" library="SBH11-PBPC-D05-ST-BK" deviceset="SBH11-PBPC-D05-ST-BK" device=""/>
 <part name="J8" library="SBH11-PBPC-D05-ST-BK" deviceset="SBH11-PBPC-D05-ST-BK" device=""/>
@@ -19320,11 +19320,11 @@ Source: http://www.abracon.com/Oscillators/asf1-L-L1.pdf</description>
 <part name="5V" library="testpad" deviceset="PTR1" device="TP14R"/>
 <part name="Q1" library="crystal" deviceset="ASF*" device="" technology="L1"/>
 <part name="Q2" library="crystal" deviceset="ASF*" device="" technology="L1"/>
-<part name="R9" library="resistor" deviceset="R-US_" device="R0603" value="10"/>
+<part name="R9" library="resistor" deviceset="R-US_" device="R0402" value="10"/>
 <part name="SUPPLY7" library="supply2" deviceset="DGND" device=""/>
-<part name="C18" library="resistor" deviceset="C-US" device="C0603" value="0.1u"/>
-<part name="C19" library="rcl" deviceset="C-US" device="C0603" value="0.1uF"/>
-<part name="R10" library="resistor" deviceset="R-US_" device="R0603" value="10"/>
+<part name="C18" library="resistor" deviceset="C-US" device="C0402" value="0.1u"/>
+<part name="C19" library="resistor" deviceset="C-US" device="C0402" value="0.1uF"/>
+<part name="R10" library="resistor" deviceset="R-US_" device="R0402" value="10"/>
 <part name="SUPPLY8" library="supply2" deviceset="DGND" device=""/>
 <part name="SUPPLY9" library="supply2" deviceset="DGND" device=""/>
 <part name="SUPPLY10" library="supply2" deviceset="DGND" device=""/>
@@ -20800,9 +20800,9 @@ Source: http://www.abracon.com/Oscillators/asf1-L-L1.pdf</description>
 <pinref part="IC1" gate="PE" pin="PMD1/RE1"/>
 </segment>
 <segment>
-<wire x1="276.86" y1="-35.56" x2="248.92" y2="-35.56" width="0.1524" layer="91"/>
-<label x="256.54" y="-35.56" size="1.778" layer="95"/>
-<pinref part="U$1" gate="G$1" pin="3"/>
+<wire x1="304.8" y1="-35.56" x2="332.74" y2="-35.56" width="0.1524" layer="91"/>
+<label x="309.88" y="-35.56" size="1.778" layer="95"/>
+<pinref part="U$1" gate="G$1" pin="4"/>
 </segment>
 </net>
 <net name="DB2" class="0">
@@ -20812,9 +20812,9 @@ Source: http://www.abracon.com/Oscillators/asf1-L-L1.pdf</description>
 <pinref part="IC1" gate="PE" pin="PMD2/RE2"/>
 </segment>
 <segment>
-<wire x1="304.8" y1="-35.56" x2="332.74" y2="-35.56" width="0.1524" layer="91"/>
-<label x="309.88" y="-35.56" size="1.778" layer="95"/>
-<pinref part="U$1" gate="G$1" pin="4"/>
+<wire x1="276.86" y1="-35.56" x2="248.92" y2="-35.56" width="0.1524" layer="91"/>
+<label x="256.54" y="-35.56" size="1.778" layer="95"/>
+<pinref part="U$1" gate="G$1" pin="3"/>
 </segment>
 </net>
 <net name="DB3" class="0">
@@ -20992,9 +20992,9 @@ Source: http://www.abracon.com/Oscillators/asf1-L-L1.pdf</description>
 <label x="-58.42" y="-114.3" size="1.778" layer="95"/>
 </segment>
 <segment>
-<wire x1="276.86" y1="-30.48" x2="248.92" y2="-30.48" width="0.1524" layer="91"/>
-<label x="256.54" y="-30.48" size="1.778" layer="95"/>
-<pinref part="U$1" gate="G$1" pin="1"/>
+<pinref part="U$1" gate="G$1" pin="24"/>
+<wire x1="304.8" y1="-86.36" x2="332.74" y2="-86.36" width="0.1524" layer="91"/>
+<label x="309.88" y="-86.36" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="TEMP0_BUF" class="0">
@@ -21092,9 +21092,9 @@ Source: http://www.abracon.com/Oscillators/asf1-L-L1.pdf</description>
 <label x="-60.96" y="-132.08" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="24"/>
-<wire x1="304.8" y1="-86.36" x2="332.74" y2="-86.36" width="0.1524" layer="91"/>
-<label x="309.88" y="-86.36" size="1.778" layer="95"/>
+<wire x1="276.86" y1="-30.48" x2="248.92" y2="-30.48" width="0.1524" layer="91"/>
+<label x="256.54" y="-30.48" size="1.778" layer="95"/>
+<pinref part="U$1" gate="G$1" pin="1"/>
 </segment>
 </net>
 <net name="LCD_RD" class="0">

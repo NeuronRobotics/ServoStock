@@ -20107,9 +20107,9 @@ Source: http://www.abracon.com/Oscillators/asf1-L-L1.pdf</description>
 <label x="40.64" y="-48.26" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="26"/>
-<wire x1="304.8" y1="-91.44" x2="332.74" y2="-91.44" width="0.1524" layer="91"/>
-<label x="309.88" y="-91.44" size="1.778" layer="95"/>
+<pinref part="U$1" gate="G$1" pin="24"/>
+<wire x1="304.8" y1="-86.36" x2="332.74" y2="-86.36" width="0.1524" layer="91"/>
+<label x="309.88" y="-86.36" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="ENC_SCK" class="0">
@@ -20946,9 +20946,9 @@ Source: http://www.abracon.com/Oscillators/asf1-L-L1.pdf</description>
 <label x="-60.96" y="-83.82" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="23"/>
-<wire x1="276.86" y1="-86.36" x2="248.92" y2="-86.36" width="0.1524" layer="91"/>
-<label x="256.54" y="-86.36" size="1.778" layer="95"/>
+<pinref part="U$1" gate="G$1" pin="26"/>
+<wire x1="304.8" y1="-91.44" x2="332.74" y2="-91.44" width="0.1524" layer="91"/>
+<label x="309.88" y="-91.44" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="Y+" class="0">
@@ -20970,9 +20970,9 @@ Source: http://www.abracon.com/Oscillators/asf1-L-L1.pdf</description>
 <label x="-60.96" y="-93.98" size="1.778" layer="95"/>
 </segment>
 <segment>
-<wire x1="276.86" y1="-76.2" x2="248.92" y2="-76.2" width="0.1524" layer="91"/>
-<label x="256.54" y="-76.2" size="1.778" layer="95"/>
-<pinref part="U$1" gate="G$1" pin="19"/>
+<wire x1="276.86" y1="-81.28" x2="248.92" y2="-81.28" width="0.1524" layer="91"/>
+<label x="256.54" y="-81.28" size="1.778" layer="95"/>
+<pinref part="U$1" gate="G$1" pin="21"/>
 </segment>
 </net>
 <net name="Y-" class="0">
@@ -20982,9 +20982,9 @@ Source: http://www.abracon.com/Oscillators/asf1-L-L1.pdf</description>
 <label x="-60.96" y="-96.52" size="1.778" layer="95"/>
 </segment>
 <segment>
-<wire x1="276.86" y1="-81.28" x2="248.92" y2="-81.28" width="0.1524" layer="91"/>
-<label x="256.54" y="-81.28" size="1.778" layer="95"/>
-<pinref part="U$1" gate="G$1" pin="21"/>
+<pinref part="U$1" gate="G$1" pin="22"/>
+<wire x1="304.8" y1="-81.28" x2="332.74" y2="-81.28" width="0.1524" layer="91"/>
+<label x="309.88" y="-81.28" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="A0" class="0">
@@ -20994,9 +20994,9 @@ Source: http://www.abracon.com/Oscillators/asf1-L-L1.pdf</description>
 <label x="-58.42" y="-114.3" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="24"/>
-<wire x1="304.8" y1="-86.36" x2="332.74" y2="-86.36" width="0.1524" layer="91"/>
-<label x="309.88" y="-86.36" size="1.778" layer="95"/>
+<pinref part="U$1" gate="G$1" pin="23"/>
+<wire x1="276.86" y1="-86.36" x2="248.92" y2="-86.36" width="0.1524" layer="91"/>
+<label x="256.54" y="-86.36" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="TEMP0_BUF" class="0">
@@ -21082,9 +21082,9 @@ Source: http://www.abracon.com/Oscillators/asf1-L-L1.pdf</description>
 <label x="-60.96" y="-99.06" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="22"/>
-<wire x1="304.8" y1="-81.28" x2="332.74" y2="-81.28" width="0.1524" layer="91"/>
-<label x="309.88" y="-81.28" size="1.778" layer="95"/>
+<wire x1="276.86" y1="-76.2" x2="248.92" y2="-76.2" width="0.1524" layer="91"/>
+<label x="256.54" y="-76.2" size="1.778" layer="95"/>
+<pinref part="U$1" gate="G$1" pin="19"/>
 </segment>
 </net>
 <net name="LCD_WR" class="0">
