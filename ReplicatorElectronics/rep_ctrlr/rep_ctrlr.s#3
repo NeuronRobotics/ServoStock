@@ -20279,14 +20279,14 @@ Source: http://www.abracon.com/Oscillators/asf1-L-L1.pdf</description>
 </net>
 <net name="ENC2_CSN" class="0">
 <segment>
-<wire x1="-63.5" y1="-30.48" x2="-48.26" y2="-30.48" width="0.1524" layer="91"/>
-<label x="-60.96" y="-30.48" size="1.778" layer="95"/>
-<pinref part="IC1" gate="PA" pin="SCL2/RA2"/>
-</segment>
-<segment>
 <wire x1="622.3" y1="-149.86" x2="609.6" y2="-149.86" width="0.1524" layer="91"/>
 <label x="609.6" y="-149.86" size="1.778" layer="95"/>
 <pinref part="J12" gate="G$1" pin="7"/>
+</segment>
+<segment>
+<wire x1="-63.5" y1="-106.68" x2="-48.26" y2="-106.68" width="0.1524" layer="91"/>
+<label x="-60.96" y="-106.68" size="1.778" layer="95"/>
+<pinref part="IC1" gate="PB" pin="AN13/ERXD1/AECOL/PMA10/RB13"/>
 </segment>
 </net>
 <net name="ENC3_CSN" class="0">
@@ -20303,9 +20303,9 @@ Source: http://www.abracon.com/Oscillators/asf1-L-L1.pdf</description>
 </net>
 <net name="ENC4_CSN" class="0">
 <segment>
-<wire x1="-63.5" y1="-35.56" x2="-48.26" y2="-35.56" width="0.1524" layer="91"/>
-<label x="-60.96" y="-35.56" size="1.778" layer="95"/>
-<pinref part="IC1" gate="PA" pin="TDI/RA4"/>
+<wire x1="-63.5" y1="-45.72" x2="-48.26" y2="-45.72" width="0.1524" layer="91"/>
+<label x="-60.96" y="-45.72" size="1.778" layer="95"/>
+<pinref part="IC1" gate="PA" pin="VREF-/CVREF-/AERXD2/PMA7/RA9"/>
 </segment>
 <segment>
 <wire x1="553.72" y1="-233.68" x2="541.02" y2="-233.68" width="0.1524" layer="91"/>
@@ -20315,14 +20315,14 @@ Source: http://www.abracon.com/Oscillators/asf1-L-L1.pdf</description>
 </net>
 <net name="ENC5_CSN" class="0">
 <segment>
-<wire x1="-63.5" y1="-38.1" x2="-48.26" y2="-38.1" width="0.1524" layer="91"/>
-<label x="-60.96" y="-38.1" size="1.778" layer="95"/>
-<pinref part="IC1" gate="PA" pin="TDO/RA5"/>
-</segment>
-<segment>
 <wire x1="665.48" y1="-236.22" x2="652.78" y2="-236.22" width="0.1524" layer="91"/>
 <label x="652.78" y="-236.22" size="1.778" layer="95"/>
 <pinref part="J15" gate="G$1" pin="7"/>
+</segment>
+<segment>
+<wire x1="-63.5" y1="-109.22" x2="-48.26" y2="-109.22" width="0.1524" layer="91"/>
+<label x="-60.96" y="-109.22" size="1.778" layer="95"/>
+<pinref part="IC1" gate="PB" pin="AN14/ERXD2/AETXD3/PMALH/PMA1/RB14"/>
 </segment>
 </net>
 <net name="ENC6_CSN" class="0">
