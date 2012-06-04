@@ -5921,6 +5921,7 @@ DIN A4, landscape with location and doc. field</description>
 <part name="C2" library="rcl" deviceset="C-EU" device="C0805K" value="100n"/>
 <part name="LED1" library="led" deviceset="LED" device="CHIPLED_0805" value="GREEN"/>
 <part name="U$3" library="SBH11-PBPC-D07-ST-BK" deviceset="SBH11-PBPC-D07-ST-BK" device=""/>
+<part name="GND4" library="supply1" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -5956,6 +5957,7 @@ DIN A4, landscape with location and doc. field</description>
 <instance part="C2" gate="G$1" x="138.43" y="43.18"/>
 <instance part="LED1" gate="G$1" x="104.14" y="45.72"/>
 <instance part="U$3" gate="G$1" x="-68.58" y="53.34"/>
+<instance part="GND4" gate="1" x="-27.94" y="63.5"/>
 </instances>
 <busses>
 </busses>
@@ -6045,6 +6047,10 @@ DIN A4, landscape with location and doc. field</description>
 <wire x1="17.78" y1="15.24" x2="5.08" y2="15.24" width="0.1524" layer="91"/>
 <label x="8.89" y="15.24" size="1.778" layer="95"/>
 </segment>
+<segment>
+<pinref part="U$3" gate="G$1" pin="7"/>
+<wire x1="-76.2" y1="53.34" x2="-86.36" y2="53.34" width="0.1524" layer="91"/>
+</segment>
 </net>
 <net name="SCLK" class="0">
 <segment>
@@ -6057,6 +6063,10 @@ DIN A4, landscape with location and doc. field</description>
 <wire x1="17.78" y1="20.32" x2="5.08" y2="20.32" width="0.1524" layer="91"/>
 <label x="8.89" y="20.32" size="1.778" layer="95"/>
 </segment>
+<segment>
+<pinref part="U$3" gate="G$1" pin="9"/>
+<wire x1="-76.2" y1="48.26" x2="-86.36" y2="48.26" width="0.1524" layer="91"/>
+</segment>
 </net>
 <net name="MOSI" class="0">
 <segment>
@@ -6068,6 +6078,10 @@ DIN A4, landscape with location and doc. field</description>
 <pinref part="U$2" gate="G$1" pin="MOSI"/>
 <wire x1="17.78" y1="30.48" x2="5.08" y2="30.48" width="0.1524" layer="91"/>
 <label x="8.89" y="30.48" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="U$3" gate="G$1" pin="11"/>
+<wire x1="-76.2" y1="43.18" x2="-86.36" y2="43.18" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="VDD" class="0">
@@ -6097,6 +6111,10 @@ DIN A4, landscape with location and doc. field</description>
 <label x="-38.1" y="-30.48" size="1.778" layer="95"/>
 <pinref part="U$1" gate="G$1" pin="5"/>
 </segment>
+<segment>
+<pinref part="U$3" gate="G$1" pin="13"/>
+<wire x1="-76.2" y1="38.1" x2="-86.36" y2="38.1" width="0.1524" layer="91"/>
+</segment>
 </net>
 <net name="N$4" class="0">
 <segment>
@@ -6110,6 +6128,42 @@ DIN A4, landscape with location and doc. field</description>
 <pinref part="R1" gate="G$1" pin="2"/>
 <wire x1="104.14" y1="50.8" x2="104.14" y2="48.26" width="0.1524" layer="91"/>
 <pinref part="LED1" gate="G$1" pin="A"/>
+</segment>
+</net>
+<net name="5V_SERVO" class="0">
+<segment>
+<pinref part="U$3" gate="G$1" pin="1"/>
+<wire x1="-76.2" y1="68.58" x2="-86.36" y2="68.58" width="0.1524" layer="91"/>
+<pinref part="U$3" gate="G$1" pin="3"/>
+<wire x1="-86.36" y1="68.58" x2="-91.44" y2="68.58" width="0.1524" layer="91"/>
+<wire x1="-76.2" y1="63.5" x2="-86.36" y2="63.5" width="0.1524" layer="91"/>
+<wire x1="-86.36" y1="63.5" x2="-86.36" y2="68.58" width="0.1524" layer="91"/>
+<junction x="-86.36" y="68.58"/>
+<pinref part="U$3" gate="G$1" pin="5"/>
+<wire x1="-76.2" y1="58.42" x2="-86.36" y2="58.42" width="0.1524" layer="91"/>
+<wire x1="-86.36" y1="58.42" x2="-86.36" y2="63.5" width="0.1524" layer="91"/>
+<junction x="-86.36" y="63.5"/>
+</segment>
+</net>
+<net name="N$3" class="0">
+<segment>
+<pinref part="U$3" gate="G$1" pin="2"/>
+<wire x1="-48.26" y1="68.58" x2="-40.64" y2="68.58" width="0.1524" layer="91"/>
+<pinref part="U$3" gate="G$1" pin="4"/>
+<wire x1="-40.64" y1="68.58" x2="-35.56" y2="68.58" width="0.1524" layer="91"/>
+<wire x1="-48.26" y1="63.5" x2="-40.64" y2="63.5" width="0.1524" layer="91"/>
+<wire x1="-40.64" y1="63.5" x2="-40.64" y2="68.58" width="0.1524" layer="91"/>
+<junction x="-40.64" y="68.58"/>
+<pinref part="U$3" gate="G$1" pin="6"/>
+<wire x1="-48.26" y1="58.42" x2="-40.64" y2="58.42" width="0.1524" layer="91"/>
+<wire x1="-40.64" y1="58.42" x2="-40.64" y2="63.5" width="0.1524" layer="91"/>
+<junction x="-40.64" y="63.5"/>
+</segment>
+</net>
+<net name="SERVO_CTRL" class="0">
+<segment>
+<pinref part="U$3" gate="G$1" pin="8"/>
+<wire x1="-48.26" y1="53.34" x2="-35.56" y2="53.34" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>

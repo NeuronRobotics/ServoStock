@@ -62,7 +62,7 @@
 <layer number="97" name="Info" color="7" fill="1" visible="no" active="no"/>
 <layer number="98" name="Guide" color="6" fill="1" visible="no" active="no"/>
 <layer number="100" name="Target" color="7" fill="1" visible="no" active="yes"/>
-<layer number="101" name="Graphics" color="13" fill="1" visible="no" active="yes"/>
+<layer number="101" name="Graphics" color="13" fill="1" visible="yes" active="yes"/>
 <layer number="102" name="BOITIER" color="11" fill="1" visible="no" active="yes"/>
 <layer number="103" name="EPAR_CUIV" color="7" fill="1" visible="no" active="no"/>
 <layer number="104" name="BRAS_COMP" color="7" fill="1" visible="no" active="no"/>
