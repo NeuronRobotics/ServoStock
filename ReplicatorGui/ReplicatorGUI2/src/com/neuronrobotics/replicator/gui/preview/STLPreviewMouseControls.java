@@ -1,5 +1,6 @@
 package com.neuronrobotics.replicator.gui.preview;
 
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -12,8 +13,11 @@ import javax.vecmath.Point2d;
 public class STLPreviewMouseControls implements MouseListener, MouseMotionListener{
 
 	STLPreview thePreview;
-	
+
 	Point2D lastLocation;
+	
+	long lastTime;
+	int ct;
 	
 	boolean mousePressed;
 		
@@ -23,11 +27,16 @@ public class STLPreviewMouseControls implements MouseListener, MouseMotionListen
 		thePreview.addMouseMotionListener(this);
 		mousePressed = false;
 		lastLocation = new Point2D.Double();
+		lastTime = System.currentTimeMillis();
+		ct = 0;
 	}
 	
 	@Override
 	public void mouseDragged(MouseEvent arg0) {
 		// TODO Auto-generated method stub
+		long tempTime = System.currentTimeMillis();
+		if((tempTime-lastTime)<20) return; 
+		lastTime = tempTime;
 		
 		double radY = 0;
 		double radZ = 0;
@@ -42,11 +51,19 @@ public class STLPreviewMouseControls implements MouseListener, MouseMotionListen
 		radY = (temp.getY() - lastLocation.getY())/scaleY;
 		radZ = (temp.getX() - lastLocation.getX())/scaleZ;
 		
+		System.out.println("X change "+(temp.getX() - lastLocation.getX()));
+		System.out.println("Current x: "+temp.getX());
+		System.out.println("Last x: "+lastLocation.getX());
+		System.out.println("RadZ: "+radZ);
+		System.out.println("Call count: "+(++ct));
+		
+		
 		lastLocation = temp;
 		
-		thePreview.rotateCameraUp(radY);
-		thePreview.rotateCameraXZ(radZ);
 		
+		thePreview.rotateCameraXZ(radZ);
+		thePreview.rotateCameraUp(radY);
+				
 	}
 
 	@Override

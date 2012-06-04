@@ -20,10 +20,12 @@ import javax.swing.tree.TreePath;
 public class WorkspaceNavigator extends JTree{
 	
 	private WorkspaceFolderNode root;
+	//private DefaultTreeModel treeModel;
 	private File mainDirectory;
 	
 	
 	public static WorkspaceNavigator getNavigator(File mainDirectory){
+		
 		WorkspaceFolderNode root = new WorkspaceFolderNode(mainDirectory);
 		
 		FilenameFilter filter = new FilenameFilter(){
@@ -58,10 +60,12 @@ public class WorkspaceNavigator extends JTree{
 		return theNavigator; 
 	}
 		
+	/*
 	public WorkspaceNavigator(TreeNode root){
 		super(root);
 	}
-	
+	*/
+	/*
 	private WorkspaceNavigator(WorkspaceFolderNode root,File mainDirectory){
 		super(root);
 		this.root = root;
@@ -69,6 +73,7 @@ public class WorkspaceNavigator extends JTree{
 		treeModel = new DefaultTreeModel(root);
 		((DefaultTreeModel)treeModel).reload();
 	}
+	*/
 	
 	private WorkspaceNavigator(DefaultTreeModel dtm,File mainDirectory){
 		super(dtm);
@@ -80,6 +85,8 @@ public class WorkspaceNavigator extends JTree{
 	
 	public void addTestNode(){
 		((DefaultTreeModel)treeModel).insertNodeInto(new DefaultMutableTreeNode("Blah"), root, 0);
+		this.treeDidChange();
+		System.out.println(root.getChildren());
 		//((DefaultTreeModel)treeModel).reload();
 	}
 	

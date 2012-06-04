@@ -1,24 +1,24 @@
 package com.neuronrobotics.replicator.gui.preview;
 
-import java.awt.Color;
+//import java.awt.Color;
 import java.awt.GraphicsConfiguration;
 import java.io.File;
 import java.io.IOException;
-import java.util.Dictionary;
-import java.util.Hashtable;
+//import java.util.Dictionary;
+//import java.util.Hashtable;
 
 import javax.media.j3d.AmbientLight;
 import javax.media.j3d.Appearance;
 import javax.media.j3d.BoundingSphere;
-import javax.media.j3d.Bounds;
+//import javax.media.j3d.Bounds;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Canvas3D;
 import javax.media.j3d.ColoringAttributes;
 import javax.media.j3d.DirectionalLight;
 import javax.media.j3d.GeometryArray;
 import javax.media.j3d.IndexedLineArray;
-import javax.media.j3d.IndexedQuadArray;
-import javax.media.j3d.J3DGraphics2D;
+//import javax.media.j3d.IndexedQuadArray;
+//import javax.media.j3d.J3DGraphics2D;
 import javax.media.j3d.LineArray;
 import javax.media.j3d.Shape3D;
 import javax.media.j3d.Transform3D;
@@ -33,13 +33,17 @@ import com.neuronrobotics.replicator.gui.stl.ASCIISTLWriter;
 import com.neuronrobotics.replicator.gui.stl.STLLoader;
 import com.neuronrobotics.replicator.gui.stl.STLObject;
 import com.neuronrobotics.replicator.gui.stl.STLTransformGroup;
-import com.sun.j3d.utils.geometry.ColorCube;
+//import com.sun.j3d.utils.geometry.ColorCube;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
 public class STLPreview extends Canvas3D {
 	
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -45261396936364195L;
 	private SimpleUniverse simpleU;
 	private BranchGroup mainBranch;
 	private STLTransformGroup stlTransform;
@@ -326,18 +330,23 @@ public class STLPreview extends Canvas3D {
 		double newX = radius*Math.cos(newAngle);
 		double newZ = radius*Math.sin(newAngle);
 		
+
 		
-		/*
+		
 		System.out.println("Radius: "+radius);
 		System.out.println("Initial Angle: "+currentAngle);
 		System.out.println("Delta Angle: "+rot);
 		System.out.println("Final Angle:" + newAngle);
 		System.out.println("Initial position: "+cameraPosition);
-		*/
 		
 		cameraPosition = new Point3d(newX,cameraPosition.y,newZ);
 		
-		//System.out.println("Final position: "+cameraPosition);
+		System.out.println("Final position: "+cameraPosition);
+		System.out.println("//////////////");
+		
+		
+		
+		
 		
 		setCamera(cameraPosition,cameraDirection);
 	}
@@ -388,6 +397,9 @@ public class STLPreview extends Canvas3D {
 		double t = positionVector.x/positionVector.z;
 		
 		double newZ = Math.sqrt(((radius*radius)-(newY*newY))/((t*t)+1));
+		
+		if(positionVector.z<0) newZ*=-1;
+		
 		double newX = newZ*t;
 		
 		cameraPosition = new Point3d(newX,newY,newZ);		

@@ -5,7 +5,7 @@ import javax.swing.tree.TreeNode;
 
 
 public abstract class WorkspaceNode implements MutableTreeNode {
-	
-	public abstract void setParent(WorkspaceFolderNode wn);
 
+	
+	
 }

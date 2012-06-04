@@ -43,6 +43,7 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.vecmath.Point3f;
 
+import com.neuronrobotics.replicator.gui.navigator.DirectoryTree;
 import com.neuronrobotics.replicator.gui.navigator.WorkspaceLeafNode;
 import com.neuronrobotics.replicator.gui.navigator.WorkspaceNavigator;
 import com.neuronrobotics.replicator.gui.preview.STLPreviewContainer;
@@ -79,6 +80,7 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface {
 	private JButton connectButton;
 
 	private WorkspaceNavigator fileNavigator;
+	private DirectoryTree theDirectoryTree;
 
 	private JMenuItem openFileItem;
 	private JMenuItem newProjectItem;
@@ -122,6 +124,7 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface {
 
 		// TODO remove to factory
 		defaultWorkspaceDirectory = new File("DefaultWorkspaceFolder");
+		
 
 		menuContainer = new Container();
 		menuContainer.setLayout(new GridLayout(1, 1));
@@ -212,7 +215,8 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				fileNavigator.addTestNode();//TODO testing only				
+				fileNavigator.addTestNode();//TODO testing only	
+				theDirectoryTree.testNode();
 			}
 		});
 		
@@ -258,6 +262,9 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface {
 		// DefaultMutableTreeNode root = new DefaultMutableTreeNode();
 		fileNavigator = WorkspaceNavigator
 				.getNavigator(defaultWorkspaceDirectory);
+		
+		theDirectoryTree = DirectoryTree.getDirectoryTree(defaultWorkspaceDirectory);
+		//TODO
 		
 		//MouseListener ml = new MouseListener(){};
 		
@@ -327,6 +334,7 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface {
 		});
 
 		leftTab.add("Navigator", fileNavigator);
+		//leftTab.add("New Navigator",theDirectoryTree);//TODO
 
 		printProgress = new JProgressBar();
 
