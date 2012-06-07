@@ -2,7 +2,7 @@ package com.neuronrobotics.replicator.gui;
 
 import java.applet.Applet;
 //import java.awt.Color;
-import java.awt.Button;
+//import java.awt.Button;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -11,14 +11,14 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
+//import java.awt.event.ComponentEvent;
+//import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 //import java.util.ArrayList;
-import java.util.Hashtable;
+//import java.util.Hashtable;
 //import java.util.Enumeration;
 
 import javax.swing.JButton;
@@ -39,13 +39,13 @@ import javax.swing.UnsupportedLookAndFeelException;
 //import javax.swing.tree.DefaultMutableTreeNode;
 //import javax.swing.tree.MutableTreeNode;
 //import javax.swing.tree.TreeNode;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
+//import javax.swing.event.TreeSelectionEvent;
+//import javax.swing.event.TreeSelectionListener;
 import javax.vecmath.Point3f;
 
-import com.neuronrobotics.replicator.gui.navigator.DirectoryTree;
-import com.neuronrobotics.replicator.gui.navigator.WorkspaceLeafNode;
 import com.neuronrobotics.replicator.gui.navigator.WorkspaceNavigator;
+import com.neuronrobotics.replicator.gui.navigator.DirectoryTreeListener;
+import com.neuronrobotics.replicator.gui.navigator.FileNotDirectoryException;
 import com.neuronrobotics.replicator.gui.preview.STLPreviewContainer;
 import com.neuronrobotics.replicator.gui.stl.ASCIISTLWriter;
 import com.neuronrobotics.replicator.gui.stl.STLObject;
@@ -55,7 +55,7 @@ import com.neuronrobotics.replicator.gui.stl.STLObject;
 //import com.neuronrobotics.replicator.driver.NRPrinter;
 //import com.neuronrobotics.replicator.driver.PrinterStatus;
 
-public class DesktopApplet extends Applet implements GUIFrontendInterface {
+public class DesktopApplet extends Applet implements GUIFrontendInterface, DirectoryTreeListener {
 
 	/**
 	 * 
@@ -79,8 +79,7 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface {
 	private JButton cancelButton;
 	private JButton connectButton;
 
-	private WorkspaceNavigator fileNavigator;
-	private DirectoryTree theDirectoryTree;
+	private WorkspaceNavigator theDirectoryTree;
 
 	private JMenuItem openFileItem;
 	private JMenuItem newProjectItem;
@@ -96,7 +95,8 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface {
 		super();
 		this.theGUIDriver = theGUIDriver;
 		this.theGUIDriver.setFrontend(this);
-		workspaceDimensions = new Point3f(60, 60, 60); // TODO extract to factory
+		workspaceDimensions = new Point3f(60, 60, 60); 
+		// TODO extract to factory or grab from some appropriate place
 	}
 
 	public void init() {
@@ -215,8 +215,19 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				fileNavigator.addTestNode();//TODO testing only	
-				theDirectoryTree.testNode();
+			//	fileNavigator.addTestNode();//TODO testing only	
+				String err = null;
+				try {
+					theDirectoryTree.addNewFolder("NewFolder");
+				} catch (FileNotDirectoryException e) {
+					err = "That file exists and it is not a directory.";
+					e.printStackTrace();
+				} catch (IOException e) {
+					err = "IO Exception occured when adding new folder.";
+					e.printStackTrace();
+				} finally{
+					if(err!=null) errorDialog(err);
+				}
 			}
 		});
 		
@@ -259,82 +270,12 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface {
 
 		toolbarContainer.add(mainToolbar);
 
-		// DefaultMutableTreeNode root = new DefaultMutableTreeNode();
-		fileNavigator = WorkspaceNavigator
-				.getNavigator(defaultWorkspaceDirectory);
-		
-		theDirectoryTree = DirectoryTree.getDirectoryTree(defaultWorkspaceDirectory);
-		//TODO
-		
-		//MouseListener ml = new MouseListener(){};
-		
-		fileNavigator.addMouseListener(new MouseListener(){
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-				if(e.getClickCount()==2){
-					
-				}
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
+		theDirectoryTree = WorkspaceNavigator.getDirectoryTree(defaultWorkspaceDirectory);
+		//TODO			
 			
-		});
+		theDirectoryTree.addDirectoryTreeListener(this);
 		
-		fileNavigator.addTreeSelectionListener(new TreeSelectionListener() {
-
-			@Override
-			public void valueChanged(TreeSelectionEvent arg0) {
-				// arg0.getPath();
-				// System.out.println(arg0.getPath().getLastPathComponent().getClass());
-			
-				if (WorkspaceLeafNode.class == arg0.getPath()
-						.getLastPathComponent().getClass()) {
-					WorkspaceLeafNode selected = (WorkspaceLeafNode) arg0
-							.getPath().getLastPathComponent();
-					File stl = selected.getTheSTLFile();
-					File gcode = selected.getTheGCodeFile();
-					System.out.print("Selection event fired");
-					try {
-						addPreview(stl);
-					} catch (IOException e) {
-						e.printStackTrace();
-						statusLabel.setText("IO Error");
-						errorDialog("Couldn't load file");
-					}
-				}
-				
-				
-			}
-			
-
-		});
-
-		leftTab.add("Navigator", fileNavigator);
-		//leftTab.add("New Navigator",theDirectoryTree);//TODO
+		leftTab.add("New Navigator",theDirectoryTree);//TODO
 
 		printProgress = new JProgressBar();
 
@@ -344,6 +285,7 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface {
 		bottomContainer.add(printProgress);
 
 	}
+
 
 	public void workspaceNavigatorPrintHandler() {
 	}
@@ -408,13 +350,15 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface {
 	}
 
 	public boolean addPreview(File f) throws IOException {
-
-		File gcode = new File(f.getAbsolutePath() + ".gcode");
-		
-		return this.previewContainer.addPreview(f, gcode, workspaceDimensions);
-
+		File gcode = new File(f.getAbsolutePath() + ".gcode");	
+		return this.addPreview(f,gcode);
 	}
 
+	public boolean addPreview(File stl, File gcode) throws IOException {
+		if(!gcode.exists()) gcode.createNewFile();
+		return this.previewContainer.addPreview(stl, gcode, workspaceDimensions);		
+	}
+	
 	@Override
 	public boolean userPrompt(String prompt) {
 		return (JOptionPane.showConfirmDialog(this, prompt, "",
@@ -441,6 +385,22 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface {
 	public boolean errorDialogWithFix(String errorMessage, String fixPrompt) {
 		int op = JOptionPane.showConfirmDialog(this,errorMessage+"\n\n"+fixPrompt,"Error",JOptionPane.YES_NO_OPTION);
 		return op==JOptionPane.YES_OPTION;
+	}
+
+	@Override
+	public void alertDirectoryLeafSelected() {
+		try {
+			this.addPreview(theDirectoryTree.getSelectedSTLFile(), theDirectoryTree.getSelectedGCodeFile());
+		} catch (IOException e) {
+			this.errorDialog("Unknown IO Error Loading Preview");
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void alertDirectoryFolderSelected() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

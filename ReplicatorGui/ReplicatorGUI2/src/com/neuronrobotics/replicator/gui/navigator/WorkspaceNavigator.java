@@ -1,32 +1,58 @@
 package com.neuronrobotics.replicator.gui.navigator;
 
+//import java.awt.Component;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Enumeration;
-import java.util.Hashtable;
+//import java.nio.file.FileSystems;
+//import java.nio.file.Path;
+import java.util.LinkedList;
+
+
+//import java.util.ArrayList;
+//import java.util.Enumeration;
 
 import javax.swing.JTree;
-import javax.swing.filechooser.FileFilter;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
+//import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.MutableTreeNode;
-import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
+//import javax.swing.tree.MutableTreeNode;
+//import javax.swing.tree.TreeNode;
+//import javax.swing.tree.TreeCellRenderer;
 
+public class WorkspaceNavigator extends JTree implements TreeSelectionListener {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5148061626146938126L;
+	
+	//private File mainDirectory;
+	private WorkspaceFolderNode theRoot;
+	private DefaultMutableTreeNode currentNode;
+	
+	private LinkedList<DirectoryTreeListener> theDirectoryTreeListeners;
 
-public class WorkspaceNavigator extends JTree{
-	
-	private WorkspaceFolderNode root;
-	//private DefaultTreeModel treeModel;
-	private File mainDirectory;
-	
-	
-	public static WorkspaceNavigator getNavigator(File mainDirectory){
+	public static WorkspaceNavigator getDirectoryTree(File mainDirectory){
 		
-		WorkspaceFolderNode root = new WorkspaceFolderNode(mainDirectory);
+		if(!mainDirectory.isDirectory()) throw new IllegalArgumentException(); 
+		//TODO handle this better
+		
+		WorkspaceFolderNodeObject rootObject = new WorkspaceFolderNodeObject(mainDirectory);
+		WorkspaceFolderNode root = new WorkspaceFolderNode(rootObject);
+		
+		FilenameFilter dirFilter = new FilenameFilter(){
+
+			@Override
+			public boolean accept(File arg0, String arg1) {
+				File testF = new File(arg0.getAbsolutePath()+"\\"+arg1);
+				return testF.isDirectory();
+			}
+			
+		};
 		
 		FilenameFilter filter = new FilenameFilter(){
 			@Override
@@ -34,109 +60,173 @@ public class WorkspaceNavigator extends JTree{
 				return arg1.endsWith(".stl");
 			}
 	
-		};
+		};	
 		
 		DefaultTreeModel dtm = new DefaultTreeModel(root);
-
-		File[] allFiles = mainDirectory.listFiles();
+		WorkspaceNavigator theDirectoryTree = new WorkspaceNavigator(dtm);
+		
+		
+		theDirectoryTree.theRoot = root;
+		
+		//theDirectoryTree.mainDirectory = mainDirectory;
+				
+		//File mainDirectory = mainDir;
+		
+		File[] directoryFiles = mainDirectory.listFiles(dirFilter);
 		
 		File[] theSTLFiles = mainDirectory.listFiles(filter);
 		
-		
+		int ct=0;
 		for(File f:theSTLFiles){
 			File temp = new File(f.getName()+".gcode");
-			
-			WorkspaceLeafNode newNode = new WorkspaceLeafNode(root,f,temp);
-			//tempObjects.add(newObject);
+			WorkspaceLeafNodeObject tempObj = new WorkspaceLeafNodeObject(f,temp);
+			WorkspaceLeafNode newNode = new WorkspaceLeafNode(tempObj);
+			//newNode.setUserObject(tempObj);
+			dtm.insertNodeInto(newNode, root, ct++);
 		}
 		
-		WorkspaceNavigator theNavigator = new WorkspaceNavigator(dtm,mainDirectory);
-		theNavigator.setRootVisible(true);
-		//theNavigator.setEditable(true);
+		//TODO doesn't add contents of subdirectories yet
+		ct=0;
+		for(File d:directoryFiles){
+			if(d.getName().contains(".svn")) continue; //Ignore .svn folder when testing
+			WorkspaceFolderNodeObject tempObj = new WorkspaceFolderNodeObject(d);
+			WorkspaceFolderNode newNode = new WorkspaceFolderNode(tempObj);
+			dtm.insertNodeInto(newNode, root, ct++);
+		}
+	
+		//theDirectoryTree.setExpandedState(, true);
 		
-		theNavigator.setSize(theNavigator.getMaximumSize());
+		//DefaultTreeCellRenderer dtcr = (DefaultTreeCellRenderer)theDirectoryTree.getCellRenderer();
 		
-		 theNavigator.treeDidChange();
-		return theNavigator; 
+		
+		TreePath tp = new TreePath(root.getPath());
+		theDirectoryTree.setExpandedState(tp, true);
+		
+		theDirectoryTree.setRootVisible(false);
+		
+		theDirectoryTree.treeDidChange();
+		return theDirectoryTree; 
+		
 	}
 		
-	/*
-	public WorkspaceNavigator(TreeNode root){
-		super(root);
-	}
-	*/
-	/*
-	private WorkspaceNavigator(WorkspaceFolderNode root,File mainDirectory){
-		super(root);
-		this.root = root;
-		this.mainDirectory = mainDirectory;
-		treeModel = new DefaultTreeModel(root);
-		((DefaultTreeModel)treeModel).reload();
-	}
-	*/
 	
-	private WorkspaceNavigator(DefaultTreeModel dtm,File mainDirectory){
-		super(dtm);
-		this.root = (WorkspaceFolderNode) dtm.getRoot();
-		this.mainDirectory = mainDirectory;
-		treeModel = new DefaultTreeModel(root);
-		((DefaultTreeModel)treeModel).reload();
-	}
-	
-	public void addTestNode(){
-		((DefaultTreeModel)treeModel).insertNodeInto(new DefaultMutableTreeNode("Blah"), root, 0);
-		this.treeDidChange();
-		System.out.println(root.getChildren());
-		//((DefaultTreeModel)treeModel).reload();
+	private WorkspaceNavigator(DefaultTreeModel tm){
+		super(tm);
+		addTreeSelectionListener(this);
+		currentNode = null;
+		theDirectoryTreeListeners = new LinkedList<DirectoryTreeListener>();
 	}
 	
 	/*
-	private void addNode(WorkspaceLeafNode newNode) {
-		if(newNode.getParent().equals(this.root)) return;
-		newNode.setParent(this.root);
-		root.addChild(newNode);
-	}
-	*/
-	
-	/*
-	public boolean addFolder(String name){
-		return false; //TODO
+	public void linkNewFolder(String newFullFileName){
+		linkNewFolder(theRoot,newFullFileName);
 	}
 	
-	public boolean addFile(TreePath path, String fileName){
-		return false;
+	public void linkNewFolder(DefaultMutableTreeNode parent,String newFullFileName){
+		//TODO
+		
+	}
+	 */
+	
+	public void addNewFolder(String folderName) throws FileNotDirectoryException, IOException{
+		addNewFolder(theRoot,folderName);		
 	}
 	
-	public boolean addFile(String name){
-		if (previewNames.contains(name)){ 
-			System.out.println("Name is already taken");
-			return false;
+	public void addNewFolder(WorkspaceFolderNode parent, String folderName) throws FileNotDirectoryException, IOException{
+		//TODO not very robust
+		
+		
+		
+		String newName = ((WorkspaceFolderNodeObject)(parent.getUserObject())).getTheDirectory().getAbsolutePath()+"\\"+folderName;
+		File newFolder = new File(newName);
+		if(newFolder.exists()&&!newFolder.isDirectory()) throw new FileNotDirectoryException();
+		else if(!newFolder.exists()) {
+			//newFolder.createNewFile();
+			newFolder.mkdir();
 		}
 		
-		STLPreviewContainer tempCont;
+		WorkspaceFolderNodeObject newObject = new WorkspaceFolderNodeObject(newFolder);
+		WorkspaceFolderNode newNode = new WorkspaceFolderNode(newObject);
 		
-		File tempFile = new File(mainDirectory.getAbsolutePath()+"\\"+name);
-		if (!tempFile.exists())
-			try {
-				tempFile.createNewFile();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return false;
-			}		
-			previewNames.add(name);
-			previewFiles.add(tempFile);
-			tempCont = new STLPreviewContainer(tempFile,null,null);
-			WorkspaceLeafNode newPreview = new WorkspaceLeafNode(root,tempCont);
-			return true;
+				
+		((DefaultTreeModel)treeModel).insertNodeInto(newNode, parent, parent.getChildCount());
+	
+		/*
+		WorkspaceFolderNodeObject newObject2 = new WorkspaceFolderNodeObject(newFolder);
+		DefaultMutableTreeNode newNode2 = new DefaultMutableTreeNode(newObject);
+		((DefaultTreeModel)treeModel).insertNodeInto(newNode2, newNode, newNode.getChildCount());
+		*/
 	}
 	
+	public void copyInSTLFile(String name){
+		File stl = new File(name);
+		copyInSTLFile(theRoot,stl);
+	}
+	
+	public void copyInSTLFile(File stl){
+		copyInSTLFile(theRoot,stl);
+	}
+	
+	public void copyInSTLFile(WorkspaceFolderNode parent, File stl){
+		
+		//TODO missing packages necessary to copy files
+		//Path path = FileSystems.getDefault().getPath("access.log");
+		
+		((WorkspaceFolderNodeObject)parent.getUserObject()).getTheDirectory();
+		
+		File gcode = new File(stl.getAbsolutePath()+".gcode");
+						
+		WorkspaceLeafNodeObject newObject = new WorkspaceLeafNodeObject(stl,gcode);
+		
+		WorkspaceLeafNode newChild = new WorkspaceLeafNode(newObject);
+		
+		((DefaultTreeModel)this.treeModel).insertNodeInto(newChild, parent, parent.getChildCount());
+	}
+	
+	
+	
+	/*
+	public void testNode(){
+		DefaultMutableTreeNode newChild = new DefaultMutableTreeNode("test worked");
+		((DefaultTreeModel)treeModel).insertNodeInto(newChild , theRoot, 0);
+	}*/
+	
+	public File getSelectedSTLFile(){
+		if(currentNode==null) return null; //TODO throw exception?
+		Object obj = currentNode.getUserObject();		
+		if(!obj.getClass().equals(WorkspaceLeafNodeObject.class)) return null;
+		
+		return ((WorkspaceLeafNodeObject)obj).getTheSTLFile();
+	}
+	
+	public File getSelectedGCodeFile(){
+		if(currentNode==null) return null; //TODO throw exception?
+		Object obj = currentNode.getUserObject();		
+		if(!obj.getClass().equals(WorkspaceLeafNodeObject.class)) return null;
+		
+		return ((WorkspaceLeafNodeObject)obj).getTheGCodeFile();
+	}
 
-	public WorkspaceFolderNode getTreeRoot() {
-		return root;
+	@Override
+	public void valueChanged(TreeSelectionEvent arg0) {
+		currentNode = (DefaultMutableTreeNode)arg0.getPath().getLastPathComponent();
+		if(currentNode.getUserObject().getClass().equals(WorkspaceLeafNodeObject.class)){
+			notifyListenersLeafSelected();
+		} else if(currentNode.getUserObject().getClass().equals(WorkspaceFolderNodeObject.class)){
+			notifyListenersFolderSelected();
+		} 
 	}
 	
-	*/
+	private void notifyListenersLeafSelected() {
+		for(DirectoryTreeListener dtl:this.theDirectoryTreeListeners) dtl.alertDirectoryLeafSelected();	
+	}
 	
-	
+	private void notifyListenersFolderSelected() {
+		for(DirectoryTreeListener dtl:this.theDirectoryTreeListeners) dtl.alertDirectoryFolderSelected();	
+	}
+
+	public void addDirectoryTreeListener(DirectoryTreeListener dtl){
+		if(!this.theDirectoryTreeListeners.contains(dtl)) theDirectoryTreeListeners.add(dtl);
+	}
+
 }
