@@ -8069,7 +8069,7 @@ by exp-project-lbr.ulp</description>
 </class>
 </classes>
 <parts>
-<part name="Q1" library="transistor-fet" deviceset="SUP75N06-08" device="" value="IRL540N"/>
+<part name="Q1" library="transistor-fet" deviceset="SUP75N06-08" device="" value="IRL640A"/>
 <part name="P+1" library="supply1" deviceset="VCC" device=""/>
 <part name="GND1" library="supply1" deviceset="GND" device=""/>
 <part name="P+3" library="supply1" deviceset="VCC" device=""/>
