@@ -201,7 +201,7 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface, Direc
 					try {
 						addPreview(newFile);
 
-					} catch (IOException e) {
+					} catch (Exception e) {
 						e.printStackTrace();
 						System.out.println("IO Exception dun happen'd");
 					}
@@ -349,12 +349,12 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface, Direc
 		theGUIDriver.connectPrinter();
 	}
 
-	public boolean addPreview(File f) throws IOException {
+	public boolean addPreview(File f) throws Exception {
 		File gcode = new File(f.getAbsolutePath() + ".gcode");	
 		return this.addPreview(f,gcode);
 	}
 
-	public boolean addPreview(File stl, File gcode) throws IOException {
+	public boolean addPreview(File stl, File gcode) throws Exception {
 		if(!gcode.exists()) gcode.createNewFile();
 		return this.previewContainer.addPreview(stl, gcode, workspaceDimensions);		
 	}
@@ -391,7 +391,7 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface, Direc
 	public void alertDirectoryLeafSelected() {
 		try {
 			this.addPreview(theDirectoryTree.getSelectedSTLFile(), theDirectoryTree.getSelectedGCodeFile());
-		} catch (IOException e) {
+		} catch (Exception e) {
 			this.errorDialog("Unknown IO Error Loading Preview");
 			e.printStackTrace();
 		}
