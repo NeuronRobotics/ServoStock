@@ -1544,7 +1544,7 @@ design rules under a new name.</description>
 </pass>
 </autorouter>
 <elements>
-<element name="Q1" library="transistor-fet" package="TO220" value="IRL540N" x="34.544" y="17.526" smashed="yes">
+<element name="Q1" library="transistor-fet" package="TO220" value="IRL640A" x="34.544" y="17.526" smashed="yes">
 <attribute name="NAME" x="38.608" y="15.367" size="0.6096" layer="25" font="vector" ratio="10"/>
 </element>
 <element name="J2" library="con-OST-254" package="4POL254" value="OSTVN04A150" x="21.082" y="36.322" smashed="yes">
