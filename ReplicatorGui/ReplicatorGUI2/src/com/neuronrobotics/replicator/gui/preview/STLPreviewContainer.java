@@ -102,12 +102,12 @@ public class STLPreviewContainer extends Container implements ActionListener {
 
 	}
 
-	public boolean addPreview(File stl, Point3f workspaceDimensions) {
+	public boolean addPreview(File stl, Point3f workspaceDimensions)throws Exception  {
 		File gcode = new File(stl.getAbsolutePath() + ".gcode");
 		return addPreview(stl, gcode, workspaceDimensions);
 	}
 
-	public boolean addPreview(File stl, File gcode, Point3f workspaceDimensions) {
+	public boolean addPreview(File stl, File gcode, Point3f workspaceDimensions)throws Exception {
 		if (!thePreviews.containsKey(stl)) {
 			STLPreview tempPreview = new STLPreview(stl, gcode,
 					workspaceDimensions);
