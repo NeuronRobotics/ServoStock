@@ -44,7 +44,7 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 		double[] back = super.setDesiredTaskSpaceTransform(taskSpaceTransform, seconds);
 		//Set the extruder value
 		
-		getFactory().flush(seconds);
+		//getFactory().flush(seconds);
 		return back;
 	}
 
