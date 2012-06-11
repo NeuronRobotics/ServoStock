@@ -6,4 +6,8 @@ public interface WorkspaceNavigatorListener {
 	
 	public void alertDirectoryFolderSelected();
 
+	public void alertDirectoryLeafDoubleClicked();
+	
+	public void alertDirectoryFolderDoubleClicked();
+
 }

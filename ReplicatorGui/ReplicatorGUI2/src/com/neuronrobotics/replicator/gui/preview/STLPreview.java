@@ -1,7 +1,10 @@
 package com.neuronrobotics.replicator.gui.preview;
 
 //import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.GraphicsConfiguration;
+import java.awt.GridLayout;
 import java.io.File;
 import java.io.IOException;
 //import java.util.Dictionary;
@@ -36,7 +39,7 @@ import com.neuronrobotics.replicator.gui.stl.STLTransformGroup;
 //import com.sun.j3d.utils.geometry.ColorCube;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
-public class STLPreview extends Canvas3D {
+public class STLPreview extends Container {
 	
 
 	
@@ -44,6 +47,9 @@ public class STLPreview extends Canvas3D {
 	 * 
 	 */
 	private static final long serialVersionUID = -45261396936364195L;
+	
+	private Canvas3D theCanvas3D;
+	
 	private SimpleUniverse simpleU;
 	private BranchGroup mainBranch;
 	private STLTransformGroup stlTransform;
@@ -62,7 +68,12 @@ public class STLPreview extends Canvas3D {
 	private Point3f workspaceDimensions;
 			
 	public STLPreview(File stl, File gcode, Point3f workspaceDim){
-		super(SimpleUniverse.getPreferredConfiguration());
+		
+		
+		theCanvas3D = new Canvas3D(SimpleUniverse.getPreferredConfiguration());
+				
+		this.setLayout(new GridLayout(1,1));
+		this.add(theCanvas3D);
 		
 		this.theSTLFile = stl;
 		this.theGcode = gcode;
@@ -70,7 +81,7 @@ public class STLPreview extends Canvas3D {
 		
 		workspaceDimensions = workspaceDim;
 	
-		simpleU = new SimpleUniverse(this);
+		simpleU = new SimpleUniverse(theCanvas3D);
 		mainBranch = new BranchGroup();
 
 		try {
@@ -110,15 +121,17 @@ public class STLPreview extends Canvas3D {
 		//Initialize camera position
 		resetCamera();
 		
-		this.getView().setBackClipDistance(1000); //TODO do this dynamically?
+		theCanvas3D.getView().setBackClipDistance(1000); //TODO do this dynamically?
 		
 		centerOnWorkspace();
 		
 	}
 
+	/*
 	private STLPreview(GraphicsConfiguration arg0) {
 		super(arg0);
 	}
+	*/
 
 	private TransformGroup RectangularWorkspace(Point3f center,
 			Point3f dimensions) {
@@ -539,6 +552,10 @@ public class STLPreview extends Canvas3D {
 		Transform3D curr = new Transform3D();
 		stlTransform.getTransform(curr);
 		return curr;
+	}
+
+	public Canvas3D getCanvas3D() {
+		return theCanvas3D;
 	}
 
 }

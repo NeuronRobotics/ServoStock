@@ -1,6 +1,8 @@
 package com.neuronrobotics.replicator.gui.navigator;
 
 //import java.awt.Component;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -27,7 +29,7 @@ import javax.swing.tree.TreePath;
 //import javax.swing.tree.TreeNode;
 //import javax.swing.tree.TreeCellRenderer;
 
-public class WorkspaceNavigator extends JTree implements TreeSelectionListener {
+public class WorkspaceNavigator extends JTree implements TreeSelectionListener, MouseListener {
 	
 	/**
 	 * 
@@ -42,9 +44,9 @@ public class WorkspaceNavigator extends JTree implements TreeSelectionListener {
 
 	public static WorkspaceNavigator getDirectoryTree(File mainDirectory){
 		
+		if(!mainDirectory.exists())	mainDirectory.mkdir();
 		if(!mainDirectory.isDirectory()) throw new IllegalArgumentException(); 
-		//TODO handle this better
-		
+			
 		WorkspaceFolderNodeObject rootObject = new WorkspaceFolderNodeObject(mainDirectory);
 		WorkspaceFolderNode root = new WorkspaceFolderNode(rootObject);
 		
@@ -58,7 +60,7 @@ public class WorkspaceNavigator extends JTree implements TreeSelectionListener {
 			
 		};
 		
-		FilenameFilter filter = new FilenameFilter(){
+		FilenameFilter stlfilter = new FilenameFilter(){
 			@Override
 			public boolean accept(File arg0, String arg1) {
 				return arg1.endsWith(".stl");
@@ -78,7 +80,7 @@ public class WorkspaceNavigator extends JTree implements TreeSelectionListener {
 		
 		File[] directoryFiles = mainDirectory.listFiles(dirFilter);
 		
-		File[] theSTLFiles = mainDirectory.listFiles(filter);
+		File[] theSTLFiles = mainDirectory.listFiles(stlfilter);
 		
 		int ct=0;
 		for(File f:theSTLFiles){
@@ -117,6 +119,7 @@ public class WorkspaceNavigator extends JTree implements TreeSelectionListener {
 	private WorkspaceNavigator(DefaultTreeModel tm){
 		super(tm);
 		addTreeSelectionListener(this);
+		addMouseListener(this);
 		currentNode = null;
 		theDirectoryTreeListeners = new LinkedList<WorkspaceNavigatorListener>();
 	}
@@ -137,12 +140,10 @@ public class WorkspaceNavigator extends JTree implements TreeSelectionListener {
 	}
 	
 	public void addNewFolder(WorkspaceFolderNode parent, String folderName) throws FileNotDirectoryException, IOException{
-		//TODO not very robust
 		String newName = ((WorkspaceFolderNodeObject)(parent.getUserObject())).getTheDirectory().getAbsolutePath()+"\\"+folderName;
 		File newFolder = new File(newName);
 		if(newFolder.exists()&&!newFolder.isDirectory()) throw new FileNotDirectoryException();
 		else if(!newFolder.exists()) {
-			//newFolder.createNewFile();
 			newFolder.mkdir();
 		}
 		
@@ -152,11 +153,6 @@ public class WorkspaceNavigator extends JTree implements TreeSelectionListener {
 				
 		((DefaultTreeModel)treeModel).insertNodeInto(newNode, parent, parent.getChildCount());
 	
-		/*
-		WorkspaceFolderNodeObject newObject2 = new WorkspaceFolderNodeObject(newFolder);
-		DefaultMutableTreeNode newNode2 = new DefaultMutableTreeNode(newObject);
-		((DefaultTreeModel)treeModel).insertNodeInto(newNode2, newNode, newNode.getChildCount());
-		*/
 	}
 	
 	public void copyInSTLFile(String name) throws IOException{
@@ -170,7 +166,6 @@ public class WorkspaceNavigator extends JTree implements TreeSelectionListener {
 	
 	public void copyInSTLFile(WorkspaceFolderNode parent, File stl) throws IOException{
 		
-		//TODO missing packages necessary to copy files\
 		String pathName = ((WorkspaceFolderNodeObject)parent.getUserObject()).getTheDirectory().getAbsolutePath()+"\\"+stl.getName();
 		
 		Path outPath = FileSystems.getDefault().getPath(pathName);
@@ -180,9 +175,7 @@ public class WorkspaceNavigator extends JTree implements TreeSelectionListener {
 		Files.copy(inPath, outPath);	
 		
 		File newSTL = outPath.toFile();
-		
-		//((WorkspaceFolderNodeObject)parent.getUserObject()).getTheDirectory();
-		
+				
 		File gcode = new File(stl.getAbsolutePath()+".gcode");
 						
 		WorkspaceLeafNodeObject newObject = new WorkspaceLeafNodeObject(newSTL,gcode);
@@ -192,24 +185,16 @@ public class WorkspaceNavigator extends JTree implements TreeSelectionListener {
 		((DefaultTreeModel)this.treeModel).insertNodeInto(newChild, parent, parent.getChildCount());
 	}
 	
-	
-	
-	/*
-	public void testNode(){
-		DefaultMutableTreeNode newChild = new DefaultMutableTreeNode("test worked");
-		((DefaultTreeModel)treeModel).insertNodeInto(newChild , theRoot, 0);
-	}*/
-	
-	public File getSelectedSTLFile(){
-		if(currentNode==null) return null; //TODO throw exception?
+	public File getSelectedSTLFile() throws NullPointerException{
+		if(currentNode==null) throw new NullPointerException();
 		Object obj = currentNode.getUserObject();		
 		if(!obj.getClass().equals(WorkspaceLeafNodeObject.class)) return null;
 		
 		return ((WorkspaceLeafNodeObject)obj).getTheSTLFile();
 	}
 	
-	public File getSelectedGCodeFile(){
-		if(currentNode==null) return null; //TODO throw exception?
+	public File getSelectedGCodeFile() throws NullPointerException{
+		if(currentNode==null) throw new NullPointerException();
 		Object obj = currentNode.getUserObject();		
 		if(!obj.getClass().equals(WorkspaceLeafNodeObject.class)) return null;
 		
@@ -219,9 +204,9 @@ public class WorkspaceNavigator extends JTree implements TreeSelectionListener {
 	@Override
 	public void valueChanged(TreeSelectionEvent arg0) {
 		currentNode = (DefaultMutableTreeNode)arg0.getPath().getLastPathComponent();
-		if(currentNode.getUserObject().getClass().equals(WorkspaceLeafNodeObject.class)){
+		if(currentNode.getClass().equals(WorkspaceLeafNode.class)){
 			notifyListenersLeafSelected();
-		} else if(currentNode.getUserObject().getClass().equals(WorkspaceFolderNodeObject.class)){
+		} else if(currentNode.getClass().equals(WorkspaceFolderNode.class)){
 			notifyListenersFolderSelected();
 		} 
 	}
@@ -229,13 +214,65 @@ public class WorkspaceNavigator extends JTree implements TreeSelectionListener {
 	private void notifyListenersLeafSelected() {
 		for(WorkspaceNavigatorListener dtl:this.theDirectoryTreeListeners) dtl.alertDirectoryLeafSelected();	
 	}
-	
+		
 	private void notifyListenersFolderSelected() {
 		for(WorkspaceNavigatorListener dtl:this.theDirectoryTreeListeners) dtl.alertDirectoryFolderSelected();	
 	}
 
+	private void notifyListenersLeafDoubleClicked() {
+		for(WorkspaceNavigatorListener dtl:this.theDirectoryTreeListeners) dtl.alertDirectoryLeafDoubleClicked();	
+	}
+	
+	private void notifyListenersFolderDoubleClicked() {
+		for(WorkspaceNavigatorListener dtl:this.theDirectoryTreeListeners) dtl.alertDirectoryFolderDoubleClicked();	
+	}
+
 	public void addDirectoryTreeListener(WorkspaceNavigatorListener dtl){
 		if(!this.theDirectoryTreeListeners.contains(dtl)) theDirectoryTreeListeners.add(dtl);
+	}
+
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		if(arg0.getClickCount()>=2&&this.currentNode!=null){
+			System.out.println("Double click detected");
+			if(currentNode.getClass().equals(WorkspaceLeafNode.class)){
+				notifyListenersLeafDoubleClicked();
+				System.out.println("Leaf double click notified");
+			}
+			else if (currentNode.getClass().equals(WorkspaceFolderNode.class)) notifyListenersFolderDoubleClicked();
+		}
+		
+	}
+
+
+	
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

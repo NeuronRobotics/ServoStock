@@ -25,6 +25,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 //import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -61,6 +62,8 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface, Works
 	 * 
 	 */
 	private static final long serialVersionUID = -7003760875384715160L;
+	
+	private final ImageIcon imageIcon = new ImageIcon("Images\\hat.png");
 
 	private File defaultWorkspaceDirectory;
 
@@ -84,7 +87,6 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface, Works
 	private JMenuItem openFileItem;
 	private JMenuItem newProjectItem;
 	private JMenuItem importSTLItem;
-	
 
 	private JLabel statusLabel;
 	private JProgressBar printProgress;
@@ -103,6 +105,8 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface, Works
 
 	public void init() {
 
+		
+		
 		//Setting a different look and feel
 		String lookAndFeel = UIManager.getSystemLookAndFeelClassName();
 		try {
@@ -116,7 +120,7 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface, Works
 		} catch (UnsupportedLookAndFeelException e1) {
 			e1.printStackTrace();
 		}
-		
+			
 		
 		GridBagLayout gridbag = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
@@ -313,7 +317,6 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface, Works
 
 	}
 
-
 	public void workspaceNavigatorPrintHandler() {
 	}
 
@@ -383,6 +386,7 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface, Works
 
 	public boolean addPreview(File stl, File gcode) throws Exception {
 		if(!gcode.exists()) gcode.createNewFile();
+		
 		return this.previewContainer.addPreview(stl, gcode, workspaceDimensions);		
 	}
 	
@@ -416,18 +420,27 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface, Works
 
 	@Override
 	public void alertDirectoryLeafSelected() {
+		//TODO
+	}
+
+	@Override
+	public void alertDirectoryFolderSelected() {
+		// TODO 
+	}
+
+	@Override
+	public void alertDirectoryLeafDoubleClicked() {
 		try {
 			this.addPreview(theDirectoryTree.getSelectedSTLFile(), theDirectoryTree.getSelectedGCodeFile());
 		} catch (Exception e) {
 			this.errorDialog("Unknown IO Error Loading Preview");
 			e.printStackTrace();
-		}
+		}	
 	}
 
 	@Override
-	public void alertDirectoryFolderSelected() {
-		// TODO Auto-generated method stub
-		
+	public void alertDirectoryFolderDoubleClicked() {
+		// TODO Placeholder for now
 	}
 
 }

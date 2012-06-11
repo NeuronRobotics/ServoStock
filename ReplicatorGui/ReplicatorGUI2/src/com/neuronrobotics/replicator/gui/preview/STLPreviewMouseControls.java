@@ -23,8 +23,8 @@ public class STLPreviewMouseControls implements MouseListener, MouseMotionListen
 		
 	public STLPreviewMouseControls(STLPreview prev){
 		thePreview = prev;
-		thePreview.addMouseListener(this);
-		thePreview.addMouseMotionListener(this);
+		thePreview.getCanvas3D().addMouseListener(this);
+		thePreview.getCanvas3D().addMouseMotionListener(this);
 		mousePressed = false;
 		lastLocation = new Point2D.Double();
 		lastTime = System.currentTimeMillis();

@@ -109,18 +109,34 @@ public class STLPreviewContainer extends Container implements ActionListener {
 
 	public boolean addPreview(File stl, File gcode, Point3f workspaceDimensions)throws Exception {
 		if (!thePreviews.containsKey(stl)) {
+			
+			String name = stl.getName();
+			
+			SimpleLoadingScreen tempLoad = new SimpleLoadingScreen(name+" preview is loading...",true);
+			previewTabs.add(tempLoad);
+			previewTabs.setSelectedComponent(tempLoad);
+			
+			this.update(this.getGraphics());
+			
+			AddPreviewThread apt = new AddPreviewThread(tempLoad,stl,gcode,workspaceDimensions);
+			apt.start();
+			
+			/*
 			STLPreview tempPreview = new STLPreview(stl, gcode,
 					workspaceDimensions);
-			String name = stl.getName();
+			
 			if(!tempPreview.getSTLObject().getName().equalsIgnoreCase("Default")) 
 				name+=" ("+tempPreview.getSTLObject().getName()+")";
 			previewTabs.add(name,tempPreview);
 			thePreviews.put(stl, tempPreview);
 			previewTabs.setSelectedComponent(tempPreview);
 			
+			previewTabs.remove(tempLoad);
+			
 			new STLPreviewMouseControls(tempPreview);
 			
 			tempPreview.setOutlineVisibility(toggleOutline.isSelected());
+			*/
 			
 			return true;
 		}
@@ -182,6 +198,43 @@ public class STLPreviewContainer extends Container implements ActionListener {
 			current.rotateY(.3);
 		}
 
+	}
+	
+	private class AddPreviewThread extends Thread{
+		
+		SimpleLoadingScreen theLoadingScreen;
+		File stl, gcode;
+		Point3f workspaceDimensions;
+		
+		public AddPreviewThread(SimpleLoadingScreen sls,File stl, File gcode, Point3f workspaceDimensions){
+			super();
+			theLoadingScreen = sls;
+			this.stl = stl;
+			this.gcode = gcode;
+			this.workspaceDimensions = workspaceDimensions;
+		}
+		
+		public void run(){
+			
+			STLPreview tempPreview = new STLPreview(stl, gcode,
+					workspaceDimensions);
+			String name = stl.getName();
+			
+			if(!tempPreview.getSTLObject().getName().equalsIgnoreCase("Default")) 
+				name+=" ("+tempPreview.getSTLObject().getName()+")";
+			previewTabs.add(name,tempPreview);
+			thePreviews.put(stl, tempPreview);
+			previewTabs.setSelectedComponent(tempPreview);
+			
+			previewTabs.remove(theLoadingScreen);
+			
+			new STLPreviewMouseControls(tempPreview);
+			
+			tempPreview.setOutlineVisibility(toggleOutline.isSelected());
+			
+			
+		}
+		
 	}
 
 	/*
