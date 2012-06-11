@@ -13,8 +13,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 //import java.awt.event.ComponentEvent;
 //import java.awt.event.ComponentListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+//import java.awt.event.MouseEvent;
+//import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 //import java.util.ArrayList;
@@ -44,7 +44,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.vecmath.Point3f;
 
 import com.neuronrobotics.replicator.gui.navigator.WorkspaceNavigator;
-import com.neuronrobotics.replicator.gui.navigator.DirectoryTreeListener;
+import com.neuronrobotics.replicator.gui.navigator.WorkspaceNavigatorListener;
 import com.neuronrobotics.replicator.gui.navigator.FileNotDirectoryException;
 import com.neuronrobotics.replicator.gui.preview.STLPreviewContainer;
 import com.neuronrobotics.replicator.gui.stl.ASCIISTLWriter;
@@ -55,7 +55,7 @@ import com.neuronrobotics.replicator.gui.stl.STLObject;
 //import com.neuronrobotics.replicator.driver.NRPrinter;
 //import com.neuronrobotics.replicator.driver.PrinterStatus;
 
-public class DesktopApplet extends Applet implements GUIFrontendInterface, DirectoryTreeListener {
+public class DesktopApplet extends Applet implements GUIFrontendInterface, WorkspaceNavigatorListener {
 
 	/**
 	 * 
@@ -83,6 +83,8 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface, Direc
 
 	private JMenuItem openFileItem;
 	private JMenuItem newProjectItem;
+	private JMenuItem importSTLItem;
+	
 
 	private JLabel statusLabel;
 	private JProgressBar printProgress;
@@ -215,10 +217,12 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface, Direc
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-			//	fileNavigator.addTestNode();//TODO testing only	
+			//	fileNavigator.addTestNode();//TODO testing only
+				String folderName = JOptionPane.showInputDialog("New Folder Name: ");
+				
 				String err = null;
 				try {
-					theDirectoryTree.addNewFolder("NewFolder");
+					theDirectoryTree.addNewFolder(folderName);
 				} catch (FileNotDirectoryException e) {
 					err = "That file exists and it is not a directory.";
 					e.printStackTrace();
@@ -231,8 +235,31 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface, Direc
 			}
 		});
 		
+		importSTLItem = new JMenuItem("Import STL");
+		importSTLItem.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser fileChooser = new JFileChooser("*.stl");
+				int returnVal = fileChooser.showOpenDialog(new JDialog());
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+					System.out.println("You chose to import this file: "
+							+ fileChooser.getSelectedFile().getName());
+					File newFile = fileChooser.getSelectedFile();
+					try {
+						theDirectoryTree.copyInSTLFile(newFile);
+					} catch (IOException e) {
+						e.printStackTrace();
+						System.out.println("IO Exception dun happen'd");
+					}
+				}	
+			}
+			
+		});
+		
 		fileMenu.add(openFileItem);
 		fileMenu.add(newProjectItem);
+		fileMenu.add(importSTLItem);
 
 		menuContainer.add(menuBar);
 
@@ -338,7 +365,7 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface, Direc
 			isPrinting = theGUIDriver.requestPrint(currentGCodeFile);
 		
 		
-		System.out.println("Printing file " + currentFile.getAbsolutePath());
+		if(isPrinting) System.out.println("Printing file " + currentFile.getAbsolutePath());
 	}
 
 	public void cancelButtonHandler() {
