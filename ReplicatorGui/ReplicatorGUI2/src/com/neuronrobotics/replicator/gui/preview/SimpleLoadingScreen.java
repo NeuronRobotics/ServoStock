@@ -1,30 +1,37 @@
 package com.neuronrobotics.replicator.gui.preview;
 
-import java.awt.Container;
-import java.awt.Dimension;
+//import java.awt.Container;
+//import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.io.File;
-import java.io.IOException;
+//import java.awt.Image;
+//import java.awt.image.BufferedImage;
+//import java.awt.image.ImageObserver;
+//import java.io.File;
+//import java.io.IOException;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
+//import javax.imageio.ImageIO;
+//import javax.swing.ImageIcon;
+//import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
 public class SimpleLoadingScreen extends JPanel{
 	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -431112182662775252L;
+
+	
 	private JProgressBar theProgressBar;
 	private JLabel theText;
 	
-	private final ImageIcon imageIcon = new ImageIcon("Images\\hat.png");
+	//private final ImageIcon imageIcon = new ImageIcon("Images\\hat.png");
 		
 	
 	public SimpleLoadingScreen(String text,boolean indeterminate){

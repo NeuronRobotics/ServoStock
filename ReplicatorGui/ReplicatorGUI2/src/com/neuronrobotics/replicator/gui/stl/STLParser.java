@@ -1,10 +1,8 @@
 package com.neuronrobotics.replicator.gui.stl;
 
-import java.io.DataInputStream;
-import java.io.FileInputStream;
+
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Scanner;
 
 
 public abstract class STLParser {
@@ -41,7 +39,7 @@ public abstract class STLParser {
 	 * 
 	 * @return next facet is returned as STLFacet object
 	 */
-	public abstract STLFacet nextFacet() throws Exception; //TODO use more appropriate Exception(s)
+	public abstract STLFacet nextFacet() throws IOException;
 	
 	/**
 	 * 
@@ -50,10 +48,6 @@ public abstract class STLParser {
 	 */
 	public abstract String getName() throws IOException;
 	
-	//TODO implementing these might be more trouble than they are worth
-	//public abstract int getObjectCount(); 	
-	//public abstract int getFacetCount(int i);
-
 	/**
 	 * 
 	 * @return true if facets left, false otherwise

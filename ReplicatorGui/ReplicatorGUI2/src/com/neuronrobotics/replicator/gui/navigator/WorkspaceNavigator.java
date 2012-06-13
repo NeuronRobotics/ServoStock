@@ -6,7 +6,7 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.nio.file.FileSystem;
+//import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -130,7 +130,7 @@ public class WorkspaceNavigator extends JTree implements TreeSelectionListener, 
 	}
 	
 	public void linkNewFolder(DefaultMutableTreeNode parent,String newFullFileName){
-		//TODO
+	
 		
 	}
 	 */
@@ -245,33 +245,26 @@ public class WorkspaceNavigator extends JTree implements TreeSelectionListener, 
 		
 	}
 
-
-	
-
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+			
 	}
 
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 

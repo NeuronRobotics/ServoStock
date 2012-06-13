@@ -2,36 +2,36 @@ package com.neuronrobotics.replicator.gui.stl;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+//import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Scanner;
-import java.util.StringTokenizer;
+//import java.util.Iterator;
+//import java.util.Scanner;
+//import java.util.StringTokenizer;
 
 import javax.media.j3d.*;
 import javax.vecmath.*;
 
 //import org.j3d.loaders.InvalidFormatException;
-import com.sun.j3d.utils.behaviors.mouse.*;
+//import com.sun.j3d.utils.behaviors.mouse.*;
 import com.sun.j3d.utils.geometry.NormalGenerator;
 import com.sun.j3d.utils.geometry.GeometryInfo;
 
 public class STLLoader {
 	
-	@SuppressWarnings("restriction")
+	//@SuppressWarnings("restriction")
 	public static TransformGroup getSTLTransform(String filename,BranchGroup root) throws IOException{
 		return getSTLTransform(new File(filename),root);
 	}
 	
-	@SuppressWarnings("restriction")
+	//@SuppressWarnings("restriction")
 	public static TransformGroup getSTLTransform(File f,BranchGroup root) throws IOException{
 		STLObject stl = loadFile(f);
 		return getSTLTransform(stl,root);	
 	}
 	
-	@SuppressWarnings("restriction")
+	//@SuppressWarnings("restriction")
 	public static TransformGroup getSTLTransform(STLObject stl,BranchGroup root) throws IOException{
 		TransformGroup tg = new TransformGroup();
 		
@@ -75,10 +75,11 @@ public class STLLoader {
 		return loadFile(is);
 	}
 	
-	@SuppressWarnings("restriction")
+	//@SuppressWarnings("restriction")
 	public static STLObject loadFile(InputStream is) throws IOException{
 		String name;
-		Point3f center = new Point3f(), min = new Point3f(), max = new Point3f();
+		//Point3f center = new Point3f();
+		Point3f min = new Point3f(), max = new Point3f();
 		ArrayList<STLFacet> facets = new ArrayList<STLFacet>();
 		
 		//InputStream is = new FileInputStream(theFile);
@@ -92,7 +93,7 @@ public class STLLoader {
 			STLFacet tempFacet;
 			try {
 				tempFacet = theParser.nextFacet();
-			} catch (Exception e) { //TODO this will use a more appropriate exception
+			} catch (Exception e) {
 				e.printStackTrace();
 				System.out.print("This should never happen. Check for end of file may be failing.");
 				break; //
@@ -142,11 +143,12 @@ public class STLLoader {
 		
 		//centeredScale(Point3f p,Point3f c, float scale)
 		
-		float scale = 1f/Math.max(Math.max(stlo.getXDistance(),stlo.getYDistance()),stlo.getZDistance());
+		//float scale = 1f/Math.max(Math.max(stlo.getXDistance(),stlo.getYDistance()),stlo.getZDistance());
 		
-		Point3f center =stlo.getCenter();
+		//Point3f center =stlo.getCenter();
 		
 		for(STLFacet fac:stlo){
+			/*
 			olA.setCoordinate(currV++, centeredScale(fac.getVertex1(),center,scale));
 			olA.setCoordinate(currV++, centeredScale(fac.getVertex2(),center,scale));
 			
@@ -155,7 +157,7 @@ public class STLLoader {
 			
 			olA.setCoordinate(currV++,centeredScale( fac.getVertex2(),center,scale));
 			olA.setCoordinate(currV++,centeredScale( fac.getVertex3(),center,scale));
-			/*
+			*/
 			olA.setCoordinate(currV++, fac.getVertex1());
 			olA.setCoordinate(currV++, fac.getVertex2());
 			
@@ -164,7 +166,7 @@ public class STLLoader {
 			
 			olA.setCoordinate(currV++, fac.getVertex2());
 			olA.setCoordinate(currV++, fac.getVertex3());
-			 */
+			 
 			
 		}
 		
@@ -188,18 +190,23 @@ public class STLLoader {
 		int currVertex = 0;
 		
 		
-		float scale = 1f/Math.max(Math.max(stlo.getXDistance(),stlo.getYDistance()),stlo.getZDistance());
+		//float scale = 1f/Math.max(Math.max(stlo.getXDistance(),stlo.getYDistance()),stlo.getZDistance());
 		
 		//Vector3f[] normals = new Vector3f[stlo.getFacetAmount()];
-		
-		//TODO clean up
-		
-		Point3f center = stlo.getCenter();
+				
+		//Point3f center = stlo.getCenter();
 		for(STLFacet sf:stlo){
+			/*
 			model.setCoordinate(currVertex++, centeredScale(sf.getVertex1(),center,scale));
 			model.setCoordinate(currVertex++, centeredScale(sf.getVertex2(),center,scale));
 			model.setCoordinate(currVertex++, centeredScale(sf.getVertex3(),center,scale));
 			//normals[(currVertex/3)-1]=sf.getNormal();
+			*/
+			model.setCoordinate(currVertex++, sf.getVertex1());
+			model.setCoordinate(currVertex++, sf.getVertex2());
+			model.setCoordinate(currVertex++, sf.getVertex3());
+			
+			
 		}
 		
 		GeometryInfo gi = new GeometryInfo(model);
@@ -222,13 +229,13 @@ public class STLLoader {
 		return theModel;
 	}
 	
+	/*
 	private static Point3f centeredScale(Point3f p,Point3f c, float scale){
-		//TODO remove this completely eventually
-		/*
+				
 		float x = p.x;//(p.x-c.x)*scale;
 		float y = p.y;//(p.y-c.y)*scale;
 		float z = p.z;//(p.z-c.z)*scale;
-		*/
+		
 		scale*=3;
 		boolean noScale = true;
 		if(noScale){
@@ -243,19 +250,19 @@ public class STLLoader {
 		
 		return new Point3f(x,y,z);
 	}
-
-	@SuppressWarnings("restriction")
+	*/
+	//@SuppressWarnings("restriction")
 	public static STLTransformGroup createSTLTransform(String filename,BranchGroup root) throws IOException{
 		return createSTLTransform(new File(filename),root);
 	}
 	
-	@SuppressWarnings("restriction")
+	//@SuppressWarnings("restriction")
 	public static STLTransformGroup createSTLTransform(File f,BranchGroup root) throws IOException{
 		STLObject stl = loadFile(f);
 		return createSTLTransform(stl,root);	
 	}
 	
-	@SuppressWarnings("restriction")
+	//@SuppressWarnings("restriction")
 	public static STLTransformGroup createSTLTransform(STLObject stl,BranchGroup root) throws IOException{
 		STLTransformGroup tg = new STLTransformGroup();
 		

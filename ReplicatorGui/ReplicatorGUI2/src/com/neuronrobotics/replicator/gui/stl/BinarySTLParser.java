@@ -3,7 +3,7 @@ package com.neuronrobotics.replicator.gui.stl;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Scanner;
+//import java.util.Scanner;
 
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
@@ -34,7 +34,7 @@ public class BinarySTLParser extends STLParser {
 	}
 	
 	@Override
-	public STLFacet nextFacet() throws Exception {
+	public STLFacet nextFacet() throws IOException {
 		if (header==null) readHeader();
 		STLFacet tempFacet = new STLFacet();
 		Vector3f normal = extractNormal();
@@ -42,7 +42,11 @@ public class BinarySTLParser extends STLParser {
 		Point3f v2 = extractVertex();
 		Point3f v3 = extractVertex();
 		System.out.println(v1+""+v2+""+v3);//TODO
-		int colorInfo = dataStream.readUnsignedShort();
+		
+		//In some specs next short holds color info but it is officially just padding
+		//int colorInfo = dataStream.readUnsignedShort();
+		dataStream.readUnsignedShort();
+		
 		tempFacet.setNormal(normal);
 		tempFacet.setVertices(v1, v2, v3);
 		currentFacet++;

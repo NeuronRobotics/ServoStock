@@ -25,7 +25,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 //import javax.swing.JLabel;
-import javax.swing.ImageIcon;
+//import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -63,7 +63,7 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface, Works
 	 */
 	private static final long serialVersionUID = -7003760875384715160L;
 	
-	private final ImageIcon imageIcon = new ImageIcon("Images\\hat.png");
+	//private final ImageIcon imageIcon = new ImageIcon("Images\\hat.png");
 
 	private File defaultWorkspaceDirectory;
 
@@ -100,7 +100,16 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface, Works
 		this.theGUIDriver = theGUIDriver;
 		this.theGUIDriver.setFrontend(this);
 		workspaceDimensions = new Point3f(60, 60, 60); 
-		// TODO extract to factory or grab from some appropriate place
+		defaultWorkspaceDirectory = new File("DefaultWorkspaceFolder");
+	}
+	
+	public DesktopApplet(GUIBackendInterface theGUIDriver, File mainDirectory) {
+		super();
+		this.theGUIDriver = theGUIDriver;
+		this.theGUIDriver.setFrontend(this);
+		workspaceDimensions = new Point3f(60, 60, 60); 
+
+		defaultWorkspaceDirectory = mainDirectory;
 	}
 
 	public void init() {
@@ -127,10 +136,6 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface, Works
 
 		setFont(new Font("Helvetica", Font.PLAIN, 14));
 		setLayout(gridbag);
-
-		// TODO remove to factory
-		defaultWorkspaceDirectory = new File("DefaultWorkspaceFolder");
-		
 
 		menuContainer = new Container();
 		menuContainer.setLayout(new GridLayout(1, 1));
@@ -221,7 +226,6 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface, Works
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-			//	fileNavigator.addTestNode();//TODO testing only
 				String folderName = JOptionPane.showInputDialog("New Folder Name: ");
 				
 				String err = null;
@@ -302,11 +306,10 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface, Works
 		toolbarContainer.add(mainToolbar);
 
 		theDirectoryTree = WorkspaceNavigator.getDirectoryTree(defaultWorkspaceDirectory);
-		//TODO			
-			
+				
 		theDirectoryTree.addDirectoryTreeListener(this);
 		
-		leftTab.add("New Navigator",theDirectoryTree);//TODO
+		leftTab.add("Navigator",theDirectoryTree);
 
 		printProgress = new JProgressBar();
 
@@ -420,12 +423,12 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface, Works
 
 	@Override
 	public void alertDirectoryLeafSelected() {
-		//TODO
+		
 	}
 
 	@Override
 	public void alertDirectoryFolderSelected() {
-		// TODO 
+		
 	}
 
 	@Override
@@ -440,7 +443,7 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface, Works
 
 	@Override
 	public void alertDirectoryFolderDoubleClicked() {
-		// TODO Placeholder for now
+		
 	}
 
 }

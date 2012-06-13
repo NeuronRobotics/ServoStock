@@ -1,12 +1,7 @@
 package com.neuronrobotics.replicator.gui.stl;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+
 import java.util.ArrayList;
-import java.util.IllegalFormatException;
 import java.util.Iterator;
-import java.util.Scanner;
-import java.util.StringTokenizer;
 
 import javax.media.j3d.*;
 import javax.vecmath.*;

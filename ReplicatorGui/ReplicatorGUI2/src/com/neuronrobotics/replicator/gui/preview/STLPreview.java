@@ -1,9 +1,9 @@
 package com.neuronrobotics.replicator.gui.preview;
 
 //import java.awt.Color;
-import java.awt.Component;
+//import java.awt.Component;
 import java.awt.Container;
-import java.awt.GraphicsConfiguration;
+//import java.awt.GraphicsConfiguration;
 import java.awt.GridLayout;
 import java.io.File;
 import java.io.IOException;
@@ -66,6 +66,8 @@ public class STLPreview extends Container {
 	private STLObject theSTLObject;
 		
 	private Point3f workspaceDimensions;
+
+	private STLPreviewMouseControls theMouseControls;
 			
 	public STLPreview(File stl, File gcode, Point3f workspaceDim){
 		
@@ -556,6 +558,14 @@ public class STLPreview extends Container {
 
 	public Canvas3D getCanvas3D() {
 		return theCanvas3D;
+	}
+
+	public void setMouseControls(STLPreviewMouseControls theMouseControls) {
+		this.theMouseControls = theMouseControls;		
+	}
+
+	public STLPreviewMouseControls getMouseControls() {
+		return theMouseControls;		
 	}
 
 }

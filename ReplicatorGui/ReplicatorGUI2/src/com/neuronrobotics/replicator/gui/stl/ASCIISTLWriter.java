@@ -2,8 +2,8 @@ package com.neuronrobotics.replicator.gui.stl;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.DecimalFormat;
-import java.text.Format;
+//import java.text.DecimalFormat;
+//import java.text.Format;
 
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
@@ -50,7 +50,7 @@ public class ASCIISTLWriter extends STLWriter{
 
 	private String toMantissaString(float x) {
 		int exp;
-		char plusMinus = '+';
+		//char plusMinus = '+';
 		if (x == 0)
 			exp = 0;
 		else {
@@ -59,7 +59,7 @@ public class ASCIISTLWriter extends STLWriter{
 			if (exp < 0) {
 				exp--;
 				//plusMinus = '-';
-				plusMinus='\0';
+				//plusMinus='\0';
 			} else
 				exp++;
 		}
