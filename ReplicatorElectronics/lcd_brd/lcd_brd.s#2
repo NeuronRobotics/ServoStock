@@ -3755,6 +3755,7 @@ by exp-project-lbr.ulp</description>
 <part name="U$2" library="SBH11-PBPC-D17-ST-BK" deviceset="SBH11-PBPC-D17-ST-BK" device=""/>
 <part name="P+1" library="supply1" deviceset="VCC" device=""/>
 <part name="SUPPLY1" library="supply2" deviceset="DGND" device=""/>
+<part name="P+2" library="supply1" deviceset="VCC" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -3786,6 +3787,7 @@ by exp-project-lbr.ulp</description>
 <instance part="U$2" gate="G$1" x="73.66" y="-55.88"/>
 <instance part="P+1" gate="VCC" x="17.78" y="-91.44"/>
 <instance part="SUPPLY1" gate="G$1" x="124.46" y="-109.22"/>
+<instance part="P+2" gate="VCC" x="7.62" y="-134.62"/>
 </instances>
 <busses>
 </busses>
@@ -3831,6 +3833,19 @@ by exp-project-lbr.ulp</description>
 <wire x1="35.56" y1="-96.52" x2="33.02" y2="-96.52" width="0.1524" layer="91"/>
 <wire x1="33.02" y1="-96.52" x2="17.78" y2="-96.52" width="0.1524" layer="91"/>
 <junction x="17.78" y="-96.52"/>
+</segment>
+<segment>
+<pinref part="P+2" gate="VCC" pin="VCC"/>
+<pinref part="R6" gate="G$1" pin="2"/>
+<wire x1="7.62" y1="-137.16" x2="7.62" y2="-144.78" width="0.1524" layer="91"/>
+<pinref part="R7" gate="G$1" pin="2"/>
+<wire x1="7.62" y1="-144.78" x2="7.62" y2="-149.86" width="0.1524" layer="91"/>
+<wire x1="0" y1="-149.86" x2="0" y2="-144.78" width="0.1524" layer="91"/>
+<wire x1="0" y1="-144.78" x2="7.62" y2="-144.78" width="0.1524" layer="91"/>
+<junction x="7.62" y="-144.78"/>
+<pinref part="R5" gate="G$1" pin="2"/>
+<wire x1="15.24" y1="-149.86" x2="15.24" y2="-144.78" width="0.1524" layer="91"/>
+<wire x1="15.24" y1="-144.78" x2="7.62" y2="-144.78" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="SD_CSN" class="0">
