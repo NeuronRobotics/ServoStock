@@ -29,6 +29,7 @@ import javax.media.j3d.TransformGroup;
 import javax.vecmath.Color3f;
 import javax.vecmath.Point3d;
 import javax.vecmath.Point3f;
+import javax.vecmath.Quat4d;
 import javax.vecmath.Vector3d;
 import javax.vecmath.Vector3f;
 
@@ -40,9 +41,7 @@ import com.neuronrobotics.replicator.gui.stl.STLTransformGroup;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
 public class STLPreview extends Container {
-	
-
-	
+		
 	/**
 	 * 
 	 */
@@ -267,18 +266,6 @@ public class STLPreview extends Container {
 		try {
 			theSTLObject = STLLoader.loadFile(f);
 			
-			boolean debug = true;
-			if (debug) {
-				ASCIISTLWriter aw = new ASCIISTLWriter(theSTLObject);
-				aw.writeSTLToFile(new File("writerTest.stl"));
-				System.out.println(theSTLObject);
-				System.out.println(theSTLObject.getCenter());
-				System.out.println(theSTLObject.getMax());
-				System.out.println(theSTLObject.getMin());
-				System.out.println(theSTLObject.getXDistance());
-				System.out.println(theSTLObject.getYDistance());
-				System.out.println(theSTLObject.getZDistance());
-			}
 			stlTransform = STLLoader.createSTLTransform(theSTLObject, mainBranch);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -321,11 +308,20 @@ public class STLPreview extends Container {
 		setCamera(cameraPosition,cameraDirection);
 	}
 	
+	/*
+	public void focusOnModelCenter(){
+		double m = Math.max(this.workspaceDimensions.z,Math.max(this.workspaceDimensions.x,this.workspaceDimensions.y));
+		cameraPosition = new Point3d(2*m,2*m,2*m); 
+		cameraDirection = new Point3d(0,0,0); 
+		//TODO will need to switch between focusing on workspace and model
+		setCamera(cameraPosition,cameraDirection);
+	}
+	*/
+	
 	public void resetCamera(){
 		double m = Math.max(this.workspaceDimensions.z,Math.max(this.workspaceDimensions.x,this.workspaceDimensions.y));
 		cameraPosition = new Point3d(2*m,2*m,2*m);
 		cameraDirection = new Point3d(0,0,0); 
-		//TODO will need to switch between focusing on workspace and model
 		setCamera(cameraPosition,cameraDirection);
 		
 			
@@ -347,18 +343,18 @@ public class STLPreview extends Container {
 		
 
 		
-		
+		/*
 		System.out.println("Radius: "+radius);
 		System.out.println("Initial Angle: "+currentAngle);
 		System.out.println("Delta Angle: "+rot);
 		System.out.println("Final Angle:" + newAngle);
 		System.out.println("Initial position: "+cameraPosition);
-		
+		*/
 		cameraPosition = new Point3d(newX,cameraPosition.y,newZ);
-		
+		/*
 		System.out.println("Final position: "+cameraPosition);
 		System.out.println("//////////////");
-		
+		*/
 		
 		
 		
@@ -424,17 +420,19 @@ public class STLPreview extends Container {
 	
 	//light transform functions
 	public void updateIndicatorLightColor(){
-		if(modelInWorkspace()) theLight.setColor(new Color3f(.0f,5.5f,.0f));
+		if(modelIsInWorkspace()) theLight.setColor(new Color3f(.0f,5.5f,.0f));
 		else theLight.setColor(new Color3f(5.5f,.0f,.0f));
 	}
 	
-	public boolean modelInWorkspace(){
+	public boolean modelIsInWorkspace(){
 		
 		Point3f min = stlTransform.getCurrentMin();
 		Point3f max = stlTransform.getCurrentMax();
 		
+		/*
 		System.out.println(min);
 		System.out.println(max);
+		*/
 		
 		if(min.x<(0-workspaceDimensions.x/2)) return false;
 		if(min.y<(0-workspaceDimensions.y/2)) return false;
@@ -445,7 +443,77 @@ public class STLPreview extends Container {
 				
 		return true;
 	}
+	
+	//TODO currently tries to erase rotations without erasing translations
+	public void pointNormalDown(Vector3d normal){
+		Transform3D curr = new Transform3D();
+		stlTransform.getTransform(curr);
 		
+		Vector3d pointInDir = new Vector3d(0,-1,0);
+		
+		if(normal==null){
+			normal = new Vector3d(1,0,1);
+		
+		}
+				
+		//if(normal.equals(new Vector3d(0,0,0))) return;
+		
+		normal.normalize();
+		
+		
+		curr.transform(normal);		
+
+		Vector3d noX = new Vector3d(0,normal.y,normal.z);
+		Vector3d noZ = new Vector3d(normal.x,normal.y,0);
+		Vector3d noY = new Vector3d(normal.x,0,normal.z);
+		
+		//Quat4d noRot = new Quat4d(1,0,0,1);
+		//noRot.inverse();
+		//curr.setRotation(noRot);
+		
+		
+		/*
+		double zAngle;
+		if(normal.y!=0) {
+			zAngle = Math.atan(normal.x/normal.y);
+		}
+		else if(normal.x!=0) zAngle = Math.PI/2;
+		else zAngle = 0;
+		
+		double xAngle;
+		if(normal.y!=0){
+		xAngle = Math.atan(normal.z/normal.y);
+		}
+		else if(normal.z!=0) xAngle = Math.PI/2;
+		else xAngle = 0;
+		
+		double zRotate = -(Math.PI - zAngle);
+		double xRotate = -(Math.PI - xAngle);
+		*/
+		
+		Double xRotate = pointInDir.angle(noX);
+		Double zRotate = pointInDir.angle(noZ);
+		Double yRotate = pointInDir.angle(noY);//TODO?
+				
+		
+		if(xRotate.isNaN()) xRotate = 0.0;// Math.PI;
+		if(zRotate.isNaN()) zRotate = 0.0;//Math.PI;
+		if(yRotate.isNaN()) yRotate = 0.0;
+		
+		
+		//curr.rotX(xRotate);
+		//curr.rotY(0);
+		//curr.rotZ(zRotate);
+		System.out.println(xRotate+" "+zRotate);
+		this.rotateX(xRotate);
+		this.rotateZ(zRotate);
+		
+		//stlTransform.setTransform(curr);
+		System.out.println(stlTransform.getCurrentMax());
+		
+		updateIndicatorLightColor();
+	}
+	
 	//Model transform functions
 	public void rotateX(double rad){
 		Transform3D curr = new Transform3D();
@@ -480,14 +548,65 @@ public class STLPreview extends Container {
 		updateIndicatorLightColor();
 	}
 	
+	//TODO this is a bit more complicated than originally thought
+	//Need to correct for both camera angle as well as previous transforms
+	//hopefully should be as simple as offsetting currentAngle variable
+	public void rotateUpDown(double rad){
+		Transform3D curr = new Transform3D();
+		stlTransform.getTransform(curr);
+		
+		double radZ =0, radX =0;
+		
+		Vector3d vec = new Vector3d();
+		vec.add(cameraPosition);
+		vec.sub(cameraDirection);
+		
+		double radius = Math.sqrt((vec.x*vec.x)+(vec.z*vec.z));
+		
+		double currentAngle = Math.acos(vec.x/radius);
+		if(vec.z<0) currentAngle=(2*Math.PI)-currentAngle;
+		
+		//TODO 		
+		
+		radZ = rad*Math.cos(currentAngle);
+		radX = rad*Math.sin(currentAngle);
+		
+		rotateZ(radZ);
+		rotateX(radX);
+		
+		///////
+		/*
+		Transform3D temp = new Transform3D();
+		temp.rotZ(radZ);
+		temp.rotX(radX);
+		curr.mul(temp);
+		stlTransform.setTransform(curr);
+		*/
+		updateIndicatorLightColor();
+	}
+		
+	public void resetModelTransforms(){
+		Transform3D blank = new Transform3D();
+		stlTransform.setTransform(blank);
+		centerOnWorkspace();
+	}
+	
 	public void centerOnWorkspace(){
+		
 		//Point3f cent = stlTransform.getCurrentCenter();
-		//Point3f cent = theSTLObject.getCenter();
-		double xTrans = 0;//-cent.x;
-		double zTrans = 0;//-cent.z;
-		double yTrans = -stlTransform.getBaseMin().y-(workspaceDimensions.y/2);
+		Point3f cent = theSTLObject.getCenter();
+		System.out.println(cent);
+		System.out.println(theSTLObject.getCenter());		
+		double xTrans = -cent.x;
+		double zTrans = -cent.z;
+		double yTrans = -theSTLObject.getMin().y-(workspaceDimensions.y/2);
 		Vector3d tran = new Vector3d(xTrans,yTrans,zTrans);
-		translate(tran);
+		Transform3D centerTransform = new Transform3D();
+		stlTransform.getTransform(centerTransform);
+		centerTransform.setTranslation(tran);
+		//translate(tran);
+		stlTransform.setTransform(centerTransform);
+		
 		updateIndicatorLightColor();
 	}
 	
@@ -496,7 +615,7 @@ public class STLPreview extends Container {
 		Transform3D temp2 = new Transform3D();
 		stlTransform.getTransform(temp2);
 		temp.setTranslation(tran);
-		temp2.mul(temp);
+		temp2.mul(temp);//TODO
 		stlTransform.setTransform(temp2);
 		updateIndicatorLightColor();
 	}
@@ -515,6 +634,73 @@ public class STLPreview extends Container {
 		Vector3d tran = new Vector3d(0,0,z);
 		translate(tran);
 	}
+	
+	public void translateLeftRight(double d){
+		Vector3d tran = new Vector3d(1,0,0);
+		Transform3D curr = this.getTransform3D();
+		//curr.setTranslation(new Vector3d(0,0,0));
+		curr.invert();
+		curr.transform(tran);
+		tran.normalize();
+		
+		Vector3d camVec = new Vector3d(cameraPosition);
+		camVec.sub(cameraDirection);
+		camVec.cross(camVec, CAMERA_ORIENTATION);
+		
+		//curr.invert();
+		curr.transform(camVec);
+		camVec.normalize();
+		
+		tran.scale(d);
+		camVec.scale(-d);
+		//System.out.println(tran);
+		translate(tran);
+		//translate(camVec);
+	}
+	
+	//TODO switch with above. 
+	//This moves lateral to the camera instead of just left and right in x
+	public void translateLeftRight2(double d){
+		
+		Transform3D curr = this.getTransform3D();
+		
+		Vector3d camVec = new Vector3d(cameraPosition);
+		camVec.sub(cameraDirection);
+		camVec.cross(camVec, CAMERA_ORIENTATION);
+		
+		curr.invert();
+		curr.transform(camVec);
+		camVec.normalize();
+		
+		camVec.scale(-d);
+		
+		translate(camVec);
+		
+	}
+	
+	public void translateUpDown(double d){
+		Vector3d tran = new Vector3d(0,-1,0); //For some reason -1 makes this work
+		Transform3D curr = this.getTransform3D();
+		//curr.setTranslation(new Vector3d(0,0,0));
+		curr.invert();
+		curr.transform(tran);
+		tran.normalize();
+		tran.scale(d);
+		//System.out.println(tran); 
+		translate(tran);
+	}
+	
+	public void translateBackForth(double d){
+		Vector3d tran = new Vector3d(0,0,1);
+		Transform3D curr = this.getTransform3D();
+		//curr.setTranslation(new Vector3d(0,0,0));
+		curr.invert(); //THis works but I really don't know why
+		curr.transform(tran);
+		tran.normalize();
+		tran.scale(d);
+		//System.out.println(tran);
+		translate(tran);
+	}	
 	
 	public void setOutlineVisibility(boolean vis){
 		stlTransform.setOutlineVisibility(vis);
@@ -540,7 +726,6 @@ public class STLPreview extends Container {
 	public Point3f getWorkspaceDimensions(){
 		return workspaceDimensions;
 	}
-
 	
 	public boolean getOutlineVisibility() {
 		return stlTransform.getOutlineVisibility();

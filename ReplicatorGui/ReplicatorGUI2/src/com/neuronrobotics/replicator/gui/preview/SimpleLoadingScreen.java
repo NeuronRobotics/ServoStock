@@ -1,20 +1,10 @@
 package com.neuronrobotics.replicator.gui.preview;
 
-//import java.awt.Container;
-//import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-//import java.awt.Image;
-//import java.awt.image.BufferedImage;
-//import java.awt.image.ImageObserver;
-//import java.io.File;
-//import java.io.IOException;
 
-//import javax.imageio.ImageIO;
-//import javax.swing.ImageIcon;
-//import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
@@ -57,23 +47,18 @@ public class SimpleLoadingScreen extends JPanel{
 		
 	}
 	
-	
-	public void paint(Graphics g){
-		super.paint(g);
-		/*
-		Image image = imageIcon.getImage();
-		Image currImage = image.getScaledInstance(400,400,Image.SCALE_DEFAULT);//this.getWidth()-20, this.getHeight()-20, Image.SCALE_FAST);
-			
-		System.out.println("currImage Width" + image.getWidth(this));
-		
-		g.drawImage(currImage, 0,0, this);
-			
-		//g.drawImage(currImage, (this.getWidth()/2)-currImage.getWidth(this)/2, this.getHeight()/2-currImage.getHeight(this)/2, this);
-		*/
+	/**
+	 * Sets the main text to argument passed in
+	 * @param newText
+	 */
+	public void setText(String newText){
+		this.theText.setText(newText);
 	}
-	
-	
-			
+		
+	/**
+	 * Takes in an int to set the current level of progress for the progress bar
+	 * @param prog
+	 */
 	public void setProgress(int prog){
 		if(!theProgressBar.isIndeterminate()) theProgressBar.setOrientation(prog);
 	}

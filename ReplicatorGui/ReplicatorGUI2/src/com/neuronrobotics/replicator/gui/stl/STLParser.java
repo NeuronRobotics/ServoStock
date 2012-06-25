@@ -1,9 +1,7 @@
 package com.neuronrobotics.replicator.gui.stl;
 
-
 import java.io.IOException;
 import java.io.InputStream;
-
 
 public abstract class STLParser {
 

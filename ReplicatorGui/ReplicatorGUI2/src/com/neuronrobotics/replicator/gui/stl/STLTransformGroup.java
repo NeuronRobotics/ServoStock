@@ -44,7 +44,6 @@ public class STLTransformGroup extends TransformGroup{
 		min = null;
 	}
 	
-	//TODO should combine with above
 	public void setOutline(Shape3D newOutline){
 		if(theOutline!=null) this.removeChild(theOutline);
 		this.theOutline = newOutline;
@@ -66,7 +65,14 @@ public class STLTransformGroup extends TransformGroup{
 		min = null;
 	}
 	
-	
+	public void setModel(Shape3D newModel, Shape3D newOutline){
+		setModel(newModel);
+		setOutline(newOutline);
+		
+		min = null;
+		max = null;//if the model is changed and these aren't set to null
+		//getMin and getMax functions don't know to recalculate
+	}
 	
 	public Shape3D getModel(){		
 		return theModel;
@@ -141,7 +147,7 @@ public class STLTransformGroup extends TransformGroup{
 		return currMin;
 		*/
 		
-		Point3f currMin = new Point3f(0f,0f,0f);
+		Point3f currMin = null;//new Point3f(0f,0f,0f);
 		GeometryArray ga = (GeometryArray)(theModel.getGeometry());
 		
 		Transform3D currT = new Transform3D();
@@ -152,6 +158,10 @@ public class STLTransformGroup extends TransformGroup{
 		for(int i=0;i<vc;i++){
 			ga.getCoordinate(i,tempCoord);
 			currT.transform(tempCoord);
+			if(currMin==null){
+				currMin = new Point3f(tempCoord);
+				continue;
+			}
 			if(tempCoord.x<currMin.x) currMin.set(tempCoord.x,currMin.y,currMin.z);
 			if(tempCoord.y<currMin.y) currMin.set(currMin.x,tempCoord.y,currMin.z);
 			if(tempCoord.z<currMin.z) currMin.set(currMin.x,currMin.y,tempCoord.z);
@@ -163,7 +173,7 @@ public class STLTransformGroup extends TransformGroup{
 	
 	public Point3f getCurrentMax() {
 
-		Point3f currMax = new Point3f(0f,0f,0f);
+		Point3f currMax = null;
 		GeometryArray ga = (GeometryArray)(theModel.getGeometry());
 		
 		Transform3D currT = new Transform3D();
@@ -174,6 +184,10 @@ public class STLTransformGroup extends TransformGroup{
 		for(int i=0;i<vc;i++){
 			ga.getCoordinate(i,tempCoord);
 			currT.transform(tempCoord);
+			if(currMax==null){
+				currMax = new Point3f(tempCoord);
+				continue;
+			}
 			if(tempCoord.x>currMax.x) currMax.set(tempCoord.x,currMax.y,currMax.z);
 			if(tempCoord.y>currMax.y) currMax.set(currMax.x,tempCoord.y,currMax.z);
 			if(tempCoord.z>currMax.z) currMax.set(currMax.x,currMax.y,tempCoord.z);

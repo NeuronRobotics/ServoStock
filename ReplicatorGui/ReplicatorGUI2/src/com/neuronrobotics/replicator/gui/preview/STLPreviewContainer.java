@@ -34,7 +34,7 @@ public class STLPreviewContainer extends Container implements ActionListener, Ch
 	private ArrayList<File> currentlyLoading;
 
 	private JToolBar cameraControls;
-	private JButton resetCamera;
+	private JButton resetCamera,centerModel;
 	//, zoomIn, zoomOut, rotateXZPlus, rotateXZMinus,
 		//	rotateUp, rotateDown;
 	private JToggleButton toggleOutline;
@@ -43,9 +43,7 @@ public class STLPreviewContainer extends Container implements ActionListener, Ch
 	
 	//Mouse control mode buttons
 	private JToggleButton cameraMode, rotateXMode,rotateYMode,rotateZMode,translateXYMode,translateZYMode;
-	private JToggleButton[] modeButtons = {cameraMode, rotateXMode,rotateYMode,rotateZMode,translateXYMode,translateZYMode};
 	
-
 	public STLPreviewContainer() {
 
 		// layoutSet = false;
@@ -63,6 +61,8 @@ public class STLPreviewContainer extends Container implements ActionListener, Ch
 		thePreviews = new Hashtable<File, STLPreview>();
 		cameraControls = new JToolBar();
 		resetCamera = new JButton("Reset Camera");
+		centerModel = new JButton("Reset STL");
+		
 		//zoomIn = new JButton("Zoom In");
 		//zoomOut = new JButton("Zoom Out");
 		//rotateXZPlus = new JButton("Camera Left");
@@ -82,6 +82,7 @@ public class STLPreviewContainer extends Container implements ActionListener, Ch
 		
 
 		resetCamera.addActionListener(this);
+		centerModel.addActionListener(this);
 	//	zoomIn.addActionListener(this);
 	//	zoomOut.addActionListener(this);
 	//	rotateXZPlus.addActionListener(this);
@@ -103,6 +104,7 @@ public class STLPreviewContainer extends Container implements ActionListener, Ch
 		previewTabs.addChangeListener(this);
 
 		cameraControls.add(resetCamera);
+		cameraControls.add(centerModel);
 	//	cameraControls.add(zoomIn);
 	//	cameraControls.add(zoomOut);
 	//	cameraControls.add(rotateXZPlus);
@@ -230,40 +232,73 @@ public class STLPreviewContainer extends Container implements ActionListener, Ch
 			current.rotateY(.3);
 		} else */if (event.getSource().equals(resetCamera)) {
 			current.resetCamera();
-		} else if (event.getSource().equals(toggleOutline)) {
+		} else if(event.getSource().equals(centerModel)){
+			current.pointNormalDown(null);
+			//TODO current.resetModelTransforms();
+			//current.centerOnWorkspace();
+		}
+		else if (event.getSource().equals(toggleOutline)) {
 			current.setOutlineVisibility(!current.getOutlineVisibility());
 		} else if (event.getSource().equals(cameraMode)){
-			selectOnly(cameraMode);
+			//selectOnly(cameraMode);
+			cameraMode.setSelected(true); 
+			rotateXMode.setSelected(false);
+			rotateYMode.setSelected(false);
+			rotateZMode.setSelected(false);
+			translateXYMode.setSelected(false);
+			translateZYMode.setSelected(false);
 			current.getMouseControls().setMouseControlMode(MouseControlMode.CAMERA_ROTATE);
 		
 		} else if (event.getSource().equals(rotateXMode)){
-			selectOnly(rotateXMode);
+			//selectOnly(rotateXMode);
+			cameraMode.setSelected(false); 
+			rotateXMode.setSelected(true);
+			rotateYMode.setSelected(false);
+			rotateZMode.setSelected(false);
+			translateXYMode.setSelected(false);
+			translateZYMode.setSelected(false);
 			current.getMouseControls().setMouseControlMode(MouseControlMode.MODEL_ROTATE_X);
 		
 		} else if (event.getSource().equals(rotateYMode)){
-			selectOnly(rotateYMode);
+			//selectOnly(rotateYMode);
+			cameraMode.setSelected(false); 
+			rotateXMode.setSelected(false);
+			rotateYMode.setSelected(true);
+			rotateZMode.setSelected(false);
+			translateXYMode.setSelected(false);
+			translateZYMode.setSelected(false);
 			current.getMouseControls().setMouseControlMode(MouseControlMode.MODEL_ROTATE_Y);
 		
 		} else if (event.getSource().equals(rotateZMode)){
-			selectOnly(rotateZMode);
+			//selectOnly(rotateZMode);
+			cameraMode.setSelected(false); 
+			rotateXMode.setSelected(false);
+			rotateYMode.setSelected(false);
+			rotateZMode.setSelected(true);
+			translateXYMode.setSelected(false);
+			translateZYMode.setSelected(false);
 			current.getMouseControls().setMouseControlMode(MouseControlMode.MODEL_ROTATE_Z);	
 		} else if (event.getSource().equals(translateXYMode)){
-			selectOnly(translateXYMode);
+			//selectOnly(translateXYMode);
+			cameraMode.setSelected(false); 
+			rotateXMode.setSelected(false);
+			rotateYMode.setSelected(false);
+			rotateZMode.setSelected(false);
+			translateXYMode.setSelected(true);
+			translateZYMode.setSelected(false);
 			current.getMouseControls().setMouseControlMode(MouseControlMode.MODEL_TRANSLATE_XY);
 			
 		} else if (event.getSource().equals(translateZYMode)){
-			selectOnly(translateZYMode);
+			//selectOnly(translateZYMode);
+			cameraMode.setSelected(false); 
+			rotateXMode.setSelected(false);
+			rotateYMode.setSelected(false);
+			rotateZMode.setSelected(false);
+			translateXYMode.setSelected(false);
+			translateZYMode.setSelected(true);			
 			current.getMouseControls().setMouseControlMode(MouseControlMode.MODEL_TRANSLATE_ZY);
-			
 		}
 
-	}
-
-	private void selectOnly(JToggleButton toSelect) {
-		for(JToggleButton jtb:modeButtons){
-			if(jtb!=null) jtb.setSelected(false);
-		}
-		toSelect.setSelected(true);
 	}
 
 	private class AddPreviewThread extends Thread {
@@ -315,6 +350,17 @@ public class STLPreviewContainer extends Container implements ActionListener, Ch
 
 	@Override
 	public void stateChanged(ChangeEvent arg0) {
+		if (!hasNoPreviews()){
+			try{
+			STLPreview current = ((STLPreview) previewTabs.getSelectedComponent());
+			
+			if(current.getMouseControls()!=null)
+			current.getMouseControls().setMouseControlMode(getCurrentSelectedMode());
+			}
+			catch (ClassCastException e){
+				//TODO
+			}
+		}
 		this.repaint();		
 	}
 

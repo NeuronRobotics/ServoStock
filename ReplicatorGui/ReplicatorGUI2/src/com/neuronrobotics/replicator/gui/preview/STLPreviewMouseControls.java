@@ -26,6 +26,7 @@ public class STLPreviewMouseControls implements MouseListener, MouseMotionListen
 	private MouseControlMode theMode;
 	
 	public enum MouseControlMode{
+		
 		CAMERA_ROTATE {
 
 			@Override
@@ -45,12 +46,9 @@ public class STLPreviewMouseControls implements MouseListener, MouseMotionListen
 
 			@Override
 			protected void mouseDragged(STLPreview preview, double xDist, double yDist) {
-
-				double scale;
-				scale = 40.0;
+			
 				
-				
-				preview.rotateX(yDist/scale);
+				preview.rotateX(yDist/rotateScale);
 			}
 
 		
@@ -59,10 +57,9 @@ public class STLPreviewMouseControls implements MouseListener, MouseMotionListen
 
 			@Override
 			protected void mouseDragged(STLPreview preview, double xDist, double yDist) {
-				double scale;
-				scale = 40.0;
-								
-				preview.rotateY(xDist/scale);
+												
+				preview.rotateY(xDist/rotateScale);
+				//preview.rotateUpDown(yDist/rotateScale);//TODO 
 			}
 
 		
@@ -71,11 +68,8 @@ public class STLPreviewMouseControls implements MouseListener, MouseMotionListen
 
 			@Override
 			protected void mouseDragged(STLPreview preview, double xDist, double yDist) {
-				double scale;
-				scale = 40.0;
-				
-				
-				preview.rotateZ(xDist/scale);
+								
+				preview.rotateZ(xDist/rotateScale);
 			}
 
 		
@@ -84,8 +78,14 @@ public class STLPreviewMouseControls implements MouseListener, MouseMotionListen
 
 			@Override
 			protected void mouseDragged(STLPreview preview, double xDist, double yDist) {
-				preview.translateX(xDist);
-				preview.translateY(yDist);
+				//preview.translateX(xDist);
+				//preview.translateY(yDist);
+				
+				//double scale = 40.0;
+				
+				preview.translateLeftRight(xDist/translateScale);
+				preview.translateUpDown(yDist/translateScale);
+				
 			}
 
 			
@@ -94,12 +94,18 @@ public class STLPreviewMouseControls implements MouseListener, MouseMotionListen
 
 			@Override
 			protected void mouseDragged(STLPreview preview, double xDist, double yDist) {
-				preview.translateZ(xDist);
-				preview.translateY(yDist);
+				//preview.translateZ(xDist);
+				//preview.translateY(yDist);
+				
+				preview.translateBackForth(xDist/translateScale);
+				preview.translateUpDown(yDist/translateScale);
 			}
 
 			
-		};;
+		};
+		
+		double translateScale = 15.0;
+		double rotateScale = 40.0;
 		
 		protected abstract void mouseDragged(STLPreview preview,double xDist, double yDist);
 		

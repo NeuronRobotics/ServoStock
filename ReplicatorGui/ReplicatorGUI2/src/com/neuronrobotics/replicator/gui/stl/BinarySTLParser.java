@@ -36,7 +36,7 @@ public class BinarySTLParser extends STLParser {
 	@Override
 	public STLFacet nextFacet() throws IOException {
 		if (header==null) readHeader();
-		STLFacet tempFacet = new STLFacet();
+		STLFacet tempFacet;// = new STLFacet();
 		Vector3f normal = extractNormal();
 		Point3f v1 = extractVertex();
 		Point3f v2 = extractVertex();
@@ -47,11 +47,14 @@ public class BinarySTLParser extends STLParser {
 		//int colorInfo = dataStream.readUnsignedShort();
 		dataStream.readUnsignedShort();
 		
-		tempFacet.setNormal(normal);
-		tempFacet.setVertices(v1, v2, v3);
+		tempFacet = new STLFacet(v1,v2,v3,normal);
+		
+		//tempFacet.setNormal(normal);
+		//tempFacet.setVertices(v1, v2, v3);
 		currentFacet++;
 		return tempFacet;
 	}
+	
 	/**
 	 * This method assumes the next bytes in the stream are a vertex
 	 * It reads 3 floats and puts them into a Point3f object

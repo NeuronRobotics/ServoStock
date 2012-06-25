@@ -34,10 +34,9 @@ public class STLLoader {
 	//@SuppressWarnings("restriction")
 	public static TransformGroup getSTLTransform(STLObject stl,BranchGroup root) throws IOException{
 		TransformGroup tg = new TransformGroup();
-		
-		
+				
 		tg.addChild(createModel(stl));
-		
+				
 		//Outline with visibility option
 		Shape3D outline = createModelOutline(stl);
 		
@@ -67,6 +66,7 @@ public class STLLoader {
 		
 		root.addChild(myMouseRotate);
 		*/
+		
 		return tg; 
 	}
 		
@@ -130,7 +130,7 @@ public class STLLoader {
 			facets.add(tempFacet);
 		}
 		
-		return new STLObject(name,facets,null,min,max);
+		return new STLObject(name,facets);//,null,min,max);
 		
 	}
 		
@@ -228,7 +228,7 @@ public class STLLoader {
 		
 		return theModel;
 	}
-	
+
 	/*
 	private static Point3f centeredScale(Point3f p,Point3f c, float scale){
 				
@@ -265,8 +265,7 @@ public class STLLoader {
 	//@SuppressWarnings("restriction")
 	public static STLTransformGroup createSTLTransform(STLObject stl,BranchGroup root) throws IOException{
 		STLTransformGroup tg = new STLTransformGroup();
-		
-		
+				
 		tg.setModel(createModel(stl));
 		
 		//Outline with visibility option
@@ -280,10 +279,35 @@ public class STLLoader {
 		outlineAppearance.setRenderingAttributes(ra);
 		
 		outline.setAppearance(outlineAppearance);
-		
-		
+				
 		tg.setOutline(outline);
+		/////////// TODO only for debugging right now
+		Point3f tc = stl.getCenter();
+		LineArray olA = new LineArray(10,GeometryArray.COORDINATES);
 		
+		olA.setCoordinate(0, new Point3f(tc.x,tc.y,100));
+		olA.setCoordinate(1, new Point3f(tc.x,tc.y,-100));
+		
+		olA.setCoordinate(2, new Point3f(100,tc.y,tc.z));
+		olA.setCoordinate(3, new Point3f(-100,tc.y,tc.z));
+		
+		olA.setCoordinate(4, new Point3f(tc.x,100,tc.z));
+		olA.setCoordinate(5, new Point3f(tc.x,-100,tc.z));
+		
+		olA.setCoordinate(6, new Point3f(tc.x,stl.getMin().y,100));
+		olA.setCoordinate(7, new Point3f(tc.x,stl.getMin().y,-100));
+		
+		olA.setCoordinate(8, new Point3f(100,stl.getMin().y,tc.z));
+		olA.setCoordinate(9, new Point3f(-100,stl.getMin().y,tc.z));
+		
+		System.out.println("Min "+stl.getMin().y);
+				
+		Shape3D centerLines = new Shape3D(olA);
+		
+		tg.addChild(centerLines);
+				
+			
+		/////
 		//end outline creation
 		
 		tg.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);

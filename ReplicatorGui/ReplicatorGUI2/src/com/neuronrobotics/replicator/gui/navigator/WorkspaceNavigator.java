@@ -235,10 +235,10 @@ public class WorkspaceNavigator extends JTree implements TreeSelectionListener, 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		if(arg0.getClickCount()>=2&&this.currentNode!=null){
-			System.out.println("Double click detected");
+			//System.out.println("Double click detected");
 			if(currentNode.getClass().equals(WorkspaceLeafNode.class)){
 				notifyListenersLeafDoubleClicked();
-				System.out.println("Leaf double click notified");
+			//	System.out.println("Leaf double click notified");
 			}
 			else if (currentNode.getClass().equals(WorkspaceFolderNode.class)) notifyListenersFolderDoubleClicked();
 		}
