@@ -8,18 +8,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.LinkedList;
-//import java.util.Queue;
 
 import com.neuronrobotics.replicator.driver.NRPrinter;
 import com.neuronrobotics.replicator.driver.PrinterStatus;
 import com.neuronrobotics.replicator.driver.SliceStatusData;
-//import com.neuronrobotics.replicator.driver.SliceStatusData.SlicerState;
 import com.neuronrobotics.sdk.dyio.DyIO;
 import com.neuronrobotics.sdk.ui.ConnectionDialog;
 
 public class GUIDriver implements PrinterStatusListener, GUIBackendInterface {
-
-	//private File tempGCodeFile;
 
 	private DriverState currentDriverState;
 
@@ -79,8 +75,6 @@ public class GUIDriver implements PrinterStatusListener, GUIBackendInterface {
 		DyIO dyio = new DyIO();
 		if (!ConnectionDialog.getBowlerDevice(dyio)) {
 			System.out.println("Fail");
-			// System.exit(1);
-			// return false;
 			return connectVirtualPrinter(); //TODO remove eventually
 		}
 		if (thePrinter != null) thePrinter.removePrinterStatusListener(this);

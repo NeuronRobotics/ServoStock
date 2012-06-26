@@ -164,7 +164,8 @@ public class STLPreviewContainer extends Container implements ActionListener, Ch
 					+ " preview is loading...", true);
 			previewTabs.add("Loading: " + name, tempLoad);
 			previewTabs.setSelectedComponent(tempLoad);
-
+			
+			
 			this.update(this.getGraphics());
 
 			AddPreviewThread apt = new AddPreviewThread(tempLoad, stl, gcode,
@@ -233,9 +234,9 @@ public class STLPreviewContainer extends Container implements ActionListener, Ch
 		} else */if (event.getSource().equals(resetCamera)) {
 			current.resetCamera();
 		} else if(event.getSource().equals(centerModel)){
-			current.pointNormalDown(null);
-			//TODO current.resetModelTransforms();
-			//current.centerOnWorkspace();
+			//current.pointNormalDown(null);
+			current.resetModelTransforms();
+			current.centerOnWorkspace();
 		}
 		else if (event.getSource().equals(toggleOutline)) {
 			current.setOutlineVisibility(!current.getOutlineVisibility());

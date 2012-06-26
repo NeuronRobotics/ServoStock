@@ -2,7 +2,6 @@ package com.neuronrobotics.replicator.gui.stl;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Hashtable;
 import java.util.Iterator;
 
 import javax.media.j3d.*;
@@ -19,13 +18,6 @@ public class STLObject implements Iterable<STLFacet> {
 	private ArrayList<STLFace> theFaces;
 	private boolean facesAnalyzed;
 
-	/*
-	 * public STLObject(String name, ArrayList<STLFacet> facets, Point3f center,
-	 * Point3f min, Point3f max) { this.name = name; this.theFacets=facets;
-	 * this.center = center; this.min = min; this.max = max; this.theFaces = new
-	 * ArrayList<STLFace>(); }
-	 */
-
 	public STLObject(String name, ArrayList<STLFacet> facets) {
 		this.name = name;
 		this.theFacets = facets;
@@ -33,7 +25,7 @@ public class STLObject implements Iterable<STLFacet> {
 		this.min = null;
 		this.max = null;
 		this.theFaces = new ArrayList<STLFace>();
-		// this.calculateFaces(); //TODO take out after testing
+		// this.calculateFaces();
 	}
 
 	public Iterable<STLFacet> getFacetIterable() {
@@ -64,19 +56,19 @@ public class STLObject implements Iterable<STLFacet> {
 		return center;
 	}
 
-	public float getXDistance() {
+	public float getXLength() {
 		if (max == null || min == null)
 			setMaxMin();
 		return max.x - min.x;
 	}
 
-	public float getYDistance() {
+	public float getYLength() {
 		if (max == null || min == null)
 			setMaxMin();
 		return max.y - min.y;
 	}
 
-	public float getZDistance() {
+	public float getZLength() {
 		if (max == null || min == null)
 			setMaxMin();
 		return max.z - min.z;

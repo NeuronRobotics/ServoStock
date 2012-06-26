@@ -2,80 +2,37 @@ package com.neuronrobotics.replicator.gui.stl;
 
 import java.io.File;
 import java.io.FileInputStream;
-//import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-//import java.util.Iterator;
-//import java.util.Scanner;
-//import java.util.StringTokenizer;
 
 import javax.media.j3d.*;
 import javax.vecmath.*;
 
-//import org.j3d.loaders.InvalidFormatException;
-//import com.sun.j3d.utils.behaviors.mouse.*;
 import com.sun.j3d.utils.geometry.NormalGenerator;
 import com.sun.j3d.utils.geometry.GeometryInfo;
 
 public class STLLoader {
 	
-	//@SuppressWarnings("restriction")
-	public static TransformGroup getSTLTransform(String filename,BranchGroup root) throws IOException{
-		return getSTLTransform(new File(filename),root);
-	}
-	
-	//@SuppressWarnings("restriction")
-	public static TransformGroup getSTLTransform(File f,BranchGroup root) throws IOException{
-		STLObject stl = loadFile(f);
-		return getSTLTransform(stl,root);	
-	}
-	
-	//@SuppressWarnings("restriction")
-	public static TransformGroup getSTLTransform(STLObject stl,BranchGroup root) throws IOException{
-		TransformGroup tg = new TransformGroup();
-				
-		tg.addChild(createModel(stl));
-				
-		//Outline with visibility option
-		Shape3D outline = createModelOutline(stl);
-		
-		//RenderingAttributes ra = new RenderingAttributes();
-		//ra.setVisible(true);		
-		//ra.setCapability(RenderingAttributes.ALLOW_VISIBLE_READ|RenderingAttributes.ALLOW_VISIBLE_WRITE);
-		
-		//Appearance outlineAppearance = new Appearance();
-		//outlineAppearance.setRenderingAttributes(ra);
-		
-		//outline.setAppearance(outlineAppearance);
-		
-		
-		tg.addChild(outline);
-		
-		//end outline creation
-		
-		tg.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
-		tg.setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
-		
-		
-		
-		/*
-		MouseRotate myMouseRotate = new MouseRotate();
-		myMouseRotate.setTransformGroup(tg);
-		myMouseRotate.setSchedulingBounds(new BoundingSphere());
-		
-		root.addChild(myMouseRotate);
-		*/
-		
-		return tg; 
-	}
-		
+	/**
+	 * Takes in file, converts to an InputStream and returns resulting
+	 * STLObject from loadFile(InputStream is)
+	 * @param theFile
+	 * @return an STLObject encapsulating the data read in from the file
+	 * @throws IOException
+	 */
 	public static STLObject loadFile(File theFile) throws IOException{
 		InputStream is = new FileInputStream(theFile);
 		return loadFile(is);
 	}
 	
-	//@SuppressWarnings("restriction")
+	/**
+	 * Takes in an InputStream for the stl file data and reads the data into 
+	 * an STLObject which is returned 
+	 * @param is
+	 * @return and STLObject encapsulating the data read in from the file
+	 * @throws IOException
+	 */
 	public static STLObject loadFile(InputStream is) throws IOException{
 		String name;
 		//Point3f center = new Point3f();
@@ -133,7 +90,129 @@ public class STLLoader {
 		return new STLObject(name,facets);//,null,min,max);
 		
 	}
+
+	/**
+	 * Uses the STLObject gained by reading the file location specified by filename
+	 * and creates model and model outline which are added to an
+	 * STLTransformGroup object along with a the capability for the outline to have its
+	 * visibility read and written and the entire group to allow transform reads and writes
+	 * @param stl
+	 * @param root
+	 * @return
+	 */
+	public static STLTransformGroup createSTLTransform(String filename,BranchGroup root) throws IOException{
+		return createSTLTransform(new File(filename),root);
+	}
+	
+	/**
+	 * Uses the STLObject gained by reading the file location specified by file
+	 * and creates model and model outline which are added to an
+	 * STLTransformGroup object along with a the capability for the outline to have its
+	 * visibility read and written and the entire group to allow transform reads and writes
+	 * @param stl
+	 * @param root
+	 * @return
+	 */
+	public static STLTransformGroup createSTLTransform(File file,BranchGroup root) throws IOException{
+		STLObject stl = loadFile(file);
+		return createSTLTransform(stl,root);	
+	}
+	
+	/**
+	 * Uses the STLObject gained by reading the data from the InputStream
+	 * and creates model and model outline which are added to an
+	 * STLTransformGroup object along with a the capability for the outline to have its
+	 * visibility read and written and the entire group to allow transform reads and writes
+	 * @param stl
+	 * @param root
+	 * @return
+	 */
+	public static STLTransformGroup createSTLTransform(InputStream is,BranchGroup root) throws IOException{
+		STLObject stl = loadFile(is);
+		return createSTLTransform(stl,root);	
+	}
+	
+	/**
+	 * Uses the STLObject and creates model and model outline which are added to an
+	 * STLTransformGroup object along with a the capability for the outline to have its
+	 * visibility read and written and the entire group to allow transform reads and writes
+	 * @param stl
+	 * @param root
+	 * @return
+	 */
+	public static STLTransformGroup createSTLTransform(STLObject stl,BranchGroup root){
+		//STLTransformGroup tg = new STLTransformGroup();
+				
+		Shape3D theModel = createModel(stl);
 		
+		//tg.setModel(createModel(stl));
+		
+		//Outline with visibility option
+		Shape3D outline = createModelOutline(stl);
+		
+		RenderingAttributes ra = new RenderingAttributes();
+		ra.setVisible(true);		
+		ra.setCapability(RenderingAttributes.ALLOW_VISIBLE_READ|RenderingAttributes.ALLOW_VISIBLE_WRITE);
+		
+		Appearance outlineAppearance = new Appearance();
+		outlineAppearance.setRenderingAttributes(ra);
+		
+		outline.setAppearance(outlineAppearance);
+				
+		//tg.setOutline(outline);
+		
+		/*
+		Point3f tc = stl.getCenter();
+		LineArray olA = new LineArray(10,GeometryArray.COORDINATES);
+		
+		olA.setCoordinate(0, new Point3f(tc.x,tc.y,100));
+		olA.setCoordinate(1, new Point3f(tc.x,tc.y,-100));
+		
+		olA.setCoordinate(2, new Point3f(100,tc.y,tc.z));
+		olA.setCoordinate(3, new Point3f(-100,tc.y,tc.z));
+		
+		olA.setCoordinate(4, new Point3f(tc.x,100,tc.z));
+		olA.setCoordinate(5, new Point3f(tc.x,-100,tc.z));
+		
+		olA.setCoordinate(6, new Point3f(tc.x,stl.getMin().y,100));
+		olA.setCoordinate(7, new Point3f(tc.x,stl.getMin().y,-100));
+		
+		olA.setCoordinate(8, new Point3f(100,stl.getMin().y,tc.z));
+		olA.setCoordinate(9, new Point3f(-100,stl.getMin().y,tc.z));
+		
+		System.out.println("Min "+stl.getMin().y);
+				
+		Shape3D centerLines = new Shape3D(olA);
+		
+		tg.addChild(centerLines);
+				
+			
+		*/////
+		//end outline creation
+		
+		STLTransformGroup tg = new STLTransformGroup(stl, theModel, outline);
+				
+		tg.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
+		tg.setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
+				
+		/*
+		MouseRotate myMouseRotate = new MouseRotate();
+		myMouseRotate.setTransformGroup(tg);
+		myMouseRotate.setSchedulingBounds(new BoundingSphere());
+		
+		root.addChild(myMouseRotate);
+		*/
+		return tg; 
+	}
+	
+	
+	
+	/**
+	 * Using the STLObject given this creates an outline of the model specified by 
+	 * drawing lines along the edges of each facet
+	 * @param stlo
+	 * @return a Shape3D object created with a LineArray Geometry
+	 */
 	private static Shape3D createModelOutline(STLObject stlo){
 		Shape3D outline = new Shape3D();
 		int numVertices = stlo.getFacetAmount() * 3;
@@ -175,7 +254,13 @@ public class STLLoader {
 		return outline;
 	}
 	
-	private static Shape3D createModel(STLObject stlo) throws IOException {
+	/**
+	 * Using the STLObject given this creates the Shape3D model representing
+	 * the model
+	 * @param stlo
+	 * @return Shape3D object created through TriangleArray Geometry
+	 */
+	private static Shape3D createModel(STLObject stlo){
 		
 		int numVertices = stlo.getFacetAmount() * 3;
 
@@ -229,100 +314,5 @@ public class STLLoader {
 		return theModel;
 	}
 
-	/*
-	private static Point3f centeredScale(Point3f p,Point3f c, float scale){
-				
-		float x = p.x;//(p.x-c.x)*scale;
-		float y = p.y;//(p.y-c.y)*scale;
-		float z = p.z;//(p.z-c.z)*scale;
-		
-		scale*=3;
-		boolean noScale = true;
-		if(noScale){
-			scale = 1;
-			c.x = 0;
-			c.y = 0;
-			c.z = 0;
-		}
-		float x = (p.x-c.x)*scale;
-		float y = (p.y-c.y)*scale;
-		float z = (p.z-c.z)*scale;
-		
-		return new Point3f(x,y,z);
-	}
-	*/
-	//@SuppressWarnings("restriction")
-	public static STLTransformGroup createSTLTransform(String filename,BranchGroup root) throws IOException{
-		return createSTLTransform(new File(filename),root);
-	}
-	
-	//@SuppressWarnings("restriction")
-	public static STLTransformGroup createSTLTransform(File f,BranchGroup root) throws IOException{
-		STLObject stl = loadFile(f);
-		return createSTLTransform(stl,root);	
-	}
-	
-	//@SuppressWarnings("restriction")
-	public static STLTransformGroup createSTLTransform(STLObject stl,BranchGroup root) throws IOException{
-		STLTransformGroup tg = new STLTransformGroup();
-				
-		tg.setModel(createModel(stl));
-		
-		//Outline with visibility option
-		Shape3D outline = createModelOutline(stl);
-		
-		RenderingAttributes ra = new RenderingAttributes();
-		ra.setVisible(true);		
-		ra.setCapability(RenderingAttributes.ALLOW_VISIBLE_READ|RenderingAttributes.ALLOW_VISIBLE_WRITE);
-		
-		Appearance outlineAppearance = new Appearance();
-		outlineAppearance.setRenderingAttributes(ra);
-		
-		outline.setAppearance(outlineAppearance);
-				
-		tg.setOutline(outline);
-		/////////// TODO only for debugging right now
-		Point3f tc = stl.getCenter();
-		LineArray olA = new LineArray(10,GeometryArray.COORDINATES);
-		
-		olA.setCoordinate(0, new Point3f(tc.x,tc.y,100));
-		olA.setCoordinate(1, new Point3f(tc.x,tc.y,-100));
-		
-		olA.setCoordinate(2, new Point3f(100,tc.y,tc.z));
-		olA.setCoordinate(3, new Point3f(-100,tc.y,tc.z));
-		
-		olA.setCoordinate(4, new Point3f(tc.x,100,tc.z));
-		olA.setCoordinate(5, new Point3f(tc.x,-100,tc.z));
-		
-		olA.setCoordinate(6, new Point3f(tc.x,stl.getMin().y,100));
-		olA.setCoordinate(7, new Point3f(tc.x,stl.getMin().y,-100));
-		
-		olA.setCoordinate(8, new Point3f(100,stl.getMin().y,tc.z));
-		olA.setCoordinate(9, new Point3f(-100,stl.getMin().y,tc.z));
-		
-		System.out.println("Min "+stl.getMin().y);
-				
-		Shape3D centerLines = new Shape3D(olA);
-		
-		tg.addChild(centerLines);
-				
-			
-		/////
-		//end outline creation
-		
-		tg.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
-		tg.setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
-		
-		
-		
-		/*
-		MouseRotate myMouseRotate = new MouseRotate();
-		myMouseRotate.setTransformGroup(tg);
-		myMouseRotate.setSchedulingBounds(new BoundingSphere());
-		
-		root.addChild(myMouseRotate);
-		*/
-		return tg; 
-	}
 	
 }

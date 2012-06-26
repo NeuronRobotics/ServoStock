@@ -1,7 +1,6 @@
 package com.neuronrobotics.replicator.gui.stl;
 
 import javax.media.j3d.Appearance;
-import javax.media.j3d.GeometryArray;
 import javax.media.j3d.RenderingAttributes;
 import javax.media.j3d.Shape3D;
 import javax.media.j3d.Transform3D;
@@ -10,20 +9,19 @@ import javax.vecmath.Point3f;
 
 public class STLTransformGroup extends TransformGroup{
 	
+	private STLObject theSTLObject;
+	
 	private Shape3D theModel, theOutline;
 	
-	private Point3f max, min;
-	
-	public STLTransformGroup(){
+	public STLTransformGroup(STLObject stlo, Shape3D model, Shape3D outline){
 		super();
 		//this.setCapability(ALLOW_CHILDREN_EXTEND); TODO add children on the fly?
-		theModel = null;
-		theOutline = null;
-		max = null;
-		min = null;
+		setModel(model);
+		setOutline(outline);
+		theSTLObject = stlo;
 	}
 
-	public void setModel(Shape3D newModel){
+	private void setModel(Shape3D newModel){
 		if(theModel!=null) this.removeChild(theModel);
 		this.theModel = newModel;
 		
@@ -40,11 +38,9 @@ public class STLTransformGroup extends TransformGroup{
 			
 		this.addChild(theModel);
 		
-		max = null;
-		min = null;
 	}
 	
-	public void setOutline(Shape3D newOutline){
+	private void setOutline(Shape3D newOutline){
 		if(theOutline!=null) this.removeChild(theOutline);
 		this.theOutline = newOutline;
 		
@@ -61,17 +57,14 @@ public class STLTransformGroup extends TransformGroup{
 				
 		this.addChild(theOutline);
 		
-		max = null;
-		min = null;
 	}
 	
-	public void setModel(Shape3D newModel, Shape3D newOutline){
+	public void setModel(STLObject theSTL, Shape3D newModel, Shape3D newOutline){
+		
+		theSTLObject = theSTL;
 		setModel(newModel);
 		setOutline(newOutline);
 		
-		min = null;
-		max = null;//if the model is changed and these aren't set to null
-		//getMin and getMax functions don't know to recalculate
 	}
 	
 	public Shape3D getModel(){		
@@ -99,33 +92,11 @@ public class STLTransformGroup extends TransformGroup{
 	}
 
 	public Point3f getBaseMax(){
-		if (max!=null) return max;
-		max = new Point3f(0f,0f,0f);
-		GeometryArray ga = (GeometryArray)(theModel.getGeometry());
-		int vc = ga.getVertexCount();
-		Point3f tempCoord = new Point3f(0f,0f,0f);
-		for(int i=0;i<vc;i++){
-			ga.getCoordinate(i,tempCoord);
-			if(tempCoord.x>max.x) max.set(tempCoord.x,max.y,max.z);
-			if(tempCoord.y>max.y) max.set(max.x,tempCoord.y,max.z);
-			if(tempCoord.z>max.z) max.set(max.x,max.y,tempCoord.z);
-		}
-		return max;
+		return theSTLObject.getMax();
 	}
 	
 	public Point3f getBaseMin(){
-		if (min!=null) return min;
-		min = new Point3f(0f,0f,0f);
-		GeometryArray ga = (GeometryArray)(theModel.getGeometry());
-		int vc = ga.getVertexCount();
-		Point3f tempCoord = new Point3f(0f,0f,0f);
-		for(int i=0;i<vc;i++){
-			ga.getCoordinate(i,tempCoord);
-			if(tempCoord.x<min.x) min.set(tempCoord.x,min.y,min.z);
-			if(tempCoord.y<min.y) min.set(min.x,tempCoord.y,min.z);
-			if(tempCoord.z<min.z) min.set(min.x,min.y,tempCoord.z);
-		}
-		return min;
+		return theSTLObject.getMin();
 	}
 	
 	@Override
@@ -134,92 +105,59 @@ public class STLTransformGroup extends TransformGroup{
 	}
 	
 	public Point3f getCurrentMin() {
-		/*
-		if (min == null)
-			this.getBaseMin();
-
-		Transform3D currT = new Transform3D();
-		this.getTransform(currT);
-
-		Point3f currMin = new Point3f(min);
-		currT.transform(currMin); //TODO have to actually go through everything again
-
+		
+		//TODO this is probably wrong
+		Transform3D temp = new Transform3D();
+		this.getTransform(temp);
+		
+		Point3f currMin = null;
+		
+		for(STLFacet fac:theSTLObject){
+			Point3f candidate = fac.getMin();
+			temp.transform(candidate);
+			
+			if(currMin==null) currMin = candidate;
+			else currMin.set(Math.min(currMin.x,candidate.x),Math.min(currMin.y,candidate.y),Math.min(currMin.z,candidate.z));			
+		}					
+		
 		return currMin;
-		*/
-		
-		Point3f currMin = null;//new Point3f(0f,0f,0f);
-		GeometryArray ga = (GeometryArray)(theModel.getGeometry());
-		
-		Transform3D currT = new Transform3D();
-		this.getTransform(currT);
-		
-		int vc = ga.getVertexCount();
-		Point3f tempCoord = new Point3f(0f,0f,0f);
-		for(int i=0;i<vc;i++){
-			ga.getCoordinate(i,tempCoord);
-			currT.transform(tempCoord);
-			if(currMin==null){
-				currMin = new Point3f(tempCoord);
-				continue;
-			}
-			if(tempCoord.x<currMin.x) currMin.set(tempCoord.x,currMin.y,currMin.z);
-			if(tempCoord.y<currMin.y) currMin.set(currMin.x,tempCoord.y,currMin.z);
-			if(tempCoord.z<currMin.z) currMin.set(currMin.x,currMin.y,tempCoord.z);
-		}
-					
-		return currMin;
-		
 	}
 	
 	public Point3f getCurrentMax() {
-
+		
+		//TODO this is wrong
+		Transform3D temp = new Transform3D();
+		this.getTransform(temp);
+		
 		Point3f currMax = null;
-		GeometryArray ga = (GeometryArray)(theModel.getGeometry());
 		
-		Transform3D currT = new Transform3D();
-		this.getTransform(currT);
+		for(STLFacet fac:theSTLObject){
+			Point3f candidate = fac.getMax();
+			temp.transform(candidate);
+			if(currMax==null) currMax = candidate;
+			else currMax.set(Math.max(currMax.x,candidate.x),Math.max(currMax.y,candidate.y),Math.max(currMax.z,candidate.z));			
+		}					
 		
-		int vc = ga.getVertexCount();
-		Point3f tempCoord = new Point3f(0f,0f,0f);
-		for(int i=0;i<vc;i++){
-			ga.getCoordinate(i,tempCoord);
-			currT.transform(tempCoord);
-			if(currMax==null){
-				currMax = new Point3f(tempCoord);
-				continue;
-			}
-			if(tempCoord.x>currMax.x) currMax.set(tempCoord.x,currMax.y,currMax.z);
-			if(tempCoord.y>currMax.y) currMax.set(currMax.x,tempCoord.y,currMax.z);
-			if(tempCoord.z>currMax.z) currMax.set(currMax.x,currMax.y,tempCoord.z);
-		}
-					
 		return currMax;
 	}
 	
 	public Point3f getCurrentCenter(){
 				
-		Point3f currMin = getCurrentMin();
-		Point3f currMax = getCurrentMax();
-		
-		float x = (currMax.x-currMin.x)/2;
-		float y = (currMax.y-currMin.y)/2;
-		float z = (currMax.z-currMin.z)/2;
+		Point3f center = getBaseCenter();
+		Point3f cent2 = new Point3f();
+		cent2.add(center);
 		
 		
-		return new Point3f(x,y,z);
+		Transform3D temp = new Transform3D();
+		this.getTransform(temp);
+		temp.transform(cent2);	
+						
+		return cent2;
 	}
 
-	public Point3f getBaseCenter() {
-		Point3f baseMin = getBaseMin();
-		Point3f baseMax = getBaseMax();
-		
-		float x = (baseMax.x-baseMin.x)/2;
-		float y = (baseMax.y-baseMin.y)/2;
-		float z = (baseMax.z-baseMin.z)/2;
-		
-		
-		return new Point3f(x,y,z);
+	public Point3f getBaseCenter() {				
+		return theSTLObject.getCenter();
 	}
-	
+
 
 }

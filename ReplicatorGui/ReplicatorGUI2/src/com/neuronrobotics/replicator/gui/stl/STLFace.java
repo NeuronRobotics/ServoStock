@@ -3,7 +3,6 @@ package com.neuronrobotics.replicator.gui.stl;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.LinkedList;
 
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
@@ -41,14 +40,14 @@ public class STLFace implements Iterable<STLFacet>{
 	//TODO this might work?
 	public static Collection<STLFace> getSTLFace(STLObject stlo){
 		ArrayList<ArrayList<STLFace>> sameNorm = new ArrayList<ArrayList<STLFace>>();
-		int ct=0;
+		//int ct=0;
 		for (STLFacet facet:stlo){
 			Vector3f vec = facet.getNormal();
 			vec.normalize();
 			System.out.println(vec);
 			int idx = epsilonContainsNormal(sameNorm, facet.getNormal(),.001f);
 			if(idx==-1){
-				ct++;
+			//	ct++;
 				ArrayList<STLFace> newL = new ArrayList<STLFace>();
 				newL.add(new STLFace(facet));
 				sameNorm.add(newL);
@@ -146,6 +145,8 @@ public class STLFace implements Iterable<STLFacet>{
 	
 	public Point3f getCenter(){
 		//TODO want to make sure point is on plane
+		//this seems easier to solve after rotations
+		//are better figured out
 		Point3f center = new Point3f(0,0,0);
 		
 		Point3f max = new Point3f(0,0,0), min = new Point3f(0,0,0);
