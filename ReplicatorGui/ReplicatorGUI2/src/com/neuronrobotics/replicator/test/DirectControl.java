@@ -1,4 +1,7 @@
 package com.neuronrobotics.replicator.test;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -34,38 +37,82 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 	public DirectControl() {
 		DyIO.disableFWCheck();
 		
-		DyIO tmp0 = new DyIO(new SerialConnection("/dev/DyIO0"));	
-		if(!tmp0.connect()){
-			throw new RuntimeException("Not a bowler Device on connection: ");
-		}
-		DyIO tmp1 = new DyIO(new SerialConnection("/dev/DyIO1"));	
-		if(!tmp1.connect()){
-			throw new RuntimeException("Not a bowler Device on connection: ");
-		}
-		DyIO master;
-		DyIO delt;
-		String addr0 = tmp0.getAddress().toString().toLowerCase();
-		String addr1 = tmp1.getAddress().toString().toLowerCase();
+		//Create the references for my known DyIOs
+		DyIO master = null;
+		DyIO slave = null;
 		
-		System.out.println("Addresses are "+addr0+" "+addr1);
-		
-		if(	addr0.contains("74:f7:26:00:00:6f")&&
-			addr1.contains("74:f7:26:80:00:99")	) {
-			master = tmp0;
-			delt = tmp1;
-		}else if(	addr1.contains("74:f7:26:00:00:6f")&&
-					addr0.contains("74:f7:26:80:00:99")	) {
-			master = tmp1;
-			delt = tmp0;
-		}else {
-			throw new RuntimeException("Not a bowler Device on connection: ");
+		ArrayList<DyIO> temp= new ArrayList<DyIO>();
+		List <String> ports = SerialConnection.getAvailableSerialPorts();
+		//Start by searching through all available serial connections for DyIOs connected to the system
+		for(String s: ports){
+			if(s.toLowerCase().contains("dyio") ){//Change this to match the OS you are using and any known serial port filter
+				try{
+					DyIO d = new DyIO(new SerialConnection(s));
+					d.connect();
+					if(d.isAvailable()){
+						temp.add(d);
+					}
+				}catch(Exception EX){
+					EX.printStackTrace();
+					System.err.println("Serial port "+s+" is not a DyIO");
+				}
+			}
 		}
+		
+		//Now that all connected DyIOs are connected, search for the correct MAC addresses 
+		for(DyIO d : temp){
+			String addr = d.getAddress().toString();
+			if(addr.equalsIgnoreCase("74:f7:26:00:00:6f")){
+				master = d;
+			}
+			if(addr.equalsIgnoreCase("74:f7:26:80:00:99") || addr.equalsIgnoreCase("74:F7:26:80:00:A1")){//THis works with 2 different DyIOs as slaves
+				slave = d;
+			}
+		}
+		//If both are not found then the system can not run
+		if(master == null || slave == null){
+			for(DyIO d:temp){
+				System.out.println(d);
+				if(d!= null){
+					if(d.isAvailable())
+						d.disconnect();
+				}
+			}
+			throw new RuntimeException("One or both devices were not found ");
+		}
+		
+		
+//		DyIO tmp0 = new DyIO(new SerialConnection("/dev/DyIO0"));	
+//		if(!tmp0.connect()){
+//			throw new RuntimeException("Not a bowler Device on connection: ");
+//		}
+//		DyIO tmp1 = new DyIO(new SerialConnection("/dev/DyIO1"));	
+//		if(!tmp1.connect()){
+//			throw new RuntimeException("Not a bowler Device on connection: ");
+//		}
+//		
+//		String addr0 = tmp0.getAddress().toString().toLowerCase();
+//		String addr1 = tmp1.getAddress().toString().toLowerCase();
+//		
+//		System.out.println("Addresses are "+addr0+" "+addr1);
+//		
+//		if(	addr0.contains("74:f7:26:00:00:6f")&&
+//			addr1.contains("74:f7:26:80:00:99")	) {
+//			master = tmp0;
+//			delt = tmp1;
+//		}else if(	addr1.contains("74:f7:26:00:00:6f")&&
+//					addr0.contains("74:f7:26:80:00:99")	) {
+//			master = tmp1;
+//			delt = tmp0;
+//		}else {
+//			throw new RuntimeException("Not a bowler Device on connection: ");
+//		}
 		
 		master.killAllPidGroups();
 		model = new TrobotKinematics(master,"TrobotMaster.xml");
 		model.addPoseUpdateListener(this);
-		delt.enableBrownOutDetect(false);
-		deltaRobot = new DeltaRobotPrinterPrototype(delt);
+		slave.enableBrownOutDetect(false);
+		deltaRobot = new DeltaRobotPrinterPrototype(slave);
 		deltaRobot.setCurrentPoseTarget(new TransformNR());
 		
 		DigitalInputChannel di = new DigitalInputChannel(master.getChannel(0));
@@ -73,7 +120,7 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 		button=di.isHigh();
 		lastButton = button;
 		
-		ServoChannel hand = new ServoChannel(delt.getChannel(15));
+		ServoChannel hand = new ServoChannel(slave.getChannel(15));
 		hand.SetPosition(open);
 		
 		try{
@@ -110,7 +157,7 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 			System.exit(1);
 		}
 		
-		while (delt.isAvailable() && master.isAvailable()) {
+		while (slave.isAvailable() && master.isAvailable()) {
 			long time = System.currentTimeMillis();
 			try {				
 				if(button!=lastButton) {
