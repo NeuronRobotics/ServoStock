@@ -2,14 +2,19 @@ package com.neuronrobotics.replicator.gui;
 
 public class PrintOptions {
 	
-	private boolean ApplyTransformToSTL;
+	private boolean forceReslice, useTransformedSTL;
 	
-	public PrintOptions(boolean applyTransform){
-		ApplyTransformToSTL = applyTransform;
+	public PrintOptions(boolean reslice, boolean applyTransform){
+		useTransformedSTL = applyTransform;
+		forceReslice = reslice;
 	}
-	
-	public boolean getApplyTransform(){
-		return ApplyTransformToSTL;
+
+	public boolean isForceReslice() {
+		return forceReslice;
+	}
+
+	public boolean isUseTransformedSTL() {
+		return useTransformedSTL;
 	}
 
 }

@@ -14,7 +14,7 @@ import javax.vecmath.Point3f;
 
 public class STLPreviewMouseControls implements MouseListener, MouseMotionListener{
 
-	STLPreview thePreview;
+	STLPreviewCanvas3D thePreview;
 
 	Point2D lastLocation;
 	
@@ -30,7 +30,7 @@ public class STLPreviewMouseControls implements MouseListener, MouseMotionListen
 		CAMERA_ROTATE {
 
 			@Override
-			protected void mouseDragged(STLPreview preview, double xDist, double yDist) {
+			protected void mouseDragged(STLPreviewCanvas3D preview, double xDist, double yDist) {
 				double scaleY, scaleZ;
 				scaleY = scaleZ = 40.0;
 				
@@ -41,14 +41,22 @@ public class STLPreviewMouseControls implements MouseListener, MouseMotionListen
 				preview.rotateCameraUp(radY);
 			}
 			
+			public String toString(){
+				return "Camera Rotate";
+			}
+			
 		},
 		MODEL_ROTATE_X {
 
 			@Override
-			protected void mouseDragged(STLPreview preview, double xDist, double yDist) {
+			protected void mouseDragged(STLPreviewCanvas3D preview, double xDist, double yDist) {
 			
 				
 				preview.rotateX(yDist/rotateScale);
+			}
+			
+			public String toString(){
+				return "Model Rotate (X)";
 			}
 
 		
@@ -56,20 +64,25 @@ public class STLPreviewMouseControls implements MouseListener, MouseMotionListen
 		MODEL_ROTATE_Y {
 
 			@Override
-			protected void mouseDragged(STLPreview preview, double xDist, double yDist) {
-												
+			protected void mouseDragged(STLPreviewCanvas3D preview, double xDist, double yDist) {
 				preview.rotateY(xDist/rotateScale);
-				//preview.rotateUpDown(yDist/rotateScale);//TODO 
 			}
-
+			
+			public String toString(){
+				return "Model Rotate (Y)";
+			}
 		
 		},	
 		MODEL_ROTATE_Z {
 
 			@Override
-			protected void mouseDragged(STLPreview preview, double xDist, double yDist) {
+			protected void mouseDragged(STLPreviewCanvas3D preview, double xDist, double yDist) {
 								
 				preview.rotateZ(xDist/rotateScale);
+			}
+			
+			public String toString(){
+				return "Model Rotate (Z)";
 			}
 
 		
@@ -77,7 +90,7 @@ public class STLPreviewMouseControls implements MouseListener, MouseMotionListen
 		MODEL_TRANSLATE_XY {
 
 			@Override
-			protected void mouseDragged(STLPreview preview, double xDist, double yDist) {
+			protected void mouseDragged(STLPreviewCanvas3D preview, double xDist, double yDist) {
 				//preview.translateX(xDist);
 				//preview.translateY(yDist);
 				
@@ -87,18 +100,26 @@ public class STLPreviewMouseControls implements MouseListener, MouseMotionListen
 				preview.translateUpDown(yDist/translateScale);
 				
 			}
+			
+			public String toString(){
+				return "Model Translate (XY)";
+			}
 
 			
 		},
 		MODEL_TRANSLATE_ZY {
 
 			@Override
-			protected void mouseDragged(STLPreview preview, double xDist, double yDist) {
+			protected void mouseDragged(STLPreviewCanvas3D preview, double xDist, double yDist) {
 				//preview.translateZ(xDist);
 				//preview.translateY(yDist);
 				
 				preview.translateBackForth(xDist/translateScale);
 				preview.translateUpDown(yDist/translateScale);
+			}
+			
+			public String toString(){
+				return "Model Translate (ZY)";
 			}
 
 			
@@ -107,7 +128,11 @@ public class STLPreviewMouseControls implements MouseListener, MouseMotionListen
 		double translateScale = 15.0;
 		double rotateScale = 40.0;
 		
-		protected abstract void mouseDragged(STLPreview preview,double xDist, double yDist);
+		protected abstract void mouseDragged(STLPreviewCanvas3D preview,double xDist, double yDist);
+
+		public static MouseControlMode[] getModes() {
+			return new MouseControlMode[]{CAMERA_ROTATE,MODEL_ROTATE_X,MODEL_ROTATE_Y,MODEL_ROTATE_Z,MODEL_TRANSLATE_XY,MODEL_TRANSLATE_ZY};
+		}
 		
 	}
 	
@@ -115,7 +140,7 @@ public class STLPreviewMouseControls implements MouseListener, MouseMotionListen
 		this.theMode = mcm;
 	}
 		
-	public STLPreviewMouseControls(STLPreview prev){
+	public STLPreviewMouseControls(STLPreviewCanvas3D prev){
 		thePreview = prev;
 		thePreview.getCanvas3D().addMouseListener(this);
 		thePreview.getCanvas3D().addMouseMotionListener(this);

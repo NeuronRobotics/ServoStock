@@ -10,4 +10,6 @@ public interface GUIFrontendInterface {
 	
 	public void alertStatusUpdated();
 
+	public void requestValidate();
+
 }

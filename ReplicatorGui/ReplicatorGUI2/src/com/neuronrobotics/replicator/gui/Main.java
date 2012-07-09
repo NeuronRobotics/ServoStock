@@ -1,9 +1,7 @@
 package com.neuronrobotics.replicator.gui;
 
-//import java.applet.Applet;
 import java.awt.Dialog;
 import java.awt.Dimension;
-//import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.GridBagLayout;
 import java.awt.Toolkit;
@@ -13,12 +11,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
-//import java.nio.file.FileSystem;
-//import java.nio.file.FileSystems;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-//import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -91,12 +86,20 @@ public class Main {
 	}
 	
 	private static void startGUI(File directory){
+		
 		DesktopApplet tapp;
 		if(!directory.exists()||!directory.isDirectory()) tapp = new DesktopApplet(new GUIDriver());
 		else tapp = new DesktopApplet(new GUIDriver(),directory);
+				
 		MainFrame f = new MainFrame(tapp, 1200, 700);
 		f.setIconImage(imageIcon.getImage());
 		f.setExtendedState(f.getExtendedState()|Frame.MAXIMIZED_BOTH);
+		
+		/*
+		DesktopApplet tapp;
+		if(!directory.exists()||!directory.isDirectory()) tapp = DesktopApplet.startGUI(new GUIDriver());
+		else tapp = DesktopApplet.startGUI(new GUIDriver(),directory);
+		*/
 	}
 	
 	private static class WorkspaceSelect extends Dialog implements ActionListener{
@@ -110,10 +113,6 @@ public class Main {
 		JLabel label;
 		JTextField selectedDirectory;
 		JButton submit, browse;
-		
-		public WorkspaceSelect(Dialog owner) {
-			super(owner);
-		}
 		
 		public WorkspaceSelect(Frame frame, String string) {
 			super(frame,string);
@@ -164,7 +163,6 @@ public class Main {
 					selectedDirectory.setText(theFile.getAbsolutePath());
 				}
 			
-
 			} else if(arg0.getSource().equals(submit)){
 				startGUI(theFile);
 				Window.getWindows()[0].dispose();

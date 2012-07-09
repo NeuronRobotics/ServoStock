@@ -1,49 +1,136 @@
 package com.neuronrobotics.replicator.gui.preview;
 
 import java.awt.Container;
+import java.awt.GridLayout;
 import java.io.File;
 
-import javax.swing.ImageIcon;
 import javax.vecmath.Point3f;
 
-public class STLPreviewTab extends Container{
+public class STLPreviewTab extends Container {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5559016123774970333L;
+
 	private STLPreviewContainer theSTLPreviewContainer;
 	
-	private boolean loaded;
+	private boolean loaded, isDead;
 	private File theSTLFile,theGCode;
 	private Point3f workspaceDimensions;
 	
 	private SimpleLoadingScreen theLoadingScreen;
-	private STLPreview theSTLPreview;
+	private STLPreviewCanvas3D theSTLPreview;
+	private LoadPreviewThread theLoadingThread;
 	
-	public STLPreviewTab(STLPreviewContainer stlc, File stl, File gcode, Point3f workspaceDim){
+ 	public STLPreviewTab(STLPreviewContainer stlc, File stl, File gcode, Point3f workspaceDim){
 		loaded = false;
+		isDead = false;
 		theSTLFile = stl;
 		theGCode = gcode;
 		workspaceDimensions = workspaceDim;
 		theSTLPreviewContainer = stlc;
 		theSTLPreview = null;
 		theLoadingScreen = new SimpleLoadingScreen(stl.getName()+" preview loading...",true);		
+		this.setLayout(new GridLayout(1,1));
+		theLoadingThread = null;
 	}
 	
 	public void load(){
-		
+		if (!loaded) {
+			this.removeAll();
+			this.add(theLoadingScreen);
+								
+			if (theLoadingThread == null)
+				theLoadingThread = new LoadPreviewThread(theLoadingScreen,
+						theSTLFile, theGCode, workspaceDimensions);
+			theLoadingThread.start();
+		}
 	}
 	
-	/*
-	
-	
-	private class AddPreviewThread extends Thread {
+	public void reload(){
+		loaded = false;
+		this.removeAll();
+		this.add(theLoadingScreen);
+		theLoadingThread = null;
+		theSTLPreview= null;
+		load();//TODO untested
+	}
 
-		SimpleLoadingScreen theLoadingScreen;
+	private void alertPreviewLoaded(STLPreviewCanvas3D tempPreview) {
+		this.removeAll();
+		//this.remove(theLoadingScreen);
+		theSTLPreview = tempPreview;
+		this.add(theSTLPreview);
+		loaded = true;
+		
+		STLPreviewMouseControls theMouseControls = new STLPreviewMouseControls(
+				tempPreview);
+		
+		if (theSTLPreviewContainer != null) {
+			tempPreview.resetCamera(theSTLPreviewContainer
+					.getCurrentSelectedCameraFocusMode());
+			tempPreview.setOutlineVisibility(theSTLPreviewContainer
+					.isOutlineSelected());
+
+			//STLPreviewMouseControls theMouseControls = new STLPreviewMouseControls(
+				//	tempPreview);
+			theMouseControls.setMouseControlMode(theSTLPreviewContainer
+					.getCurrentSelectedMouseMode());
+			tempPreview.setMouseControls(theMouseControls);
+		}
+		
+		validate();
+		
+		theLoadingThread = null;
+	}
+			
+	public STLPreviewCanvas3D getTheSTLPreview() {
+		return theSTLPreview;
+	}
+
+	public void alertTabIsDead(Exception e){
+		isDead = true;
+		theSTLPreviewContainer.alertTabIsDead(this);
+	}
+		
+	public boolean isDead(){
+		return isDead;
+	}
+
+	public boolean isLoaded() {
+		return loaded;
+	}
+
+	public File getSTLFile() {	
+		return theSTLFile;
+	}
+	
+	public File getGCodeFile() {	
+		return theGCode;
+	}
+	
+	public void killTab(){
+		isDead = true;
+		theLoadingScreen = null;
+		theLoadingThread = null;
+		theSTLPreview.killPreview();
+		theSTLPreview = null;
+		theSTLPreviewContainer = null;
+		
+		
+	}
+
+	private class LoadPreviewThread extends Thread {
+
+		//SimpleLoadingScreen theLoadingScreen;
 		File stl, gcode;
 		Point3f workspaceDimensions;
 
-		public AddPreviewThread(SimpleLoadingScreen sls, File stl, File gcode,
+		public LoadPreviewThread(SimpleLoadingScreen sls, File stl, File gcode,
 				Point3f workspaceDimensions) {
 			super();
-			theLoadingScreen = sls;
+			//theLoadingScreen = sls;
 			this.stl = stl;
 			this.gcode = gcode;
 			this.workspaceDimensions = workspaceDimensions;
@@ -51,36 +138,29 @@ public class STLPreviewTab extends Container{
 
 		}
 
+		@Override
 		public void run() {
-
-			STLPreview tempPreview = new STLPreview(stl, gcode,
-					workspaceDimensions);
-			String name = stl.getName();
-
-			if (!tempPreview.getSTLObject().getName()
-					.equalsIgnoreCase("Default"))
-				name += " (" + tempPreview.getSTLObject().getName() + ")";
-
-			int index = previewTabs.indexOfComponent(theLoadingScreen);
-			ImageIcon imageIcon = new ImageIcon("Images\\simpleCube.png");
-			previewTabs.insertTab(name, imageIcon, tempPreview, name, index);
 			
-			thePreviews.put(stl, tempPreview);
-			// previewTabs.setSelectedComponent(tempPreview);
+			try {
+				STLPreviewCanvas3D tempPreview = new STLPreviewCanvas3D(stl, gcode,
+						workspaceDimensions);
+				tempPreview.inititalize();
 
-			previewTabs.remove(theLoadingScreen);
+				/*
+				STLPreviewMouseControls theMouseControls = new STLPreviewMouseControls(
+						tempPreview);
+				theMouseControls.setMouseControlMode(theSTLPreviewContainer
+						.getCurrentSelectedMouseMode());
+				tempPreview.setMouseControls(theMouseControls);
+				*/
 
-			STLPreviewMouseControls theMouseControls = new STLPreviewMouseControls(tempPreview);
-			theMouseControls.setMouseControlMode(getCurrentSelectedMode());
-			tempPreview.setMouseControls(theMouseControls);
-			
-			tempPreview.setOutlineVisibility(toggleOutline.isSelected());
-
-			currentlyLoading.remove(stl);
+				alertPreviewLoaded(tempPreview);
+			} catch (Exception e) {
+				e.printStackTrace();
+				alertTabIsDead(e);
+			}
 		}
 
-	}*/
-
-	
+	}
 
 }

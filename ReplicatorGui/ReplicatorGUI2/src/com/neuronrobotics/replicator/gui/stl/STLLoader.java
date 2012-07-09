@@ -143,10 +143,9 @@ public class STLLoader {
 	public static STLTransformGroup createSTLTransform(STLObject stl,BranchGroup root){
 		//STLTransformGroup tg = new STLTransformGroup();
 				
+		//Actual 3d model
 		Shape3D theModel = createModel(stl);
-		
-		//tg.setModel(createModel(stl));
-		
+				
 		//Outline with visibility option
 		Shape3D outline = createModelOutline(stl);
 		
@@ -194,18 +193,9 @@ public class STLLoader {
 				
 		tg.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
 		tg.setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
-				
-		/*
-		MouseRotate myMouseRotate = new MouseRotate();
-		myMouseRotate.setTransformGroup(tg);
-		myMouseRotate.setSchedulingBounds(new BoundingSphere());
 		
-		root.addChild(myMouseRotate);
-		*/
 		return tg; 
 	}
-	
-	
 	
 	/**
 	 * Using the STLObject given this creates an outline of the model specified by 
@@ -220,23 +210,7 @@ public class STLLoader {
 		
 		int currV=0;
 		
-		//centeredScale(Point3f p,Point3f c, float scale)
-		
-		//float scale = 1f/Math.max(Math.max(stlo.getXDistance(),stlo.getYDistance()),stlo.getZDistance());
-		
-		//Point3f center =stlo.getCenter();
-		
 		for(STLFacet fac:stlo){
-			/*
-			olA.setCoordinate(currV++, centeredScale(fac.getVertex1(),center,scale));
-			olA.setCoordinate(currV++, centeredScale(fac.getVertex2(),center,scale));
-			
-			olA.setCoordinate(currV++, centeredScale(fac.getVertex1(),center,scale));
-			olA.setCoordinate(currV++,centeredScale( fac.getVertex3(),center,scale));
-			
-			olA.setCoordinate(currV++,centeredScale( fac.getVertex2(),center,scale));
-			olA.setCoordinate(currV++,centeredScale( fac.getVertex3(),center,scale));
-			*/
 			olA.setCoordinate(currV++, fac.getVertex1());
 			olA.setCoordinate(currV++, fac.getVertex2());
 			
@@ -244,9 +218,7 @@ public class STLLoader {
 			olA.setCoordinate(currV++, fac.getVertex3());
 			
 			olA.setCoordinate(currV++, fac.getVertex2());
-			olA.setCoordinate(currV++, fac.getVertex3());
-			 
-			
+			olA.setCoordinate(currV++, fac.getVertex3());			
 		}
 		
 		outline.setGeometry(olA);
@@ -269,29 +241,16 @@ public class STLLoader {
 		modelAppearance.setMaterial(new Material());
 		
 		TriangleArray model = new TriangleArray(numVertices,
-				TriangleArray.COORDINATES);
-		
+				TriangleArray.COORDINATES);		
 			
 		int currVertex = 0;
 		
-		
-		//float scale = 1f/Math.max(Math.max(stlo.getXDistance(),stlo.getYDistance()),stlo.getZDistance());
-		
-		//Vector3f[] normals = new Vector3f[stlo.getFacetAmount()];
-				
-		//Point3f center = stlo.getCenter();
 		for(STLFacet sf:stlo){
-			/*
-			model.setCoordinate(currVertex++, centeredScale(sf.getVertex1(),center,scale));
-			model.setCoordinate(currVertex++, centeredScale(sf.getVertex2(),center,scale));
-			model.setCoordinate(currVertex++, centeredScale(sf.getVertex3(),center,scale));
-			//normals[(currVertex/3)-1]=sf.getNormal();
-			*/
+			
 			model.setCoordinate(currVertex++, sf.getVertex1());
 			model.setCoordinate(currVertex++, sf.getVertex2());
 			model.setCoordinate(currVertex++, sf.getVertex3());
-			
-			
+					
 		}
 		
 		GeometryInfo gi = new GeometryInfo(model);
@@ -299,7 +258,6 @@ public class STLLoader {
 		ng.generateNormals(gi);
 		
 		model.setCapability(TriangleArray.NORMALS);
-		//model.setNormals(0,normals);
 		
 		Shape3D theModel = new Shape3D(gi.getIndexedGeometryArray(), modelAppearance);
 		
@@ -313,6 +271,5 @@ public class STLLoader {
 		
 		return theModel;
 	}
-
 	
 }

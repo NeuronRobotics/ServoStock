@@ -1,8 +1,5 @@
 package com.neuronrobotics.replicator.gui;
 
-import java.applet.Applet;
-//import java.awt.Color;
-//import java.awt.Button;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -11,21 +8,13 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-//import java.awt.event.ComponentEvent;
-//import java.awt.event.ComponentListener;
-//import java.awt.event.MouseEvent;
-//import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
-//import java.util.ArrayList;
-//import java.util.Hashtable;
-//import java.util.Enumeration;
 
+import javax.swing.JApplet;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
-//import javax.swing.JLabel;
-//import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -34,14 +23,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-//import javax.swing.JTree;
-//import javax.swing.tree.DefaultMutableTreeNode;
-//import javax.swing.tree.MutableTreeNode;
-//import javax.swing.tree.TreeNode;
-//import javax.swing.event.TreeSelectionEvent;
-//import javax.swing.event.TreeSelectionListener;
 import javax.vecmath.Point3f;
 
 import com.neuronrobotics.replicator.gui.navigator.WorkspaceNavigator;
@@ -51,28 +32,21 @@ import com.neuronrobotics.replicator.gui.preview.STLPreviewContainer;
 import com.neuronrobotics.replicator.gui.stl.ASCIISTLWriter;
 import com.neuronrobotics.replicator.gui.stl.STLObject;
 
-//import org.j3d.loaders.InvalidFormatException;
-
-//import com.neuronrobotics.replicator.driver.NRPrinter;
-//import com.neuronrobotics.replicator.driver.PrinterStatus;
-
-public class DesktopApplet extends Applet implements GUIFrontendInterface, WorkspaceNavigatorListener {
+public class DesktopApplet extends JApplet implements GUIFrontendInterface, WorkspaceNavigatorListener {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -7003760875384715160L;
 	
-	//private final ImageIcon imageIcon = new ImageIcon("Images\\hat.png");
-
 	private File defaultWorkspaceDirectory;
 
 	private Container menuContainer, toolbarContainer;
-	private Container leftContainer, bottomContainer;// previewContainer
+	private Container leftContainer, bottomContainer;
 
 	private STLPreviewContainer previewContainer;
 
-	private JTabbedPane leftTab;// , previewTab;
+	private JTabbedPane leftTab;
 
 	private JMenuBar menuBar;
 	private JToolBar mainToolbar;
@@ -94,13 +68,18 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface, Works
 	private GUIBackendInterface theGUIDriver;
 
 	private Point3f workspaceDimensions;
-
+	
 	public DesktopApplet(GUIBackendInterface theGUIDriver) {
 		super();
 		this.theGUIDriver = theGUIDriver;
 		this.theGUIDriver.setFrontend(this);
 		workspaceDimensions = new Point3f(60, 60, 60); 
 		defaultWorkspaceDirectory = new File("DefaultWorkspaceFolder");
+	}
+	
+	public void requestValidate(){
+		this.invalidate();
+		this.validate();
 	}
 	
 	public DesktopApplet(GUIBackendInterface theGUIDriver, File mainDirectory) {
@@ -113,9 +92,8 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface, Works
 	}
 
 	public void init() {
-
 		
-		
+		/*
 		//Setting a different look and feel
 		String lookAndFeel = UIManager.getSystemLookAndFeelClassName();
 		try {
@@ -129,7 +107,8 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface, Works
 		} catch (UnsupportedLookAndFeelException e1) {
 			e1.printStackTrace();
 		}
-			
+		*/
+		
 		
 		GridBagLayout gridbag = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
@@ -149,7 +128,7 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface, Works
 		leftTab = new JTabbedPane();
 		leftContainer.add(leftTab);
 
-		previewContainer = new STLPreviewContainer();
+		previewContainer = new STLPreviewContainer(this);
 
 		bottomContainer = new Container();
 		bottomContainer.setLayout(new GridLayout(2, 1));
@@ -324,13 +303,16 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface, Works
 	}
 
 	public void toolbarPrintButtonHandler() {
-		// TODO prompt user
+		
 		boolean reSlice = true;
+						
 		if (previewContainer.hasNoPreviews()) {
 			this.statusLabel.setText("Nothing to print");
 			this.errorDialog("Nothing to print!");
 			return;
 		}
+		
+		//PrintOptions theOptions = PrintPrompt.promptUser(theFrame);// TODO prompt user
 		
 		boolean rewrite = this.userPrompt("Rewrite STL with current Transforms?");
 		File currentFile = null;
@@ -405,7 +387,7 @@ public class DesktopApplet extends Applet implements GUIFrontendInterface, Works
 		JOptionPane.showMessageDialog(this, errorMessage, "Error",
 				JOptionPane.ERROR_MESSAGE);
 	}
-
+	
 	@Override
 	public void alertStatusUpdated() {
 		this.statusLabel.setText(theGUIDriver.getStatusString());

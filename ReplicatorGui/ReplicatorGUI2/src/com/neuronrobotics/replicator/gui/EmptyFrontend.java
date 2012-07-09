@@ -23,4 +23,8 @@ public class EmptyFrontend implements GUIFrontendInterface {
 		return true;
 	}
 
+	@Override
+	public void requestValidate() {		
+	}
+
 }

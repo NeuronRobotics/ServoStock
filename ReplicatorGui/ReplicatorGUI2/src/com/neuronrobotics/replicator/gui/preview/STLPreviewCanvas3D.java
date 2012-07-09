@@ -1,7 +1,5 @@
 package com.neuronrobotics.replicator.gui.preview;
 
-import java.awt.Container;
-import java.awt.GridLayout;
 import java.io.File;
 import java.io.IOException;
 
@@ -14,6 +12,7 @@ import javax.media.j3d.DirectionalLight;
 import javax.media.j3d.GeometryArray;
 import javax.media.j3d.IndexedLineArray;
 import javax.media.j3d.LineArray;
+import javax.media.j3d.Locale;
 import javax.media.j3d.Shape3D;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
@@ -29,7 +28,7 @@ import com.neuronrobotics.replicator.gui.stl.STLObject;
 import com.neuronrobotics.replicator.gui.stl.STLTransformGroup;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
-public class STLPreview extends Container {
+public class STLPreviewCanvas3D extends Canvas3D {
 
 	/**
 	 * 
@@ -37,9 +36,9 @@ public class STLPreview extends Container {
 	private static final long serialVersionUID = -45261396936364195L;
 
 	// basic fields for creating java 3d scene
-	private Canvas3D theCanvas3D;
 	private SimpleUniverse simpleU;
 	private BranchGroup mainBranch;
+	private Locale theLocale;
 
 	// transform group for the stl model itself
 	private STLTransformGroup stlTransform;
@@ -60,35 +59,44 @@ public class STLPreview extends Container {
 
 	private Point3f workspaceDimensions;
 
-	// basic class for encapsulating mouse based user interactions with
-	// different modes
 	private STLPreviewMouseControls theMouseControls;
+	
+	private boolean initialized;
 	
 	private CameraFocusMode currentCameraFocusMode;
 
-	// enum for encapsulating camera focus methods
-	// allows for easy switching between focusing on workspace and focusing on
-	// model
+	private boolean isDead;
+
+	/**
+	 * enum for encapsulating camera focus methods currently 
+	 * provides simple methods for getting current point to focus on
+	 * as well as the base camera position, both of which may be dependent
+	 * on selected mode
+	 *
+	 */
 	public enum CameraFocusMode {
 		WORKSPACE_BASE {
 
 			@Override
-			public Point3d getFocus(STLPreview sp) {
+			public Point3d getFocus(STLPreviewCanvas3D sp) {
 				return new Point3d(0, 0, 0);
 			}
 
 			@Override
-			public Point3d getBaseCameraPosition(STLPreview sp) {
+			public Point3d getBaseCameraPosition(STLPreviewCanvas3D sp) {
 				double m = Math.max(sp.workspaceDimensions.z, Math.max(
 						sp.workspaceDimensions.x, sp.workspaceDimensions.y));
 				return new Point3d(2 * m, 2 * m, 2 * m);
 			}
 
+			public String toString(){
+				return "Focus Camera on Workspace";
+			}
 		},
 		STL_CENTER {
 
 			@Override
-			public Point3d getFocus(STLPreview sp) {
+			public Point3d getFocus(STLPreviewCanvas3D sp) {
 				Point3d newFocus = new Point3d(sp.stlTransform.getCurrentCenter());
 				
 				/*
@@ -103,7 +111,7 @@ public class STLPreview extends Container {
 			}
 
 			@Override
-			public Point3d getBaseCameraPosition(STLPreview sp) {
+			public Point3d getBaseCameraPosition(STLPreviewCanvas3D sp) {
 				double m = Math.max(sp.theSTLObject.getXLength(), Math.max(
 						sp.theSTLObject.getYLength(),
 						sp.theSTLObject.getZLength()));
@@ -112,34 +120,53 @@ public class STLPreview extends Container {
 				System.out.println("Base camera position "+basePos);
 				return basePos;
 			}
+		
+			public String toString(){
+				return "Focus Camera on STL";
+			}
 		};
 
-		public abstract Point3d getFocus(STLPreview sp);
+		public abstract Point3d getFocus(STLPreviewCanvas3D sp);
 
-		public abstract Point3d getBaseCameraPosition(STLPreview sp);
+		public abstract Point3d getBaseCameraPosition(STLPreviewCanvas3D sp);
+
+		public static CameraFocusMode[] getModes() {
+				return new CameraFocusMode[]{WORKSPACE_BASE,STL_CENTER};
+		}
 
 	};
 
-	public STLPreview(File stl, File gcode, Point3f workspaceDim) {
+	public STLPreviewCanvas3D(File stl, File gcode, Point3f workspaceDim) {
+		super(SimpleUniverse.getPreferredConfiguration());
+		
+		initialized = false;
+		isDead = false;
 		
 		currentCameraFocusMode = CameraFocusMode.STL_CENTER;
 
-		theCanvas3D = new Canvas3D(SimpleUniverse.getPreferredConfiguration());
+		//theCanvas3D = new Canvas3D(SimpleUniverse.getPreferredConfiguration());
 
-		this.setLayout(new GridLayout(1, 1));
-		this.add(theCanvas3D);
+		//this.setLayout(new GridLayout(1, 1));
+		//this.add(theCanvas3D);
 
 		this.theSTLFile = stl;
 		this.theGcode = gcode;
-		System.out.println(theGcode.getName());
-
+		//System.out.println(theGcode.getName());
 		workspaceDimensions = workspaceDim;
 
-		simpleU = new SimpleUniverse(theCanvas3D);
+	}
+	
+	public void inititalize(){
+		simpleU = new SimpleUniverse(this);
 		mainBranch = new BranchGroup();
-
+		theLocale = simpleU.getLocale();
+				
+		mainBranch.setCapability(BranchGroup.ALLOW_CHILDREN_EXTEND);
+		mainBranch.setCapability(BranchGroup.ALLOW_DETACH);
+		
+		
 		try {
-			this.assembleSTLTransform(stl);
+			this.assembleSTLTransform(theSTLFile);
 			mainBranch.addChild(stlTransform);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -172,12 +199,14 @@ public class STLPreview extends Container {
 		
 		// Initialize camera position
 		resetCamera();
-
-		theCanvas3D.getView().setBackClipDistance(1000); // TODO do this
-															// dynamically?
-
+		
+		initialized = true;
 	}
-
+	
+	public boolean isInitialized(){
+		return initialized;
+	}
+	
 	private TransformGroup RectangularWorkspace(Point3f center,
 			Point3f dimensions) {
 		TransformGroup workspaceGroup = new TransformGroup();
@@ -289,6 +318,7 @@ public class STLPreview extends Container {
 	}
 
 	public void setCamera(Point3d position, Point3d lookAt) {
+				
 		TransformGroup viewTransform = simpleU.getViewingPlatform()
 				.getViewPlatformTransform();
 
@@ -373,17 +403,18 @@ public class STLPreview extends Container {
 		
 		setCamera(cameraPosition, cameraDirection);
  	}
-
-	private void autoPan(){
-		panTo(this.currentCameraFocusMode.getFocus(this));
-	}
 	
 	public void resetCamera() {
-		//double m = Math.max(this.workspaceDimensions.z, Math.max(
-			//	this.workspaceDimensions.x, this.workspaceDimensions.y));
-		cameraPosition = currentCameraFocusMode.getBaseCameraPosition(this);//new Point3d(2 * m, 2 * m, 2 * m);
-		cameraDirection = currentCameraFocusMode.getFocus(this);//new Point3d(0, 0, 0);
+		
+		
+		cameraPosition = currentCameraFocusMode.getBaseCameraPosition(this);
+		cameraDirection = currentCameraFocusMode.getFocus(this);
 		setCamera(cameraPosition, cameraDirection);
+		
+		double clipDist = cameraPosition.distance(new Point3d(this.stlTransform.getCurrentCenter()));
+		clipDist+=Math.max(Math.max(this.theSTLObject.getXLength(), this.theSTLObject.getYLength()),this.theSTLObject.getZLength());
+		this.getView().setBackClipDistance(clipDist);
+		
 	}
 
 	public void resetCamera(CameraFocusMode newMode) {
@@ -394,6 +425,7 @@ public class STLPreview extends Container {
 	public void setCameraFocusMode(CameraFocusMode newMode){
 		currentCameraFocusMode = newMode;
 		cameraDirection = currentCameraFocusMode.getFocus(this);
+		autoPan();
 	}
 
 	public void rotateCameraXZ(double rot) {
@@ -461,7 +493,13 @@ public class STLPreview extends Container {
 		setCamera(cameraPosition, cameraDirection);
 	}
 
+	private void autoPan(){
+		panTo(this.currentCameraFocusMode.getFocus(this));
+	}
+	
+		
 	// light transform functions
+	
 	public void updateIndicatorLightColor() {
 		if (modelIsInWorkspace())
 			theLight.setColor(new Color3f(.0f, 5.5f, .0f));
@@ -557,7 +595,9 @@ public class STLPreview extends Container {
 		updateIndicatorLightColor();
 	}
 
+	
 	// Model transform functions
+	
 	public void rotateX(double rad) {
 		Transform3D curr = new Transform3D();
 		stlTransform.getTransform(curr);
@@ -735,7 +775,6 @@ public class STLPreview extends Container {
 		translate(tran);
 	}
 
-	// This moves lateral to the camera instead of just left and right in x
 	public void translateLateral(double d) {
 
 		Transform3D curr = this.getTransform3D();
@@ -762,7 +801,9 @@ public class STLPreview extends Container {
 		stlTransform.setModelVisibility(vis);
 	}
 
+	
 	// Getters
+	
 	public STLObject getSTLObject() {
 		return this.theSTLObject;
 	}
@@ -794,7 +835,7 @@ public class STLPreview extends Container {
 	}
 
 	public Canvas3D getCanvas3D() {
-		return theCanvas3D;
+		return this;
 	}
 
 	public void setMouseControls(STLPreviewMouseControls theMouseControls) {
@@ -805,38 +846,20 @@ public class STLPreview extends Container {
 		return theMouseControls;
 	}
 
-
-	/*
-	public void rotateCameraXY(double rot) {
+	public void killPreview() {
+		this.getView().removeAllCanvas3Ds();
+		this.simpleU.removeAllLocales();
+		isDead = true;
+		theLocale = null;
+		mainBranch = null;
+		this.theLight = null;
+		simpleU.cleanup();
+		simpleU = null;
+	}
 	
-		Vector3d vec = new Vector3d();
-		vec.add(cameraPosition);
-		vec.sub(cameraDirection);
-
-		double radius = Math.sqrt((vec.x * vec.x) + (vec.y * vec.y));
-
-		double currentAngle = Math.acos(vec.x / radius);
-		if (vec.y < 0)
-			currentAngle = (2 * Math.PI) - currentAngle;
-
-		double newAngle = currentAngle + rot;
-		double newX = radius * Math.cos(newAngle);
-		double newY = radius * Math.sin(newAngle);
-
-		/*
-		 * System.out.println("Radius: "+radius);
-		 * System.out.println("Initial Angle: "+currentAngle);
-		 * System.out.println("Delta Angle: "+rot);
-		 * System.out.println("Final Angle:" + newAngle);
-		 * System.out.println("Initial position: "+cameraPosition);
-		 
-
-		cameraPosition = new Point3d(newX, newY, cameraPosition.z);
-
-		// System.out.println("Final position: "+cameraPosition);
-
-		setCamera(cameraPosition, cameraDirection);
-	}*/
-
+	public boolean isDead(){
+		return isDead;
+	}
+	
 
 }
