@@ -12,7 +12,6 @@ import javax.media.j3d.DirectionalLight;
 import javax.media.j3d.GeometryArray;
 import javax.media.j3d.IndexedLineArray;
 import javax.media.j3d.LineArray;
-import javax.media.j3d.Locale;
 import javax.media.j3d.Shape3D;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
@@ -38,7 +37,7 @@ public class STLPreviewCanvas3D extends Canvas3D {
 	// basic fields for creating java 3d scene
 	private SimpleUniverse simpleU;
 	private BranchGroup mainBranch;
-	private Locale theLocale;
+//	private Locale theLocale;
 
 	// transform group for the stl model itself
 	private STLTransformGroup stlTransform;
@@ -159,7 +158,7 @@ public class STLPreviewCanvas3D extends Canvas3D {
 	public void inititalize(){
 		simpleU = new SimpleUniverse(this);
 		mainBranch = new BranchGroup();
-		theLocale = simpleU.getLocale();
+		// = simpleU.getLocale();
 				
 		mainBranch.setCapability(BranchGroup.ALLOW_CHILDREN_EXTEND);
 		mainBranch.setCapability(BranchGroup.ALLOW_DETACH);
@@ -850,7 +849,7 @@ public class STLPreviewCanvas3D extends Canvas3D {
 		this.getView().removeAllCanvas3Ds();
 		this.simpleU.removeAllLocales();
 		isDead = true;
-		theLocale = null;
+		//theLocale = null;
 		mainBranch = null;
 		this.theLight = null;
 		simpleU.cleanup();

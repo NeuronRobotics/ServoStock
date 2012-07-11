@@ -3,6 +3,7 @@ package com.neuronrobotics.replicator.gui.preview;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.vecmath.Point3f;
 
@@ -13,7 +14,11 @@ public class STLPreviewTab extends Container {
 	 */
 	private static final long serialVersionUID = -5559016123774970333L;
 
-	private STLPreviewContainer theSTLPreviewContainer;
+	//private STLPreviewTabListener theSTLPreviewContainer;
+	
+	
+	
+	private ArrayList<STLPreviewTabListener> theTabListeners;
 	
 	private boolean loaded, isDead;
 	private File theSTLFile,theGCode;
@@ -23,13 +28,17 @@ public class STLPreviewTab extends Container {
 	private STLPreviewCanvas3D theSTLPreview;
 	private LoadPreviewThread theLoadingThread;
 	
- 	public STLPreviewTab(STLPreviewContainer stlc, File stl, File gcode, Point3f workspaceDim){
+ 	public STLPreviewTab(STLPreviewTabListener stlc, File stl, File gcode, Point3f workspaceDim){
 		loaded = false;
 		isDead = false;
+		
+		theTabListeners = new ArrayList<STLPreviewTabListener>();
+		theTabListeners.add(stlc);
+		
 		theSTLFile = stl;
 		theGCode = gcode;
 		workspaceDimensions = workspaceDim;
-		theSTLPreviewContainer = stlc;
+		//theSTLPreviewContainer = stlc;
 		theSTLPreview = null;
 		theLoadingScreen = new SimpleLoadingScreen(stl.getName()+" preview loading...",true);		
 		this.setLayout(new GridLayout(1,1));
@@ -67,20 +76,21 @@ public class STLPreviewTab extends Container {
 		STLPreviewMouseControls theMouseControls = new STLPreviewMouseControls(
 				tempPreview);
 		
-		if (theSTLPreviewContainer != null) {
-			tempPreview.resetCamera(theSTLPreviewContainer
-					.getCurrentSelectedCameraFocusMode());
-			tempPreview.setOutlineVisibility(theSTLPreviewContainer
-					.isOutlineSelected());
+		tempPreview.setMouseControls(theMouseControls);
+		
+		/*
+			tempPreview.resetCamera(theSTLPreviewContainer.getCurrentSelectedCameraFocusMode());
+			tempPreview.setOutlineVisibility(theSTLPreviewContainer.isOutlineSelected());
 
 			//STLPreviewMouseControls theMouseControls = new STLPreviewMouseControls(
 				//	tempPreview);
-			theMouseControls.setMouseControlMode(theSTLPreviewContainer
-					.getCurrentSelectedMouseMode());
+			theMouseControls.setMouseControlMode(theSTLPreviewContainer.getCurrentSelectedMouseMode());
 			tempPreview.setMouseControls(theMouseControls);
-		}
+		*/
 		
 		validate();
+		
+		for(STLPreviewTabListener sptl:theTabListeners) sptl.alertTabIsLoaded(this);
 		
 		theLoadingThread = null;
 	}
@@ -89,11 +99,11 @@ public class STLPreviewTab extends Container {
 		return theSTLPreview;
 	}
 
-	public void alertTabIsDead(Exception e){
+	private void alertTabIsDead(Exception e){
 		isDead = true;
-		theSTLPreviewContainer.alertTabIsDead(this);
+		for(STLPreviewTabListener sptl:theTabListeners) sptl.alertTabIsDead(this);
 	}
-		
+			
 	public boolean isDead(){
 		return isDead;
 	}
@@ -116,8 +126,9 @@ public class STLPreviewTab extends Container {
 		theLoadingThread = null;
 		theSTLPreview.killPreview();
 		theSTLPreview = null;
-		theSTLPreviewContainer = null;
+		this.theTabListeners = null;
 		
+		//theSTLPreviewContainer = null;
 		
 	}
 
@@ -145,6 +156,7 @@ public class STLPreviewTab extends Container {
 				STLPreviewCanvas3D tempPreview = new STLPreviewCanvas3D(stl, gcode,
 						workspaceDimensions);
 				tempPreview.inititalize();
+				
 
 				/*
 				STLPreviewMouseControls theMouseControls = new STLPreviewMouseControls(

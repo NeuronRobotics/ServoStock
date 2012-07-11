@@ -37,13 +37,17 @@ public class STLPreviewContainer extends Container implements ActionListener,
 	private JComboBox<STLPreviewCanvas3D.CameraFocusMode> focusModeMenu;
 
 	private JToolBar cameraControls;
-	private JButton resetCamera, centerModel, removePreview, validateButton;
+	private JButton resetCamera, centerModel, removePreview, forceReload;
 	private JToggleButton toggleOutline;
+	
+	//private STLPreviewTab workaroundTab;
 
 	private GUIFrontendInterface theFrontend;
 
 	public STLPreviewContainer(GUIFrontendInterface front) {
 
+		//workaroundTab = null;
+		
 		theFrontend = front;
 
 		GridBagLayout gridbag = new GridBagLayout();
@@ -58,7 +62,7 @@ public class STLPreviewContainer extends Container implements ActionListener,
 		resetCamera = new JButton("Reset Camera");
 		centerModel = new JButton("Reset STL");
 		removePreview = new JButton("Remove current preview");
-		validateButton = new JButton("Force validate");
+		forceReload = new JButton("Force Reload");
 
 		STLPreviewMouseControls.MouseControlMode[] mouseModes = STLPreviewMouseControls.MouseControlMode
 				.getModes();
@@ -79,7 +83,7 @@ public class STLPreviewContainer extends Container implements ActionListener,
 		mouseModeMenu.addActionListener(this);
 		focusModeMenu.addActionListener(this);
 
-		validateButton.addActionListener(this);
+		forceReload.addActionListener(this);
 
 		previewTabbedPane.addChangeListener(this);
 
@@ -93,7 +97,7 @@ public class STLPreviewContainer extends Container implements ActionListener,
 		cameraControls.add(mouseModeMenu);
 		cameraControls.add(focusModeMenu);
 
-		cameraControls.add(validateButton);
+		cameraControls.add(forceReload);
 
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1.0;
@@ -205,9 +209,12 @@ public class STLPreviewContainer extends Container implements ActionListener,
 			} else if (event.getSource().equals(toggleOutline)) {
 				currentPreview.setOutlineVisibility(!currentPreview
 						.getOutlineVisibility());
-			}  else if (event.getSource().equals(validateButton)) {
-				currentPreview.getCanvas3D().invalidate();
-				validate();
+			}  else if (event.getSource().equals(forceReload)) {
+				//currentPreview.getCanvas3D().invalidate();
+				//validate();
+				//theFrontend.requestValidate();
+				currentTab.reload();
+				//workAround();
 			}
 		}
 		
@@ -257,9 +264,17 @@ public class STLPreviewContainer extends Container implements ActionListener,
 		removeTab(deadTab);
 	}
 
+	public void alertTabIsLoaded(STLPreviewTab loadedTab){
+		loadedTab.getTheSTLPreview().setCameraFocusMode(getCurrentSelectedCameraFocusMode());
+		loadedTab.getTheSTLPreview().setOutlineVisibility(isOutlineSelected());
+		loadedTab.getTheSTLPreview().getMouseControls().setMouseControlMode(getCurrentSelectedMouseMode());
+		loadedTab.getTheSTLPreview().resetCamera();
+	}
+
 	public void removeTab(STLPreviewTab toRemove) {
+		//toRemove.killTab();
 		
-		toRemove.killTab();
+		int index = previewTabbedPane.indexOfComponent(toRemove);
 		
 		if (thePreviewTabs.contains(toRemove)) {
 			//if(!toRemove.isLoaded()) toRemove.stopLoading();
@@ -267,10 +282,56 @@ public class STLPreviewContainer extends Container implements ActionListener,
 			previewTabbedPane.remove(toRemove);
 		}		
 		
+		if(index==previewTabbedPane.getTabCount()&&index>0){
+		//	workAround();
+		}
+		
 	}
 
 	public boolean isOutlineSelected() {
 		return toggleOutline.isSelected();
 	}
+
+	
+	public STLPreviewTab getCurrentTab() {
+		return (STLPreviewTab)previewTabbedPane.getSelectedComponent();
+	}
+	
+	/*
+	private void workAround(){
+		File blankSTL,blankGCode;
+		
+		try {
+			blankSTL = File.createTempFile("blank", "stl");
+			FileWriter fw = new FileWriter(blankSTL);
+			fw.write("solid\nfacet\nouter loop\nvertex 0 0 0\nvertex 2 0 0\nvertex 2 3 0\nendloop\nendfacet\nfacet\nouter loop\nvertex 1 0 0\nvertex 2 2 0\nvertex 2 3 3\nendloop\nendfacet\nendsolid");	
+			fw.close();
+			fw = null;
+			
+			blankGCode = File.createTempFile("blank", "gcode");
+			Point3f wdim  = new Point3f(1,1,1);	
+			
+			if(workaroundTab!=null &&previewTabbedPane.indexOfComponent(workaroundTab)!=-1) previewTabbedPane.remove(workaroundTab);
+
+			workaroundTab = new STLPreviewTab(this, blankSTL, blankGCode, wdim);
+			workaroundTab.load();			
+			previewTabbedPane.add(workaroundTab);
+			
+			
+			int index = previewTabbedPane.getSelectedIndex();
+			
+			previewTabbedPane.setSelectedComponent(workaroundTab);
+			workaroundTab.getTheSTLPreview().getView().stopView();
+			workaroundTab.getTheSTLPreview().getView().renderOnce();
+			
+			previewTabbedPane.setSelectedIndex(index);
+			
+			previewTabbedPane.getTabComponentAt(previewTabbedPane.getTabCount()-1).setVisible(false);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	*/
 	
 }
