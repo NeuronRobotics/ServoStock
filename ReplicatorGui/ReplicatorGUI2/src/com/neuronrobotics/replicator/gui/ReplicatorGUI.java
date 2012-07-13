@@ -8,13 +8,15 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.IOException;
 
-import javax.swing.JApplet;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -32,7 +34,7 @@ import com.neuronrobotics.replicator.gui.preview.STLPreviewContainer;
 import com.neuronrobotics.replicator.gui.stl.ASCIISTLWriter;
 import com.neuronrobotics.replicator.gui.stl.STLObject;
 
-public class DesktopApplet extends JApplet implements GUIFrontendInterface, WorkspaceNavigatorListener {
+public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, WorkspaceNavigatorListener {
 
 	/**
 	 * 
@@ -41,7 +43,7 @@ public class DesktopApplet extends JApplet implements GUIFrontendInterface, Work
 	
 	private File defaultWorkspaceDirectory;
 
-	private Container menuContainer, toolbarContainer;
+	private Container toolbarContainer;
 	private Container leftContainer, bottomContainer;
 
 	private STLPreviewContainer previewContainer;
@@ -69,7 +71,7 @@ public class DesktopApplet extends JApplet implements GUIFrontendInterface, Work
 
 	private Point3f workspaceDimensions;
 	
-	public DesktopApplet(GUIBackendInterface theGUIDriver) {
+	public ReplicatorGUI(GUIBackendInterface theGUIDriver) {
 		super();
 		this.theGUIDriver = theGUIDriver;
 		this.theGUIDriver.setFrontend(this);
@@ -82,16 +84,18 @@ public class DesktopApplet extends JApplet implements GUIFrontendInterface, Work
 		this.validate();
 	}
 	
-	public DesktopApplet(GUIBackendInterface theGUIDriver, File mainDirectory) {
+	public ReplicatorGUI(GUIBackendInterface theGUIDriver, File mainDirectory) {
 		super();
 		this.theGUIDriver = theGUIDriver;
 		this.theGUIDriver.setFrontend(this);
 		workspaceDimensions = new Point3f(60, 60, 60); 
 
 		defaultWorkspaceDirectory = mainDirectory;
+		
+		initialize();
 	}
 
-	public void init() {
+	public void initialize() {
 		
 		/*
 		//Setting a different look and feel
@@ -115,9 +119,6 @@ public class DesktopApplet extends JApplet implements GUIFrontendInterface, Work
 
 		setFont(new Font("Helvetica", Font.PLAIN, 14));
 		setLayout(gridbag);
-
-		menuContainer = new Container();
-		menuContainer.setLayout(new GridLayout(1, 1));
 
 		toolbarContainer = new Container();
 		toolbarContainer.setLayout(new GridLayout(1, 1));
@@ -145,8 +146,6 @@ public class DesktopApplet extends JApplet implements GUIFrontendInterface, Work
 		c.weightx = 1.0;
 
 		c.gridwidth = GridBagConstraints.REMAINDER;
-		gridbag.setConstraints(menuContainer, c);
-		add(menuContainer);
 		gridbag.setConstraints(toolbarContainer, c);
 		add(toolbarContainer);
 
@@ -247,8 +246,10 @@ public class DesktopApplet extends JApplet implements GUIFrontendInterface, Work
 		fileMenu.add(openFileItem);
 		fileMenu.add(newProjectItem);
 		fileMenu.add(importSTLItem);
+		
+		this.setJMenuBar(menuBar);
 
-		menuContainer.add(menuBar);
+		//menuContainer.add(menuBar);
 
 		mainToolbar = new JToolBar();
 		printButton = new JButton("PRINT");
@@ -296,6 +297,41 @@ public class DesktopApplet extends JApplet implements GUIFrontendInterface, Work
 
 		bottomContainer.add(statusLabel);
 		bottomContainer.add(printProgress);
+		
+		/////
+		
+		this.addWindowListener(new WindowListener(){
+
+			@Override
+			public void windowActivated(WindowEvent arg0) {
+				}
+
+			@Override
+			public void windowClosed(WindowEvent arg0) {	
+			}
+
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				arg0.getWindow().dispose();
+				System.exit(0);
+			}
+
+			@Override
+			public void windowDeactivated(WindowEvent arg0) {
+			}
+
+			@Override
+			public void windowDeiconified(WindowEvent arg0) {
+			}
+
+			@Override
+			public void windowIconified(WindowEvent arg0) {
+			}
+
+			@Override
+			public void windowOpened(WindowEvent arg0) {
+			}
+			});
 
 	}
 
@@ -304,17 +340,26 @@ public class DesktopApplet extends JApplet implements GUIFrontendInterface, Work
 
 	public void toolbarPrintButtonHandler() {
 		
-		boolean reSlice = true;
-						
 		if (previewContainer.hasNoPreviews()) {
 			this.statusLabel.setText("Nothing to print");
 			this.errorDialog("Nothing to print!");
 			return;
 		}
 		
-		//PrintOptions theOptions = PrintPrompt.promptUser(theFrame);// TODO prompt user
+		PrintOptionsDialog testD = new PrintOptionsDialog(this);
 		
-		boolean rewrite = this.userPrompt("Rewrite STL with current Transforms?");
+		testD.setVisible(true);
+		
+		PrintOptions theOptions = testD.getPrintOptions();	
+		
+		if(theOptions==null){
+			this.statusLabel.setText("Print Aborted");
+			return;
+		}
+		
+		boolean reSlice = theOptions.isForceReslice();		
+		boolean rewrite = theOptions.isUseTransformedSTL();//this.userPrompt("Rewrite STL with current Transforms?");
+		
 		File currentFile = null;
 		System.out.println(rewrite);
 		if(rewrite){

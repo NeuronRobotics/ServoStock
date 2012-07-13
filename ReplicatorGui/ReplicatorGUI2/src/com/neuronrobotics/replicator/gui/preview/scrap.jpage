@@ -1,0 +1,5 @@
+javax.vecmath.Vector3d temp = new javax.vecmath.Vector3d(0,-1,0);
+javax.vecmath.Vector3d temp2 = new javax.vecmath.Vector3d(0,0,1);
+javax.vecmath.Vector3d temp3 = new javax.vecmath.Vector3d(1,0,0);
+System.out.println(temp.angle(temp2));
+System.out.println(temp.angle(temp3));

@@ -207,8 +207,7 @@ public class STLPreviewContainer extends Container implements ActionListener,
 				currentPreview.resetModelTransforms();
 				currentPreview.centerOnWorkspace();
 			} else if (event.getSource().equals(toggleOutline)) {
-				currentPreview.setOutlineVisibility(!currentPreview
-						.getOutlineVisibility());
+				currentPreview.setOutlineVisibility(isOutlineSelected());
 			}  else if (event.getSource().equals(forceReload)) {
 				//currentPreview.getCanvas3D().invalidate();
 				//validate();

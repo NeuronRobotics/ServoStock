@@ -4,10 +4,10 @@ import java.awt.Frame;
 import java.io.File;
 
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-
-import com.sun.j3d.utils.applet.MainFrame;
 
 public class Main {
 	
@@ -29,10 +29,15 @@ public class Main {
 			e1.printStackTrace();
 		}
 		
-		File fd = WorkspaceSelecterDialog.directorySelectDialog(imageIcon,"Select Workspace","Workspace:",new Frame());
+		File defaultDir = new File("DefaultWorkspaceFolder");
 		
-		if(fd!=null){
-			startGUI(fd);
+		WorkspaceSelectionDialog dialog = new WorkspaceSelectionDialog(new Frame(),defaultDir);
+		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		dialog.setVisible(true);
+		while(dialog.isDisplayable()){}
+		
+		if(dialog.getTheFile()!=null){
+			startGUI(dialog.getTheFile());
 		} else {
 			System.exit(0);
 		}
@@ -41,15 +46,15 @@ public class Main {
 	
 	private static void startGUI(File directory){
 		
-		DesktopApplet tapp;
-		if(!directory.exists()||!directory.isDirectory()) tapp = new DesktopApplet(new GUIDriver());
-		else tapp = new DesktopApplet(new GUIDriver(),directory);
-				
-		MainFrame f = new MainFrame(tapp, 1200, 700);
-		f.setIconImage(imageIcon.getImage());
-		f.setExtendedState(f.getExtendedState()|Frame.MAXIMIZED_BOTH);
+		ReplicatorGUI theGUI;
+		if(!directory.exists()||!directory.isDirectory()) theGUI = new ReplicatorGUI(new GUIDriver());
+		else theGUI = new ReplicatorGUI(new GUIDriver(),directory);
 		
-	}
-	
+		theGUI.setIconImage(imageIcon.getImage());
+		theGUI.setTitle("Replicator");
+		theGUI.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		theGUI.setVisible(true);
+		
+	}	
 	
 }
