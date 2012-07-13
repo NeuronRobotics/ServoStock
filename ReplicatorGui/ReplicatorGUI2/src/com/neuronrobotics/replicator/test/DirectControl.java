@@ -34,6 +34,7 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 	private boolean lastButton=false;
 	private int open = 20;
 	private int closed = 100;
+	
 	public DirectControl() {
 		DyIO.disableFWCheck();
 		
@@ -135,8 +136,10 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 				JPanel error = new JPanel(new MigLayout());
 				error.add(new JLabel("Error while loading Java3d library:"),"wrap");
 				error.add(new JLabel(ex.getMessage()),"wrap");
+				error.add(new JLabel(System.getProperty("java.library.path")),"wrap");
 				tabs.add("Display [ERROR]",error);
 				ex.printStackTrace();
+				System.out.println("Lib path searched");
 			}
 			
 			frame.setLocationRelativeTo(null);
