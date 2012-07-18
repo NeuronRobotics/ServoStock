@@ -12,7 +12,7 @@ import net.miginfocom.swing.MigLayout;
 import com.neuronrobotics.replicator.driver.DeltaRobotPrinterPrototype;
 import com.neuronrobotics.sdk.addons.kinematics.AbstractKinematicsNR;
 import com.neuronrobotics.sdk.addons.kinematics.ITaskSpaceUpdateListenerNR;
-import com.neuronrobotics.sdk.addons.kinematics.TrobotKinematics;
+import com.neuronrobotics.sdk.addons.kinematics.DHParameterKinematics;
 import com.neuronrobotics.sdk.addons.kinematics.gui.SampleGuiNR;
 import com.neuronrobotics.sdk.addons.kinematics.gui.TrobotViewer;
 import com.neuronrobotics.sdk.addons.kinematics.math.RotationNR;
@@ -25,7 +25,7 @@ import com.neuronrobotics.sdk.dyio.peripherals.ServoChannel;
 import com.neuronrobotics.sdk.dyio.sequencer.ServoOutputScheduleChannel;
 import com.neuronrobotics.sdk.serial.SerialConnection;
 public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputListener {
-	TrobotKinematics model;
+	DHParameterKinematics model;
 	DeltaRobotPrinterPrototype deltaRobot;
 	TransformNR current = new TransformNR();
 	double scale=1.5;
@@ -110,7 +110,7 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 //		}
 		
 		master.killAllPidGroups();
-		model = new TrobotKinematics(master,"TrobotMaster.xml");
+		model = new DHParameterKinematics(master,"TrobotMaster.xml");
 		model.addPoseUpdateListener(this);
 		slave.enableBrownOutDetect(false);
 		deltaRobot = new DeltaRobotPrinterPrototype(slave);
