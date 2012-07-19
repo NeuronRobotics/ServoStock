@@ -1,6 +1,5 @@
 package com.neuronrobotics.replicator.gui.preview;
 
-import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -12,19 +11,22 @@ import java.util.Hashtable;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JLayeredPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.vecmath.Point3d;
 import javax.vecmath.Point3f;
+import javax.vecmath.Vector3d;
 
 import com.neuronrobotics.replicator.gui.GUIFrontendInterface;
 import com.neuronrobotics.replicator.gui.preview.STLPreviewCanvas3D.CameraFocusMode;
 import com.neuronrobotics.replicator.gui.preview.STLPreviewMouseControls.MouseControlMode;
 
-public class STLPreviewContainer extends Container implements ActionListener,
-		ChangeListener,STLPreviewTabListener {
+public class STLPreviewPanel extends JLayeredPane implements ActionListener,
+		ChangeListener,STLPreviewTabListener, STLPreviewCanvas3DListener {
 
 	/**
 	 * 
@@ -43,10 +45,14 @@ public class STLPreviewContainer extends Container implements ActionListener,
 	//private STLPreviewTab workaroundTab;
 
 	private GUIFrontendInterface theFrontend;
+	
+	private OrientationIndicatorCanvas3D orientationIndicator;
 
-	public STLPreviewContainer(GUIFrontendInterface front) {
+	public STLPreviewPanel(GUIFrontendInterface front) {
 
 		//workaroundTab = null;
+		
+		orientationIndicator = new OrientationIndicatorCanvas3D();
 		
 		theFrontend = front;
 
@@ -86,7 +92,7 @@ public class STLPreviewContainer extends Container implements ActionListener,
 		forceReload.addActionListener(this);
 
 		previewTabbedPane.addChangeListener(this);
-
+		
 		cameraControls.add(resetCamera);
 		cameraControls.add(centerModel);
 
@@ -98,6 +104,8 @@ public class STLPreviewContainer extends Container implements ActionListener,
 		cameraControls.add(focusModeMenu);
 
 		cameraControls.add(forceReload);
+		
+		cameraControls.add(orientationIndicator);
 
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1.0;
@@ -107,14 +115,16 @@ public class STLPreviewContainer extends Container implements ActionListener,
 		c.weighty = 1.0;
 
 		gridbag.setConstraints(previewTabbedPane, c);
+		this.setLayer(previewTabbedPane, DEFAULT_LAYER, -1);
 		this.add(previewTabbedPane);
 
 		c.weighty = 0.0;
 		c.gridheight = 1;
 
 		gridbag.setConstraints(cameraControls, c);
+		this.setLayer(cameraControls, DEFAULT_LAYER, 0);
 		this.add(cameraControls);
-
+		
 	}
 
 	public boolean addPreview(File stl, Point3f workspaceDimensions)
@@ -239,6 +249,7 @@ public class STLPreviewContainer extends Container implements ActionListener,
 							getCurrentSelectedCameraFocusMode());
 					currentTab.getTheSTLPreview().setOutlineVisibility(
 							isOutlineSelected());
+					updateOrientationIndicator(false);
 				}
 			} catch (ClassCastException e) {
 				e.printStackTrace();
@@ -268,69 +279,63 @@ public class STLPreviewContainer extends Container implements ActionListener,
 		loadedTab.getTheSTLPreview().setOutlineVisibility(isOutlineSelected());
 		loadedTab.getTheSTLPreview().getMouseControls().setMouseControlMode(getCurrentSelectedMouseMode());
 		loadedTab.getTheSTLPreview().resetCamera();
+		
+		loadedTab.getTheSTLPreview().addListener(this);
+		
+		updateOrientationIndicator(true);
+		
+		theFrontend.requestValidate();
+	}
+	
+	private void updateOrientationIndicator(boolean reload) {
+		
+		if (reload) {
+			cameraControls.remove(orientationIndicator);
+			orientationIndicator = new OrientationIndicatorCanvas3D();
+			cameraControls.add(orientationIndicator);
+		}
+		
+		STLPreviewCanvas3D curr = getCurrentPreview();
+		if(curr!=null){
+			orientationIndicator.setCamera(curr.getCameraPosition(), curr.getCameraDirection(), curr.getCameraOrientation());
+		}
 	}
 
 	public void removeTab(STLPreviewTab toRemove) {
-		//toRemove.killTab();
 		
 		int index = previewTabbedPane.indexOfComponent(toRemove);
 		
 		if (thePreviewTabs.contains(toRemove)) {
-			//if(!toRemove.isLoaded()) toRemove.stopLoading();
 			thePreviewTabs.remove(toRemove.getSTLFile());
 			previewTabbedPane.remove(toRemove);
 		}		
+				
+		if(index==previewTabbedPane.getTabCount()) updateOrientationIndicator(true);
+		else updateOrientationIndicator(false);
 		
-		if(index==previewTabbedPane.getTabCount()&&index>0){
-		//	workAround();
+		STLPreviewCanvas3D curr = getCurrentPreview();
+		
+		if(curr!=null){
+			curr.rotateCameraXZ(6.28);
+			updateOrientationIndicator(false);
 		}
+		
+		theFrontend.requestValidate();
 		
 	}
 
 	public boolean isOutlineSelected() {
 		return toggleOutline.isSelected();
 	}
-
 	
 	public STLPreviewTab getCurrentTab() {
 		return (STLPreviewTab)previewTabbedPane.getSelectedComponent();
 	}
-	
-	/*
-	private void workAround(){
-		File blankSTL,blankGCode;
-		
-		try {
-			blankSTL = File.createTempFile("blank", "stl");
-			FileWriter fw = new FileWriter(blankSTL);
-			fw.write("solid\nfacet\nouter loop\nvertex 0 0 0\nvertex 2 0 0\nvertex 2 3 0\nendloop\nendfacet\nfacet\nouter loop\nvertex 1 0 0\nvertex 2 2 0\nvertex 2 3 3\nendloop\nendfacet\nendsolid");	
-			fw.close();
-			fw = null;
-			
-			blankGCode = File.createTempFile("blank", "gcode");
-			Point3f wdim  = new Point3f(1,1,1);	
-			
-			if(workaroundTab!=null &&previewTabbedPane.indexOfComponent(workaroundTab)!=-1) previewTabbedPane.remove(workaroundTab);
 
-			workaroundTab = new STLPreviewTab(this, blankSTL, blankGCode, wdim);
-			workaroundTab.load();			
-			previewTabbedPane.add(workaroundTab);
-			
-			
-			int index = previewTabbedPane.getSelectedIndex();
-			
-			previewTabbedPane.setSelectedComponent(workaroundTab);
-			workaroundTab.getTheSTLPreview().getView().stopView();
-			workaroundTab.getTheSTLPreview().getView().renderOnce();
-			
-			previewTabbedPane.setSelectedIndex(index);
-			
-			previewTabbedPane.getTabComponentAt(previewTabbedPane.getTabCount()-1).setVisible(false);
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	@Override
+	public void alertCameraMoved(Point3d position, Point3d direction,
+			Vector3d orientation) {
+		updateOrientationIndicator(false);		
 	}
-	*/
 	
 }

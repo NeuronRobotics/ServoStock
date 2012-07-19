@@ -1,13 +1,13 @@
 package com.neuronrobotics.replicator.gui.preview;
 
-import java.awt.Container;
 import java.awt.GridLayout;
 import java.io.File;
 import java.util.ArrayList;
 
+import javax.swing.JPanel;
 import javax.vecmath.Point3f;
 
-public class STLPreviewTab extends Container {
+public class STLPreviewTab extends JPanel {
 	
 	/**
 	 * 
@@ -15,9 +15,7 @@ public class STLPreviewTab extends Container {
 	private static final long serialVersionUID = -5559016123774970333L;
 
 	//private STLPreviewTabListener theSTLPreviewContainer;
-	
-	
-	
+		
 	private ArrayList<STLPreviewTabListener> theTabListeners;
 	
 	private boolean loaded, isDead;
@@ -27,6 +25,22 @@ public class STLPreviewTab extends Container {
 	private SimpleLoadingScreen theLoadingScreen;
 	private STLPreviewCanvas3D theSTLPreview;
 	private LoadPreviewThread theLoadingThread;
+	
+	public STLPreviewTab(File stl, File gcode, Point3f workspaceDim){
+		loaded = false;
+		isDead = false;
+		
+		theTabListeners = new ArrayList<STLPreviewTabListener>();
+		//theTabListeners.add(stlc);
+		
+		theSTLFile = stl;
+		theGCode = gcode;
+		workspaceDimensions = workspaceDim;
+		theSTLPreview = null;
+		theLoadingScreen = new SimpleLoadingScreen(stl.getName()+" preview loading...",true);		
+		this.setLayout(new GridLayout(1,1));
+		theLoadingThread = null;
+	}
 	
  	public STLPreviewTab(STLPreviewTabListener stlc, File stl, File gcode, Point3f workspaceDim){
 		loaded = false;
@@ -38,7 +52,6 @@ public class STLPreviewTab extends Container {
 		theSTLFile = stl;
 		theGCode = gcode;
 		workspaceDimensions = workspaceDim;
-		//theSTLPreviewContainer = stlc;
 		theSTLPreview = null;
 		theLoadingScreen = new SimpleLoadingScreen(stl.getName()+" preview loading...",true);		
 		this.setLayout(new GridLayout(1,1));
@@ -48,8 +61,9 @@ public class STLPreviewTab extends Container {
 	public void load(){
 		if (!loaded) {
 			this.removeAll();
+			
 			this.add(theLoadingScreen);
-								
+			
 			if (theLoadingThread == null)
 				theLoadingThread = new LoadPreviewThread(theLoadingScreen,
 						theSTLFile, theGCode, workspaceDimensions);
@@ -63,7 +77,7 @@ public class STLPreviewTab extends Container {
 		this.add(theLoadingScreen);
 		theLoadingThread = null;
 		theSTLPreview= null;
-		load();//TODO untested
+		load();
 	}
 
 	private void alertPreviewLoaded(STLPreviewCanvas3D tempPreview) {

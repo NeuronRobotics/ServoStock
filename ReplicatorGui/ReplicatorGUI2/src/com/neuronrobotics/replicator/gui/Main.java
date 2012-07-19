@@ -1,5 +1,6 @@
 package com.neuronrobotics.replicator.gui;
 
+import java.awt.Dialog;
 import java.awt.Frame;
 import java.io.File;
 
@@ -28,6 +29,9 @@ public class Main {
 		} catch (UnsupportedLookAndFeelException e1) {
 			e1.printStackTrace();
 		}
+		
+
+		JDialog.setDefaultLookAndFeelDecorated(true);
 		
 		File defaultDir = new File("DefaultWorkspaceFolder");
 		

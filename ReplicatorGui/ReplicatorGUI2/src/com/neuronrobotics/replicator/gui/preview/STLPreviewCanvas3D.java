@@ -2,6 +2,7 @@ package com.neuronrobotics.replicator.gui.preview;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.media.j3d.Appearance;
 import javax.media.j3d.BoundingSphere;
@@ -50,7 +51,7 @@ public class STLPreviewCanvas3D extends Canvas3D {
 	private Point3d cameraPosition, cameraDirection;
 
 	// allowing this to be anything else doesn't add much value and complicates
-	// otherwise simple math so I've elected to make it final
+	// otherwise simple math so I've elected to make it a constant
 	private static final Vector3d CAMERA_ORIENTATION = new Vector3d(0, 1, 0);
 
 	private File theSTLFile, theGcode;
@@ -65,6 +66,8 @@ public class STLPreviewCanvas3D extends Canvas3D {
 	private CameraFocusMode currentCameraFocusMode;
 
 	private boolean isDead;
+
+	private ArrayList<STLPreviewCanvas3DListener> theListeners;
 
 	/**
 	 * enum for encapsulating camera focus methods currently 
@@ -138,6 +141,8 @@ public class STLPreviewCanvas3D extends Canvas3D {
 	public STLPreviewCanvas3D(File stl, File gcode, Point3f workspaceDim) {
 		super(SimpleUniverse.getPreferredConfiguration());
 		
+		theListeners = new ArrayList<STLPreviewCanvas3DListener>();
+		
 		initialized = false;
 		isDead = false;
 		
@@ -153,6 +158,10 @@ public class STLPreviewCanvas3D extends Canvas3D {
 		//System.out.println(theGcode.getName());
 		workspaceDimensions = workspaceDim;
 
+	}
+	
+	public void addListener(STLPreviewCanvas3DListener spcl){
+		if(!theListeners.contains(spcl)) theListeners.add(spcl);
 	}
 	
 	public void inititalize(){
@@ -334,6 +343,10 @@ public class STLPreviewCanvas3D extends Canvas3D {
 		temp.sub(lightDir);
 
 		theLight.setDirection(temp);
+		
+		for(STLPreviewCanvas3DListener spcl:theListeners){
+			spcl.alertCameraMoved(position, lookAt, CAMERA_ORIENTATION);
+		}
 
 	}
 
@@ -404,8 +417,7 @@ public class STLPreviewCanvas3D extends Canvas3D {
  	}
 	
 	public void resetCamera() {
-		
-		
+				
 		cameraPosition = currentCameraFocusMode.getBaseCameraPosition(this);
 		cameraDirection = currentCameraFocusMode.getFocus(this);
 		setCamera(cameraPosition, cameraDirection);
@@ -413,7 +425,7 @@ public class STLPreviewCanvas3D extends Canvas3D {
 		double clipDist = cameraPosition.distance(new Point3d(this.stlTransform.getCurrentCenter()));
 		clipDist+=Math.max(Math.max(this.theSTLObject.getXLength(), this.theSTLObject.getYLength()),this.theSTLObject.getZLength());
 		this.getView().setBackClipDistance(clipDist);
-		
+			
 	}
 
 	public void resetCamera(CameraFocusMode newMode) {
@@ -495,8 +507,7 @@ public class STLPreviewCanvas3D extends Canvas3D {
 	private void autoPan(){
 		panTo(this.currentCameraFocusMode.getFocus(this));
 	}
-	
-		
+			
 	// light transform functions
 	
 	public void updateIndicatorLightColor() {
@@ -860,5 +871,16 @@ public class STLPreviewCanvas3D extends Canvas3D {
 		return isDead;
 	}
 	
+	public Point3d getCameraPosition(){
+		return cameraPosition;
+	}
+	
+	public Point3d getCameraDirection(){
+		return cameraDirection;
+	}
+	
+	public Vector3d getCameraOrientation(){
+		return CAMERA_ORIENTATION;
+	}
 
 }

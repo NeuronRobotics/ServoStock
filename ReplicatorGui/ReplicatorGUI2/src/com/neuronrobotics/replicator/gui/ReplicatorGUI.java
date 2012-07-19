@@ -30,7 +30,7 @@ import javax.vecmath.Point3f;
 import com.neuronrobotics.replicator.gui.navigator.WorkspaceNavigator;
 import com.neuronrobotics.replicator.gui.navigator.WorkspaceNavigatorListener;
 import com.neuronrobotics.replicator.gui.navigator.FileNotDirectoryException;
-import com.neuronrobotics.replicator.gui.preview.STLPreviewContainer;
+import com.neuronrobotics.replicator.gui.preview.STLPreviewPanel;
 import com.neuronrobotics.replicator.gui.stl.ASCIISTLWriter;
 import com.neuronrobotics.replicator.gui.stl.STLObject;
 
@@ -46,7 +46,8 @@ public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, Works
 	private Container toolbarContainer;
 	private Container leftContainer, bottomContainer;
 
-	private STLPreviewContainer previewContainer;
+	private STLPreviewPanel previewContainer;
+	//private STLPreviewPanel previewPanel;
 
 	private JTabbedPane leftTab;
 
@@ -96,24 +97,7 @@ public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, Works
 	}
 
 	public void initialize() {
-		
-		/*
-		//Setting a different look and feel
-		String lookAndFeel = UIManager.getSystemLookAndFeelClassName();
-		try {
-			UIManager.setLookAndFeel(lookAndFeel);
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		} catch (InstantiationException e1) {
-			e1.printStackTrace();
-		} catch (IllegalAccessException e1) {
-			e1.printStackTrace();
-		} catch (UnsupportedLookAndFeelException e1) {
-			e1.printStackTrace();
-		}
-		*/
-		
-		
+			
 		GridBagLayout gridbag = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 
@@ -129,7 +113,7 @@ public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, Works
 		leftTab = new JTabbedPane();
 		leftContainer.add(leftTab);
 
-		previewContainer = new STLPreviewContainer(this);
+		previewContainer = new STLPreviewPanel(this);
 
 		bottomContainer = new Container();
 		bottomContainer.setLayout(new GridLayout(2, 1));
@@ -160,6 +144,9 @@ public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, Works
 		c.weighty = 1.0;
 		gridbag.setConstraints(previewContainer, c);
 		this.add(previewContainer);
+		
+		//gridbag.setConstraints(previewPanel, c);
+		//this.add(previewPanel);
 
 		c.weighty = 0.0;
 		c.gridheight = 1;// GridBagConstraints.REMAINDER;
@@ -340,11 +327,19 @@ public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, Works
 
 	public void toolbarPrintButtonHandler() {
 		
+		
 		if (previewContainer.hasNoPreviews()) {
 			this.statusLabel.setText("Nothing to print");
 			this.errorDialog("Nothing to print!");
 			return;
 		}
+		/*
+		if (previewPanel.hasNoPreviews()) {
+			this.statusLabel.setText("Nothing to print");
+			this.errorDialog("Nothing to print!");
+			return;
+		}*/
+		
 		
 		PrintOptionsDialog testD = new PrintOptionsDialog(this);
 		
@@ -375,6 +370,8 @@ public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, Works
 					return;
 				}
 			STLObject tranObj = previewContainer.getCurrentPreview().getSTLObject().getTransformedSTLObject(previewContainer.getCurrentPreview().getTransform3D());
+			//STLObject tranObj = previewPanel.getCurrentPreview().getSTLObject().getTransformedSTLObject(previewPanel.getCurrentPreview().getTransform3D());
+			
 			ASCIISTLWriter aw =new ASCIISTLWriter(tranObj);
 			try {
 				this.statusLabel.setText("Rewriting new STL");
@@ -390,6 +387,9 @@ public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, Works
 		
 		if(!rewrite) currentFile = previewContainer.getCurrentSTLFile();
 		File currentGCodeFile = previewContainer.getCurrentGCodeFile();
+		
+		//if(!rewrite) currentFile = previewPanel.getCurrentSTLFile();
+		//File currentGCodeFile = previewPanel.getCurrentGCodeFile();
 		
 		boolean isPrinting;
 		if (reSlice)
@@ -417,7 +417,8 @@ public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, Works
 	public boolean addPreview(File stl, File gcode) throws Exception {
 		if(!gcode.exists()) gcode.createNewFile();
 		
-		return this.previewContainer.addPreview(stl, gcode, workspaceDimensions);		
+		return this.previewContainer.addPreview(stl, gcode, workspaceDimensions);
+		
 	}
 	
 	@Override

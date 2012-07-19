@@ -1,13 +1,9 @@
 package com.neuronrobotics.replicator.gui;
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import net.miginfocom.swing.MigLayout;
 import java.awt.Label;
 import java.awt.TextField;
 import java.awt.Button;
@@ -22,37 +18,27 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.io.File;
 
-
 public class WorkspaceSelectionDialog extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9041756258923427897L;
+	
 	private final JPanel contentPanel = new JPanel();
 	private File theFile;
 	private File returnFile;
 	private TextField textField;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			WorkspaceSelectionDialog dialog = new WorkspaceSelectionDialog(new Frame(),new File("Blah"));
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-			while(dialog.isDisplayable()){}
-			System.out.println(dialog.getTheFile().getName());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * Create the dialog.
 	 */
 	public WorkspaceSelectionDialog(Frame owner,File defaultDir) {
-		
+						
 		super(owner);
-		this.setIconImage(owner.getIconImage());
 				
+		this.setIconImage(owner.getIconImage());
+					
 		theFile = defaultDir;
 		
 		returnFile = null;
