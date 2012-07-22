@@ -82,6 +82,8 @@ public class DeltaRobotKinematics {
 	 // helper functions, calculates angle theta1 (for YZ-pane)
 	 private double delta_calcAngleYZ(double x0, double y0, double z0 ) {
 		 double theta;
+		 if(z0<0)
+			 throw new RuntimeException("Negative z values are not handled by this kinematics math");
 	     double y1 = -0.5 * 0.57735 * getF(); // f/2 * tg 30
 	     y0 -= 0.5 * 0.57735    * getE();    // shift center to edge
 	     // z = a + b*y
@@ -105,7 +107,7 @@ public class DeltaRobotKinematics {
 		 double y0 = input.getY();
 		 double z0 = input.getZ();
 	     theta1 = theta2 = theta3 = 0;
-	     theta1= delta_calcAngleYZ(x0, y0, z0);
+	     theta1 = delta_calcAngleYZ(x0, y0, z0);
 	     theta2 = delta_calcAngleYZ(x0*cos120 + y0*sin120, y0*cos120-x0*sin120, z0);  // rotate coords to +120 deg
 	     theta3 = delta_calcAngleYZ(x0*cos120 - y0*sin120, y0*cos120+x0*sin120, z0);  // rotate coords to -120 deg
 	     return new double[] {Math.toDegrees(theta1),Math.toDegrees(theta2),Math.toDegrees(theta3)};
