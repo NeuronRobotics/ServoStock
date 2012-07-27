@@ -78,6 +78,8 @@ public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, Works
 		this.theGUIDriver.setFrontend(this);
 		workspaceDimensions = new Point3f(60, 60, 60); 
 		defaultWorkspaceDirectory = new File("DefaultWorkspaceFolder");
+
+		initialize();	
 	}
 	
 	public void requestValidate(){
@@ -103,7 +105,7 @@ public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, Works
 
 		setFont(new Font("Helvetica", Font.PLAIN, 14));
 		setLayout(gridbag);
-
+				
 		toolbarContainer = new Container();
 		toolbarContainer.setLayout(new GridLayout(1, 1));
 
@@ -284,7 +286,7 @@ public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, Works
 
 		bottomContainer.add(statusLabel);
 		bottomContainer.add(printProgress);
-		
+				
 		/////
 		
 		this.addWindowListener(new WindowListener(){
@@ -319,6 +321,7 @@ public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, Works
 			public void windowOpened(WindowEvent arg0) {
 			}
 			});
+		
 
 	}
 

@@ -1,6 +1,5 @@
 package com.neuronrobotics.replicator.gui;
 
-import java.awt.Dialog;
 import java.awt.Frame;
 import java.io.File;
 
@@ -36,6 +35,7 @@ public class Main {
 		File defaultDir = new File("DefaultWorkspaceFolder");
 		
 		WorkspaceSelectionDialog dialog = new WorkspaceSelectionDialog(new Frame(),defaultDir);
+		dialog.setIconImage(imageIcon.getImage());
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		dialog.setVisible(true);
 		while(dialog.isDisplayable()){}
@@ -56,6 +56,7 @@ public class Main {
 		
 		theGUI.setIconImage(imageIcon.getImage());
 		theGUI.setTitle("Replicator");
+		theGUI.setSize(1000,600);
 		theGUI.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		theGUI.setVisible(true);
 		

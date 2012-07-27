@@ -42,8 +42,8 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 	private JButton resetCamera, centerModel, removePreview, forceReload;
 	private JToggleButton toggleOutline;
 	
-	//private STLPreviewTab workaroundTab;
-
+	private JButton testButton;//TODO this stuff
+	
 	private GUIFrontendInterface theFrontend;
 	
 	private OrientationIndicatorCanvas3D orientationIndicator;
@@ -106,6 +106,10 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 		cameraControls.add(forceReload);
 		
 		cameraControls.add(orientationIndicator);
+		
+		testButton = new JButton("TESTSTUFF");
+		testButton.addActionListener(this);
+		cameraControls.add(testButton);
 
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1.0;
@@ -125,6 +129,7 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 		this.setLayer(cameraControls, DEFAULT_LAYER, 0);
 		this.add(cameraControls);
 		
+				
 	}
 
 	public boolean addPreview(File stl, Point3f workspaceDimensions)
@@ -218,12 +223,10 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 				currentPreview.centerOnWorkspace();
 			} else if (event.getSource().equals(toggleOutline)) {
 				currentPreview.setOutlineVisibility(isOutlineSelected());
-			}  else if (event.getSource().equals(forceReload)) {
-				//currentPreview.getCanvas3D().invalidate();
-				//validate();
-				//theFrontend.requestValidate();
+			} else if (event.getSource().equals(forceReload)) {
 				currentTab.reload();
-				//workAround();
+			} else if (event.getSource().equals(testButton)){
+				currentTab.testAddSomething();
 			}
 		}
 		

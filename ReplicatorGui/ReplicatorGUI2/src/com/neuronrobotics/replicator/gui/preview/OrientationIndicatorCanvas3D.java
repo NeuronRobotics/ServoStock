@@ -17,6 +17,7 @@ import javax.vecmath.Color3f;
 import javax.vecmath.Point3d;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3d;
+import javax.vecmath.Vector3f;
 
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
@@ -26,7 +27,8 @@ public class OrientationIndicatorCanvas3D extends Canvas3D{
 	 * 
 	 */
 	private static final long serialVersionUID = 8787828185414596224L;
-	SimpleUniverse simpleU;
+	private SimpleUniverse simpleU;
+	private DirectionalLight theLight;
 
 	public OrientationIndicatorCanvas3D() {
 		super(SimpleUniverse.getPreferredConfiguration());
@@ -39,6 +41,12 @@ public class OrientationIndicatorCanvas3D extends Canvas3D{
 		mainBranch.addChild(this.getIndicatorArrow(ArrowDirection.NEGATIVE_X));
 		mainBranch.addChild(this.getIndicatorArrow(ArrowDirection.NEGATIVE_Y));
 		mainBranch.addChild(this.getIndicatorArrow(ArrowDirection.NEGATIVE_Z));
+		
+		theLight = new DirectionalLight();
+		theLight.setInfluencingBounds(new BoundingSphere(new Point3d(0, 0, 0),
+				900));
+		theLight.setCapability(DirectionalLight.ALLOW_DIRECTION_READ);
+		theLight.setCapability(DirectionalLight.ALLOW_DIRECTION_WRITE);
 	
 		mainBranch.compile();
 		
@@ -68,13 +76,11 @@ public class OrientationIndicatorCanvas3D extends Canvas3D{
 		t3d.invert();
 		viewTransform.setTransform(t3d);
 		
-		System.out.println("Indic Pos:"+newPosition);
-
-		System.out.println("Indic Dir:"+newDirection);
+		temp.scale(-1);
 		
+		theLight.setDirection(new Vector3f(temp));
 	}
-	
-	
+		
 	private enum ArrowDirection {
 		POSITIVE_X {
 			@Override
@@ -172,9 +178,7 @@ public class OrientationIndicatorCanvas3D extends Canvas3D{
 		abstract Color3f getDefaultColor();
 		abstract boolean isNegative();
 	}
-	
-	
-	
+		
 	private BranchGroup getIndicatorArrow(ArrowDirection ad){
 		
 		BranchGroup result = new BranchGroup();
@@ -259,9 +263,7 @@ public class OrientationIndicatorCanvas3D extends Canvas3D{
 		
 		return result;
 	}
-	
-	
-	
+		
 	private Shape3D getIndicatorLine(ArrowDirection ad){
 		Appearance theAppearance = new Appearance();
 		ColoringAttributes ca = new ColoringAttributes();

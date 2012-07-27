@@ -5,22 +5,12 @@ public class STLFacet {
 
 	private Point3f vertex1, vertex2, vertex3;
 	private Vector3f normal;
-	
-	/*
-	private STLFacet(){
-		vertex1 = null;
-		vertex2 = null;
-		vertex3 = null;
-		normal = null;
-	}
-	*/
-	
+		
 	public STLFacet(Point3f a, Point3f b, Point3f c){
 		vertex1 = a;
 		vertex2 = b;
 		vertex3 = c;
 		calculateNormal(a,b,c);
-					
 	}
 	
 	public STLFacet(Point3f a, Point3f b, Point3f c, Vector3f norm){
@@ -30,12 +20,18 @@ public class STLFacet {
 		normal = norm;
 	}
 	
-	/*
-	public void setNormal(Vector3f n){
-		normal = n;
+	//TODO need to test, unsure the logic is sound
+	public boolean pointIsWithin(Point3f a){
+		
+		float epsilon = 0.0001f; //TODO might need to leave at 0 to prevent slicer exceptions
+		
+		Vector3f temp = new Vector3f(normal);
+		Vector3f temp2 = new Vector3f(a);
+				
+		return temp2.dot(temp)<=(this.originToPlaneDistance()+epsilon);
+		
 	}
-	*/
-	
+		
 	private void calculateNormal(Point3f a, Point3f b, Point3f c){
 		Vector3f v1 = new Vector3f();
 		v1.add(a);
@@ -48,14 +44,6 @@ public class STLFacet {
 		if(normal==null) normal = new Vector3f();
 		normal.cross(v1,v2);
 	}
-	
-	/*
-	private void setVertices(Point3f a, Point3f b, Point3f c){
-		vertex1 = a;
-		vertex2 = b;
-		vertex3 = c;
-	}
-	*/
 	
 	public Vector3f getNormal(){
 		return normal;
@@ -96,6 +84,13 @@ public class STLFacet {
 		y = Math.min(Math.min(vertex1.y,vertex2.y), vertex3.y);
 		z = Math.min(Math.min(vertex1.z,vertex2.z), vertex3.z);
 		return new Point3f(x,y,z);
+	}
+	
+	//TODO need to test, but this should work
+	public float originToPlaneDistance(){
+		Vector3f temp = this.getNormal();
+		float dist = -temp.dot(new Vector3f(vertex1));
+		return dist;
 	}
 		
 	public String toString(){

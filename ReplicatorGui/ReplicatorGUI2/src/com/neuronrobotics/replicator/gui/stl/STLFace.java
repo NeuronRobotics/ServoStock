@@ -13,32 +13,11 @@ public class STLFace implements Iterable<STLFacet>{
 	private ArrayList<Point3f> theVertices;
 	
 	private Vector3f normal;
+	private float originDistance;	
 	
-	/*
-	public static Collection<STLFace> getSTLFace(STLObject stlo){
-		ArrayList<ArrayList<STLFacet>> sameNorm = new ArrayList<ArrayList<STLFacet>>();
-		int ct=0;
-		for (STLFacet facet:stlo){
-			Vector3f vec = facet.getNormal();
-			vec.normalize();
-			System.out.println(vec);
-			int idx = epsilonContainsNormal(sameNorm, facet.getNormal(),.001f);
-			if(idx==-1){
-				ct++;
-				ArrayList<STLFacet> newL = new ArrayList<STLFacet>();
-				newL.add(facet);
-				sameNorm.add(newL);
-			}else{
-				sameNorm.get(idx).add(facet);
-			}
-		}
-		System.out.println("Same normal: "+ct);
-		return new ArrayList<STLFace>();
-	}
-	*/
 	
 	//TODO this might work?
-	public static Collection<STLFace> getSTLFace(STLObject stlo){
+	public static Collection<STLFace> getSTLFace2(STLObject stlo){
 		ArrayList<ArrayList<STLFace>> sameNorm = new ArrayList<ArrayList<STLFace>>();
 		//int ct=0;
 		for (STLFacet facet:stlo){
@@ -86,6 +65,42 @@ public class STLFace implements Iterable<STLFacet>{
 		return theFaces;
 	}
 	
+	public static Collection<STLFace> getSTLFace(STLObject stlo){
+		ArrayList<STLFace> theFaces = new ArrayList<STLFace>();
+		
+		for (STLFacet currFacet:stlo){
+			int index = indexOfMatchingFace(currFacet, theFaces);
+			if(index==-1){
+				theFaces.add(new STLFace(currFacet));
+			} else {
+				theFaces.get(index).addFacet(currFacet);
+			}
+		}	
+		
+		return theFaces;
+	}
+
+	private static int indexOfMatchingFace(STLFacet facet, Collection<STLFace> col){
+		
+		float epsilon = 0.0001f;
+		
+		int ct = 0;
+		for(STLFace face:col){
+			System.out.println(facet.getNormal()+" " + face.getNormal());
+			if((facet.getNormal().epsilonEquals(face.getNormal(), epsilon))&&floatEpsilonEquals(face.originDistance,facet.originToPlaneDistance())){
+				return ct;
+			}
+			ct++;
+		}		
+		return -1;
+	}
+	
+	private static boolean floatEpsilonEquals(float originDistance2,float originToPlaneDistance) {
+			float epsilon = 0.0001f;
+			float diff = originDistance2 - originToPlaneDistance;
+			return diff>=-epsilon&&diff<=epsilon;
+	}
+
 	private static int epsilonContainsNormal(ArrayList<ArrayList<STLFace>> sameNorm, Vector3f normal, float eps) {
 		int idx = -1;
 		int ct = 0;
@@ -137,6 +152,7 @@ public class STLFace implements Iterable<STLFacet>{
 		theVertices.add(f.getVertex2());
 		theVertices.add(f.getVertex3());
 		
+		originDistance = f.originToPlaneDistance();
 	}
 	
 	public Vector3f getNormal(){

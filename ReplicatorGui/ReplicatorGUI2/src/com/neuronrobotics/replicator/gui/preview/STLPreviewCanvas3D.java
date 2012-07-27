@@ -23,6 +23,7 @@ import javax.vecmath.Tuple3d;
 import javax.vecmath.Vector3d;
 import javax.vecmath.Vector3f;
 
+import com.neuronrobotics.replicator.gui.stl.STLFacet;
 import com.neuronrobotics.replicator.gui.stl.STLLoader;
 import com.neuronrobotics.replicator.gui.stl.STLObject;
 import com.neuronrobotics.replicator.gui.stl.STLTransformGroup;
@@ -44,7 +45,7 @@ public class STLPreviewCanvas3D extends Canvas3D {
 	private STLTransformGroup stlTransform;
 
 	// transform group that displays the area in which the printer can reliably print
-	private TransformGroup theWorkspace;
+	private BranchGroup theWorkspace;
 
 	private DirectionalLight theLight;
 
@@ -171,6 +172,8 @@ public class STLPreviewCanvas3D extends Canvas3D {
 				
 		mainBranch.setCapability(BranchGroup.ALLOW_CHILDREN_EXTEND);
 		mainBranch.setCapability(BranchGroup.ALLOW_DETACH);
+		mainBranch.setCapability(BranchGroup.ALLOW_CHILDREN_READ);
+		mainBranch.setCapability(BranchGroup.ALLOW_CHILDREN_WRITE);
 		
 		
 		try {
@@ -215,9 +218,11 @@ public class STLPreviewCanvas3D extends Canvas3D {
 		return initialized;
 	}
 	
-	private TransformGroup RectangularWorkspace(Point3f center,
+	private BranchGroup RectangularWorkspace(Point3f center,
 			Point3f dimensions) {
-		TransformGroup workspaceGroup = new TransformGroup();
+		BranchGroup workspaceGroup = new BranchGroup();
+		
+		workspaceGroup.setCapability(BranchGroup.ALLOW_DETACH);
 
 		IndexedLineArray axisLines = new IndexedLineArray(8,
 				GeometryArray.COORDINATES, 24);
@@ -881,6 +886,45 @@ public class STLPreviewCanvas3D extends Canvas3D {
 	
 	public Vector3d getCameraOrientation(){
 		return CAMERA_ORIENTATION;
+	}
+	
+	public void testReplaceWorkspace(){
+		
+		ArrayList<STLFacet> theFacets = new ArrayList<STLFacet>();
+		
+		theFacets.add(new STLFacet(new Point3f(+30,+30,+30), new Point3f(-30,+30,+30), new Point3f(+30,-30,+30)));
+		theFacets.add(new STLFacet(new Point3f(-30,-30,+30), new Point3f(+30,-30,+30), new Point3f(-30,+30,+30)));
+		
+		theFacets.add(new STLFacet(new Point3f(+30,+30,-30), new Point3f(-30,+30,-30), new Point3f(+30,-30,-30)));
+		theFacets.add(new STLFacet(new Point3f(-30,-30,-30), new Point3f(+30,-30,-30), new Point3f(-30,+30,-30)));
+		
+		theFacets.add(new STLFacet(new Point3f(+30,+30,+30), new Point3f(-30,+30,+30), new Point3f(+30,+30,-30)));
+		theFacets.add(new STLFacet(new Point3f(-30,+30,-30), new Point3f(+30,+30,-30), new Point3f(-30,+30,+30)));
+		
+		theFacets.add(new STLFacet(new Point3f(+30,-30,+30), new Point3f(-30,-30,+30), new Point3f(+30,-30,-30)));
+		theFacets.add(new STLFacet(new Point3f(-30,-30,-30), new Point3f(+30,-30,-30), new Point3f(-30,-30,+30)));
+		
+		theFacets.add(new STLFacet(new Point3f(+30,+30,+30), new Point3f(+30,-30,+30), new Point3f(+30,+30,-30)));
+		theFacets.add(new STLFacet(new Point3f(+30,-30,-30), new Point3f(+30,+30,-30), new Point3f(+30,-30,+30)));
+		
+		theFacets.add(new STLFacet(new Point3f(-30,+30,+30), new Point3f(-30,-30,+30), new Point3f(-30,+30,-30)));
+		theFacets.add(new STLFacet(new Point3f(-30,-30,-30), new Point3f(-30,+30,-30), new Point3f(-30,-30,+30)));		
+		
+		STLObject testWorkspaceSTLObject;
+		testWorkspaceSTLObject = new STLObject("Workspace",theFacets);
+						
+		BranchGroup newWorkspace = new STLWorkspaceBranchGroup(testWorkspaceSTLObject);
+						
+		mainBranch.removeChild(theWorkspace);
+		theWorkspace = newWorkspace;
+		mainBranch.addChild(theWorkspace);
+	}
+
+	//TODO test method
+	public void testAddSomething() {
+		
+		testReplaceWorkspace();
+		
 	}
 
 }

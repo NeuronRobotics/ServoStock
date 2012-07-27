@@ -170,16 +170,6 @@ public class STLPreviewTab extends JPanel {
 				STLPreviewCanvas3D tempPreview = new STLPreviewCanvas3D(stl, gcode,
 						workspaceDimensions);
 				tempPreview.inititalize();
-				
-
-				/*
-				STLPreviewMouseControls theMouseControls = new STLPreviewMouseControls(
-						tempPreview);
-				theMouseControls.setMouseControlMode(theSTLPreviewContainer
-						.getCurrentSelectedMouseMode());
-				tempPreview.setMouseControls(theMouseControls);
-				*/
-
 				alertPreviewLoaded(tempPreview);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -187,6 +177,11 @@ public class STLPreviewTab extends JPanel {
 			}
 		}
 
+	}
+
+	//TODO test method
+	public void testAddSomething() {	
+		this.getTheSTLPreview().testAddSomething();
 	}
 
 }
