@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="62">
+  <logicalFolder name="root" displayName="root" projectFiles="true">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <logicalFolder name="include" displayName="include" projectFiles="true">
+        <logicalFolder name="arch" displayName="arch" projectFiles="true">
+          <logicalFolder name="pic32" displayName="pic32" projectFiles="true">
+            <logicalFolder name="USB" displayName="USB" projectFiles="true">
+              <itemPath>../../../NR-Clib/include/arch/pic32/USB/usb.h</itemPath>
+              <itemPath>../../../NR-Clib/include/arch/pic32/USB/usb_fifo.h</itemPath>
+              <itemPath>../../../NR-Clib/include/arch/pic32/USB/usb_function_cdc.h</itemPath>
+              <itemPath>../../../NR-Clib/include/arch/pic32/USB/usb_device.h</itemPath>
+              <itemPath>../../../NR-Clib/include/arch/pic32/USB/usb_ch9.h</itemPath>
+              <itemPath>../../../NR-Clib/include/arch/pic32/USB/usb_common.h</itemPath>
+              <itemPath>../../../NR-Clib/include/arch/pic32/USB/usb_hal_pic32.h</itemPath>
+              <itemPath>../../../NR-Clib/include/arch/pic32/USB/usb_hal.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="USB_old" displayName="USB_old" projectFiles="true">
+              <itemPath>../../../NR-Clib/include/arch/pic32/USB_old/usb.h</itemPath>
+              <itemPath>../../../NR-Clib/include/arch/pic32/USB_old/usb_fifo.h</itemPath>
+              <itemPath>../../../NR-Clib/include/arch/pic32/USB_old/usb_function_cdc.h</itemPath>
+              <itemPath>../../../NR-Clib/include/arch/pic32/USB_old/usb_device.h</itemPath>
+              <itemPath>../../../NR-Clib/include/arch/pic32/USB_old/usb_ch9.h</itemPath>
+              <itemPath>../../../NR-Clib/include/arch/pic32/USB_old/usb_common.h</itemPath>
+              <itemPath>../../../NR-Clib/include/arch/pic32/USB_old/usb_hal_pic32.h</itemPath>
+              <itemPath>../../../NR-Clib/include/arch/pic32/USB_old/usb_hal.h</itemPath>
+            </logicalFolder>
+            <itemPath>../../../NR-Clib/include/arch/pic32/Compiler.h</itemPath>
+            <itemPath>../../../NR-Clib/include/arch/pic32/usb_config.h</itemPath>
+            <itemPath>../../../NR-Clib/include/arch/pic32/UART.h</itemPath>
+            <itemPath>../../../NR-Clib/include/arch/pic32/GenericTypeDefs.h</itemPath>
+            <itemPath>../../../NR-Clib/include/arch/pic32/Delay.h</itemPath>
+            <itemPath>../../../NR-Clib/include/arch/pic32/Pizo.h</itemPath>
+            <itemPath>../../../NR-Clib/include/arch/pic32/Tick.h</itemPath>
+            <itemPath>../../../NR-Clib/include/arch/pic32/LED.h</itemPath>
+            <itemPath>../../../NR-Clib/include/arch/pic32/HardwareProfile.h</itemPath>
+            <itemPath>../../../NR-Clib/include/arch/pic32/BowlerConfig.h</itemPath>
+            <itemPath>../../../NR-Clib/include/arch/pic32/FlashStorage.h</itemPath>
+            <itemPath>../../../NR-Clib/include/arch/pic32/EthHardware.h</itemPath>
+          </logicalFolder>
+        </logicalFolder>
+        <logicalFolder name="Bowler" displayName="Bowler" projectFiles="true">
+          <itemPath>../../../NR-Clib/include/Bowler/namespace.h</itemPath>
+          <itemPath>../../../NR-Clib/include/Bowler/Bowler_Helper.h</itemPath>
+          <itemPath>../../../NR-Clib/include/Bowler/Defines.h</itemPath>
+          <itemPath>../../../NR-Clib/include/Bowler/FIFO.h</itemPath>
+          <itemPath>../../../NR-Clib/include/Bowler/Scheduler.h</itemPath>
+          <itemPath>../../../NR-Clib/include/Bowler/Bowler_Struct_Def.h</itemPath>
+          <itemPath>../../../NR-Clib/include/Bowler/RPC_Process.h</itemPath>
+          <itemPath>../../../NR-Clib/include/Bowler/BowlerRPCRegestration.h</itemPath>
+          <itemPath>../../../NR-Clib/include/Bowler/BowlerServerHardwareAbstraction.h</itemPath>
+          <itemPath>../../../NR-Clib/include/Bowler/AbstractPID.h</itemPath>
+          <itemPath>../../../NR-Clib/include/Bowler/Debug.h</itemPath>
+          <itemPath>../../../NR-Clib/include/Bowler/Bowler_Server.h</itemPath>
+          <itemPath>../../../NR-Clib/include/Bowler/Bowler.h</itemPath>
+          <itemPath>../../../NR-Clib/include/Bowler/BowlerTransport.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="MDD File System"
+                       displayName="MDD File System"
+                       projectFiles="true">
+          <itemPath>../../src/EthernetPicRefactor/include/MDD File System/FSDefs.h</itemPath>
+          <itemPath>../../src/EthernetPicRefactor/include/MDD File System/SD-SPI.h</itemPath>
+          <itemPath>../../src/EthernetPicRefactor/include/MDD File System/FSIO.h</itemPath>
+          <itemPath>../../src/EthernetPicRefactor/include/MDD File System/TEMPLATEFILE.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="TCPIP-BSD" displayName="TCPIP-BSD" projectFiles="true">
+          <itemPath>../../src/EthernetPicRefactor/include/TCPIP-BSD/eth_phy.h</itemPath>
+          <itemPath>../../src/EthernetPicRefactor/include/TCPIP-BSD/tcpip_bsd_mac_control.h</itemPath>
+          <itemPath>../../src/EthernetPicRefactor/include/TCPIP-BSD/ftp.h</itemPath>
+          <itemPath>../../src/EthernetPicRefactor/include/TCPIP-BSD/tcpip_bsd.h</itemPath>
+          <itemPath>../../src/EthernetPicRefactor/include/TCPIP-BSD/http.h</itemPath>
+          <itemPath>../../src/EthernetPicRefactor/include/TCPIP-BSD/bloip.h</itemPath>
+          <itemPath>../../src/EthernetPicRefactor/include/TCPIP-BSD/tcpip_bsd_control.h</itemPath>
+          <itemPath>../../src/EthernetPicRefactor/include/TCPIP-BSD/sharedfuncptr.h</itemPath>
+          <itemPath>../../src/EthernetPicRefactor/include/TCPIP-BSD/sharedrom.h</itemPath>
+          <itemPath>../../src/EthernetPicRefactor/include/TCPIP-BSD/dhcp.h</itemPath>
+          <itemPath>../../src/EthernetPicRefactor/include/TCPIP-BSD/socket.h</itemPath>
+          <itemPath>../../src/EthernetPicRefactor/include/TCPIP-BSD/snmp.h</itemPath>
+          <itemPath>../../src/EthernetPicRefactor/include/TCPIP-BSD/sharedfunc.h</itemPath>
+        </logicalFolder>
+        <itemPath>../../src/EthernetPicRefactor/include/boards.h</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/include/eth_phy_regs.h</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/include/system_services.h</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/include/enc28j60.h</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/include/etcp.h</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/include/AuxUartServer.h</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/include/mc_socket.h</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/include/block_mgr.h</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/include/nat_dp83848c.h</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/include/route.h</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/include/dhcp_private.h</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/include/eudp.h</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/include/tcpip_bsd_config.h</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/include/mstimer.h</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/include/hardware_profile.h</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/include/gpfunc.h</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/include/earp.h</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/include/EthernetController.h</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/include/FSconfig.h</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/include/BowlerEthernetServer.h</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/include/main.h</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/include/netpkt.h</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/include/tcp_tick.h</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/include/eip.h</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/include/emac.h</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/include/_tcpip_common.h</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/include/pkt_queue.h</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/include/ether.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="pic32" displayName="pic32" projectFiles="true">
+        <logicalFolder name="USB" displayName="USB" projectFiles="true">
+        </logicalFolder>
+        <logicalFolder name="USB_old" displayName="USB_old" projectFiles="true">
+        </logicalFolder>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="LibraryFiles"
+                   displayName="Library Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="LinkerScript"
+                   displayName="Linker Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="ObjectFiles"
+                   displayName="Object Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <logicalFolder name="f2" displayName="bowler" projectFiles="true">
+        <itemPath>../../src/EthernetPicRefactor/source/Bowler/Callbacks.c</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/source/Bowler/main.c</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/source/Bowler/SPIClient.c</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/source/Bowler/UpstreamPackets.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f3" displayName="BowlerStack" projectFiles="true">
+        <logicalFolder name="BowlerStack" displayName="BowlerStack" projectFiles="true">
+          <itemPath>../../../NR-Clib/src/BowlerStack/Scheduler.c</itemPath>
+          <itemPath>../../../NR-Clib/src/BowlerStack/Bowler_Transport.c</itemPath>
+          <itemPath>../../../NR-Clib/src/BowlerStack/FIFO.c</itemPath>
+          <itemPath>../../../NR-Clib/src/BowlerStack/AbstractPID.c</itemPath>
+          <itemPath>../../../NR-Clib/src/BowlerStack/Bowler_Server.c</itemPath>
+          <itemPath>../../../NR-Clib/src/BowlerStack/Debug.c</itemPath>
+          <itemPath>../../../NR-Clib/src/BowlerStack/Bowler_Stack_Callback.c</itemPath>
+          <itemPath>../../../NR-Clib/src/BowlerStack/Bowler_RPC_Process.c</itemPath>
+          <itemPath>../../../NR-Clib/src/BowlerStack/Bowler_Helper.c</itemPath>
+        </logicalFolder>
+        <logicalFolder name="pic32" displayName="pic32" projectFiles="true">
+          <logicalFolder name="usb" displayName="usb" projectFiles="true">
+            <itemPath>../../../NR-Clib/src/arch/pic32/usb/usb_fifo.c</itemPath>
+            <itemPath>../../../NR-Clib/src/arch/pic32/usb/usb_device.c</itemPath>
+            <itemPath>../../../NR-Clib/src/arch/pic32/usb/usb_function_cdc.c</itemPath>
+            <itemPath>../../../NR-Clib/src/arch/pic32/usb/usb_interrupt.c</itemPath>
+            <itemPath>../../../NR-Clib/src/arch/pic32/usb/usb_callback.c</itemPath>
+            <itemPath>../../../NR-Clib/src/arch/pic32/usb/usb_descriptors.c</itemPath>
+          </logicalFolder>
+          <itemPath>../../../NR-Clib/src/arch/pic32/FlashStorage.c</itemPath>
+          <itemPath>../../../NR-Clib/src/arch/pic32/UART.c</itemPath>
+          <itemPath>../../../NR-Clib/src/arch/pic32/Delay.c</itemPath>
+          <itemPath>../../../NR-Clib/src/arch/pic32/LED.c</itemPath>
+          <itemPath>../../../NR-Clib/src/arch/pic32/Tick.c</itemPath>
+          <itemPath>../../../NR-Clib/src/arch/pic32/Bowler_USB_HAL.c</itemPath>
+          <itemPath>../../../NR-Clib/src/arch/pic32/Bowler_HAL.c</itemPath>
+          <itemPath>../../../NR-Clib/src/arch/pic32/Bowler_UART_HAL.c</itemPath>
+          <itemPath>../../../NR-Clib/src/arch/pic32/HAL_P32.c</itemPath>
+        </logicalFolder>
+      </logicalFolder>
+      <logicalFolder name="f1" displayName="tcpip" projectFiles="true">
+        <itemPath>../../src/EthernetPicRefactor/source/tcpip/block_mgr.c</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/source/tcpip/boards.c</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/source/tcpip/BowlerEthernetServer.c</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/source/tcpip/buff_mgr.c</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/source/tcpip/dhcp.c</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/source/tcpip/earp.c</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/source/tcpip/eicmp.c</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/source/tcpip/eip.c</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/source/tcpip/emac.c</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/source/tcpip/etcp.c</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/source/tcpip/eth_phy.c</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/source/tcpip/ether.c</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/source/tcpip/eudp.c</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/source/tcpip/gpfunc.c</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/source/tcpip/Makefile</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/source/tcpip/mc_socket.c</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/source/tcpip/MyEthernet.c</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/source/tcpip/nat_dp83848c.c</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/source/tcpip/outputs.txt</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/source/tcpip/pic32mx_cfg.c</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/source/tcpip/pkt_queue.c</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/source/tcpip/route.c</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/source/tcpip/stackmgr.c</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/source/tcpip/system_services.c</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/source/tcpip/tcp_tick.c</itemPath>
+        <itemPath>../../src/EthernetPicRefactor/source/tcpip/tcpip_events.c</itemPath>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>../../../NR-Clib/src/BowlerStack</Elem>
+    <Elem>../../../NR-Clib/src/arch/pic32</Elem>
+    <Elem>../../../NR-Clib/include</Elem>
+    <Elem>../../include/Backplane</Elem>
+    <Elem>../../src/EthernetPicRefactor/include</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="default" type="2">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <targetDevice>PIC32MX795F512L</targetDevice>
+        <targetHeader></targetHeader>
+        <platformTool>SKDEPIC32PlatformTool</platformTool>
+        <languageToolchain>C32</languageToolchain>
+        <languageToolchainVersion></languageToolchainVersion>
+        <platform>2</platform>
+      </toolsSet>
+      <compileType>
+        <linkerTool>
+          <linkerLibItems>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+      <makeCustomizationType>
+        <makeCustomizationPreStepEnabled>false</makeCustomizationPreStepEnabled>
+        <makeCustomizationPreStep></makeCustomizationPreStep>
+        <makeCustomizationPostStepEnabled>false</makeCustomizationPostStepEnabled>
+        <makeCustomizationPostStep></makeCustomizationPostStep>
+        <makeCustomizationAlternativeFileToLoadEnabled>false</makeCustomizationAlternativeFileToLoadEnabled>
+        <makeCustomizationAlternativeFileToLoad></makeCustomizationAlternativeFileToLoad>
+        <makeCustomizationPutChecksumInUserID>false</makeCustomizationPutChecksumInUserID>
+      </makeCustomizationType>
+      <C32>
+        <property key="additional-warnings" value="false"/>
+        <property key="enable-app-io" value="false"/>
+        <property key="enable-omit-frame-pointer" value="false"/>
+        <property key="enable-symbols" value="true"/>
+        <property key="enable-unroll-loops" value="false"/>
+        <property key="exclude-floating-point" value="false"/>
+        <property key="extra-include-directories"
+                  value="/home/aim/workspace/NR-Clib/include;/home/aim/workspace/AIMLabNeuralController/src/EthernetPicRefactor/include"/>
+        <property key="generate-16-bit-code" value="false"/>
+        <property key="isolate-each-function" value="false"/>
+        <property key="make-warnings-into-errors" value="false"/>
+        <property key="optimization-level" value=""/>
+        <property key="place-data-into-section" value="false"/>
+        <property key="post-instruction-scheduling" value="default"/>
+        <property key="pre-instruction-scheduling" value="default"/>
+        <property key="preprocessor-macros" value=""/>
+        <property key="strict-ansi" value="false"/>
+        <property key="support-ansi" value="false"/>
+        <property key="use-indirect-calls" value="false"/>
+      </C32>
+      <C32-LD>
+      </C32-LD>
+      <C32Global>
+      </C32Global>
+      <SKDEPIC32PlatformTool>
+        <property key="whatToProgram" value="all"/>
+      </SKDEPIC32PlatformTool>
+      <XC32>
+        <property key="additional-warnings" value="false"/>
+        <property key="enable-app-io" value="false"/>
+        <property key="enable-omit-frame-pointer" value="false"/>
+        <property key="enable-symbols" value="true"/>
+        <property key="enable-unroll-loops" value="false"/>
+        <property key="exclude-floating-point" value="false"/>
+        <property key="extra-include-directories"
+                  value="/home/aim/workspace/NR-Clib/include;/home/aim/workspace/AIMLabNeuralController/src/EthernetPicRefactor/include"/>
+        <property key="generate-16-bit-code" value="false"/>
+        <property key="isolate-each-function" value="false"/>
+        <property key="make-warnings-into-errors" value="false"/>
+        <property key="optimization-level" value=""/>
+        <property key="place-data-into-section" value="false"/>
+        <property key="post-instruction-scheduling" value="default"/>
+        <property key="pre-instruction-scheduling" value="default"/>
+        <property key="preprocessor-macros" value=""/>
+        <property key="strict-ansi" value="false"/>
+        <property key="support-ansi" value="false"/>
+        <property key="use-indirect-calls" value="false"/>
+      </XC32>
+      <XC32-AS>
+      </XC32-AS>
+      <XC32-LD>
+        <property key="enable-check-sections" value="false"/>
+        <property key="exclude-floating-point-library" value="false"/>
+        <property key="exclude-standard-libraries" value="false"/>
+        <property key="extra-lib-directories" value=""/>
+        <property key="generate-16-bit-code" value="false"/>
+        <property key="generate-cross-reference-file" value="false"/>
+        <property key="heap-size" value=""/>
+        <property key="input-libraries" value=""/>
+        <property key="linker-symbols" value=""/>
+        <property key="map-file" value=""/>
+        <property key="no-startup-files" value="false"/>
+        <property key="optimization-level" value=""/>
+        <property key="preprocessor-macros" value=""/>
+        <property key="remove-unused-sections" value="false"/>
+        <property key="report-memory-usage" value="false"/>
+        <property key="stack-size" value=""/>
+        <property key="symbol-stripping" value=""/>
+        <property key="trace-symbols" value=""/>
+        <property key="warn-section-align" value="false"/>
+      </XC32-LD>
+      <XC32Global>
+      </XC32Global>
+    </conf>
+  </confs>
+</configurationDescriptor>
