@@ -249,7 +249,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="/home/hephaestus/workspace/NR-Clib/include;/home/hephaestus/workspace/ReplicatorFirmware/include/tcp"/>
+                  value="/home/hephaestus/workspace/NR-Clib/include;/home/hephaestus/workspace/ReplicatorFirmware/include/tcp;/home/hephaestus/workspace/ReplicatorFirmware/include/replicator"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="isolate-each-function" value="false"/>
         <property key="make-warnings-into-errors" value="false"/>

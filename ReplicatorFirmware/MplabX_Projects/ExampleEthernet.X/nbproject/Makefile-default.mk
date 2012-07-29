@@ -84,523 +84,523 @@ ifeq ($(TYPE_IMAGE), DEBUG_RUN)
 ${OBJECTDIR}/_ext/1863947771/Scheduler.o: ../../../NR-Clib/src/BowlerStack/Scheduler.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1863947771 
 	@${RM} ${OBJECTDIR}/_ext/1863947771/Scheduler.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/Scheduler.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/1863947771/Scheduler.o.d" -o ${OBJECTDIR}/_ext/1863947771/Scheduler.o ../../../NR-Clib/src/BowlerStack/Scheduler.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/Scheduler.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1863947771/Scheduler.o.d" -o ${OBJECTDIR}/_ext/1863947771/Scheduler.o ../../../NR-Clib/src/BowlerStack/Scheduler.c  
 	
 ${OBJECTDIR}/_ext/1863947771/Bowler_Transport.o: ../../../NR-Clib/src/BowlerStack/Bowler_Transport.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1863947771 
 	@${RM} ${OBJECTDIR}/_ext/1863947771/Bowler_Transport.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/Bowler_Transport.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/1863947771/Bowler_Transport.o.d" -o ${OBJECTDIR}/_ext/1863947771/Bowler_Transport.o ../../../NR-Clib/src/BowlerStack/Bowler_Transport.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/Bowler_Transport.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1863947771/Bowler_Transport.o.d" -o ${OBJECTDIR}/_ext/1863947771/Bowler_Transport.o ../../../NR-Clib/src/BowlerStack/Bowler_Transport.c  
 	
 ${OBJECTDIR}/_ext/1863947771/FIFO.o: ../../../NR-Clib/src/BowlerStack/FIFO.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1863947771 
 	@${RM} ${OBJECTDIR}/_ext/1863947771/FIFO.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/FIFO.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/1863947771/FIFO.o.d" -o ${OBJECTDIR}/_ext/1863947771/FIFO.o ../../../NR-Clib/src/BowlerStack/FIFO.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/FIFO.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1863947771/FIFO.o.d" -o ${OBJECTDIR}/_ext/1863947771/FIFO.o ../../../NR-Clib/src/BowlerStack/FIFO.c  
 	
 ${OBJECTDIR}/_ext/1863947771/AbstractPID.o: ../../../NR-Clib/src/BowlerStack/AbstractPID.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1863947771 
 	@${RM} ${OBJECTDIR}/_ext/1863947771/AbstractPID.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/AbstractPID.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/1863947771/AbstractPID.o.d" -o ${OBJECTDIR}/_ext/1863947771/AbstractPID.o ../../../NR-Clib/src/BowlerStack/AbstractPID.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/AbstractPID.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1863947771/AbstractPID.o.d" -o ${OBJECTDIR}/_ext/1863947771/AbstractPID.o ../../../NR-Clib/src/BowlerStack/AbstractPID.c  
 	
 ${OBJECTDIR}/_ext/1863947771/Bowler_Server.o: ../../../NR-Clib/src/BowlerStack/Bowler_Server.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1863947771 
 	@${RM} ${OBJECTDIR}/_ext/1863947771/Bowler_Server.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/Bowler_Server.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/1863947771/Bowler_Server.o.d" -o ${OBJECTDIR}/_ext/1863947771/Bowler_Server.o ../../../NR-Clib/src/BowlerStack/Bowler_Server.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/Bowler_Server.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1863947771/Bowler_Server.o.d" -o ${OBJECTDIR}/_ext/1863947771/Bowler_Server.o ../../../NR-Clib/src/BowlerStack/Bowler_Server.c  
 	
 ${OBJECTDIR}/_ext/1863947771/Debug.o: ../../../NR-Clib/src/BowlerStack/Debug.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1863947771 
 	@${RM} ${OBJECTDIR}/_ext/1863947771/Debug.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/Debug.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/1863947771/Debug.o.d" -o ${OBJECTDIR}/_ext/1863947771/Debug.o ../../../NR-Clib/src/BowlerStack/Debug.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/Debug.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1863947771/Debug.o.d" -o ${OBJECTDIR}/_ext/1863947771/Debug.o ../../../NR-Clib/src/BowlerStack/Debug.c  
 	
 ${OBJECTDIR}/_ext/1863947771/Bowler_Stack_Callback.o: ../../../NR-Clib/src/BowlerStack/Bowler_Stack_Callback.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1863947771 
 	@${RM} ${OBJECTDIR}/_ext/1863947771/Bowler_Stack_Callback.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/Bowler_Stack_Callback.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/1863947771/Bowler_Stack_Callback.o.d" -o ${OBJECTDIR}/_ext/1863947771/Bowler_Stack_Callback.o ../../../NR-Clib/src/BowlerStack/Bowler_Stack_Callback.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/Bowler_Stack_Callback.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1863947771/Bowler_Stack_Callback.o.d" -o ${OBJECTDIR}/_ext/1863947771/Bowler_Stack_Callback.o ../../../NR-Clib/src/BowlerStack/Bowler_Stack_Callback.c  
 	
 ${OBJECTDIR}/_ext/1863947771/Bowler_RPC_Process.o: ../../../NR-Clib/src/BowlerStack/Bowler_RPC_Process.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1863947771 
 	@${RM} ${OBJECTDIR}/_ext/1863947771/Bowler_RPC_Process.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/Bowler_RPC_Process.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/1863947771/Bowler_RPC_Process.o.d" -o ${OBJECTDIR}/_ext/1863947771/Bowler_RPC_Process.o ../../../NR-Clib/src/BowlerStack/Bowler_RPC_Process.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/Bowler_RPC_Process.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1863947771/Bowler_RPC_Process.o.d" -o ${OBJECTDIR}/_ext/1863947771/Bowler_RPC_Process.o ../../../NR-Clib/src/BowlerStack/Bowler_RPC_Process.c  
 	
 ${OBJECTDIR}/_ext/1863947771/Bowler_Helper.o: ../../../NR-Clib/src/BowlerStack/Bowler_Helper.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1863947771 
 	@${RM} ${OBJECTDIR}/_ext/1863947771/Bowler_Helper.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/Bowler_Helper.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/1863947771/Bowler_Helper.o.d" -o ${OBJECTDIR}/_ext/1863947771/Bowler_Helper.o ../../../NR-Clib/src/BowlerStack/Bowler_Helper.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/Bowler_Helper.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1863947771/Bowler_Helper.o.d" -o ${OBJECTDIR}/_ext/1863947771/Bowler_Helper.o ../../../NR-Clib/src/BowlerStack/Bowler_Helper.c  
 	
 ${OBJECTDIR}/_ext/1931702211/usb_fifo.o: ../../../NR-Clib/src/arch/pic32/usb/usb_fifo.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1931702211 
 	@${RM} ${OBJECTDIR}/_ext/1931702211/usb_fifo.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1931702211/usb_fifo.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/1931702211/usb_fifo.o.d" -o ${OBJECTDIR}/_ext/1931702211/usb_fifo.o ../../../NR-Clib/src/arch/pic32/usb/usb_fifo.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1931702211/usb_fifo.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1931702211/usb_fifo.o.d" -o ${OBJECTDIR}/_ext/1931702211/usb_fifo.o ../../../NR-Clib/src/arch/pic32/usb/usb_fifo.c  
 	
 ${OBJECTDIR}/_ext/1931702211/usb_device.o: ../../../NR-Clib/src/arch/pic32/usb/usb_device.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1931702211 
 	@${RM} ${OBJECTDIR}/_ext/1931702211/usb_device.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1931702211/usb_device.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/1931702211/usb_device.o.d" -o ${OBJECTDIR}/_ext/1931702211/usb_device.o ../../../NR-Clib/src/arch/pic32/usb/usb_device.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1931702211/usb_device.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1931702211/usb_device.o.d" -o ${OBJECTDIR}/_ext/1931702211/usb_device.o ../../../NR-Clib/src/arch/pic32/usb/usb_device.c  
 	
 ${OBJECTDIR}/_ext/1931702211/usb_function_cdc.o: ../../../NR-Clib/src/arch/pic32/usb/usb_function_cdc.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1931702211 
 	@${RM} ${OBJECTDIR}/_ext/1931702211/usb_function_cdc.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1931702211/usb_function_cdc.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/1931702211/usb_function_cdc.o.d" -o ${OBJECTDIR}/_ext/1931702211/usb_function_cdc.o ../../../NR-Clib/src/arch/pic32/usb/usb_function_cdc.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1931702211/usb_function_cdc.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1931702211/usb_function_cdc.o.d" -o ${OBJECTDIR}/_ext/1931702211/usb_function_cdc.o ../../../NR-Clib/src/arch/pic32/usb/usb_function_cdc.c  
 	
 ${OBJECTDIR}/_ext/1931702211/usb_interrupt.o: ../../../NR-Clib/src/arch/pic32/usb/usb_interrupt.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1931702211 
 	@${RM} ${OBJECTDIR}/_ext/1931702211/usb_interrupt.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1931702211/usb_interrupt.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/1931702211/usb_interrupt.o.d" -o ${OBJECTDIR}/_ext/1931702211/usb_interrupt.o ../../../NR-Clib/src/arch/pic32/usb/usb_interrupt.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1931702211/usb_interrupt.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1931702211/usb_interrupt.o.d" -o ${OBJECTDIR}/_ext/1931702211/usb_interrupt.o ../../../NR-Clib/src/arch/pic32/usb/usb_interrupt.c  
 	
 ${OBJECTDIR}/_ext/1931702211/usb_callback.o: ../../../NR-Clib/src/arch/pic32/usb/usb_callback.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1931702211 
 	@${RM} ${OBJECTDIR}/_ext/1931702211/usb_callback.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1931702211/usb_callback.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/1931702211/usb_callback.o.d" -o ${OBJECTDIR}/_ext/1931702211/usb_callback.o ../../../NR-Clib/src/arch/pic32/usb/usb_callback.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1931702211/usb_callback.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1931702211/usb_callback.o.d" -o ${OBJECTDIR}/_ext/1931702211/usb_callback.o ../../../NR-Clib/src/arch/pic32/usb/usb_callback.c  
 	
 ${OBJECTDIR}/_ext/1931702211/usb_descriptors.o: ../../../NR-Clib/src/arch/pic32/usb/usb_descriptors.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1931702211 
 	@${RM} ${OBJECTDIR}/_ext/1931702211/usb_descriptors.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1931702211/usb_descriptors.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/1931702211/usb_descriptors.o.d" -o ${OBJECTDIR}/_ext/1931702211/usb_descriptors.o ../../../NR-Clib/src/arch/pic32/usb/usb_descriptors.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1931702211/usb_descriptors.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1931702211/usb_descriptors.o.d" -o ${OBJECTDIR}/_ext/1931702211/usb_descriptors.o ../../../NR-Clib/src/arch/pic32/usb/usb_descriptors.c  
 	
 ${OBJECTDIR}/_ext/132047822/FlashStorage.o: ../../../NR-Clib/src/arch/pic32/FlashStorage.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/132047822 
 	@${RM} ${OBJECTDIR}/_ext/132047822/FlashStorage.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/FlashStorage.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/132047822/FlashStorage.o.d" -o ${OBJECTDIR}/_ext/132047822/FlashStorage.o ../../../NR-Clib/src/arch/pic32/FlashStorage.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/FlashStorage.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/132047822/FlashStorage.o.d" -o ${OBJECTDIR}/_ext/132047822/FlashStorage.o ../../../NR-Clib/src/arch/pic32/FlashStorage.c  
 	
 ${OBJECTDIR}/_ext/132047822/UART.o: ../../../NR-Clib/src/arch/pic32/UART.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/132047822 
 	@${RM} ${OBJECTDIR}/_ext/132047822/UART.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/UART.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/132047822/UART.o.d" -o ${OBJECTDIR}/_ext/132047822/UART.o ../../../NR-Clib/src/arch/pic32/UART.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/UART.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/132047822/UART.o.d" -o ${OBJECTDIR}/_ext/132047822/UART.o ../../../NR-Clib/src/arch/pic32/UART.c  
 	
 ${OBJECTDIR}/_ext/132047822/Delay.o: ../../../NR-Clib/src/arch/pic32/Delay.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/132047822 
 	@${RM} ${OBJECTDIR}/_ext/132047822/Delay.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/Delay.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/132047822/Delay.o.d" -o ${OBJECTDIR}/_ext/132047822/Delay.o ../../../NR-Clib/src/arch/pic32/Delay.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/Delay.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/132047822/Delay.o.d" -o ${OBJECTDIR}/_ext/132047822/Delay.o ../../../NR-Clib/src/arch/pic32/Delay.c  
 	
 ${OBJECTDIR}/_ext/132047822/LED.o: ../../../NR-Clib/src/arch/pic32/LED.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/132047822 
 	@${RM} ${OBJECTDIR}/_ext/132047822/LED.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/LED.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/132047822/LED.o.d" -o ${OBJECTDIR}/_ext/132047822/LED.o ../../../NR-Clib/src/arch/pic32/LED.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/LED.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/132047822/LED.o.d" -o ${OBJECTDIR}/_ext/132047822/LED.o ../../../NR-Clib/src/arch/pic32/LED.c  
 	
 ${OBJECTDIR}/_ext/132047822/Tick.o: ../../../NR-Clib/src/arch/pic32/Tick.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/132047822 
 	@${RM} ${OBJECTDIR}/_ext/132047822/Tick.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/Tick.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/132047822/Tick.o.d" -o ${OBJECTDIR}/_ext/132047822/Tick.o ../../../NR-Clib/src/arch/pic32/Tick.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/Tick.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/132047822/Tick.o.d" -o ${OBJECTDIR}/_ext/132047822/Tick.o ../../../NR-Clib/src/arch/pic32/Tick.c  
 	
 ${OBJECTDIR}/_ext/132047822/Bowler_USB_HAL.o: ../../../NR-Clib/src/arch/pic32/Bowler_USB_HAL.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/132047822 
 	@${RM} ${OBJECTDIR}/_ext/132047822/Bowler_USB_HAL.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/Bowler_USB_HAL.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/132047822/Bowler_USB_HAL.o.d" -o ${OBJECTDIR}/_ext/132047822/Bowler_USB_HAL.o ../../../NR-Clib/src/arch/pic32/Bowler_USB_HAL.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/Bowler_USB_HAL.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/132047822/Bowler_USB_HAL.o.d" -o ${OBJECTDIR}/_ext/132047822/Bowler_USB_HAL.o ../../../NR-Clib/src/arch/pic32/Bowler_USB_HAL.c  
 	
 ${OBJECTDIR}/_ext/132047822/Bowler_HAL.o: ../../../NR-Clib/src/arch/pic32/Bowler_HAL.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/132047822 
 	@${RM} ${OBJECTDIR}/_ext/132047822/Bowler_HAL.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/Bowler_HAL.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/132047822/Bowler_HAL.o.d" -o ${OBJECTDIR}/_ext/132047822/Bowler_HAL.o ../../../NR-Clib/src/arch/pic32/Bowler_HAL.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/Bowler_HAL.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/132047822/Bowler_HAL.o.d" -o ${OBJECTDIR}/_ext/132047822/Bowler_HAL.o ../../../NR-Clib/src/arch/pic32/Bowler_HAL.c  
 	
 ${OBJECTDIR}/_ext/132047822/Bowler_UART_HAL.o: ../../../NR-Clib/src/arch/pic32/Bowler_UART_HAL.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/132047822 
 	@${RM} ${OBJECTDIR}/_ext/132047822/Bowler_UART_HAL.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/Bowler_UART_HAL.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/132047822/Bowler_UART_HAL.o.d" -o ${OBJECTDIR}/_ext/132047822/Bowler_UART_HAL.o ../../../NR-Clib/src/arch/pic32/Bowler_UART_HAL.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/Bowler_UART_HAL.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/132047822/Bowler_UART_HAL.o.d" -o ${OBJECTDIR}/_ext/132047822/Bowler_UART_HAL.o ../../../NR-Clib/src/arch/pic32/Bowler_UART_HAL.c  
 	
 ${OBJECTDIR}/_ext/132047822/HAL_P32.o: ../../../NR-Clib/src/arch/pic32/HAL_P32.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/132047822 
 	@${RM} ${OBJECTDIR}/_ext/132047822/HAL_P32.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/HAL_P32.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/132047822/HAL_P32.o.d" -o ${OBJECTDIR}/_ext/132047822/HAL_P32.o ../../../NR-Clib/src/arch/pic32/HAL_P32.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/HAL_P32.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/132047822/HAL_P32.o.d" -o ${OBJECTDIR}/_ext/132047822/HAL_P32.o ../../../NR-Clib/src/arch/pic32/HAL_P32.c  
 	
 ${OBJECTDIR}/_ext/715587389/ether.o: ../../src/tcpip/ether.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/ether.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/ether.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/ether.o.d" -o ${OBJECTDIR}/_ext/715587389/ether.o ../../src/tcpip/ether.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/ether.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/ether.o.d" -o ${OBJECTDIR}/_ext/715587389/ether.o ../../src/tcpip/ether.c  
 	
 ${OBJECTDIR}/_ext/715587389/system_services.o: ../../src/tcpip/system_services.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/system_services.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/system_services.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/system_services.o.d" -o ${OBJECTDIR}/_ext/715587389/system_services.o ../../src/tcpip/system_services.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/system_services.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/system_services.o.d" -o ${OBJECTDIR}/_ext/715587389/system_services.o ../../src/tcpip/system_services.c  
 	
 ${OBJECTDIR}/_ext/715587389/nat_dp83848c.o: ../../src/tcpip/nat_dp83848c.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/nat_dp83848c.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/nat_dp83848c.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/nat_dp83848c.o.d" -o ${OBJECTDIR}/_ext/715587389/nat_dp83848c.o ../../src/tcpip/nat_dp83848c.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/nat_dp83848c.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/nat_dp83848c.o.d" -o ${OBJECTDIR}/_ext/715587389/nat_dp83848c.o ../../src/tcpip/nat_dp83848c.c  
 	
 ${OBJECTDIR}/_ext/715587389/pic32mx_cfg.o: ../../src/tcpip/pic32mx_cfg.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/pic32mx_cfg.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/pic32mx_cfg.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/pic32mx_cfg.o.d" -o ${OBJECTDIR}/_ext/715587389/pic32mx_cfg.o ../../src/tcpip/pic32mx_cfg.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/pic32mx_cfg.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/pic32mx_cfg.o.d" -o ${OBJECTDIR}/_ext/715587389/pic32mx_cfg.o ../../src/tcpip/pic32mx_cfg.c  
 	
 ${OBJECTDIR}/_ext/715587389/eth_phy.o: ../../src/tcpip/eth_phy.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/eth_phy.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/eth_phy.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/eth_phy.o.d" -o ${OBJECTDIR}/_ext/715587389/eth_phy.o ../../src/tcpip/eth_phy.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/eth_phy.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/eth_phy.o.d" -o ${OBJECTDIR}/_ext/715587389/eth_phy.o ../../src/tcpip/eth_phy.c  
 	
 ${OBJECTDIR}/_ext/715587389/boards.o: ../../src/tcpip/boards.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/boards.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/boards.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/boards.o.d" -o ${OBJECTDIR}/_ext/715587389/boards.o ../../src/tcpip/boards.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/boards.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/boards.o.d" -o ${OBJECTDIR}/_ext/715587389/boards.o ../../src/tcpip/boards.c  
 	
 ${OBJECTDIR}/_ext/715587389/eip.o: ../../src/tcpip/eip.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/eip.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/eip.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/eip.o.d" -o ${OBJECTDIR}/_ext/715587389/eip.o ../../src/tcpip/eip.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/eip.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/eip.o.d" -o ${OBJECTDIR}/_ext/715587389/eip.o ../../src/tcpip/eip.c  
 	
 ${OBJECTDIR}/_ext/715587389/tcpip_events.o: ../../src/tcpip/tcpip_events.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/tcpip_events.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/tcpip_events.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/tcpip_events.o.d" -o ${OBJECTDIR}/_ext/715587389/tcpip_events.o ../../src/tcpip/tcpip_events.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/tcpip_events.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/tcpip_events.o.d" -o ${OBJECTDIR}/_ext/715587389/tcpip_events.o ../../src/tcpip/tcpip_events.c  
 	
 ${OBJECTDIR}/_ext/715587389/block_mgr.o: ../../src/tcpip/block_mgr.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/block_mgr.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/block_mgr.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/block_mgr.o.d" -o ${OBJECTDIR}/_ext/715587389/block_mgr.o ../../src/tcpip/block_mgr.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/block_mgr.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/block_mgr.o.d" -o ${OBJECTDIR}/_ext/715587389/block_mgr.o ../../src/tcpip/block_mgr.c  
 	
 ${OBJECTDIR}/_ext/715587389/dhcp.o: ../../src/tcpip/dhcp.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/dhcp.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/dhcp.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/dhcp.o.d" -o ${OBJECTDIR}/_ext/715587389/dhcp.o ../../src/tcpip/dhcp.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/dhcp.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/dhcp.o.d" -o ${OBJECTDIR}/_ext/715587389/dhcp.o ../../src/tcpip/dhcp.c  
 	
 ${OBJECTDIR}/_ext/715587389/emac.o: ../../src/tcpip/emac.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/emac.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/emac.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/emac.o.d" -o ${OBJECTDIR}/_ext/715587389/emac.o ../../src/tcpip/emac.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/emac.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/emac.o.d" -o ${OBJECTDIR}/_ext/715587389/emac.o ../../src/tcpip/emac.c  
 	
 ${OBJECTDIR}/_ext/715587389/route.o: ../../src/tcpip/route.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/route.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/route.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/route.o.d" -o ${OBJECTDIR}/_ext/715587389/route.o ../../src/tcpip/route.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/route.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/route.o.d" -o ${OBJECTDIR}/_ext/715587389/route.o ../../src/tcpip/route.c  
 	
 ${OBJECTDIR}/_ext/715587389/buff_mgr.o: ../../src/tcpip/buff_mgr.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/buff_mgr.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/buff_mgr.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/buff_mgr.o.d" -o ${OBJECTDIR}/_ext/715587389/buff_mgr.o ../../src/tcpip/buff_mgr.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/buff_mgr.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/buff_mgr.o.d" -o ${OBJECTDIR}/_ext/715587389/buff_mgr.o ../../src/tcpip/buff_mgr.c  
 	
 ${OBJECTDIR}/_ext/715587389/eicmp.o: ../../src/tcpip/eicmp.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/eicmp.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/eicmp.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/eicmp.o.d" -o ${OBJECTDIR}/_ext/715587389/eicmp.o ../../src/tcpip/eicmp.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/eicmp.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/eicmp.o.d" -o ${OBJECTDIR}/_ext/715587389/eicmp.o ../../src/tcpip/eicmp.c  
 	
 ${OBJECTDIR}/_ext/715587389/mc_socket.o: ../../src/tcpip/mc_socket.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/mc_socket.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/mc_socket.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/mc_socket.o.d" -o ${OBJECTDIR}/_ext/715587389/mc_socket.o ../../src/tcpip/mc_socket.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/mc_socket.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/mc_socket.o.d" -o ${OBJECTDIR}/_ext/715587389/mc_socket.o ../../src/tcpip/mc_socket.c  
 	
 ${OBJECTDIR}/_ext/715587389/BowlerEthernetServer.o: ../../src/tcpip/BowlerEthernetServer.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/BowlerEthernetServer.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/BowlerEthernetServer.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/BowlerEthernetServer.o.d" -o ${OBJECTDIR}/_ext/715587389/BowlerEthernetServer.o ../../src/tcpip/BowlerEthernetServer.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/BowlerEthernetServer.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/BowlerEthernetServer.o.d" -o ${OBJECTDIR}/_ext/715587389/BowlerEthernetServer.o ../../src/tcpip/BowlerEthernetServer.c  
 	
 ${OBJECTDIR}/_ext/715587389/tcp_tick.o: ../../src/tcpip/tcp_tick.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/tcp_tick.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/tcp_tick.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/tcp_tick.o.d" -o ${OBJECTDIR}/_ext/715587389/tcp_tick.o ../../src/tcpip/tcp_tick.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/tcp_tick.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/tcp_tick.o.d" -o ${OBJECTDIR}/_ext/715587389/tcp_tick.o ../../src/tcpip/tcp_tick.c  
 	
 ${OBJECTDIR}/_ext/715587389/eudp.o: ../../src/tcpip/eudp.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/eudp.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/eudp.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/eudp.o.d" -o ${OBJECTDIR}/_ext/715587389/eudp.o ../../src/tcpip/eudp.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/eudp.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/eudp.o.d" -o ${OBJECTDIR}/_ext/715587389/eudp.o ../../src/tcpip/eudp.c  
 	
 ${OBJECTDIR}/_ext/715587389/earp.o: ../../src/tcpip/earp.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/earp.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/earp.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/earp.o.d" -o ${OBJECTDIR}/_ext/715587389/earp.o ../../src/tcpip/earp.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/earp.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/earp.o.d" -o ${OBJECTDIR}/_ext/715587389/earp.o ../../src/tcpip/earp.c  
 	
 ${OBJECTDIR}/_ext/715587389/etcp.o: ../../src/tcpip/etcp.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/etcp.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/etcp.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/etcp.o.d" -o ${OBJECTDIR}/_ext/715587389/etcp.o ../../src/tcpip/etcp.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/etcp.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/etcp.o.d" -o ${OBJECTDIR}/_ext/715587389/etcp.o ../../src/tcpip/etcp.c  
 	
 ${OBJECTDIR}/_ext/715587389/gpfunc.o: ../../src/tcpip/gpfunc.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/gpfunc.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/gpfunc.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/gpfunc.o.d" -o ${OBJECTDIR}/_ext/715587389/gpfunc.o ../../src/tcpip/gpfunc.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/gpfunc.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/gpfunc.o.d" -o ${OBJECTDIR}/_ext/715587389/gpfunc.o ../../src/tcpip/gpfunc.c  
 	
 ${OBJECTDIR}/_ext/715587389/MyEthernet.o: ../../src/tcpip/MyEthernet.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/MyEthernet.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/MyEthernet.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/MyEthernet.o.d" -o ${OBJECTDIR}/_ext/715587389/MyEthernet.o ../../src/tcpip/MyEthernet.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/MyEthernet.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/MyEthernet.o.d" -o ${OBJECTDIR}/_ext/715587389/MyEthernet.o ../../src/tcpip/MyEthernet.c  
 	
 ${OBJECTDIR}/_ext/715587389/stackmgr.o: ../../src/tcpip/stackmgr.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/stackmgr.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/stackmgr.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/stackmgr.o.d" -o ${OBJECTDIR}/_ext/715587389/stackmgr.o ../../src/tcpip/stackmgr.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/stackmgr.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/stackmgr.o.d" -o ${OBJECTDIR}/_ext/715587389/stackmgr.o ../../src/tcpip/stackmgr.c  
 	
 ${OBJECTDIR}/_ext/715587389/pkt_queue.o: ../../src/tcpip/pkt_queue.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/pkt_queue.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/pkt_queue.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/pkt_queue.o.d" -o ${OBJECTDIR}/_ext/715587389/pkt_queue.o ../../src/tcpip/pkt_queue.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/pkt_queue.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/pkt_queue.o.d" -o ${OBJECTDIR}/_ext/715587389/pkt_queue.o ../../src/tcpip/pkt_queue.c  
 	
 ${OBJECTDIR}/_ext/711791526/SPIClient.o: ../../src/Bowler/SPIClient.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
 	@${RM} ${OBJECTDIR}/_ext/711791526/SPIClient.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/SPIClient.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/711791526/SPIClient.o.d" -o ${OBJECTDIR}/_ext/711791526/SPIClient.o ../../src/Bowler/SPIClient.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/SPIClient.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/711791526/SPIClient.o.d" -o ${OBJECTDIR}/_ext/711791526/SPIClient.o ../../src/Bowler/SPIClient.c  
 	
 ${OBJECTDIR}/_ext/711791526/main.o: ../../src/Bowler/main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
 	@${RM} ${OBJECTDIR}/_ext/711791526/main.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/main.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/711791526/main.o.d" -o ${OBJECTDIR}/_ext/711791526/main.o ../../src/Bowler/main.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/main.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/711791526/main.o.d" -o ${OBJECTDIR}/_ext/711791526/main.o ../../src/Bowler/main.c  
 	
 ${OBJECTDIR}/_ext/711791526/Callbacks.o: ../../src/Bowler/Callbacks.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
 	@${RM} ${OBJECTDIR}/_ext/711791526/Callbacks.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/Callbacks.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/711791526/Callbacks.o.d" -o ${OBJECTDIR}/_ext/711791526/Callbacks.o ../../src/Bowler/Callbacks.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/Callbacks.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/711791526/Callbacks.o.d" -o ${OBJECTDIR}/_ext/711791526/Callbacks.o ../../src/Bowler/Callbacks.c  
 	
 ${OBJECTDIR}/_ext/711791526/UpstreamPackets.o: ../../src/Bowler/UpstreamPackets.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
 	@${RM} ${OBJECTDIR}/_ext/711791526/UpstreamPackets.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/UpstreamPackets.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/711791526/UpstreamPackets.o.d" -o ${OBJECTDIR}/_ext/711791526/UpstreamPackets.o ../../src/Bowler/UpstreamPackets.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/UpstreamPackets.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/711791526/UpstreamPackets.o.d" -o ${OBJECTDIR}/_ext/711791526/UpstreamPackets.o ../../src/Bowler/UpstreamPackets.c  
 	
 else
 ${OBJECTDIR}/_ext/1863947771/Scheduler.o: ../../../NR-Clib/src/BowlerStack/Scheduler.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1863947771 
 	@${RM} ${OBJECTDIR}/_ext/1863947771/Scheduler.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/Scheduler.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/1863947771/Scheduler.o.d" -o ${OBJECTDIR}/_ext/1863947771/Scheduler.o ../../../NR-Clib/src/BowlerStack/Scheduler.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/Scheduler.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1863947771/Scheduler.o.d" -o ${OBJECTDIR}/_ext/1863947771/Scheduler.o ../../../NR-Clib/src/BowlerStack/Scheduler.c  
 	
 ${OBJECTDIR}/_ext/1863947771/Bowler_Transport.o: ../../../NR-Clib/src/BowlerStack/Bowler_Transport.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1863947771 
 	@${RM} ${OBJECTDIR}/_ext/1863947771/Bowler_Transport.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/Bowler_Transport.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/1863947771/Bowler_Transport.o.d" -o ${OBJECTDIR}/_ext/1863947771/Bowler_Transport.o ../../../NR-Clib/src/BowlerStack/Bowler_Transport.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/Bowler_Transport.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1863947771/Bowler_Transport.o.d" -o ${OBJECTDIR}/_ext/1863947771/Bowler_Transport.o ../../../NR-Clib/src/BowlerStack/Bowler_Transport.c  
 	
 ${OBJECTDIR}/_ext/1863947771/FIFO.o: ../../../NR-Clib/src/BowlerStack/FIFO.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1863947771 
 	@${RM} ${OBJECTDIR}/_ext/1863947771/FIFO.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/FIFO.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/1863947771/FIFO.o.d" -o ${OBJECTDIR}/_ext/1863947771/FIFO.o ../../../NR-Clib/src/BowlerStack/FIFO.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/FIFO.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1863947771/FIFO.o.d" -o ${OBJECTDIR}/_ext/1863947771/FIFO.o ../../../NR-Clib/src/BowlerStack/FIFO.c  
 	
 ${OBJECTDIR}/_ext/1863947771/AbstractPID.o: ../../../NR-Clib/src/BowlerStack/AbstractPID.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1863947771 
 	@${RM} ${OBJECTDIR}/_ext/1863947771/AbstractPID.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/AbstractPID.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/1863947771/AbstractPID.o.d" -o ${OBJECTDIR}/_ext/1863947771/AbstractPID.o ../../../NR-Clib/src/BowlerStack/AbstractPID.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/AbstractPID.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1863947771/AbstractPID.o.d" -o ${OBJECTDIR}/_ext/1863947771/AbstractPID.o ../../../NR-Clib/src/BowlerStack/AbstractPID.c  
 	
 ${OBJECTDIR}/_ext/1863947771/Bowler_Server.o: ../../../NR-Clib/src/BowlerStack/Bowler_Server.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1863947771 
 	@${RM} ${OBJECTDIR}/_ext/1863947771/Bowler_Server.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/Bowler_Server.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/1863947771/Bowler_Server.o.d" -o ${OBJECTDIR}/_ext/1863947771/Bowler_Server.o ../../../NR-Clib/src/BowlerStack/Bowler_Server.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/Bowler_Server.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1863947771/Bowler_Server.o.d" -o ${OBJECTDIR}/_ext/1863947771/Bowler_Server.o ../../../NR-Clib/src/BowlerStack/Bowler_Server.c  
 	
 ${OBJECTDIR}/_ext/1863947771/Debug.o: ../../../NR-Clib/src/BowlerStack/Debug.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1863947771 
 	@${RM} ${OBJECTDIR}/_ext/1863947771/Debug.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/Debug.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/1863947771/Debug.o.d" -o ${OBJECTDIR}/_ext/1863947771/Debug.o ../../../NR-Clib/src/BowlerStack/Debug.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/Debug.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1863947771/Debug.o.d" -o ${OBJECTDIR}/_ext/1863947771/Debug.o ../../../NR-Clib/src/BowlerStack/Debug.c  
 	
 ${OBJECTDIR}/_ext/1863947771/Bowler_Stack_Callback.o: ../../../NR-Clib/src/BowlerStack/Bowler_Stack_Callback.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1863947771 
 	@${RM} ${OBJECTDIR}/_ext/1863947771/Bowler_Stack_Callback.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/Bowler_Stack_Callback.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/1863947771/Bowler_Stack_Callback.o.d" -o ${OBJECTDIR}/_ext/1863947771/Bowler_Stack_Callback.o ../../../NR-Clib/src/BowlerStack/Bowler_Stack_Callback.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/Bowler_Stack_Callback.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1863947771/Bowler_Stack_Callback.o.d" -o ${OBJECTDIR}/_ext/1863947771/Bowler_Stack_Callback.o ../../../NR-Clib/src/BowlerStack/Bowler_Stack_Callback.c  
 	
 ${OBJECTDIR}/_ext/1863947771/Bowler_RPC_Process.o: ../../../NR-Clib/src/BowlerStack/Bowler_RPC_Process.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1863947771 
 	@${RM} ${OBJECTDIR}/_ext/1863947771/Bowler_RPC_Process.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/Bowler_RPC_Process.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/1863947771/Bowler_RPC_Process.o.d" -o ${OBJECTDIR}/_ext/1863947771/Bowler_RPC_Process.o ../../../NR-Clib/src/BowlerStack/Bowler_RPC_Process.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/Bowler_RPC_Process.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1863947771/Bowler_RPC_Process.o.d" -o ${OBJECTDIR}/_ext/1863947771/Bowler_RPC_Process.o ../../../NR-Clib/src/BowlerStack/Bowler_RPC_Process.c  
 	
 ${OBJECTDIR}/_ext/1863947771/Bowler_Helper.o: ../../../NR-Clib/src/BowlerStack/Bowler_Helper.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1863947771 
 	@${RM} ${OBJECTDIR}/_ext/1863947771/Bowler_Helper.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/Bowler_Helper.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/1863947771/Bowler_Helper.o.d" -o ${OBJECTDIR}/_ext/1863947771/Bowler_Helper.o ../../../NR-Clib/src/BowlerStack/Bowler_Helper.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1863947771/Bowler_Helper.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1863947771/Bowler_Helper.o.d" -o ${OBJECTDIR}/_ext/1863947771/Bowler_Helper.o ../../../NR-Clib/src/BowlerStack/Bowler_Helper.c  
 	
 ${OBJECTDIR}/_ext/1931702211/usb_fifo.o: ../../../NR-Clib/src/arch/pic32/usb/usb_fifo.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1931702211 
 	@${RM} ${OBJECTDIR}/_ext/1931702211/usb_fifo.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1931702211/usb_fifo.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/1931702211/usb_fifo.o.d" -o ${OBJECTDIR}/_ext/1931702211/usb_fifo.o ../../../NR-Clib/src/arch/pic32/usb/usb_fifo.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1931702211/usb_fifo.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1931702211/usb_fifo.o.d" -o ${OBJECTDIR}/_ext/1931702211/usb_fifo.o ../../../NR-Clib/src/arch/pic32/usb/usb_fifo.c  
 	
 ${OBJECTDIR}/_ext/1931702211/usb_device.o: ../../../NR-Clib/src/arch/pic32/usb/usb_device.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1931702211 
 	@${RM} ${OBJECTDIR}/_ext/1931702211/usb_device.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1931702211/usb_device.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/1931702211/usb_device.o.d" -o ${OBJECTDIR}/_ext/1931702211/usb_device.o ../../../NR-Clib/src/arch/pic32/usb/usb_device.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1931702211/usb_device.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1931702211/usb_device.o.d" -o ${OBJECTDIR}/_ext/1931702211/usb_device.o ../../../NR-Clib/src/arch/pic32/usb/usb_device.c  
 	
 ${OBJECTDIR}/_ext/1931702211/usb_function_cdc.o: ../../../NR-Clib/src/arch/pic32/usb/usb_function_cdc.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1931702211 
 	@${RM} ${OBJECTDIR}/_ext/1931702211/usb_function_cdc.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1931702211/usb_function_cdc.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/1931702211/usb_function_cdc.o.d" -o ${OBJECTDIR}/_ext/1931702211/usb_function_cdc.o ../../../NR-Clib/src/arch/pic32/usb/usb_function_cdc.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1931702211/usb_function_cdc.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1931702211/usb_function_cdc.o.d" -o ${OBJECTDIR}/_ext/1931702211/usb_function_cdc.o ../../../NR-Clib/src/arch/pic32/usb/usb_function_cdc.c  
 	
 ${OBJECTDIR}/_ext/1931702211/usb_interrupt.o: ../../../NR-Clib/src/arch/pic32/usb/usb_interrupt.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1931702211 
 	@${RM} ${OBJECTDIR}/_ext/1931702211/usb_interrupt.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1931702211/usb_interrupt.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/1931702211/usb_interrupt.o.d" -o ${OBJECTDIR}/_ext/1931702211/usb_interrupt.o ../../../NR-Clib/src/arch/pic32/usb/usb_interrupt.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1931702211/usb_interrupt.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1931702211/usb_interrupt.o.d" -o ${OBJECTDIR}/_ext/1931702211/usb_interrupt.o ../../../NR-Clib/src/arch/pic32/usb/usb_interrupt.c  
 	
 ${OBJECTDIR}/_ext/1931702211/usb_callback.o: ../../../NR-Clib/src/arch/pic32/usb/usb_callback.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1931702211 
 	@${RM} ${OBJECTDIR}/_ext/1931702211/usb_callback.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1931702211/usb_callback.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/1931702211/usb_callback.o.d" -o ${OBJECTDIR}/_ext/1931702211/usb_callback.o ../../../NR-Clib/src/arch/pic32/usb/usb_callback.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1931702211/usb_callback.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1931702211/usb_callback.o.d" -o ${OBJECTDIR}/_ext/1931702211/usb_callback.o ../../../NR-Clib/src/arch/pic32/usb/usb_callback.c  
 	
 ${OBJECTDIR}/_ext/1931702211/usb_descriptors.o: ../../../NR-Clib/src/arch/pic32/usb/usb_descriptors.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1931702211 
 	@${RM} ${OBJECTDIR}/_ext/1931702211/usb_descriptors.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1931702211/usb_descriptors.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/1931702211/usb_descriptors.o.d" -o ${OBJECTDIR}/_ext/1931702211/usb_descriptors.o ../../../NR-Clib/src/arch/pic32/usb/usb_descriptors.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1931702211/usb_descriptors.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1931702211/usb_descriptors.o.d" -o ${OBJECTDIR}/_ext/1931702211/usb_descriptors.o ../../../NR-Clib/src/arch/pic32/usb/usb_descriptors.c  
 	
 ${OBJECTDIR}/_ext/132047822/FlashStorage.o: ../../../NR-Clib/src/arch/pic32/FlashStorage.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/132047822 
 	@${RM} ${OBJECTDIR}/_ext/132047822/FlashStorage.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/FlashStorage.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/132047822/FlashStorage.o.d" -o ${OBJECTDIR}/_ext/132047822/FlashStorage.o ../../../NR-Clib/src/arch/pic32/FlashStorage.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/FlashStorage.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/132047822/FlashStorage.o.d" -o ${OBJECTDIR}/_ext/132047822/FlashStorage.o ../../../NR-Clib/src/arch/pic32/FlashStorage.c  
 	
 ${OBJECTDIR}/_ext/132047822/UART.o: ../../../NR-Clib/src/arch/pic32/UART.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/132047822 
 	@${RM} ${OBJECTDIR}/_ext/132047822/UART.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/UART.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/132047822/UART.o.d" -o ${OBJECTDIR}/_ext/132047822/UART.o ../../../NR-Clib/src/arch/pic32/UART.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/UART.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/132047822/UART.o.d" -o ${OBJECTDIR}/_ext/132047822/UART.o ../../../NR-Clib/src/arch/pic32/UART.c  
 	
 ${OBJECTDIR}/_ext/132047822/Delay.o: ../../../NR-Clib/src/arch/pic32/Delay.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/132047822 
 	@${RM} ${OBJECTDIR}/_ext/132047822/Delay.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/Delay.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/132047822/Delay.o.d" -o ${OBJECTDIR}/_ext/132047822/Delay.o ../../../NR-Clib/src/arch/pic32/Delay.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/Delay.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/132047822/Delay.o.d" -o ${OBJECTDIR}/_ext/132047822/Delay.o ../../../NR-Clib/src/arch/pic32/Delay.c  
 	
 ${OBJECTDIR}/_ext/132047822/LED.o: ../../../NR-Clib/src/arch/pic32/LED.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/132047822 
 	@${RM} ${OBJECTDIR}/_ext/132047822/LED.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/LED.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/132047822/LED.o.d" -o ${OBJECTDIR}/_ext/132047822/LED.o ../../../NR-Clib/src/arch/pic32/LED.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/LED.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/132047822/LED.o.d" -o ${OBJECTDIR}/_ext/132047822/LED.o ../../../NR-Clib/src/arch/pic32/LED.c  
 	
 ${OBJECTDIR}/_ext/132047822/Tick.o: ../../../NR-Clib/src/arch/pic32/Tick.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/132047822 
 	@${RM} ${OBJECTDIR}/_ext/132047822/Tick.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/Tick.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/132047822/Tick.o.d" -o ${OBJECTDIR}/_ext/132047822/Tick.o ../../../NR-Clib/src/arch/pic32/Tick.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/Tick.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/132047822/Tick.o.d" -o ${OBJECTDIR}/_ext/132047822/Tick.o ../../../NR-Clib/src/arch/pic32/Tick.c  
 	
 ${OBJECTDIR}/_ext/132047822/Bowler_USB_HAL.o: ../../../NR-Clib/src/arch/pic32/Bowler_USB_HAL.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/132047822 
 	@${RM} ${OBJECTDIR}/_ext/132047822/Bowler_USB_HAL.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/Bowler_USB_HAL.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/132047822/Bowler_USB_HAL.o.d" -o ${OBJECTDIR}/_ext/132047822/Bowler_USB_HAL.o ../../../NR-Clib/src/arch/pic32/Bowler_USB_HAL.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/Bowler_USB_HAL.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/132047822/Bowler_USB_HAL.o.d" -o ${OBJECTDIR}/_ext/132047822/Bowler_USB_HAL.o ../../../NR-Clib/src/arch/pic32/Bowler_USB_HAL.c  
 	
 ${OBJECTDIR}/_ext/132047822/Bowler_HAL.o: ../../../NR-Clib/src/arch/pic32/Bowler_HAL.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/132047822 
 	@${RM} ${OBJECTDIR}/_ext/132047822/Bowler_HAL.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/Bowler_HAL.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/132047822/Bowler_HAL.o.d" -o ${OBJECTDIR}/_ext/132047822/Bowler_HAL.o ../../../NR-Clib/src/arch/pic32/Bowler_HAL.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/Bowler_HAL.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/132047822/Bowler_HAL.o.d" -o ${OBJECTDIR}/_ext/132047822/Bowler_HAL.o ../../../NR-Clib/src/arch/pic32/Bowler_HAL.c  
 	
 ${OBJECTDIR}/_ext/132047822/Bowler_UART_HAL.o: ../../../NR-Clib/src/arch/pic32/Bowler_UART_HAL.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/132047822 
 	@${RM} ${OBJECTDIR}/_ext/132047822/Bowler_UART_HAL.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/Bowler_UART_HAL.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/132047822/Bowler_UART_HAL.o.d" -o ${OBJECTDIR}/_ext/132047822/Bowler_UART_HAL.o ../../../NR-Clib/src/arch/pic32/Bowler_UART_HAL.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/Bowler_UART_HAL.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/132047822/Bowler_UART_HAL.o.d" -o ${OBJECTDIR}/_ext/132047822/Bowler_UART_HAL.o ../../../NR-Clib/src/arch/pic32/Bowler_UART_HAL.c  
 	
 ${OBJECTDIR}/_ext/132047822/HAL_P32.o: ../../../NR-Clib/src/arch/pic32/HAL_P32.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/132047822 
 	@${RM} ${OBJECTDIR}/_ext/132047822/HAL_P32.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/HAL_P32.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/132047822/HAL_P32.o.d" -o ${OBJECTDIR}/_ext/132047822/HAL_P32.o ../../../NR-Clib/src/arch/pic32/HAL_P32.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/132047822/HAL_P32.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/132047822/HAL_P32.o.d" -o ${OBJECTDIR}/_ext/132047822/HAL_P32.o ../../../NR-Clib/src/arch/pic32/HAL_P32.c  
 	
 ${OBJECTDIR}/_ext/715587389/ether.o: ../../src/tcpip/ether.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/ether.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/ether.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/ether.o.d" -o ${OBJECTDIR}/_ext/715587389/ether.o ../../src/tcpip/ether.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/ether.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/ether.o.d" -o ${OBJECTDIR}/_ext/715587389/ether.o ../../src/tcpip/ether.c  
 	
 ${OBJECTDIR}/_ext/715587389/system_services.o: ../../src/tcpip/system_services.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/system_services.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/system_services.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/system_services.o.d" -o ${OBJECTDIR}/_ext/715587389/system_services.o ../../src/tcpip/system_services.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/system_services.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/system_services.o.d" -o ${OBJECTDIR}/_ext/715587389/system_services.o ../../src/tcpip/system_services.c  
 	
 ${OBJECTDIR}/_ext/715587389/nat_dp83848c.o: ../../src/tcpip/nat_dp83848c.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/nat_dp83848c.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/nat_dp83848c.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/nat_dp83848c.o.d" -o ${OBJECTDIR}/_ext/715587389/nat_dp83848c.o ../../src/tcpip/nat_dp83848c.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/nat_dp83848c.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/nat_dp83848c.o.d" -o ${OBJECTDIR}/_ext/715587389/nat_dp83848c.o ../../src/tcpip/nat_dp83848c.c  
 	
 ${OBJECTDIR}/_ext/715587389/pic32mx_cfg.o: ../../src/tcpip/pic32mx_cfg.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/pic32mx_cfg.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/pic32mx_cfg.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/pic32mx_cfg.o.d" -o ${OBJECTDIR}/_ext/715587389/pic32mx_cfg.o ../../src/tcpip/pic32mx_cfg.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/pic32mx_cfg.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/pic32mx_cfg.o.d" -o ${OBJECTDIR}/_ext/715587389/pic32mx_cfg.o ../../src/tcpip/pic32mx_cfg.c  
 	
 ${OBJECTDIR}/_ext/715587389/eth_phy.o: ../../src/tcpip/eth_phy.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/eth_phy.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/eth_phy.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/eth_phy.o.d" -o ${OBJECTDIR}/_ext/715587389/eth_phy.o ../../src/tcpip/eth_phy.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/eth_phy.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/eth_phy.o.d" -o ${OBJECTDIR}/_ext/715587389/eth_phy.o ../../src/tcpip/eth_phy.c  
 	
 ${OBJECTDIR}/_ext/715587389/boards.o: ../../src/tcpip/boards.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/boards.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/boards.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/boards.o.d" -o ${OBJECTDIR}/_ext/715587389/boards.o ../../src/tcpip/boards.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/boards.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/boards.o.d" -o ${OBJECTDIR}/_ext/715587389/boards.o ../../src/tcpip/boards.c  
 	
 ${OBJECTDIR}/_ext/715587389/eip.o: ../../src/tcpip/eip.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/eip.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/eip.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/eip.o.d" -o ${OBJECTDIR}/_ext/715587389/eip.o ../../src/tcpip/eip.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/eip.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/eip.o.d" -o ${OBJECTDIR}/_ext/715587389/eip.o ../../src/tcpip/eip.c  
 	
 ${OBJECTDIR}/_ext/715587389/tcpip_events.o: ../../src/tcpip/tcpip_events.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/tcpip_events.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/tcpip_events.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/tcpip_events.o.d" -o ${OBJECTDIR}/_ext/715587389/tcpip_events.o ../../src/tcpip/tcpip_events.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/tcpip_events.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/tcpip_events.o.d" -o ${OBJECTDIR}/_ext/715587389/tcpip_events.o ../../src/tcpip/tcpip_events.c  
 	
 ${OBJECTDIR}/_ext/715587389/block_mgr.o: ../../src/tcpip/block_mgr.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/block_mgr.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/block_mgr.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/block_mgr.o.d" -o ${OBJECTDIR}/_ext/715587389/block_mgr.o ../../src/tcpip/block_mgr.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/block_mgr.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/block_mgr.o.d" -o ${OBJECTDIR}/_ext/715587389/block_mgr.o ../../src/tcpip/block_mgr.c  
 	
 ${OBJECTDIR}/_ext/715587389/dhcp.o: ../../src/tcpip/dhcp.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/dhcp.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/dhcp.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/dhcp.o.d" -o ${OBJECTDIR}/_ext/715587389/dhcp.o ../../src/tcpip/dhcp.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/dhcp.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/dhcp.o.d" -o ${OBJECTDIR}/_ext/715587389/dhcp.o ../../src/tcpip/dhcp.c  
 	
 ${OBJECTDIR}/_ext/715587389/emac.o: ../../src/tcpip/emac.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/emac.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/emac.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/emac.o.d" -o ${OBJECTDIR}/_ext/715587389/emac.o ../../src/tcpip/emac.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/emac.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/emac.o.d" -o ${OBJECTDIR}/_ext/715587389/emac.o ../../src/tcpip/emac.c  
 	
 ${OBJECTDIR}/_ext/715587389/route.o: ../../src/tcpip/route.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/route.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/route.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/route.o.d" -o ${OBJECTDIR}/_ext/715587389/route.o ../../src/tcpip/route.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/route.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/route.o.d" -o ${OBJECTDIR}/_ext/715587389/route.o ../../src/tcpip/route.c  
 	
 ${OBJECTDIR}/_ext/715587389/buff_mgr.o: ../../src/tcpip/buff_mgr.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/buff_mgr.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/buff_mgr.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/buff_mgr.o.d" -o ${OBJECTDIR}/_ext/715587389/buff_mgr.o ../../src/tcpip/buff_mgr.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/buff_mgr.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/buff_mgr.o.d" -o ${OBJECTDIR}/_ext/715587389/buff_mgr.o ../../src/tcpip/buff_mgr.c  
 	
 ${OBJECTDIR}/_ext/715587389/eicmp.o: ../../src/tcpip/eicmp.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/eicmp.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/eicmp.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/eicmp.o.d" -o ${OBJECTDIR}/_ext/715587389/eicmp.o ../../src/tcpip/eicmp.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/eicmp.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/eicmp.o.d" -o ${OBJECTDIR}/_ext/715587389/eicmp.o ../../src/tcpip/eicmp.c  
 	
 ${OBJECTDIR}/_ext/715587389/mc_socket.o: ../../src/tcpip/mc_socket.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/mc_socket.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/mc_socket.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/mc_socket.o.d" -o ${OBJECTDIR}/_ext/715587389/mc_socket.o ../../src/tcpip/mc_socket.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/mc_socket.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/mc_socket.o.d" -o ${OBJECTDIR}/_ext/715587389/mc_socket.o ../../src/tcpip/mc_socket.c  
 	
 ${OBJECTDIR}/_ext/715587389/BowlerEthernetServer.o: ../../src/tcpip/BowlerEthernetServer.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/BowlerEthernetServer.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/BowlerEthernetServer.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/BowlerEthernetServer.o.d" -o ${OBJECTDIR}/_ext/715587389/BowlerEthernetServer.o ../../src/tcpip/BowlerEthernetServer.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/BowlerEthernetServer.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/BowlerEthernetServer.o.d" -o ${OBJECTDIR}/_ext/715587389/BowlerEthernetServer.o ../../src/tcpip/BowlerEthernetServer.c  
 	
 ${OBJECTDIR}/_ext/715587389/tcp_tick.o: ../../src/tcpip/tcp_tick.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/tcp_tick.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/tcp_tick.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/tcp_tick.o.d" -o ${OBJECTDIR}/_ext/715587389/tcp_tick.o ../../src/tcpip/tcp_tick.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/tcp_tick.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/tcp_tick.o.d" -o ${OBJECTDIR}/_ext/715587389/tcp_tick.o ../../src/tcpip/tcp_tick.c  
 	
 ${OBJECTDIR}/_ext/715587389/eudp.o: ../../src/tcpip/eudp.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/eudp.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/eudp.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/eudp.o.d" -o ${OBJECTDIR}/_ext/715587389/eudp.o ../../src/tcpip/eudp.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/eudp.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/eudp.o.d" -o ${OBJECTDIR}/_ext/715587389/eudp.o ../../src/tcpip/eudp.c  
 	
 ${OBJECTDIR}/_ext/715587389/earp.o: ../../src/tcpip/earp.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/earp.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/earp.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/earp.o.d" -o ${OBJECTDIR}/_ext/715587389/earp.o ../../src/tcpip/earp.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/earp.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/earp.o.d" -o ${OBJECTDIR}/_ext/715587389/earp.o ../../src/tcpip/earp.c  
 	
 ${OBJECTDIR}/_ext/715587389/etcp.o: ../../src/tcpip/etcp.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/etcp.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/etcp.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/etcp.o.d" -o ${OBJECTDIR}/_ext/715587389/etcp.o ../../src/tcpip/etcp.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/etcp.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/etcp.o.d" -o ${OBJECTDIR}/_ext/715587389/etcp.o ../../src/tcpip/etcp.c  
 	
 ${OBJECTDIR}/_ext/715587389/gpfunc.o: ../../src/tcpip/gpfunc.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/gpfunc.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/gpfunc.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/gpfunc.o.d" -o ${OBJECTDIR}/_ext/715587389/gpfunc.o ../../src/tcpip/gpfunc.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/gpfunc.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/gpfunc.o.d" -o ${OBJECTDIR}/_ext/715587389/gpfunc.o ../../src/tcpip/gpfunc.c  
 	
 ${OBJECTDIR}/_ext/715587389/MyEthernet.o: ../../src/tcpip/MyEthernet.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/MyEthernet.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/MyEthernet.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/MyEthernet.o.d" -o ${OBJECTDIR}/_ext/715587389/MyEthernet.o ../../src/tcpip/MyEthernet.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/MyEthernet.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/MyEthernet.o.d" -o ${OBJECTDIR}/_ext/715587389/MyEthernet.o ../../src/tcpip/MyEthernet.c  
 	
 ${OBJECTDIR}/_ext/715587389/stackmgr.o: ../../src/tcpip/stackmgr.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/stackmgr.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/stackmgr.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/stackmgr.o.d" -o ${OBJECTDIR}/_ext/715587389/stackmgr.o ../../src/tcpip/stackmgr.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/stackmgr.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/stackmgr.o.d" -o ${OBJECTDIR}/_ext/715587389/stackmgr.o ../../src/tcpip/stackmgr.c  
 	
 ${OBJECTDIR}/_ext/715587389/pkt_queue.o: ../../src/tcpip/pkt_queue.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/715587389 
 	@${RM} ${OBJECTDIR}/_ext/715587389/pkt_queue.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/pkt_queue.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/715587389/pkt_queue.o.d" -o ${OBJECTDIR}/_ext/715587389/pkt_queue.o ../../src/tcpip/pkt_queue.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/715587389/pkt_queue.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/715587389/pkt_queue.o.d" -o ${OBJECTDIR}/_ext/715587389/pkt_queue.o ../../src/tcpip/pkt_queue.c  
 	
 ${OBJECTDIR}/_ext/711791526/SPIClient.o: ../../src/Bowler/SPIClient.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
 	@${RM} ${OBJECTDIR}/_ext/711791526/SPIClient.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/SPIClient.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/711791526/SPIClient.o.d" -o ${OBJECTDIR}/_ext/711791526/SPIClient.o ../../src/Bowler/SPIClient.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/SPIClient.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/711791526/SPIClient.o.d" -o ${OBJECTDIR}/_ext/711791526/SPIClient.o ../../src/Bowler/SPIClient.c  
 	
 ${OBJECTDIR}/_ext/711791526/main.o: ../../src/Bowler/main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
 	@${RM} ${OBJECTDIR}/_ext/711791526/main.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/main.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/711791526/main.o.d" -o ${OBJECTDIR}/_ext/711791526/main.o ../../src/Bowler/main.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/main.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/711791526/main.o.d" -o ${OBJECTDIR}/_ext/711791526/main.o ../../src/Bowler/main.c  
 	
 ${OBJECTDIR}/_ext/711791526/Callbacks.o: ../../src/Bowler/Callbacks.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
 	@${RM} ${OBJECTDIR}/_ext/711791526/Callbacks.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/Callbacks.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/711791526/Callbacks.o.d" -o ${OBJECTDIR}/_ext/711791526/Callbacks.o ../../src/Bowler/Callbacks.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/Callbacks.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/711791526/Callbacks.o.d" -o ${OBJECTDIR}/_ext/711791526/Callbacks.o ../../src/Bowler/Callbacks.c  
 	
 ${OBJECTDIR}/_ext/711791526/UpstreamPackets.o: ../../src/Bowler/UpstreamPackets.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
 	@${RM} ${OBJECTDIR}/_ext/711791526/UpstreamPackets.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/UpstreamPackets.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -MMD -MF "${OBJECTDIR}/_ext/711791526/UpstreamPackets.o.d" -o ${OBJECTDIR}/_ext/711791526/UpstreamPackets.o ../../src/Bowler/UpstreamPackets.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/UpstreamPackets.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/NR-Clib/include" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/tcp" -I"/home/hephaestus/workspace/ReplicatorFirmware/include/replicator" -MMD -MF "${OBJECTDIR}/_ext/711791526/UpstreamPackets.o.d" -o ${OBJECTDIR}/_ext/711791526/UpstreamPackets.o ../../src/Bowler/UpstreamPackets.c  
 	
 endif
 

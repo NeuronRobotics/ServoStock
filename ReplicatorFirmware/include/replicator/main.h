@@ -6,9 +6,10 @@
 #include "Bowler/Bowler.h"
 #include "AuxUartServer.h"
 #include "boards.h"
+#include "ReplicatorHeader.h"
 
 #if !defined(NUM_PID_GROUPS)
-	#define NUM_PID_GROUPS (8)
+	#define NUM_PID_GROUPS (12)
 #endif
 void LoadCorePacket(BowlerPacket * Packet);
 void setDebug(BOOL d);
