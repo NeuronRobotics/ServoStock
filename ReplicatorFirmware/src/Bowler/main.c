@@ -205,16 +205,14 @@ void encoderTest(){
     ENC3_CSN=CSN_Enabled;
 
 
-    cmd.regs.Address=AS5055REG_AutomaticGainControl;
+    cmd.regs.Address=AS5055REG_AngularData;
     cmd.regs.RWn=1; // Read
     cmd.regs.PAR=AS5055CalculateParity(cmd.uint0_15);
+    
+    read.bytes.ubyte8_15=SPITransceve(cmd.bytes.ubyte8_15);
+    read.bytes.ubyte0_7=SPITransceve(cmd.bytes.ubyte0_7);
 
-//    read.bytes.ubyte8_15=SPITransceve(cmd.bytes.ubyte8_15);
-//    read.bytes.ubyte0_7=SPITransceve(cmd.bytes.ubyte0_7);
-    read.bytes.ubyte8_15=SPITransceve(0xFF);
-    read.bytes.ubyte0_7=SPITransceve(0xFF);
-
-    println_I("Encoder data: ");p_ul_I(read.regs.Data);
+    println_I("Encoder data: ");p_ul_I(read.regs.Data);print_I(" sent: ");prHEX16(cmd.uint0_15,INFO_PRINT);
     ENC2_CSN=CSN_Disabled;
     ENC3_CSN=CSN_Disabled;
     while(SpiChnIsBusy(1)); // chill
