@@ -239,14 +239,7 @@ int main()
 #endif
 
 	BowlerPacket MyPacket;
-	println_I("#Waiting for slaves to start.");
-	for(i=0;i<40;i++){
-		DelayMs(100);//Wait 10 seconds
-		if(i%2){
-			setLed(1,1,1);
-		}else
-			setLed(1,0,1);
-	}
+
 	println_I("#Ready...");
         //runAsyncPoll();
         setPrintLevelNoPrint();
