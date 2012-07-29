@@ -6,6 +6,8 @@
 #include "Bowler/Bowler.h"
 #include "AuxUartServer.h"
 #include "boards.h"
+
+#include "AS5055.h"
 #include "ReplicatorHeader.h"
 
 #if !defined(NUM_PID_GROUPS)
