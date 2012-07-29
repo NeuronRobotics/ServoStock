@@ -209,8 +209,10 @@ void encoderTest(){
     cmd.regs.RWn=1; // Read
     cmd.regs.PAR=AS5055CalculateParity(cmd.uint0_15);
 
-    read.bytes.ubyte8_15=SPITransceve(cmd.bytes.ubyte8_15);
-    read.bytes.ubyte0_7=SPITransceve(cmd.bytes.ubyte0_7);
+//    read.bytes.ubyte8_15=SPITransceve(cmd.bytes.ubyte8_15);
+//    read.bytes.ubyte0_7=SPITransceve(cmd.bytes.ubyte0_7);
+    read.bytes.ubyte8_15=SPITransceve(0xFF);
+    read.bytes.ubyte0_7=SPITransceve(0xFF);
 
     println_I("Encoder data: ");p_ul_I(read.regs.Data);
     ENC2_CSN=CSN_Disabled;
@@ -257,7 +259,7 @@ int main()
 	println_I("#Ready...");
         while(1){
             encoderTest();
-            DelayMs(100);
+            DelayMs(10);
         }
         setPrintLevelInfoPrint();
 	while(1){
