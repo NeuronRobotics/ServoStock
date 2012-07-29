@@ -193,7 +193,7 @@ BYTE Bowler_Server_Local(BowlerPacket * Packet){
 }
 
 void encoderTest(){
-    println_I("\tStarting test");
+    //println_I("\tStarting test");
     BYTE i;
     AS5055ReadPacket read;
     AS5055CommandPacket cmd;
