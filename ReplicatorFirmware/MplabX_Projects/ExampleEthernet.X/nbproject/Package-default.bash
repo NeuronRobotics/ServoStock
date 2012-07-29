@@ -10,9 +10,9 @@ CND_CONF=default
 CND_DISTDIR=dist
 TMPDIR=build/${CND_CONF}/${IMAGE_TYPE}/tmp-packaging
 TMPDIRNAME=tmp-packaging
-OUTPUT_PATH=dist/${CND_CONF}/${IMAGE_TYPE}/Backplane_MPLABx_refactor.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
-OUTPUT_BASENAME=Backplane_MPLABx_refactor.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
-PACKAGE_TOP_DIR=backplanemplabxrefactor.x/
+OUTPUT_PATH=dist/${CND_CONF}/${IMAGE_TYPE}/ExampleEthernet.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+OUTPUT_BASENAME=ExampleEthernet.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+PACKAGE_TOP_DIR=exampleethernet.x/
 
 # Functions
 function checkReturnCode
@@ -57,15 +57,15 @@ mkdir -p ${TMPDIR}
 
 # Copy files and create directories and links
 cd "${TOP}"
-makeDirectory ${TMPDIR}/backplanemplabxrefactor.x/bin
+makeDirectory ${TMPDIR}/exampleethernet.x/bin
 copyFileToTmpDir "${OUTPUT_PATH}" "${TMPDIR}/${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}" 0755
 
 
 # Generate tar file
 cd "${TOP}"
-rm -f ${CND_DISTDIR}/${CND_CONF}/package/backplanemplabxrefactor.x.tar
+rm -f ${CND_DISTDIR}/${CND_CONF}/package/exampleethernet.x.tar
 cd ${TMPDIR}
-tar -vcf ../../../../${CND_DISTDIR}/${CND_CONF}/package/backplanemplabxrefactor.x.tar *
+tar -vcf ../../../../${CND_DISTDIR}/${CND_CONF}/package/exampleethernet.x.tar *
 checkReturnCode
 
 # Cleanup

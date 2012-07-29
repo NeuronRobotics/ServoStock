@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=Backplane_MPLABx_refactor.X
+PROJECTNAME=ExampleEthernet.X
 
 # Active Configuration
 DEFAULTCONF=default
