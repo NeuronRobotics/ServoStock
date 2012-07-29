@@ -31,6 +31,7 @@
 #include "EthernetController.h"
 #include "Bowler/Bowler_Struct_Def.h"
 #include "boards.h"
+#include "main.h"
 
 #define NO_ETHERNET
 
@@ -163,21 +164,7 @@ const unsigned char pidNSName[] = "bcs.pid.*;0.3;;";
 static RunEveryData pid = {0,1.0};
 static RunEveryData async = {0,200.0};
 static BowlerPacket Packet;
-//static INT32 lastPacketVal[NUM_PID_GROUPS];
-//INT32 GetPID(BYTE chan){
-//	return lastPacketVal[chan];
-//}
-//void runAsyncPoll(){
-//	int i;
-//	for(i=0;i<NUM_PID_GROUPS;i++){
-//		INT32 t =  UpdatePIDCurrent(i);
-//		if(t != lastPacketVal[i]){
-//			lastPacketVal[i]=t;
-//			pushPIDMine(i, lastPacketVal[i]);
-//			//enableDebug();
-//		}
-//	}
-//}
+
 int j=0,i=0;
 BYTE Bowler_Server_Local(BowlerPacket * Packet){
 	if (GetBowlerPacket_arch(Packet)){
@@ -204,6 +191,33 @@ BYTE Bowler_Server_Local(BowlerPacket * Packet){
 
 	return FALSE;
 }
+
+void encoderTest(){
+    println_I("\tStarting test");
+    BYTE i;
+    AS5055ReadPacket read;
+    AS5055CommandPacket cmd;
+    OpenSPI1(CLK_POL_ACTIVE_LOW\
+            |SPI_MODE8_ON|ENABLE_SDO_PIN|SLAVE_ENABLE_OFF|SPI_CKE_ON\
+            |MASTER_ENABLE_ON|SEC_PRESCAL_8_1|PRI_PRESCAL_64_1, SPI_ENABLE);
+
+    ENC2_CSN=CSN_Enabled;
+    ENC3_CSN=CSN_Enabled;
+
+
+    cmd.regs.Address=AS5055REG_AutomaticGainControl;
+    cmd.regs.RWn=1; // Read
+    cmd.regs.PAR=AS5055CalculateParity(cmd.uint0_15);
+
+    read.bytes.ubyte8_15=SPITransceve(cmd.bytes.ubyte8_15);
+    read.bytes.ubyte0_7=SPITransceve(cmd.bytes.ubyte0_7);
+
+    println_I("Encoder data: ");p_ul_I(read.regs.Data);
+    ENC2_CSN=CSN_Disabled;
+    ENC3_CSN=CSN_Disabled;
+    while(SpiChnIsBusy(1)); // chill
+}
+
 int main()
 {
         setPrintLevelInfoPrint();
@@ -241,8 +255,11 @@ int main()
 	BowlerPacket MyPacket;
 
 	println_I("#Ready...");
-        //runAsyncPoll();
-        setPrintLevelNoPrint();
+        while(1){
+            encoderTest();
+            DelayMs(100);
+        }
+        setPrintLevelInfoPrint();
 	while(1){
             //println_I("Loop");
             setLed(1,0,0);
@@ -272,6 +289,8 @@ int main()
 
 	}
 }
+
+
 
 
 

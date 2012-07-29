@@ -133,6 +133,7 @@
         <itemPath>../../src/Bowler/main.c</itemPath>
         <itemPath>../../src/Bowler/Callbacks.c</itemPath>
         <itemPath>../../src/Bowler/UpstreamPackets.c</itemPath>
+        <itemPath>../../src/Bowler/AS5055.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f3" displayName="BowlerStack" projectFiles="true">
         <logicalFolder name="BowlerStack" displayName="BowlerStack" projectFiles="true">
@@ -249,7 +250,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="/home/hephaestus/workspace/NR-Clib/include;/home/hephaestus/workspace/ReplicatorFirmware/include/tcp;/home/hephaestus/workspace/ReplicatorFirmware/include/replicator"/>
+                  value="../../../NR-Clib/include;../../include/tcp;../../include/replicator"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="isolate-each-function" value="false"/>
         <property key="make-warnings-into-errors" value="false"/>
