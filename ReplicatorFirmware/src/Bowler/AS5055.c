@@ -12,7 +12,7 @@ UINT8   AS5055CalculateParity(UINT16 data){
     return 0;
 }
 
-UINT16 send(BYTE index, UINT16 data){
+UINT16 AS5055send(BYTE index, UINT16 data){
     UINT16_UNION tmp;
     UINT16_UNION back;
     tmp.Val=data;
@@ -31,8 +31,8 @@ UINT16 AS5055reset(BYTE index){
     cmd.regs.RWn=AS5055_WRITE;
     cmd.regs.PAR=AS5055CalculateParity(cmd.uint0_15);
 
-    send(BYTE index, cmd.uint0_15);
-    send(BYTE index, 0);
+    AS5055send(index, cmd.uint0_15);
+    AS5055send(index, 0);
     
     return read.uint0_15;
 }
@@ -44,7 +44,7 @@ void AS5055ResetErrorFlag(BYTE index){
     cmd.regs.RWn=AS5055_READ;
     cmd.regs.PAR=AS5055CalculateParity(cmd.uint0_15);
 
-    send(BYTE index, cmd.uint0_15);
+    AS5055send(index, cmd.uint0_15);
     
 }
 
@@ -55,8 +55,8 @@ void printSystemConfig(BYTE index){
     cmd.regs.RWn=AS5055_READ;
     cmd.regs.PAR=AS5055CalculateParity(cmd.uint0_15);
 
-    send(BYTE index, cmd.uint0_15);
-    read.uint0_15 = send(BYTE index, 0);
+    AS5055send(index, cmd.uint0_15);
+    read.uint0_15 = AS5055send(index, 0);
     println_I("System config: ");       prHEX16(read.uint0_15,INFO_PRINT);
     println_I("\tResolution: ");        p_sl(read.regs.resolution,INFO_PRINT);
     println_I("\tchip ID: ");           p_sl(read.regs.id,INFO_PRINT);
@@ -73,8 +73,8 @@ UINT16 AS5055readAngle(BYTE index){
     cmd.regs.RWn=AS5055_READ;
     cmd.regs.PAR=AS5055CalculateParity(cmd.uint0_15);
 
-    send(BYTE index, cmd.uint0_15);
-    read.uint0_15 = send(BYTE index, 0);
+    AS5055send(index, cmd.uint0_15);
+    read.uint0_15 = AS5055send(index, 0);
     
     if(read.regs.EF){
         //AS5055ResetErrorFlag(index);
