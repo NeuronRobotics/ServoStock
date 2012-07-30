@@ -194,28 +194,15 @@ BYTE Bowler_Server_Local(BowlerPacket * Packet){
 
 void encoderTest(){
     //println_I("\tStarting test");
-    BYTE i;
-    AS5055ReadPacket read;
-    AS5055CommandPacket cmd;
     OpenSPI1(CLK_POL_ACTIVE_LOW\
             |SPI_MODE8_ON|ENABLE_SDO_PIN|SLAVE_ENABLE_OFF|SPI_CKE_ON\
             |MASTER_ENABLE_ON|SEC_PRESCAL_8_1|PRI_PRESCAL_64_1, SPI_ENABLE);
 
-    ENC2_CSN=CSN_Enabled;
-    ENC3_CSN=CSN_Enabled;
+    //AS5055reset(3);
+    UINT16 data = AS5055readAngle(3);
 
+    println_I("Encoder data: ");p_ul_I(data);
 
-    cmd.regs.Address=AS5055REG_AngularData;
-    cmd.regs.RWn=1; // Read
-    cmd.regs.PAR=AS5055CalculateParity(cmd.uint0_15);
-    
-    read.bytes.ubyte8_15=SPITransceve(cmd.bytes.ubyte8_15);
-    read.bytes.ubyte0_7=SPITransceve(cmd.bytes.ubyte0_7);
-
-    println_I("Encoder data: ");p_ul_I(read.regs.Data);print_I(" sent: ");prHEX16(cmd.uint0_15,INFO_PRINT);
-    ENC2_CSN=CSN_Disabled;
-    ENC3_CSN=CSN_Disabled;
-    while(SpiChnIsBusy(1)); // chill
 }
 
 int main()
@@ -255,6 +242,7 @@ int main()
 	BowlerPacket MyPacket;
 
 	println_I("#Ready...");
+        AS5055reset(3);
         while(1){
             encoderTest();
             DelayMs(10);
