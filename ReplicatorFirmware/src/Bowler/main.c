@@ -201,7 +201,7 @@ void encoderTest(){
     //AS5055reset(3);
     UINT16 data = AS5055readAngle(3);
 
-    println_I("Encoder data: ");p_ul_I(data);
+    //println_I("Encoder data: ");p_ul_I(data);
 
 }
 

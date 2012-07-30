@@ -12,8 +12,18 @@ UINT8   AS5055CalculateParity(UINT16 data){
     return 0;
 }
 
-UINT16 AS5055reset(BYTE index){
+UINT16 send(BYTE index, UINT16 data){
+    UINT16_UNION tmp;
+    UINT16_UNION back;
+    tmp.Val=data;
     EncoderSS(index,CSN_Enabled);
+    back.byte.SB = SPITransceve(tmp.byte.SB);
+    back.byte.LB = SPITransceve(tmp.byte.LB);
+    EncoderSS(index,CSN_Disabled);
+    return back.Val;
+}
+
+UINT16 AS5055reset(BYTE index){
     AS5055CommandPacket cmd;
     AS5055ReadPacket read;
 
@@ -21,47 +31,32 @@ UINT16 AS5055reset(BYTE index){
     cmd.regs.RWn=AS5055_WRITE;
     cmd.regs.PAR=AS5055CalculateParity(cmd.uint0_15);
 
-    SPITransceve(cmd.bytes.ubyte8_15);
-    SPITransceve(cmd.bytes.ubyte0_7);
-    EncoderSS(index,CSN_Disabled);
-    EncoderSS(index,CSN_Enabled);
-    SPITransceve(0);
-    SPITransceve(0);
-    EncoderSS(index,CSN_Disabled);
+    send(BYTE index, cmd.uint0_15);
+    send(BYTE index, 0);
     
     return read.uint0_15;
 }
 
-UINT16 AS5055ResetErrorFlag(BYTE index){
+void AS5055ResetErrorFlag(BYTE index){
     AS5055CommandPacket cmd;
-    AS5055ReadPacket read;
-    EncoderSS(index,CSN_Enabled);
+
     cmd.regs.Address=AS5055REG_ClearErrorFlagReset;
     cmd.regs.RWn=AS5055_READ;
     cmd.regs.PAR=AS5055CalculateParity(cmd.uint0_15);
 
-    SPITransceve(cmd.bytes.ubyte8_15);
-    SPITransceve(cmd.bytes.ubyte0_7);
-    EncoderSS(index,CSN_Disabled);
+    send(BYTE index, cmd.uint0_15);
     
-    return read.regs.Data;
 }
 
 void printSystemConfig(BYTE index){
     AS5055CommandPacket cmd;
     AS5055SystemConfigPacket read;
-    EncoderSS(index,CSN_Enabled);
     cmd.regs.Address=AS5055REG_SystemConfig1;
     cmd.regs.RWn=AS5055_READ;
     cmd.regs.PAR=AS5055CalculateParity(cmd.uint0_15);
 
-    SPITransceve(cmd.bytes.ubyte8_15);
-    SPITransceve(cmd.bytes.ubyte0_7);
-    EncoderSS(index,CSN_Disabled);
-    EncoderSS(index,CSN_Enabled);
-    read.bytes.ubyte8_15=SPITransceve(0);
-    read.bytes.ubyte0_7=SPITransceve(0);
-    EncoderSS(index,CSN_Disabled);
+    send(BYTE index, cmd.uint0_15);
+    read.uint0_15 = send(BYTE index, 0);
     println_I("System config: ");       prHEX16(read.uint0_15,INFO_PRINT);
     println_I("\tResolution: ");        p_sl(read.regs.resolution,INFO_PRINT);
     println_I("\tchip ID: ");           p_sl(read.regs.id,INFO_PRINT);
@@ -74,18 +69,13 @@ void printSystemConfig(BYTE index){
 UINT16 AS5055readAngle(BYTE index){
     AS5055CommandPacket cmd;
     AS5055AngularDataPacket read;
-    EncoderSS(index,CSN_Enabled);
     cmd.regs.Address=AS5055REG_AngularData;
     cmd.regs.RWn=AS5055_READ;
     cmd.regs.PAR=AS5055CalculateParity(cmd.uint0_15);
 
-    SPITransceve(cmd.bytes.ubyte8_15);
-    SPITransceve(cmd.bytes.ubyte0_7);
-    EncoderSS(index,CSN_Disabled);
-    EncoderSS(index,CSN_Enabled);
-    read.bytes.ubyte8_15=SPITransceve(0);
-    read.bytes.ubyte0_7=SPITransceve(0);
-    EncoderSS(index,CSN_Disabled);
+    send(BYTE index, cmd.uint0_15);
+    read.uint0_15 = send(BYTE index, 0);
+    
     if(read.regs.EF){
         //AS5055ResetErrorFlag(index);
         //println_E("**Error flag on data read!");
@@ -100,6 +90,8 @@ UINT16 AS5055readAngle(BYTE index){
     }
     return read.regs.Data;
 }
+
+
 
 void EncoderSS(BYTE index, BYTE state){
     switch(index){
