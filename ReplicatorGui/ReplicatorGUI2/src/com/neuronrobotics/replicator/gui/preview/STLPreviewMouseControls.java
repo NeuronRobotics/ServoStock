@@ -1,16 +1,9 @@
 package com.neuronrobotics.replicator.gui.preview;
 
-//import java.awt.Container;
-//import java.awt.event.ActionEvent;
-//import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Point2D;
-
-//import javax.vecmath.Point2d;
-//import javax.vecmath.Point3d;
-import javax.vecmath.Point3f;
 
 public class STLPreviewMouseControls implements MouseListener, MouseMotionListener{
 
@@ -180,9 +173,9 @@ public class STLPreviewMouseControls implements MouseListener, MouseMotionListen
 		Point2D temp = arg0.getLocationOnScreen();
 		lastLocation = temp;
 		
-		Point3f dim = thePreview.getWorkspaceDimensions();
-		
-		double zoomDist = Math.max(Math.max(dim.x,dim.y),dim.z)/10.0;
+		//Point3f dim = thePreview.getWorkspaceDimensions();
+		//TODO
+		double zoomDist = 6;//Math.max(Math.max(dim.x,dim.y),dim.z)/10.0;
 		
 		if(arg0.getClickCount()>=2){
 			thePreview.zoom(zoomDist);

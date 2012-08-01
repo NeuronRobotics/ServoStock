@@ -11,7 +11,7 @@ public class STLTransformGroup extends TransformGroup{
 	
 	private STLObject theSTLObject;
 	
-	private Shape3D theModel, theOutline;
+	private Shape3D theModel, theFacetOutline;
 	
 	public STLTransformGroup(STLObject stlo, Shape3D model, Shape3D outline){
 		super();
@@ -41,21 +41,21 @@ public class STLTransformGroup extends TransformGroup{
 	}
 	
 	private void setOutline(Shape3D newOutline){
-		if(theOutline!=null) this.removeChild(theOutline);
-		this.theOutline = newOutline;
+		if(theFacetOutline!=null) this.removeChild(theFacetOutline);
+		this.theFacetOutline = newOutline;
 		
 		Appearance app;	
 		RenderingAttributes ra;
-		if(theOutline.getAppearance()==null) app = new Appearance();
-		else app = theOutline.getAppearance();
-		if(theOutline.getAppearance().getRenderingAttributes()==null) ra = new RenderingAttributes();
-		else ra = theOutline.getAppearance().getRenderingAttributes();
+		if(theFacetOutline.getAppearance()==null) app = new Appearance();
+		else app = theFacetOutline.getAppearance();
+		if(theFacetOutline.getAppearance().getRenderingAttributes()==null) ra = new RenderingAttributes();
+		else ra = theFacetOutline.getAppearance().getRenderingAttributes();
 		ra.setCapability(RenderingAttributes.ALLOW_VISIBLE_WRITE);
 		ra.setCapability(RenderingAttributes.ALLOW_VISIBLE_READ);
 		app.setRenderingAttributes(ra);
-		theOutline.setAppearance(app);
+		theFacetOutline.setAppearance(app);
 				
-		this.addChild(theOutline);
+		this.addChild(theFacetOutline);
 		
 	}
 	
@@ -72,7 +72,7 @@ public class STLTransformGroup extends TransformGroup{
 	}
 	
 	public Shape3D getOutline(){
-		return theOutline;
+		return theFacetOutline;
 	}
 	
 	public void setModelVisibility(boolean visible){
@@ -80,7 +80,7 @@ public class STLTransformGroup extends TransformGroup{
 	}
 	
 	public void setOutlineVisibility(boolean visible){
-		theOutline.getAppearance().getRenderingAttributes().setVisible(visible);	
+		theFacetOutline.getAppearance().getRenderingAttributes().setVisible(visible);	
 	}
 	
 	public boolean getModelVisibility(){
@@ -88,7 +88,7 @@ public class STLTransformGroup extends TransformGroup{
 	}
 	
 	public boolean getOutlineVisibility(){
-		return theOutline.getAppearance().getRenderingAttributes().getVisible();
+		return theFacetOutline.getAppearance().getRenderingAttributes().getVisible();
 	}
 
 	public Point3f getBaseMax(){

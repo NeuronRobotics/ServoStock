@@ -18,7 +18,6 @@ import javax.swing.JToolBar;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.vecmath.Point3d;
-import javax.vecmath.Point3f;
 import javax.vecmath.Vector3d;
 
 import com.neuronrobotics.replicator.gui.GUIFrontendInterface;
@@ -41,13 +40,11 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 	private JToolBar cameraControls;
 	private JButton resetCamera, centerModel, removePreview, forceReload;
 	private JToggleButton toggleOutline;
-	
-	private JButton testButton;//TODO this stuff
-	
+		
 	private GUIFrontendInterface theFrontend;
 	
 	private OrientationIndicatorCanvas3D orientationIndicator;
-
+	
 	public STLPreviewPanel(GUIFrontendInterface front) {
 
 		//workaroundTab = null;
@@ -107,10 +104,6 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 		
 		cameraControls.add(orientationIndicator);
 		
-		testButton = new JButton("TESTSTUFF");
-		testButton.addActionListener(this);
-		cameraControls.add(testButton);
-
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1.0;
 
@@ -132,13 +125,13 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 				
 	}
 
-	public boolean addPreview(File stl, Point3f workspaceDimensions)
+	public boolean addPreview(File stl, File wstl)
 			throws Exception {
 		File gcode = new File(stl.getAbsolutePath() + ".gcode");
-		return addPreview(stl, gcode, workspaceDimensions);
+		return addPreview(stl, gcode, wstl);
 	}
 
-	public boolean addPreview(File stl, File gcode, Point3f workspaceDimensions)
+	public boolean addPreview(File stl, File gcode, File workspaceSTL)
 			throws Exception {
 
 		String name = stl.getName();
@@ -146,7 +139,7 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 
 		if (!thePreviewTabs.containsKey(stl)) {
 			STLPreviewTab newTab = new STLPreviewTab(this, stl, gcode,
-					workspaceDimensions);
+					workspaceSTL);
 			thePreviewTabs.put(stl, newTab);
 			previewTabbedPane.add(newTab);
 			previewTabbedPane.add(newTab, name);
@@ -225,9 +218,7 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 				currentPreview.setOutlineVisibility(isOutlineSelected());
 			} else if (event.getSource().equals(forceReload)) {
 				currentTab.reload();
-			} else if (event.getSource().equals(testButton)){
-				currentTab.testAddSomething();
-			}
+			} 
 		}
 		
 		if (event.getSource().equals(removePreview)) {

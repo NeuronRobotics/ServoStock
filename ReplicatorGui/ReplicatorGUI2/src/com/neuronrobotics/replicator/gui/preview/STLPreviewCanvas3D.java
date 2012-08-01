@@ -4,29 +4,23 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.media.j3d.Appearance;
 import javax.media.j3d.BoundingSphere;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Canvas3D;
 import javax.media.j3d.ColoringAttributes;
 import javax.media.j3d.DirectionalLight;
-import javax.media.j3d.GeometryArray;
-import javax.media.j3d.IndexedLineArray;
-import javax.media.j3d.LineArray;
-import javax.media.j3d.Shape3D;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
 import javax.vecmath.Color3f;
 import javax.vecmath.Point3d;
-import javax.vecmath.Point3f;
 import javax.vecmath.Tuple3d;
 import javax.vecmath.Vector3d;
 import javax.vecmath.Vector3f;
 
-import com.neuronrobotics.replicator.gui.stl.STLFacet;
 import com.neuronrobotics.replicator.gui.stl.STLLoader;
 import com.neuronrobotics.replicator.gui.stl.STLObject;
 import com.neuronrobotics.replicator.gui.stl.STLTransformGroup;
+import com.neuronrobotics.replicator.gui.stl.STLWorkspaceBranchGroup;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
 public class STLPreviewCanvas3D extends Canvas3D {
@@ -39,13 +33,12 @@ public class STLPreviewCanvas3D extends Canvas3D {
 	// basic fields for creating java 3d scene
 	private SimpleUniverse simpleU;
 	private BranchGroup mainBranch;
-//	private Locale theLocale;
 
 	// transform group for the stl model itself
 	private STLTransformGroup stlTransform;
 
 	// transform group that displays the area in which the printer can reliably print
-	private BranchGroup theWorkspace;
+	private STLWorkspaceBranchGroup theWorkspace;
 
 	private DirectionalLight theLight;
 
@@ -58,8 +51,6 @@ public class STLPreviewCanvas3D extends Canvas3D {
 	private File theSTLFile, theGcode;
 	private STLObject theSTLObject;
 
-	private Point3f workspaceDimensions;
-
 	private STLPreviewMouseControls theMouseControls;
 	
 	private boolean initialized;
@@ -69,6 +60,8 @@ public class STLPreviewCanvas3D extends Canvas3D {
 	private boolean isDead;
 
 	private ArrayList<STLPreviewCanvas3DListener> theListeners;
+
+	private File theWorkspaceSTL;
 
 	/**
 	 * enum for encapsulating camera focus methods currently 
@@ -87,8 +80,7 @@ public class STLPreviewCanvas3D extends Canvas3D {
 
 			@Override
 			public Point3d getBaseCameraPosition(STLPreviewCanvas3D sp) {
-				double m = Math.max(sp.workspaceDimensions.z, Math.max(
-						sp.workspaceDimensions.x, sp.workspaceDimensions.y));
+				double m = Math.max(60,Math.max(60,60)); //TODO get from STLWorkspaceBranchGroup
 				return new Point3d(2 * m, 2 * m, 2 * m);
 			}
 
@@ -139,7 +131,7 @@ public class STLPreviewCanvas3D extends Canvas3D {
 
 	};
 
-	public STLPreviewCanvas3D(File stl, File gcode, Point3f workspaceDim) {
+	public STLPreviewCanvas3D(File stl, File gcode, File workspaceSTL) {
 		super(SimpleUniverse.getPreferredConfiguration());
 		
 		theListeners = new ArrayList<STLPreviewCanvas3DListener>();
@@ -156,8 +148,8 @@ public class STLPreviewCanvas3D extends Canvas3D {
 
 		this.theSTLFile = stl;
 		this.theGcode = gcode;
-		//System.out.println(theGcode.getName());
-		workspaceDimensions = workspaceDim;
+		
+		theWorkspaceSTL = workspaceSTL;
 
 	}
 	
@@ -188,10 +180,15 @@ public class STLPreviewCanvas3D extends Canvas3D {
 		stlTransform.getModel().getAppearance().getColoringAttributes()
 				.setCapability(ColoringAttributes.SHADE_GOURAUD);
 
-		theWorkspace = RectangularWorkspace(new Point3f(0, 0, 0),
-				workspaceDimensions);
+		try {
+			theWorkspace = STLWorkspaceBranchGroup.STLWorkspaceBranchGroupFactory(theWorkspaceSTL);
+		} catch (IOException e) {
+			//TODO notify of exception
+			theWorkspace = null; //TODO Change to NullSTLWorkspaceBranchGroup object?
+			e.printStackTrace();
+		}
 
-		mainBranch.addChild(theWorkspace);
+		if(theWorkspace!=null)mainBranch.addChild(theWorkspace);
 		
 		theLight = new DirectionalLight();
 		theLight.setInfluencingBounds(new BoundingSphere(new Point3d(0, 0, 0),
@@ -217,119 +214,7 @@ public class STLPreviewCanvas3D extends Canvas3D {
 	public boolean isInitialized(){
 		return initialized;
 	}
-	
-	private BranchGroup RectangularWorkspace(Point3f center,
-			Point3f dimensions) {
-		BranchGroup workspaceGroup = new BranchGroup();
 		
-		workspaceGroup.setCapability(BranchGroup.ALLOW_DETACH);
-
-		IndexedLineArray axisLines = new IndexedLineArray(8,
-				GeometryArray.COORDINATES, 24);
-
-		axisLines.setCoordinate(0, new Point3f(center.x - dimensions.x / 2,
-				center.y - dimensions.y / 2, center.z - dimensions.z / 2));
-		axisLines.setCoordinate(1, new Point3f(center.x - dimensions.x / 2,
-				center.y + dimensions.y / 2, center.z - dimensions.z / 2));
-		axisLines.setCoordinate(2, new Point3f(center.x + dimensions.x / 2,
-				center.y - dimensions.y / 2, center.z - dimensions.z / 2));
-		axisLines.setCoordinate(3, new Point3f(center.x + dimensions.x / 2,
-				center.y + dimensions.y / 2, center.z - dimensions.z / 2));
-		axisLines.setCoordinate(4, new Point3f(center.x - dimensions.x / 2,
-				center.y - dimensions.y / 2, center.z + dimensions.z / 2));
-		axisLines.setCoordinate(5, new Point3f(center.x - dimensions.x / 2,
-				center.y + dimensions.y / 2, center.z + dimensions.z / 2));
-		axisLines.setCoordinate(6, new Point3f(center.x + dimensions.x / 2,
-				center.y - dimensions.y / 2, center.z + dimensions.z / 2));
-		axisLines.setCoordinate(7, new Point3f(center.x + dimensions.x / 2,
-				center.y + dimensions.y / 2, center.z + dimensions.z / 2));
-
-		axisLines.setCoordinateIndex(0, 0);
-		axisLines.setCoordinateIndex(1, 1);
-		axisLines.setCoordinateIndex(2, 0);
-		axisLines.setCoordinateIndex(3, 2);
-		axisLines.setCoordinateIndex(4, 0);
-		axisLines.setCoordinateIndex(5, 4);
-		axisLines.setCoordinateIndex(6, 7);
-		axisLines.setCoordinateIndex(7, 3);
-		axisLines.setCoordinateIndex(8, 7);
-		axisLines.setCoordinateIndex(9, 5);
-		axisLines.setCoordinateIndex(10, 7);
-		axisLines.setCoordinateIndex(11, 6);
-		axisLines.setCoordinateIndex(12, 2);
-		axisLines.setCoordinateIndex(13, 3);
-		axisLines.setCoordinateIndex(14, 2);
-		axisLines.setCoordinateIndex(15, 6);
-		axisLines.setCoordinateIndex(16, 6);
-		axisLines.setCoordinateIndex(17, 4);
-		axisLines.setCoordinateIndex(18, 5);
-		axisLines.setCoordinateIndex(19, 4);
-		axisLines.setCoordinateIndex(20, 5);
-		axisLines.setCoordinateIndex(21, 1);
-		axisLines.setCoordinateIndex(22, 1);
-		axisLines.setCoordinateIndex(23, 3);
-
-		Shape3D workArea = new Shape3D();
-		workArea.setGeometry(axisLines);
-		workspaceGroup.addChild(workArea);
-
-		// Work surface
-		LineArray surfaceLines = new LineArray(12, GeometryArray.COORDINATES);
-
-		float xDelta = dimensions.x / 4.0f;
-		float zDelta = dimensions.z / 4.0f;
-		Point3f backLeft = new Point3f(center.x - dimensions.x / 2, center.y
-				- dimensions.y / 2, center.z - dimensions.z / 2);
-
-		int vt = 0;
-
-		surfaceLines.setCoordinate(vt++, new Point3d(backLeft.x + xDelta,
-				backLeft.y, backLeft.z));
-		surfaceLines.setCoordinate(vt++, new Point3d(backLeft.x + xDelta,
-				backLeft.y, backLeft.z + dimensions.z));
-
-		surfaceLines.setCoordinate(vt++, new Point3d(backLeft.x + (2 * xDelta),
-				backLeft.y, backLeft.z));
-		surfaceLines.setCoordinate(vt++, new Point3d(backLeft.x + (2 * xDelta),
-				backLeft.y, backLeft.z + dimensions.z));
-
-		surfaceLines.setCoordinate(vt++, new Point3d(backLeft.x + (3 * xDelta),
-				backLeft.y, backLeft.z));
-		surfaceLines.setCoordinate(vt++, new Point3d(backLeft.x + (3 * xDelta),
-				backLeft.y, backLeft.z + dimensions.z));
-
-		surfaceLines.setCoordinate(vt++, new Point3d(backLeft.x, backLeft.y,
-				backLeft.z + zDelta));
-		surfaceLines.setCoordinate(vt++, new Point3d(backLeft.x + dimensions.x,
-				backLeft.y, backLeft.z + zDelta));
-
-		surfaceLines.setCoordinate(vt++, new Point3d(backLeft.x, backLeft.y,
-				backLeft.z + (2 * zDelta)));
-		surfaceLines.setCoordinate(vt++, new Point3d(backLeft.x + dimensions.x,
-				backLeft.y, backLeft.z + (2 * zDelta)));
-
-		surfaceLines.setCoordinate(vt++, new Point3d(backLeft.x, backLeft.y,
-				backLeft.z + (3 * zDelta)));
-		surfaceLines.setCoordinate(vt++, new Point3d(backLeft.x + dimensions.x,
-				backLeft.y, backLeft.z + (3 * zDelta)));
-
-		Shape3D workspaceSurface = new Shape3D();
-		workspaceSurface.setGeometry(surfaceLines);
-
-		Appearance app = new Appearance();
-		ColoringAttributes ca = new ColoringAttributes();
-		Color3f a = new Color3f(.25f, .25f, .25f);
-		a.add(new Color3f(.5f, .5f, .5f));
-		ca.setColor(a);
-		app.setColoringAttributes(ca);
-
-		workspaceSurface.setAppearance(app);
-
-		workspaceGroup.addChild(workspaceSurface);
-
-		return workspaceGroup;
-	}
-
 	public void setCamera(Point3d position, Point3d lookAt) {
 				
 		TransformGroup viewTransform = simpleU.getViewingPlatform()
@@ -521,16 +406,28 @@ public class STLPreviewCanvas3D extends Canvas3D {
 		else
 			theLight.setColor(new Color3f(5.5f, .0f, .0f));
 	}
-
+	
 	public boolean modelIsInWorkspace() {
-
+		
+		if(theWorkspace==null) return false;
+		
+		Transform3D curr = this.getTransform3D();
+		
+		if(curr!=null){
+			return theWorkspace.stlIsContained(theSTLObject.getTransformedSTLObject(curr));
+		}
+		else{
+			System.out.println("Yarp");
+			return theWorkspace.stlIsContained(theSTLObject);
+		}
+		/*
 		Point3f min = stlTransform.getCurrentMin();
 		Point3f max = stlTransform.getCurrentMax();
 
-		/*
+		
 		 * System.out.println(min); System.out.println(max);
 		 */
-
+		/*
 		if (min.x < (0 - workspaceDimensions.x / 2))
 			return false;
 		if (min.y < (0 - workspaceDimensions.y / 2))
@@ -543,8 +440,9 @@ public class STLPreviewCanvas3D extends Canvas3D {
 			return false;
 		if (max.z > workspaceDimensions.z / 2)
 			return false;
-
+			
 		return true;
+		*/
 	}
 
 	// TODO currently tries to erase rotations without erasing translations
@@ -696,7 +594,7 @@ public class STLPreviewCanvas3D extends Canvas3D {
 	}
 
 	public void centerOnWorkspace() {
-
+		/*
 		// Point3f cent = stlTransform.getCurrentCenter();
 		Point3f cent = theSTLObject.getCenter();
 		System.out.println(cent);
@@ -713,6 +611,7 @@ public class STLPreviewCanvas3D extends Canvas3D {
 
 		updateIndicatorLightColor();
 		autoPan();
+		*/ //TODO
 	}
 
 	public void translate(Vector3d tran) {
@@ -816,6 +715,23 @@ public class STLPreviewCanvas3D extends Canvas3D {
 		stlTransform.setModelVisibility(vis);
 	}
 
+	public void setWorkspace(File newWorkspace) throws IOException{
+		this.theWorkspaceSTL = newWorkspace;
+		
+		if(this.theWorkspace!=null){
+			this.mainBranch.removeChild(theWorkspace);
+		}
+		
+		theWorkspace = STLWorkspaceBranchGroup.STLWorkspaceBranchGroupFactory(newWorkspace);
+		
+	}
+	
+	public void removeWorkspace(){
+		if(this.theWorkspace!=null){
+			this.mainBranch.removeChild(theWorkspace);
+		}
+		theWorkspace = null;
+	}
 	
 	// Getters
 	
@@ -831,9 +747,10 @@ public class STLPreviewCanvas3D extends Canvas3D {
 		return theGcode;
 	}
 
+	/*
 	public Point3f getWorkspaceDimensions() {
 		return workspaceDimensions;
-	}
+	}*/
 
 	public boolean getOutlineVisibility() {
 		return stlTransform.getOutlineVisibility();
@@ -888,43 +805,4 @@ public class STLPreviewCanvas3D extends Canvas3D {
 		return CAMERA_ORIENTATION;
 	}
 	
-	public void testReplaceWorkspace(){
-		
-		ArrayList<STLFacet> theFacets = new ArrayList<STLFacet>();
-		
-		theFacets.add(new STLFacet(new Point3f(+30,+30,+30), new Point3f(-30,+30,+30), new Point3f(+30,-30,+30)));
-		theFacets.add(new STLFacet(new Point3f(-30,-30,+30), new Point3f(+30,-30,+30), new Point3f(-30,+30,+30)));
-		
-		theFacets.add(new STLFacet(new Point3f(+30,+30,-30), new Point3f(-30,+30,-30), new Point3f(+30,-30,-30)));
-		theFacets.add(new STLFacet(new Point3f(-30,-30,-30), new Point3f(+30,-30,-30), new Point3f(-30,+30,-30)));
-		
-		theFacets.add(new STLFacet(new Point3f(+30,+30,+30), new Point3f(-30,+30,+30), new Point3f(+30,+30,-30)));
-		theFacets.add(new STLFacet(new Point3f(-30,+30,-30), new Point3f(+30,+30,-30), new Point3f(-30,+30,+30)));
-		
-		theFacets.add(new STLFacet(new Point3f(+30,-30,+30), new Point3f(-30,-30,+30), new Point3f(+30,-30,-30)));
-		theFacets.add(new STLFacet(new Point3f(-30,-30,-30), new Point3f(+30,-30,-30), new Point3f(-30,-30,+30)));
-		
-		theFacets.add(new STLFacet(new Point3f(+30,+30,+30), new Point3f(+30,-30,+30), new Point3f(+30,+30,-30)));
-		theFacets.add(new STLFacet(new Point3f(+30,-30,-30), new Point3f(+30,+30,-30), new Point3f(+30,-30,+30)));
-		
-		theFacets.add(new STLFacet(new Point3f(-30,+30,+30), new Point3f(-30,-30,+30), new Point3f(-30,+30,-30)));
-		theFacets.add(new STLFacet(new Point3f(-30,-30,-30), new Point3f(-30,+30,-30), new Point3f(-30,-30,+30)));		
-		
-		STLObject testWorkspaceSTLObject;
-		testWorkspaceSTLObject = new STLObject("Workspace",theFacets);
-						
-		BranchGroup newWorkspace = new STLWorkspaceBranchGroup(testWorkspaceSTLObject);
-						
-		mainBranch.removeChild(theWorkspace);
-		theWorkspace = newWorkspace;
-		mainBranch.addChild(theWorkspace);
-	}
-
-	//TODO test method
-	public void testAddSomething() {
-		
-		testReplaceWorkspace();
-		
-	}
-
 }

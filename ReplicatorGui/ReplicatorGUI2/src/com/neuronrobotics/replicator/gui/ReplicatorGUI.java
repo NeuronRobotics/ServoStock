@@ -69,14 +69,13 @@ public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, Works
 	private JProgressBar printProgress;
 
 	private GUIBackendInterface theGUIDriver;
-
-	private Point3f workspaceDimensions;
+	
+	private static File defaultWorkspaceSTL = new File("testWorkspaceSTL.stl");
 	
 	public ReplicatorGUI(GUIBackendInterface theGUIDriver) {
 		super();
 		this.theGUIDriver = theGUIDriver;
 		this.theGUIDriver.setFrontend(this);
-		workspaceDimensions = new Point3f(60, 60, 60); 
 		defaultWorkspaceDirectory = new File("DefaultWorkspaceFolder");
 
 		initialize();	
@@ -91,7 +90,6 @@ public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, Works
 		super();
 		this.theGUIDriver = theGUIDriver;
 		this.theGUIDriver.setFrontend(this);
-		workspaceDimensions = new Point3f(60, 60, 60); 
 
 		defaultWorkspaceDirectory = mainDirectory;
 		
@@ -420,7 +418,7 @@ public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, Works
 	public boolean addPreview(File stl, File gcode) throws Exception {
 		if(!gcode.exists()) gcode.createNewFile();
 		
-		return this.previewContainer.addPreview(stl, gcode, workspaceDimensions);
+		return this.previewContainer.addPreview(stl, gcode, defaultWorkspaceSTL);
 		
 	}
 	

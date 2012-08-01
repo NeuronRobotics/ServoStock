@@ -5,7 +5,6 @@ import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
-import javax.vecmath.Point3f;
 
 public class STLPreviewTab extends JPanel {
 	
@@ -14,35 +13,33 @@ public class STLPreviewTab extends JPanel {
 	 */
 	private static final long serialVersionUID = -5559016123774970333L;
 
-	//private STLPreviewTabListener theSTLPreviewContainer;
-		
 	private ArrayList<STLPreviewTabListener> theTabListeners;
 	
 	private boolean loaded, isDead;
 	private File theSTLFile,theGCode;
-	private Point3f workspaceDimensions;
 	
 	private SimpleLoadingScreen theLoadingScreen;
 	private STLPreviewCanvas3D theSTLPreview;
 	private LoadPreviewThread theLoadingThread;
 	
-	public STLPreviewTab(File stl, File gcode, Point3f workspaceDim){
+	private File theWorkspaceSTLFile;
+		
+	public STLPreviewTab(File stl, File gcode, File wstl){
 		loaded = false;
 		isDead = false;
 		
 		theTabListeners = new ArrayList<STLPreviewTabListener>();
 		//theTabListeners.add(stlc);
-		
+		theWorkspaceSTLFile = wstl;		
 		theSTLFile = stl;
 		theGCode = gcode;
-		workspaceDimensions = workspaceDim;
 		theSTLPreview = null;
 		theLoadingScreen = new SimpleLoadingScreen(stl.getName()+" preview loading...",true);		
 		this.setLayout(new GridLayout(1,1));
 		theLoadingThread = null;
 	}
 	
- 	public STLPreviewTab(STLPreviewTabListener stlc, File stl, File gcode, Point3f workspaceDim){
+ 	public STLPreviewTab(STLPreviewTabListener stlc, File stl, File gcode, File wstl){
 		loaded = false;
 		isDead = false;
 		
@@ -51,7 +48,7 @@ public class STLPreviewTab extends JPanel {
 		
 		theSTLFile = stl;
 		theGCode = gcode;
-		workspaceDimensions = workspaceDim;
+		theWorkspaceSTLFile = wstl;
 		theSTLPreview = null;
 		theLoadingScreen = new SimpleLoadingScreen(stl.getName()+" preview loading...",true);		
 		this.setLayout(new GridLayout(1,1));
@@ -65,8 +62,7 @@ public class STLPreviewTab extends JPanel {
 			this.add(theLoadingScreen);
 			
 			if (theLoadingThread == null)
-				theLoadingThread = new LoadPreviewThread(theLoadingScreen,
-						theSTLFile, theGCode, workspaceDimensions);
+				theLoadingThread = new LoadPreviewThread(theLoadingScreen,theSTLFile, theGCode, theWorkspaceSTLFile);
 			theLoadingThread.start();
 		}
 	}
@@ -150,15 +146,15 @@ public class STLPreviewTab extends JPanel {
 
 		//SimpleLoadingScreen theLoadingScreen;
 		File stl, gcode;
-		Point3f workspaceDimensions;
+		File workspaceSTL;
 
 		public LoadPreviewThread(SimpleLoadingScreen sls, File stl, File gcode,
-				Point3f workspaceDimensions) {
+				File wstl) {
 			super();
 			//theLoadingScreen = sls;
 			this.stl = stl;
 			this.gcode = gcode;
-			this.workspaceDimensions = workspaceDimensions;
+			this.workspaceSTL = wstl;
 			//currentlyLoading.add(stl);
 
 		}
@@ -168,8 +164,9 @@ public class STLPreviewTab extends JPanel {
 			
 			try {
 				STLPreviewCanvas3D tempPreview = new STLPreviewCanvas3D(stl, gcode,
-						workspaceDimensions);
+						workspaceSTL);
 				tempPreview.inititalize();
+
 				alertPreviewLoaded(tempPreview);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -177,11 +174,6 @@ public class STLPreviewTab extends JPanel {
 			}
 		}
 
-	}
-
-	//TODO test method
-	public void testAddSomething() {	
-		this.getTheSTLPreview().testAddSomething();
 	}
 
 }

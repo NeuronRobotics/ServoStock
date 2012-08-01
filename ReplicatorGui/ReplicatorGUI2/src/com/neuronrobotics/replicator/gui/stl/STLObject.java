@@ -135,28 +135,21 @@ public class STLObject implements Iterable<STLFacet> {
 
 		ArrayList<STLFacet> newFacetList = new ArrayList<STLFacet>();
 		for (STLFacet f : this) {
-			Point3f temp1 = f.getVertex1();
+			Point3f temp1 = new Point3f(f.getVertex1());
 			tran.transform(temp1);
-			Point3f temp2 = f.getVertex2();
+			Point3f temp2 = new Point3f(f.getVertex2());
 			tran.transform(temp2);
-			Point3f temp3 = f.getVertex3();
+			Point3f temp3 = new Point3f(f.getVertex3());
 			tran.transform(temp3);
 			newFacetList.add(new STLFacet(temp1, temp2, temp3));
 		}
 
-		Point3f newCenter = this.center;
-		tran.transform(newCenter);
-		Point3f newMin = this.min;
-		tran.transform(newMin);
-		Point3f newMax = this.max;
-		tran.transform(newMax);
-
-		return new STLObject(newName, newFacetList);// ,newCenter,newMin,newMax);
+		return new STLObject(newName, newFacetList);
 	}
 
 	private void calculateFaces() {
 		theFaces = new ArrayList<STLFace>();
-		theFaces.addAll(STLFace.getSTLFace(this));
+		theFaces.addAll(STLFace.generateSTLFaces(this));
 		facesAnalyzed = true;
 	}
 

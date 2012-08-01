@@ -9,63 +9,17 @@ import javax.vecmath.Vector3f;
 
 public class STLFace implements Iterable<STLFacet>{
 	
+	private static float EPSILON = 0.0001f;
+	
 	private ArrayList<STLFacet> theFacets;
 	private ArrayList<Point3f> theVertices;
 	
 	private Vector3f normal;
-	private float originDistance;	
+	private float originDistance;
 	
-	
-	//TODO this might work?
-	public static Collection<STLFace> getSTLFace2(STLObject stlo){
-		ArrayList<ArrayList<STLFace>> sameNorm = new ArrayList<ArrayList<STLFace>>();
-		//int ct=0;
-		for (STLFacet facet:stlo){
-			Vector3f vec = facet.getNormal();
-			vec.normalize();
-			System.out.println(vec);
-			int idx = epsilonContainsNormal(sameNorm, facet.getNormal(),.001f);
-			if(idx==-1){
-			//	ct++;
-				ArrayList<STLFace> newL = new ArrayList<STLFace>();
-				newL.add(new STLFace(facet));
-				sameNorm.add(newL);
-			}else{
-				ArrayList<STLFace> curr = sameNorm.get(idx);//.add(facet);
-				int ct2 = 0;
-				STLFace currCand = new STLFace();
-				ArrayList<STLFace> toRemove = new ArrayList<STLFace>();
-				for(STLFace cand:curr){
-					if(sharedVertices(cand,facet)>=1){
-						if((ct2++)==0){
-							currCand=cand;
-							currCand.addFacet(facet);
-							continue;
-						}
-						currCand.union(cand);
-						toRemove.add(cand);
-						//sameNorm.get(idx).remove(cand);
-						if(ct2>=3) break;
-					}
-				}
-				for(STLFace f:toRemove){
-					sameNorm.get(idx).remove(f);
-				}
-				if(ct2==0){
-					currCand = new STLFace(facet);
-					sameNorm.get(idx).add(currCand);
-				}
-			}
-		}
-		ArrayList<STLFace> theFaces = new ArrayList<STLFace>();
-		for(ArrayList<STLFace> faceL:sameNorm){
-			theFaces.addAll(faceL);
-		}
-		System.out.println(theFaces.size());
-		return theFaces;
-	}
-	
-	public static Collection<STLFace> getSTLFace(STLObject stlo){
+	//Main Static factory methods that ensure valid STLFace creation
+			
+	public static Collection<STLFace> generateSTLFaces(STLObject stlo){
 		ArrayList<STLFace> theFaces = new ArrayList<STLFace>();
 		
 		for (STLFacet currFacet:stlo){
@@ -80,14 +34,20 @@ public class STLFace implements Iterable<STLFacet>{
 		return theFaces;
 	}
 
+	//static utilities
+	
 	private static int indexOfMatchingFace(STLFacet facet, Collection<STLFace> col){
-		
-		float epsilon = 0.0001f;
-		
+				
 		int ct = 0;
+		
+		Vector3f facetNormal = new Vector3f(facet.getNormal());
+		facetNormal.normalize();
+		
 		for(STLFace face:col){
-			System.out.println(facet.getNormal()+" " + face.getNormal());
-			if((facet.getNormal().epsilonEquals(face.getNormal(), epsilon))&&floatEpsilonEquals(face.originDistance,facet.originToPlaneDistance())){
+			Vector3f faceNormal = new Vector3f(face.getNormal());
+			faceNormal.normalize();
+			
+			if((facetNormal.epsilonEquals(faceNormal, EPSILON))&&floatEpsilonEquals(face.originDistance,facet.originToPlaneDistance())){
 				return ct;
 			}
 			ct++;
@@ -96,51 +56,11 @@ public class STLFace implements Iterable<STLFacet>{
 	}
 	
 	private static boolean floatEpsilonEquals(float originDistance2,float originToPlaneDistance) {
-			float epsilon = 0.0001f;
-			float diff = originDistance2 - originToPlaneDistance;
-			return diff>=-epsilon&&diff<=epsilon;
-	}
-
-	private static int epsilonContainsNormal(ArrayList<ArrayList<STLFace>> sameNorm, Vector3f normal, float eps) {
-		int idx = -1;
-		int ct = 0;
-		for(ArrayList<STLFace> l:sameNorm){
-			Vector3f vec = l.get(0).getNormal();
-			vec.normalize();
-			normal.normalize();
-			if(vec.epsilonEquals(normal, eps)){
-				idx = ct;
-				break;
-			}
-			ct++;
-		}
-		return idx;
+		float diff = originDistance2 - originToPlaneDistance;
+		return diff>=-EPSILON&&diff<=EPSILON;
 	}
 	
-	private static int sharedVertices(STLFace face,STLFacet facet){
-		int ct =0;
-		for(Point3f vert:face.theVertices){
-			if(facet.getVertex1().epsilonEquals(vert, .001f)) ct++;
-			if(facet.getVertex2().epsilonEquals(vert, .001f)) ct++;
-			if(facet.getVertex3().epsilonEquals(vert, .001f)) ct++;
-			if(ct>=3) break;
-		}
-		return ct;
-	}
-
-	private void union(STLFace face) {
-		this.theFacets.addAll(face.getFacets());	
-	}
-
-	protected Collection<? extends STLFacet> getFacets() {
-		return theFacets;
-	}
-
-	private STLFace(){
-		theFacets = new ArrayList<STLFacet>();
-		normal = null;
-		theVertices = new ArrayList<Point3f>();
-	}
+	//Private methods to allow static factory methods to ensure valid face creation
 	
 	private STLFace(STLFacet f){
 		theFacets = new ArrayList<STLFacet>();
@@ -153,6 +73,20 @@ public class STLFace implements Iterable<STLFacet>{
 		theVertices.add(f.getVertex3());
 		
 		originDistance = f.originToPlaneDistance();
+		
+	}
+	
+	private boolean addFacet(STLFacet fac){
+		theVertices.add(fac.getVertex1());
+		theVertices.add(fac.getVertex2());
+		theVertices.add(fac.getVertex3());
+		return theFacets.add(fac);
+	}
+	
+	//Public Getters
+	
+	public Collection<? extends STLFacet> getFacets() {
+		return theFacets;
 	}
 	
 	public Vector3f getNormal(){
@@ -181,14 +115,10 @@ public class STLFace implements Iterable<STLFacet>{
 		return center;
 	}
 
-	private boolean addFacet(STLFacet fac){
-		if(!normal.equals(fac.getNormal())||fac==null||theFacets.contains(fac)) return false;
-		theVertices.add(fac.getVertex1());
-		theVertices.add(fac.getVertex2());
-		theVertices.add(fac.getVertex3());
-		return theFacets.add(fac);
+	public float getDistanceToOrigin(){
+		return originDistance;
 	}
-	
+		
 	@Override
 	public Iterator<STLFacet> iterator() {
 		return theFacets.iterator();
