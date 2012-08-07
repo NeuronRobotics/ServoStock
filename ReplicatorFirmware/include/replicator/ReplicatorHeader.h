@@ -34,7 +34,6 @@ extern "C" {
 
 #define     bDelay()    i=2; while (i>1) i++;
 
-UINT8   AS5055CalculateParity(UINT16 data);
 void initPIDLocal();
 
 #define numPidMotor 8
