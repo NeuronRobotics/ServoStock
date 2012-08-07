@@ -249,9 +249,10 @@ int main()
 //        }
         setPrintLevelInfoPrint();
         RunEveryData servo ={0,20};
+        initServos();
+        initPIDLocal();
 	while(1){
             //println_I("Loop");
-            setLed(1,0,0);
             if(isPressed()	){
                     U1CON = 0x0000;
                     while(isPressed()){
