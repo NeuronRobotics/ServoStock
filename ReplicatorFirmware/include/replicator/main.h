@@ -9,9 +9,10 @@
 
 #include "AS5055.h"
 #include "ReplicatorHeader.h"
+#include "Servo.h"
 
 #if !defined(NUM_PID_GROUPS)
-	#define NUM_PID_GROUPS (12)
+	#define NUM_PID_GROUPS (8)
 #endif
 void LoadCorePacket(BowlerPacket * Packet);
 void setDebug(BOOL d);

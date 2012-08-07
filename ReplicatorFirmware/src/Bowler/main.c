@@ -242,12 +242,13 @@ int main()
 	BowlerPacket MyPacket;
 
 	println_I("#Ready...");
-        AS5055reset(3);
-        while(1){
-            encoderTest();
-            DelayMs(10);
-        }
+//        AS5055reset(3);
+//        while(1){
+//            encoderTest();
+//            DelayMs(10);
+//        }
         setPrintLevelInfoPrint();
+        RunEveryData servo ={0,20};
 	while(1){
             //println_I("Loop");
             setLed(1,0,0);
@@ -263,16 +264,9 @@ int main()
             #if !defined(NO_ETHERNET)
                 RunEthernetServices(&MyPacket);
             #endif
-            BOOL async = FALSE;
-            for(i=0;i<NUM_PID_GROUPS;i++){
-            	if(checkSPIForAsyncPacket(&MyPacket, i)){
-                    print_I("\nGot Async for board: ");p_sl_I(i);print_I("\n");printPacket(&MyPacket,INFO_PRINT);
-                    //push(&MyPacket);
-                    async = TRUE;
-                }
-            }
-            if(async){
-            	pushEncoders();
+            if(RunEvery(&servo)>0){
+                RunPID();
+                runServos();
             }
 
 	}

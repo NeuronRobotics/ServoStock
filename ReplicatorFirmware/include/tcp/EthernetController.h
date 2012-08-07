@@ -30,7 +30,6 @@ BOOL isEthButtonPressed();
 void InitializeEthernet();
 BOOL RunEthernetServices(BowlerPacket * Packet);
 
-#define NUM_PID_GROUPS (8)
 void LoadCorePacket(BowlerPacket * Packet);
 void push(BowlerPacket * Packet);
 void pushEncoders(void);

@@ -36,6 +36,8 @@ extern "C" {
 
 UINT8   AS5055CalculateParity(UINT16 data);
 
+#define numPidMotor 8
+
 #ifdef	__cplusplus
 }
 #endif
