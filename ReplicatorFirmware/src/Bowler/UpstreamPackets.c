@@ -1,4 +1,4 @@
-#include "EthernetController.h"
+#include "main.h"
 static float lastPacketTime[NUM_PID_GROUPS];
 static INT32 lastPacketVal[NUM_PID_GROUPS];
 static BowlerPacket packetTemp;

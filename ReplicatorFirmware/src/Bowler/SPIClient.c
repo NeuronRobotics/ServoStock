@@ -4,9 +4,7 @@
  *  Created on: Dec 9, 2010
  *      Author: hephaestus
  */
-#include "EthernetController.h"
-#include "boards.h" // Kevin, i added IO mappings in this header file. -AC
-
+#include "main.h"
 // see boards.h for updated mappings
 //#define configure_CS_pins() {(_TRISE7)=OUTPUT; (_TRISE6)=OUTPUT; (_TRISE5)=OUTPUT; (_TRISE4)=OUTPUT; (_TRISE3)=OUTPUT;}
 
