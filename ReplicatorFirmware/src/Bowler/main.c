@@ -227,7 +227,7 @@ int main()
 	macStr[12]=0;
 	println_I("MAC address is =");
 	print_I(macStr);
-	char * dev = "Ethernet Test";
+	char * dev = "DeltaDoodle";
 	//This Method calls INTEnableSystemMultiVectoredInt();
 	usb_CDC_Serial_Init(dev,macStr,0x04D8,0x0001);
 	AddNamespace(sizeof(pidNSName), pidNSName);
