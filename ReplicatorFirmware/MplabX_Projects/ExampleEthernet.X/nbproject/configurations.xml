@@ -134,6 +134,8 @@
         <itemPath>../../src/Bowler/Callbacks.c</itemPath>
         <itemPath>../../src/Bowler/UpstreamPackets.c</itemPath>
         <itemPath>../../src/Bowler/AS5055.c</itemPath>
+        <itemPath>../../src/Bowler/PID.c</itemPath>
+        <itemPath>../../src/Bowler/Servo.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f3" displayName="BowlerStack" projectFiles="true">
         <logicalFolder name="BowlerStack" displayName="BowlerStack" projectFiles="true">

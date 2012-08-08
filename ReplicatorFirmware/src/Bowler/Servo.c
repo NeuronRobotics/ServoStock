@@ -6,6 +6,7 @@ BYTE position[numPidMotor];
 void runLinearInterpolationServo(BYTE blockStart,BYTE blockEnd);
 BYTE pinOn(BYTE pin);
 void pinOff(BYTE pin);
+void DelayPreServoPulse(void);
 
 
 /**
@@ -33,7 +34,7 @@ void runServos(){
 		num+=pinOn(j);
 	}
 	//run minimal .75 ms pulse
-	DelayPreServo();
+	DelayPreServoPulse();
 	//loop 255 times and turn off all servos as their set position is equal to the loop counter
 	for (j=0;j<256;j++){
 		//check all servo positions
@@ -99,6 +100,6 @@ void pinOff(BYTE pin){
 	//SetDIO(pin,OFF);
 }
 
-void DelayPreServo(void){
+void DelayPreServoPulse(void){
     Delay10us(90);
 }
