@@ -52,6 +52,7 @@ public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, Works
 	private JTabbedPane leftTab;
 
 	private JMenuBar menuBar;
+	
 	private JToolBar mainToolbar;
 	private JMenu fileMenu, editMenu, helpMenu;
 
@@ -96,7 +97,7 @@ public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, Works
 		initialize();
 	}
 
-	public void initialize() {
+	private void initialize() {
 			
 		GridBagLayout gridbag = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
@@ -370,7 +371,7 @@ public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, Works
 					e.printStackTrace();
 					return;
 				}
-			STLObject tranObj = previewContainer.getCurrentPreview().getSTLObject().getTransformedSTLObject(previewContainer.getCurrentPreview().getTransform3D());
+			STLObject tranObj = previewContainer.getCurrentPreview().getSTLObject();//.getTransformedSTLObject(previewContainer.getCurrentPreview().getTransform3D());
 			//STLObject tranObj = previewPanel.getCurrentPreview().getSTLObject().getTransformedSTLObject(previewPanel.getCurrentPreview().getTransform3D());
 			
 			ASCIISTLWriter aw =new ASCIISTLWriter(tranObj);
@@ -463,7 +464,10 @@ public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, Works
 	@Override
 	public void alertDirectoryLeafDoubleClicked() {
 		try {
-			this.addPreview(theDirectoryTree.getSelectedSTLFile(), theDirectoryTree.getSelectedGCodeFile());
+			//TODO for testing right now
+			if(!this.previewContainer.hasNoPreviews()){
+				this.previewContainer.getCurrentPreview().addModelToWorkspace(theDirectoryTree.getSelectedSTLFile());
+			} else  this.addPreview(theDirectoryTree.getSelectedSTLFile(), theDirectoryTree.getSelectedGCodeFile());
 		} catch (Exception e) {
 			this.errorDialog("Unknown IO Error Loading Preview");
 			e.printStackTrace();

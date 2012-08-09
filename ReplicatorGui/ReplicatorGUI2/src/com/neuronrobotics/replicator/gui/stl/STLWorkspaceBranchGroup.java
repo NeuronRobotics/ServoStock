@@ -17,7 +17,7 @@ public class STLWorkspaceBranchGroup extends BranchGroup{
 		return new STLWorkspaceBranchGroup(wsp);
 	}
 	
-	public static STLWorkspaceBranchGroup STLWorkspaceBranchGroupFactory(File stlFile) throws IOException{
+	public static STLWorkspaceBranchGroup getSTLWorkspaceBranchGroup(File stlFile) throws IOException{
 		STLObject theObject = STLLoader.loadFile(stlFile);
 		return new STLWorkspaceBranchGroup(theObject);
 	}
@@ -87,4 +87,7 @@ public class STLWorkspaceBranchGroup extends BranchGroup{
 		return result;
 	}
 
+	public STLObject getWorkspaceSTLObject(){
+		return workspaceSTL; 
+	}
 }

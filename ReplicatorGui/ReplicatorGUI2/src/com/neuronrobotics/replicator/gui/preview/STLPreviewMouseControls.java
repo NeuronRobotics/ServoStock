@@ -1,15 +1,20 @@
 package com.neuronrobotics.replicator.gui.preview;
 
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.geom.Point2D;
 
-public class STLPreviewMouseControls implements MouseListener, MouseMotionListener{
+import com.neuronrobotics.replicator.gui.stl.STLTransformGroup;
+import com.sun.j3d.utils.picking.PickCanvas;
+import com.sun.j3d.utils.picking.PickResult;
 
-	STLPreviewCanvas3D thePreview;
+public class STLPreviewMouseControls extends MouseAdapter  {
 
-	Point2D lastLocation;
+	private STLPreviewCanvas3D thePreview;
+
+	private Point2D lastLocation;
+	
+	private PickCanvas thePickCanvas;
 	
 	long lastTime;
 	int ct;
@@ -30,8 +35,8 @@ public class STLPreviewMouseControls implements MouseListener, MouseMotionListen
 				double radY = yDist/scaleY;
 				double radZ = xDist/scaleZ;
 								
-				preview.rotateCameraXZ(radZ);
-				preview.rotateCameraUp(radY);
+				preview.getTheCameraController().rotateCameraXZ(radZ);
+				preview.getTheCameraController().rotateCameraUp(radY);
 			}
 			
 			public String toString(){
@@ -45,7 +50,7 @@ public class STLPreviewMouseControls implements MouseListener, MouseMotionListen
 			protected void mouseDragged(STLPreviewCanvas3D preview, double xDist, double yDist) {
 			
 				
-				preview.rotateX(yDist/rotateScale);
+				preview.getCurrentSTLTransform().rotateX(yDist/rotateScale);
 			}
 			
 			public String toString(){
@@ -58,7 +63,7 @@ public class STLPreviewMouseControls implements MouseListener, MouseMotionListen
 
 			@Override
 			protected void mouseDragged(STLPreviewCanvas3D preview, double xDist, double yDist) {
-				preview.rotateY(xDist/rotateScale);
+				preview.getCurrentSTLTransform().rotateY(xDist/rotateScale);
 			}
 			
 			public String toString(){
@@ -71,7 +76,7 @@ public class STLPreviewMouseControls implements MouseListener, MouseMotionListen
 			@Override
 			protected void mouseDragged(STLPreviewCanvas3D preview, double xDist, double yDist) {
 								
-				preview.rotateZ(xDist/rotateScale);
+				preview.getCurrentSTLTransform().rotateZ(xDist/rotateScale);
 			}
 			
 			public String toString(){
@@ -89,8 +94,10 @@ public class STLPreviewMouseControls implements MouseListener, MouseMotionListen
 				
 				//double scale = 40.0;
 				
-				preview.translateLeftRight(xDist/translateScale);
-				preview.translateUpDown(yDist/translateScale);
+				STLTransformGroup currObj = preview.getCurrentSTLTransform();
+								
+				currObj.translateLeftRight(xDist/translateScale,preview.getCameraData());
+				currObj.translateUpDown(yDist/translateScale);
 				
 			}
 			
@@ -106,9 +113,9 @@ public class STLPreviewMouseControls implements MouseListener, MouseMotionListen
 			protected void mouseDragged(STLPreviewCanvas3D preview, double xDist, double yDist) {
 				//preview.translateZ(xDist);
 				//preview.translateY(yDist);
-				
-				preview.translateBackForth(xDist/translateScale);
-				preview.translateUpDown(yDist/translateScale);
+								
+				preview.getCurrentSTLTransform().translateBackForth(xDist/translateScale);
+				preview.getCurrentSTLTransform().translateUpDown(yDist/translateScale);
 			}
 			
 			public String toString(){
@@ -135,16 +142,19 @@ public class STLPreviewMouseControls implements MouseListener, MouseMotionListen
 		
 	public STLPreviewMouseControls(STLPreviewCanvas3D prev){
 		thePreview = prev;
-		thePreview.getCanvas3D().addMouseListener(this);
-		thePreview.getCanvas3D().addMouseMotionListener(this);
+		thePreview.addMouseListener(this);
+		thePreview.addMouseMotionListener(this);
 		mousePressed = false;
 		lastLocation = new Point2D.Double();
 		lastTime = System.currentTimeMillis();
 		ct = 0;
 		//theMode = MouseControlMode.CAMERA_ROTATE;
 		theMode = MouseControlMode.MODEL_ROTATE_X;
+		
+		thePickCanvas = new PickCanvas(prev,prev.getMainBranch());
+		thePickCanvas.setMode(PickCanvas.BOUNDS);
 	}
-	
+		
 	@Override
 	public void mouseDragged(MouseEvent arg0) {
 		long tempTime = System.currentTimeMillis();
@@ -174,13 +184,20 @@ public class STLPreviewMouseControls implements MouseListener, MouseMotionListen
 		lastLocation = temp;
 		
 		//Point3f dim = thePreview.getWorkspaceDimensions();
-		//TODO
 		double zoomDist = 6;//Math.max(Math.max(dim.x,dim.y),dim.z)/10.0;
 		
 		if(arg0.getClickCount()>=2){
-			thePreview.zoom(zoomDist);
+			thePreview.getTheCameraController().zoom(zoomDist);
 		}
+		//thePickCanvas.pickClosest();
 		
+		thePickCanvas.setShapeLocation(arg0);
+		PickResult result = thePickCanvas.pickClosest();
+		
+		this.thePreview.setCurrentPick(result);
+		
+		System.out.println("Picked: "+result);
+
 	}
 
 	@Override
@@ -195,6 +212,14 @@ public class STLPreviewMouseControls implements MouseListener, MouseMotionListen
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
+		
+		thePickCanvas.setShapeLocation(arg0);
+		PickResult result = thePickCanvas.pickClosest();
+		
+		this.thePreview.setCurrentPick(result);
+		
+		System.out.println("Picked: "+result);
+				
 		mousePressed = true;
 		Point2D temp = arg0.getLocationOnScreen();
 		lastLocation = temp;

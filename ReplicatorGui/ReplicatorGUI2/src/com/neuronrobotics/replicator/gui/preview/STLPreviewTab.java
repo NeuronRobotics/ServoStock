@@ -83,8 +83,7 @@ public class STLPreviewTab extends JPanel {
 		this.add(theSTLPreview);
 		loaded = true;
 		
-		STLPreviewMouseControls theMouseControls = new STLPreviewMouseControls(
-				tempPreview);
+		STLPreviewMouseControls theMouseControls = new STLPreviewMouseControls(tempPreview);
 		
 		tempPreview.setMouseControls(theMouseControls);
 		
@@ -163,8 +162,8 @@ public class STLPreviewTab extends JPanel {
 		public void run() {
 			
 			try {
-				STLPreviewCanvas3D tempPreview = new STLPreviewCanvas3D(stl, gcode,
-						workspaceSTL);
+				STLPreviewCanvas3D tempPreview = new STLPreviewCanvas3D(stl, gcode,workspaceSTL);
+				
 				tempPreview.inititalize();
 
 				alertPreviewLoaded(tempPreview);

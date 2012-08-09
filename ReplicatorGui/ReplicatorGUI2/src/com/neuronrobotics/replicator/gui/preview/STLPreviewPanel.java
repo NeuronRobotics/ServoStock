@@ -21,7 +21,7 @@ import javax.vecmath.Point3d;
 import javax.vecmath.Vector3d;
 
 import com.neuronrobotics.replicator.gui.GUIFrontendInterface;
-import com.neuronrobotics.replicator.gui.preview.STLPreviewCanvas3D.CameraFocusMode;
+import com.neuronrobotics.replicator.gui.preview.STLPreviewCameraController.CameraMode;
 import com.neuronrobotics.replicator.gui.preview.STLPreviewMouseControls.MouseControlMode;
 
 public class STLPreviewPanel extends JLayeredPane implements ActionListener,
@@ -35,7 +35,7 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 	private Hashtable<File, STLPreviewTab> thePreviewTabs;
 
 	private JComboBox<STLPreviewMouseControls.MouseControlMode> mouseModeMenu;
-	private JComboBox<STLPreviewCanvas3D.CameraFocusMode> focusModeMenu;
+	private JComboBox<STLPreviewCameraController.CameraMode> focusModeMenu;
 
 	private JToolBar cameraControls;
 	private JButton resetCamera, centerModel, removePreview, forceReload;
@@ -69,12 +69,12 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 
 		STLPreviewMouseControls.MouseControlMode[] mouseModes = STLPreviewMouseControls.MouseControlMode
 				.getModes();
-		STLPreviewCanvas3D.CameraFocusMode[] focusModes = STLPreviewCanvas3D.CameraFocusMode
+		STLPreviewCameraController.CameraMode[] focusModes = STLPreviewCameraController.CameraMode
 				.getModes();
 
 		mouseModeMenu = new JComboBox<STLPreviewMouseControls.MouseControlMode>(
 				mouseModes);
-		focusModeMenu = new JComboBox<STLPreviewCanvas3D.CameraFocusMode>(focusModes);
+		focusModeMenu = new JComboBox<STLPreviewCameraController.CameraMode>(focusModes);
 
 		toggleOutline = new JToggleButton("Toggle Outline", true);
 
@@ -205,15 +205,15 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 			currentPreview = currentTab.getTheSTLPreview();
 			currentPreview.getMouseControls().setMouseControlMode(
 					getCurrentSelectedMouseMode());
-			currentPreview
+			currentPreview.getTheCameraController()
 					.setCameraFocusMode(getCurrentSelectedCameraFocusMode());
 			currentPreview.setOutlineVisibility(isOutlineSelected());
 
 			if (event.getSource().equals(resetCamera)) {
-				currentPreview.resetCamera();
+				currentPreview.getTheCameraController().resetCamera();
 			} else if (event.getSource().equals(centerModel)) {
 				currentPreview.resetModelTransforms();
-				currentPreview.centerOnWorkspace();
+				//currentPreview.centerOnWorkspace();
 			} else if (event.getSource().equals(toggleOutline)) {
 				currentPreview.setOutlineVisibility(isOutlineSelected());
 			} else if (event.getSource().equals(forceReload)) {
@@ -239,7 +239,7 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 				if (currentTab.isLoaded()) {
 					currentTab.getTheSTLPreview().getMouseControls()
 							.setMouseControlMode(getCurrentSelectedMouseMode());
-					currentTab.getTheSTLPreview().setCameraFocusMode(
+					currentTab.getTheSTLPreview().getTheCameraController().setCameraFocusMode(
 							getCurrentSelectedCameraFocusMode());
 					currentTab.getTheSTLPreview().setOutlineVisibility(
 							isOutlineSelected());
@@ -252,8 +252,8 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 		this.theFrontend.requestValidate();
 	}
 
-	public CameraFocusMode getCurrentSelectedCameraFocusMode() {
-		return (CameraFocusMode) this.focusModeMenu.getSelectedItem();
+	public CameraMode getCurrentSelectedCameraFocusMode() {
+		return (CameraMode) this.focusModeMenu.getSelectedItem();
 	}
 
 	public MouseControlMode getCurrentSelectedMouseMode() {
@@ -269,10 +269,10 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 	}
 
 	public void alertTabIsLoaded(STLPreviewTab loadedTab){
-		loadedTab.getTheSTLPreview().setCameraFocusMode(getCurrentSelectedCameraFocusMode());
+		loadedTab.getTheSTLPreview().getTheCameraController().setCameraFocusMode(getCurrentSelectedCameraFocusMode());
 		loadedTab.getTheSTLPreview().setOutlineVisibility(isOutlineSelected());
 		loadedTab.getTheSTLPreview().getMouseControls().setMouseControlMode(getCurrentSelectedMouseMode());
-		loadedTab.getTheSTLPreview().resetCamera();
+		loadedTab.getTheSTLPreview().getTheCameraController().resetCamera();
 		
 		loadedTab.getTheSTLPreview().addListener(this);
 		
@@ -310,7 +310,7 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 		STLPreviewCanvas3D curr = getCurrentPreview();
 		
 		if(curr!=null){
-			curr.rotateCameraXZ(6.28);
+			curr.getTheCameraController().rotateCameraXZ(6.28);
 			updateOrientationIndicator(false);
 		}
 		
