@@ -49,8 +49,8 @@ extern "C" {
 
 #define     ENC5_CSN           _RB14
 #define     ENC5_CSN_TRIS      _TRISB14
-#define     ENC5_SERVO_TRIS    _TRISD1
-#define     ENC5_SERVO         _RD1
+#define     ENC5_SERVO_TRIS    _TRISD2
+#define     ENC5_SERVO         _RD2
     
 #define     ENC6_CSN           _RA6
 #define     ENC6_CSN_TRIS      _TRISA6
