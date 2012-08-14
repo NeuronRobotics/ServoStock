@@ -88,6 +88,6 @@ void pushEncoders(void){
 }
 
 void push(BowlerPacket * Packet){
-    EthTx(Packet);
+    //EthTx(Packet);
     putStream(Packet->stream,GetPacketLegnth(Packet));
 }

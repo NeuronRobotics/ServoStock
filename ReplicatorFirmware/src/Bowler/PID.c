@@ -17,13 +17,15 @@ void initPIDLocal(){
    	BYTE i;
 	//WORD loop;
 	for (i=0;i<NUM_PID_GROUPS;i++){
-		//DyPID value
-
-		pidGroups[i].Enabled=FALSE;
+		pidGroups[i].Enabled=1;
 		pidGroups[i].channel = i;
+                pidGroups[i].K.P=1.1;
+                pidGroups[i].K.I=0;
+                pidGroups[i].K.D=0;
+                pidGroups[i].Polarity=1;
+
 		vel[i].enabled=FALSE;
 		limits[i].type=NO_LIMIT;
-		printPIDvals(&pidGroups[i]);
 	}
 
 	InitilizePidController( pidGroups,

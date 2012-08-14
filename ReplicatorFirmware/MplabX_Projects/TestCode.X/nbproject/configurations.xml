@@ -4,10 +4,6 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>../../include/AS5055.h</itemPath>
-      <itemPath>../../include/GenericTypeDefs.h</itemPath>
-      <itemPath>../../include/main.h</itemPath>
-      <itemPath>../../include/ReplicatorHeader.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -69,7 +65,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="/home/hephaestus/workspace/ReplicatorFirmware/include"/>
+                  value="../../include/test;../../include/replicator"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="isolate-each-function" value="false"/>
         <property key="make-warnings-into-errors" value="false"/>

@@ -28,10 +28,41 @@
  *
  *
  ********************************************************************/
+
 #include "EthernetController.h"
 #include "Bowler/Bowler_Struct_Def.h"
 #include "boards.h"
 #include "main.h"
+
+#ifdef USB_A0_SILICON_WORK_AROUND
+	#pragma config UPLLEN   = OFF       // USB PLL Enabled (A0 bit inverted)
+#else
+	#pragma config UPLLEN   = ON        // USB PLL Enabled
+#endif
+
+#pragma config FPLLMUL  = MUL_20        // PLL Multiplier
+#pragma config UPLLIDIV = DIV_2         // USB PLL Input Divider
+#pragma config FPLLIDIV = DIV_2         // PLL Input Divider
+#pragma config FPLLODIV = DIV_1         // PLL Output Divider
+#pragma config FPBDIV   = DIV_1         // Peripheral Clock divisor
+
+#pragma config FWDTEN   = OFF           // Watchdog Timer
+//#pragma config FWDTEN   = ON          // Watchdog Timer
+
+#pragma config WDTPS    = PS2048           // Watchdog Timer Postscale
+#pragma config FCKSM    = CSDCMD        // Clock Switching & Fail Safe Clock Monitor
+#pragma config OSCIOFNC = OFF           // CLKO Enable
+#pragma config POSCMOD  = HS            // Primary Oscillator
+#pragma config IESO     = ON            // Internal/External Switch-over
+#pragma config FSOSCEN  = ON            // Secondary Oscillator Enable (KLO was off)
+#pragma config FNOSC    = PRIPLL        // Oscillator Selection
+#pragma config CP       = OFF           // Code Protect
+#pragma config BWP      = OFF           // Boot Flash Write Protect
+#pragma config PWP      = OFF           // Program Flash Write Protect
+#pragma config ICESEL   = ICS_PGx2      // ICE/ICD Comm Channel Select
+#pragma config DEBUG    = OFF            // Background Debugger Enable
+
+#define SYS_FREQ 			(80000000L)
 
 #define NO_ETHERNET
 
@@ -207,11 +238,18 @@ void encoderTest(){
 
 int main()
 {
+        // Configure the device for maximum performance but do not change the PBDIV
+	// Given the options, this function will change the flash wait states, RAM
+	// wait state and enable prefetch cache but will not change the PBDIV.
+	// The PBDIV value is already set via the pragma FPBDIV option above..
+	SYSTEMConfig(SYS_FREQ, SYS_CFG_WAIT_STATES | SYS_CFG_PCACHE);
+
         setPrintLevelInfoPrint();
 	initLed();
         setLed(1,1,1);
 	initButton();
-        initBackplaneHardware();
+        ATX_ENABLE(); // Turn on ATX Supply
+        ENC_CSN_INIT(); // Set pin modes for CS pins
         int i;
         
 	Bowler_Init();
@@ -240,14 +278,9 @@ int main()
 #endif
 
 	BowlerPacket MyPacket;
-
+        println_I(dev);
 	println_I("#Ready...");
-//        AS5055reset(3);
-//        while(1){
-//            encoderTest();
-//            DelayMs(10);
-//        }
-        setPrintLevelInfoPrint();
+        setPrintLevelNoPrint();
         RunEveryData servo ={0,20};
         initServos();
         initPIDLocal();
@@ -266,8 +299,9 @@ int main()
                 RunEthernetServices(&MyPacket);
             #endif
             if(RunEvery(&servo)>0){
-                RunPID();
+                //RunPID();
                 runServos();
+                //println_I("Servo ");p_fl_I(getMs());
             }
 
 	}

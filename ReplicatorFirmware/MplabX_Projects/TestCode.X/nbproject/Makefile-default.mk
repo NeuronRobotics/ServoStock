@@ -84,23 +84,23 @@ ifeq ($(TYPE_IMAGE), DEBUG_RUN)
 ${OBJECTDIR}/_ext/1639482499/main.o: ../../src/test/main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1639482499 
 	@${RM} ${OBJECTDIR}/_ext/1639482499/main.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1639482499/main.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/ReplicatorFirmware/include" -MMD -MF "${OBJECTDIR}/_ext/1639482499/main.o.d" -o ${OBJECTDIR}/_ext/1639482499/main.o ../../src/test/main.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1639482499/main.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/test" -I"../../include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1639482499/main.o.d" -o ${OBJECTDIR}/_ext/1639482499/main.o ../../src/test/main.c  
 	
 ${OBJECTDIR}/_ext/1639482499/AS5055.o: ../../src/test/AS5055.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1639482499 
 	@${RM} ${OBJECTDIR}/_ext/1639482499/AS5055.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1639482499/AS5055.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/ReplicatorFirmware/include" -MMD -MF "${OBJECTDIR}/_ext/1639482499/AS5055.o.d" -o ${OBJECTDIR}/_ext/1639482499/AS5055.o ../../src/test/AS5055.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1639482499/AS5055.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/test" -I"../../include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1639482499/AS5055.o.d" -o ${OBJECTDIR}/_ext/1639482499/AS5055.o ../../src/test/AS5055.c  
 	
 else
 ${OBJECTDIR}/_ext/1639482499/main.o: ../../src/test/main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1639482499 
 	@${RM} ${OBJECTDIR}/_ext/1639482499/main.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1639482499/main.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/ReplicatorFirmware/include" -MMD -MF "${OBJECTDIR}/_ext/1639482499/main.o.d" -o ${OBJECTDIR}/_ext/1639482499/main.o ../../src/test/main.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1639482499/main.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/test" -I"../../include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1639482499/main.o.d" -o ${OBJECTDIR}/_ext/1639482499/main.o ../../src/test/main.c  
 	
 ${OBJECTDIR}/_ext/1639482499/AS5055.o: ../../src/test/AS5055.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1639482499 
 	@${RM} ${OBJECTDIR}/_ext/1639482499/AS5055.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1639482499/AS5055.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"/home/hephaestus/workspace/ReplicatorFirmware/include" -MMD -MF "${OBJECTDIR}/_ext/1639482499/AS5055.o.d" -o ${OBJECTDIR}/_ext/1639482499/AS5055.o ../../src/test/AS5055.c  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1639482499/AS5055.o.d" $(SILENT) -c  ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/test" -I"../../include/replicator" -MMD -MF "${OBJECTDIR}/_ext/1639482499/AS5055.o.d" -o ${OBJECTDIR}/_ext/1639482499/AS5055.o ../../src/test/AS5055.c  
 	
 endif
 

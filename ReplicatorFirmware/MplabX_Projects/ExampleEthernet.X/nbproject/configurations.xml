@@ -169,32 +169,6 @@
           <itemPath>../../../NR-Clib/src/arch/pic32/HAL_P32.c</itemPath>
         </logicalFolder>
       </logicalFolder>
-      <logicalFolder name="tcpip" displayName="tcpip" projectFiles="true">
-        <itemPath>../../src/tcpip/ether.c</itemPath>
-        <itemPath>../../src/tcpip/system_services.c</itemPath>
-        <itemPath>../../src/tcpip/nat_dp83848c.c</itemPath>
-        <itemPath>../../src/tcpip/pic32mx_cfg.c</itemPath>
-        <itemPath>../../src/tcpip/eth_phy.c</itemPath>
-        <itemPath>../../src/tcpip/boards.c</itemPath>
-        <itemPath>../../src/tcpip/eip.c</itemPath>
-        <itemPath>../../src/tcpip/tcpip_events.c</itemPath>
-        <itemPath>../../src/tcpip/block_mgr.c</itemPath>
-        <itemPath>../../src/tcpip/dhcp.c</itemPath>
-        <itemPath>../../src/tcpip/emac.c</itemPath>
-        <itemPath>../../src/tcpip/route.c</itemPath>
-        <itemPath>../../src/tcpip/buff_mgr.c</itemPath>
-        <itemPath>../../src/tcpip/eicmp.c</itemPath>
-        <itemPath>../../src/tcpip/mc_socket.c</itemPath>
-        <itemPath>../../src/tcpip/BowlerEthernetServer.c</itemPath>
-        <itemPath>../../src/tcpip/tcp_tick.c</itemPath>
-        <itemPath>../../src/tcpip/eudp.c</itemPath>
-        <itemPath>../../src/tcpip/earp.c</itemPath>
-        <itemPath>../../src/tcpip/etcp.c</itemPath>
-        <itemPath>../../src/tcpip/gpfunc.c</itemPath>
-        <itemPath>../../src/tcpip/MyEthernet.c</itemPath>
-        <itemPath>../../src/tcpip/stackmgr.c</itemPath>
-        <itemPath>../../src/tcpip/pkt_queue.c</itemPath>
-      </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

@@ -29,7 +29,7 @@ extern "C" {
 
 #define     ENC1_CSN           _RA1
 #define     ENC1_CSN_TRIS      _TRISA1
-#define     ENC1_SERVO_TRIS    _TRIC14
+#define     ENC1_SERVO_TRIS    _TRISC14
 #define     ENC1_SERVO         _RC14
 
 #define     ENC2_CSN           _RB13
@@ -62,8 +62,19 @@ extern "C" {
 #define     ENC7_SERVO_TRIS    _TRISD4
 #define     ENC7_SERVO         _RD4
 
+#define     CloseServoOpenCollector() mPORTCOpenDrainClose(BIT_13);\
+                                    mPORTCOpenDrainClose(BIT_14);\
+                                    mPORTFOpenDrainClose(BIT_2);\
+                                    mPORTFOpenDrainClose(BIT_8);\
+                                    mPORTDOpenDrainClose(BIT_1);\
+                                    mPORTDOpenDrainClose(BIT_2);\
+                                    mPORTDOpenDrainClose(BIT_3);\
+                                    mPORTDOpenDrainClose(BIT_4);
+
 #define     CSN_Enabled       0
 #define     CSN_Disabled     1
+
+
 
 #define     ENC_CSN_INIT()       ENC2_CSN_TRIS=0;ENC2_CSN=CSN_Disabled;ENC3_CSN_TRIS=0;ENC3_CSN=CSN_Disabled
 #define     ENC_SERVO_INIT()     ENC7_SERVO_TRIS=0;ENC6_SERVO_TRIS=0;ENC5_SERVO_TRIS=0;ENC4_SERVO_TRIS=0;ENC3_SERVO_TRIS=0;ENC2_SERVO_TRIS=0;ENC1_SERVO_TRIS=0;ENC0_SERVO_TRIS=0;

@@ -54,6 +54,16 @@ void main() {
 BYTE i;
 AS5055ReadPacket read;
 AS5055CommandPacket cmd;
+    CloseServoOpenCollector();
+#define OUTPUT 0
+    ENC0_SERVO_TRIS = OUTPUT;
+    ENC1_SERVO_TRIS = OUTPUT;
+    ENC2_SERVO_TRIS = OUTPUT;
+    ENC3_SERVO_TRIS = OUTPUT;
+    ENC4_SERVO_TRIS = OUTPUT;
+    ENC5_SERVO_TRIS = OUTPUT;
+    ENC6_SERVO_TRIS = OUTPUT;
+    ENC7_SERVO_TRIS = OUTPUT;
     while(1){
         /*
         ENC2_CSN=CSN_Enabled;
@@ -71,11 +81,11 @@ AS5055CommandPacket cmd;
         ENC2_CSN=CSN_Disabled;
         ENC3_CSN=CSN_Disabled;
         while(SpiChnIsBusy(1)); // chill
-        */bDelay();
-            _TRISF8=0; _RF8=1;
-            bDelay();
-            _TRISF8=0; _RF8=0;
+        */
 
+        ENC4_SERVO=1;
+        bDelay();
+        ENC4_SERVO=0;
 
 
     }

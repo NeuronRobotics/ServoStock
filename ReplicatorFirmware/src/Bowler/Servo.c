@@ -2,7 +2,7 @@
 
 #define SERVO_BOUND 		1
 INTERPOLATE_DATA velocity[numPidMotor];
-BYTE position[numPidMotor];
+int position[numPidMotor];
 void runLinearInterpolationServo(BYTE blockStart,BYTE blockEnd);
 BYTE pinOn(BYTE pin);
 void pinOff(BYTE pin);
@@ -14,6 +14,97 @@ void DelayPreServoPulse(void);
  */
 void initServos(){
 
+    CloseServoOpenCollector();
+
+    if(getPrintLevel() == NO_PRINT){
+        CloseUART1();
+    }
+
+
+    ENC0_SERVO_TRIS = OUTPUT;
+    ENC1_SERVO_TRIS = OUTPUT;
+    ENC2_SERVO_TRIS = OUTPUT;
+    ENC3_SERVO_TRIS = OUTPUT;
+    ENC4_SERVO_TRIS = OUTPUT;
+    ENC5_SERVO_TRIS = OUTPUT;
+    ENC6_SERVO_TRIS = OUTPUT;
+    ENC7_SERVO_TRIS = OUTPUT;
+    int i;
+    for(i=0;i<numPidMotor;i++){
+        pinOff(i);
+        setServo(i,255,0);
+    }
+//    BYTE state = 0;
+//    while (1){
+////        state  = !state;
+////        ENC4_SERVO = state;
+//        ENC4_SERVO = 0;
+//        ENC4_SERVO = 1;
+//                ENC4_SERVO = 0;
+//        ENC4_SERVO = 1;
+//                ENC4_SERVO = 0;
+//        ENC4_SERVO = 1;
+//                ENC4_SERVO = 0;
+//        ENC4_SERVO = 1;
+//                ENC4_SERVO = 0;
+//        ENC4_SERVO = 1;
+//                ENC4_SERVO = 0;
+//        ENC4_SERVO = 1;
+//                ENC4_SERVO = 0;
+//        ENC4_SERVO = 1;
+//                ENC4_SERVO = 0;
+//        ENC4_SERVO = 1;
+//                ENC4_SERVO = 0;
+//        ENC4_SERVO = 1;
+//                ENC4_SERVO = 0;
+//        ENC4_SERVO = 1;
+//                ENC4_SERVO = 0;
+//        ENC4_SERVO = 1;
+//                ENC4_SERVO = 0;
+//        ENC4_SERVO = 1;
+//                ENC4_SERVO = 0;
+//        ENC4_SERVO = 1;
+//                ENC4_SERVO = 0;
+//        ENC4_SERVO = 1;
+//                ENC4_SERVO = 0;
+//        ENC4_SERVO = 1;
+//                ENC4_SERVO = 0;
+//        ENC4_SERVO = 1;
+//                ENC4_SERVO = 0;
+//        ENC4_SERVO = 1;
+//                ENC4_SERVO = 0;
+//        ENC4_SERVO = 1;
+//                ENC4_SERVO = 0;
+//        ENC4_SERVO = 1;
+//                ENC4_SERVO = 0;
+//        ENC4_SERVO = 1;
+//                ENC4_SERVO = 0;
+//        ENC4_SERVO = 1;
+//    }
+}
+
+void delayLoop(){
+    int loop = 16;
+    while(loop--);
+    Nop();
+    Nop();
+    Nop();
+    Nop();
+    Nop();
+    Nop();
+    Nop();
+    Nop();
+    Nop();
+    Nop();
+    Nop();
+    Nop();
+    Nop();
+    Nop();
+    Nop();
+    Nop();
+    Nop();
+    Nop();
+    Nop();
 }
 
 /**
@@ -44,13 +135,11 @@ void runServos(){
 				pinOff(xIndex);
 			}
 		}
-		// Small delay to pad the loop
-		//_delay_us(1);
-		//Nop();Nop();Nop();  Nop();Nop();Nop();  Nop();Nop();Nop();   Nop();Nop();
+                delayLoop();
 	}
-	for (xIndex=start; xIndex < stop ;xIndex++){
-            pinOff(xIndex);
-	}
+//	for (xIndex=start; xIndex < stop ;xIndex++){
+//            pinOff(xIndex);
+//	}
 }
 
 /**
@@ -91,14 +180,47 @@ void runLinearInterpolationServo(BYTE blockStart,BYTE blockEnd){
 
 }
 
+void SetDIO(BYTE PIN, BOOL state){
+    switch(PIN){
+    case 0:
+            ENC0_SERVO = state;
+            break;
+    case 1:
+            ENC1_SERVO = state;
+            break;
+    case 2:
+        if(getPrintLevel() == NO_PRINT)
+            ENC2_SERVO = state;
+            break;
+    case 3:
+        if(getPrintLevel() == NO_PRINT)
+            ENC3_SERVO = state;
+            break;
+    case 4:
+            ENC4_SERVO = state;
+            break;
+    case 5:
+            ENC5_SERVO = state;
+            break;
+    case 6:
+            ENC6_SERVO = state;
+            break;
+    case 7:
+            ENC7_SERVO = state;
+            break;
+    }
+}
+
 BYTE pinOn(BYTE pin){
-    //SetDIO(pin,ON);
+    SetDIO(pin,1);
     return 1;
 }
 
 void pinOff(BYTE pin){
-	//SetDIO(pin,OFF);
+    SetDIO(pin,0);
 }
+
+
 
 void DelayPreServoPulse(void){
     Delay10us(90);
