@@ -17,7 +17,26 @@ public class STLObject implements Iterable<STLFacet> {
 
 	private ArrayList<STLFace> theFaces;
 	private boolean facesAnalyzed;
-
+	
+	public static STLObject getMergedSTLObject(String name,
+			Collection<STLObject> theObjects) {
+		ArrayList<STLFacet> newList = new ArrayList<STLFacet>();
+		for(STLObject curr:theObjects){
+			newList.addAll(curr.theFacets);
+		}
+		
+		return new STLObject(name,newList);
+	}
+	
+	public static STLObject getMergedSTLObject(String name, STLObject... theObjects){
+		ArrayList<STLFacet> newList = new ArrayList<STLFacet>();
+		for(STLObject curr:theObjects){
+			newList.addAll(curr.theFacets);
+		}
+		
+		return new STLObject(name,newList);
+	}
+	
 	public STLObject(String name, ArrayList<STLFacet> facets) {
 		this.name = name;
 		this.theFacets = facets;
@@ -58,19 +77,19 @@ public class STLObject implements Iterable<STLFacet> {
 
 	public float getXLength() {
 		if (max == null || min == null)
-			setMaxMin();
+			calcMaxMin();
 		return max.x - min.x;
 	}
 
 	public float getYLength() {
 		if (max == null || min == null)
-			setMaxMin();
+			calcMaxMin();
 		return max.y - min.y;
 	}
 
 	public float getZLength() {
 		if (max == null || min == null)
-			setMaxMin();
+			calcMaxMin();
 		return max.z - min.z;
 	}
 
@@ -80,11 +99,11 @@ public class STLObject implements Iterable<STLFacet> {
 
 	public Point3f getMax() {
 		if (max == null)
-			setMaxMin();
+			calcMaxMin();
 		return max;
 	}
 
-	private void setMaxMin() {
+	private void calcMaxMin() {
 		
 		max = null;
 		min = null;
@@ -107,7 +126,7 @@ public class STLObject implements Iterable<STLFacet> {
 
 	public Point3f getMin() {
 		if (min == null)
-			setMaxMin();
+			calcMaxMin();
 		return min;
 	}
 
@@ -159,4 +178,6 @@ public class STLObject implements Iterable<STLFacet> {
 		return theFaces;
 	}
 
+
+	
 }

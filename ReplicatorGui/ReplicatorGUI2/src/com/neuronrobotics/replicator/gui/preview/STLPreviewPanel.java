@@ -164,7 +164,7 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 		STLPreviewTab currentTab = ((STLPreviewTab) previewTabbedPane
 				.getSelectedComponent());
 		if (currentTab.isLoaded())
-			return currentTab.getTheSTLPreview().getSTLFile();
+			return currentTab.getTheSTLPreview().getMergedSTLFile();
 		return null;
 	}
 

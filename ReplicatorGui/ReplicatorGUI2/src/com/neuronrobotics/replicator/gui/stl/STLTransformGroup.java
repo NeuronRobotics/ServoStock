@@ -375,7 +375,14 @@ public class STLTransformGroup extends TransformGroup{
 	}
 
 	public void centerOnWorkspace(STLWorkspaceBranchGroup theWorkspace) {
-		//TODO
+		double transY = theWorkspace.getSurfaceY()-this.getCurrentMin().y;
+		
+
+		System.out.println("Trans Y "+transY);
+		System.out.println("Curr min "+this.getCurrentMin());
+		System.out.println("Surface y: "+theWorkspace.getSurfaceY());
+		
+		translateY(transY);
 	}
 
 	public void translate(Vector3d tran) {
@@ -407,7 +414,8 @@ public class STLTransformGroup extends TransformGroup{
 	}
 
 	
-	public void translateLeftRight(double d,STLPreviewCameraData camD) {
+	public void translateLeftRight(double d) {
+				
 		Vector3d tran = new Vector3d(1, 0, 0);
 		Transform3D curr = this.getTransform3D();
 		// curr.setTranslation(new Vector3d(0,0,0));
@@ -415,16 +423,16 @@ public class STLTransformGroup extends TransformGroup{
 		curr.transform(tran);
 		tran.normalize();
 
-		Vector3d camVec = new Vector3d(camD.getCameraPosition());
-		camVec.sub(camD.getCameraDirection());
-		camVec.cross(camVec, camD.getCameraOrientation()); //TODO test
+		//Vector3d camVec = new Vector3d(camD.getCameraPosition());
+		//camVec.sub(camD.getCameraDirection());
+		//camVec.cross(camVec, camD.getCameraOrientation()); //TODO test
 
 		// curr.invert();
-		curr.transform(camVec);
-		camVec.normalize();
+		//curr.transform(camVec);
+		//camVec.normalize();
 
 		tran.scale(d);
-		camVec.scale(-d);
+		//camVec.scale(-d);
 		// System.out.println(tran);
 		translate(tran);
 		// translate(camVec);

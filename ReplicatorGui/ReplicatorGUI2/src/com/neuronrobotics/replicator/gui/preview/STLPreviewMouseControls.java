@@ -4,6 +4,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 
+import com.neuronrobotics.replicator.gui.preview.STLPreviewMouseControls.MouseControlMode;
 import com.neuronrobotics.replicator.gui.stl.STLTransformGroup;
 import com.sun.j3d.utils.picking.PickCanvas;
 import com.sun.j3d.utils.picking.PickResult;
@@ -96,7 +97,7 @@ public class STLPreviewMouseControls extends MouseAdapter  {
 				
 				STLTransformGroup currObj = preview.getCurrentSTLTransform();
 								
-				currObj.translateLeftRight(xDist/translateScale,preview.getCameraData());
+				currObj.translateLeftRight(xDist/translateScale);
 				currObj.translateUpDown(yDist/translateScale);
 				
 			}
@@ -123,6 +124,21 @@ public class STLPreviewMouseControls extends MouseAdapter  {
 			}
 
 			
+		},
+		MODEL_TRANSLATE_XZ{
+
+			@Override
+			protected void mouseDragged(STLPreviewCanvas3D preview,
+					double xDist, double yDist) {
+				preview.getCurrentSTLTransform().translateLeftRight(xDist/translateScale);
+				preview.getCurrentSTLTransform().translateBackForth(yDist/translateScale);
+				
+			}
+			
+			public String toString(){
+				return "Model Translate (XZ)";
+			}
+			
 		};
 		
 		double translateScale = 15.0;
@@ -131,13 +147,14 @@ public class STLPreviewMouseControls extends MouseAdapter  {
 		protected abstract void mouseDragged(STLPreviewCanvas3D preview,double xDist, double yDist);
 
 		public static MouseControlMode[] getModes() {
-			return new MouseControlMode[]{CAMERA_ROTATE,MODEL_ROTATE_X,MODEL_ROTATE_Y,MODEL_ROTATE_Z,MODEL_TRANSLATE_XY,MODEL_TRANSLATE_ZY};
+			return new MouseControlMode[]{CAMERA_ROTATE,MODEL_ROTATE_X,MODEL_ROTATE_Y,MODEL_ROTATE_Z,MODEL_TRANSLATE_XY,MODEL_TRANSLATE_ZY,MODEL_TRANSLATE_XZ};
 		}
 		
 	}
 	
 	public void setMouseControlMode(MouseControlMode mcm){
 		this.theMode = mcm;
+		thePreview.alertMouseControlModeChanged(this);
 	}
 		
 	public STLPreviewMouseControls(STLPreviewCanvas3D prev){
@@ -183,8 +200,12 @@ public class STLPreviewMouseControls extends MouseAdapter  {
 		Point2D temp = arg0.getLocationOnScreen();
 		lastLocation = temp;
 		
+		
+		
 		//Point3f dim = thePreview.getWorkspaceDimensions();
 		double zoomDist = 6;//Math.max(Math.max(dim.x,dim.y),dim.z)/10.0;
+		
+		if(arg0.isShiftDown()) zoomDist*=-1;
 		
 		if(arg0.getClickCount()>=2){
 			thePreview.getTheCameraController().zoom(zoomDist);
@@ -229,6 +250,11 @@ public class STLPreviewMouseControls extends MouseAdapter  {
 	public void mouseReleased(MouseEvent arg0) {
 		mousePressed = false;
 		
+	}
+
+	
+	public MouseControlMode getCurrentMode() {
+		return theMode;
 	}
 
 }

@@ -144,7 +144,7 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 		
 		mainBranch.addChild(modelBranch);
 		mainBranch.addChild(workspaceBranch);
-		
+				
 		if(this.theSTLFile!=null){
 			addModelToWorkspace(theSTLFile);
 		}
@@ -167,7 +167,12 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 			}
 			
 		}
-				
+		
+		if(theWorkspace!=null)
+		for (STLTransformGroup stlTransform : theSTLTransforms) {
+			stlTransform.centerOnWorkspace(theWorkspace);
+		}
+		
 		theLight = new DirectionalLight();
 		theLight.setInfluencingBounds(new BoundingSphere(new Point3d(0, 0, 0),
 				900));
@@ -330,35 +335,14 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 	public File getGCodeFile() {
 		return theGcode;
 	}
-
-	/*
-	public Point3f getWorkspaceDimensions() {
-		return workspaceDimensions;
-	}
 	*/
-
-	
-
 	
 	public void setMouseControls(STLPreviewMouseControls theMouseControls) {
 		this.theMouseControls = theMouseControls;
-	}
-	
+	}	
 
 	public STLPreviewMouseControls getMouseControls() {
 		return theMouseControls;
-	}
-
-	
-	public void setMouseControlMode(STLPreviewMouseControls.MouseControlMode mc){
-		if(theMouseControls!=null){
-			theMouseControls.setMouseControlMode(mc); //TODO this ain't workin'
-			if(mc==STLPreviewMouseControls.MouseControlMode.MODEL_TRANSLATE_XY){
-				theCameraController.setCameraFocusMode(STLPreviewCameraController.CameraMode.AERIAL);
-				theCameraController.resetCamera();
-			} else theCameraController.setCameraFocusMode(STLPreviewCameraController.CameraMode.WORKSPACE_BASE); //TODO
-			
-		}
 	}
 	
 	public void killPreview() {
@@ -413,6 +397,7 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 			theSTLTransforms.add(newTransform);
 			modelBranch.addChild(newBranch);
 			currentSTLTransform = newTransform;
+			if(theWorkspace!=null) currentSTLTransform.centerOnWorkspace(theWorkspace);
 		}
 	}
 	
@@ -452,10 +437,6 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 		return this.theCameraController;
 	}
 	
-	public STLTransformGroup getcurrentSTLTransform(){
-		return this.currentSTLTransform;
-	}
-
 	@Override
 	public void alertSTLTransformMoved(STLTransformGroup gr) {
 		this.theCameraController.autoPan();
@@ -468,19 +449,33 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 	}
 
 	//TODO these all require new merging functionality still to be written
+	//Really, creating new merged files should not be done here
+	//need to redesign where these go best
 	public File getGCodeFile() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public File getSTLFile() {
-		// TODO Auto-generated method stub
+	public File getMergedSTLFile() {
+		STLObject mergedObject = getMergedSTLObject();
+		//TODO easy enough to generate a merged file but where to put it
+		// is the question
 		return null;
 	}
 
 	
-	public STLObject getSTLObject() {
-		// TODO Auto-generated method stub
-		return null;
+	public STLObject getMergedSTLObject() {
+		ArrayList<STLObject> theObjects = new ArrayList<STLObject>();
+		for(STLTransformGroup stg: this.theSTLTransforms){
+			STLObject curr = stg.getSTLObject().getTransformedSTLObject(stg.getTransform3D());
+			theObjects.add(curr);
+		}
+		return STLObject.getMergedSTLObject("MergedSTL", theObjects);
+	}
+
+	public void alertMouseControlModeChanged(STLPreviewMouseControls stlPreviewMouseControls) {
+		if(stlPreviewMouseControls.getCurrentMode()==STLPreviewMouseControls.MouseControlMode.MODEL_TRANSLATE_XZ){
+			this.theCameraController.setCameraFocusMode(STLPreviewCameraController.CameraMode.AERIAL);
+		}
 	}
 }

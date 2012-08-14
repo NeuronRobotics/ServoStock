@@ -2,9 +2,11 @@ package com.neuronrobotics.replicator.gui.stl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Shape3D;
+import javax.vecmath.Vector3f;
 
 
 public class STLWorkspaceBranchGroup extends BranchGroup{
@@ -13,6 +15,9 @@ public class STLWorkspaceBranchGroup extends BranchGroup{
 	private Shape3D theWorkspaceShape;
 	private Shape3D theWorkspaceOutline;
 	
+	private STLFace theSurface;
+	private double surfaceY;
+		
 	public static STLWorkspaceBranchGroup STLWorkspaceBranchGroupFactory(STLObject wsp){
 		return new STLWorkspaceBranchGroup(wsp);
 	}
@@ -33,6 +38,8 @@ public class STLWorkspaceBranchGroup extends BranchGroup{
 		this.addChild(theWorkspaceShape);
 		this.addChild(theWorkspaceOutline);		
 		
+		theSurface = null;
+		surfaceY = Double.MAX_VALUE;
 	}
 	
 	//TODO this currently returns true if object is completely in or completely out
@@ -89,5 +96,35 @@ public class STLWorkspaceBranchGroup extends BranchGroup{
 
 	public STLObject getWorkspaceSTLObject(){
 		return workspaceSTL; 
+	}
+	
+	public STLFace getSurfaceFace(){
+		
+		if(theSurface!=null) return theSurface;
+		
+		double y = Double.MAX_VALUE;
+		
+		STLFace result = null;
+		Vector3f down = new Vector3f(0,-1,0);
+		
+		for(STLFace face: workspaceSTL.getFaces()){
+			Vector3f currNorm = face.getNormal();
+			currNorm.normalize();
+			double currY = face.iterator().next().getVertex1().y;
+			if(down.epsilonEquals(currNorm, 0.0001f)&&(y==Double.MAX_VALUE||currY<=y)){
+				result = face;
+				y=currY;
+			}
+		}
+		
+		theSurface = result;
+		surfaceY = y;
+		return result;
+	}
+	
+	public double getSurfaceY(){
+		if(theSurface==null) this.getSurfaceFace();
+		if(surfaceY==Double.MAX_VALUE) return 0; //TODO shitty practice
+		return surfaceY;
 	}
 }

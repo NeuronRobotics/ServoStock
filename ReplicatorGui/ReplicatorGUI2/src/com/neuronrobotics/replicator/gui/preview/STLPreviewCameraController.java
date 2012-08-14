@@ -72,9 +72,9 @@ public class STLPreviewCameraController {
 
 				if (sp.getCurrentSTLTransform() == null)
 					return ORIGIN.getBaseCameraPosition(sp);
-				STLObject currObj = sp.getcurrentSTLTransform().getSTLObject();
-				double m = Math.max(currObj.getXLength(), Math.max(currObj.getYLength(), currObj
-						.getZLength()));
+				STLObject currObj = sp.getCurrentSTLTransform().getSTLObject();
+				double m = Math.max(currObj.getXLength(),
+						Math.max(currObj.getYLength(), currObj.getZLength()));
 				Point3d basePos = new Point3d(2 * m, 2 * m, 2 * m);
 				basePos.add(this.getFocus(sp));
 				System.out.println("Base camera position " + basePos);
@@ -115,6 +115,10 @@ public class STLPreviewCameraController {
 			public Vector3d getCameraOrientation() {
 				return new Vector3d(0, 1, 0);
 			}
+		
+			public String toString(){
+				return "Origin";
+			}
 		},
 		AERIAL {
 
@@ -134,14 +138,14 @@ public class STLPreviewCameraController {
 					camPos = WORKSPACE_BASE.getFocus(sp);
 					double h;
 					if (sp.getCurrentSTLTransform() != null)
-						h = sp.getCurrentSTLTransform().getCurrentMax().y * 2;
+						h = sp.getCurrentSTLTransform().getCurrentMax().y * 5;
 					else
 						h = sp.getTheWorkspaceTransform()
-								.getWorkspaceSTLObject().getMax().y * 2;
+								.getWorkspaceSTLObject().getMax().y * 5;
 					return new Point3d(camPos.x, h, camPos.z);
 				} else if (sp.getCurrentSTLTransform() != null) {
 					camPos = STL_CENTER.getFocus(sp);
-					double h = sp.getCurrentSTLTransform().getCurrentMax().y * 2;
+					double h = sp.getCurrentSTLTransform().getCurrentMax().y * 5;
 					return new Point3d(camPos.x, h, camPos.z);
 				} else {
 					return new Point3d(0, 20, 0);
@@ -157,6 +161,10 @@ public class STLPreviewCameraController {
 			@Override
 			public Vector3d getCameraOrientation() {
 				return new Vector3d(0, 0, -1);
+			}
+			
+			public String toString(){
+				return "Aerial";
 			}
 		};
 
@@ -286,14 +294,17 @@ public class STLPreviewCameraController {
 
 		thePreview.setCamera(tempPos, tempDir, tempOri);
 
-		STLObject currObj = thePreview.getCurrentSTLTransform().getSTLObject();
 		
+
 		double clipDist = 900;
 		if (thePreview.getCurrentSTLTransform() != null) {
+			
+			STLObject currObj = thePreview.getCurrentSTLTransform().getSTLObject();
+			
 			clipDist = tempPos.distance(new Point3d(thePreview
 					.getCurrentSTLTransform().getCurrentCenter()));
-			clipDist += Math.max(Math.max(currObj
-					.getXLength(), currObj.getYLength()),
+			clipDist += Math.max(
+					Math.max(currObj.getXLength(), currObj.getYLength()),
 					currObj.getZLength());
 		}
 		thePreview.getView().setBackClipDistance(clipDist);
@@ -306,13 +317,22 @@ public class STLPreviewCameraController {
 	}
 
 	public void setCameraFocusMode(CameraMode newMode) {
+		CameraMode lastMode = currentCameraFocusMode;
+				
 		currentCameraFocusMode = newMode;
-		// tempDir = currentCameraFocusMode.getFocus(thePreview);
-		autoPan();
+		
+		if(lastMode==CameraMode.AERIAL||currentCameraFocusMode==CameraMode.AERIAL){
+			resetCamera();
+		} 
+		
+		autoPan();		
+		
 	}
 
 	public void rotateCameraXZ(double rot) {
 
+		if(!this.currentCameraFocusMode.getCameraOrientation().epsilonEquals(new Vector3d(0,1,0), 0.0001f)) return;
+				
 		Point3d tempPos, tempDir;
 		Vector3d tempOri;
 
@@ -351,7 +371,9 @@ public class STLPreviewCameraController {
 	}
 
 	public void rotateCameraUp(double rot) {
-
+		
+		if(!this.currentCameraFocusMode.getCameraOrientation().epsilonEquals(new Vector3d(0,1,0), 0.0001f)) return;
+		
 		Point3d tempPos, tempDir;
 		Vector3d tempOri;
 
