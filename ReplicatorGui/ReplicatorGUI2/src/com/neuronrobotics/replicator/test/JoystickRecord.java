@@ -43,6 +43,16 @@ public class JoystickRecord {
 		ServoChannel hand = new ServoChannel(slave.getChannel(15));
 		hand.SetPosition(open);
 		
+		try {
+			System.out.println("Setting to 0,0,0");
+			deltaRobot.setDesiredTaskSpaceTransform(new TransformNR(),.5);
+			ThreadUtil.wait(1000);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		
 		while(slave.isAvailable() && pad.poll()){
 			ThreadUtil.wait(30);
 			button = trigger.getPollData()<=0;
@@ -57,10 +67,12 @@ public class JoystickRecord {
 				double XYscale = 70;
 				double x=padX.getPollData()*-XYscale;
 				double y=padY.getPollData()*XYscale;
-				double z=padZ.getPollData()*100;
-				
+				double z=padZ.getPollData()*100 + 200;
+				if(z<150)
+					z=150;
+
 				currentNew = new TransformNR(x, y, z, new RotationNR());
-				//System.out.println("Attempting :"+currentNew);
+				System.out.println("Attempting :"+currentNew);
 				deltaRobot.setDesiredTaskSpaceTransform(currentNew,.1);
 				current =currentNew.copy(); 
 			} catch (Exception e) {
@@ -148,7 +160,7 @@ public class JoystickRecord {
 			}
 			throw new RuntimeException("One or both devices were not found ");
 		}
-		slave.enableBrownOutDetect(false);
+		slave.setServoPowerSafeMode(false);
 		deltaRobot = new DeltaRobotPrinterPrototype(slave);
 		deltaRobot.setCurrentPoseTarget(new TransformNR());
 	}

@@ -22,7 +22,7 @@ public class AccuracyTest {
 	public AccuracyTest(){
 		DyIO delt = new DyIO(new SerialConnection("/dev/DyIO0"));
 		delt.connect();
-		delt.enableBrownOutDetect(false);
+		delt.setServoPowerSafeMode(false);
 		deltaRobot = new DeltaRobotPrinterPrototype(delt);
 		Log.enableDebugPrint(false);
 		deltaRobot.setCurrentPoseTarget(new TransformNR());

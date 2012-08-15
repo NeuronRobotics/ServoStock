@@ -112,7 +112,7 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 		master.killAllPidGroups();
 		model = new DHParameterKinematics(master,"TrobotMaster.xml");
 		model.addPoseUpdateListener(this);
-		slave.enableBrownOutDetect(false);
+		slave.setServoPowerSafeMode(false);
 		deltaRobot = new DeltaRobotPrinterPrototype(slave);
 		deltaRobot.setCurrentPoseTarget(new TransformNR());
 		
