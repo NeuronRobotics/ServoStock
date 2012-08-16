@@ -3,6 +3,11 @@ static float lastPacketTime[NUM_PID_GROUPS];
 static INT32 lastPacketVal[NUM_PID_GROUPS];
 static BowlerPacket packetTemp;
 
+
+void push(BowlerPacket * Packet){
+    //EthTx(Packet);
+    putStream(Packet->stream,GetPacketLegnth(Packet));
+}
 /*
 void pushPIDLimitMine(BYTE chan,BYTE index,INT32  tick){
 	//SetColor(0,1,0);
@@ -35,7 +40,7 @@ void pushPIDLimitMine(BYTE chan,BYTE index,INT32  tick){
 void pushPIDMine(BYTE chan, INT32 value){
 	println_I("Pushing async for board: ");p_sl_I(chan);print_I(" value: ");p_sl_I(value);
 	//SetColor(0,1,0);
-	LoadCorePacket(& packetTemp);
+	//LoadCorePacket(& packetTemp);
 	packetTemp.use.head.Method=BOWLER_ASYN;
 	packetTemp.use.head.MessageID = 3;
 	packetTemp.use.head.RPC = GetRPCValue("_pid");
@@ -76,7 +81,7 @@ void pushEncoders(void){
 	packetTemp.use.head.RPC = GetRPCValue("apid");
         int i;
 	for(i=0;i<NUM_PID_GROUPS;i++){
-		PID_Temp.Val=getCurrentEncoderValue(i);
+		//PID_Temp.Val=getCurrentEncoderValue(i);
 		packetTemp.use.data[0+(i*4)]=PID_Temp.byte.FB;
 		packetTemp.use.data[1+(i*4)]=PID_Temp.byte.TB;
 		packetTemp.use.data[2+(i*4)]=PID_Temp.byte.SB;
@@ -87,7 +92,4 @@ void pushEncoders(void){
 	push(&packetTemp);
 }
 
-void push(BowlerPacket * Packet){
-    //EthTx(Packet);
-    putStream(Packet->stream,GetPacketLegnth(Packet));
-}
+

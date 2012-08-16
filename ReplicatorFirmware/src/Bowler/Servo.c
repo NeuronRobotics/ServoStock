@@ -32,55 +32,8 @@ void initServos(){
     int i;
     for(i=0;i<numPidMotor;i++){
         pinOff(i);
-        setServo(i,255,0);
+        setServo(i,128,0);
     }
-//    BYTE state = 0;
-//    while (1){
-////        state  = !state;
-////        ENC4_SERVO = state;
-//        ENC4_SERVO = 0;
-//        ENC4_SERVO = 1;
-//                ENC4_SERVO = 0;
-//        ENC4_SERVO = 1;
-//                ENC4_SERVO = 0;
-//        ENC4_SERVO = 1;
-//                ENC4_SERVO = 0;
-//        ENC4_SERVO = 1;
-//                ENC4_SERVO = 0;
-//        ENC4_SERVO = 1;
-//                ENC4_SERVO = 0;
-//        ENC4_SERVO = 1;
-//                ENC4_SERVO = 0;
-//        ENC4_SERVO = 1;
-//                ENC4_SERVO = 0;
-//        ENC4_SERVO = 1;
-//                ENC4_SERVO = 0;
-//        ENC4_SERVO = 1;
-//                ENC4_SERVO = 0;
-//        ENC4_SERVO = 1;
-//                ENC4_SERVO = 0;
-//        ENC4_SERVO = 1;
-//                ENC4_SERVO = 0;
-//        ENC4_SERVO = 1;
-//                ENC4_SERVO = 0;
-//        ENC4_SERVO = 1;
-//                ENC4_SERVO = 0;
-//        ENC4_SERVO = 1;
-//                ENC4_SERVO = 0;
-//        ENC4_SERVO = 1;
-//                ENC4_SERVO = 0;
-//        ENC4_SERVO = 1;
-//                ENC4_SERVO = 0;
-//        ENC4_SERVO = 1;
-//                ENC4_SERVO = 0;
-//        ENC4_SERVO = 1;
-//                ENC4_SERVO = 0;
-//        ENC4_SERVO = 1;
-//                ENC4_SERVO = 0;
-//        ENC4_SERVO = 1;
-//                ENC4_SERVO = 0;
-//        ENC4_SERVO = 1;
-//    }
 }
 
 void delayLoop(){

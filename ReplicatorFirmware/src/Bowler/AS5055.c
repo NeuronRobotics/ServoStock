@@ -1,5 +1,21 @@
 #include "main.h"
 
+void encoderSPIInit(){
+    OpenSPI1(CLK_POL_ACTIVE_HIGH\
+            |SPI_MODE8_ON|ENABLE_SDO_PIN|SLAVE_ENABLE_OFF|SPI_CKE_OFF\
+            |MASTER_ENABLE_ON|SEC_PRESCAL_8_1|PRI_PRESCAL_64_1
+            , SPI_ENABLE);
+    ENC0_CSN_TRIS = OUTPUT;
+    ENC1_CSN_TRIS = OUTPUT;
+    ENC2_CSN_TRIS = OUTPUT;
+    ENC3_CSN_TRIS = OUTPUT;
+    ENC4_CSN_TRIS = OUTPUT;
+    ENC5_CSN_TRIS = OUTPUT;
+    ENC6_CSN_TRIS = OUTPUT;
+    ENC7_CSN_TRIS = OUTPUT;
+
+}
+
 UINT8   AS5055CalculateParity(UINT16 data){
     UINT8 bits=0;
     UINT8 shift=0;
@@ -96,12 +112,33 @@ UINT16 AS5055readAngle(BYTE index){
 
 
 void EncoderSS(BYTE index, BYTE state){
+    if(state == CSN_Enabled){
+        encoderSPIInit();
+    }
     switch(index){
+        case 0:
+            ENC0_CSN=state;
+            break;
+        case 1:
+            ENC1_CSN=state;
+            break;
         case 2:
             ENC2_CSN=state;
             break;
         case 3:
             ENC3_CSN=state;
+            break;
+        case 4:
+            ENC4_CSN=state;
+            break;
+        case 5:
+            ENC5_CSN=state;
+            break;
+        case 6:
+            ENC6_CSN=state;
+            break;
+        case 7:
+            ENC7_CSN=state;
             break;
     }
     if(state==CSN_Disabled){

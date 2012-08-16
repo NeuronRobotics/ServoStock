@@ -245,11 +245,9 @@ int main()
 	SYSTEMConfig(SYS_FREQ, SYS_CFG_WAIT_STATES | SYS_CFG_PCACHE);
 
         setPrintLevelInfoPrint();
-	//initLed();
-        //setLed(1,1,1);
-	//initButton();
         ATX_ENABLE(); // Turn on ATX Supply
         ENC_CSN_INIT(); // Set pin modes for CS pins
+        mJTAGPortEnable(0); // Disable JTAG and free up channels 0 and 1
         
         int i;
         
@@ -273,34 +271,23 @@ int main()
 	setMethodCallback(BOWLER_GET,UserGetRPCs);
 	setMethodCallback(BOWLER_POST,UserPostRPCs);
 	setMethodCallback(BOWLER_CRIT,UserCriticalRPCs);
-	BowlerSPIInit();
 #if !defined(NO_ETHERNET)
 	InitializeEthernet();
 #endif
 
 	BowlerPacket MyPacket;
         println_I(dev);
-	println_I("#Ready...");
+	
         setPrintLevelInfoPrint();
         RunEveryData servo ={0,20};
         initServos();
         initPIDLocal();
-    OpenSPI1(CLK_POL_ACTIVE_HIGH\
-            |SPI_MODE8_ON|ENABLE_SDO_PIN|SLAVE_ENABLE_OFF|SPI_CKE_OFF\
-            |MASTER_ENABLE_ON|SEC_PRESCAL_8_1|PRI_PRESCAL_64_1
-            , SPI_ENABLE);
-        //while(1) encoderTest();
-mJTAGPortEnable(0); // Disable JTAG and free up channels 0 and 1
+
+
+        
+        println_I("#Ready...");
 	while(1){
-            //println_I("Loop");
-//            if(isPressed()	){
-//                    U1CON = 0x0000;
-//                    while(isPressed()){
-//                            setLed(1,1,1);
-//                    }
-//                    DelayMs(100);
-//                    SoftReset();
-//            }
+
             Bowler_Server_Local(&MyPacket);
             #if !defined(NO_ETHERNET)
                 RunEthernetServices(&MyPacket);
@@ -308,7 +295,11 @@ mJTAGPortEnable(0); // Disable JTAG and free up channels 0 and 1
             if(RunEvery(&servo)>0){
                 //RunPID();
                 runServos();
-                println_I("Servo ");p_fl_I(getMs());
+                int i=0;
+                println_I("Encoder ");
+                for(i=0;i<numPidMotor;i++){
+                    print_I("\t");p_sl_I(AS5055readAngle(i));
+                }
             }
 
 	}
