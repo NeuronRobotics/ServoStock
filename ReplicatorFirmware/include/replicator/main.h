@@ -2,10 +2,8 @@
 #ifndef MAIN_H
 #define MAIN_H
 #include <plib.h>
-#include "EthernetController.h"
 #include "Bowler/Bowler.h"
 #include "AuxUartServer.h"
-#include "boards.h"
 
 #include "AS5055.h"
 #include "ReplicatorHeader.h"

@@ -29,9 +29,7 @@
  *
  ********************************************************************/
 
-#include "EthernetController.h"
 #include "Bowler/Bowler_Struct_Def.h"
-#include "boards.h"
 #include "main.h"
 
 #ifdef USB_A0_SILICON_WORK_AROUND
@@ -114,7 +112,7 @@ void _general_exception_handler(unsigned cause, unsigned status){
         cause_union u;
         u.value=cause;
 
-        setLed(1,0,0);
+        //setLed(1,0,0);
 
         print_I("\r\n\r\n\r\nException handeler!! cause=");
         prHEX32(cause,INFO_PRINT);print_I(" status=");
@@ -180,12 +178,12 @@ void _general_exception_handler(unsigned cause, unsigned status){
 
         print_I("\n\r2");
 	while(1){
-		if(isPressed()	)
-			Reset();
-		setLed(1,0,0);
-		DelayMs(1000);
-		setLed(0,1,0);
-		DelayMs(1000);
+//		if(isPressed()	)
+//			Reset();
+//		setLed(1,0,0);
+//		DelayMs(1000);
+//		setLed(0,1,0);
+//		DelayMs(1000);
 	}
 }
 
@@ -201,7 +199,7 @@ static BowlerPacket Packet;
 int j=0,i=0;
 BYTE Bowler_Server_Local(BowlerPacket * Packet){
 	if (GetBowlerPacket_arch(Packet)){
-		setLed(1,1,1);
+		//setLed(1,1,1);
                 if(Packet->use.head.RPC != _PNG){
                     println_I("Got:");printPacket(Packet,INFO_PRINT);
                 }
@@ -218,7 +216,7 @@ BYTE Bowler_Server_Local(BowlerPacket * Packet){
 		}else{
 			//println_I("Packet not addressed to me: ");printByteArray(Packet->use.head.MAC.v,6); print_I(" is not mine: ");printByteArray(MyMAC.v,6);
 		}
-		setLed(0,0,1);
+		//setLed(0,0,1);
 		return TRUE;
 	}//Have a packet
 
@@ -247,9 +245,9 @@ int main()
 	SYSTEMConfig(SYS_FREQ, SYS_CFG_WAIT_STATES | SYS_CFG_PCACHE);
 
         setPrintLevelInfoPrint();
-	initLed();
-        setLed(1,1,1);
-	initButton();
+	//initLed();
+        //setLed(1,1,1);
+	//initButton();
         ATX_ENABLE(); // Turn on ATX Supply
         ENC_CSN_INIT(); // Set pin modes for CS pins
         
@@ -295,14 +293,14 @@ int main()
 mJTAGPortEnable(0); // Disable JTAG and free up channels 0 and 1
 	while(1){
             //println_I("Loop");
-            if(isPressed()	){
-                    U1CON = 0x0000;
-                    while(isPressed()){
-                            setLed(1,1,1);
-                    }
-                    DelayMs(100);
-                    SoftReset();
-            }
+//            if(isPressed()	){
+//                    U1CON = 0x0000;
+//                    while(isPressed()){
+//                            setLed(1,1,1);
+//                    }
+//                    DelayMs(100);
+//                    SoftReset();
+//            }
             Bowler_Server_Local(&MyPacket);
             #if !defined(NO_ETHERNET)
                 RunEthernetServices(&MyPacket);
