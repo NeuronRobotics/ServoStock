@@ -128,15 +128,6 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <logicalFolder name="Bowler" displayName="Bowler" projectFiles="true">
-        <itemPath>../../src/Bowler/SPIClient.c</itemPath>
-        <itemPath>../../src/Bowler/main.c</itemPath>
-        <itemPath>../../src/Bowler/Callbacks.c</itemPath>
-        <itemPath>../../src/Bowler/UpstreamPackets.c</itemPath>
-        <itemPath>../../src/Bowler/AS5055.c</itemPath>
-        <itemPath>../../src/Bowler/PID.c</itemPath>
-        <itemPath>../../src/Bowler/Servo.c</itemPath>
-      </logicalFolder>
       <logicalFolder name="f3" displayName="BowlerStack" projectFiles="true">
         <logicalFolder name="BowlerStack" displayName="BowlerStack" projectFiles="true">
           <itemPath>../../../NR-Clib/src/BowlerStack/Scheduler.c</itemPath>
@@ -168,6 +159,15 @@
           <itemPath>../../../NR-Clib/src/arch/pic32/Bowler_UART_HAL.c</itemPath>
           <itemPath>../../../NR-Clib/src/arch/pic32/HAL_P32.c</itemPath>
         </logicalFolder>
+      </logicalFolder>
+      <logicalFolder name="Bowler" displayName="DeltaDoodle" projectFiles="true">
+        <itemPath>../../src/Bowler/SPIClient.c</itemPath>
+        <itemPath>../../src/Bowler/main.c</itemPath>
+        <itemPath>../../src/Bowler/Callbacks.c</itemPath>
+        <itemPath>../../src/Bowler/UpstreamPackets.c</itemPath>
+        <itemPath>../../src/Bowler/AS5055.c</itemPath>
+        <itemPath>../../src/Bowler/PID.c</itemPath>
+        <itemPath>../../src/Bowler/Servo.c</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -204,16 +204,46 @@
           <linkerLibItems>
           </linkerLibItems>
         </linkerTool>
+        <loading>
+          <useAlternateLoadableFile>false</useAlternateLoadableFile>
+          <alternateLoadableFile></alternateLoadableFile>
+        </loading>
       </compileType>
       <makeCustomizationType>
         <makeCustomizationPreStepEnabled>false</makeCustomizationPreStepEnabled>
         <makeCustomizationPreStep></makeCustomizationPreStep>
         <makeCustomizationPostStepEnabled>false</makeCustomizationPostStepEnabled>
         <makeCustomizationPostStep></makeCustomizationPostStep>
-        <makeCustomizationAlternativeFileToLoadEnabled>false</makeCustomizationAlternativeFileToLoadEnabled>
-        <makeCustomizationAlternativeFileToLoad></makeCustomizationAlternativeFileToLoad>
         <makeCustomizationPutChecksumInUserID>false</makeCustomizationPutChecksumInUserID>
+        <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
+        <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
+      <C32>
+        <property key="additional-warnings" value="false"/>
+        <property key="enable-app-io" value="false"/>
+        <property key="enable-omit-frame-pointer" value="false"/>
+        <property key="enable-symbols" value="true"/>
+        <property key="enable-unroll-loops" value="false"/>
+        <property key="exclude-floating-point" value="false"/>
+        <property key="extra-include-directories" value=""/>
+        <property key="generate-16-bit-code" value="false"/>
+        <property key="isolate-each-function" value="false"/>
+        <property key="make-warnings-into-errors" value="false"/>
+        <property key="optimization-level" value=""/>
+        <property key="place-data-into-section" value="false"/>
+        <property key="post-instruction-scheduling" value="default"/>
+        <property key="pre-instruction-scheduling" value="default"/>
+        <property key="preprocessor-macros" value=""/>
+        <property key="strict-ansi" value="false"/>
+        <property key="support-ansi" value="false"/>
+        <property key="use-indirect-calls" value="false"/>
+      </C32>
+      <C32-AS>
+      </C32-AS>
+      <C32-LD>
+      </C32-LD>
+      <C32Global>
+      </C32Global>
       <PICkit3PlatformTool>
         <property key="ADC 1" value="true"/>
         <property key="AutoSelectMemRanges" value="auto"/>
@@ -273,51 +303,6 @@
         <property key="programoptions.uselvpprogramming" value="false"/>
         <property key="voltagevalue" value="3.25"/>
       </PICkit3PlatformTool>
-      <XC32>
-        <property key="additional-warnings" value="false"/>
-        <property key="enable-app-io" value="false"/>
-        <property key="enable-omit-frame-pointer" value="false"/>
-        <property key="enable-symbols" value="true"/>
-        <property key="enable-unroll-loops" value="false"/>
-        <property key="exclude-floating-point" value="false"/>
-        <property key="extra-include-directories"
-                  value="/home/aim/workspace/ReplicatorFirmware/include/replicator;/home/aim/workspace/ReplicatorFirmware/include/tcp;/home/aim/workspace/NR-Clib/include;/home/aim/workspace/NR-Clib/include/arch/pic32"/>
-        <property key="generate-16-bit-code" value="false"/>
-        <property key="isolate-each-function" value="false"/>
-        <property key="make-warnings-into-errors" value="false"/>
-        <property key="optimization-level" value=""/>
-        <property key="place-data-into-section" value="false"/>
-        <property key="post-instruction-scheduling" value="default"/>
-        <property key="pre-instruction-scheduling" value="default"/>
-        <property key="preprocessor-macros" value=""/>
-        <property key="strict-ansi" value="false"/>
-        <property key="support-ansi" value="false"/>
-        <property key="use-indirect-calls" value="false"/>
-      </XC32>
-      <XC32-AS>
-        <property key="assembler-symbols" value=""/>
-        <property key="enable-symbols" value="true"/>
-        <property key="exclude-floating-point-library" value="false"/>
-        <property key="expand-macros" value="false"/>
-        <property key="extra-include-directories-for-assembler" value=""/>
-        <property key="extra-include-directories-for-preprocessor" value=""/>
-        <property key="false-conditionals" value="false"/>
-        <property key="keep-locals" value="false"/>
-        <property key="list-assembly" value="false"/>
-        <property key="list-file" value=""/>
-        <property key="list-section-info" value="false"/>
-        <property key="list-source" value="false"/>
-        <property key="list-symbols" value="false"/>
-        <property key="omit-debug-dirs" value="false"/>
-        <property key="omit-forms" value="false"/>
-        <property key="preprocessor-macros" value=""/>
-        <property key="warning-level" value=""/>
-      </XC32-AS>
-      <XC32-LD>
-      </XC32-LD>
-      <XC32Global>
-        <property key="legacy-libc" value="false"/>
-      </XC32Global>
     </conf>
   </confs>
 </configurationDescriptor>
