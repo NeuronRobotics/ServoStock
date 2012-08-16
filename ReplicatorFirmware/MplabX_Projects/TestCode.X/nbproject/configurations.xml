@@ -43,47 +43,16 @@
           <linkerLibItems>
           </linkerLibItems>
         </linkerTool>
-        <loading>
-          <useAlternateLoadableFile>false</useAlternateLoadableFile>
-          <alternateLoadableFile></alternateLoadableFile>
-        </loading>
       </compileType>
       <makeCustomizationType>
         <makeCustomizationPreStepEnabled>false</makeCustomizationPreStepEnabled>
         <makeCustomizationPreStep></makeCustomizationPreStep>
         <makeCustomizationPostStepEnabled>false</makeCustomizationPostStepEnabled>
         <makeCustomizationPostStep></makeCustomizationPostStep>
+        <makeCustomizationAlternativeFileToLoadEnabled>false</makeCustomizationAlternativeFileToLoadEnabled>
+        <makeCustomizationAlternativeFileToLoad></makeCustomizationAlternativeFileToLoad>
         <makeCustomizationPutChecksumInUserID>false</makeCustomizationPutChecksumInUserID>
-        <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
-        <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-      <C32>
-        <property key="additional-warnings" value="false"/>
-        <property key="enable-app-io" value="false"/>
-        <property key="enable-omit-frame-pointer" value="false"/>
-        <property key="enable-symbols" value="true"/>
-        <property key="enable-unroll-loops" value="false"/>
-        <property key="exclude-floating-point" value="false"/>
-        <property key="extra-include-directories"
-                  value="../../include/test;../../include/replicator"/>
-        <property key="generate-16-bit-code" value="false"/>
-        <property key="isolate-each-function" value="false"/>
-        <property key="make-warnings-into-errors" value="false"/>
-        <property key="optimization-level" value=""/>
-        <property key="place-data-into-section" value="false"/>
-        <property key="post-instruction-scheduling" value="default"/>
-        <property key="pre-instruction-scheduling" value="default"/>
-        <property key="preprocessor-macros" value=""/>
-        <property key="strict-ansi" value="false"/>
-        <property key="support-ansi" value="false"/>
-        <property key="use-indirect-calls" value="false"/>
-      </C32>
-      <C32-AS>
-      </C32-AS>
-      <C32-LD>
-      </C32-LD>
-      <C32Global>
-      </C32Global>
       <PICkit3PlatformTool>
         <property key="ADC 1" value="true"/>
         <property key="AutoSelectMemRanges" value="auto"/>
@@ -143,6 +112,14 @@
         <property key="programoptions.uselvpprogramming" value="false"/>
         <property key="voltagevalue" value="3.25"/>
       </PICkit3PlatformTool>
+      <XC32>
+      </XC32>
+      <XC32-AS>
+      </XC32-AS>
+      <XC32-LD>
+      </XC32-LD>
+      <XC32Global>
+      </XC32Global>
     </conf>
   </confs>
 </configurationDescriptor>

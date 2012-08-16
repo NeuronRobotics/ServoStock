@@ -7,6 +7,7 @@
 
 #include "main.h"
 #include "GenericTypeDefs.h"
+#include "plib.h"
 
 #ifdef USB_A0_SILICON_WORK_AROUND
 	#pragma config UPLLEN   = OFF       // USB PLL Enabled (A0 bit inverted)
@@ -54,41 +55,6 @@ void main() {
 BYTE i;
 AS5055ReadPacket read;
 AS5055CommandPacket cmd;
-    CloseServoOpenCollector();
-#define OUTPUT 0
-    ENC0_SERVO_TRIS = OUTPUT;
-    ENC1_SERVO_TRIS = OUTPUT;
-    ENC2_SERVO_TRIS = OUTPUT;
-    ENC3_SERVO_TRIS = OUTPUT;
-    ENC4_SERVO_TRIS = OUTPUT;
-    ENC5_SERVO_TRIS = OUTPUT;
-    ENC6_SERVO_TRIS = OUTPUT;
-    ENC7_SERVO_TRIS = OUTPUT;
-    while(1){
-        /*
-        ENC2_CSN=CSN_Enabled;
-        ENC3_CSN=CSN_Enabled;
-
-
-        cmd.regs.Address=AS5055REG_AutomaticGainControl;
-        cmd.regs.RWn=1; // Read
-        cmd.regs.PAR=AS5055CalculateParity(cmd.uint0_15);
-
-        read.bytes.ubyte8_15=SPITransceve(cmd.bytes.ubyte8_15);
-        read.bytes.ubyte0_7=SPITransceve(cmd.bytes.ubyte0_7);
-        
-
-        ENC2_CSN=CSN_Disabled;
-        ENC3_CSN=CSN_Disabled;
-        while(SpiChnIsBusy(1)); // chill
-        */
-
-        ENC4_SERVO=1;
-        bDelay();
-        ENC4_SERVO=0;
-
-
-    }
 
 }
 

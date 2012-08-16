@@ -17,9 +17,11 @@ UINT16 AS5055send(BYTE index, UINT16 data){
     UINT16_UNION back;
     tmp.Val=data;
     EncoderSS(index,CSN_Enabled);
-    back.byte.SB = SPITransceve(tmp.byte.SB);
-    back.byte.LB = SPITransceve(tmp.byte.LB);
+    //print_I("[AS5055send] Sending data: ");prHEX16(data,INFO_PRINT);println_I("");
+    back.byte.SB = SPITransceve(0xFF);
+    back.byte.LB = SPITransceve(0xFF);
     EncoderSS(index,CSN_Disabled);
+    Delay1us(10);
     return back.Val;
 }
 

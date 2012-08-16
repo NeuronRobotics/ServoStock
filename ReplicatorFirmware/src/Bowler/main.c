@@ -54,13 +54,15 @@
 #pragma config OSCIOFNC = OFF           // CLKO Enable
 #pragma config POSCMOD  = HS            // Primary Oscillator
 #pragma config IESO     = ON            // Internal/External Switch-over
-#pragma config FSOSCEN  = ON            // Secondary Oscillator Enable (KLO was off)
+#pragma config FSOSCEN  = OFF            // Secondary Oscillator Enable (KLO was off)
 #pragma config FNOSC    = PRIPLL        // Oscillator Selection
 #pragma config CP       = OFF           // Code Protect
 #pragma config BWP      = OFF           // Boot Flash Write Protect
 #pragma config PWP      = OFF           // Program Flash Write Protect
 #pragma config ICESEL   = ICS_PGx2      // ICE/ICD Comm Channel Select
 #pragma config DEBUG    = OFF            // Background Debugger Enable
+
+
 
 #define SYS_FREQ 			(80000000L)
 
@@ -225,14 +227,14 @@ BYTE Bowler_Server_Local(BowlerPacket * Packet){
 
 void encoderTest(){
     //println_I("\tStarting test");
-    OpenSPI1(CLK_POL_ACTIVE_LOW\
-            |SPI_MODE8_ON|ENABLE_SDO_PIN|SLAVE_ENABLE_OFF|SPI_CKE_ON\
-            |MASTER_ENABLE_ON|SEC_PRESCAL_8_1|PRI_PRESCAL_64_1, SPI_ENABLE);
 
-    //AS5055reset(3);
-    UINT16 data = AS5055readAngle(3);
+    AS5055reset(3);
 
-    //println_I("Encoder data: ");p_ul_I(data);
+     UINT16 data = AS5055readAngle(3);
+     println_I("Encoder data: ");p_ul_I(data);
+
+
+    //
 
 }
 
@@ -250,6 +252,7 @@ int main()
 	initButton();
         ATX_ENABLE(); // Turn on ATX Supply
         ENC_CSN_INIT(); // Set pin modes for CS pins
+        
         int i;
         
 	Bowler_Init();
@@ -280,10 +283,16 @@ int main()
 	BowlerPacket MyPacket;
         println_I(dev);
 	println_I("#Ready...");
-        setPrintLevelNoPrint();
+        setPrintLevelInfoPrint();
         RunEveryData servo ={0,20};
         initServos();
         initPIDLocal();
+    OpenSPI1(CLK_POL_ACTIVE_HIGH\
+            |SPI_MODE8_ON|ENABLE_SDO_PIN|SLAVE_ENABLE_OFF|SPI_CKE_OFF\
+            |MASTER_ENABLE_ON|SEC_PRESCAL_8_1|PRI_PRESCAL_64_1
+            , SPI_ENABLE);
+        //while(1) encoderTest();
+mJTAGPortEnable(0); // Disable JTAG and free up channels 0 and 1
 	while(1){
             //println_I("Loop");
             if(isPressed()	){
@@ -301,7 +310,7 @@ int main()
             if(RunEvery(&servo)>0){
                 //RunPID();
                 runServos();
-                //println_I("Servo ");p_fl_I(getMs());
+                println_I("Servo ");p_fl_I(getMs());
             }
 
 	}
