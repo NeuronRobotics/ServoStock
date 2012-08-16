@@ -16,12 +16,12 @@ PidLimitEvent * checkPIDLimitEventsMine(BYTE group);
 void initPIDLocal(){
    	BYTE i;
 	//WORD loop;
-	for (i=0;i<NUM_PID_GROUPS;i++){
+	for (i=0;i<numPidMotor;i++){
 		pidGroups[i].Enabled=TRUE;
 		pidGroups[i].channel = i;
-                pidGroups[i].K.P=1.1;
-                pidGroups[i].K.I=0;
-                pidGroups[i].K.D=0;
+                pidGroups[i].K.P=.01;
+                pidGroups[i].K.I=15;
+                pidGroups[i].K.D=.2;
                 pidGroups[i].Polarity=1;
 		vel[i].enabled=FALSE;
 		limits[i].type=NO_LIMIT;
@@ -30,15 +30,15 @@ void initPIDLocal(){
         
 
 	InitilizePidController( pidGroups,
-							vel,
-							NUM_PID_GROUPS,
-							&getPositionMine,
-							&setOutputMine,
-							&resetPositionMine,
-							&asyncCallback,
-							&onPidConfigureMine,
-							&checkPIDLimitEventsMine);
-       for (i=0;i<NUM_PID_GROUPS;i++){
+                                vel,
+                                numPidMotor,
+                                &getPositionMine,
+                                &setOutputMine,
+                                &resetPositionMine,
+                                &asyncCallback,
+                                &onPidConfigureMine,
+                                &checkPIDLimitEventsMine);
+       for (i=0;i<numPidMotor;i++){
            SetPID(i,readEncoder(i));
        }
 }
@@ -84,8 +84,6 @@ void setOutputMine(int group, float v){
                 val=0;
 	
 	int set = (int)val;
-
-
         setServo(group,set,0);
 
 }

@@ -280,14 +280,12 @@ int main()
 	BowlerPacket MyPacket;
         println_I(dev);
 	
-        setPrintLevelInfoPrint();
+        setPrintLevelErrorPrint();
         RunEveryData servo ={0,20};
         RunEveryData print ={0,500};
         initializeEncoders();
         initServos();
         initPIDLocal();
-
-        SetPIDEnabled(0, TRUE);
 
         println_I("#Ready...");
 	while(1){
@@ -301,6 +299,7 @@ int main()
                 setPrintLevelNoPrint();
                 RunPID();
                 setPrintLevel(l);
+                
                 runServos();
             }
 //            if(RunEvery(&print)>0){
