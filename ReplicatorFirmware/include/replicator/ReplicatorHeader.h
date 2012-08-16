@@ -70,14 +70,39 @@ extern "C" {
                                     mPORTDOpenDrainClose(BIT_2);\
                                     mPORTDOpenDrainClose(BIT_3);\
                                     mPORTDOpenDrainClose(BIT_4);
+#define     CloseSpiSSOpenCollector() mPORTAOpenDrainClose(BIT_0);\
+                                    mPORTAOpenDrainClose(BIT_1);\
+                                    mPORTBOpenDrainClose(BIT_13);\
+                                    mPORTAOpenDrainClose(BIT_3);\
+                                    mPORTAOpenDrainClose(BIT_9);\
+                                    mPORTBOpenDrainClose(BIT_14);\
+                                    mPORTAOpenDrainClose(BIT_6);\
+                                    mPORTAOpenDrainClose(BIT_7);
 
 #define     CSN_Enabled       0
 #define     CSN_Disabled     1
 
 
 
-#define     ENC_CSN_INIT()       ENC2_CSN_TRIS=0;ENC2_CSN=CSN_Disabled;ENC3_CSN_TRIS=0;ENC3_CSN=CSN_Disabled
-#define     ENC_SERVO_INIT()     ENC7_SERVO_TRIS=0;ENC6_SERVO_TRIS=0;ENC5_SERVO_TRIS=0;ENC4_SERVO_TRIS=0;ENC3_SERVO_TRIS=0;ENC2_SERVO_TRIS=0;ENC1_SERVO_TRIS=0;ENC0_SERVO_TRIS=0;
+#define     ENC_CSN_INIT()          CloseSpiSSOpenCollector();\
+                                    ENC0_CSN_TRIS=0;ENC0_CSN=CSN_Disabled;\
+                                    ENC1_CSN_TRIS=0;ENC1_CSN=CSN_Disabled;\
+                                    ENC2_CSN_TRIS=0;ENC2_CSN=CSN_Disabled;\
+                                    ENC3_CSN_TRIS=0;ENC3_CSN=CSN_Disabled;\
+                                    ENC4_CSN_TRIS=0;ENC4_CSN=CSN_Disabled;\
+                                    ENC5_CSN_TRIS=0;ENC5_CSN=CSN_Disabled;\
+                                    ENC6_CSN_TRIS=0;ENC6_CSN=CSN_Disabled;\
+                                    ENC7_CSN_TRIS=0;ENC7_CSN=CSN_Disabled;
+
+#define     ENC_SERVO_INIT()        CloseServoOpenCollector();\
+                                    ENC7_SERVO_TRIS=0;\
+                                    ENC6_SERVO_TRIS=0;\
+                                    ENC5_SERVO_TRIS=0;\
+                                    ENC4_SERVO_TRIS=0;\
+                                    ENC3_SERVO_TRIS=0;\
+                                    ENC2_SERVO_TRIS=0;\
+                                    ENC1_SERVO_TRIS=0;\
+                                    ENC0_SERVO_TRIS=0;
 
 
 #define     bDelay()    i=2; while (i>1) i++;

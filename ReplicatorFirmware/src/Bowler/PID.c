@@ -17,16 +17,17 @@ void initPIDLocal(){
    	BYTE i;
 	//WORD loop;
 	for (i=0;i<NUM_PID_GROUPS;i++){
-		pidGroups[i].Enabled=1;
+		pidGroups[i].Enabled=TRUE;
 		pidGroups[i].channel = i;
                 pidGroups[i].K.P=1.1;
                 pidGroups[i].K.I=0;
                 pidGroups[i].K.D=0;
                 pidGroups[i].Polarity=1;
-
 		vel[i].enabled=FALSE;
 		limits[i].type=NO_LIMIT;
 	}
+
+        
 
 	InitilizePidController( pidGroups,
 							vel,
@@ -37,6 +38,9 @@ void initPIDLocal(){
 							&asyncCallback,
 							&onPidConfigureMine,
 							&checkPIDLimitEventsMine);
+       for (i=0;i<NUM_PID_GROUPS;i++){
+           SetPID(i,readEncoder(i));
+       }
 }
 
 
@@ -67,16 +71,12 @@ int resetPositionMine(int group, int current){
 }
 
 float getPositionMine(int group){
-	LONG pos = AS5055readAngle(group);
+	LONG pos = readEncoder(group);
 	return ((float)pos);
 }
 
 void setOutputMine(int group, float v){
-	Print_Level l = getPrintLevel();
-	setPrintLevelNoPrint();
 	int val = (int)(v);
-
-
         val += 128;
         if (val>255)
                 val=255;
@@ -87,5 +87,5 @@ void setOutputMine(int group, float v){
 
 
         setServo(group,set,0);
-	setPrintLevel(l);
+
 }

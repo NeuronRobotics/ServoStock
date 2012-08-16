@@ -99,4 +99,8 @@ typedef union __attribute__((__packed__)) _AS5055WritePacket
 
 UINT8   AS5055CalculateParity(UINT16 data);
 
+UINT16 AS5055readAngle(BYTE index);
+
+void initializeEncoders();
+
 void EncoderSS(BYTE index, BYTE state);

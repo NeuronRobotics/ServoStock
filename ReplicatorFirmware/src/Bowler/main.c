@@ -245,6 +245,8 @@ int main()
 	SYSTEMConfig(SYS_FREQ, SYS_CFG_WAIT_STATES | SYS_CFG_PCACHE);
 
         setPrintLevelInfoPrint();
+        //ATX_DISENABLE();
+        //DelayMs(50);
         ATX_ENABLE(); // Turn on ATX Supply
         ENC_CSN_INIT(); // Set pin modes for CS pins
         mJTAGPortEnable(0); // Disable JTAG and free up channels 0 and 1
@@ -280,11 +282,13 @@ int main()
 	
         setPrintLevelInfoPrint();
         RunEveryData servo ={0,20};
+        RunEveryData print ={0,500};
+        initializeEncoders();
         initServos();
         initPIDLocal();
 
+        SetPIDEnabled(0, TRUE);
 
-        
         println_I("#Ready...");
 	while(1){
 
@@ -293,14 +297,20 @@ int main()
                 RunEthernetServices(&MyPacket);
             #endif
             if(RunEvery(&servo)>0){
-                //RunPID();
+                Print_Level l = getPrintLevel();
+                setPrintLevelNoPrint();
+                RunPID();
+                setPrintLevel(l);
                 runServos();
-                int i=0;
-                println_I("Encoder ");
-                for(i=0;i<numPidMotor;i++){
-                    print_I("\t");p_sl_I(AS5055readAngle(i));
-                }
             }
+//            if(RunEvery(&print)>0){
+//                int i=0;
+//                println_I("Encoder ");p_fl_I(getMs());
+//                for(i=0;i<numPidMotor;i++){
+//                    print_I("\t");p_sl_I(readEncoder(i));
+//                    DelayMs(10);
+//                }
+//            }
 
 	}
 }

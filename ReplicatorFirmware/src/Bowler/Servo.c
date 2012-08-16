@@ -14,21 +14,11 @@ void DelayPreServoPulse(void);
  */
 void initServos(){
 
-    CloseServoOpenCollector();
+    ENC_SERVO_INIT();
 
     if(getPrintLevel() == NO_PRINT){
         CloseUART1();
     }
-
-
-    ENC0_SERVO_TRIS = OUTPUT;
-    ENC1_SERVO_TRIS = OUTPUT;
-    ENC2_SERVO_TRIS = OUTPUT;
-    ENC3_SERVO_TRIS = OUTPUT;
-    ENC4_SERVO_TRIS = OUTPUT;
-    ENC5_SERVO_TRIS = OUTPUT;
-    ENC6_SERVO_TRIS = OUTPUT;
-    ENC7_SERVO_TRIS = OUTPUT;
     int i;
     for(i=0;i<numPidMotor;i++){
         pinOff(i);

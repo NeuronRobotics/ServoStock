@@ -1,18 +1,40 @@
 #include "main.h"
+#include <math.h>
+
+int overflow[numPidMotor];
+int offset[numPidMotor];
+int raw[numPidMotor];
+
+#define jump 3000
+
+void initializeEncoders(){
+    int i;
+    for(i=0;i<numPidMotor;i++){
+        overflow[i]=0;
+        offset[i]=0;
+        raw[i]=AS5055readAngle(i);
+    }
+}
+
+int readEncoder(BYTE index){
+    int tmp = AS5055readAngle(index);
+    int diff = raw[index]-tmp;
+    raw[index]=tmp;
+    if(diff > jump || diff < (-1*jump)){
+        if(diff>0)
+            overflow[index]++;
+        else
+             overflow[index]--;
+    }
+    return tmp+offset[index]+(4096*overflow[index]);
+
+}
 
 void encoderSPIInit(){
     OpenSPI1(CLK_POL_ACTIVE_HIGH\
             |SPI_MODE8_ON|ENABLE_SDO_PIN|SLAVE_ENABLE_OFF|SPI_CKE_OFF\
             |MASTER_ENABLE_ON|SEC_PRESCAL_8_1|PRI_PRESCAL_64_1
             , SPI_ENABLE);
-    ENC0_CSN_TRIS = OUTPUT;
-    ENC1_CSN_TRIS = OUTPUT;
-    ENC2_CSN_TRIS = OUTPUT;
-    ENC3_CSN_TRIS = OUTPUT;
-    ENC4_CSN_TRIS = OUTPUT;
-    ENC5_CSN_TRIS = OUTPUT;
-    ENC6_CSN_TRIS = OUTPUT;
-    ENC7_CSN_TRIS = OUTPUT;
 
 }
 
@@ -102,12 +124,15 @@ UINT16 AS5055readAngle(BYTE index){
         }else if(read.regs.AlarmHI == 0 && read.regs.AlarmLO == 1){
             //println_E("Alarm bit indicating a too low magnetic field");
         }else{
-          printSystemConfig(index);
+          //printSystemConfig(index);
+           return 0;
         }
         
     }
     return read.regs.Data;
 }
+
+
 
 
 
