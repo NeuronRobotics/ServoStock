@@ -31,16 +31,6 @@
           <itemPath>../../../NR-Clib/include/arch/pic32/USB/usb_ch9.h</itemPath>
           <itemPath>../../../NR-Clib/include/arch/pic32/USB/usb_device.h</itemPath>
         </logicalFolder>
-        <logicalFolder name="USB_old" displayName="USB_old" projectFiles="true">
-          <itemPath>../../../NR-Clib/include/arch/pic32/USB_old/usb_hal_pic32.h</itemPath>
-          <itemPath>../../../NR-Clib/include/arch/pic32/USB_old/usb.h</itemPath>
-          <itemPath>../../../NR-Clib/include/arch/pic32/USB_old/usb_fifo.h</itemPath>
-          <itemPath>../../../NR-Clib/include/arch/pic32/USB_old/usb_hal.h</itemPath>
-          <itemPath>../../../NR-Clib/include/arch/pic32/USB_old/usb_common.h</itemPath>
-          <itemPath>../../../NR-Clib/include/arch/pic32/USB_old/usb_function_cdc.h</itemPath>
-          <itemPath>../../../NR-Clib/include/arch/pic32/USB_old/usb_ch9.h</itemPath>
-          <itemPath>../../../NR-Clib/include/arch/pic32/USB_old/usb_device.h</itemPath>
-        </logicalFolder>
         <itemPath>../../../NR-Clib/include/arch/pic32/GenericTypeDefs.h</itemPath>
         <itemPath>../../../NR-Clib/include/arch/pic32/BowlerConfig.h</itemPath>
         <itemPath>../../../NR-Clib/include/arch/pic32/usb_config.h</itemPath>
@@ -60,57 +50,6 @@
         <itemPath>../../include/replicator/AS5055.h</itemPath>
         <itemPath>../../include/replicator/AuxUartServer.h</itemPath>
         <itemPath>../../include/replicator/main.h</itemPath>
-      </logicalFolder>
-      <logicalFolder name="tcp" displayName="tcp" projectFiles="true">
-        <logicalFolder name="MDD File System"
-                       displayName="MDD File System"
-                       projectFiles="true">
-          <itemPath>../../include/tcp/MDD File System/TEMPLATEFILE.h</itemPath>
-          <itemPath>../../include/tcp/MDD File System/FSDefs.h</itemPath>
-          <itemPath>../../include/tcp/MDD File System/FSIO.h</itemPath>
-          <itemPath>../../include/tcp/MDD File System/SD-SPI.h</itemPath>
-        </logicalFolder>
-        <logicalFolder name="TCPIP-BSD" displayName="TCPIP-BSD" projectFiles="true">
-          <itemPath>../../include/tcp/TCPIP-BSD/socket.h</itemPath>
-          <itemPath>../../include/tcp/TCPIP-BSD/tcpip_bsd.h</itemPath>
-          <itemPath>../../include/tcp/TCPIP-BSD/tcpip_bsd_control.h</itemPath>
-          <itemPath>../../include/tcp/TCPIP-BSD/sharedrom.h</itemPath>
-          <itemPath>../../include/tcp/TCPIP-BSD/dhcp.h</itemPath>
-          <itemPath>../../include/tcp/TCPIP-BSD/bloip.h</itemPath>
-          <itemPath>../../include/tcp/TCPIP-BSD/eth_phy.h</itemPath>
-          <itemPath>../../include/tcp/TCPIP-BSD/ftp.h</itemPath>
-          <itemPath>../../include/tcp/TCPIP-BSD/sharedfuncptr.h</itemPath>
-          <itemPath>../../include/tcp/TCPIP-BSD/http.h</itemPath>
-          <itemPath>../../include/tcp/TCPIP-BSD/tcpip_bsd_mac_control.h</itemPath>
-          <itemPath>../../include/tcp/TCPIP-BSD/snmp.h</itemPath>
-          <itemPath>../../include/tcp/TCPIP-BSD/sharedfunc.h</itemPath>
-        </logicalFolder>
-        <itemPath>../../include/tcp/nat_dp83848c.h</itemPath>
-        <itemPath>../../include/tcp/mc_socket.h</itemPath>
-        <itemPath>../../include/tcp/_tcpip_common.h</itemPath>
-        <itemPath>../../include/tcp/BowlerEthernetServer.h</itemPath>
-        <itemPath>../../include/tcp/dhcp_private.h</itemPath>
-        <itemPath>../../include/tcp/netpkt.h</itemPath>
-        <itemPath>../../include/tcp/mstimer.h</itemPath>
-        <itemPath>../../include/tcp/FSconfig.h</itemPath>
-        <itemPath>../../include/tcp/EthernetController.h</itemPath>
-        <itemPath>../../include/tcp/earp.h</itemPath>
-        <itemPath>../../include/tcp/gpfunc.h</itemPath>
-        <itemPath>../../include/tcp/eudp.h</itemPath>
-        <itemPath>../../include/tcp/route.h</itemPath>
-        <itemPath>../../include/tcp/system_services.h</itemPath>
-        <itemPath>../../include/tcp/emac.h</itemPath>
-        <itemPath>../../include/tcp/tcp_tick.h</itemPath>
-        <itemPath>../../include/tcp/eth_phy_regs.h</itemPath>
-        <itemPath>../../include/tcp/boards.h</itemPath>
-        <itemPath>../../include/tcp/enc28j60.h</itemPath>
-        <itemPath>../../include/tcp/block_mgr.h</itemPath>
-        <itemPath>../../include/tcp/etcp.h</itemPath>
-        <itemPath>../../include/tcp/tcpip_bsd_config.h</itemPath>
-        <itemPath>../../include/tcp/ether.h</itemPath>
-        <itemPath>../../include/tcp/eip.h</itemPath>
-        <itemPath>../../include/tcp/pkt_queue.h</itemPath>
-        <itemPath>../../include/tcp/hardware_profile.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="LibraryFiles"
@@ -226,7 +165,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../../../NR-Clib/include/arch/pic32;../../../NR-Clib/include;../../include/replicator"/>
+                  value="../../../NR-Clib/include/arch/pic32;../../../NR-Clib/include;../../include/replicator;../../include/tcp"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="isolate-each-function" value="false"/>
         <property key="make-warnings-into-errors" value="false"/>
