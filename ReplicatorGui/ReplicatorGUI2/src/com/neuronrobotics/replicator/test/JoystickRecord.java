@@ -161,7 +161,7 @@ public class JoystickRecord {
 			throw new RuntimeException("One or both devices were not found ");
 		}
 		slave.setServoPowerSafeMode(false);
-		deltaRobot = new DeltaRobotPrinterPrototype(slave);
+		//deltaRobot = new DeltaRobotPrinterPrototype(slave);
 		deltaRobot.setCurrentPoseTarget(new TransformNR());
 	}
 }

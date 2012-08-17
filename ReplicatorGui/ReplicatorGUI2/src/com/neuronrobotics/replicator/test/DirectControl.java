@@ -9,12 +9,13 @@ import javax.swing.JTabbedPane;
 
 import net.miginfocom.swing.MigLayout;
 
+import com.neuronrobotics.replicator.driver.DeltaDoodle;
 import com.neuronrobotics.replicator.driver.DeltaRobotPrinterPrototype;
 import com.neuronrobotics.sdk.addons.kinematics.AbstractKinematicsNR;
 import com.neuronrobotics.sdk.addons.kinematics.ITaskSpaceUpdateListenerNR;
 import com.neuronrobotics.sdk.addons.kinematics.DHParameterKinematics;
+import com.neuronrobotics.sdk.addons.kinematics.gui.DHKinematicsViewer;
 import com.neuronrobotics.sdk.addons.kinematics.gui.SampleGuiNR;
-import com.neuronrobotics.sdk.addons.kinematics.gui.TrobotViewer;
 import com.neuronrobotics.sdk.addons.kinematics.math.RotationNR;
 import com.neuronrobotics.sdk.addons.kinematics.math.TransformNR;
 import com.neuronrobotics.sdk.common.Log;
@@ -40,7 +41,6 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 		
 		//Create the references for my known DyIOs
 		DyIO master = null;
-		DyIO slave = null;
 		
 		ArrayList<DyIO> temp= new ArrayList<DyIO>();
 		List <String> ports = SerialConnection.getAvailableSerialPorts();
@@ -66,12 +66,9 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 			if(addr.equalsIgnoreCase("74:f7:26:00:00:6f")){
 				master = d;
 			}
-			if(addr.equalsIgnoreCase("74:f7:26:80:00:99") || addr.equalsIgnoreCase("74:F7:26:80:00:A1")){//THis works with 2 different DyIOs as slaves
-				slave = d;
-			}
 		}
 		//If both are not found then the system can not run
-		if(master == null || slave == null){
+		if(master == null ){
 			for(DyIO d:temp){
 				System.out.println(d);
 				if(d!= null){
@@ -112,8 +109,12 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 		master.killAllPidGroups();
 		model = new DHParameterKinematics(master,"TrobotMaster.xml");
 		model.addPoseUpdateListener(this);
-		slave.setServoPowerSafeMode(false);
-		deltaRobot = new DeltaRobotPrinterPrototype(slave);
+		
+		DeltaDoodle delt = new DeltaDoodle();
+		delt.setConnection(new SerialConnection("/dev/DeltaDoodle0"));
+		delt.connect();
+		
+		deltaRobot = new DeltaRobotPrinterPrototype(delt);
 		deltaRobot.setCurrentPoseTarget(new TransformNR());
 		
 		DigitalInputChannel di = new DigitalInputChannel(master.getChannel(0));
@@ -121,8 +122,8 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 		button=di.isHigh();
 		lastButton = button;
 		
-		ServoChannel hand = new ServoChannel(slave.getChannel(15));
-		hand.SetPosition(open);
+//		ServoChannel hand = new ServoChannel(slave.getChannel(15));
+//		hand.SetPosition(open);
 		
 		try{
 			final SampleGuiNR gui = new SampleGuiNR();
@@ -131,7 +132,7 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 			JPanel starter = new JPanel(new MigLayout());
 			gui.setKinematicsModel(model);
 			try{
-				tabs.add("Display",new TrobotViewer(model));
+				tabs.add("Display",new DHKinematicsViewer(model));
 			}catch(Error ex){
 				JPanel error = new JPanel(new MigLayout());
 				error.add(new JLabel("Error while loading Java3d library:"),"wrap");
@@ -160,21 +161,21 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 			System.exit(1);
 		}
 		
-		while (slave.isAvailable() && master.isAvailable()) {
-			long time = System.currentTimeMillis();
-			try {				
-				if(button!=lastButton) {
-					lastButton = button;
-					hand.SetPosition(button?open:closed);
-					hand.flush();
-				}
-				deltaRobot.setDesiredTaskSpaceTransform(current,.1);
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			//System.out.println("Took "+(System.currentTimeMillis()-time)+"ms");
-		}
+//		while (slave.isAvailable() && master.isAvailable()) {
+//			long time = System.currentTimeMillis();
+//			try {				
+//				if(button!=lastButton) {
+//					lastButton = button;
+//					hand.SetPosition(button?open:closed);
+//					hand.flush();
+//				}
+//				deltaRobot.setDesiredTaskSpaceTransform(current,.1);
+//
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			//System.out.println("Took "+(System.currentTimeMillis()-time)+"ms");
+//		}
 	}
 	
 	private void zero(){

@@ -1,5 +1,6 @@
 package com.neuronrobotics.replicator.test;
 
+import com.neuronrobotics.replicator.driver.DeltaDoodle;
 import com.neuronrobotics.replicator.driver.DeltaRobotPrinterPrototype;
 import com.neuronrobotics.sdk.addons.kinematics.math.RotationNR;
 import com.neuronrobotics.sdk.addons.kinematics.math.TransformNR;
@@ -20,9 +21,9 @@ public class AccuracyTest {
 			new TransformNR(-x,-y,z,new RotationNR()),
 	};
 	public AccuracyTest(){
-		DyIO delt = new DyIO(new SerialConnection("/dev/DyIO0"));
+		DeltaDoodle delt = new DeltaDoodle();
+		delt.setConnection(new SerialConnection("/dev/DeltaDoodle0"));
 		delt.connect();
-		delt.setServoPowerSafeMode(false);
 		deltaRobot = new DeltaRobotPrinterPrototype(delt);
 		Log.enableDebugPrint(false);
 		deltaRobot.setCurrentPoseTarget(new TransformNR());

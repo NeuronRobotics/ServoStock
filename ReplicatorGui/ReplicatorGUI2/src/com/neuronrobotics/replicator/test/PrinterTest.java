@@ -5,22 +5,21 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
+import com.neuronrobotics.replicator.driver.DeltaDoodle;
 import com.neuronrobotics.replicator.driver.NRPrinter;
 import com.neuronrobotics.replicator.driver.PrinterStatus;
 import com.neuronrobotics.replicator.driver.SliceStatusData;
 import com.neuronrobotics.replicator.gui.PrinterStatusListener;
 import com.neuronrobotics.sdk.dyio.DyIO;
+import com.neuronrobotics.sdk.serial.SerialConnection;
 import com.neuronrobotics.sdk.ui.ConnectionDialog;
 
 public class PrinterTest implements PrinterStatusListener {
 	private PrinterTest() {
-		DyIO.disableFWCheck();
-		DyIO dyio = new DyIO();
-		if(!ConnectionDialog.getBowlerDevice(dyio)) {
-			System.out.println("Fail");
-			System.exit(1);
-		}
-		NRPrinter printer = new NRPrinter(dyio);
+		DeltaDoodle delt = new DeltaDoodle();
+		delt.setConnection(new SerialConnection("/dev/DeltaDoodle0"));
+		delt.connect();
+		NRPrinter printer = new NRPrinter(delt);
 		//NRPrinter printer = new NRPrinter(null);
 		printer.addPrinterStatusListener(this);
 		File gcode = new File("test.gcode");
