@@ -21,8 +21,8 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 	
 	//static InputStream s = XmlFactory.getDefaultConfigurationStream("DeltaPrototype.xml");
 	
-	public DeltaRobotPrinterPrototype(DeltaDoodle dyio) {
-		super(DeltaRobotKinematics.class.getResourceAsStream("DeltaPrototype.xml"),new LinkFactory( dyio));
+	public DeltaRobotPrinterPrototype(DeltaDoodle delt) {
+		super(DeltaRobotKinematics.class.getResourceAsStream("DeltaPrototype.xml"),new LinkFactory( delt));
 		//parse out the extruder configs
 		//parse delta robot configs
 		
