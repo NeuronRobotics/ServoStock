@@ -1,9 +1,9 @@
 #include "main.h"
 
 
-static AbsPID 			pidGroups[NUM_PID_GROUPS];
-static PD_VEL 			vel[NUM_PID_GROUPS];
-static PidLimitEvent            limits[NUM_PID_GROUPS];
+static AbsPID 			pidGroups[numPidMotor];
+static PD_VEL 			vel[numPidMotor];
+static PidLimitEvent            limits[numPidMotor];
 
 
 float getPositionMine(int group);
@@ -20,14 +20,17 @@ void initPIDLocal(){
 		pidGroups[i].Enabled=TRUE;
 		pidGroups[i].channel = i;
                 pidGroups[i].K.P=.01;
-                pidGroups[i].K.I=15;
-                pidGroups[i].K.D=.2;
+                pidGroups[i].K.I=10;
+                pidGroups[i].K.D=.1;
                 pidGroups[i].Polarity=1;
 		vel[i].enabled=FALSE;
 		limits[i].type=NO_LIMIT;
+                if(i==LINK0_INDEX || i== LINK1_INDEX || i== LINK2_INDEX){
+                  pidGroups[i].Polarity=0;
+                }
 	}
 
-        
+
 
 	InitilizePidController( pidGroups,
                                 vel,
@@ -39,7 +42,14 @@ void initPIDLocal(){
                                 &onPidConfigureMine,
                                 &checkPIDLimitEventsMine);
        for (i=0;i<numPidMotor;i++){
+           printPIDvals(i);
+       }
+       println_I("Break");
+       for (i=0;i<numPidMotor;i++){
            SetPID(i,readEncoder(i));
+       }
+       for (i=0;i<numPidMotor;i++){
+           printPIDvals(i);
        }
 }
 

@@ -111,6 +111,10 @@ void initPIDLocal();
 
 #define numPidMotor 8
 
+#define LINK0_INDEX 4
+#define LINK1_INDEX 6
+#define LINK2_INDEX 7
+
 #ifdef	__cplusplus
 }
 #endif

@@ -245,8 +245,8 @@ int main()
 	SYSTEMConfig(SYS_FREQ, SYS_CFG_WAIT_STATES | SYS_CFG_PCACHE);
 
         setPrintLevelInfoPrint();
-        //ATX_DISENABLE();
-        //DelayMs(50);
+        ATX_DISENABLE();
+        DelayMs(50);
         ATX_ENABLE(); // Turn on ATX Supply
         ENC_CSN_INIT(); // Set pin modes for CS pins
         mJTAGPortEnable(0); // Disable JTAG and free up channels 0 and 1
@@ -280,27 +280,33 @@ int main()
 	BowlerPacket MyPacket;
         println_I(dev);
 	
-        setPrintLevelErrorPrint();
-        RunEveryData servo ={0,20};
+        float servoTime=15;
+        RunEveryData servo ={0,servoTime};
         RunEveryData print ={0,500};
         initializeEncoders();
         initServos();
         initPIDLocal();
 
         println_I("#Ready...");
+        setPrintLevelErrorPrint();
 	while(1){
 
             Bowler_Server_Local(&MyPacket);
             #if !defined(NO_ETHERNET)
                 RunEthernetServices(&MyPacket);
             #endif
-            if(RunEvery(&servo)>0){
+            float diff;
+            diff=RunEvery(&servo);
+            if(diff>0){
                 Print_Level l = getPrintLevel();
                 setPrintLevelNoPrint();
                 RunPID();
                 setPrintLevel(l);
                 
                 runServos();
+                if(diff>(servoTime/2)){
+                    println_E("Error in control loop time! ");p_fl_E(diff);
+                }
             }
 //            if(RunEvery(&print)>0){
 //                int i=0;
