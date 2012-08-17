@@ -58,7 +58,13 @@ public class GenericKinematicsGCodeInterpreter extends GCodeInterpreter {
 		addGHandler(0, new CodeHandler() {
 			public void execute(GCodeLineData prev, GCodeLineData next) throws Exception {
 				TransformNR t = new TransformNR(next.getWord('X'), next.getWord('Y'), next.getWord('Z'), new RotationNR());
-				double destination[] = machine.setDesiredTaskSpaceTransform(t,0.0);
+				double destination[];
+				try {
+					destination = machine.setDesiredTaskSpaceTransform(t,0.0);
+				}catch(Exception ex) {
+					ex.printStackTrace();
+					return;
+				}
 				// Loop to wait, I guess.
 				waitForMachine(destination, 10);
 			}

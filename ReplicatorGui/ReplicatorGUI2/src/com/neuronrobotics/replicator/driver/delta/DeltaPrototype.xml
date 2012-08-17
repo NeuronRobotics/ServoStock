@@ -13,8 +13,8 @@
 			<outputMode>servo</outputMode>
 		</dypid>
 		<name>Link0</name>
-		<type>servo-rotory</type>
-		<index>12</index>
+		<type>pid-rotory</type>
+		<index>4</index>
 		<scale>1</scale>
 		<upperLimit>210</upperLimit>
 		<lowerLimit>83</lowerLimit>
@@ -35,8 +35,8 @@
 			<outputMode>servo</outputMode>
 		</dypid>
 		<name>Link1</name>
-		<type>servo-rotory</type>
-		<index>13</index>
+		<type>pid-rotory</type>
+		<index>6</index>
 		<scale>1</scale>
 		<upperLimit>210</upperLimit>
 		<lowerLimit>59</lowerLimit>
@@ -58,8 +58,8 @@
 			<outputMode>servo</outputMode>
 		</dypid>
 		<name>Link2</name>
-		<type>servo-rotory</type>
-		<index>14</index>
+		<type>pid-rotory</type>
+		<index>7</index>
 		<scale>1</scale>
 		<upperLimit>210</upperLimit>
 		<lowerLimit>57</lowerLimit>
@@ -83,7 +83,7 @@
 				<outputMode>servo</outputMode>
 			</dypid>
 			<name>extruder1</name>
-			<type>servo-rotory</type>
+			<type>pid-rotory</type>
 			<index>3</index>
 			<scale>1</scale>
 			<upperLimit>10000000</upperLimit>

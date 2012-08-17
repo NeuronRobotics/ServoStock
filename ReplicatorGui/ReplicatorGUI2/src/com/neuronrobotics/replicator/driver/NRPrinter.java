@@ -13,11 +13,8 @@ public class NRPrinter {
 	private StlSlicer slicer;
 	
 	
-	public NRPrinter(DyIO d) {
+	public NRPrinter(DeltaDoodle d) {
 		Log.enableDebugPrint(true);
-		//Allow for low voltage power supply
-		if(d!=null)
-			d.setServoPowerSafeMode(false);
 		
 		device = new DeltaRobotPrinterPrototype(d);
 		setParser(new GCodeParser(device));
