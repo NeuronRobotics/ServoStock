@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.LinkedList;
 
+import com.neuronrobotics.replicator.driver.DeltaDoodle;
 import com.neuronrobotics.replicator.driver.NRPrinter;
 import com.neuronrobotics.replicator.driver.PrinterStatus;
 import com.neuronrobotics.replicator.driver.SliceStatusData;
@@ -72,13 +73,13 @@ public class GUIDriver implements PrinterStatusListener, GUIBackendInterface {
 	}
 
 	public boolean connectPrinter() {
-		DyIO dyio = new DyIO();
-		if (!ConnectionDialog.getBowlerDevice(dyio)) {
+		DeltaDoodle delt = new DeltaDoodle();
+		if (!ConnectionDialog.getBowlerDevice(delt)) {
 			System.out.println("Fail");
 			return connectVirtualPrinter(); //TODO remove eventually
 		}
 		if (thePrinter != null) thePrinter.removePrinterStatusListener(this);
-		this.thePrinter = new NRPrinter(dyio);
+		this.thePrinter = new NRPrinter(delt);
 		thePrinter.addPrinterStatusListener(this);
 		if (thePrinter.isReady()) this.currentDriverState = DriverState.IDLE;
 		statusString = "Printer Connected";
