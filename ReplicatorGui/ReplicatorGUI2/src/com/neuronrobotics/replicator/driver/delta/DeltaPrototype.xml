@@ -9,15 +9,15 @@
 		<name>Link0</name>
 		<type>pid-rotory</type>
 		<index>4</index>
-		<scale>1</scale>
-		<upperLimit>210</upperLimit>
-		<lowerLimit>83</lowerLimit>
-		<pGain>0.125</pGain>
-		<iGain>0</iGain>
-		<dGain>0</dGain>
+		<scale>0.087890625</scale>
+		<upperLimit>1024</upperLimit>
+		<lowerLimit>-512</lowerLimit>
+		<pGain>.1</pGain>
+		<iGain>2</iGain>
+		<dGain>.1</dGain>
 		<isInverted>false</isInverted>
 		<isLatch>true</isLatch>
-		<indexLatch>206</indexLatch>
+		<indexLatch>0</indexLatch>
 		<isStopOnLatch>false</isStopOnLatch>	
 		<homingTPS>500</homingTPS>			
 	</link>
@@ -25,15 +25,15 @@
 		<name>Link1</name>
 		<type>pid-rotory</type>
 		<index>6</index>
-		<scale>1</scale>
-		<upperLimit>210</upperLimit>
-		<lowerLimit>59</lowerLimit>
-		<pGain>0.4</pGain>
-		<iGain>0</iGain>
-		<dGain>0</dGain>
+		<scale>0.087890625</scale>
+		<upperLimit>1024</upperLimit>
+		<lowerLimit>-512</lowerLimit>
+		<pGain>.1</pGain>
+		<iGain>2</iGain>
+		<dGain>.1</dGain>
 		<isInverted>false</isInverted>
 		<isLatch>true</isLatch>
-		<indexLatch>195</indexLatch>
+		<indexLatch>0</indexLatch>
 		<isStopOnLatch>false</isStopOnLatch>	
 		<homingTPS>500</homingTPS>	
 	</link>
@@ -42,15 +42,15 @@
 		<name>Link2</name>
 		<type>pid-rotory</type>
 		<index>7</index>
-		<scale>1</scale>
-		<upperLimit>210</upperLimit>
-		<lowerLimit>57</lowerLimit>
-		<pGain>0.225</pGain>
-		<iGain>0</iGain>
-		<dGain>0</dGain>
+		<scale>0.087890625</scale>
+		<upperLimit>1024</upperLimit>
+		<lowerLimit>-512</lowerLimit>
+		<pGain>.1</pGain>
+		<iGain>2</iGain>
+		<dGain>.1</dGain>
 		<isInverted>true</isInverted>
 		<isLatch>true</isLatch>
-		<indexLatch>198</indexLatch>
+		<indexLatch>0</indexLatch>
 		<isStopOnLatch>false</isStopOnLatch>	
 		<homingTPS>500</homingTPS>			
 	</link>
@@ -59,15 +59,15 @@
 		<name>extruder</name>
 		<type>pid-rotory</type>
 		<index>0</index>
-		<scale>1</scale>
-		<upperLimit>210</upperLimit>
-		<lowerLimit>57</lowerLimit>
-		<pGain>0.225</pGain>
+		<scale>0.087890625</scale>
+		<upperLimit>10000000000</upperLimit>
+		<lowerLimit>-10000000000</lowerLimit>
+		<pGain>1</pGain>
 		<iGain>0</iGain>
 		<dGain>0</dGain>
 		<isInverted>true</isInverted>
 		<isLatch>true</isLatch>
-		<indexLatch>198</indexLatch>
+		<indexLatch>0</indexLatch>
 		<isStopOnLatch>false</isStopOnLatch>	
 		<homingTPS>500</homingTPS>			
 	</link>

@@ -92,7 +92,7 @@ public class DeltaRobotKinematics {
 	     // discriminant
 	     double d = -(a+b*y1)*(a+b*y1)+getRf()*(b*b*getRf()+getRf()); 
 	     if (d < 0)
-	    	 throw new RuntimeException("inverse kinematics failed"); // non-existing point
+	    	 throw new RuntimeException("inverse kinematics failed, D < 0"); // non-existing point
 	     double yj = (y1 - a*b - Math.sqrt(d))/(b*b + 1); // chooMath.sing outer point
 	     double zj = a + b*yj;
 	     theta = Math.atan(-zj/(y1 - yj)) + ((yj>y1)?180.0:0.0);
