@@ -16,7 +16,7 @@ void initializeEncoders(){
     }
 }
 
-int readEncoder(BYTE index){
+float readEncoderWithoutOffset(BYTE index){
     int tmp = AS5055readAngle(index);
     int diff = raw[index]-tmp;
     raw[index]=tmp;
@@ -26,8 +26,18 @@ int readEncoder(BYTE index){
         else
              overflow[index]--;
     }
-    return tmp+offset[index]+(4096*overflow[index]);
+    float ret = ((tmp+(4096*overflow[index])));
+    return ret;
+}
 
+int setCurrentValue(BYTE index,int value){
+    offset[index] = (readEncoderWithoutOffset( index) - value);
+}
+
+float readEncoder(BYTE index){
+  
+    float ret = (readEncoderWithoutOffset(index)-offset[index]);
+    return ret;
 }
 
 void encoderSPIInit(){

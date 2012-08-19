@@ -22,7 +22,7 @@ void initServos(){
     int i;
     for(i=0;i<numPidMotor;i++){
         pinOff(i);
-        setServo(i,127,0);
+        setServo(i,126,0);
     }
 }
 

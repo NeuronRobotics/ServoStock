@@ -280,7 +280,7 @@ int main()
 	BowlerPacket MyPacket;
         println_I(dev);
 	
-        float servoTime=15;
+        float servoTime=18;
         RunEveryData servo ={0,servoTime};
         RunEveryData print ={0,500};
         initializeEncoders();
@@ -288,7 +288,16 @@ int main()
         initPIDLocal();
 
         println_I("#Ready...");
-        setPrintLevelErrorPrint();
+        setPrintLevelInfoPrint();
+
+        BOOL calibrate = TRUE;
+        BYTE servoCalibrateVal = 135;
+        setServo(LINK0_INDEX, servoCalibrateVal,0);
+        setServo(LINK1_INDEX, servoCalibrateVal,0);
+        setServo(LINK2_INDEX, servoCalibrateVal,0);
+
+
+
 	while(1){
 
             Bowler_Server_Local(&MyPacket);
@@ -298,12 +307,34 @@ int main()
             float diff;
             diff=RunEvery(&servo);
             if(diff>0){
-                Print_Level l = getPrintLevel();
-                setPrintLevelNoPrint();
-                RunPID();
-                setPrintLevel(l);
+                if(!calibrate){
+                    Print_Level l = getPrintLevel();
+                    setPrintLevelNoPrint();
+                    RunPID();
+                    setPrintLevel(l);
+                }else{
+                    if(getMs()>5000){
+                        calibrate = FALSE;
+                        println_E("Link 0 value:");p_sl_E(readEncoder(LINK0_INDEX));
+                        println_E("Link 1 value:");p_sl_E(readEncoder(LINK1_INDEX));
+                        println_E("Link 2 value:");p_sl_E(readEncoder(LINK2_INDEX));
+                        pidReset(LINK0_INDEX,-512);
+                        pidReset(LINK1_INDEX,-512);
+                        pidReset(LINK2_INDEX,-512);
+                        println_E("Link 0 value:");p_sl_E(readEncoder(LINK0_INDEX));
+                        println_E("Link 1 value:");p_sl_E(readEncoder(LINK1_INDEX));
+                        println_E("Link 2 value:");p_sl_E(readEncoder(LINK2_INDEX));
+                        SetPIDTimed(LINK0_INDEX,0,2000);
+                        SetPIDTimed(LINK1_INDEX,0,2000);
+                        SetPIDTimed(LINK2_INDEX,0,2000);
+                        println_E("Calibration Done!");
+                    }
+                }
                 
                 runServos();
+//                println_E("Link 0 value: ");p_sl_E(GetPIDPosition(LINK0_INDEX));
+//                println_E("Link 1 value: ");p_sl_E(GetPIDPosition(LINK1_INDEX));
+//                println_E("Link 2 value: ");p_sl_E(GetPIDPosition(LINK2_INDEX));
                 if(diff>(servoTime/2)){
                     println_E("Error in control loop time! ");p_fl_E(diff);
                 }

@@ -17,16 +17,17 @@ void initPIDLocal(){
    	BYTE i;
 	//WORD loop;
 	for (i=0;i<numPidMotor;i++){
-		pidGroups[i].Enabled=TRUE;
+		pidGroups[i].Enabled=FALSE;
 		pidGroups[i].channel = i;
-                pidGroups[i].K.P=.01;
-                pidGroups[i].K.I=10;
-                pidGroups[i].K.D=.1;
+                pidGroups[i].K.P=.1;
+                pidGroups[i].K.I=2;
+                pidGroups[i].K.D=0;
                 pidGroups[i].Polarity=1;
 		vel[i].enabled=FALSE;
 		limits[i].type=NO_LIMIT;
                 if(i==LINK0_INDEX || i== LINK1_INDEX || i== LINK2_INDEX){
                   pidGroups[i].Polarity=0;
+                  pidGroups[i].Enabled=TRUE;
                 }
 	}
 
@@ -42,21 +43,16 @@ void initPIDLocal(){
                                 &onPidConfigureMine,
                                 &checkPIDLimitEventsMine);
        for (i=0;i<numPidMotor;i++){
-           printPIDvals(i);
+           if(i==LINK0_INDEX || i== LINK1_INDEX || i== LINK2_INDEX)
+             SetPID(i,readEncoder(i));
        }
-       println_I("Break");
-       for (i=0;i<numPidMotor;i++){
-           SetPID(i,readEncoder(i));
-       }
-       for (i=0;i<numPidMotor;i++){
-           printPIDvals(i);
-       }
+
 }
 
 
 BOOL asyncCallback(BowlerPacket *Packet){
     PutBowlerPacket(Packet);// This only works with USB and UART
-    return TRUE;
+    return isUSBActave();
 }
 
 void onPidConfigureMine(int group){
@@ -76,18 +72,17 @@ PidLimitEvent * checkPIDLimitEventsMine(BYTE group){
 
 
 int resetPositionMine(int group, int current){
-
-	return current;
+    setCurrentValue(group, current);
+    return readEncoder(group);
 }
 
 float getPositionMine(int group){
-	LONG pos = readEncoder(group);
-	return ((float)pos);
+	return readEncoder(group);
 }
 
 void setOutputMine(int group, float v){
 	int val = (int)(v);
-        val += 128;
+        val += 126;
         if (val>255)
                 val=255;
         if(val<0)
