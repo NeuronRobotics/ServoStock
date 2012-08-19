@@ -10,6 +10,7 @@ import com.neuronrobotics.replicator.driver.NRPrinter;
 import com.neuronrobotics.replicator.driver.PrinterStatus;
 import com.neuronrobotics.replicator.driver.SliceStatusData;
 import com.neuronrobotics.replicator.gui.PrinterStatusListener;
+import com.neuronrobotics.sdk.common.Log;
 import com.neuronrobotics.sdk.dyio.DyIO;
 import com.neuronrobotics.sdk.serial.SerialConnection;
 import com.neuronrobotics.sdk.ui.ConnectionDialog;
@@ -22,6 +23,7 @@ public class PrinterTest implements PrinterStatusListener {
 		NRPrinter printer = new NRPrinter(delt);
 		//NRPrinter printer = new NRPrinter(null);
 		printer.addPrinterStatusListener(this);
+		Log.enableDebugPrint(false);
 		File gcode = new File("test.gcode");
 		try {
 			//This is time consuming
@@ -49,11 +51,11 @@ public class PrinterTest implements PrinterStatusListener {
 	}
 	@Override
 	public void printStatus(PrinterStatus psl) {
-		System.out.println("Printer status: "+psl);
+		//System.out.println("Printer status: "+psl);
 	}
 	@Override
 	public void sliceStatus(SliceStatusData ssd) {
-		System.out.println("Printer status: "+ssd);
+		//System.out.println("Printer status: "+ssd);
 	}
 
 }
