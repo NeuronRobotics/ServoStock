@@ -19,8 +19,8 @@ void initPIDLocal(){
 	for (i=0;i<numPidMotor;i++){
 		pidGroups[i].Enabled=FALSE;
 		pidGroups[i].channel = i;
-                pidGroups[i].K.P=.1;
-                pidGroups[i].K.I=5;
+                pidGroups[i].K.P=.2;
+                pidGroups[i].K.I=10;
                 pidGroups[i].K.D=.1;
                 pidGroups[i].Polarity=1;
 		vel[i].enabled=FALSE;
@@ -67,13 +67,13 @@ void setPidIsr(BOOL v){
 }
 
 void __ISR(_TIMER_3_VECTOR, ipl4) Timer3Handler(void){
-    mT3ClearIntFlag();
     if(getRunPidIsr()){
         Print_Level l = getPrintLevel();
         setPrintLevelNoPrint();
         RunPIDControl();
         setPrintLevel(l);
     }
+    mT3ClearIntFlag();
 }
 
 
@@ -99,6 +99,7 @@ PidLimitEvent * checkPIDLimitEventsMine(BYTE group){
 
 
 int resetPositionMine(int group, int current){
+    println_I("Resetting PID Local");
     setCurrentValue(group, current);
     return readEncoder(group);
 }

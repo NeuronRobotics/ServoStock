@@ -281,7 +281,7 @@ int main()
 	BowlerPacket MyPacket;
         println_I(dev);
         
-        RunEveryData pid ={0,100};
+        RunEveryData pid ={0,200};
         initializeEncoders();
         initServos();
 #if !defined(NO_PID)
@@ -318,11 +318,12 @@ int main()
                         RunPIDControl();
                     }
                     setPrintLevel(l);
-//                    for (i=0;i<numPidMotor;i++){
-//                        printPIDvals(i);
-//
-//                    }
-//                    println_I("\n");
+                    println_I("\n");
+                    for (i=0;i<numPidMotor;i++){
+                        if(isPidEnabled(i))
+                            printPIDvals(i);
+                    }
+                    
 #endif
                 }else{
 #if defined(CALIBRATE)

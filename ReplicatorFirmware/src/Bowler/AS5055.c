@@ -35,7 +35,6 @@ int setCurrentValue(BYTE index,int value){
 }
 
 float readEncoder(BYTE index){
-  
     float ret = (readEncoderWithoutOffset(index)-offset[index]);
     return ret;
 }
@@ -108,6 +107,8 @@ void printSystemConfig(BYTE index){
 
     AS5055send(index, cmd.uint0_15);
     read.uint0_15 = AS5055send(index, 0);
+    Print_Level l = getPrintLevel();
+    setPrintLevelInfoPrint();
     println_I("System config: ");       prHEX16(read.uint0_15,INFO_PRINT);
     println_I("\tResolution: ");        p_sl(read.regs.resolution,INFO_PRINT);
     println_I("\tchip ID: ");           p_sl(read.regs.id,INFO_PRINT);
@@ -115,6 +116,7 @@ void printSystemConfig(BYTE index){
     println_I("\tFE_bw_setting: ");     p_sl(read.regs.bw,INFO_PRINT);
     println_I("\tFE_gain_setting: ");   p_sl(read.regs.gain,INFO_PRINT);
     println_I("\tbreak_AGC_loop: ");    p_sl(read.regs.break_loop,INFO_PRINT);
+    setPrintLevel(l);
 }
 
 UINT16 AS5055readAngle(BYTE index){
@@ -135,7 +137,7 @@ UINT16 AS5055readAngle(BYTE index){
         }else if(read.regs.AlarmHI == 0 && read.regs.AlarmLO == 1){
             //println_E("Alarm bit indicating a too low magnetic field");
         }else{
-          //printSystemConfig(index);
+          printSystemConfig(index);
           return 0;
         }
         
