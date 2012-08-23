@@ -155,7 +155,7 @@
 	<baseToZframe>
 		<x>0</x>
 		<y>0</y>
-		<z>-250</z>
+		<z>0</z>
 		<rotw>1</rotw>
 		<rotx>0</rotx>
 		<roty>0</roty>
