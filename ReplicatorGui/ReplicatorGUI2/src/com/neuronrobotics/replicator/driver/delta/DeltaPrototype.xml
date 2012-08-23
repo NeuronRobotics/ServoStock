@@ -12,8 +12,8 @@
 		<scale>0.087890625</scale>
 		<upperLimit>1024</upperLimit>
 		<lowerLimit>-512</lowerLimit>
-		<pGain>.1</pGain>
-		<iGain>2</iGain>
+		<pGain>.15</pGain>
+		<iGain>10</iGain>
 		<dGain>.1</dGain>
 		<isInverted>false</isInverted>
 		<isLatch>true</isLatch>
@@ -28,8 +28,8 @@
 		<scale>0.087890625</scale>
 		<upperLimit>1024</upperLimit>
 		<lowerLimit>-512</lowerLimit>
-		<pGain>.1</pGain>
-		<iGain>2</iGain>
+		<pGain>.15</pGain>
+		<iGain>10</iGain>
 		<dGain>.1</dGain>
 		<isInverted>false</isInverted>
 		<isLatch>true</isLatch>
@@ -45,8 +45,8 @@
 		<scale>0.087890625</scale>
 		<upperLimit>1024</upperLimit>
 		<lowerLimit>-512</lowerLimit>
-		<pGain>.1</pGain>
-		<iGain>2</iGain>
+		<pGain>.15</pGain>
+		<iGain>10</iGain>
 		<dGain>.1</dGain>
 		<isInverted>true</isInverted>
 		<isLatch>true</isLatch>
