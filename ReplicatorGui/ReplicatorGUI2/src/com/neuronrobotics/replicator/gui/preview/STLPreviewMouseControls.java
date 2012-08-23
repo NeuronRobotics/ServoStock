@@ -64,7 +64,8 @@ public class STLPreviewMouseControls extends MouseAdapter  {
 
 			@Override
 			protected void mouseDragged(STLPreviewCanvas3D preview, double xDist, double yDist) {
-				preview.getCurrentSTLTransform().rotateY(xDist/rotateScale);
+				STLTransformGroup current = preview.getCurrentSTLTransform();
+				if(current!=null) current.rotateY(xDist/rotateScale);
 			}
 			
 			public String toString(){
@@ -147,7 +148,7 @@ public class STLPreviewMouseControls extends MouseAdapter  {
 		protected abstract void mouseDragged(STLPreviewCanvas3D preview,double xDist, double yDist);
 
 		public static MouseControlMode[] getModes() {
-			return new MouseControlMode[]{CAMERA_ROTATE,MODEL_ROTATE_X,MODEL_ROTATE_Y,MODEL_ROTATE_Z,MODEL_TRANSLATE_XY,MODEL_TRANSLATE_ZY,MODEL_TRANSLATE_XZ};
+			return new MouseControlMode[]{CAMERA_ROTATE,MODEL_ROTATE_Y,/*MODEL_ROTATE_Z,MODEL_ROTATE_X,MODEL_TRANSLATE_XY,MODEL_TRANSLATE_ZY,*/MODEL_TRANSLATE_XZ};
 		}
 		
 	}
@@ -251,7 +252,6 @@ public class STLPreviewMouseControls extends MouseAdapter  {
 		mousePressed = false;
 		
 	}
-
 	
 	public MouseControlMode getCurrentMode() {
 		return theMode;

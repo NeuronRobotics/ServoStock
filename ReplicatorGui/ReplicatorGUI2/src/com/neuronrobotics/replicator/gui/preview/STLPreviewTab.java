@@ -164,7 +164,7 @@ public class STLPreviewTab extends JPanel {
 			try {
 				STLPreviewCanvas3D tempPreview = new STLPreviewCanvas3D(stl, gcode,workspaceSTL);
 				
-				tempPreview.inititalize();
+				tempPreview.loadFromQueue();
 
 				alertPreviewLoaded(tempPreview);
 			} catch (Exception e) {

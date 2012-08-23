@@ -18,7 +18,7 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.io.File;
 
-public class WorkspaceSelectionDialog extends JDialog {
+public class DirectorySelectionDialog extends JDialog {
 
 	/**
 	 * 
@@ -33,7 +33,7 @@ public class WorkspaceSelectionDialog extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public WorkspaceSelectionDialog(Frame owner,File defaultDir) {
+	public DirectorySelectionDialog(Frame owner,File defaultDir) {
 						
 		super(owner);
 				

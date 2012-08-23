@@ -357,10 +357,10 @@ public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, Works
 		boolean reSlice = theOptions.isForceReslice();		
 		boolean rewrite = theOptions.isUseTransformedSTL();//this.userPrompt("Rewrite STL with current Transforms?");
 		
-		File currentFile = null;
+		File currentFile = new File("Temp\\tempTransform.stl");
 		System.out.println(rewrite);
-		if(rewrite){
-			currentFile = new File("tempTransform.stl");
+		
+			currentFile = new File("Temp\\tempTransform.stl");
 			//currentFile.delete();
 			if(!currentFile.exists())
 				try {
@@ -371,10 +371,13 @@ public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, Works
 					e.printStackTrace();
 					return;
 				}
-			STLObject tranObj = previewContainer.getCurrentPreview().getSTLObject();//.getTransformedSTLObject(previewContainer.getCurrentPreview().getTransform3D());
-			//STLObject tranObj = previewPanel.getCurrentPreview().getSTLObject().getTransformedSTLObject(previewPanel.getCurrentPreview().getTransform3D());
-			
-			ASCIISTLWriter aw =new ASCIISTLWriter(tranObj);
+		if (rewrite) {
+			STLObject tranObj = previewContainer.getCurrentPreview()
+					.getMergedSTLObject();// .getTransformedSTLObject(previewContainer.getCurrentPreview().getTransform3D());
+			// STLObject tranObj =
+			// previewPanel.getCurrentPreview().getSTLObject().getTransformedSTLObject(previewPanel.getCurrentPreview().getTransform3D());
+
+			ASCIISTLWriter aw = new ASCIISTLWriter(tranObj);
 			try {
 				this.statusLabel.setText("Rewriting new STL");
 				aw.writeSTLToFile(currentFile);
@@ -387,8 +390,9 @@ public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, Works
 			
 		}
 		
-		if(!rewrite) currentFile = previewContainer.getCurrentSTLFile();
-		File currentGCodeFile = previewContainer.getCurrentGCodeFile();
+		if(!rewrite){ 
+			return;};
+		File currentGCodeFile = new File("Temp\tempTransform.gcode");
 		
 		//if(!rewrite) currentFile = previewPanel.getCurrentSTLFile();
 		//File currentGCodeFile = previewPanel.getCurrentGCodeFile();

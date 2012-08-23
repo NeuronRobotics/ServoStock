@@ -158,26 +158,6 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 
 	}
 
-	public File getCurrentSTLFile() {
-		if (thePreviewTabs.size() == 0)
-			return null;
-		STLPreviewTab currentTab = ((STLPreviewTab) previewTabbedPane
-				.getSelectedComponent());
-		if (currentTab.isLoaded())
-			return currentTab.getTheSTLPreview().getMergedSTLFile();
-		return null;
-	}
-
-	public File getCurrentGCodeFile() {
-		if (thePreviewTabs.size() == 0)
-			return null;
-		STLPreviewTab currentTab = ((STLPreviewTab) previewTabbedPane
-				.getSelectedComponent());
-		if (currentTab.isLoaded())
-			return currentTab.getTheSTLPreview().getGCodeFile();
-		return null;
-	}
-
 	public STLPreviewCanvas3D getCurrentPreview() {
 		if (thePreviewTabs.size() == 0)
 			return null;

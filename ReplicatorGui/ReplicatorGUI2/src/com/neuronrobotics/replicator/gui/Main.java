@@ -34,7 +34,7 @@ public class Main {
 		
 		File defaultDir = new File("DefaultWorkspaceFolder");
 		
-		WorkspaceSelectionDialog dialog = new WorkspaceSelectionDialog(new Frame(),defaultDir);
+		DirectorySelectionDialog dialog = new DirectorySelectionDialog(new Frame(),defaultDir);
 		dialog.setIconImage(imageIcon.getImage());
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		dialog.setVisible(true);

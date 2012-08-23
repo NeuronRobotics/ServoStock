@@ -263,7 +263,7 @@ public class STLPreviewCameraController {
 
 		Point3d tempPos, tempDir;
 		Vector3d tempOri;
-
+		if(thePreview.getCameraDirection()==null) return;
 		tempDir = new Point3d(thePreview.getCameraDirection());
 		tempPos = new Point3d(thePreview.getCameraPosition());
 		tempOri = new Vector3d(thePreview.getCameraOrientation());

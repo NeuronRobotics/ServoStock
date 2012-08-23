@@ -18,6 +18,7 @@ import javax.vecmath.Vector3f;
 
 import com.neuronrobotics.replicator.gui.stl.STLLoader;
 import com.neuronrobotics.replicator.gui.stl.STLObject;
+import com.neuronrobotics.replicator.gui.stl.STLObjectUtilities;
 import com.neuronrobotics.replicator.gui.stl.STLTransformGroup;
 import com.neuronrobotics.replicator.gui.stl.STLTransformGroupListener;
 import com.neuronrobotics.replicator.gui.stl.STLWorkspaceBranchGroup;
@@ -42,13 +43,11 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 		
 	// transform group that displays the area in which the printer can reliably print
 	private STLWorkspaceBranchGroup theWorkspace;
-	
-	private DirectionalLight theLight;
 
 	private Point3d cameraPosition, cameraDirection;
 	private Vector3d cameraOrientation;
 	
-	private File theSTLFile, theGcode;
+	//private File theSTLFile, theGcode;
 	private STLObject theSTLObject;
 
 	private STLPreviewMouseControls theMouseControls;
@@ -58,6 +57,8 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 	private boolean isDead;
 
 	private ArrayList<STLPreviewCanvas3DListener> theListeners;
+	
+	private ArrayList<File> toBeAdded;
 
 	private File theWorkspaceSTL;
 	
@@ -77,47 +78,25 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 		theWorkspace = null;
 		currentSTLTransform = null;
 		cameraPositionFixed = false;
+		toBeAdded = new ArrayList<File>();
+		intializeUniverse();
 	}
 	
 	public STLPreviewCanvas3D(File workspaceSTL){
-		super(SimpleUniverse.getPreferredConfiguration());
-		
-		theListeners = new ArrayList<STLPreviewCanvas3DListener>();
-		
-		initialized = false;
-		isDead = false;
-
-		theSTLTransforms = new ArrayList<STLTransformGroup>();
-		theCameraController = new STLPreviewCameraController(this);
-		currentSTLTransform = null;
-		
+		this();
 		theWorkspaceSTL = workspaceSTL;
 	}
 	
 	public STLPreviewCanvas3D(File stl, File gcode, File workspaceSTL) {
-		super(SimpleUniverse.getPreferredConfiguration());
-		
-		theListeners = new ArrayList<STLPreviewCanvas3DListener>();
-		
-		initialized = false;
-		isDead = false;
-
-		theSTLTransforms = new ArrayList<STLTransformGroup>();
-
-		theCameraController = new STLPreviewCameraController(this);
-
-		this.theSTLFile = stl;
-		this.theGcode = gcode;		
-		currentSTLTransform = null;
-		theWorkspaceSTL = workspaceSTL;
-
+		this(workspaceSTL);		
+		toBeAdded.add(stl);
 	}
 	
 	public void addListener(STLPreviewCanvas3DListener spcl){
 		if(!theListeners.contains(spcl)) theListeners.add(spcl);
 	}
 	
-	public void inititalize(){
+	private void intializeUniverse(){
 		simpleU = new SimpleUniverse(this);
 		mainBranch = new BranchGroup();
 		
@@ -144,10 +123,14 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 		
 		mainBranch.addChild(modelBranch);
 		mainBranch.addChild(workspaceBranch);
-				
-		if(this.theSTLFile!=null){
-			addModelToWorkspace(theSTLFile);
+	}
+	
+	public void loadFromQueue(){
+						
+		for(File curr:toBeAdded){
+			addModelToWorkspace(curr);
 		}
+		toBeAdded = new ArrayList<File>();
 		
 		for (STLTransformGroup stlTransform : theSTLTransforms) {
 			stlTransform.getModel().getAppearance()
@@ -172,16 +155,13 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 		for (STLTransformGroup stlTransform : theSTLTransforms) {
 			stlTransform.centerOnWorkspace(theWorkspace);
 		}
-		
-		theLight = new DirectionalLight();
-		theLight.setInfluencingBounds(new BoundingSphere(new Point3d(0, 0, 0),
-				900));
-		
-		theLight.setCapability(DirectionalLight.ALLOW_DIRECTION_WRITE);
-		theLight.setCapability(DirectionalLight.ALLOW_COLOR_WRITE);
-		mainBranch.addChild(theLight);
+	
+	
+	//	mainBranch.addChild(theLight);
 
-		updateIndicatorLightColor();
+		
+		
+		updateIndicatorLights();
 
 		// objects in the scene can be viewed.
 		simpleU.addBranchGraph(mainBranch);
@@ -193,7 +173,7 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 		
 		initialized = true;
 	}
-	
+			
 	public boolean isInitialized(){
 		return initialized;
 	}
@@ -228,8 +208,6 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 		Vector3f temp = new Vector3f(cameraDirection);
 		temp.sub(lightDir);
 
-		theLight.setDirection(temp);
-
 		for (STLPreviewCanvas3DListener spcl : theListeners) {
 			spcl.alertCameraMoved(position, direction,orient);
 		}
@@ -237,52 +215,77 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 	
 	// light transform functions
 	
-	public void updateIndicatorLightColor() {
-		if (modelIsInWorkspace())
-			theLight.setColor(new Color3f(.0f, 5.5f, .0f));
-		else
-			theLight.setColor(new Color3f(5.5f, .0f, .0f));
+	public void updateIndicatorLights() {
+		if(this.theWorkspace==null){
+			for (STLTransformGroup stg:theSTLTransforms){
+				stg.setIndicatorLightColor(new Color3f(5.5f,.0f,.0f));
+			}
+		}
+				
+		else {
+			ArrayList<Boolean> currValidity = areTransformPlacementsValid();
+			int ct = 0;
+			for (STLTransformGroup stg:theSTLTransforms){
+				Boolean curr = currValidity.get(ct++);
+				System.out.println("Curr "+curr);
+				if(curr){
+					stg.setIndicatorLightColor(new Color3f(.0f, 5.5f, .0f));
+				}
+				else {
+					stg.setIndicatorLightColor(new Color3f(5.5f, .0f, .0f));
+				}
+			}	
+		}
+		
 	}
 	
-	public boolean modelIsInWorkspace() {
+	
+	//TODO
+	private ArrayList<Boolean> areTransformPlacementsValid(){
+		ArrayList<Boolean> results = new ArrayList<Boolean>();
+				
+		for (STLTransformGroup stg:theSTLTransforms){
+			if(!modelIsInWorkspace(stg)){
+				results.add(false);
+				continue;
+			} 
+			results.add(true);
+			/*
+			for (STLTransformGroup stg2:theSTLTransforms){
+				if(stg2!=stg) {
+					
+				}				
+			}*/			
+		}
+		
+		
+		return results;
+	}
+			
+	public boolean modelIsInWorkspace(STLTransformGroup currTran) {
 		
 		if(theWorkspace==null) return false;
 		
-		Transform3D curr = currentSTLTransform.getTransform3D();
-		
-		if(curr!=null){
-			return theWorkspace.stlIsContained(theSTLObject.getTransformedSTLObject(curr));
-		}
-		else{
-			System.out.println("Yarp");
-			return theWorkspace.stlIsContained(theSTLObject);
-		}
-		/*
-		Point3f min = stlTransform.getCurrentMin();
-		Point3f max = stlTransform.getCurrentMax();
-
-		
-		 * System.out.println(min); System.out.println(max);
-		 */
-		/*
-		if (min.x < (0 - workspaceDimensions.x / 2))
-			return false;
-		if (min.y < (0 - workspaceDimensions.y / 2))
-			return false;
-		if (min.z < (0 - workspaceDimensions.z / 2))
-			return false;
-		if (max.x > workspaceDimensions.x / 2)
-			return false;
-		if (max.y > workspaceDimensions.y / 2)
-			return false;
-		if (max.z > workspaceDimensions.z / 2)
-			return false;
-			
-		return true;
-		*/
+		Transform3D curr = new Transform3D();
+		currTran.getTransform(curr);
+				
+		return theWorkspace.stlIsContained(currTran.getSTLObject().getTransformedSTLObject(curr));
+	
 	}
-		
 
+	public boolean modelsIntersect(STLTransformGroup m1, STLTransformGroup m2){
+				
+		Transform3D curr1 = new Transform3D(), curr2 = new Transform3D();
+		m1.getTransform(curr1);
+		m2.getTransform(curr2);
+		
+		STLObject stl1 = m1.getSTLObject().getTransformedSTLObject(curr1);
+		STLObject stl2 = m2.getSTLObject().getTransformedSTLObject(curr2);
+		
+		return (STLObjectUtilities.objectsIntersect(stl1, stl2));
+		
+	}
+	
 	public void resetModelTransforms() {
 		if(currentSTLTransform==null) return;
 		Transform3D blank = new Transform3D();
@@ -291,8 +294,6 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 		//centerOnWorkspace();
 		theCameraController.autoPan();
 	}
-
-	
 		
 	public void setOutlineVisibility(boolean vis) {
 		for(STLTransformGroup st: theSTLTransforms){
@@ -313,29 +314,20 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 		if(theWorkspace!=null){
 			this.workspaceBranch.addChild(theWorkspace);
 		}
+		
+		for(STLTransformGroup stg:this.theSTLTransforms) stg.setWorkspace(theWorkspace);
+		
 	}
 	
 	public void removeWorkspace(){
 		if(this.theWorkspace!=null){
 			this.workspaceBranch.removeChild(theWorkspace);
 		}
+		for(STLTransformGroup stg:this.theSTLTransforms) stg.setWorkspace(null);
 		theWorkspace = null;
 	}
 	
 	// Getters
-	/*
-	public STLObject getSTLObject() {
-		return this.theSTLObject;
-	}
-
-	public File getSTLFile() {
-		return theSTLFile;
-	}
-
-	public File getGCodeFile() {
-		return theGcode;
-	}
-	*/
 	
 	public void setMouseControls(STLPreviewMouseControls theMouseControls) {
 		this.theMouseControls = theMouseControls;
@@ -351,7 +343,6 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 		isDead = true;
 		//theLocale = null;
 		mainBranch = null;
-		this.theLight = null;
 		simpleU.cleanup();
 		simpleU = null;
 	}
@@ -371,8 +362,7 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 	public Vector3d getCameraOrientation(){
 		return cameraOrientation;
 	}
-	
-	
+		
 	public void addModelToWorkspace(File stlFile){
 		STLTransformGroup newTransform = null;
 		
@@ -397,11 +387,14 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 			theSTLTransforms.add(newTransform);
 			modelBranch.addChild(newBranch);
 			currentSTLTransform = newTransform;
+			currentSTLTransform.setWorkspace(theWorkspace);
+			alertSTLTransformMoved(currentSTLTransform);
+			currentSTLTransform.addListener(this);
 			if(theWorkspace!=null) currentSTLTransform.centerOnWorkspace(theWorkspace);
 		}
+	
 	}
-	
-	
+		
 	private STLTransformGroup assembleSTLTransform(File f) throws IOException {
 		// BranchGroup objRoot = new BranchGroup();
 
@@ -414,12 +407,10 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 		return stlTransform;
 	}
 	
-
 	protected BranchGroup getMainBranch() {
 		return this.modelBranch;
 	}
 	
-
 	public void setCurrentPick(PickResult result) {
 		if (result == null) {
 			currentSTLTransform = null;
@@ -431,7 +422,6 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 			currentSTLTransform = null;
 		}
 	}
-
 	
 	public STLPreviewCameraController getTheCameraController(){
 		return this.theCameraController;
@@ -439,35 +429,20 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 	
 	@Override
 	public void alertSTLTransformMoved(STLTransformGroup gr) {
-		this.theCameraController.autoPan();
-		updateIndicatorLightColor();		
+		if(this.cameraPosition!=null) this.theCameraController.autoPan();
+		updateIndicatorLights();		
 	}
-
 	
 	public STLPreviewCameraData getCameraData() {
 		return new STLPreviewCameraData(cameraPosition,cameraDirection,cameraOrientation);
 	}
-
-	//TODO these all require new merging functionality still to be written
-	//Really, creating new merged files should not be done here
-	//need to redesign where these go best
-	public File getGCodeFile() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public File getMergedSTLFile() {
-		STLObject mergedObject = getMergedSTLObject();
-		//TODO easy enough to generate a merged file but where to put it
-		// is the question
-		return null;
-	}
-
 	
 	public STLObject getMergedSTLObject() {
 		ArrayList<STLObject> theObjects = new ArrayList<STLObject>();
 		for(STLTransformGroup stg: this.theSTLTransforms){
-			STLObject curr = stg.getSTLObject().getTransformedSTLObject(stg.getTransform3D());
+			Transform3D currTran = new Transform3D();
+			stg.getTransform(currTran);
+			STLObject curr = stg.getSTLObject().getTransformedSTLObject(currTran);
 			theObjects.add(curr);
 		}
 		return STLObject.getMergedSTLObject("MergedSTL", theObjects);
