@@ -19,7 +19,7 @@ void initPIDLocal(){
 	for (i=0;i<numPidMotor;i++){
 		pidGroups[i].Enabled=FALSE;
 		pidGroups[i].channel = i;
-                pidGroups[i].K.P=.2;
+                pidGroups[i].K.P=.15;
                 pidGroups[i].K.I=10;
                 pidGroups[i].K.D=.1;
                 pidGroups[i].Polarity=1;

@@ -281,7 +281,7 @@ int main()
 	BowlerPacket MyPacket;
         println_I(dev);
         
-        RunEveryData pid ={0,200};
+        RunEveryData pid ={0,50};
         initializeEncoders();
         initServos();
 #if !defined(NO_PID)
@@ -318,11 +318,11 @@ int main()
                         RunPIDControl();
                     }
                     setPrintLevel(l);
-                    println_I("\n");
-                    for (i=0;i<numPidMotor;i++){
-                        if(isPidEnabled(i))
-                            printPIDvals(i);
-                    }
+//                    println_I("\n");
+//                    for (i=0;i<numPidMotor;i++){
+//                        if(isPidEnabled(i))
+//                            printPIDvals(i);
+//                    }
                     
 #endif
                 }else{
@@ -339,9 +339,9 @@ int main()
                         println_E("Link 0 value:");p_sl_E(readEncoder(LINK0_INDEX));
                         println_E("Link 1 value:");p_sl_E(readEncoder(LINK1_INDEX));
                         println_E("Link 2 value:");p_sl_E(readEncoder(LINK2_INDEX));
-                        SetPIDTimed(LINK0_INDEX,0,2000);
-                        SetPIDTimed(LINK1_INDEX,0,2000);
-                        SetPIDTimed(LINK2_INDEX,0,2000);
+                        SetPIDTimed(LINK0_INDEX,0,1000);
+                        SetPIDTimed(LINK1_INDEX,0,1000);
+                        SetPIDTimed(LINK2_INDEX,0,1000);
                         println_E("Calibration Done!");
                         setServo(LINK0_INDEX, 128,0);
                         setServo(LINK1_INDEX, 128,0);
