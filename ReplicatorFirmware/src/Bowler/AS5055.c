@@ -61,6 +61,7 @@ UINT8   AS5055CalculateParity(UINT16 data){
 }
 
 UINT16 AS5055send(BYTE index, UINT16 data){
+    encoderSPIInit();
     UINT16_UNION tmp;
     UINT16_UNION back;
     tmp.Val=data;
@@ -135,7 +136,7 @@ UINT16 AS5055readAngle(BYTE index){
             //println_E("Alarm bit indicating a too low magnetic field");
         }else{
           //printSystemConfig(index);
-           return 0;
+          return 0;
         }
         
     }

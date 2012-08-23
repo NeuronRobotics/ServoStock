@@ -280,16 +280,14 @@ int main()
 
 	BowlerPacket MyPacket;
         println_I(dev);
-	
-        float servoTime=18;
-        RunEveryData servo ={0,servoTime};
-        RunEveryData pid ={0,5};
+        
+        RunEveryData pid ={0,100};
         initializeEncoders();
         initServos();
 #if !defined(NO_PID)
         initPIDLocal();
 #endif
-        println_I("#Ready...");
+        println_I("#Calibrating...");
         setPrintLevelInfoPrint();
 
         BOOL calibrate = TRUE;
@@ -313,9 +311,18 @@ int main()
             if(diff>0){
                 if(!calibrate){
 #if !defined(NO_PID)
-                    //RunPID();
+                    Print_Level l = getPrintLevel();
+                    setPrintLevelNoPrint();
                     RunPIDComs();
-
+                    if(!getRunPidIsr()){
+                        RunPIDControl();
+                    }
+                    setPrintLevel(l);
+//                    for (i=0;i<numPidMotor;i++){
+//                        printPIDvals(i);
+//
+//                    }
+//                    println_I("\n");
 #endif
                 }else{
 #if defined(CALIBRATE)
@@ -327,6 +334,7 @@ int main()
                         pidReset(LINK0_INDEX,-625);
                         pidReset(LINK1_INDEX,-625);
                         pidReset(LINK2_INDEX,-625);
+                        pidReset(EXTRUDER0_INDEX,0);
                         println_E("Link 0 value:");p_sl_E(readEncoder(LINK0_INDEX));
                         println_E("Link 1 value:");p_sl_E(readEncoder(LINK1_INDEX));
                         println_E("Link 2 value:");p_sl_E(readEncoder(LINK2_INDEX));
@@ -334,10 +342,15 @@ int main()
                         SetPIDTimed(LINK1_INDEX,0,2000);
                         SetPIDTimed(LINK2_INDEX,0,2000);
                         println_E("Calibration Done!");
+                        setServo(LINK0_INDEX, 128,0);
+                        setServo(LINK1_INDEX, 128,0);
+                        setServo(LINK2_INDEX, 128,0);
+                        setPidIsr(TRUE);
                     }
 #endif
                 }
                 if(diff>pid.setPoint/2){
+                    pid.MsTime=getMs();
                     println_E("Time diff ran over! ");p_fl_E(diff);
                 }
             }

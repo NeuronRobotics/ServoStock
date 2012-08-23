@@ -108,9 +108,11 @@ extern "C" {
 #define     bDelay()    i=2; while (i>1) i++;
 
 void initPIDLocal();
+void setPidIsr(BOOL v);
 
 #define numPidMotor 8
 
+#define EXTRUDER0_INDEX 0
 #define LINK0_INDEX 4
 #define LINK1_INDEX 6
 #define LINK2_INDEX 7

@@ -45,7 +45,7 @@ void setServoTimer(int value){
 }
 
 void setTimerLowTime(){
-    setServoTimer(300*18);
+    setServoTimer(300*15);
     state = LOW;
 }
 
@@ -59,6 +59,7 @@ void setTimerServoTicks(int value){
     state = TIME;
 }
 
+#define MIN_SERVO 2
 
 int currentServo,currentValue,diff,nextServo,nextValue;
 void __ISR(_TIMER_2_VECTOR, ipl5) Timer2Handler(void)
@@ -81,7 +82,7 @@ void __ISR(_TIMER_2_VECTOR, ipl5) Timer2Handler(void)
                 currentServo = sort[sortedIndex];
                 currentValue = position[currentServo];
                 diff = currentValue - lastValue;
-                if(diff>0){
+                if(diff>MIN_SERVO){
                     setTimerServoTicks(diff);
                     break;
                 }
@@ -100,14 +101,14 @@ void __ISR(_TIMER_2_VECTOR, ipl5) Timer2Handler(void)
                         nextServo = sort[sortedIndex];
                         nextValue = position[nextServo];
                         diff = nextValue - lastValue;
-                        if(diff == 0){
+                        if(!(diff > MIN_SERVO)){
                             //Stop next value and increment
                             pinOff(nextServo);
                             lastValue = nextValue;
                             sortedIndex++;
                         }
-                    }while(diff == 0 && sortedIndex != numPidMotor);
-                    if(diff>0 && sortedIndex != numPidMotor){
+                    }while(!(diff > MIN_SERVO) && sortedIndex != numPidMotor);
+                    if(diff>MIN_SERVO && sortedIndex != numPidMotor){
                         setTimerServoTicks(diff);
                         break;
                     }

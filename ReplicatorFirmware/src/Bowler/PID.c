@@ -19,7 +19,7 @@ void initPIDLocal(){
 	for (i=0;i<numPidMotor;i++){
 		pidGroups[i].Enabled=FALSE;
 		pidGroups[i].channel = i;
-                pidGroups[i].K.P=.05;
+                pidGroups[i].K.P=.1;
                 pidGroups[i].K.I=5;
                 pidGroups[i].K.D=.1;
                 pidGroups[i].Polarity=1;
@@ -38,20 +38,42 @@ void initPIDLocal(){
                                 &resetPositionMine,
                                 &asyncCallback,
                                 &onPidConfigureMine,
-                                &checkPIDLimitEventsMine);
-
-       OpenTimer3(T3_ON | T3_SOURCE_INT | T3_PS_1_256, 358*10);
-       ConfigIntTimer3(T3_INT_ON | T3_INT_PRIOR_0);
+                                &checkPIDLimitEventsMine); 
+       setPidIsr(FALSE);
 }
 
-void __ISR(_TIMER_3_VECTOR, ipl0) Timer3Handler(void){
-    //StartCritical();
+BOOL runPidIsr = FALSE;
+
+BOOL getRunPidIsr(){
+    return runPidIsr;
+}
+
+void setPidIsr(BOOL v){
+    runPidIsr=v;
+    if(runPidIsr){
+        OpenTimer3(T3_ON | T3_SOURCE_INT | T3_PS_1_256, 358*5);
+        ConfigIntTimer3(T3_INT_ON | T3_INT_PRIOR_4);
+        Print_Level l = getPrintLevel();
+        setPrintLevelInfoPrint();
+        println_I("Starting PID ISR");
+        setPrintLevel(l);
+    }else{
+        CloseTimer3();
+        Print_Level l = getPrintLevel();
+        setPrintLevelInfoPrint();
+        println_I("Closing PID ISR");
+        setPrintLevel(l);
+    }
+}
+
+void __ISR(_TIMER_3_VECTOR, ipl4) Timer3Handler(void){
     mT3ClearIntFlag();
-    Print_Level l = getPrintLevel();
-    setPrintLevelNoPrint();
-    RunPIDControl();
-    setPrintLevel(l);
-    //EndCritical();
+    if(getRunPidIsr()){
+        Print_Level l = getPrintLevel();
+        setPrintLevelNoPrint();
+        RunPIDControl();
+        setPrintLevel(l);
+    }
 }
 
 
