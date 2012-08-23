@@ -11,6 +11,15 @@
 #ifdef	__cplusplus
 extern "C" {
 #endif
+
+typedef enum _ServoState{
+    LOW=0,
+    PRETIME=1,
+    TIME=2,
+    FINISH=3
+} ServoState;
+
+
     /**
      * Start the servo hardware
      */
@@ -30,6 +39,13 @@ extern "C" {
      * get the current position of the servo
      */
     BYTE getServoPosition(BYTE PIN);
+   /**
+    * private
+    */
+void runLinearInterpolationServo(BYTE blockStart,BYTE blockEnd);
+BYTE pinOn(BYTE pin);
+void pinOff(BYTE pin);
+void DelayPreServoPulse(void);
 
 
 #ifdef	__cplusplus

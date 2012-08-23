@@ -19,19 +19,16 @@ void initPIDLocal(){
 	for (i=0;i<numPidMotor;i++){
 		pidGroups[i].Enabled=FALSE;
 		pidGroups[i].channel = i;
-                pidGroups[i].K.P=.1;
-                pidGroups[i].K.I=2;
-                pidGroups[i].K.D=0;
+                pidGroups[i].K.P=.05;
+                pidGroups[i].K.I=5;
+                pidGroups[i].K.D=.1;
                 pidGroups[i].Polarity=1;
 		vel[i].enabled=FALSE;
 		limits[i].type=NO_LIMIT;
                 if(i==LINK0_INDEX || i== LINK1_INDEX || i== LINK2_INDEX){
                   pidGroups[i].Polarity=0;
-                  pidGroups[i].Enabled=TRUE;
                 }
 	}
-
-
 
 	InitilizePidController( pidGroups,
                                 vel,
@@ -42,11 +39,19 @@ void initPIDLocal(){
                                 &asyncCallback,
                                 &onPidConfigureMine,
                                 &checkPIDLimitEventsMine);
-       for (i=0;i<numPidMotor;i++){
-           if(i==LINK0_INDEX || i== LINK1_INDEX || i== LINK2_INDEX)
-             SetPID(i,readEncoder(i));
-       }
 
+       OpenTimer3(T3_ON | T3_SOURCE_INT | T3_PS_1_256, 358*10);
+       ConfigIntTimer3(T3_INT_ON | T3_INT_PRIOR_0);
+}
+
+void __ISR(_TIMER_3_VECTOR, ipl0) Timer3Handler(void){
+    //StartCritical();
+    mT3ClearIntFlag();
+    Print_Level l = getPrintLevel();
+    setPrintLevelNoPrint();
+    RunPIDControl();
+    setPrintLevel(l);
+    //EndCritical();
 }
 
 

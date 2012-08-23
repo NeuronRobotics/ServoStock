@@ -236,6 +236,8 @@ void encoderTest(){
 
 }
 
+#define CALIBRATE
+//#define NO_PID
 int main()
 {
         // Configure the device for maximum performance but do not change the PBDIV
@@ -246,8 +248,7 @@ int main()
 
         setPrintLevelInfoPrint();
         ATX_DISENABLE();
-        DelayMs(50);
-        ATX_ENABLE(); // Turn on ATX Supply
+
         ENC_CSN_INIT(); // Set pin modes for CS pins
         mJTAGPortEnable(0); // Disable JTAG and free up channels 0 and 1
         
@@ -282,45 +283,50 @@ int main()
 	
         float servoTime=18;
         RunEveryData servo ={0,servoTime};
-        RunEveryData print ={0,500};
+        RunEveryData pid ={0,5};
         initializeEncoders();
         initServos();
+#if !defined(NO_PID)
         initPIDLocal();
-
+#endif
         println_I("#Ready...");
         setPrintLevelInfoPrint();
 
         BOOL calibrate = TRUE;
         BYTE servoCalibrateVal = 135;
+#if defined(CALIBRATE)
         setServo(LINK0_INDEX, servoCalibrateVal,0);
         setServo(LINK1_INDEX, servoCalibrateVal,0);
         setServo(LINK2_INDEX, servoCalibrateVal,0);
+#else
+        calibrate = FALSE;
+#endif
 
-
-
+        ATX_ENABLE(); // Turn on ATX Supply
 	while(1){
 
             Bowler_Server_Local(&MyPacket);
             #if !defined(NO_ETHERNET)
                 RunEthernetServices(&MyPacket);
             #endif
-            float diff;
-            diff=RunEvery(&servo);
+            float diff = RunEvery(&pid);
             if(diff>0){
                 if(!calibrate){
-                    Print_Level l = getPrintLevel();
-                    setPrintLevelNoPrint();
-                    RunPID();
-                    setPrintLevel(l);
+#if !defined(NO_PID)
+                    //RunPID();
+                    RunPIDComs();
+
+#endif
                 }else{
+#if defined(CALIBRATE)
                     if(getMs()>5000){
                         calibrate = FALSE;
                         println_E("Link 0 value:");p_sl_E(readEncoder(LINK0_INDEX));
                         println_E("Link 1 value:");p_sl_E(readEncoder(LINK1_INDEX));
                         println_E("Link 2 value:");p_sl_E(readEncoder(LINK2_INDEX));
-                        pidReset(LINK0_INDEX,-512);
-                        pidReset(LINK1_INDEX,-512);
-                        pidReset(LINK2_INDEX,-512);
+                        pidReset(LINK0_INDEX,-625);
+                        pidReset(LINK1_INDEX,-625);
+                        pidReset(LINK2_INDEX,-625);
                         println_E("Link 0 value:");p_sl_E(readEncoder(LINK0_INDEX));
                         println_E("Link 1 value:");p_sl_E(readEncoder(LINK1_INDEX));
                         println_E("Link 2 value:");p_sl_E(readEncoder(LINK2_INDEX));
@@ -329,24 +335,12 @@ int main()
                         SetPIDTimed(LINK2_INDEX,0,2000);
                         println_E("Calibration Done!");
                     }
+#endif
                 }
-                
-                runServos();
-//                println_E("Link 0 value: ");p_sl_E(GetPIDPosition(LINK0_INDEX));
-//                println_E("Link 1 value: ");p_sl_E(GetPIDPosition(LINK1_INDEX));
-//                println_E("Link 2 value: ");p_sl_E(GetPIDPosition(LINK2_INDEX));
-                if(diff>(servoTime/2)){
-                    println_E("Error in control loop time! ");p_fl_E(diff);
+                if(diff>pid.setPoint/2){
+                    println_E("Time diff ran over! ");p_fl_E(diff);
                 }
             }
-//            if(RunEvery(&print)>0){
-//                int i=0;
-//                println_I("Encoder ");p_fl_I(getMs());
-//                for(i=0;i<numPidMotor;i++){
-//                    print_I("\t");p_sl_I(readEncoder(i));
-//                    DelayMs(10);
-//                }
-//            }
 
 	}
 }
