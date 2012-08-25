@@ -103,6 +103,8 @@ UINT8   AS5055CalculateParity(UINT16 data);
 
 UINT16 AS5055readAngle(BYTE index);
 
+UINT16 AS5055reset(BYTE index);
+
 void initializeEncoders();
 
 void EncoderSS(BYTE index, BYTE state);

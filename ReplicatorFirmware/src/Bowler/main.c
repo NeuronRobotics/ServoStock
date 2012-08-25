@@ -223,19 +223,6 @@ BYTE Bowler_Server_Local(BowlerPacket * Packet){
 	return FALSE;
 }
 
-void encoderTest(){
-    //println_I("\tStarting test");
-
-    AS5055reset(3);
-
-     UINT16 data = AS5055readAngle(3);
-     println_I("Encoder data: ");p_ul_I(data);
-
-
-    //
-
-}
-
 #define CALIBRATE
 //#define NO_PID
 int main()

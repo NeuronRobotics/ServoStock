@@ -8,6 +8,7 @@
 
 BYTE SPITransceve(BYTE b){
     SpiChnPutC(1, b);		// send data on the master channel, SPI1
+    Delay1us(10);
     return SpiChnGetC(1);	// get the received data
 }
 BYTE get(BYTE b){

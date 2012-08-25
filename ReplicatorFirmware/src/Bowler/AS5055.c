@@ -10,6 +10,7 @@ int raw[numPidMotor];
 void initializeEncoders(){
     int i;
     for(i=0;i<numPidMotor;i++){
+        AS5055reset(i);
         overflow[i]=0;
         offset[i]=0;
         raw[i]=AS5055readAngle(i);
@@ -60,20 +61,24 @@ UINT8   AS5055CalculateParity(UINT16 data){
 }
 
 UINT16 AS5055send(BYTE index, UINT16 data){
-    encoderSPIInit();
     UINT16_UNION tmp;
     UINT16_UNION back;
+    if(data ==0)
+        data = 0xffff;
     tmp.Val=data;
     EncoderSS(index,CSN_Enabled);
-    //print_I("[AS5055send] Sending data: ");prHEX16(data,INFO_PRINT);println_I("");
-    back.byte.SB = SPITransceve(0xFF);
-    back.byte.LB = SPITransceve(0xFF);
+    //println_I("[AS5055send] Sending data: ");prHEX8(tmp.byte.SB,INFO_PRINT);prHEX8(tmp.byte.LB,INFO_PRINT);println_I("");
+//    back.byte.SB = SPITransceve(0xFF);
+//    back.byte.LB = SPITransceve(0xFF);
+    back.byte.SB = SPITransceve(tmp.byte.SB);
+    back.byte.LB = SPITransceve(tmp.byte.LB);
     EncoderSS(index,CSN_Disabled);
-    Delay1us(10);
+    
     return back.Val;
 }
 
 UINT16 AS5055reset(BYTE index){
+    println_I("[AS5055] Resetting");
     AS5055CommandPacket cmd;
     AS5055ReadPacket read;
 
@@ -82,12 +87,13 @@ UINT16 AS5055reset(BYTE index){
     cmd.regs.PAR=AS5055CalculateParity(cmd.uint0_15);
 
     AS5055send(index, cmd.uint0_15);
-    AS5055send(index, 0);
+    AS5055send(index, 0xffff);
     
     return read.uint0_15;
 }
 
 void AS5055ResetErrorFlag(BYTE index){
+    println_I("[AS5055send] Clear Error Flags");
     AS5055CommandPacket cmd;
 
     cmd.regs.Address=AS5055REG_ClearErrorFlagReset;
@@ -106,7 +112,7 @@ void printSystemConfig(BYTE index){
     cmd.regs.PAR=AS5055CalculateParity(cmd.uint0_15);
 
     AS5055send(index, cmd.uint0_15);
-    read.uint0_15 = AS5055send(index, 0);
+    read.uint0_15 = AS5055send(index, 0xffff);
     Print_Level l = getPrintLevel();
     setPrintLevelInfoPrint();
     println_I("System config: ");       prHEX16(read.uint0_15,INFO_PRINT);
@@ -127,20 +133,26 @@ UINT16 AS5055readAngle(BYTE index){
     cmd.regs.PAR=AS5055CalculateParity(cmd.uint0_15);
 
     AS5055send(index, cmd.uint0_15);
-    read.uint0_15 = AS5055send(index, 0);
+    read.uint0_15 = AS5055send(index, 0xffff);
     
     if(read.regs.EF){
-        //AS5055ResetErrorFlag(index);
-        //println_E("**Error flag on data read!");
+        Print_Level l = getPrintLevel();
+        setPrintLevelInfoPrint();
+        println_E("\n\n\n**Error flag on data read! Index: ");p_ul_E(index);
+        AS5055ResetErrorFlag(index);
+        AS5055reset(index);
         if(read.regs.AlarmHI == 1 && read.regs.AlarmLO == 0){
-            //println_E("Alarm bit indicating a too high magnetic field");
+            println_E("Alarm bit indicating a too high magnetic field");
         }else if(read.regs.AlarmHI == 0 && read.regs.AlarmLO == 1){
-            //println_E("Alarm bit indicating a too low magnetic field");
+            println_E("Alarm bit indicating a too low magnetic field");
         }else{
           printSystemConfig(index);
-          return 0;
         }
-        
+        setPrintLevel(l);
+
+        //Re read the position
+        AS5055send(index, cmd.uint0_15);
+        read.uint0_15 = AS5055send(index, 0xffff);
     }
     return read.regs.Data;
 }
@@ -179,7 +191,7 @@ void EncoderSS(BYTE index, BYTE state){
             ENC7_CSN=state;
             break;
     }
-    if(state==CSN_Disabled){
+    //if(state==CSN_Disabled){
         Nop();
         Nop();
         Nop();
@@ -187,6 +199,6 @@ void EncoderSS(BYTE index, BYTE state){
         Nop();
         Nop();
         Nop();
-    }
+    //}
 }
 
