@@ -25,7 +25,7 @@ public class STLTransformGroup extends TransformGroup{
 	private STLObject theSTLObject;
 	private Shape3D theModel, theFacetOutline;
 	private AmbientLight indicatorLight;
-	private STLWorkspaceBranchGroup theWorkspace;
+	//private STLWorkspaceBranchGroup theWorkspace;
 	private ArrayList<STLTransformGroupListener> theListeners;
 	
 	
@@ -39,7 +39,7 @@ public class STLTransformGroup extends TransformGroup{
 		theSTLObject = stlo;
 		theListeners = new ArrayList<STLTransformGroupListener>();
 		
-		theWorkspace = null;
+		//theWorkspace = null;
 		
 		indicatorLight = new AmbientLight();
 		indicatorLight.setInfluencingBounds(new BoundingSphere(new Point3d(0, 0, 0),
@@ -57,19 +57,15 @@ public class STLTransformGroup extends TransformGroup{
 	
 	public STLTransformGroup(STLObject stlo, Shape3D model, Shape3D outline, STLWorkspaceBranchGroup workspace){
 		this(stlo,model,outline);
-		theWorkspace = workspace;
+		//theWorkspace = workspace;
 		updateIndicatorLightBounds();
-	}
-
-	// private methods
-	
-	public void setWorkspace(STLWorkspaceBranchGroup newWorkspace){
-		this.theWorkspace = newWorkspace;
 	}
 	
 	public void addListener(STLTransformGroupListener newListener){
 		theListeners.add(newListener);
 	}
+
+	// private methods
 	
 	private void setModel(Shape3D newModel){
 		if(theModel!=null) this.removeChild(theModel);
@@ -568,6 +564,12 @@ public class STLTransformGroup extends TransformGroup{
 	
 	public void setIndicatorLightColor(Color3f color3f) {
 		indicatorLight.setColor(color3f);
+	}
+
+	public STLObject getTransformedSTLObject() {
+		Transform3D currTran = new Transform3D();
+		this.getTransform(currTran);
+		return this.theSTLObject.getTransformedSTLObject(currTran);
 	}
 
 	

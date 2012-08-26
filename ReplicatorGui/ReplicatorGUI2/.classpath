@@ -7,6 +7,7 @@
 	<classpathentry kind="lib" path="lib/Jama-1.0.2.jar"/>
 	<classpathentry kind="lib" path="lib/miglayout-3.7.2-swing.jar"/>
 	<classpathentry kind="lib" path="lib/vecmath.jar"/>
+	<classpathentry kind="lib" path="C:/Java Lib/lwjgl-2.8.4/jar/jinput.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/NRSDK"/>
 	<classpathentry kind="lib" path="forms-1.3.0.jar" sourcepath="forms-1.3.0-src.zip"/>
 	<classpathentry kind="output" path="bin"/>

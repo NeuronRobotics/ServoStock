@@ -3,6 +3,7 @@ package com.neuronrobotics.replicator.gui.preview;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.media.j3d.BoundingSphere;
 import javax.media.j3d.BranchGroup;
@@ -18,7 +19,7 @@ import javax.vecmath.Vector3f;
 
 import com.neuronrobotics.replicator.gui.stl.STLLoader;
 import com.neuronrobotics.replicator.gui.stl.STLObject;
-import com.neuronrobotics.replicator.gui.stl.STLObjectUtilities;
+import com.neuronrobotics.replicator.gui.stl.STLObjectIntersectionUtilities;
 import com.neuronrobotics.replicator.gui.stl.STLTransformGroup;
 import com.neuronrobotics.replicator.gui.stl.STLTransformGroupListener;
 import com.neuronrobotics.replicator.gui.stl.STLWorkspaceBranchGroup;
@@ -40,6 +41,7 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 	// transform group for the stl model itself
 	private STLTransformGroup currentSTLTransform;
 	private ArrayList<STLTransformGroup> theSTLTransforms;
+	private ArrayList<ArrayList<Boolean>> collisionTable;
 		
 	// transform group that displays the area in which the printer can reliably print
 	private STLWorkspaceBranchGroup theWorkspace;
@@ -57,14 +59,41 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 	private boolean isDead;
 
 	private ArrayList<STLPreviewCanvas3DListener> theListeners;
-	
 	private ArrayList<File> toBeAdded;
-
+	
 	private File theWorkspaceSTL;
 	
 	private boolean cameraPositionFixed;
 	
 	private STLPreviewCameraController theCameraController;
+	
+	private enum PlacementStatus{
+		UNKOWN {
+			@Override
+			Color3f getColor() {
+				return new Color3f(.0f, 5.5f, .0f);
+			}
+		},NOT_IN_WORKSPACE {
+			@Override
+			Color3f getColor() {
+				return new Color3f(5.5f, .0f, .0f);
+			}
+		},MODEL_COLLISION {
+			@Override
+			Color3f getColor() {
+				return new Color3f(5.5f, 5.5f, 5.5f);
+			}
+		}, VALID_PLACEMENT {
+			@Override
+			Color3f getColor() {
+				return new Color3f(.0f, 5.5f, .0f);
+			}
+		};
+		
+		abstract Color3f getColor();
+	}
+	
+	private ArrayList<PlacementStatus> placementStatuses;
 	
 	public STLPreviewCanvas3D(){
 		super(SimpleUniverse.getPreferredConfiguration());
@@ -74,6 +103,8 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 		isDead = false;
 		theCameraController = new STLPreviewCameraController(this);
 		theSTLTransforms = new ArrayList<STLTransformGroup>();
+		collisionTable = new ArrayList<ArrayList<Boolean>>();
+		placementStatuses = new ArrayList<PlacementStatus>();
 		theWorkspaceSTL = null;
 		theWorkspace = null;
 		currentSTLTransform = null;
@@ -216,6 +247,14 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 	// light transform functions
 	
 	public void updateIndicatorLights() {
+		
+		int tot = this.theSTLTransforms.size();
+		for(int i = 0;i<tot;i++){
+			theSTLTransforms.get(i).setIndicatorLightColor(placementStatuses.get(i).getColor());
+		}
+		
+		
+		/*
 		if(this.theWorkspace==null){
 			for (STLTransformGroup stg:theSTLTransforms){
 				stg.setIndicatorLightColor(new Color3f(5.5f,.0f,.0f));
@@ -223,10 +262,9 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 		}
 				
 		else {
-			ArrayList<Boolean> currValidity = areTransformPlacementsValid();
 			int ct = 0;
 			for (STLTransformGroup stg:theSTLTransforms){
-				Boolean curr = currValidity.get(ct++);
+				Boolean curr = stg.modelIsInWorkspace(theWorkspace);
 				System.out.println("Curr "+curr);
 				if(curr){
 					stg.setIndicatorLightColor(new Color3f(.0f, 5.5f, .0f));
@@ -236,32 +274,10 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 				}
 			}	
 		}
+		*/
 		
 	}
-	
-	
-	//TODO
-	private ArrayList<Boolean> areTransformPlacementsValid(){
-		ArrayList<Boolean> results = new ArrayList<Boolean>();
 				
-		for (STLTransformGroup stg:theSTLTransforms){
-			if(!modelIsInWorkspace(stg)){
-				results.add(false);
-				continue;
-			} 
-			results.add(true);
-			/*
-			for (STLTransformGroup stg2:theSTLTransforms){
-				if(stg2!=stg) {
-					
-				}				
-			}*/			
-		}
-		
-		
-		return results;
-	}
-			
 	public boolean modelIsInWorkspace(STLTransformGroup currTran) {
 		
 		if(theWorkspace==null) return false;
@@ -279,10 +295,12 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 		m1.getTransform(curr1);
 		m2.getTransform(curr2);
 		
+		
+		
 		STLObject stl1 = m1.getSTLObject().getTransformedSTLObject(curr1);
 		STLObject stl2 = m2.getSTLObject().getTransformedSTLObject(curr2);
 		
-		return (STLObjectUtilities.objectsIntersect(stl1, stl2));
+		return (STLObjectIntersectionUtilities.objectsIntersect(stl1, stl2));
 		
 	}
 	
@@ -311,20 +329,19 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 		
 		theWorkspace = STLWorkspaceBranchGroup.getSTLWorkspaceBranchGroup(newWorkspace);
 		
-		if(theWorkspace!=null){
-			this.workspaceBranch.addChild(theWorkspace);
-		}
+		if(theWorkspace!=null)	this.workspaceBranch.addChild(theWorkspace);		
 		
-		for(STLTransformGroup stg:this.theSTLTransforms) stg.setWorkspace(theWorkspace);
-		
-	}
+		updatePlacementStatus(false);
+		updateIndicatorLights();
+	} 
+	
 	
 	public void removeWorkspace(){
 		if(this.theWorkspace!=null){
 			this.workspaceBranch.removeChild(theWorkspace);
 		}
-		for(STLTransformGroup stg:this.theSTLTransforms) stg.setWorkspace(null);
 		theWorkspace = null;
+		updatePlacementStatus(false);
 	}
 	
 	// Getters
@@ -387,9 +404,42 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 			theSTLTransforms.add(newTransform);
 			modelBranch.addChild(newBranch);
 			currentSTLTransform = newTransform;
-			currentSTLTransform.setWorkspace(theWorkspace);
-			alertSTLTransformMoved(currentSTLTransform);
 			currentSTLTransform.addListener(this);
+			//Updating collision table
+			ArrayList<Boolean> newCollisionList = new ArrayList<Boolean>();
+			int ct=-1;
+			boolean collisionFound = false;
+			for(STLTransformGroup stg:theSTLTransforms){
+				ct++;
+				if(stg==newTransform) {
+					newCollisionList.add(false);
+					break;
+				}
+				if(this.modelsIntersect(stg, newTransform)){
+					collisionFound = true;
+					if (placementStatuses.get(ct) != PlacementStatus.NOT_IN_WORKSPACE){
+						this.placementStatuses.set(ct,PlacementStatus.MODEL_COLLISION);
+					}
+					collisionTable.get(ct).add(true);
+					newCollisionList.add(true);
+				} else {
+					collisionTable.get(ct).add(false);
+					newCollisionList.add(false);
+				}
+			}
+			boolean inWorkspace = true;
+			if (theWorkspace!=null) inWorkspace = newTransform.modelIsInWorkspace(theWorkspace);
+			
+			if(theWorkspace==null) placementStatuses.add(PlacementStatus.UNKOWN);
+			else if(!inWorkspace) placementStatuses.add(PlacementStatus.NOT_IN_WORKSPACE);
+			else if(collisionFound) placementStatuses.add(PlacementStatus.MODEL_COLLISION);
+			else placementStatuses.add(PlacementStatus.VALID_PLACEMENT);
+			
+			this.collisionTable.add(newCollisionList);
+			System.out.println(collisionTable);
+			System.out.println(placementStatuses);
+			updateIndicatorLights();
+			//alertSTLTransformMoved(currentSTLTransform);
 			if(theWorkspace!=null) currentSTLTransform.centerOnWorkspace(theWorkspace);
 		}
 	
@@ -430,9 +480,54 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 	@Override
 	public void alertSTLTransformMoved(STLTransformGroup gr) {
 		if(this.cameraPosition!=null) this.theCameraController.autoPan();
-		updateIndicatorLights();		
+		int index = theSTLTransforms.indexOf(gr);
+		for(int i =0;i<theSTLTransforms.size();i++){
+			
+			STLTransformGroup curr = theSTLTransforms.get(i);
+			if(curr==gr){
+				System.out.println("GRRR");
+				continue;
+			}
+			boolean collision = this.modelsIntersect(curr, gr);
+			System.out.println(collision);
+			collisionTable.get(index).set(i, collision);
+			collisionTable.get(i).set(index, collision);
+		}
+		updatePlacementStatus(false);
+		updateIndicatorLights();	
+		
+	}	
+	
+	private void updateCollisionTable(){
+		//TODO
 	}
 	
+	private void updatePlacementStatus(boolean updateCollisionTableFirst) {
+		if(updateCollisionTableFirst){
+			updateCollisionTable();
+		} 
+		
+		for(int i =0;i<theSTLTransforms.size();i++){
+			if(theWorkspace!=null&&!theSTLTransforms.get(i).modelIsInWorkspace(theWorkspace)){
+				placementStatuses.set(i,PlacementStatus.NOT_IN_WORKSPACE);
+				continue;
+			}
+			boolean collision = collisionTable.get(i).contains(true);
+			if(collision){
+				placementStatuses.set(i,PlacementStatus.MODEL_COLLISION);
+			} else if(theWorkspace==null){
+				placementStatuses.set(i,PlacementStatus.UNKOWN);
+			} else {
+				placementStatuses.set(i, PlacementStatus.VALID_PLACEMENT);
+			}
+			
+		}
+		System.out.println("Placement Statuses: "+placementStatuses);
+		System.out.println("Collision Table\n");
+		for(ArrayList<Boolean> ab:collisionTable) System.out.println(ab);
+		System.out.println("End collision table");
+	}
+
 	public STLPreviewCameraData getCameraData() {
 		return new STLPreviewCameraData(cameraPosition,cameraDirection,cameraOrientation);
 	}
