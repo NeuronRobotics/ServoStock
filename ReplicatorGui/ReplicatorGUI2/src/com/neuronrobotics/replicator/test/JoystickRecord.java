@@ -7,6 +7,7 @@ import net.java.games.input.Component;
 import net.java.games.input.Controller;
 import net.java.games.input.ControllerEnvironment;
 
+import com.neuronrobotics.replicator.driver.DeltaDoodle;
 import com.neuronrobotics.replicator.driver.DeltaRobotPrinterPrototype;
 import com.neuronrobotics.sdk.addons.kinematics.math.RotationNR;
 import com.neuronrobotics.sdk.addons.kinematics.math.TransformNR;
@@ -18,7 +19,7 @@ import com.neuronrobotics.sdk.util.ThreadUtil;
 
 public class JoystickRecord {
 	DeltaRobotPrinterPrototype deltaRobot;
-	DyIO slave = null;
+	DeltaDoodle slave = null;
 	private int open = 20;
 	private int closed = 100;
 	private boolean button=false;
@@ -40,8 +41,8 @@ public class JoystickRecord {
 		
 		startJoystick();
 		
-		ServoChannel hand = new ServoChannel(slave.getChannel(15));
-		hand.SetPosition(open);
+//		ServoChannel hand = new ServoChannel(slave.getChannel(15));
+//		hand.SetPosition(open);
 		
 		try {
 			System.out.println("Setting to 0,0,0");
@@ -59,8 +60,8 @@ public class JoystickRecord {
 			boolean save = saveLocation.getPollData()<=0;
 			if(button!=lastButton) {
 				lastButton = button;
-				hand.SetPosition(button?open:closed);
-				hand.flush();
+//				hand.SetPosition(button?open:closed);
+//				hand.flush();
 			}
 			Log.enableDebugPrint(false);
 			try {
@@ -123,35 +124,35 @@ public class JoystickRecord {
 		}
 	}
 	private void connectDelta(){
-		DyIO.disableFWCheck();
-		ArrayList<DyIO> temp= new ArrayList<DyIO>();
+		ArrayList<DeltaDoodle> temp= new ArrayList<DeltaDoodle>();
 		List <String> ports = SerialConnection.getAvailableSerialPorts();
 		//Start by searching through all available serial connections for DyIOs connected to the system
 		for(String s: ports){
-			if(s.toLowerCase().contains("dyio") ){//Change this to match the OS you are using and any known serial port filter
+			if(s.toLowerCase().contains("delta") ){//Change this to match the OS you are using and any known serial port filter
 				try{
-					DyIO d = new DyIO(new SerialConnection(s));
+					DeltaDoodle d = new DeltaDoodle();
+					d.setConnection(new SerialConnection(s));
 					d.connect();
 					if(d.isAvailable()){
 						temp.add(d);
 					}
 				}catch(Exception EX){
 					EX.printStackTrace();
-					System.err.println("Serial port "+s+" is not a DyIO");
+					System.err.println("Serial port "+s+" is not a Delta");
 				}
 			}
 		}
 		
 		//Now that all connected DyIOs are connected, search for the correct MAC addresses 
-		for(DyIO d : temp){
+		for(DeltaDoodle d : temp){
 			String addr = d.getAddress().toString();
-			if(addr.equalsIgnoreCase("74:f7:26:80:00:99") || addr.equalsIgnoreCase("74:F7:26:80:00:A1")){//THis works with 2 different DyIOs as slaves
+			if(addr.equalsIgnoreCase("74:f7:26:01:01:01") ){
 				slave = d;
 			}
 		}
 		//If both are not found then the system can not run
 		if(slave == null){
-			for(DyIO d:temp){
+			for(DeltaDoodle d:temp){
 				System.out.println(d);
 				if(d!= null){
 					if(d.isAvailable())
@@ -160,8 +161,8 @@ public class JoystickRecord {
 			}
 			throw new RuntimeException("One or both devices were not found ");
 		}
-		slave.setServoPowerSafeMode(false);
-		//deltaRobot = new DeltaRobotPrinterPrototype(slave);
+		//slave.setServoPowerSafeMode(false);
+		deltaRobot = new DeltaRobotPrinterPrototype(slave);
 		deltaRobot.setCurrentPoseTarget(new TransformNR());
 	}
 }

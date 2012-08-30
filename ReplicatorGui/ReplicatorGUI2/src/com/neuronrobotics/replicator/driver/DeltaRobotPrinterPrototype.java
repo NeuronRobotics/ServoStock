@@ -18,7 +18,7 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 	private  double f = 457.3;     // base
 	private  double re = 232.0;
 	private  double rf = 112.0;
-	
+	private  double extrusionCachedValue = 0;
 	//static InputStream s = XmlFactory.getDefaultConfigurationStream("DeltaPrototype.xml");
 	
 	public DeltaRobotPrinterPrototype(DeltaDoodle delt) {
@@ -50,12 +50,25 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 
 	@Override
 	public double[] inverseKinematics(TransformNR taskSpaceTransform)throws Exception {
-		return kinematics.delta_calcInverse(taskSpaceTransform);
+		System.out.println("Setting printer to position: "+taskSpaceTransform);
+		double [] links = kinematics.delta_calcInverse(taskSpaceTransform);
+		double [] all = {links[0],links[1],links[2],getExtrusionCachedValue()};
+		return all;
 	}
+
+
 	@Override
 	public TransformNR forwardKinematics(double[] jointSpaceVector) {
 		if(kinematics == null)
 			return new TransformNR();
 		return kinematics.delta_calcForward(jointSpaceVector);
+	}
+
+	public double getExtrusionCachedValue() {
+		return extrusionCachedValue;
+	}
+
+	public void setExtrusionCachedValue(double extrusionCachedValue) {
+		this.extrusionCachedValue = extrusionCachedValue;
 	}
 }

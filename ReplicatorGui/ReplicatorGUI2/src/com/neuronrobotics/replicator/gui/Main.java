@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import com.neuronrobotics.sdk.util.ThreadUtil;
+
 public class Main {
 	
 	private static ImageIcon imageIcon = new ImageIcon("Images\\hat.png");
@@ -38,7 +40,9 @@ public class Main {
 		dialog.setIconImage(imageIcon.getImage());
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		dialog.setVisible(true);
-		while(dialog.isDisplayable()){}
+		while(dialog.isDisplayable()){
+			ThreadUtil.wait(100);
+		}
 		
 		if(dialog.getTheFile()!=null){
 			startGUI(dialog.getTheFile());
