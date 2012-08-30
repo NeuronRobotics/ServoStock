@@ -65,7 +65,8 @@
 #define SYS_FREQ 			(80000000L)
 
 #define NO_ETHERNET
-
+#define CALIBRATE
+//#define NO_PID
 typedef enum {
     EXCEP_IRQ = 0,          // interrupt
     EXCEP_AdEL = 4,         // address error exception (load or ifetch)
@@ -223,8 +224,7 @@ BYTE Bowler_Server_Local(BowlerPacket * Packet){
 	return FALSE;
 }
 
-#define CALIBRATE
-//#define NO_PID
+
 int main()
 {
         // Configure the device for maximum performance but do not change the PBDIV

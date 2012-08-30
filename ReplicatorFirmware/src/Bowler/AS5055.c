@@ -114,7 +114,7 @@ void printSystemConfig(BYTE index){
     AS5055send(index, cmd.uint0_15);
     read.uint0_15 = AS5055send(index, 0xffff);
     Print_Level l = getPrintLevel();
-    setPrintLevelInfoPrint();
+    //setPrintLevelInfoPrint();
     println_I("System config: ");       prHEX16(read.uint0_15,INFO_PRINT);
     println_I("\tResolution: ");        p_sl(read.regs.resolution,INFO_PRINT);
     println_I("\tchip ID: ");           p_sl(read.regs.id,INFO_PRINT);
@@ -137,7 +137,7 @@ UINT16 AS5055readAngle(BYTE index){
     
     if(read.regs.EF){
         Print_Level l = getPrintLevel();
-        setPrintLevelInfoPrint();
+        //setPrintLevelInfoPrint();
         println_E("\n\n\n**Error flag on data read! Index: ");p_ul_E(index);
         AS5055ResetErrorFlag(index);
         AS5055reset(index);

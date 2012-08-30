@@ -19,7 +19,7 @@ void initPIDLocal(){
 	for (i=0;i<numPidMotor;i++){
 		pidGroups[i].Enabled=FALSE;
 		pidGroups[i].channel = i;
-                pidGroups[i].K.P=.10;
+                pidGroups[i].K.P=.07;
                 pidGroups[i].K.I=10;
                 pidGroups[i].K.D=.1;
                 pidGroups[i].Polarity=1;
@@ -110,7 +110,7 @@ float getPositionMine(int group){
 
 void setOutputMine(int group, float v){
 	int val = (int)(v);
-        val += 126;
+        val += 128;
         if (val>255)
                 val=255;
         if(val<0)

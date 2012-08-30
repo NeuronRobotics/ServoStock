@@ -8,7 +8,7 @@ int lastValue;
 int sortedIndex = 0;
 BYTE start=0;
 BYTE stop=numPidMotor;
-
+void delayLoop();
 
 ServoState state = LOW;
 
@@ -38,9 +38,10 @@ void runSort(){
 void setServoTimer(int value){
     if(value<1)
         value = 1;
-    if(value>=0xfffe)
+    if(value>0xfffe)
         value = 0xfffe;
-    PR2 = value;
+    //PR2 = value;
+    OpenTimer2(T2_ON | T2_SOURCE_INT | T2_PS_1_256, value);
     ConfigIntTimer2(T2_INT_ON | T2_INT_PRIOR_5);
 }
 
@@ -50,7 +51,7 @@ void setTimerLowTime(){
 }
 
 void setTimerPreTime(){
-    setServoTimer(358);
+    setServoTimer(285);
     state = PRETIME;
 }
 
@@ -59,13 +60,14 @@ void setTimerServoTicks(int value){
     state = TIME;
 }
 
-#define MIN_SERVO 2
+#define MIN_SERVO 0
 
 int currentServo,currentValue,diff,nextServo,nextValue;
 void __ISR(_TIMER_2_VECTOR, ipl5) Timer2Handler(void)
 {
         //mPORTDToggleBits(BIT_3);
 	StartCritical();
+        CloseTimer2();
         int j;
         switch(state){
             case LOW:
@@ -102,6 +104,10 @@ void __ISR(_TIMER_2_VECTOR, ipl5) Timer2Handler(void)
                         nextValue = position[nextServo];
                         diff = nextValue - lastValue;
                         if(!(diff > MIN_SERVO)){
+                            int tmp =  diff;
+                            while(tmp-->0){
+                                delayLoop();
+                            }
                             //Stop next value and increment
                             pinOff(nextServo);
                             lastValue = nextValue;
@@ -144,7 +150,7 @@ void initServos(){
 //       println_I("Sorted Servo Positions index: ");p_sl_I(sort[i]); print_I(" value: ");p_sl_I(position[sort[i]]);
 //    }
 
-    OpenTimer2(T2_ON | T2_SOURCE_INT | T2_PS_1_256, 1);
+    
     setTimerLowTime();
 }
 
@@ -232,29 +238,29 @@ void DelayPreServoPulse(void){
     Delay10us(90);
 }
 
-//void delayLoop(){
-//    int loop = 16;
-//    while(loop--);
-//    Nop();
-//    Nop();
-//    Nop();
-//    Nop();
-//    Nop();
-//    Nop();
-//    Nop();
-//    Nop();
-//    Nop();
-//    Nop();
-//    Nop();
-//    Nop();
-//    Nop();
-//    Nop();
-//    Nop();
-//    Nop();
-//    Nop();
-//    Nop();
-//    Nop();
-//}
+void delayLoop(){
+    int loop = 16;
+    while(loop--);
+    Nop();
+    Nop();
+    Nop();
+    Nop();
+    Nop();
+    Nop();
+    Nop();
+    Nop();
+    Nop();
+    Nop();
+    Nop();
+    Nop();
+    Nop();
+    Nop();
+    Nop();
+    Nop();
+    Nop();
+    Nop();
+    Nop();
+}
 
 /**
  * Run the pulse for all pins
