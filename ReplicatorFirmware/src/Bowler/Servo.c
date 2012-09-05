@@ -46,7 +46,7 @@ void setServoTimer(int value){
 }
 
 void setTimerLowTime(){
-    setServoTimer(300*15);
+    setServoTimer(300*5);
     state = LOW;
 }
 
@@ -71,6 +71,12 @@ void __ISR(_TIMER_2_VECTOR, ipl5) Timer2Handler(void)
         int j;
         switch(state){
             case LOW:
+                if(getRunPidIsr()){
+                    Print_Level l = getPrintLevel();
+                    setPrintLevelNoPrint();
+                    RunPIDControl();
+                    setPrintLevel(l);
+                }
                 runLinearInterpolationServo(start,stop);
                 runSort();
                 for (j=start;j<stop;j++){

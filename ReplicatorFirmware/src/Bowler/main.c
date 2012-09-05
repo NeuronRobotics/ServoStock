@@ -67,6 +67,7 @@
 #define NO_ETHERNET
 #define CALIBRATE
 //#define NO_PID
+#define TEST_MOTION
 typedef enum {
     EXCEP_IRQ = 0,          // interrupt
     EXCEP_AdEL = 4,         // address error exception (load or ifetch)
@@ -269,6 +270,8 @@ int main()
         println_I(dev);
         
         RunEveryData pid ={0,50};
+        RunEveryData pos ={0,2000};
+        int arm = 0;
         initializeEncoders();
         initServos();
 #if !defined(NO_PID)
@@ -278,7 +281,7 @@ int main()
         setPrintLevelInfoPrint();
 
         BOOL calibrate = TRUE;
-        BYTE servoCalibrateVal = 135;
+        BYTE servoCalibrateVal = 140;
 #if defined(CALIBRATE)
         setServo(LINK0_INDEX, servoCalibrateVal,0);
         setServo(LINK1_INDEX, servoCalibrateVal,0);
@@ -294,6 +297,34 @@ int main()
             #if !defined(NO_ETHERNET)
                 RunEthernetServices(&MyPacket);
             #endif
+#if defined(TEST_MOTION)
+            if(RunEvery(&pos)>0 && !calibrate){
+                float time = pos.setPoint/3;
+                //time=0;
+                int up=0;
+                int down = 512;
+                switch(arm){
+                    case 0:
+                        SetPIDTimed(LINK0_INDEX,down,time);
+                        SetPIDTimed(LINK1_INDEX,up,time);
+                        SetPIDTimed(LINK2_INDEX,up,time);
+                        break;
+                    case 1:
+                        SetPIDTimed(LINK0_INDEX,up,time);
+                        SetPIDTimed(LINK1_INDEX,down,time);
+                        SetPIDTimed(LINK2_INDEX,up,time);
+                        break;
+                    case 2:
+                        SetPIDTimed(LINK0_INDEX,up,time);
+                        SetPIDTimed(LINK1_INDEX,up,time);
+                        SetPIDTimed(LINK2_INDEX,down,time);
+                        break;
+                }
+                arm++;
+                if (arm==3)
+                    arm=0;
+            }
+#endif
             float diff = RunEvery(&pid);
             if(diff>0){
                 if(!calibrate){
@@ -314,7 +345,7 @@ int main()
 #endif
                 }else{
 #if defined(CALIBRATE)
-                    if(getMs()>5000){
+                    if(getMs()>3500){
                         calibrate = FALSE;
                         println_E("Link 0 value:");p_sl_E(readEncoder(LINK0_INDEX));
                         println_E("Link 1 value:");p_sl_E(readEncoder(LINK1_INDEX));
@@ -334,6 +365,7 @@ int main()
                         setServo(LINK1_INDEX, 128,0);
                         setServo(LINK2_INDEX, 128,0);
                         setPidIsr(TRUE);
+                        pos.MsTime=getMs();
                     }
 #endif
                 }

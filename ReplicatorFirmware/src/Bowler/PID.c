@@ -19,9 +19,9 @@ void initPIDLocal(){
 	for (i=0;i<numPidMotor;i++){
 		pidGroups[i].Enabled=FALSE;
 		pidGroups[i].channel = i;
-                pidGroups[i].K.P=.07;
-                pidGroups[i].K.I=10;
-                pidGroups[i].K.D=.1;
+                pidGroups[i].K.P=.08;
+                pidGroups[i].K.I=.06;
+                pidGroups[i].K.D=.15;
                 pidGroups[i].Polarity=1;
 		vel[i].enabled=FALSE;
 		limits[i].type=NO_LIMIT;
@@ -50,29 +50,29 @@ BOOL getRunPidIsr(){
 
 void setPidIsr(BOOL v){
     runPidIsr=v;
-    if(runPidIsr){
-        OpenTimer3(T3_ON | T3_SOURCE_INT | T3_PS_1_256, 358*5);
-        ConfigIntTimer3(T3_INT_ON | T3_INT_PRIOR_4);
-        Print_Level l = getPrintLevel();
-        setPrintLevelInfoPrint();
-        println_I("Starting PID ISR");
-        setPrintLevel(l);
-    }else{
-        CloseTimer3();
-        Print_Level l = getPrintLevel();
-        setPrintLevelInfoPrint();
-        println_I("Closing PID ISR");
-        setPrintLevel(l);
-    }
+//    if(runPidIsr){
+//        OpenTimer3(T3_ON | T3_SOURCE_INT | T3_PS_1_256, 300*5);
+//        ConfigIntTimer3(T3_INT_ON | T3_INT_PRIOR_4);
+//        Print_Level l = getPrintLevel();
+//        setPrintLevelInfoPrint();
+//        println_I("Starting PID ISR");
+//        setPrintLevel(l);
+//    }else{
+//        CloseTimer3();
+//        Print_Level l = getPrintLevel();
+//        setPrintLevelInfoPrint();
+//        println_I("Closing PID ISR");
+//        setPrintLevel(l);
+//    }
 }
 
 void __ISR(_TIMER_3_VECTOR, ipl4) Timer3Handler(void){
-    if(getRunPidIsr()){
-        Print_Level l = getPrintLevel();
-        setPrintLevelNoPrint();
-        RunPIDControl();
-        setPrintLevel(l);
-    }
+//    if(getRunPidIsr()){
+//        Print_Level l = getPrintLevel();
+//        setPrintLevelNoPrint();
+//        RunPIDControl();
+//        setPrintLevel(l);
+//    }
     mT3ClearIntFlag();
 }
 
@@ -83,7 +83,14 @@ BOOL asyncCallback(BowlerPacket *Packet){
 }
 
 void onPidConfigureMine(int group){
-    //do nothing
+    if(group==LINK0_INDEX || group== LINK1_INDEX || group== LINK2_INDEX){
+        float p = pidGroups[group].K.P;
+        float i = pidGroups[group].K.I;
+        float d = pidGroups[group].K.D;
+        setPIDConstants(LINK0_INDEX,p,i,d);
+        setPIDConstants(LINK1_INDEX,p,i,d);
+        setPIDConstants(LINK2_INDEX,p,i,d);
+    }
 }
 
 void trigerPIDLimit(BYTE chan,PidLimitType type,INT32  tick){
