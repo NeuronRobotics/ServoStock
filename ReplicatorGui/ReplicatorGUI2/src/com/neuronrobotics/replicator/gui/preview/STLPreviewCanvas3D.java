@@ -1,17 +1,18 @@
 package com.neuronrobotics.replicator.gui.preview;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
 
-import javax.media.j3d.BoundingSphere;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Canvas3D;
 import javax.media.j3d.ColoringAttributes;
-import javax.media.j3d.DirectionalLight;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.vecmath.Color3f;
 import javax.vecmath.Point3d;
 import javax.vecmath.Vector3d;
@@ -70,27 +71,48 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 	private enum PlacementStatus{
 		UNKOWN {
 			@Override
-			Color3f getColor() {
-				return new Color3f(.0f, 5.5f, .0f);
+			Color3f getBaseColor() {
+				return new Color3f(.0f, .0f, .0f);
+			}
+
+			@Override
+			Color3f getHighlightedColor() {
+				return new Color3f(.5f, .5f, .5f);
 			}
 		},NOT_IN_WORKSPACE {
 			@Override
-			Color3f getColor() {
+			Color3f getBaseColor() {
 				return new Color3f(5.5f, .0f, .0f);
+			}
+
+			@Override
+			Color3f getHighlightedColor() {
+				return new Color3f(5.5f, .5f, .5f);
 			}
 		},MODEL_COLLISION {
 			@Override
-			Color3f getColor() {
-				return new Color3f(5.5f, 5.5f, 5.5f);
+			Color3f getBaseColor() {
+				return new Color3f(.0f,.0f,5.5f);
+			}
+
+			@Override
+			Color3f getHighlightedColor() {
+				return new Color3f(.5f, .5f, 5.5f);
 			}
 		}, VALID_PLACEMENT {
 			@Override
-			Color3f getColor() {
+			Color3f getBaseColor() {
 				return new Color3f(.0f, 5.5f, .0f);
+			}
+
+			@Override
+			Color3f getHighlightedColor() {
+				return new Color3f(.5f, 5.5f, .5f);
 			}
 		};
 		
-		abstract Color3f getColor();
+		abstract Color3f getBaseColor();
+		abstract Color3f getHighlightedColor();
 	}
 	
 	private ArrayList<PlacementStatus> placementStatuses;
@@ -250,7 +272,10 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 		
 		int tot = this.theSTLTransforms.size();
 		for(int i = 0;i<tot;i++){
-			theSTLTransforms.get(i).setIndicatorLightColor(placementStatuses.get(i).getColor());
+			STLTransformGroup stg = theSTLTransforms.get(i);
+									
+			Color3f col = (stg==currentSTLTransform) ? placementStatuses.get(i).getHighlightedColor():placementStatuses.get(i).getBaseColor();
+			stg.setIndicatorLightColor(col);
 		}
 		
 		
@@ -285,7 +310,7 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 		Transform3D curr = new Transform3D();
 		currTran.getTransform(curr);
 				
-		return theWorkspace.stlIsContained(currTran.getSTLObject().getTransformedSTLObject(curr));
+		return theWorkspace.stlIsInside(currTran.getSTLObject().getTransformedSTLObject(curr));
 	
 	}
 
@@ -391,11 +416,19 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 			e.printStackTrace();
 		}
 		
+		addModelToWorkspace(newTransform);
+	
+	}
+
+	private void addModelToWorkspace(STLTransformGroup newTransform) {
 		if(newTransform!=null){
 			BranchGroup newBranch = new BranchGroup();
 			
 			newTransform.setCapability(TransformGroup.ENABLE_PICK_REPORTING);
 			newTransform.setPickable(true);
+			
+			newTransform.setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
+			newTransform.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
 			
 			newBranch.setCapability(BranchGroup.ENABLE_PICK_REPORTING);
 			newBranch.setPickable(true);
@@ -405,6 +438,7 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 			modelBranch.addChild(newBranch);
 			currentSTLTransform = newTransform;
 			currentSTLTransform.addListener(this);
+						
 			//Updating collision table
 			ArrayList<Boolean> newCollisionList = new ArrayList<Boolean>();
 			int ct=-1;
@@ -428,7 +462,7 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 				}
 			}
 			boolean inWorkspace = true;
-			if (theWorkspace!=null) inWorkspace = newTransform.modelIsInWorkspace(theWorkspace);
+			if(theWorkspace!=null) theWorkspace.stlIsInside(newTransform.getTransformedSTLObject());
 			
 			if(theWorkspace==null) placementStatuses.add(PlacementStatus.UNKOWN);
 			else if(!inWorkspace) placementStatuses.add(PlacementStatus.NOT_IN_WORKSPACE);
@@ -442,9 +476,32 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 			//alertSTLTransformMoved(currentSTLTransform);
 			if(theWorkspace!=null) currentSTLTransform.centerOnWorkspace(theWorkspace);
 		}
-	
 	}
+	
+	
+	
+	public void removeCurrentModel(){
 		
+		if(currentSTLTransform== null){
+			System.out.println("Nothing to remove");
+			return;
+		}
+		
+		int index = theSTLTransforms.indexOf(currentSTLTransform);
+		BranchGroup currBranch = (BranchGroup)currentSTLTransform.getParent();
+		this.modelBranch.removeChild(currBranch);
+		theSTLTransforms.remove(index);
+		for(ArrayList<Boolean> al:this.collisionTable){
+			al.remove(index);
+		}
+		collisionTable.remove(index);
+		this.placementStatuses.remove(index);
+		currentSTLTransform = null;
+		updatePlacementStatus(false);
+		updateIndicatorLights();
+		
+	}
+	
 	private STLTransformGroup assembleSTLTransform(File f) throws IOException {
 		// BranchGroup objRoot = new BranchGroup();
 
@@ -464,13 +521,18 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 	public void setCurrentPick(PickResult result) {
 		if (result == null) {
 			currentSTLTransform = null;
-			return;
 		}
-		try {
-			currentSTLTransform = (STLTransformGroup) result.getNode(PickResult.TRANSFORM_GROUP);
-		} catch (ClassCastException e) {
-			currentSTLTransform = null;
+		else {
+			try {
+				currentSTLTransform = (STLTransformGroup) result
+						.getNode(PickResult.TRANSFORM_GROUP);
+			} catch (ClassCastException e) {
+				currentSTLTransform = null;
+			}
 		}
+		
+		updateIndicatorLights();
+		
 	}
 	
 	public STLPreviewCameraController getTheCameraController(){
@@ -508,7 +570,7 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 		} 
 		
 		for(int i =0;i<theSTLTransforms.size();i++){
-			if(theWorkspace!=null&&!theSTLTransforms.get(i).modelIsInWorkspace(theWorkspace)){
+			if(theWorkspace!=null&&!theWorkspace.stlIsInside(theSTLTransforms.get(i).getTransformedSTLObject())){
 				placementStatuses.set(i,PlacementStatus.NOT_IN_WORKSPACE);
 				continue;
 			}
@@ -548,4 +610,67 @@ public class STLPreviewCanvas3D extends Canvas3D implements STLTransformGroupLis
 			this.theCameraController.setCameraFocusMode(STLPreviewCameraController.CameraMode.AERIAL);
 		}
 	}
+
+	
+	public void alertRightClick(int x, int y) {
+		
+		JPopupMenu popup = new JPopupMenu();
+				
+		if(currentSTLTransform==null){
+			popup.add(new JMenuItem("Basic"));
+		//.out.println("Basic popup menu");
+		} else{
+			
+			JMenuItem remove = new JMenuItem("Remove");
+			remove.addActionListener(new ActionListener(){
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					removeCurrentModel();					
+				}});
+			popup.add(remove);
+			JMenuItem duplicate = new JMenuItem("Duplicate");
+			duplicate.addActionListener(new ActionListener(){
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					duplicateCurrentModel();
+				}});
+			popup.add(duplicate);
+			
+			JMenuItem resetTransforms = new JMenuItem("Reset Transforms");
+			resetTransforms.addActionListener(new ActionListener(){
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					resetCurrentModel();
+				}});
+			popup.add(resetTransforms);
+			
+			//System.out.println("Transform specific pop up menu");	
+		}
+		popup.show(this, x, y);
+	}
+
+	protected void resetCurrentModel() {
+		if(currentSTLTransform==null){
+			System.out.println("No model to reset");
+			return;
+		}
+		currentSTLTransform.resetModelTransforms();
+		currentSTLTransform.centerOnWorkspace(theWorkspace);
+	}
+
+	protected void duplicateCurrentModel() {
+		if(currentSTLTransform==null){
+			System.out.println("Nothing to duplicate");
+			return;
+		}
+		
+		STLTransformGroup newTransform = currentSTLTransform.getDuplicate();
+		
+		this.addModelToWorkspace(newTransform);
+		
+	}
+	
 }

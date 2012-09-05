@@ -25,41 +25,120 @@ public class STLObjectIntersectionUtilities {
 		return false;
 	}
 
-	private static boolean boundingBoxesIntersect(STLObject s1, STLObject s2) {
+	public static boolean boundingBoxesIntersect(STLObject s1, STLObject s2) {
 		Point3f s1max = s1.getMax();
 		Point3f s1min = s1.getMin();
 		
 		Point3f s2max = s2.getMax();
 		Point3f s2min = s2.getMin();
 		
-		if(pointIsWithin(s2max,s1max,s1min)) return true;
-		if(pointIsWithin(s2min,s1max,s1min)) return true;
-		if(pointIsWithin(s1max,s2max,s2min)) return true;
-		if(pointIsWithin(s1min,s2max,s2min)) return true;
-					
-		return false;
+		return boundingBoxesIntersect(s1max,s1min,s2max,s2min);
 	}
 	
-	private static boolean boundingBoxesIntersect(STLFacet f1, STLFacet f2) {
+	public static boolean boundingBoxesIntersect(STLFacet f1, STLFacet f2) {
+			
 		Point3f s1max = f1.getMax();
 		Point3f s1min = f1.getMin();
 		
 		Point3f s2max = f2.getMax();
 		Point3f s2min = f2.getMin();
 		
-		if(pointIsWithin(s2max,s1max,s1min)) return true;
-		if(pointIsWithin(s2min,s1max,s1min)) return true;
-		if(pointIsWithin(s1max,s2max,s2min)) return true;
-		if(pointIsWithin(s1min,s2max,s2min)) return true;
-					
-		return false;
+		return boundingBoxesIntersect(s1max, s1min,s2max,s2min);
+		
 	}
 
+	public static boolean boundingBoxesIntersect(Point3f max1, Point3f min1,Point3f max2,Point3f min2){
+
+		/*
+		if(pointIsWithin(max2,max2,min2)) return true;
+		if(pointIsWithin(min2,max1,min1)) return true;
+		if(pointIsWithin(max1,max2,min2)) return true;
+		if(pointIsWithin(min1,max2,min2)) return true;
+		if(pointIsWithin(max2,max2,min2)) return true;
+		if(pointIsWithin(min2,max1,min1)) return true;
+		if(pointIsWithin(max1,max2,min2)) return true;
+		if(pointIsWithin(min1,max2,min2)) return true;
+		*/
+		float[] x1 = {max1.x,min1.x};
+		float[] y1 = {max1.y,min1.y};
+		float[] z1 = {max1.z,min1.z};
+		for(float x:x1){
+			for(float y:y1){
+				for(float z:z1){
+					if (pointIsWithin(new Point3f(x,y,z),max2,min2)) return true;
+				}
+			}
+		}
+		
+		float[] x2 = {max2.x,min2.x};
+		float[] y2 = {max2.y,min2.y};
+		float[] z2 = {max2.z,min2.z};
+		for(float x:x2){
+			for(float y:y2){
+				for(float z:z2){
+					if (pointIsWithin(new Point3f(x,y,z),max1,min1)) return true;
+				}
+			}
+		}		
+						
+		//note that this assumes no max/min points are within either
+		//bounding box
+		//TODO refactor the hell out of this, also it doesn't work
+	
+		if(max1.x<max2.x&&max1.x>min2.x){
+			if(max1.y>max2.y&&min1.y<min2.y) return true;
+			if(max1.z>max2.z&&min1.z<min2.z) return true;
+		}
+		if(max1.y<max2.y&&max1.y>min2.y){
+			if(max1.x>max2.x&&min1.x<min2.x) return true;
+			if(max1.z>max2.z&&min1.z<min2.z) return true;
+		}
+		if(max1.z<max2.z&&max1.z>min2.z){
+			if(max1.y>max2.y&&min1.y<min2.y) return true;
+			if(max1.x>max2.x&&min1.x<min2.x) return true;
+		}
+		
+		if(max2.x<max1.x&&max2.x>min1.x){
+			if(max2.y>max1.y&&min2.y<min1.y) return true;
+			if(max2.z>max1.z&&min2.z<min1.z) return true;
+		}
+		if(max2.y<max1.y&&max2.y>min1.y){
+			if(max2.x>max1.x&&min2.x<min1.x) return true;
+			if(max2.z>max1.z&&min2.z<min1.z) return true;
+		}
+		if(max2.z<max1.z&&max2.z>min1.z){
+			if(max2.y>max1.y&&min2.y<min1.y) return true;
+			if(max2.x>max1.x&&min2.x<min1.x) return true;
+		}		
+		//////
+		
+		return false;
+	}
+		
+	public static boolean isWithinBoundingBox(STLObject outer,STLObject inner){
+		Point3f outerMin = outer.getMin(),outerMax = outer.getMax();
+		Point3f innerMin = inner.getMin(),innerMax = inner.getMax();
+		
+		return isWithinBoundingBox(outerMax, outerMin, innerMax, innerMin);
+	}
+	
+	public static boolean isWithinBoundingBox(Point3f outerMax,Point3f outerMin,Point3f innerMax,Point3f innerMin){
+
+		if(innerMin.x<outerMin.x||innerMax.x>outerMax.x) return false;
+		if(innerMin.y<outerMin.y||innerMax.y>outerMax.y) return false;
+		if(innerMin.z<outerMin.z||innerMax.z>outerMax.z) return false;
+		
+		return true;
+	}
+	
 	private static boolean pointIsWithin(Point3f point, Point3f max,
 			Point3f min) {
-		if (point.x>max.x||point.x<min.x) return false;
-		if (point.y>max.y||point.y<min.y) return false;
-		if (point.z>max.z||point.z<min.z) return false; 
+		
+		float epsilon = 0.0001f;
+		
+		if (point.x>max.x-epsilon||point.x<min.x+epsilon) return false;
+		if (point.y>max.y-epsilon||point.y<min.y+epsilon) return false;
+		if (point.z>max.z-epsilon||point.z<min.z+epsilon) return false; 
 				
 		return true;
 	}
@@ -77,7 +156,6 @@ public class STLObjectIntersectionUtilities {
 		return b1&&b2;
 	}
 	
-	
 	//optimization, these objects either get instantiated and destroyed 
 	//constantly or they can be reused for a slight boost in performance
 	//as the below method is called a lot if at all
@@ -85,6 +163,13 @@ public class STLObjectIntersectionUtilities {
 	private final static Point3f I = new Point3f(), temp = new Point3f();
 	
 	//amended this code from a C++ algorithm
+	//found here http://www.softsurfer.com/Archive/algorithm_0105/algorithm_0105.htm
+	//// Copyright 2001, softSurfer (www.softsurfer.com)
+	// This code may be freely used and modified for any purpose
+	// providing that this copyright notice is included with it.
+	// SoftSurfer makes no warranty for this code, and cannot be held
+	// liable for any real or imagined damage resulting from its use.
+	// Users of this code must verify correctness for their application.
  	private static int intersect_RayTriangle(Point3f P0, Point3f P1, STLFacet T) {
 		//Vector3f u, v, n; // triangle vectors
 		//Vector3f dir, w0, w; // ray vectors

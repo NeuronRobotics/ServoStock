@@ -178,6 +178,14 @@ public class STLObject implements Iterable<STLFacet> {
 		return theFaces;
 	}
 
+	protected STLObject clone(){
+		
+		ArrayList<STLFacet> listCopy = new ArrayList<STLFacet>();
+		for(STLFacet fac:theFacets){
+			listCopy.add(new STLFacet(fac.getVertex1(),fac.getVertex2(),fac.getVertex3(),fac.getNormal()));
+		}
+		return new STLObject((name+""),listCopy);
+	}
 
 	
 }

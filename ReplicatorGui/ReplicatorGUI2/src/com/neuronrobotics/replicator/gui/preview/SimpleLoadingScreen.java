@@ -5,7 +5,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-import javax.swing.ImageIcon;
+//import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
@@ -21,9 +21,9 @@ public class SimpleLoadingScreen extends JPanel{
 	
 	private JProgressBar theProgressBar;
 	private JLabel theText;
-	private JPanel imPan;
+	//private JPanel imPan;
 	
-	private final ImageIcon imageIcon = new ImageIcon("Images\\hat.png");
+	//private final ImageIcon imageIcon = new ImageIcon("Images\\hat.png");
 		
 	
 	public SimpleLoadingScreen(String text,boolean indeterminate){

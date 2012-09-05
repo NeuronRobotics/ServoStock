@@ -4,7 +4,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 
-import com.neuronrobotics.replicator.gui.preview.STLPreviewMouseControls.MouseControlMode;
+import javax.swing.SwingUtilities;
+
 import com.neuronrobotics.replicator.gui.stl.STLTransformGroup;
 import com.sun.j3d.utils.picking.PickCanvas;
 import com.sun.j3d.utils.picking.PickResult;
@@ -19,7 +20,7 @@ public class STLPreviewMouseControls extends MouseAdapter  {
 	
 	long lastTime;
 	int ct;
-	
+		
 	boolean mousePressed;
 	
 	private MouseControlMode theMode;
@@ -187,20 +188,33 @@ public class STLPreviewMouseControls extends MouseAdapter  {
 		
 		lastLocation = temp;
 		
+		if(thePreview.getCurrentSTLTransform()!=null)
 		theMode.mouseDragged(thePreview, xDist, yDist);
 		
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent arg0) {
-		
+		thePickCanvas.setShapeLocation(arg0);
+		PickResult result = thePickCanvas.pickClosest();
+		this.thePreview.setCurrentPick(result);
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		Point2D temp = arg0.getLocationOnScreen();
-		lastLocation = temp;
 		
+		thePickCanvas.setShapeLocation(arg0);
+		PickResult result = thePickCanvas.pickClosest();
+		
+		this.thePreview.setCurrentPick(result);
+		
+		Point2D temp = arg0.getLocationOnScreen();
+		lastLocation = temp;		
+		
+		if(SwingUtilities.isRightMouseButton(arg0)){
+			thePreview.alertRightClick(arg0.getX(),arg0.getY());
+			return;
+		}
 		
 		
 		//Point3f dim = thePreview.getWorkspaceDimensions();
@@ -213,12 +227,9 @@ public class STLPreviewMouseControls extends MouseAdapter  {
 		}
 		//thePickCanvas.pickClosest();
 		
-		thePickCanvas.setShapeLocation(arg0);
-		PickResult result = thePickCanvas.pickClosest();
 		
-		this.thePreview.setCurrentPick(result);
 		
-		System.out.println("Picked: "+result);
+		//System.out.println("Picked: "+result);
 
 	}
 

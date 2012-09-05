@@ -27,8 +27,7 @@ public class STLTransformGroup extends TransformGroup{
 	private AmbientLight indicatorLight;
 	//private STLWorkspaceBranchGroup theWorkspace;
 	private ArrayList<STLTransformGroupListener> theListeners;
-	
-	
+				
 	// constructor(s)
 	
 	public STLTransformGroup(STLObject stlo, Shape3D model, Shape3D outline){
@@ -39,7 +38,7 @@ public class STLTransformGroup extends TransformGroup{
 		theSTLObject = stlo;
 		theListeners = new ArrayList<STLTransformGroupListener>();
 		
-		//theWorkspace = null;
+		//theWorkspace = null;		
 		
 		indicatorLight = new AmbientLight();
 		indicatorLight.setInfluencingBounds(new BoundingSphere(new Point3d(0, 0, 0),
@@ -73,14 +72,17 @@ public class STLTransformGroup extends TransformGroup{
 		
 		Appearance app;	
 		RenderingAttributes ra;
-		if(theModel.getAppearance()==null) app = new Appearance();
+		if(theModel.getAppearance()==null) {
+			app = new Appearance();
+			theModel.setAppearance(app);
+		}
 		else app = theModel.getAppearance();
 		if(theModel.getAppearance().getRenderingAttributes()==null) ra = new RenderingAttributes();
 		else ra = theModel.getAppearance().getRenderingAttributes();
 		ra.setCapability(RenderingAttributes.ALLOW_VISIBLE_WRITE);
 		ra.setCapability(RenderingAttributes.ALLOW_VISIBLE_READ);
 		app.setRenderingAttributes(ra);
-		theModel.setAppearance(app);
+		//theModel.setAppearance(app);
 			
 		theModel.setPickable(true);
 		theModel.setCapability(ENABLE_PICK_REPORTING);
@@ -96,14 +98,17 @@ public class STLTransformGroup extends TransformGroup{
 		
 		Appearance app;	
 		RenderingAttributes ra;
-		if(theFacetOutline.getAppearance()==null) app = new Appearance();
+		if(theFacetOutline.getAppearance()==null){
+			app = new Appearance();
+			theFacetOutline.setAppearance(app);
+		}
 		else app = theFacetOutline.getAppearance();
 		if(theFacetOutline.getAppearance().getRenderingAttributes()==null) ra = new RenderingAttributes();
 		else ra = theFacetOutline.getAppearance().getRenderingAttributes();
 		ra.setCapability(RenderingAttributes.ALLOW_VISIBLE_WRITE);
 		ra.setCapability(RenderingAttributes.ALLOW_VISIBLE_READ);
 		app.setRenderingAttributes(ra);
-		theFacetOutline.setAppearance(app);
+		//theFacetOutline.setAppearance(app);
 				
 		this.addChild(theFacetOutline);
 		
@@ -272,23 +277,6 @@ public class STLTransformGroup extends TransformGroup{
 		return theSTLObject.getCenter();
 	}
 
-	/**
-	 * Determines whether model is contained completely inside given 
-	 * workspace
-	 * @param theWorkspace
-	 * @return 
-	 */
-	public boolean modelIsInWorkspace(STLWorkspaceBranchGroup theWorkspace) {
-		
-		if(theWorkspace==null) return false;
-		
-		Transform3D curr = new Transform3D();
-		getTransform(curr);
-			
-		return theWorkspace.stlIsContained(theSTLObject.getTransformedSTLObject(curr));
-		
-	}
-
 	// TODO currently tries to erase rotations without erasing translations
 	public void pointNormalDown(Vector3d normal) {
 		Transform3D curr = new Transform3D();
@@ -330,7 +318,7 @@ public class STLTransformGroup extends TransformGroup{
 
 		Double xRotate = pointInDir.angle(noX);
 		Double zRotate = pointInDir.angle(noZ);
-		Double yRotate = pointInDir.angle(noY);// TODO?
+		Double yRotate = pointInDir.angle(noY);
 
 		if (xRotate.isNaN())
 			xRotate = 0.0;// Math.PI;
@@ -411,8 +399,6 @@ public class STLTransformGroup extends TransformGroup{
 		double currentAngle = Math.acos(vec.x / radius);
 		if (vec.z < 0)
 			currentAngle = (2 * Math.PI) - currentAngle;
-
-		// TODO
 
 		radZ = rad * Math.cos(currentAngle);
 		radX = rad * Math.sin(currentAngle);
@@ -572,6 +558,13 @@ public class STLTransformGroup extends TransformGroup{
 		return this.theSTLObject.getTransformedSTLObject(currTran);
 	}
 
+	public STLTransformGroup getDuplicate(){
+		STLObject stlClone = theSTLObject.clone();
+		//TODO
+		
+		Shape3D dupModel = STLShape3DFactory.getModelShape3D(stlClone);
+		Shape3D dupOutline = STLShape3DFactory.getFacetOutline(stlClone);
+		return new STLTransformGroup(stlClone, dupModel, dupOutline);
+	}
 	
-
 }

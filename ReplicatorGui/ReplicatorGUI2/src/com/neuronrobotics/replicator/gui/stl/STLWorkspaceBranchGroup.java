@@ -2,7 +2,6 @@ package com.neuronrobotics.replicator.gui.stl;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
 
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Shape3D;
@@ -43,7 +42,15 @@ public class STLWorkspaceBranchGroup extends BranchGroup{
 	}
 	
 	//TODO this currently returns true if object is completely in or completely out
-	public boolean stlIsContained(STLObject stlo){
+	public boolean stlIsInside(STLObject stlo){
+		
+		
+		boolean intersect = STLObjectIntersectionUtilities.objectsIntersect(this.workspaceSTL, stlo);
+		if(intersect) return false;
+		
+		return STLObjectIntersectionUtilities.isWithinBoundingBox(this.workspaceSTL, stlo);
+		
+		/*
 		for(STLFacet facet:stlo){
 			for (STLFacet workspaceFac:workspaceSTL){
 				if(!isBehind(facet,workspaceFac)){
@@ -53,6 +60,7 @@ public class STLWorkspaceBranchGroup extends BranchGroup{
 			}
 		}
 		return true;
+		*/
 	}
 		
 	private boolean isBehind(STLFacet facet, STLFacet workspaceFac) {

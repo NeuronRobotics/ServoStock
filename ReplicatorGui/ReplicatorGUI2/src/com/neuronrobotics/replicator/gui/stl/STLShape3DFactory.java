@@ -6,12 +6,14 @@ import java.util.Collection;
 import javax.media.j3d.Appearance;
 import javax.media.j3d.ColoringAttributes;
 import javax.media.j3d.GeometryArray;
+import javax.media.j3d.IndexedLineArray;
 import javax.media.j3d.LineArray;
 import javax.media.j3d.Material;
 import javax.media.j3d.Shape3D;
 import javax.media.j3d.TransparencyAttributes;
 import javax.media.j3d.TriangleArray;
 import javax.vecmath.Color3f;
+import javax.vecmath.Point3f;
 
 import com.sun.j3d.utils.geometry.GeometryInfo;
 import com.sun.j3d.utils.geometry.NormalGenerator;
@@ -130,6 +132,56 @@ public class STLShape3DFactory {
 		return theShape;
 	}
 
+	public static Shape3D getRectangularOutline(Point3f min, Point3f max){
+		IndexedLineArray ils = new IndexedLineArray(8, IndexedLineArray.COORDINATES, 24);
+		
+		float xMin = min.x,yMin = min.y, zMin = min.z;
+		float xMax = max.x,yMax = max.y, zMax = max.z;
+		
+		ils.setCoordinate(0, new Point3f(xMin,yMin,zMin));
+		ils.setCoordinate(1, new Point3f(xMin,yMin,zMax));
+		ils.setCoordinate(2, new Point3f(xMin,yMax,zMin));
+		ils.setCoordinate(3, new Point3f(xMin,yMax,zMax));
+		ils.setCoordinate(4, new Point3f(xMax,yMin,zMin));
+		ils.setCoordinate(5, new Point3f(xMax,yMin,zMax));
+		ils.setCoordinate(6, new Point3f(xMax,yMax,zMin));
+		ils.setCoordinate(7, new Point3f(xMax,yMax,zMax));
+		
+		ils.setCoordinateIndex(0, 0);
+		ils.setCoordinateIndex(1, 1);
+		ils.setCoordinateIndex(2, 0);
+		ils.setCoordinateIndex(3, 2);
+		ils.setCoordinateIndex(4, 0);
+		ils.setCoordinateIndex(5, 4);
+		
+		ils.setCoordinateIndex(6, 1);
+		ils.setCoordinateIndex(7, 3);
+		ils.setCoordinateIndex(8, 1);
+		ils.setCoordinateIndex(9, 5);
+		
+		ils.setCoordinateIndex(10, 2);
+		ils.setCoordinateIndex(11, 3);
+		ils.setCoordinateIndex(12, 2);
+		ils.setCoordinateIndex(13, 6);
+		
+		ils.setCoordinateIndex(14, 3);
+		ils.setCoordinateIndex(15, 7);
+		
+		ils.setCoordinateIndex(16, 4);
+		ils.setCoordinateIndex(17, 5);
+		ils.setCoordinateIndex(18, 4);
+		ils.setCoordinateIndex(19, 6);
+		
+		ils.setCoordinateIndex(20, 5);
+		ils.setCoordinateIndex(21, 7);
+		
+		ils.setCoordinateIndex(22, 6);
+		ils.setCoordinateIndex(23, 7);
+		
+		
+		return new Shape3D(ils);
+	}
+	
 	//Private Utility Methods
 	
 	private static ArrayList<Point3fEdge> getFacePerimeter(STLFace theFace) {
@@ -178,4 +230,6 @@ public class STLShape3DFactory {
 		return -1;
 	}
 
+	
+	
 }
