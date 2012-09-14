@@ -50,6 +50,7 @@
         <itemPath>../../include/replicator/AS5055.h</itemPath>
         <itemPath>../../include/replicator/AuxUartServer.h</itemPath>
         <itemPath>../../include/replicator/main.h</itemPath>
+        <itemPath>../../include/replicator/StepperSim.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="LibraryFiles"
