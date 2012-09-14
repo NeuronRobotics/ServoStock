@@ -13,7 +13,7 @@ extern "C" {
 #endif
 
 void StartStepperSim();
-
+int getStepperSimCurrent();
 
 #ifdef	__cplusplus
 }

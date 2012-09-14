@@ -289,6 +289,8 @@ int main()
         setServo(LINK2_INDEX, servoCalibrateVal,0);
 #else
         calibrate = FALSE;
+        setPidIsr(TRUE);
+        pidReset(EXTRUDER0_INDEX,0);
 #endif
 #if defined(EXTRUDER_TEST)
         StartStepperSim();
@@ -344,7 +346,9 @@ int main()
 //                        if(isPidEnabled(i))
 //                            printPIDvals(i);
 //                    }
-                    
+#if defined(EXTRUDER_TEST)
+                    SetPID(EXTRUDER0_INDEX,getStepperSimCurrent());
+#endif
 #endif
                 }else{
 #if defined(CALIBRATE)
