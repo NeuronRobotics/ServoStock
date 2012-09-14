@@ -65,9 +65,10 @@
 #define SYS_FREQ 			(80000000L)
 
 #define NO_ETHERNET
-#define CALIBRATE
+//#define CALIBRATE
 //#define NO_PID
-#define TEST_MOTION
+//#define TEST_MOTION
+#define EXTRUDER_TEST
 typedef enum {
     EXCEP_IRQ = 0,          // interrupt
     EXCEP_AdEL = 4,         // address error exception (load or ifetch)
@@ -289,7 +290,9 @@ int main()
 #else
         calibrate = FALSE;
 #endif
-
+#if defined(EXTRUDER_TEST)
+        StartStepperSim();
+#endif
         ATX_ENABLE(); // Turn on ATX Supply
 	while(1){
 

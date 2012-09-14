@@ -28,6 +28,11 @@ void initPIDLocal(){
                 if(i==LINK0_INDEX || i== LINK1_INDEX || i== LINK2_INDEX){
                   pidGroups[i].Polarity=0;
                 }
+                if(i==EXTRUDER0_INDEX){
+                    pidGroups[i].K.P=.2;
+                    pidGroups[i].K.I=0;
+                    pidGroups[i].K.D=0;
+                }
 	}
 
 	InitilizePidController( pidGroups,

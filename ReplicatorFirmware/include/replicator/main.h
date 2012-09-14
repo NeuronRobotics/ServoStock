@@ -8,6 +8,7 @@
 #include "AS5055.h"
 #include "ReplicatorHeader.h"
 #include "Servo.h"
+#include "StepperSim.h"
 
 #if !defined(NUM_PID_GROUPS)
 	#define NUM_PID_GROUPS (8)
