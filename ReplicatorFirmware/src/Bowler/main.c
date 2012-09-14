@@ -293,6 +293,7 @@ int main()
         pidReset(EXTRUDER0_INDEX,0);
 #endif
 #if defined(EXTRUDER_TEST)
+        int lastStepVal=0;
         StartStepperSim();
 #endif
         ATX_ENABLE(); // Turn on ATX Supply
@@ -347,7 +348,14 @@ int main()
 //                            printPIDvals(i);
 //                    }
 #if defined(EXTRUDER_TEST)
-                    SetPID(EXTRUDER0_INDEX,getStepperSimCurrent());
+                    
+                    if(getStepperSimCurrent() != lastStepVal){
+                        lastStepVal=getStepperSimCurrent();
+                        SetPID(EXTRUDER0_INDEX,lastStepVal);
+                        println_E("New Stepper Value: ");p_ul_E(lastStepVal);print_E(" PID pos ");p_ul_E(GetPIDPosition(EXTRUDER0_INDEX));
+                        
+                    }
+                    printPIDvals(EXTRUDER0_INDEX);
 #endif
 #endif
                 }else{

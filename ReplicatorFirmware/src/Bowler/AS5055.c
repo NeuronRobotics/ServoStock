@@ -16,11 +16,20 @@ void initializeEncoders(){
         raw[i]=AS5055readAngle(i);
     }
 }
-
+BYTE busy =0;
 float readEncoderWithoutOffset(BYTE index){
-    int tmp = AS5055readAngle(index);
-    int diff = raw[index]-tmp;
-    raw[index]=tmp;
+    int tmp;
+    int diff;
+    if(!busy){
+        busy = 1;
+        tmp = AS5055readAngle(index);
+        diff = raw[index]-tmp;
+        raw[index]=tmp;
+        busy = 0;
+    }else{
+        diff=0;
+    }
+    
     if(diff > jump || diff < (-1*jump)){
         if(diff>0)
             overflow[index]++;
@@ -139,20 +148,23 @@ UINT16 AS5055readAngle(BYTE index){
         Print_Level l = getPrintLevel();
         //setPrintLevelInfoPrint();
         println_E("\n\n\n**Error flag on data read! Index: ");p_ul_E(index);
-        AS5055ResetErrorFlag(index);
-        AS5055reset(index);
+        //AS5055ResetErrorFlag(index);
+        //AS5055reset(index);
         if(read.regs.AlarmHI == 1 && read.regs.AlarmLO == 0){
             println_E("Alarm bit indicating a too high magnetic field");
         }else if(read.regs.AlarmHI == 0 && read.regs.AlarmLO == 1){
             println_E("Alarm bit indicating a too low magnetic field");
         }else{
           printSystemConfig(index);
+          AS5055reset(index);
+          AS5055ResetErrorFlag(index);
+                  //Re read the position
+            AS5055send(index, cmd.uint0_15);
+            read.uint0_15 = AS5055send(index, 0xffff);
         }
         setPrintLevel(l);
 
-        //Re read the position
-        AS5055send(index, cmd.uint0_15);
-        read.uint0_15 = AS5055send(index, 0xffff);
+
     }
     return read.regs.Data;
 }
