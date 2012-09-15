@@ -75,6 +75,7 @@ void __ISR(_TIMER_2_VECTOR, ipl5) Timer2Handler(void)
                     Print_Level l = getPrintLevel();
                     setPrintLevelNoPrint();
                     RunPIDControl();
+                    RunVel();
                     setPrintLevel(l);
                 }
                 runLinearInterpolationServo(start,stop);
@@ -137,7 +138,7 @@ void __ISR(_TIMER_2_VECTOR, ipl5) Timer2Handler(void)
  */
 void initServos(){
 
-    ENC_SERVO_INIT();
+    SERVO_HW_INIT();
 
     if(getPrintLevel() == NO_PRINT){
         CloseUART1();

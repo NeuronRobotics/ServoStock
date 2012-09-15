@@ -16,7 +16,6 @@ extern "C" {
 #define     ATX_PWR_ON_TRIS    _TRISD5 // tris
 #define     ATX_PWR_ON         _RD5
 #define     ATX_ENABLED        0
-#define     ATX_DISABLED       1
 
 #define     ATX_ENABLE()       ATX_PWR_ON_TRIS = 0; ATX_PWR_ON = ATX_ENABLED; // set to output and pull low. This should probubly be an open collector pin.
 #define     ATX_DISENABLE()    ATX_PWR_ON_TRIS = 1; // dont want to DRIVE an io line that's pulled high. Set to input and let it get pulled up.
@@ -94,7 +93,7 @@ extern "C" {
                                     ENC6_CSN_TRIS=0;ENC6_CSN=CSN_Disabled;\
                                     ENC7_CSN_TRIS=0;ENC7_CSN=CSN_Disabled;
 
-#define     ENC_SERVO_INIT()        CloseServoOpenCollector();\
+#define     SERVO_HW_INIT()        CloseServoOpenCollector();\
                                     ENC7_SERVO_TRIS=0;\
                                     ENC6_SERVO_TRIS=0;\
                                     ENC5_SERVO_TRIS=0;\

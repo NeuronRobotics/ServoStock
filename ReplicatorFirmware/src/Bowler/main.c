@@ -194,9 +194,13 @@ void _general_exception_handler(unsigned cause, unsigned status){
 const BYTE MY_MAC_ADDRESS[]={0x74,0xf7,0x26,0x01,0x01,0x01};
 extern const MAC_ADDR Broadcast __attribute__ ((section (".scs_global_var")));
 extern MAC_ADDR MyMAC __attribute__ ((section (".scs_global_var")));
-const unsigned char pidNSName[] = "bcs.pid.*;0.3;;"; 
+static const unsigned char pidNSName[] = "bcs.pid.*;0.3;;";
 static BowlerPacket Packet;
-int calibrate = TRUE;
+static int calibrate = TRUE;
+static BowlerPacket MyPacket;
+
+static RunEveryData pid ={0,50};
+static RunEveryData pos ={0,2000};
 
 int j=0,i=0;
 BYTE Bowler_Server_Local(BowlerPacket * Packet){
@@ -236,11 +240,6 @@ int main()
 
         setPrintLevelInfoPrint();
         ATX_DISENABLE();
-
-        ENC_CSN_INIT(); // Set pin modes for CS pins
-        mJTAGPortEnable(0); // Disable JTAG and free up channels 0 and 1
-        
-        int i;
         
 	Bowler_Init();
 	// enable driven to 3.3v on uart 1
@@ -256,6 +255,7 @@ int main()
 	println_I("MAC address is =");
 	print_I(macStr);
 	char * dev = "DeltaDoodle";
+        println_I(dev);
 	//This Method calls INTEnableSystemMultiVectoredInt();
 	usb_CDC_Serial_Init(dev,macStr,0x04D8,0x0001);
 	AddNamespace(sizeof(pidNSName), pidNSName);
@@ -268,12 +268,13 @@ int main()
 	InitializeEthernet();
 #endif
 
-	BowlerPacket MyPacket;
-        println_I(dev);
+        ATX_ENABLE(); // Turn on ATX Supply, Must be called before talking to the Encoders!!
         
-        RunEveryData pid ={0,50};
-        RunEveryData pos ={0,2000};
+        Print_Level l = getPrintLevel();
+        setPrintLevelNoPrint();
         initializeEncoders();
+        setPrintLevel(l);
+
         initServos();
 #if !defined(NO_PID)
         initPIDLocal();
@@ -288,24 +289,25 @@ int main()
         setServo(LINK2_INDEX, servoCalibrateVal,0);
 #else
         calibrate = FALSE;
-        //setPidIsr(TRUE);
-        DelayMs(100);
+        setPidIsr(TRUE);
+        l = getPrintLevel();
+        setPrintLevelNoPrint();
         pidReset(EXTRUDER0_INDEX,0);
         pidReset(LINK0_INDEX,0);
         pidReset(LINK1_INDEX,0);
         pidReset(LINK2_INDEX,0);
+        setPrintLevel(l);
 #endif
 
 #if defined(EXTRUDER_TEST)
-        SetPIDEnabled(LINK0_INDEX,0);
-        SetPIDEnabled(LINK1_INDEX,0);
-        SetPIDEnabled(LINK2_INDEX,0);
-        int lastStepVal=0;
+        SetPIDEnabled(LINK0_INDEX,FALSE);
+        SetPIDEnabled(LINK1_INDEX,FALSE);
+        SetPIDEnabled(LINK2_INDEX,FALSE);
+        int lastStepVal=0;//Stepper setpoint
         StartStepperSim();
 #endif
-        ATX_ENABLE(); // Turn on ATX Supply
+        
 	while(1){
-
             Bowler_Server_Local(&MyPacket);
             #if !defined(NO_ETHERNET)
                 RunEthernetServices(&MyPacket);
@@ -349,30 +351,29 @@ int main()
                 if(!calibrate){
 #if !defined(NO_PID)
                     Print_Level l = getPrintLevel();
-                    setPrintLevelNoPrint();
                     RunPIDComs();
+                    setPrintLevelNoPrint();
                     if(!getRunPidIsr()){
                         RunPIDControl();
                     }
                     setPrintLevel(l);
+                   
 //                    println_I("\n");
 //                    for (i=0;i<numPidMotor;i++){
 //                        if(isPidEnabled(i))
 //                            printPIDvals(i);
 //                    }
     #if defined(EXTRUDER_TEST)
-                    
                     if(getStepperSimCurrent() != lastStepVal){
                         lastStepVal=getStepperSimCurrent();
                         SetPID(EXTRUDER0_INDEX,lastStepVal);
                         println_E("New Stepper Value: ");p_ul_E(lastStepVal);print_E(" PID pos ");p_ul_E(GetPIDPosition(EXTRUDER0_INDEX));
-                        
                     }
     #endif
 #endif
                 }else{
 #if defined(CALIBRATE)
-                    if(getMs()>3500){
+                    if(getMs()>4500){
                         calibrate = FALSE;
                         println_E("Link 0 value:");p_sl_E(readEncoder(LINK0_INDEX));
                         println_E("Link 1 value:");p_sl_E(readEncoder(LINK1_INDEX));
@@ -397,8 +398,8 @@ int main()
 #endif
                 }
                 if(diff>pid.setPoint/2){
-                    pid.MsTime=getMs();
                     println_E("Time diff ran over! ");p_fl_E(diff);
+                    pid.MsTime=getMs();
                 }
             }
 

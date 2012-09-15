@@ -8,7 +8,11 @@ int raw[numPidMotor];
 #define jump 3000
 
 void initializeEncoders(){
+    DelayMs(200);
     int i;
+    encoderSPIInit();
+    mJTAGPortEnable(0); // Disable JTAG and free up channels 0 and 1
+    ENC_CSN_INIT(); // Set pin modes for CS pins
     for(i=0;i<numPidMotor;i++){
         AS5055reset(i);
         overflow[i]=0;
@@ -16,6 +20,7 @@ void initializeEncoders(){
         int j;
         for(j=0;j<1;j++){
             //Read a bunch of times to get the system flushed after startup
+            AS5055ResetErrorFlag(i);
             raw[i]=AS5055readAngle(i);
         }
     }
@@ -161,7 +166,7 @@ UINT16 AS5055readAngle(BYTE index){
         AS5055send(index, 0xffff);
         read.uint0_15 = AS5055send(index, 0xffff);
     }
-    println_I("[AS5055] Getting Value of index ");p_sl_I(index);print_I(" value ");p_sl_I(read.regs.Data);
+    //println_I("[AS5055] Getting Value of index ");p_sl_I(index);print_I(" value ");p_sl_I(read.regs.Data);
     setPrintLevel(l);
     return read.regs.Data;
 }
