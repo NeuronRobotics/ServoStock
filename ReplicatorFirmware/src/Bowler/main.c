@@ -272,7 +272,7 @@ int main()
         
         Print_Level l = getPrintLevel();
         setPrintLevelNoPrint();
-        initializeEncoders();
+        initializeEncoders();// Power supply must be turned on first
         setPrintLevel(l);
 
         initServos();
@@ -342,7 +342,7 @@ int main()
 #else
     #if defined(EXTRUDER_TEST)
                 if(RunEvery(&pos)>0 && !calibrate){
-                    printPIDvals(EXTRUDER0_INDEX);
+                    //printPIDvals(EXTRUDER0_INDEX);
                 }
     #endif
 #endif
