@@ -10,8 +10,6 @@ void StartStepperSim(){
     _TRISA15 = INPUT;
     _TRISE0 = INPUT;
     ConfigINT4(EXT_INT_ENABLE | RISING_EDGE_INT | EXT_INT_PRI_1);
-    pidReset(EXTRUDER0_INDEX,0);
-    println_E("PID pos ");p_ul_E(GetPIDPosition(EXTRUDER0_INDEX));
 }
 
 int getStepperSimCurrent(){

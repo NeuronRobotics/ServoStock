@@ -195,9 +195,8 @@ const BYTE MY_MAC_ADDRESS[]={0x74,0xf7,0x26,0x01,0x01,0x01};
 extern const MAC_ADDR Broadcast __attribute__ ((section (".scs_global_var")));
 extern MAC_ADDR MyMAC __attribute__ ((section (".scs_global_var")));
 const unsigned char pidNSName[] = "bcs.pid.*;0.3;;"; 
-static RunEveryData pid = {0,1.0};
-static RunEveryData async = {0,200.0};
 static BowlerPacket Packet;
+int calibrate = TRUE;
 
 int j=0,i=0;
 BYTE Bowler_Server_Local(BowlerPacket * Packet){
@@ -263,6 +262,8 @@ int main()
 	setMethodCallback(BOWLER_GET,UserGetRPCs);
 	setMethodCallback(BOWLER_POST,UserPostRPCs);
 	setMethodCallback(BOWLER_CRIT,UserCriticalRPCs);
+
+        
 #if !defined(NO_ETHERNET)
 	InitializeEthernet();
 #endif
@@ -272,27 +273,33 @@ int main()
         
         RunEveryData pid ={0,50};
         RunEveryData pos ={0,2000};
-        int arm = 0;
         initializeEncoders();
         initServos();
 #if !defined(NO_PID)
         initPIDLocal();
 #endif
-        println_I("#Calibrating...");
-        setPrintLevelInfoPrint();
-
-        BOOL calibrate = TRUE;
-        BYTE servoCalibrateVal = 140;
+        
+        
 #if defined(CALIBRATE)
+        println_I("#Calibrating...");
+        int servoCalibrateVal = 140;
         setServo(LINK0_INDEX, servoCalibrateVal,0);
         setServo(LINK1_INDEX, servoCalibrateVal,0);
         setServo(LINK2_INDEX, servoCalibrateVal,0);
 #else
         calibrate = FALSE;
-        setPidIsr(TRUE);
+        //setPidIsr(TRUE);
+        DelayMs(100);
         pidReset(EXTRUDER0_INDEX,0);
+        pidReset(LINK0_INDEX,0);
+        pidReset(LINK1_INDEX,0);
+        pidReset(LINK2_INDEX,0);
 #endif
+
 #if defined(EXTRUDER_TEST)
+        SetPIDEnabled(LINK0_INDEX,0);
+        SetPIDEnabled(LINK1_INDEX,0);
+        SetPIDEnabled(LINK2_INDEX,0);
         int lastStepVal=0;
         StartStepperSim();
 #endif
@@ -330,6 +337,12 @@ int main()
                 if (arm==3)
                     arm=0;
             }
+#else
+    #if defined(EXTRUDER_TEST)
+                if(RunEvery(&pos)>0 && !calibrate){
+                    printPIDvals(EXTRUDER0_INDEX);
+                }
+    #endif
 #endif
             float diff = RunEvery(&pid);
             if(diff>0){
@@ -347,7 +360,7 @@ int main()
 //                        if(isPidEnabled(i))
 //                            printPIDvals(i);
 //                    }
-#if defined(EXTRUDER_TEST)
+    #if defined(EXTRUDER_TEST)
                     
                     if(getStepperSimCurrent() != lastStepVal){
                         lastStepVal=getStepperSimCurrent();
@@ -355,8 +368,7 @@ int main()
                         println_E("New Stepper Value: ");p_ul_E(lastStepVal);print_E(" PID pos ");p_ul_E(GetPIDPosition(EXTRUDER0_INDEX));
                         
                     }
-                    printPIDvals(EXTRUDER0_INDEX);
-#endif
+    #endif
 #endif
                 }else{
 #if defined(CALIBRATE)

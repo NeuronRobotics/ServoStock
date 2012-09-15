@@ -13,7 +13,11 @@ void initializeEncoders(){
         AS5055reset(i);
         overflow[i]=0;
         offset[i]=0;
-        raw[i]=AS5055readAngle(i);
+        int j;
+        for(j=0;j<1;j++){
+            //Read a bunch of times to get the system flushed after startup
+            raw[i]=AS5055readAngle(i);
+        }
     }
 }
 BYTE busy =0;
@@ -87,7 +91,7 @@ UINT16 AS5055send(BYTE index, UINT16 data){
 }
 
 UINT16 AS5055reset(BYTE index){
-    println_I("[AS5055] Resetting");
+    println_I("[AS5055] Resetting ");p_sl_I(index);
     AS5055CommandPacket cmd;
     AS5055ReadPacket read;
 
@@ -135,37 +139,30 @@ void printSystemConfig(BYTE index){
 }
 
 UINT16 AS5055readAngle(BYTE index){
-    AS5055CommandPacket cmd;
+    Print_Level l = getPrintLevel();
     AS5055AngularDataPacket read;
-    cmd.regs.Address=AS5055REG_AngularData;
-    cmd.regs.RWn=AS5055_READ;
-    cmd.regs.PAR=AS5055CalculateParity(cmd.uint0_15);
-
-    AS5055send(index, cmd.uint0_15);
+    //AS5055ResetErrorFlag(index);
+    AS5055send(index, 0xffff);
     read.uint0_15 = AS5055send(index, 0xffff);
     
     if(read.regs.EF){
-        Print_Level l = getPrintLevel();
-        //setPrintLevelInfoPrint();
-        println_E("\n\n\n**Error flag on data read! Index: ");p_ul_E(index);
-        //AS5055ResetErrorFlag(index);
-        //AS5055reset(index);
         if(read.regs.AlarmHI == 1 && read.regs.AlarmLO == 0){
             println_E("Alarm bit indicating a too high magnetic field");
-        }else if(read.regs.AlarmHI == 0 && read.regs.AlarmLO == 1){
+        }if(read.regs.AlarmHI == 0 && read.regs.AlarmLO == 1){
             println_E("Alarm bit indicating a too low magnetic field");
-        }else{
-          printSystemConfig(index);
-          AS5055reset(index);
-          AS5055ResetErrorFlag(index);
-                  //Re read the position
-            AS5055send(index, cmd.uint0_15);
-            read.uint0_15 = AS5055send(index, 0xffff);
         }
-        setPrintLevel(l);
-
-
+        if(read.regs.AlarmHI == 1 && read.regs.AlarmLO == 1){
+            println_E("\n\n\n**Error flag on data read! Index: ");p_ul_E(index);
+            printSystemConfig(index);
+            AS5055reset(index);
+        }
+        //setPrintLevelInfoPrint();
+        AS5055ResetErrorFlag(index);
+        AS5055send(index, 0xffff);
+        read.uint0_15 = AS5055send(index, 0xffff);
     }
+    println_I("[AS5055] Getting Value of index ");p_sl_I(index);print_I(" value ");p_sl_I(read.regs.Data);
+    setPrintLevel(l);
     return read.regs.Data;
 }
 
@@ -203,14 +200,6 @@ void EncoderSS(BYTE index, BYTE state){
             ENC7_CSN=state;
             break;
     }
-    //if(state==CSN_Disabled){
-        Nop();
-        Nop();
-        Nop();
-        Nop();
-        Nop();
-        Nop();
-        Nop();
-    //}
+    Delay10us(1);
 }
 

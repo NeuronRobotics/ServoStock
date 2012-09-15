@@ -112,13 +112,14 @@ PidLimitEvent * checkPIDLimitEventsMine(BYTE group){
 
 
 int resetPositionMine(int group, int current){
-    println_I("Resetting PID Local");
+    println_I("Resetting PID Local ");p_ul_I(group);print_I(" to ");p_ul_I(current);print_I(" from ");p_fl_I(getPositionMine(group));
     setCurrentValue(group, current);
-    return readEncoder(group);
+    return getPositionMine(group);
 }
 
 float getPositionMine(int group){
-	return readEncoder(group);
+    float val = readEncoder(group);
+    return val;
 }
 
 void setOutputMine(int group, float v){
