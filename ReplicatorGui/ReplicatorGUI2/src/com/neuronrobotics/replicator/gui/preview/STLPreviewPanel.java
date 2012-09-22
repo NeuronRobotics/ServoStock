@@ -76,7 +76,7 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 				mouseModes);
 		focusModeMenu = new JComboBox<STLPreviewCameraController.CameraMode>(focusModes);
 
-		toggleOutline = new JToggleButton("Toggle Outline", true);
+		toggleOutline = new JToggleButton("Outline: OFF", false);
 
 		resetCamera.addActionListener(this);
 		centerModel.addActionListener(this);
@@ -121,7 +121,6 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 		gridbag.setConstraints(cameraControls, c);
 		this.setLayer(cameraControls, DEFAULT_LAYER, 0);
 		this.add(cameraControls);
-		
 				
 	}
 
@@ -134,7 +133,7 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 	public boolean addPreview(File stl, File gcode, File workspaceSTL)
 			throws Exception {
 
-		String name = stl.getName();
+		String name = "Workspace("+this.thePreviewTabs.size()+")";//stl.getName();
 		ImageIcon imageIcon = new ImageIcon("Images\\simpleCube.png");
 
 		if (!thePreviewTabs.containsKey(stl)) {
@@ -183,19 +182,25 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 		if (currentTab != null && currentTab.isLoaded() ) {
 
 			currentPreview = currentTab.getTheSTLPreview();
-			currentPreview.getMouseControls().setMouseControlMode(
-					getCurrentSelectedMouseMode());
-			currentPreview.getTheCameraController()
-					.setCameraFocusMode(getCurrentSelectedCameraFocusMode());
+			
 			currentPreview.setOutlineVisibility(isOutlineSelected());
-
-			if (event.getSource().equals(resetCamera)) {
+			
+			if(event.getSource().equals(focusModeMenu)){
+				currentPreview.getTheCameraController()
+				.setCameraFocusMode(getCurrentSelectedCameraFocusMode());
+			} else if(event.getSource().equals(this.mouseModeMenu)){
+				currentPreview.getMouseControls().setMouseControlMode(
+						getCurrentSelectedMouseMode());
+			} else if (event.getSource().equals(resetCamera)) {
 				currentPreview.getTheCameraController().resetCamera();
 			} else if (event.getSource().equals(centerModel)) {
 				currentPreview.resetModelTransforms();
 				//currentPreview.centerOnWorkspace();
 			} else if (event.getSource().equals(toggleOutline)) {
-				currentPreview.setOutlineVisibility(isOutlineSelected());
+				boolean onOff = isOutlineSelected();
+				String newText = (onOff) ? "Outline:  ON" : "Outline: OFF";
+				toggleOutline.setText(newText);
+				currentPreview.setOutlineVisibility(onOff);
 			} else if (event.getSource().equals(forceReload)) {
 				currentTab.reload();
 			} 

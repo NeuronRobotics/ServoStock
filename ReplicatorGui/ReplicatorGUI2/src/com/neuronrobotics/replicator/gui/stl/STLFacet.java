@@ -19,24 +19,7 @@ public class STLFacet {
 		vertex3 = c;
 		normal = norm;
 	}
-	
-	//TODO need to test, unsure the logic is sound
-	public boolean segmentIntersectsWith(Point3f a, Point3f b){
 		
-		//float epsilon = 0.0001f; //TODO might need to leave at 0 to prevent slicer exceptions
-		
-		Vector3f norm = new Vector3f(getNormal());
-		norm.normalize();
-		Vector3f facetPoint = new Vector3f(getVertex1());
-		Vector3f aVec = new Vector3f(a);
-		Vector3f bVec = new Vector3f(b); 
-		
-		float distFac = norm.dot(facetPoint),distA = norm.dot(aVec),distB = norm.dot(bVec); 
-		
-		return (isBetween(distFac, distA,distB));
-		
-	}
-	
 	public boolean pointIsWithin(Point3f a){
 		
 		float epsilon = 0.0001f; //TODO might need to leave at 0 to prevent slicer exceptions

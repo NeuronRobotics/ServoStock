@@ -10,23 +10,24 @@ import javax.vecmath.Vector3f;
 
 public class STLWorkspaceBranchGroup extends BranchGroup{
 	
-	private STLObject workspaceSTL;
+	private STLWorkspaceObject workspaceSTL;
 	private Shape3D theWorkspaceShape;
 	private Shape3D theWorkspaceOutline;
 	
 	private STLFace theSurface;
 	private double surfaceY;
 		
-	public static STLWorkspaceBranchGroup STLWorkspaceBranchGroupFactory(STLObject wsp){
+	public static STLWorkspaceBranchGroup STLWorkspaceBranchGroupFactory(STLWorkspaceObject wsp){
 		return new STLWorkspaceBranchGroup(wsp);
 	}
 	
 	public static STLWorkspaceBranchGroup getSTLWorkspaceBranchGroup(File stlFile) throws IOException{
-		STLObject theObject = STLLoader.loadFile(stlFile);
-		return new STLWorkspaceBranchGroup(theObject);
+		STLObject theSTLObject = STLLoader.loadFile(stlFile);
+		STLWorkspaceObject theWorkspaceObject = new STLWorkspaceObject(theSTLObject);
+		return new STLWorkspaceBranchGroup(theWorkspaceObject);
 	}
 	
-	private STLWorkspaceBranchGroup(STLObject wsp){
+	private STLWorkspaceBranchGroup(STLWorkspaceObject wsp){
 		this.workspaceSTL = wsp;
 		this.setCapability(BranchGroup.ALLOW_DETACH);
 		
@@ -41,10 +42,9 @@ public class STLWorkspaceBranchGroup extends BranchGroup{
 		surfaceY = Double.MAX_VALUE;
 	}
 	
-	//TODO this currently returns true if object is completely in or completely out
 	public boolean stlIsInside(STLObject stlo){
-		
-		
+		return workspaceSTL.stlIsInside(stlo);
+		/*
 		boolean intersect = STLObjectIntersectionUtilities.objectsIntersect(this.workspaceSTL, stlo);
 		if(intersect) return false;
 		
@@ -63,6 +63,7 @@ public class STLWorkspaceBranchGroup extends BranchGroup{
 		*/
 	}
 		
+	/*
 	private boolean isBehind(STLFacet facet, STLFacet workspaceFac) {
 		
 		//boolean r1a = !workspaceFac.segmentIntersectsWith(facet.getVertex1(),facet.getVertex2());
@@ -98,14 +99,15 @@ public class STLWorkspaceBranchGroup extends BranchGroup{
 		System.out.println("r1: "+r1);
 		System.out.println("r2: "+r2);
 		System.out.println("Totale res: "+result);
-		*/
+		
 		return result;
-	}
+	}*/
 
-	public STLObject getWorkspaceSTLObject(){
+	public STLWorkspaceObject getWorkspaceSTLObject(){
 		return workspaceSTL; 
 	}
 	
+	/*
 	public STLFace getSurfaceFace(){
 		
 		if(theSurface!=null) return theSurface;
@@ -124,7 +126,7 @@ public class STLWorkspaceBranchGroup extends BranchGroup{
 				y=currY;
 			}
 		}
-		
+				
 		theSurface = result;
 		surfaceY = y;
 		return result;
@@ -134,5 +136,5 @@ public class STLWorkspaceBranchGroup extends BranchGroup{
 		if(theSurface==null) this.getSurfaceFace();
 		if(surfaceY==Double.MAX_VALUE) return 0; //TODO shitty practice
 		return surfaceY;
-	}
+	}*/
 }

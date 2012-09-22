@@ -4,19 +4,20 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-import javax.media.j3d.*;
 import javax.vecmath.*;
 
 public class STLObject implements Iterable<STLFacet> {
 
 	private String name;
-	private ArrayList<STLFacet> theFacets;
+	protected ArrayList<STLFacet> theFacets;
 
 	private Point3f center;
 	private Point3f min, max;
 
 	private ArrayList<STLFace> theFaces;
 	private boolean facesAnalyzed;
+	
+	private ArrayList<Vector3f> uniqueNormals;
 	
 	public static STLObject getMergedSTLObject(String name,
 			Collection<STLObject> theObjects) {
@@ -44,7 +45,8 @@ public class STLObject implements Iterable<STLFacet> {
 		this.min = null;
 		this.max = null;
 		this.theFaces = new ArrayList<STLFace>();
-		// this.calculateFaces();
+		uniqueNormals = null;
+		//this.calculateFaces(); //TODO?
 	}
 
 	public Iterable<STLFacet> getFacetIterable() {
@@ -56,8 +58,7 @@ public class STLObject implements Iterable<STLFacet> {
 	}
 
 	public Point3f getCenter() {
-		if (center != null)
-			return center;
+		if (center == null){
 		int numVertices = theFacets.size() * 3;
 		float xSum = 0, ySum = 0, zSum = 0;
 		for (STLFacet sf : theFacets) {
@@ -72,7 +73,9 @@ public class STLObject implements Iterable<STLFacet> {
 			zSum += sf.getVertex3().z / numVertices;
 		}
 		center = new Point3f(xSum, ySum, zSum);
-		return center;
+		}
+		
+		return new Point3f(center);
 	}
 
 	public float getXLength() {
@@ -100,7 +103,7 @@ public class STLObject implements Iterable<STLFacet> {
 	public Point3f getMax() {
 		if (max == null)
 			calcMaxMin();
-		return max;
+		return new Point3f(max);
 	}
 
 	private void calcMaxMin() {
@@ -127,7 +130,7 @@ public class STLObject implements Iterable<STLFacet> {
 	public Point3f getMin() {
 		if (min == null)
 			calcMaxMin();
-		return min;
+		return new Point3f(min);
 	}
 
 	@Override
@@ -148,25 +151,27 @@ public class STLObject implements Iterable<STLFacet> {
 		return theFaces.iterator();
 	}
 
-	public STLObject getTransformedSTLObject(Transform3D tran) {
+	public STLObject getTransformedSTLObject(GeneralTransform3D tran) {
 
 		String newName = this.name + "Transformed";
 
 		ArrayList<STLFacet> newFacetList = new ArrayList<STLFacet>();
 		for (STLFacet f : this) {
-			Point3f temp1 = new Point3f(f.getVertex1());
+			Point3f temp1 = f.getVertex1();
 			tran.transform(temp1);
-			Point3f temp2 = new Point3f(f.getVertex2());
+			Point3f temp2 = f.getVertex2();
 			tran.transform(temp2);
-			Point3f temp3 = new Point3f(f.getVertex3());
+			Point3f temp3 = f.getVertex3();
 			tran.transform(temp3);
-			newFacetList.add(new STLFacet(temp1, temp2, temp3));
+			Vector3f newNormal = f.getNormal();
+			tran.transform(newNormal);
+			newFacetList.add(new STLFacet(temp1, temp2, temp3,newNormal));
 		}
-
+		
 		return new STLObject(newName, newFacetList);
 	}
 
-	private void calculateFaces() {
+	protected void calculateFaces() {
 		theFaces = new ArrayList<STLFace>();
 		theFaces.addAll(STLFace.generateSTLFaces(this));
 		facesAnalyzed = true;
@@ -187,5 +192,30 @@ public class STLObject implements Iterable<STLFacet> {
 		return new STLObject((name+""),listCopy);
 	}
 
+	private void findUniqueNormals(){
+		
+		float epsilon = 0.0001f;
+		
+		uniqueNormals = new ArrayList<Vector3f>();
+		Vector3f currNorm = new Vector3f();
+		for(STLFacet fac:this){
+			currNorm= fac.getNormal();
+			boolean match = false;
+			for(Vector3f found:uniqueNormals){
+				currNorm.normalize();
+				found.normalize();
+				if(currNorm.epsilonEquals(found, epsilon)) {
+					match = true;
+					break;
+				}
+			}
+			if(!match) uniqueNormals.add(currNorm);
+		}
+	}
 	
+	public Iterator<Vector3f> getNormalIterator(){
+		if (uniqueNormals==null) findUniqueNormals();
+		System.out.println("Norms "+uniqueNormals);
+		return uniqueNormals.iterator();
+	}
 }

@@ -2,11 +2,11 @@ package com.neuronrobotics.replicator.gui.navigator;
 
 import java.io.File;
 
-public class WorkspaceLeafNodeObject {
+public class FileNavigatorLeafNodeObject {
 	
 	private File theSTLFile, theGCodeFile;
 	
-	public WorkspaceLeafNodeObject(File stl, File gcode){
+	public FileNavigatorLeafNodeObject(File stl, File gcode){
 		theSTLFile = stl;
 		theGCodeFile = gcode;
 	}

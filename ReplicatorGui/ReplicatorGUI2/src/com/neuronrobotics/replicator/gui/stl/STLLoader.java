@@ -19,7 +19,7 @@ public class STLLoader {
 	 */
 	public static STLObject loadFile(File theFile) throws IOException{
 		InputStream is = new FileInputStream(theFile);
-		return loadFile(is);
+		return loadFile(is,true);
 	}
 	
 	/**
@@ -29,7 +29,7 @@ public class STLLoader {
 	 * @return and STLObject encapsulating the data read in from the file
 	 * @throws IOException
 	 */
-	public static STLObject loadFile(InputStream is) throws IOException{
+	public static STLObject loadFile(InputStream is, boolean closeStream) throws IOException{
 		String name;
 		ArrayList<STLFacet> facets = new ArrayList<STLFacet>();
 				
@@ -51,6 +51,8 @@ public class STLLoader {
 			facets.add(tempFacet);
 		}
 		
+		if(closeStream) is.close();
+		
 		return new STLObject(name,facets);
 		
 	}
@@ -64,8 +66,8 @@ public class STLLoader {
 	 * @param root
 	 * @return
 	 */
-	public static STLTransformGroup createSTLTransform(String filename,BranchGroup root) throws IOException{
-		return createSTLTransform(new File(filename),root);
+	public static STLTransformGroup createSTLTransform(String filename) throws IOException{
+		return createSTLTransform(new File(filename));
 	}
 	
 	/**
@@ -77,9 +79,9 @@ public class STLLoader {
 	 * @param root
 	 * @return
 	 */
-	public static STLTransformGroup createSTLTransform(File file,BranchGroup root) throws IOException{
+	public static STLTransformGroup createSTLTransform(File file) throws IOException{
 		STLObject stl = loadFile(file);
-		return createSTLTransform(stl,root);	
+		return createSTLTransform(stl);	
 	}
 	
 	/**
@@ -91,9 +93,9 @@ public class STLLoader {
 	 * @param root
 	 * @return
 	 */
-	public static STLTransformGroup createSTLTransform(InputStream is,BranchGroup root) throws IOException{
-		STLObject stl = loadFile(is);
-		return createSTLTransform(stl,root);	
+	public static STLTransformGroup createSTLTransform(InputStream is,boolean closeStream) throws IOException{
+		STLObject stl = loadFile(is,closeStream);
+		return createSTLTransform(stl);	
 	}
 	
 	/**
@@ -104,7 +106,7 @@ public class STLLoader {
 	 * @param root
 	 * @return
 	 */
-	public static STLTransformGroup createSTLTransform(STLObject stl,BranchGroup root){
+	public static STLTransformGroup createSTLTransform(STLObject stl){
 		//STLTransformGroup tg = new STLTransformGroup();
 				
 		//Actual 3d model

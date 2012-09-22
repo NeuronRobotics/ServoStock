@@ -123,5 +123,10 @@ public class STLFace implements Iterable<STLFacet>{
 	public Iterator<STLFacet> iterator() {
 		return theFacets.iterator();
 	}
+	
+	@Override
+	public String toString(){
+		return"Distance to Origin: "+this.getDistanceToOrigin()+"\n"+"Normal: "+this.getNormal()+"\n"+"Facets: "+this.getFacets().size();
+	}
 		
 }

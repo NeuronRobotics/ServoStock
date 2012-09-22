@@ -1,5 +1,5 @@
-javax.vecmath.Vector3d temp = new javax.vecmath.Vector3d(0,-1,0);
-javax.vecmath.Vector3d temp2 = new javax.vecmath.Vector3d(0,0,1);
-javax.vecmath.Vector3d temp3 = new javax.vecmath.Vector3d(1,0,0);
-System.out.println(temp.angle(temp2));
-System.out.println(temp.angle(temp3));
+Point3f max1 = new Point3f(1,1,1);
+Point3f min1 = new Point3f(-1,-1,-1);
+Point3f max2 = new Point3f(.5f,2,.5f);
+Point3f min2 = new Point3f(-.5f,-2,.5f);
+System.out.println(max1);

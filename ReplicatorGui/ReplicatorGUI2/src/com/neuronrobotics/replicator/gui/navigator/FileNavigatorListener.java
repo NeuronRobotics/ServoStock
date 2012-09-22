@@ -1,6 +1,6 @@
 package com.neuronrobotics.replicator.gui.navigator;
 
-public interface WorkspaceNavigatorListener {
+public interface FileNavigatorListener {
 	
 	public void alertDirectoryLeafSelected();
 	

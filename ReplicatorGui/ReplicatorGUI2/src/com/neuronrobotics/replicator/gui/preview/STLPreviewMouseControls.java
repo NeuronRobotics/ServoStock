@@ -51,7 +51,7 @@ public class STLPreviewMouseControls extends MouseAdapter  {
 			@Override
 			protected void mouseDragged(STLPreviewCanvas3D preview, double xDist, double yDist) {
 			
-				
+				if(preview.getCurrentSTLTransform()==null) return;
 				preview.getCurrentSTLTransform().rotateX(yDist/rotateScale);
 			}
 			
@@ -66,7 +66,7 @@ public class STLPreviewMouseControls extends MouseAdapter  {
 			@Override
 			protected void mouseDragged(STLPreviewCanvas3D preview, double xDist, double yDist) {
 				STLTransformGroup current = preview.getCurrentSTLTransform();
-				if(current!=null) current.rotateY(xDist/rotateScale);
+				if(current!=null) current.rotateAroundUpVector(xDist/rotateScale);
 			}
 			
 			public String toString(){
@@ -78,7 +78,7 @@ public class STLPreviewMouseControls extends MouseAdapter  {
 
 			@Override
 			protected void mouseDragged(STLPreviewCanvas3D preview, double xDist, double yDist) {
-								
+				if(preview.getCurrentSTLTransform()==null) return;		
 				preview.getCurrentSTLTransform().rotateZ(xDist/rotateScale);
 			}
 			
@@ -96,7 +96,7 @@ public class STLPreviewMouseControls extends MouseAdapter  {
 				//preview.translateY(yDist);
 				
 				//double scale = 40.0;
-				
+				if(preview.getCurrentSTLTransform()==null) return;
 				STLTransformGroup currObj = preview.getCurrentSTLTransform();
 								
 				currObj.translateLeftRight(xDist/translateScale);
@@ -116,7 +116,7 @@ public class STLPreviewMouseControls extends MouseAdapter  {
 			protected void mouseDragged(STLPreviewCanvas3D preview, double xDist, double yDist) {
 				//preview.translateZ(xDist);
 				//preview.translateY(yDist);
-								
+				if(preview.getCurrentSTLTransform()==null) return;			
 				preview.getCurrentSTLTransform().translateBackForth(xDist/translateScale);
 				preview.getCurrentSTLTransform().translateUpDown(yDist/translateScale);
 			}
@@ -132,6 +132,7 @@ public class STLPreviewMouseControls extends MouseAdapter  {
 			@Override
 			protected void mouseDragged(STLPreviewCanvas3D preview,
 					double xDist, double yDist) {
+				if(preview.getCurrentSTLTransform()==null) return;
 				preview.getCurrentSTLTransform().translateLeftRight(xDist/translateScale);
 				preview.getCurrentSTLTransform().translateBackForth(yDist/translateScale);
 				
@@ -188,7 +189,7 @@ public class STLPreviewMouseControls extends MouseAdapter  {
 		
 		lastLocation = temp;
 		
-		if(thePreview.getCurrentSTLTransform()!=null)
+		//if(thePreview.getCurrentSTLTransform()!=null)
 		theMode.mouseDragged(thePreview, xDist, yDist);
 		
 	}

@@ -25,16 +25,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
-import javax.vecmath.Point3f;
 
-import com.neuronrobotics.replicator.gui.navigator.WorkspaceNavigator;
-import com.neuronrobotics.replicator.gui.navigator.WorkspaceNavigatorListener;
+import com.neuronrobotics.replicator.gui.navigator.FileNavigator;
+import com.neuronrobotics.replicator.gui.navigator.FileNavigatorListener;
 import com.neuronrobotics.replicator.gui.navigator.FileNotDirectoryException;
 import com.neuronrobotics.replicator.gui.preview.STLPreviewPanel;
 import com.neuronrobotics.replicator.gui.stl.ASCIISTLWriter;
 import com.neuronrobotics.replicator.gui.stl.STLObject;
 
-public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, WorkspaceNavigatorListener {
+public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, FileNavigatorListener {
 
 	/**
 	 * 
@@ -60,7 +59,7 @@ public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, Works
 	private JButton cancelButton;
 	private JButton connectButton;
 
-	private WorkspaceNavigator theDirectoryTree;
+	private FileNavigator theDirectoryTree;
 
 	private JMenuItem openFileItem;
 	private JMenuItem newProjectItem;
@@ -273,7 +272,7 @@ public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, Works
 
 		toolbarContainer.add(mainToolbar);
 
-		theDirectoryTree = WorkspaceNavigator.getDirectoryTree(defaultWorkspaceDirectory);
+		theDirectoryTree = FileNavigator.getDirectoryTree(defaultWorkspaceDirectory);
 				
 		theDirectoryTree.addDirectoryTreeListener(this);
 		

@@ -44,7 +44,7 @@ public class STLShape3DFactory {
 	}
 
 	public static Shape3D getFaceOutline(STLObject stlo) {
-		ArrayList<Point3fEdge> theEdges = new ArrayList<Point3fEdge>();
+		ArrayList<Edge3f> theEdges = new ArrayList<Edge3f>();
 
 		for (STLFace face : stlo.getFaces()) {
 			theEdges.addAll(getFacePerimeter(face));
@@ -55,7 +55,7 @@ public class STLShape3DFactory {
 		LineArray perim = new LineArray(vertCount, LineArray.COORDINATES);
 
 		int ct = 0;
-		for (Point3fEdge edge : theEdges) {
+		for (Edge3f edge : theEdges) {
 			perim.setCoordinate(ct++, edge.getPoint1());
 			perim.setCoordinate(ct++, edge.getPoint2());
 		}
@@ -184,15 +184,15 @@ public class STLShape3DFactory {
 	
 	//Private Utility Methods
 	
-	private static ArrayList<Point3fEdge> getFacePerimeter(STLFace theFace) {
+	private static ArrayList<Edge3f> getFacePerimeter(STLFace theFace) {
 
-		ArrayList<Point3fEdge> theList = new ArrayList<Point3fEdge>();
+		ArrayList<Edge3f> theList = new ArrayList<Edge3f>();
 
 		for (STLFacet facet : theFace) {
-			Point3fEdge e0, e1, e2;
-			e0 = new Point3fEdge(facet.getVertex1(), facet.getVertex2());
-			e1 = new Point3fEdge(facet.getVertex1(), facet.getVertex3());
-			e2 = new Point3fEdge(facet.getVertex2(), facet.getVertex3());
+			Edge3f e0, e1, e2;
+			e0 = new Edge3f(facet.getVertex1(), facet.getVertex2());
+			e1 = new Edge3f(facet.getVertex1(), facet.getVertex3());
+			e2 = new Edge3f(facet.getVertex2(), facet.getVertex3());
 
 			int currI;
 			currI = indexOfEdge(e0, theList);
@@ -219,10 +219,10 @@ public class STLShape3DFactory {
 		return theList;
 	}
 
-	private static int indexOfEdge(Point3fEdge theEdge,
-			Collection<Point3fEdge> coll) {
+	private static int indexOfEdge(Edge3f theEdge,
+			Collection<Edge3f> coll) {
 		int ct = 0;
-		for (Point3fEdge curr : coll) {
+		for (Edge3f curr : coll) {
 			if (theEdge.equalsEpsilon(curr, 0.0001f))
 				return ct;
 			ct++;

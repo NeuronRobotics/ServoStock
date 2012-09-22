@@ -1,19 +1,27 @@
 package com.neuronrobotics.replicator.gui.stl;
 
+import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.media.j3d.AmbientLight;
 import javax.media.j3d.Appearance;
 import javax.media.j3d.BoundingSphere;
 import javax.media.j3d.DirectionalLight;
+import javax.media.j3d.Material;
 import javax.media.j3d.RenderingAttributes;
 import javax.media.j3d.Shape3D;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
+import javax.vecmath.AxisAngle4d;
+import javax.vecmath.AxisAngle4f;
 import javax.vecmath.Color3f;
+import javax.vecmath.Matrix3d;
+import javax.vecmath.Matrix3f;
 import javax.vecmath.Point3d;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3d;
+import javax.vecmath.Vector3f;
 
 import com.neuronrobotics.replicator.gui.preview.STLPreviewCanvas3D;
 import com.sun.j3d.utils.picking.PickTool;
@@ -22,11 +30,19 @@ public class STLTransformGroup extends TransformGroup{
 	
 	// fields
 	
-	private STLObject theSTLObject;
+	private STLObject theSTLObject,transformedSTLObject;
 	private Shape3D theModel, theFacetOutline;
-	private AmbientLight indicatorLight;
+	private DirectionalLight directionalLight1,directionalLight2;
+	private AmbientLight ambientLight;
 	//private STLWorkspaceBranchGroup theWorkspace;
 	private ArrayList<STLTransformGroupListener> theListeners;
+	
+	private Iterator<STLFace> objectFaces;
+	private Iterator<Vector3f> uniqueNormals;
+	
+	private STLFace currFace;
+	
+	private boolean isHilighted;
 				
 	// constructor(s)
 	
@@ -34,22 +50,58 @@ public class STLTransformGroup extends TransformGroup{
 		super();
 		setModel(model);
 		setOutline(outline);
+		this.setOutlineVisibility(false);
+		
+		objectFaces = null;
 		
 		theSTLObject = stlo;
+		transformedSTLObject = theSTLObject;
 		theListeners = new ArrayList<STLTransformGroupListener>();
+		
+		isHilighted = false;
 		
 		//theWorkspace = null;		
 		
-		indicatorLight = new AmbientLight();
-		indicatorLight.setInfluencingBounds(new BoundingSphere(new Point3d(0, 0, 0),
-				900));
+		//directional light 1
+		directionalLight1 = new DirectionalLight();//new AmbientLight();
+		directionalLight1.setColor(new Color3f(Color.white));
+		directionalLight1.setInfluencingBounds(new BoundingSphere(new Point3d(0, 0, 0),
+				900));		
 				
-		indicatorLight.setCapability(DirectionalLight.ALLOW_DIRECTION_WRITE);
-		indicatorLight.setCapability(DirectionalLight.ALLOW_COLOR_WRITE);
-		indicatorLight.setCapability(ALLOW_BOUNDS_WRITE);
-		this.addChild(indicatorLight);
-		indicatorLight.removeAllScopes();
-		indicatorLight.addScope(this);
+		directionalLight1.setCapability(DirectionalLight.ALLOW_DIRECTION_WRITE);
+		directionalLight1.setCapability(DirectionalLight.ALLOW_COLOR_WRITE);
+		directionalLight1.setCapability(ALLOW_BOUNDS_WRITE);
+		this.addChild(directionalLight1); 
+		directionalLight1.removeAllScopes();
+		directionalLight1.addScope(this);
+		directionalLight1.setDirection(0,-1,0);
+		
+		//directional light 2
+		directionalLight2 = new DirectionalLight();//new AmbientLight();
+		directionalLight2.setColor(new Color3f(Color.white));
+		directionalLight2.setInfluencingBounds(new BoundingSphere(new Point3d(0, 0, 0),
+		900));
+				
+		directionalLight2.setCapability(DirectionalLight.ALLOW_DIRECTION_WRITE);
+		directionalLight2.setCapability(DirectionalLight.ALLOW_COLOR_WRITE);
+		directionalLight2.setCapability(ALLOW_BOUNDS_WRITE);
+		this.addChild(directionalLight2); 
+		directionalLight2.removeAllScopes();
+		directionalLight2.addScope(this);
+		directionalLight2.setDirection(0,-1,0);
+		
+		//ambient light
+		ambientLight = new AmbientLight();
+		ambientLight.setColor(new Color3f(Color.white));
+		ambientLight.setInfluencingBounds(new BoundingSphere(new Point3d(0, 0, 0),
+				900));
+		
+		ambientLight.setCapability(AmbientLight.ALLOW_COLOR_WRITE);
+		ambientLight.setCapability(AmbientLight.ALLOW_BOUNDS_WRITE);
+		this.addChild(ambientLight); 
+		ambientLight.removeAllScopes();
+		ambientLight.addScope(this);
+		
 		updateIndicatorLightBounds();
 				
 	}
@@ -84,6 +136,17 @@ public class STLTransformGroup extends TransformGroup{
 		app.setRenderingAttributes(ra);
 		//theModel.setAppearance(app);
 			
+		Material mat = new Material();
+		mat.setAmbientColor(new Color3f(Color.BLACK));
+		mat.setDiffuseColor(new Color3f(0.1f,0.1f,0.1f));
+		mat.setSpecularColor(new Color3f(0.5f,0.5f,0.5f));
+		mat.setShininess(128);
+		
+		mat.setCapability(Material.ALLOW_COMPONENT_READ);
+		mat.setCapability(Material.ALLOW_COMPONENT_WRITE);
+		
+		app.setMaterial(mat);
+		
 		theModel.setPickable(true);
 		theModel.setCapability(ENABLE_PICK_REPORTING);
 		PickTool.setCapabilities(theModel, PickTool.INTERSECT_FULL);
@@ -116,7 +179,7 @@ public class STLTransformGroup extends TransformGroup{
 	
 	private void updateIndicatorLightBounds() {
 		Point3d cent = new Point3d(this.getCurrentCenter());		
-		indicatorLight.setBounds(new BoundingSphere(cent,1));
+		directionalLight1.setBounds(new BoundingSphere(cent,1));
 		
 		/*
 		if(theWorkspace!=null&&this.modelIsInWorkspace(theWorkspace)){
@@ -131,9 +194,8 @@ public class STLTransformGroup extends TransformGroup{
 	public void setTransform(Transform3D newTran){
 		super.setTransform(newTran);
 		updateIndicatorLightBounds();
-		for(STLTransformGroupListener stgl:this.theListeners){
-			stgl.alertSTLTransformMoved(this);
-		}
+		this.transformedSTLObject=theSTLObject.getTransformedSTLObject(new Transform3DAdapter(newTran));
+		this.alertListenersModelMoved(); //Shouldn't call this anywhere else
 	}
 	
 	public Shape3D getModel(){		
@@ -188,30 +250,7 @@ public class STLTransformGroup extends TransformGroup{
 	 * @return min
 	 */
 	public Point3f getCurrentMin() {
-		
-		Transform3D temp = new Transform3D();
-		this.getTransform(temp);
-		
-		//Point3f currMax = null;
-		
-		STLObject transformedObj = theSTLObject.getTransformedSTLObject(temp);
-		return transformedObj.getMin();
-		/*
-		Transform3D temp = new Transform3D();
-		this.getTransform(temp);
-		
-		Point3f currMin = null;
-		
-		for(STLFacet fac:theSTLObject){
-			Point3f candidate = fac.getMin();
-			temp.transform(candidate);
-			
-			if(currMin==null) currMin = candidate;
-			else currMin.set(Math.min(currMin.x,candidate.x),Math.min(currMin.y,candidate.y),Math.min(currMin.z,candidate.z));			
-		}					
-		
-		return currMin;
-	*/
+		return this.transformedSTLObject.getMin();
 	}
 	
 	/**
@@ -220,25 +259,7 @@ public class STLTransformGroup extends TransformGroup{
 	 * @return max
 	 */
 	public Point3f getCurrentMax() {
-		//This and current min should now be correct iff 
-		//STLObject getMin/getMax functions work
-		Transform3D temp = new Transform3D();
-		this.getTransform(temp);
-		
-		//Point3f currMax = null;
-		
-		STLObject transformedObj = theSTLObject.getTransformedSTLObject(temp);
-		return transformedObj.getMax();
-		
-		/*
-		for(STLFacet fac:theSTLObject){
-			Point3f candidate = fac.getMax();
-			temp.transform(candidate);
-			if(currMax==null) currMax = candidate;
-			else currMax.set(Math.max(currMax.x,candidate.x),Math.max(currMax.y,candidate.y),Math.max(currMax.z,candidate.z));			
-		}					
-		
-		return currMax;*/
+		return this.transformedSTLObject.getMax();	
 	}
 	
 	/**
@@ -247,25 +268,7 @@ public class STLTransformGroup extends TransformGroup{
 	 * @return max
 	 */
 	public Point3f getCurrentCenter(){
-		Transform3D temp = new Transform3D();
-		this.getTransform(temp);
-		
-		//Point3f currMax = null;
-		System.out.println(theSTLObject);
-		STLObject transformedObj = theSTLObject.getTransformedSTLObject(temp);
-		return transformedObj.getCenter();
-		/*
-		Point3f center = getBaseCenter();
-		Point3f cent2 = new Point3f();
-		cent2.add(center);
-		
-		
-		Transform3D temp = new Transform3D();
-		this.getTransform(temp);
-		temp.transform(cent2);	
-						
-		return cent2;
-		*/
+		return transformedSTLObject.getCenter();
 	}
 
 	/**
@@ -275,69 +278,6 @@ public class STLTransformGroup extends TransformGroup{
 	 */
 	public Point3f getBaseCenter() {				
 		return theSTLObject.getCenter();
-	}
-
-	// TODO currently tries to erase rotations without erasing translations
-	public void pointNormalDown(Vector3d normal) {
-		Transform3D curr = new Transform3D();
-		getTransform(curr);
-
-		Vector3d pointInDir = new Vector3d(0, -1, 0);
-
-		if (normal == null) {
-			normal = new Vector3d(1, 0, 1);
-
-		}
-
-		// if(normal.equals(new Vector3d(0,0,0))) return;
-
-		normal.normalize();
-
-		curr.transform(normal);
-
-		Vector3d noX = new Vector3d(0, normal.y, normal.z);
-		Vector3d noZ = new Vector3d(normal.x, normal.y, 0);
-		Vector3d noY = new Vector3d(normal.x, 0, normal.z);
-
-		// Quat4d noRot = new Quat4d(1,0,0,1);
-		// noRot.inverse();
-		// curr.setRotation(noRot);
-
-		/*
-		 * double zAngle; if(normal.y!=0) { zAngle =
-		 * Math.atan(normal.x/normal.y); } else if(normal.x!=0) zAngle =
-		 * Math.PI/2; else zAngle = 0;
-		 * 
-		 * double xAngle; if(normal.y!=0){ xAngle =
-		 * Math.atan(normal.z/normal.y); } else if(normal.z!=0) xAngle =
-		 * Math.PI/2; else xAngle = 0;
-		 * 
-		 * double zRotate = -(Math.PI - zAngle); double xRotate = -(Math.PI -
-		 * xAngle);
-		 */
-
-		Double xRotate = pointInDir.angle(noX);
-		Double zRotate = pointInDir.angle(noZ);
-		Double yRotate = pointInDir.angle(noY);
-
-		if (xRotate.isNaN())
-			xRotate = 0.0;// Math.PI;
-		if (zRotate.isNaN())
-			zRotate = 0.0;// Math.PI;
-		if (yRotate.isNaN())
-			yRotate = 0.0;
-
-		// curr.rotX(xRotate);
-		// curr.rotY(0);
-		// curr.rotZ(zRotate);
-		System.out.println(xRotate + " " + zRotate);
-		this.rotateX(xRotate);
-		this.rotateZ(zRotate);
-
-		// stlTransform.setTransform(curr);
-		System.out.println(getCurrentMax());
-
-		alertListenersModelMoved();
 	}
 	
 	// Model transform functions
@@ -351,19 +291,20 @@ public class STLTransformGroup extends TransformGroup{
 		curr.mul(temp);
 		this.setTransform(curr);
 		
-		alertListenersModelMoved();
+		//alertListenersModelMoved();
 	}
 	
 	public void rotateY(double rad) {
 		Transform3D curr = new Transform3D();
 		getTransform(curr);
-
+				
 		Transform3D temp = new Transform3D();
+				
 		temp.rotY(rad);
 		curr.mul(temp);
 		this.setTransform(curr);
 		
-		alertListenersModelMoved();
+		//alertListenersModelMoved();
 	}
 	
 	public void rotateZ(double rad) {
@@ -376,44 +317,31 @@ public class STLTransformGroup extends TransformGroup{
 		curr.mul(temp);
 		this.setTransform(curr);
 		
-		alertListenersModelMoved();
+		//alertListenersModelMoved();
 		
 	}
 
-	/*
-	// TODO this is a bit more complicated than originally thought
-	// Need to correct for both camera angle as well as previous transforms
-	// hopefully should be as simple as offsetting currentAngle variable
-	public void rotateUpDown(double rad) {
+	public void rotateAroundUpVector(double rad){
+		Transform3D curr = new Transform3D();
+		getTransform(curr);
+
+		Vector3f up;
+		if(currFace!=null){
+			up = currFace.getNormal();
+		}else{ 
+			up = new Vector3f(0,1,0);
+		}
 		
-		Transform3D curr = this.getTransform3D();
-
-		double radZ = 0, radX = 0;
-
-		Vector3d vec = new Vector3d();
-		vec.add(cameraPosition);
-		vec.sub(cameraDirection);
-
-		double radius = Math.sqrt((vec.x * vec.x) + (vec.z * vec.z));
-
-		double currentAngle = Math.acos(vec.x / radius);
-		if (vec.z < 0)
-			currentAngle = (2 * Math.PI) - currentAngle;
-
-		radZ = rad * Math.cos(currentAngle);
-		radX = rad * Math.sin(currentAngle);
-
-		rotateZ(radZ);
-		rotateX(radX);
-
-		// /////
-		/*
-		 * Transform3D temp = new Transform3D(); temp.rotZ(radZ);
-		 * temp.rotX(radX); curr.mul(temp); stlTransform.setTransform(curr);
-		 
-		updateIndicatorLightColor();
+		Transform3D temp = new Transform3D();
+		
+		AxisAngle4f axAngRot = new AxisAngle4f(up, (float)rad);
+		temp.setRotation(axAngRot);
+		
+		//temp.rotY(rad);
+		curr.mul(temp);
+		this.setTransform(curr);
+		
 	}
-	*/
 
 	public void resetModelTransforms() {
 		Transform3D blank = new Transform3D();
@@ -421,7 +349,7 @@ public class STLTransformGroup extends TransformGroup{
 		
 		//centerOnWorkspace();
 
-		alertListenersModelMoved();
+		//alertListenersModelMoved();
 		
 	}
 
@@ -431,7 +359,7 @@ public class STLTransformGroup extends TransformGroup{
 			}
 	}
 
-	public void centerOnWorkspace(STLWorkspaceBranchGroup theWorkspace) {
+	public void centerOnWorkspace(STLWorkspaceObject theWorkspace) {
 		double transY = theWorkspace.getSurfaceY()-this.getCurrentMin().y;
 		
 
@@ -452,7 +380,7 @@ public class STLTransformGroup extends TransformGroup{
 		temp2.mul(temp);
 		this.setTransform(temp2);
 		
-		alertListenersModelMoved();
+		//alertListenersModelMoved();
 	}
 	
 	/**
@@ -546,25 +474,109 @@ public class STLTransformGroup extends TransformGroup{
 		translate(camVec);
 
 	}
-
 	
-	public void setIndicatorLightColor(Color3f color3f) {
-		indicatorLight.setColor(color3f);
+	public void setDiffuseLightColor(Color3f color3f) {
+		Material mat = theModel.getAppearance().getMaterial();//.setDiffuseColor(color3f);
+		mat.setAmbientColor(color3f);
+	}
+	
+	public void setHighlighted(boolean hi){		
+		isHilighted = hi;
+		Color3f newColor = (hi) ? new Color3f(0.5f,0.5f,0.5f):new Color3f(0.1f,0.1f,0.1f);
+		theModel.getAppearance().getMaterial().setDiffuseColor(newColor);
+	}
+	
+	public void setIndicatorLightDirection(Vector3f dir){
+		directionalLight1.setDirection(dir);
 	}
 
 	public STLObject getTransformedSTLObject() {
-		Transform3D currTran = new Transform3D();
-		this.getTransform(currTran);
-		return this.theSTLObject.getTransformedSTLObject(currTran);
+		
+		return this.transformedSTLObject;
+		
 	}
 
 	public STLTransformGroup getDuplicate(){
 		STLObject stlClone = theSTLObject.clone();
-		//TODO
-		
 		Shape3D dupModel = STLShape3DFactory.getModelShape3D(stlClone);
 		Shape3D dupOutline = STLShape3DFactory.getFacetOutline(stlClone);
 		return new STLTransformGroup(stlClone, dupModel, dupOutline);
+	}
+		
+	public boolean isHilighted(){
+		return isHilighted;
+	}
+	
+	public void reorientToNextNormal(){
+		if(uniqueNormals==null||!uniqueNormals.hasNext()){
+			uniqueNormals = theSTLObject.getNormalIterator();
+		}
+		Vector3f currNorm = uniqueNormals.next();
+		AxisAngle4f rotAxAng = getRotationDown(currNorm);
+		
+		System.out.println("Curr norm: "+currNorm);
+		System.out.println("RotAx: "+rotAxAng);
+				
+		Transform3D newt = new Transform3D();
+		this.getTransform(newt);
+		newt.setRotation(rotAxAng);
+					
+		this.setTransform(newt);		
+	}
+	
+	public void reorientToNextFace(){
+		do{
+		if(objectFaces==null||!objectFaces.hasNext()){
+			objectFaces = theSTLObject.getFaceIterator();
+		}
+			
+		currFace = objectFaces.next();
+		AxisAngle4f rotAxAng = getRotationDown(currFace.getNormal());
+		
+		
+		Transform3D newt = new Transform3D();
+		this.getTransform(newt);
+		newt.setRotation(rotAxAng);
+					
+		this.setTransform(newt);	
+		Point3f facP = currFace.iterator().next().getVertex1();
+		newt.transform(facP);
+		if(facP.y<=this.getCurrentMin().y+0.0001f) break;
+		}while(true);
+	}
+	
+	public AxisAngle4f getRotationDown(Vector3f someNormal){
+				
+		float epsilon = 0.0001f;
+		
+		Vector3f curr = new Vector3f(someNormal);
+		Vector3f down = new Vector3f(0,-1,0);
+		curr.normalize();
+		down.normalize();
+		
+		Vector3f up = new Vector3f(0,1,0);
+		
+		
+		if(curr.epsilonEquals(down, epsilon)){
+			return new AxisAngle4f();
+		} else if(curr.epsilonEquals(up, epsilon)){
+			return new AxisAngle4f(1f,0f,0f,(float)Math.PI);
+		}
+		
+		Vector3f rotVec = new Vector3f();
+		rotVec.cross(curr, down);
+		rotVec.normalize();
+		
+		float angle = curr.angle(down);
+		
+		AxisAngle4f rotAxAng = new AxisAngle4f(rotVec.x,rotVec.y,rotVec.z,angle);
+		
+		if(Double.isNaN(rotVec.x)){
+			System.out.println("Curr "+curr);
+			System.out.println("down: "+down);
+		}
+		
+		return rotAxAng;
 	}
 	
 }
