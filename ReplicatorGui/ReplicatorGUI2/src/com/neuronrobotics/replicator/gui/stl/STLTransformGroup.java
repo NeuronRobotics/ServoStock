@@ -4,21 +4,14 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import javax.media.j3d.AmbientLight;
 import javax.media.j3d.Appearance;
-import javax.media.j3d.BoundingSphere;
-import javax.media.j3d.DirectionalLight;
 import javax.media.j3d.Material;
 import javax.media.j3d.RenderingAttributes;
 import javax.media.j3d.Shape3D;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
-import javax.vecmath.AxisAngle4d;
 import javax.vecmath.AxisAngle4f;
 import javax.vecmath.Color3f;
-import javax.vecmath.Matrix3d;
-import javax.vecmath.Matrix3f;
-import javax.vecmath.Point3d;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3d;
 import javax.vecmath.Vector3f;
@@ -30,11 +23,9 @@ public class STLTransformGroup extends TransformGroup{
 	
 	// fields
 	
-	private STLObject theSTLObject,transformedSTLObject;
+	private STLObject theBaseSTLObject;
+	private TransformableSTLObject theTransformableSTLObject;
 	private Shape3D theModel, theFacetOutline;
-	private DirectionalLight directionalLight1,directionalLight2;
-	private AmbientLight ambientLight;
-	//private STLWorkspaceBranchGroup theWorkspace;
 	private ArrayList<STLTransformGroupListener> theListeners;
 	
 	private Iterator<STLFace> objectFaces;
@@ -54,61 +45,16 @@ public class STLTransformGroup extends TransformGroup{
 		
 		objectFaces = null;
 		
-		theSTLObject = stlo;
-		transformedSTLObject = theSTLObject;
+		theBaseSTLObject = stlo;
+		theTransformableSTLObject = new TransformableSTLObject(stlo);
 		theListeners = new ArrayList<STLTransformGroupListener>();
 		
 		isHilighted = false;
-		
-		//theWorkspace = null;		
-		
-		//directional light 1
-		directionalLight1 = new DirectionalLight();//new AmbientLight();
-		directionalLight1.setColor(new Color3f(Color.white));
-		directionalLight1.setInfluencingBounds(new BoundingSphere(new Point3d(0, 0, 0),
-				900));		
-				
-		directionalLight1.setCapability(DirectionalLight.ALLOW_DIRECTION_WRITE);
-		directionalLight1.setCapability(DirectionalLight.ALLOW_COLOR_WRITE);
-		directionalLight1.setCapability(ALLOW_BOUNDS_WRITE);
-		this.addChild(directionalLight1); 
-		directionalLight1.removeAllScopes();
-		directionalLight1.addScope(this);
-		directionalLight1.setDirection(0,-1,0);
-		
-		//directional light 2
-		directionalLight2 = new DirectionalLight();//new AmbientLight();
-		directionalLight2.setColor(new Color3f(Color.white));
-		directionalLight2.setInfluencingBounds(new BoundingSphere(new Point3d(0, 0, 0),
-		900));
-				
-		directionalLight2.setCapability(DirectionalLight.ALLOW_DIRECTION_WRITE);
-		directionalLight2.setCapability(DirectionalLight.ALLOW_COLOR_WRITE);
-		directionalLight2.setCapability(ALLOW_BOUNDS_WRITE);
-		this.addChild(directionalLight2); 
-		directionalLight2.removeAllScopes();
-		directionalLight2.addScope(this);
-		directionalLight2.setDirection(0,-1,0);
-		
-		//ambient light
-		ambientLight = new AmbientLight();
-		ambientLight.setColor(new Color3f(Color.white));
-		ambientLight.setInfluencingBounds(new BoundingSphere(new Point3d(0, 0, 0),
-				900));
-		
-		ambientLight.setCapability(AmbientLight.ALLOW_COLOR_WRITE);
-		ambientLight.setCapability(AmbientLight.ALLOW_BOUNDS_WRITE);
-		this.addChild(ambientLight); 
-		ambientLight.removeAllScopes();
-		ambientLight.addScope(this);
-		
-		updateIndicatorLightBounds();
-				
+						
 	}
 	
 	public STLTransformGroup(STLObject stlo, Shape3D model, Shape3D outline, STLWorkspaceBranchGroup workspace){
 		this(stlo,model,outline);
-		//theWorkspace = workspace;
 		updateIndicatorLightBounds();
 	}
 	
@@ -178,8 +124,8 @@ public class STLTransformGroup extends TransformGroup{
 	}
 	
 	private void updateIndicatorLightBounds() {
-		Point3d cent = new Point3d(this.getCurrentCenter());		
-		directionalLight1.setBounds(new BoundingSphere(cent,1));
+		//Point3d cent = new Point3d(this.getCurrentCenter());		
+		//directionalLight1.setBounds(new BoundingSphere(cent,1));
 		
 		/*
 		if(theWorkspace!=null&&this.modelIsInWorkspace(theWorkspace)){
@@ -194,7 +140,8 @@ public class STLTransformGroup extends TransformGroup{
 	public void setTransform(Transform3D newTran){
 		super.setTransform(newTran);
 		updateIndicatorLightBounds();
-		this.transformedSTLObject=theSTLObject.getTransformedSTLObject(new Transform3DAdapter(newTran));
+		//this.transformedSTLObject=theBaseSTLObject.getTransformedSTLObject(new Transform3DAdapter(newTran));
+		this.theTransformableSTLObject.setTransform(new Transform3DAdapter(newTran));
 		this.alertListenersModelMoved(); //Shouldn't call this anywhere else
 	}
 	
@@ -207,7 +154,7 @@ public class STLTransformGroup extends TransformGroup{
 	}
 	
 	public STLObject getSTLObject(){
-		return theSTLObject;
+		return theBaseSTLObject;
 	}
 
 	public void setModelVisibility(boolean visible){
@@ -232,7 +179,7 @@ public class STLTransformGroup extends TransformGroup{
 	 * @return max
 	 */
 	public Point3f getBaseMax(){
-		return theSTLObject.getMax();
+		return theBaseSTLObject.getMax();
 	}
 	
 	/**
@@ -241,7 +188,7 @@ public class STLTransformGroup extends TransformGroup{
 	 * @return min
 	 */
 	public Point3f getBaseMin(){
-		return theSTLObject.getMin();
+		return theBaseSTLObject.getMin();
 	}
 		
 	/**
@@ -250,7 +197,8 @@ public class STLTransformGroup extends TransformGroup{
 	 * @return min
 	 */
 	public Point3f getCurrentMin() {
-		return this.transformedSTLObject.getMin();
+		//return this.transformedSTLObject.getMin();
+		return this.theTransformableSTLObject.getMin();
 	}
 	
 	/**
@@ -259,7 +207,8 @@ public class STLTransformGroup extends TransformGroup{
 	 * @return max
 	 */
 	public Point3f getCurrentMax() {
-		return this.transformedSTLObject.getMax();	
+		//return this.transformedSTLObject.getMax();	
+		return this.theTransformableSTLObject.getMax();
 	}
 	
 	/**
@@ -268,7 +217,8 @@ public class STLTransformGroup extends TransformGroup{
 	 * @return max
 	 */
 	public Point3f getCurrentCenter(){
-		return transformedSTLObject.getCenter();
+		//return transformedSTLObject.getCenter();
+		return this.theTransformableSTLObject.getCenter();
 	}
 
 	/**
@@ -277,7 +227,7 @@ public class STLTransformGroup extends TransformGroup{
 	 * @return center
 	 */
 	public Point3f getBaseCenter() {				
-		return theSTLObject.getCenter();
+		return theBaseSTLObject.getCenter();
 	}
 	
 	// Model transform functions
@@ -486,18 +436,12 @@ public class STLTransformGroup extends TransformGroup{
 		theModel.getAppearance().getMaterial().setDiffuseColor(newColor);
 	}
 	
-	public void setIndicatorLightDirection(Vector3f dir){
-		directionalLight1.setDirection(dir);
-	}
-
 	public STLObject getTransformedSTLObject() {
-		
-		return this.transformedSTLObject;
-		
+		return this.theTransformableSTLObject.getTransformedSTLObject();
 	}
 
 	public STLTransformGroup getDuplicate(){
-		STLObject stlClone = theSTLObject.clone();
+		STLObject stlClone = theBaseSTLObject.clone();
 		Shape3D dupModel = STLShape3DFactory.getModelShape3D(stlClone);
 		Shape3D dupOutline = STLShape3DFactory.getFacetOutline(stlClone);
 		return new STLTransformGroup(stlClone, dupModel, dupOutline);
@@ -509,7 +453,7 @@ public class STLTransformGroup extends TransformGroup{
 	
 	public void reorientToNextNormal(){
 		if(uniqueNormals==null||!uniqueNormals.hasNext()){
-			uniqueNormals = theSTLObject.getNormalIterator();
+			uniqueNormals = theBaseSTLObject.getNormalIterator();
 		}
 		Vector3f currNorm = uniqueNormals.next();
 		AxisAngle4f rotAxAng = getRotationDown(currNorm);
@@ -527,7 +471,7 @@ public class STLTransformGroup extends TransformGroup{
 	public void reorientToNextFace(){
 		do{
 		if(objectFaces==null||!objectFaces.hasNext()){
-			objectFaces = theSTLObject.getFaceIterator();
+			objectFaces = theBaseSTLObject.getFaceIterator();
 		}
 			
 		currFace = objectFaces.next();

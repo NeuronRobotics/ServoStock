@@ -46,11 +46,6 @@ public class STLObject implements Iterable<STLFacet> {
 		this.max = null;
 		this.theFaces = new ArrayList<STLFace>();
 		uniqueNormals = null;
-		//this.calculateFaces(); //TODO?
-	}
-
-	public Iterable<STLFacet> getFacetIterable() {
-		return (Iterable<STLFacet>) theFacets;
 	}
 
 	public int getFacetAmount() {
@@ -175,12 +170,6 @@ public class STLObject implements Iterable<STLFacet> {
 		theFaces = new ArrayList<STLFace>();
 		theFaces.addAll(STLFace.generateSTLFaces(this));
 		facesAnalyzed = true;
-	}
-
-	public Collection<? extends STLFace> getFaces() {
-		if (!facesAnalyzed)
-			calculateFaces();
-		return theFaces;
 	}
 
 	protected STLObject clone(){

@@ -3,6 +3,7 @@ package com.neuronrobotics.replicator.gui.stl;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Iterator;
 
 
 public abstract class STLWriter {
@@ -17,7 +18,14 @@ public abstract class STLWriter {
 	public void writeSTLToFile(File f) throws IOException{
 		FileWriter fw = new FileWriter(f);
 		writeHeader(fw);
-		for (STLFacet fac:theSTL.getFacetIterable()) writeFacet(fac,fw);
+		
+		Iterator<STLFacet> theFacets = theSTL.iterator();
+		if(theFacets.hasNext()){
+		STLFacet fac = theFacets.next();
+		while (theFacets.hasNext()){
+			writeFacet(fac,fw);
+		}
+		}
 		writeFooter(fw);
 		fw.close();
 	}

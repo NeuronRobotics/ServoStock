@@ -197,17 +197,21 @@ public class STLPreviewMouseControls extends MouseAdapter  {
 	@Override
 	public void mouseMoved(MouseEvent arg0) {
 		thePickCanvas.setShapeLocation(arg0);
-		PickResult result = thePickCanvas.pickClosest();
-		this.thePreview.setCurrentPick(result);
+		if (this.thePreview.getMainBranch().isLive()) {
+			PickResult result = thePickCanvas.pickClosest();
+			this.thePreview.setCurrentPick(result);
+		}
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		
 		thePickCanvas.setShapeLocation(arg0);
-		PickResult result = thePickCanvas.pickClosest();
 		
-		this.thePreview.setCurrentPick(result);
+		if (this.thePreview.getMainBranch().isLive()) {
+			PickResult result = thePickCanvas.pickClosest();
+			this.thePreview.setCurrentPick(result);
+		}
 		
 		Point2D temp = arg0.getLocationOnScreen();
 		lastLocation = temp;		
@@ -248,12 +252,15 @@ public class STLPreviewMouseControls extends MouseAdapter  {
 	public void mousePressed(MouseEvent arg0) {
 		
 		thePickCanvas.setShapeLocation(arg0);
-		PickResult result = thePickCanvas.pickClosest();
 		
-		this.thePreview.setCurrentPick(result);
+		if (this.thePreview.getMainBranch().isLive()) {
+			PickResult result = thePickCanvas.pickClosest();
+			this.thePreview.setCurrentPick(result);
+			System.out.println("Picked: " + result);
+		}
 		
-		System.out.println("Picked: "+result);
-				
+		
+						
 		mousePressed = true;
 		Point2D temp = arg0.getLocationOnScreen();
 		lastLocation = temp;

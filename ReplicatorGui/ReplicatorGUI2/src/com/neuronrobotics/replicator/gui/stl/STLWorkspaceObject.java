@@ -1,6 +1,7 @@
 package com.neuronrobotics.replicator.gui.stl;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.vecmath.Vector3f;
 
@@ -27,8 +28,11 @@ public class STLWorkspaceObject extends STLObject {
 		
 		STLFace result = null;
 		Vector3f down = new Vector3f(0,-1,0);
-				
-		for(STLFace face: this.getFaces()){
+		
+		Iterator<STLFace> theFaces = this.getFaceIterator();
+		
+		while(theFaces.hasNext()){
+			STLFace face = theFaces.next();
 			Vector3f currNorm = face.getNormal();
 			currNorm.normalize();
 			double currY = face.iterator().next().getVertex1().y;

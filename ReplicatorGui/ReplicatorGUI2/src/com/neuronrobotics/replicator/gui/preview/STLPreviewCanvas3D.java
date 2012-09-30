@@ -1,14 +1,18 @@
 package com.neuronrobotics.replicator.gui.preview;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.media.j3d.AmbientLight;
+import javax.media.j3d.BoundingSphere;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Canvas3D;
 import javax.media.j3d.ColoringAttributes;
+import javax.media.j3d.DirectionalLight;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
 import javax.swing.JMenuItem;
@@ -25,11 +29,12 @@ import com.neuronrobotics.replicator.gui.stl.STLObjectIntersectionUtilities;
 import com.neuronrobotics.replicator.gui.stl.STLTransformGroup;
 import com.neuronrobotics.replicator.gui.stl.STLTransformGroupListener;
 import com.neuronrobotics.replicator.gui.stl.STLWorkspaceBranchGroup;
+import com.neuronrobotics.replicator.gui.stl.TransformableSTLObject;
 import com.sun.j3d.utils.picking.PickResult;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
 public class STLPreviewCanvas3D extends Canvas3D implements
-		STLTransformGroupListener {
+		STLTransformGroupListener{
 
 	/**
 	 * 
@@ -54,7 +59,7 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 	private Vector3d cameraOrientation;
 
 	// private File theSTLFile, theGcode;
-	private STLObject theSTLObject;
+	//private STLObject theSTLObject;
 
 	private STLPreviewMouseControls theMouseControls;
 
@@ -70,6 +75,9 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 	private boolean cameraPositionFixed;
 
 	private STLPreviewCameraController theCameraController;
+	
+	private AmbientLight theAmbientLight;
+	private DirectionalLight directionalLight1,directionalLight2;
 
 	private enum PlacementStatus {
 		UNKOWN {
@@ -78,10 +86,6 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 				return new Color3f(.0f, .0f, .0f);
 			}
 
-			@Override
-			Color3f getHighlightedColor() {
-				return new Color3f(.5f, .5f, .5f);
-			}
 		},
 		NOT_IN_WORKSPACE {
 			@Override
@@ -89,10 +93,7 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 				return new Color3f(.4f, .0f, .0f);
 			}
 
-			@Override
-			Color3f getHighlightedColor() {
-				return new Color3f(5.5f, .5f, .5f);
-			}
+			
 		},
 		MODEL_COLLISION {
 			@Override
@@ -100,10 +101,6 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 				return new Color3f(.0f, .0f, .4f);
 			}
 
-			@Override
-			Color3f getHighlightedColor() {
-				return new Color3f(.5f, .5f, 5.5f);
-			}
 		},
 		VALID_PLACEMENT {
 			@Override
@@ -111,16 +108,10 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 				return new Color3f(0,0.4f,0);
 			}
 
-			@Override
-			Color3f getHighlightedColor() {
-				return new Color3f(.5f, 5.5f, .5f);
-			}
 		};
 
 		abstract Color3f getBaseColor();
 
-		@Deprecated
-		abstract Color3f getHighlightedColor();
 	}
 
 	private ArrayList<PlacementStatus> placementStatuses;
@@ -164,8 +155,7 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 
 		modelBranch = new BranchGroup();
 		workspaceBranch = new BranchGroup();
-		// = simpleU.getLocale();
-
+		
 		mainBranch.setCapability(BranchGroup.ALLOW_CHILDREN_EXTEND);
 		mainBranch.setCapability(BranchGroup.ALLOW_DETACH);
 		mainBranch.setCapability(BranchGroup.ALLOW_CHILDREN_READ);
@@ -185,6 +175,46 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 		
 		mainBranch.addChild(modelBranch);
 		mainBranch.addChild(workspaceBranch);
+		
+		//ambient light
+		theAmbientLight = new AmbientLight(new Color3f(Color.white));
+		mainBranch.addChild(theAmbientLight);
+		theAmbientLight.addScope(mainBranch);
+		theAmbientLight.setInfluencingBounds(new BoundingSphere(new Point3d(0,0,0), 900));
+		theAmbientLight.setCapability(AmbientLight.ALLOW_COLOR_WRITE);
+		theAmbientLight.setCapability(AmbientLight.ALLOW_BOUNDS_WRITE);
+		
+		// directional light 1
+		directionalLight1 = new DirectionalLight();// new AmbientLight();
+		directionalLight1.setColor(new Color3f(Color.white));
+		directionalLight1.setInfluencingBounds(new BoundingSphere(new Point3d(
+				0, 0, 0), 900));
+
+		directionalLight1.setCapability(DirectionalLight.ALLOW_DIRECTION_WRITE);
+		directionalLight1.setCapability(DirectionalLight.ALLOW_COLOR_WRITE);
+		directionalLight1.setCapability(DirectionalLight.ALLOW_BOUNDS_WRITE);
+		mainBranch.addChild(directionalLight1);
+		// directionalLight1.removeAllScopes();
+		// directionalLight1.addScope(this);
+		directionalLight1.setDirection(0, -1, 0);
+
+		// directional light 2
+		directionalLight2 = new DirectionalLight();// new AmbientLight();
+		directionalLight2.setColor(new Color3f(Color.white.darker()));
+		directionalLight2.setInfluencingBounds(new BoundingSphere(new Point3d(
+				0, 0, 0), 900));
+
+		directionalLight2.setCapability(DirectionalLight.ALLOW_DIRECTION_WRITE);
+		directionalLight2.setCapability(DirectionalLight.ALLOW_COLOR_WRITE);
+		directionalLight2.setCapability(DirectionalLight.ALLOW_BOUNDS_WRITE);
+		directionalLight2.setCapability(DirectionalLight.ALLOW_STATE_WRITE);
+		mainBranch.addChild(directionalLight2);
+		// directionalLight2.removeAllScopes();
+		// directionalLight2.addScope(this);
+		directionalLight2.setDirection(0, -1, 0);
+		
+		this.theCameraController.resetCamera();
+
 	}
 
 	public void loadFromQueue() {
@@ -267,6 +297,13 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 		Vector3f lightDir = new Vector3f(cameraPosition);
 		Vector3f temp = new Vector3f(cameraDirection);
 		temp.sub(lightDir);
+		directionalLight1.setDirection(temp);
+		Vector3f temp2 = new Vector3f(-temp.x, temp.y, -temp.z);
+		temp2.normalize();
+		if(!(temp2.epsilonEquals(temp, 0.001f)||(Math.abs(temp2.x)+Math.abs(temp2.z)<0.3))){
+			directionalLight2.setDirection(temp2);
+		} 
+		
 
 		for (STLPreviewCanvas3DListener spcl : theListeners) {
 			spcl.alertCameraMoved(position, direction, orient);
@@ -282,10 +319,6 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 		for (int i = 0; i < tot; i++) {
 			STLTransformGroup stg = theSTLTransforms.get(i);
 
-		//	Color3f col = (stg == currentSTLTransform) ? placementStatuses.get(
-			//		i).getHighlightedColor() : placementStatuses.get(i)
-				//	.getBaseColor();
-			//TODO
 			Color3f col = placementStatuses.get(i).getBaseColor();
 			stg.setDiffuseLightColor(col);
 			
@@ -295,22 +328,8 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 				Vector3d camDir = new Vector3d(0,0,0);
 				camDir.add(this.cameraDirection);
 				camDir.sub(this.cameraPosition);
-				
-				stg.setIndicatorLightDirection(new Vector3f(camDir));
 			}
 		}
-
-		/*
-		 * if(this.theWorkspace==null){ for (STLTransformGroup
-		 * stg:theSTLTransforms){ stg.setIndicatorLightColor(new
-		 * Color3f(5.5f,.0f,.0f)); } }
-		 * 
-		 * else { int ct = 0; for (STLTransformGroup stg:theSTLTransforms){
-		 * Boolean curr = stg.modelIsInWorkspace(theWorkspace);
-		 * System.out.println("Curr "+curr); if(curr){
-		 * stg.setIndicatorLightColor(new Color3f(.0f, 5.5f, .0f)); } else {
-		 * stg.setIndicatorLightColor(new Color3f(5.5f, .0f, .0f)); } } }
-		 */
 
 	}
 
@@ -517,7 +536,7 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 
 		STLTransformGroup stlTransform;
 
-		theSTLObject = STLLoader.loadFile(f);
+		STLObject theSTLObject = STLLoader.loadFile(f);
 
 		stlTransform = STLLoader.createSTLTransform(theSTLObject);
 
@@ -731,6 +750,6 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 
 	public int getModelCount(){
 		return this.theSTLTransforms.size();
-	}
+	}	
 	
 }

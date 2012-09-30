@@ -18,7 +18,9 @@ import java.util.LinkedList;
 //import java.util.ArrayList;
 //import java.util.Enumeration;
 
+import javax.swing.DropMode;
 import javax.swing.JTree;
+import javax.swing.TransferHandler;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -41,7 +43,26 @@ public class FileNavigator extends JTree implements TreeSelectionListener, Mouse
 	private DefaultMutableTreeNode currentNode;
 		
 	private LinkedList<FileNavigatorListener> theDirectoryTreeListeners;
+	
+	private static FilenameFilter dirFilter = new FilenameFilter(){
 
+		@Override
+		public boolean accept(File arg0, String arg1) {
+			File testF = new File(arg0.getAbsolutePath()+"\\"+arg1);
+			return testF.isDirectory();
+		}
+		
+	};
+	
+	private static FilenameFilter stlfilter = new FilenameFilter(){
+		@Override
+		public boolean accept(File arg0, String arg1) {
+			File newf = new File(arg0,arg1);
+			return !newf.isDirectory()&&arg1.endsWith(".stl");
+		}
+
+	};	
+	
 	public static FileNavigator getDirectoryTree(File mainDirectory){
 		
 		if(!mainDirectory.exists())	mainDirectory.mkdir();
@@ -49,81 +70,61 @@ public class FileNavigator extends JTree implements TreeSelectionListener, Mouse
 			
 		FileNavigatorFolderNodeObject rootObject = new FileNavigatorFolderNodeObject(mainDirectory);
 		FileNavigatorFolderNode root = new FileNavigatorFolderNode(rootObject);
-		
-		FilenameFilter dirFilter = new FilenameFilter(){
-
-			@Override
-			public boolean accept(File arg0, String arg1) {
-				File testF = new File(arg0.getAbsolutePath()+"\\"+arg1);
-				return testF.isDirectory();
-			}
-			
-		};
-		
-		FilenameFilter stlfilter = new FilenameFilter(){
-			@Override
-			public boolean accept(File arg0, String arg1) {
-				return arg1.endsWith(".stl");
-			}
-	
-		};	
-		
+								
 		DefaultTreeModel dtm = new DefaultTreeModel(root);
 		FileNavigator theDirectoryTree = new FileNavigator(dtm);
-		
-		
+				
 		theDirectoryTree.theRoot = root;
 		
-		//theDirectoryTree.mainDirectory = mainDirectory;
+		addDirectoryContents(dtm, root);
 				
-		//File mainDirectory = mainDir;
-		
-		File[] directoryFiles = mainDirectory.listFiles(dirFilter);
-		
-		File[] theSTLFiles = mainDirectory.listFiles(stlfilter);
-		
-		int ct=0;
-		for(File f:theSTLFiles){
-			File temp = new File(f.getName()+".gcode");
-			FileNavigatorLeafNodeObject tempObj = new FileNavigatorLeafNodeObject(f,temp);
-			FileNavigatorLeafNode newNode = new FileNavigatorLeafNode(tempObj);
-			//newNode.setUserObject(tempObj);
-			dtm.insertNodeInto(newNode, root, ct++);
-		}
-		
-		//TODO doesn't add contents of subdirectories yet
-		ct=0;
-		for(File d:directoryFiles){
-			if(d.getName().contains(".svn")) continue; //Ignore .svn folder when testing
-			FileNavigatorFolderNodeObject tempObj = new FileNavigatorFolderNodeObject(d);
-			FileNavigatorFolderNode newNode = new FileNavigatorFolderNode(tempObj);
-			dtm.insertNodeInto(newNode, root, ct++);
-		}
-	
-		//theDirectoryTree.setExpandedState(, true);
-		
-		//DefaultTreeCellRenderer dtcr = (DefaultTreeCellRenderer)theDirectoryTree.getCellRenderer();
-		
-		
 		TreePath tp = new TreePath(root.getPath());
 		theDirectoryTree.setExpandedState(tp, true);
 		
 		theDirectoryTree.setRootVisible(false);
 		
 		theDirectoryTree.treeDidChange();
+		
+		theDirectoryTree.setTransferHandler(new FileNavigatorTransferHandler(theDirectoryTree));
 		return theDirectoryTree; 
 		
 	}
 		
+	private static void addDirectoryContents(DefaultTreeModel dtm,FileNavigatorFolderNode fn){
+		int ct=0;
+		
+		File mainDir = ((FileNavigatorFolderNodeObject)fn.getUserObject()).getTheDirectory();
+		
+		File[] directoryFiles = mainDir.listFiles(dirFilter);
+		
+		File[] stlFiles = mainDir.listFiles(stlfilter);
+		
+		for(File d:directoryFiles){
+			if(d.getName().contains(".svn")) continue; //Ignore .svn folder when testing
+			FileNavigatorFolderNodeObject tempObj = new FileNavigatorFolderNodeObject(d);
+			FileNavigatorFolderNode newNode = new FileNavigatorFolderNode(tempObj);
+			dtm.insertNodeInto(newNode, fn, ct++);
+			addDirectoryContents(dtm,newNode);
+		}
+		
+		for(File stl:stlFiles){
+			FileNavigatorLeafNodeObject tempObj = new FileNavigatorLeafNodeObject(stl);
+			FileNavigatorLeafNode newNode = new FileNavigatorLeafNode(tempObj);
+			dtm.insertNodeInto(newNode, fn, ct++);
+		}
+	}
 	
 	private FileNavigator(DefaultTreeModel tm){
 		super(tm);
 		addTreeSelectionListener(this);
 		addMouseListener(this);
+		this.setDragEnabled(true);
+		
+		this.setDropMode(DropMode.ON);
 		currentNode = null;
-		theDirectoryTreeListeners = new LinkedList<FileNavigatorListener>();
+		theDirectoryTreeListeners = new LinkedList<FileNavigatorListener>();	
 	}
-	
+				
 	/*
 	public void linkNewFolder(String newFullFileName){
 		linkNewFolder(theRoot,newFullFileName);
@@ -231,7 +232,6 @@ public class FileNavigator extends JTree implements TreeSelectionListener, Mouse
 		if(!this.theDirectoryTreeListeners.contains(dtl)) theDirectoryTreeListeners.add(dtl);
 	}
 
-
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		if(arg0.getClickCount()>=2&&this.currentNode!=null){
@@ -250,18 +250,15 @@ public class FileNavigator extends JTree implements TreeSelectionListener, Mouse
 			
 	}
 
-
 	@Override
 	public void mouseExited(MouseEvent arg0) {
 		
 	}
 
-
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		
 	}
-
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {

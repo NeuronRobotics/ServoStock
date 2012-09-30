@@ -2,7 +2,7 @@ package com.neuronrobotics.replicator.gui.navigator;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
-public class FileNavigatorFolderNode extends DefaultMutableTreeNode{
+public class FileNavigatorFolderNode extends DefaultMutableTreeNode {
 
 	/**
 	 * 

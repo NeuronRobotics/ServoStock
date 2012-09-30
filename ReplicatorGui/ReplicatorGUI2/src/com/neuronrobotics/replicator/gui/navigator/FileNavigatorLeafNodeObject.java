@@ -11,6 +11,11 @@ public class FileNavigatorLeafNodeObject {
 		theGCodeFile = gcode;
 	}
 
+	public FileNavigatorLeafNodeObject(File stl) {
+		theSTLFile = stl;
+		theGCodeFile = null;
+	}
+
 	public File getTheSTLFile() {
 		return theSTLFile;
 	}
@@ -30,5 +35,5 @@ public class FileNavigatorLeafNodeObject {
 	public String toString(){
 		return theSTLFile.getName();
 	}
-
+	
 }

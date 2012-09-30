@@ -18,5 +18,5 @@ public class FileNavigatorFolderNodeObject {
 	public String toString(){
 		return theDirectory.getName();
 	}
-	
+		
 }

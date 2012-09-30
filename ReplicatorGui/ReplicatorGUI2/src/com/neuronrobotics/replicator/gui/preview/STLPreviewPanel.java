@@ -3,10 +3,20 @@ package com.neuronrobotics.replicator.gui.preview;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetDragEvent;
+import java.awt.dnd.DropTargetDropEvent;
+import java.awt.dnd.DropTargetEvent;
+import java.awt.dnd.DropTargetListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+import java.util.Collection;
 import java.util.Hashtable;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,11 +31,12 @@ import javax.vecmath.Point3d;
 import javax.vecmath.Vector3d;
 
 import com.neuronrobotics.replicator.gui.GUIFrontendInterface;
+import com.neuronrobotics.replicator.gui.navigator.FileTransferable;
 import com.neuronrobotics.replicator.gui.preview.STLPreviewCameraController.CameraMode;
 import com.neuronrobotics.replicator.gui.preview.STLPreviewMouseControls.MouseControlMode;
 
 public class STLPreviewPanel extends JLayeredPane implements ActionListener,
-		ChangeListener,STLPreviewTabListener, STLPreviewCanvas3DListener {
+		ChangeListener,STLPreviewTabListener, STLPreviewCanvas3DListener, DropTargetListener {
 
 	/**
 	 * 
@@ -121,9 +132,24 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 		gridbag.setConstraints(cameraControls, c);
 		this.setLayer(cameraControls, DEFAULT_LAYER, 0);
 		this.add(cameraControls);
-				
+		
+		DropTarget dt = new DropTarget(this,this);
+		this.setDropTarget(dt);	
 	}
 
+	public void addEmptyWorkspace(String wsName, File workspaceSTL) {
+		ImageIcon imageIcon = new ImageIcon("Images\\simpleCube.png");
+		STLPreviewTab newTab = new STLPreviewTab(wsName,workspaceSTL);
+		newTab.addTabListener(this);
+		thePreviewTabs.put(workspaceSTL, newTab);
+		//previewTabbedPane.add(newTab);
+		previewTabbedPane.add(newTab, wsName);
+		int tcount = previewTabbedPane.getTabCount();
+		previewTabbedPane.setIconAt(tcount - 1, imageIcon);
+		previewTabbedPane.setSelectedIndex(tcount - 1);
+		newTab.load();
+	}
+	
 	public boolean addPreview(File stl, File wstl)
 			throws Exception {
 		File gcode = new File(stl.getAbsolutePath() + ".gcode");
@@ -315,6 +341,45 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 	public void alertCameraMoved(Point3d position, Point3d direction,
 			Vector3d orientation) {
 		updateOrientationIndicator(false);		
+	}
+
+	@Override
+	public void dragEnter(DropTargetDragEvent arg0) {		
+	}
+
+	@Override
+	public void dragExit(DropTargetEvent arg0) {
+	}
+
+	@Override
+	public void dragOver(DropTargetDragEvent arg0) {		
+	}
+
+	@Override
+	public void drop(DropTargetDropEvent arg0) {
+		if(arg0.getCurrentDataFlavorsAsList().contains(DataFlavor.javaFileListFlavor)){
+			File newSTL;
+			try {
+				newSTL = ((List<File>)arg0.getTransferable().getTransferData(DataFlavor.javaFileListFlavor)).get(0);
+			} catch (UnsupportedFlavorException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return;
+			}
+						
+			if(newSTL.getName().endsWith(".stl")){
+				if(this.hasNoPreviews()){
+					//this.addEmptyWorkspace("Untitiled", workspaceSTL);
+					//TODO
+					return;
+				}
+				this.getCurrentPreview().addModelToWorkspace(newSTL);
+			} 
+		}
+	}
+
+	@Override
+	public void dropActionChanged(DropTargetDragEvent arg0) {		
 	}
 	
 }

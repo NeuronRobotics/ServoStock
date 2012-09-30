@@ -2,6 +2,7 @@ package com.neuronrobotics.replicator.gui.stl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import javax.media.j3d.Appearance;
 import javax.media.j3d.ColoringAttributes;
@@ -46,7 +47,10 @@ public class STLShape3DFactory {
 	public static Shape3D getFaceOutline(STLObject stlo) {
 		ArrayList<Edge3f> theEdges = new ArrayList<Edge3f>();
 
-		for (STLFace face : stlo.getFaces()) {
+		Iterator<STLFace> theFaces = stlo.getFaceIterator();
+		
+		while (theFaces.hasNext()) {
+			STLFace face = theFaces.next();
 			theEdges.addAll(getFacePerimeter(face));
 		}
 

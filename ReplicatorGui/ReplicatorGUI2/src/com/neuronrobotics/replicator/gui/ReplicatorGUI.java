@@ -62,7 +62,7 @@ public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, FileN
 	private FileNavigator theDirectoryTree;
 
 	private JMenuItem openFileItem;
-	private JMenuItem newProjectItem;
+	private JMenuItem newWorkspaceItem;
 	private JMenuItem importSTLItem;
 
 	private JLabel statusLabel;
@@ -185,26 +185,28 @@ public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, FileN
 			}
 
 		});
-
-		this.newProjectItem = new JMenuItem("New Folder");
-		newProjectItem.addActionListener(new ActionListener(){
-
+		
+		this.newWorkspaceItem = new JMenuItem("New Workspace");
+		newWorkspaceItem.addActionListener(new ActionListener(){
+			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				String folderName = JOptionPane.showInputDialog("New Folder Name: ");
+				String folderName = JOptionPane.showInputDialog("New Workspace Name: ");
 				
 				String err = null;
-				try {
-					theDirectoryTree.addNewFolder(folderName);
-				} catch (FileNotDirectoryException e) {
-					err = "That file exists and it is not a directory.";
-					e.printStackTrace();
-				} catch (IOException e) {
-					err = "IO Exception occured when adding new folder.";
-					e.printStackTrace();
-				} finally{
-					if(err!=null) errorDialog(err);
-				}
+				
+				//try {
+					//theDirectoryTree.addNewFolder(folderName);
+					previewContainer.addEmptyWorkspace(folderName,defaultWorkspaceSTL);
+			//	} catch (FileNotDirectoryException e) {
+					//err = "That file exists and it is not a directory.";
+				//	e.printStackTrace();
+			//	} catch (IOException e) {
+				//	err = "IO Exception occured when adding new folder.";
+				//	e.printStackTrace();
+				//} finally{
+				//	if(err!=null) errorDialog(err);
+				//}
 			}
 		});
 		
@@ -231,7 +233,7 @@ public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, FileN
 		});
 		
 		fileMenu.add(openFileItem);
-		fileMenu.add(newProjectItem);
+		fileMenu.add(newWorkspaceItem);
 		fileMenu.add(importSTLItem);
 		
 		this.setJMenuBar(menuBar);
@@ -420,6 +422,7 @@ public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, FileN
 	}
 
 	public boolean addPreview(File stl, File gcode) throws Exception {
+		if(gcode==null) gcode = new File("Temp\\temp.gcode");
 		if(!gcode.exists()) gcode.createNewFile();
 		
 		return this.previewContainer.addPreview(stl, gcode, defaultWorkspaceSTL);
