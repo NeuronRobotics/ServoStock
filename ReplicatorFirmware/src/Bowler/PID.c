@@ -1,9 +1,9 @@
 #include "main.h"
 
 
-static AbsPID 			pidGroups[numPidMotor];
-static PD_VEL 			vel[numPidMotor];
-static PidLimitEvent            limits[numPidMotor];
+static AbsPID 			pidGroups[numPidTotal];
+static PD_VEL 			vel[numPidTotal];
+static PidLimitEvent            limits[numPidTotal];
 
 
 float getPositionMine(int group);
@@ -16,7 +16,7 @@ PidLimitEvent * checkPIDLimitEventsMine(BYTE group);
 void initPIDLocal(){
    	BYTE i;
 	//WORD loop;
-	for (i=0;i<numPidMotor;i++){
+	for (i=0;i<numPidTotal;i++){
 		pidGroups[i].Enabled=FALSE;
 		pidGroups[i].channel = i;
                 pidGroups[i].K.P=.08;
@@ -38,7 +38,7 @@ void initPIDLocal(){
 
 	InitilizePidController( pidGroups,
                                 vel,
-                                numPidMotor,
+                                numPidTotal,
                                 &getPositionMine,
                                 &setOutputMine,
                                 &resetPositionMine,

@@ -1,13 +1,13 @@
 #include "main.h"
 
 #define SERVO_BOUND 		1
-INTERPOLATE_DATA velocity[numPidMotor+1];
-int position[numPidMotor+1];
-int sort[numPidMotor+1];
+INTERPOLATE_DATA velocity[numPidTotal+1];
+int position[numPidTotal+1];
+int sort[numPidTotal+1];
 int lastValue;
 int sortedIndex = 0;
 BYTE start=0;
-BYTE stop=numPidMotor;
+BYTE stop=numPidTotal;
 void delayLoop();
 
 ServoState state = LOW;
@@ -15,14 +15,14 @@ ServoState state = LOW;
 void runSort(){
     int i=0,k=0,x;
     int current;
-    for(k=0;k<numPidMotor;k++){
-        sort[k]=numPidMotor;
+    for(k=0;k<numPidTotal;k++){
+        sort[k]=numPidTotal;
     }
-    for(x=0;x<numPidMotor;x++){
+    for(x=0;x<numPidTotal;x++){
         current = 256;
-        for(i=0;i<numPidMotor;i++){
+        for(i=0;i<numPidTotal;i++){
             int used= FALSE;
-            for(k=0;k<numPidMotor;k++){
+            for(k=0;k<numPidTotal;k++){
                 if(sort[k]==i){
                     used=TRUE;
                 }
@@ -103,7 +103,7 @@ void __ISR(_TIMER_2_VECTOR, ipl5) Timer2Handler(void)
 
                 sortedIndex++;
 
-                if(sortedIndex == numPidMotor){
+                if(sortedIndex == numPidTotal){
                     state = FINISH;
                 }else{
                     do{//Loop throug to see if there is more then one value ready to turn off
@@ -120,8 +120,8 @@ void __ISR(_TIMER_2_VECTOR, ipl5) Timer2Handler(void)
                             lastValue = nextValue;
                             sortedIndex++;
                         }
-                    }while(!(diff > MIN_SERVO) && sortedIndex != numPidMotor);
-                    if(diff>MIN_SERVO && sortedIndex != numPidMotor){
+                    }while(!(diff > MIN_SERVO) && sortedIndex != numPidTotal);
+                    if(diff>MIN_SERVO && sortedIndex != numPidTotal){
                         setTimerServoTicks(diff);
                         break;
                     }
@@ -144,7 +144,7 @@ void initServos(){
         CloseUART1();
     }
     int i;
-    for(i=0;i<numPidMotor;i++){
+    for(i=0;i<numPidTotal;i++){
         pinOff(i);
         setServo(i,128,0);
     }

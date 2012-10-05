@@ -1,9 +1,9 @@
 #include "main.h"
 #include <math.h>
 
-int overflow[numPidMotor];
-int offset[numPidMotor];
-int raw[numPidMotor];
+int overflow[numPidTotal];
+int offset[numPidTotal];
+int raw[numPidTotal];
 
 #define jump 3000
 
@@ -13,7 +13,7 @@ void initializeEncoders(){
     encoderSPIInit();
     mJTAGPortEnable(0); // Disable JTAG and free up channels 0 and 1
     ENC_CSN_INIT(); // Set pin modes for CS pins
-    for(i=0;i<numPidMotor;i++){
+    for(i=0;i<numPidTotal;i++){
         AS5055reset(i);
         overflow[i]=0;
         offset[i]=0;
