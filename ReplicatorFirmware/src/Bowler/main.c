@@ -65,9 +65,9 @@
 #define SYS_FREQ 			(80000000L)
 
 #define NO_ETHERNET
-//#define CALIBRATE
+#define CALIBRATE
 //#define NO_PID
-//#define TEST_MOTION
+#define TEST_MOTION
 #define EXTRUDER_TEST
 typedef enum {
     EXCEP_IRQ = 0,          // interrupt
@@ -274,6 +274,7 @@ int main()
         setPrintLevelNoPrint();
         initializeEncoders();// Power supply must be turned on first
         setPrintLevel(l);
+        initializeHeater();
 
         initServos();
 #if !defined(NO_PID)
@@ -306,7 +307,7 @@ int main()
         int lastStepVal=0;//Stepper setpoint
         StartStepperSim();
 #endif
-        
+        int arm =0;
 	while(1){
             Bowler_Server_Local(&MyPacket);
             #if !defined(NO_ETHERNET)
@@ -338,6 +339,7 @@ int main()
                 arm++;
                 if (arm==3)
                     arm=0;
+                int i;
             }
 #else
     #if defined(EXTRUDER_TEST)
@@ -348,6 +350,10 @@ int main()
 #endif
             float diff = RunEvery(&pid);
             if(diff>0){
+                println_I("\n\n");
+                for(i=numPidMotors;i<numPidTotal;i++){
+                    println_I("ADC voltage PID ");p_ul_I(i);print_I(" = ");p_fl_I(getHeaterTempreture(i));
+                }
                 if(!calibrate){
 #if !defined(NO_PID)
                     Print_Level l = getPrintLevel();

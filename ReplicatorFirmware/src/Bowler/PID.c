@@ -34,7 +34,7 @@ void initPIDLocal(){
                     pidGroups[i].K.D=0;
                     pidGroups[i].Polarity=1;
                 }
-                if(i>numPidMotors){
+                if(i>=numPidMotors){
                     //These are the PID gains for the tempreture system
                     pidGroups[i].K.P=.1;
                     pidGroups[i].K.I=0;
@@ -121,7 +121,7 @@ PidLimitEvent * checkPIDLimitEventsMine(BYTE group){
 
 int resetPositionMine(int group, int current){
     println_I("Resetting PID Local ");p_ul_I(group);print_I(" to ");p_ul_I(current);print_I(" from ");p_fl_I(getPositionMine(group));
-    if(i<numPidMotors){
+    if(group<numPidMotors){
         setCurrentValue(group, current);
     }else{
         resetHeater(group, current);
@@ -131,7 +131,7 @@ int resetPositionMine(int group, int current){
 
 float getPositionMine(int group){
     float val=0;
-    if(i<numPidMotors){
+    if(group<numPidMotors){
         val = readEncoder(group);
     }else{
         val = getHeaterTempreture(group);
@@ -141,7 +141,7 @@ float getPositionMine(int group){
 }
 
 void setOutputMine(int group, float v){
-    if(i<numPidMotors){
+    if(group<numPidMotors){
         int val = (int)(v);
         val += 128;
         if (val>255)
