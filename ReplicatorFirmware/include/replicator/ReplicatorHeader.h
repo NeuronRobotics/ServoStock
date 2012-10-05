@@ -109,7 +109,11 @@ extern "C" {
 void initPIDLocal();
 void setPidIsr(BOOL v);
 
-#define numPidMotor 8
+#define numPidMotors 8
+
+#define numPidHeater 4
+
+#define numPidTotal (numPidMotors+numPidHeater)
 
 #define EXTRUDER0_INDEX 0
 #define LINK0_INDEX 4
