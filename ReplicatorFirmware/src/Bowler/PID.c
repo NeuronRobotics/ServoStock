@@ -34,6 +34,13 @@ void initPIDLocal(){
                     pidGroups[i].K.D=0;
                     pidGroups[i].Polarity=1;
                 }
+                if(i>numPidMotors){
+                    //These are the PID gains for the tempreture system
+                    pidGroups[i].K.P=.1;
+                    pidGroups[i].K.I=0;
+                    pidGroups[i].K.D=0;
+                    pidGroups[i].Polarity=1;
+                }
 	}
 
 	InitilizePidController( pidGroups,
@@ -90,6 +97,7 @@ BOOL asyncCallback(BowlerPacket *Packet){
 
 void onPidConfigureMine(int group){
     if(group==LINK0_INDEX || group== LINK1_INDEX || group== LINK2_INDEX){
+        //Synchronized gains for all 3 links, needed for stability
         float p = pidGroups[group].K.P;
         float i = pidGroups[group].K.I;
         float d = pidGroups[group].K.D;
@@ -113,24 +121,38 @@ PidLimitEvent * checkPIDLimitEventsMine(BYTE group){
 
 int resetPositionMine(int group, int current){
     println_I("Resetting PID Local ");p_ul_I(group);print_I(" to ");p_ul_I(current);print_I(" from ");p_fl_I(getPositionMine(group));
-    setCurrentValue(group, current);
+    if(i<numPidMotors){
+        setCurrentValue(group, current);
+    }else{
+        resetHeater(group, current);
+    }
     return getPositionMine(group);
 }
 
 float getPositionMine(int group){
-    float val = readEncoder(group);
+    float val=0;
+    if(i<numPidMotors){
+        val = readEncoder(group);
+    }else{
+        val = getHeaterTempreture(group);
+    }
+
     return val;
 }
 
 void setOutputMine(int group, float v){
-	int val = (int)(v);
+    if(i<numPidMotors){
+        int val = (int)(v);
         val += 128;
         if (val>255)
                 val=255;
         if(val<0)
                 val=0;
-	
-	int set = (int)val;
-        setServo(group,set,0);
 
+	int set = (int)val;
+
+        setServo(group,set,0);
+    }else{
+       setHeater( group,  v);
+    }
 }
