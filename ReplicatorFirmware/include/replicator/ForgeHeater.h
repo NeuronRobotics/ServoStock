@@ -12,6 +12,8 @@
 extern "C" {
 #endif
 
+    void initializeHeater();
+
     int resetHeater(int group, int current);
 
     float getHeaterTempreture(int group);

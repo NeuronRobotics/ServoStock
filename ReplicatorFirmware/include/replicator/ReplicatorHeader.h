@@ -17,7 +17,7 @@ extern "C" {
 #define     ATX_PWR_ON         _RD5
 #define     ATX_ENABLED        0
 
-#define     ATX_ENABLE()       ATX_PWR_ON_TRIS = 0; ATX_PWR_ON = ATX_ENABLED; // set to output and pull low. This should probubly be an open collector pin.
+#define     ATX_ENABLE()       ATX_PWR_ON_TRIS = 0; ATX_PWR_ON = ATX_ENABLED;DelayMs(100); // set to output and pull low. This should probubly be an open collector pin.
 #define     ATX_DISENABLE()    ATX_PWR_ON_TRIS = 1; // dont want to DRIVE an io line that's pulled high. Set to input and let it get pulled up.
 
 // eNCODER Connector macros and defines
