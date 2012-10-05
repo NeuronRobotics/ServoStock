@@ -61,13 +61,15 @@
 #pragma config DEBUG    = OFF            // Background Debugger Enable
 
 
+#pragma config FVBUSONIO = OFF //Shuts off control of VBUSON pin on RB5
+
 
 #define SYS_FREQ 			(80000000L)
 
 #define NO_ETHERNET
 #define CALIBRATE
 //#define NO_PID
-#define TEST_MOTION
+//#define TEST_MOTION
 #define EXTRUDER_TEST
 typedef enum {
     EXCEP_IRQ = 0,          // interrupt
@@ -308,6 +310,7 @@ int main()
         StartStepperSim();
 #endif
         int arm =0;
+        SetPID(HEATER0_INDEX,50);
 	while(1){
             Bowler_Server_Local(&MyPacket);
             #if !defined(NO_ETHERNET)
@@ -354,6 +357,7 @@ int main()
                 for(i=numPidMotors;i<numPidTotal;i++){
                     println_I("ADC voltage PID ");p_ul_I(i);print_I(" = ");p_fl_I(getHeaterTempreture(i));
                 }
+                printPIDvals(HEATER0_INDEX);
                 if(!calibrate){
 #if !defined(NO_PID)
                     Print_Level l = getPrintLevel();

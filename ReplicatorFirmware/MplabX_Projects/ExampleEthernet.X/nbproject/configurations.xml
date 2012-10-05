@@ -79,6 +79,7 @@
           <itemPath>../../../NR-Clib/src/BowlerStack/Bowler_Stack_Callback.c</itemPath>
           <itemPath>../../../NR-Clib/src/BowlerStack/Bowler_RPC_Process.c</itemPath>
           <itemPath>../../../NR-Clib/src/BowlerStack/Bowler_Helper.c</itemPath>
+          <itemPath>../../../NR-Clib/src/arch/pic32/ADC.c</itemPath>
         </logicalFolder>
         <logicalFolder name="pic32" displayName="pic32" projectFiles="true">
           <logicalFolder name="usb" displayName="usb" projectFiles="true">
@@ -109,6 +110,7 @@
         <itemPath>../../src/Bowler/PID.c</itemPath>
         <itemPath>../../src/Bowler/Servo.c</itemPath>
         <itemPath>../../src/Bowler/StepperSim.c</itemPath>
+        <itemPath>../../src/Bowler/ForgeHeater.c</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"

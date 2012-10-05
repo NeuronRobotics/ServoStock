@@ -61,6 +61,18 @@ extern "C" {
 #define     ENC7_SERVO_TRIS    _TRISD4
 #define     ENC7_SERVO         _RD4
 
+#define    HEATER_0            _RG7
+#define    HEATER_0_TRIS       _TRISG7
+
+#define    HEATER_1            _RB4
+#define    HEATER_1_TRIS       _TRISB4
+
+#define    HEATER_2            _RG13
+#define    HEATER_2_TRIS       _TRISG13
+
+#define    HEATER_3            _RB5
+#define    HEATER_3_TRIS       _TRISB5
+
 #define     CloseServoOpenCollector() mPORTCOpenDrainClose(BIT_13);\
                                     mPORTCOpenDrainClose(BIT_14);\
                                     mPORTFOpenDrainClose(BIT_2);\
@@ -116,6 +128,7 @@ void setPidIsr(BOOL v);
 #define numPidTotal (numPidMotors+numPidHeater)
 
 #define EXTRUDER0_INDEX 0
+#define HEATER0_INDEX   11
 #define LINK0_INDEX 4
 #define LINK1_INDEX 6
 #define LINK2_INDEX 7
