@@ -310,7 +310,7 @@ int main()
         StartStepperSim();
 #endif
         int arm =0;
-        SetPID(HEATER0_INDEX,50);
+        SetPID(HEATER0_INDEX,140);
 	while(1){
             Bowler_Server_Local(&MyPacket);
             #if !defined(NO_ETHERNET)

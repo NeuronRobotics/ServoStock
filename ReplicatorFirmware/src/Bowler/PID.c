@@ -36,13 +36,13 @@ void initPIDLocal(){
                 }
                 if(i>=numPidMotors){
                     //These are the PID gains for the tempreture system
-                    pidGroups[i].K.P=.1;
+                    pidGroups[i].K.P=10;
                     pidGroups[i].K.I=0;
                     pidGroups[i].K.D=0;
                     pidGroups[i].Polarity=1;
                 }
                 if(i==HEATER0_INDEX){
-                    pidGroups[i].K.P=1;
+                    pidGroups[i].K.P=10;
                     pidGroups[i].K.I=0;
                     pidGroups[i].K.D=0;
                     pidGroups[i].Polarity=1;

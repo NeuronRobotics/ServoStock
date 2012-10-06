@@ -1,6 +1,10 @@
 #include "main.h"
+//#define lowpasslen  25
 
 int heaterDutty[] = {0,0,0,0};
+
+//float heaterLowpass[4][lowpasslen];
+//int heaterLowpassIndex;
 
 int heaterIndex = 0;
 
@@ -51,6 +55,14 @@ void initializeHeater(){
     HEATER_3_TRIS=OUTPUT;
     mPORTBSetPinsDigitalOut(BIT_4|BIT_5);
 
+    // init lowpass
+    /*
+    heaterLowpassIndex=0;
+    int j=0;
+    for (i=0; i<4; i++){
+        for(j=0; j<lowpasslen; j++) heaterLowpass[i][j]=0;
+    }*/
+
     for(i=0;i<4;i++){
          heaterPin(i , 0);
          heaterDutty[i]=50;
@@ -64,8 +76,27 @@ int resetHeater(int group, int current){
 
 
 float getHeaterTempreture(int group){
+    /*
+    Print_Level l = getPrintLevel();
+    setPrintLevelNoPrint();
+    float sum=0;
+    int j=0;
+    println_I("");
+    heaterLowpass[group][heaterLowpassIndex]=getAdcVoltage(mapHeaterIndex(group));
+    print_I("ADC voltage i= ");p_ul_I(heaterLowpassIndex);print_I("\tLowpass Array = ");
+    for(j=0; j<lowpasslen; j++){
+        sum=sum+heaterLowpass[group][j];
+        p_fl_I(heaterLowpass[group][j]);print_I(",");
+    }
+    println_I("");
     
-    return getAdcVoltage(mapHeaterIndex( group))*50.0;
+    sum=sum/lowpasslen;
+    heaterLowpassIndex++;
+    if (heaterLowpassIndex>=lowpasslen) heaterLowpassIndex=0;
+    setPrintLevel(l);
+    return sum*50.0;
+    */
+     return       getAdcVoltage(mapHeaterIndex(group))*50;
 }
 
 void setHeater(int group, float v){
