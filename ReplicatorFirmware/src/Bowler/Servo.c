@@ -1,13 +1,16 @@
 #include "main.h"
 
 #define SERVO_BOUND 		1
-INTERPOLATE_DATA velocity[numPidTotal+1];
-int position[numPidTotal+1];
-int sort[numPidTotal+1];
+
+#define NUM_SERVOS 8
+
+INTERPOLATE_DATA velocity[NUM_SERVOS+1];
+int position[NUM_SERVOS+1];
+int sort[NUM_SERVOS+1];
 int lastValue;
 int sortedIndex = 0;
 BYTE start=0;
-BYTE stop=numPidTotal;
+BYTE stop=NUM_SERVOS;
 void delayLoop();
 
 ServoState state = LOW;
@@ -15,14 +18,14 @@ ServoState state = LOW;
 void runSort(){
     int i=0,k=0,x;
     int current;
-    for(k=0;k<numPidTotal;k++){
-        sort[k]=numPidTotal;
+    for(k=0;k<NUM_SERVOS;k++){
+        sort[k]=NUM_SERVOS;
     }
-    for(x=0;x<numPidTotal;x++){
+    for(x=0;x<NUM_SERVOS;x++){
         current = 256;
-        for(i=0;i<numPidTotal;i++){
+        for(i=0;i<NUM_SERVOS;i++){
             int used= FALSE;
-            for(k=0;k<numPidTotal;k++){
+            for(k=0;k<NUM_SERVOS;k++){
                 if(sort[k]==i){
                     used=TRUE;
                 }
@@ -60,13 +63,14 @@ void setTimerServoTicks(int value){
     state = TIME;
 }
 
-#define MIN_SERVO 0
+#define MIN_SERVO 0.
+
 
 int currentServo,currentValue,diff,nextServo,nextValue;
 void __ISR(_TIMER_2_VECTOR, ipl5) Timer2Handler(void)
 {
         //mPORTDToggleBits(BIT_3);
-	StartCritical();
+	//StartCritical();
         CloseTimer2();
         int j;
         switch(state){
@@ -103,7 +107,7 @@ void __ISR(_TIMER_2_VECTOR, ipl5) Timer2Handler(void)
 
                 sortedIndex++;
 
-                if(sortedIndex == numPidTotal){
+                if(sortedIndex == NUM_SERVOS){
                     state = FINISH;
                 }else{
                     do{//Loop throug to see if there is more then one value ready to turn off
@@ -120,8 +124,8 @@ void __ISR(_TIMER_2_VECTOR, ipl5) Timer2Handler(void)
                             lastValue = nextValue;
                             sortedIndex++;
                         }
-                    }while(!(diff > MIN_SERVO) && sortedIndex != numPidTotal);
-                    if(diff>MIN_SERVO && sortedIndex != numPidTotal){
+                    }while(!(diff > MIN_SERVO) && sortedIndex != NUM_SERVOS);
+                    if(diff>MIN_SERVO && sortedIndex != NUM_SERVOS){
                         setTimerServoTicks(diff);
                         break;
                     }
@@ -130,7 +134,7 @@ void __ISR(_TIMER_2_VECTOR, ipl5) Timer2Handler(void)
                 setTimerLowTime();
                 break;
         }
-        EndCritical();
+        //EndCritical();
 }
 
 /**
@@ -144,7 +148,7 @@ void initServos(){
         CloseUART1();
     }
     int i;
-    for(i=0;i<numPidTotal;i++){
+    for(i=0;i<NUM_SERVOS;i++){
         pinOff(i);
         setServo(i,128,0);
     }
@@ -226,6 +230,8 @@ void SetDIO(BYTE PIN, BOOL state){
             break;
     case 7:
             ENC7_SERVO = state;
+            break;
+    default:
             break;
     }
 }

@@ -10,6 +10,7 @@
 #include "Servo.h"
 #include "StepperSim.h"
 #include "ForgeHeater.h"
+#include "CartesianController.h"
 
 #if !defined(NUM_PID_GROUPS)
 	#define NUM_PID_GROUPS (8)

@@ -54,8 +54,12 @@ int setCurrentValue(BYTE index,int value){
 }
 
 float readEncoder(BYTE index){
-    float ret = (readEncoderWithoutOffset(index)-offset[index]);
-    return ret;
+    float size=3.0;
+    float ret=0;
+    int i;
+    for(i=0;i<size;i++)
+        ret += (readEncoderWithoutOffset(index)-offset[index]);
+    return ret/size;
 }
 
 void encoderSPIInit(){
@@ -145,28 +149,35 @@ void printSystemConfig(BYTE index){
 
 UINT16 AS5055readAngle(BYTE index){
     Print_Level l = getPrintLevel();
-    AS5055AngularDataPacket read;
-    //AS5055ResetErrorFlag(index);
-    AS5055send(index, 0xffff);
-    read.uint0_15 = AS5055send(index, 0xffff);
     
-    if(read.regs.EF){
-        if(read.regs.AlarmHI == 1 && read.regs.AlarmLO == 0){
-            println_E("Alarm bit indicating a too high magnetic field");
-        }if(read.regs.AlarmHI == 0 && read.regs.AlarmLO == 1){
-            println_E("Alarm bit indicating a too low magnetic field");
-        }
-        if(read.regs.AlarmHI == 1 && read.regs.AlarmLO == 1){
-            println_E("\n\n\n**Error flag on data read! Index: ");p_ul_E(index);
-            printSystemConfig(index);
-            AS5055reset(index);
-        }
-        //setPrintLevelInfoPrint();
-        AS5055ResetErrorFlag(index);
+    AS5055AngularDataPacket read;
+    int loop=0;
+    do{
         AS5055send(index, 0xffff);
         read.uint0_15 = AS5055send(index, 0xffff);
+
+        if(read.regs.EF){
+            if(read.regs.AlarmHI == 1 && read.regs.AlarmLO == 0){
+                println_E("Alarm bit indicating a too high magnetic field");
+                read.regs.EF=0;
+            }if(read.regs.AlarmHI == 0 && read.regs.AlarmLO == 1){
+                println_E("Alarm bit indicating a too low magnetic field");
+                read.regs.EF=0;
+            }
+            if(read.regs.AlarmHI == 1 && read.regs.AlarmLO == 1){
+                println_E("\n\n\n**Error flag on data read! Index: ");p_ul_E(index);
+                printSystemConfig(index);
+                AS5055reset(index);
+                AS5055ResetErrorFlag(index);
+            }
+        }
+        loop++;
+    }while(read.regs.EF && loop<5);
+
+    if(loop>2){
+        //setPrintLevelErrorPrint();
+        //println_E("Read had error");
     }
-    //println_I("[AS5055] Getting Value of index ");p_sl_I(index);print_I(" value ");p_sl_I(read.regs.Data);
     setPrintLevel(l);
     return read.regs.Data;
 }

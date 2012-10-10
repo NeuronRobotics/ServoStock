@@ -70,7 +70,9 @@
 #define CALIBRATE
 //#define NO_PID
 //#define TEST_MOTION
-#define EXTRUDER_TEST
+//#define EXTRUDER_TEST
+#define servoCalebrateValue 122
+#define servoHomeValue      (625*7)
 typedef enum {
     EXCEP_IRQ = 0,          // interrupt
     EXCEP_AdEL = 4,         // address error exception (load or ifetch)
@@ -118,7 +120,8 @@ void _general_exception_handler(unsigned cause, unsigned status){
         u.value=cause;
 
         //setLed(1,0,0);
-
+        setPrintLevelInfoPrint();
+        
         print_I("\r\n\r\n\r\nException handeler!! cause=");
         prHEX32(cause,INFO_PRINT);print_I(" status=");
         prHEX32(status,INFO_PRINT);
@@ -204,8 +207,12 @@ static BowlerPacket MyPacket;
 static RunEveryData pid ={0,50};
 static RunEveryData pos ={0,2000};
 
+
+
 int j=0,i=0;
 BYTE Bowler_Server_Local(BowlerPacket * Packet){
+        Print_Level l = getPrintLevel();
+        setPrintLevelNoPrint();
 	if (GetBowlerPacket_arch(Packet)){
 		//setLed(1,1,1);
                 if(Packet->use.head.RPC != _PNG){
@@ -225,9 +232,10 @@ BYTE Bowler_Server_Local(BowlerPacket * Packet){
 			//println_I("Packet not addressed to me: ");printByteArray(Packet->use.head.MAC.v,6); print_I(" is not mine: ");printByteArray(MyMAC.v,6);
 		}
 		//setLed(0,0,1);
+                setPrintLevel(l);
 		return TRUE;
 	}//Have a packet
-
+        setPrintLevel(l);
 	return FALSE;
 }
 
@@ -244,6 +252,7 @@ int main()
         ATX_DISENABLE();
         
 	Bowler_Init();
+        DelayMs(2000);//This si to prevent runaway during programming
 	// enable driven to 3.3v on uart 1
 	mPORTDOpenDrainClose(BIT_3); mPORTFOpenDrainClose(BIT_5);
 	println_I("Starting PIC initialization");
@@ -286,10 +295,9 @@ int main()
         
 #if defined(CALIBRATE)
         println_I("#Calibrating...");
-        int servoCalibrateVal = 140;
-        setServo(LINK0_INDEX, servoCalibrateVal,0);
-        setServo(LINK1_INDEX, servoCalibrateVal,0);
-        setServo(LINK2_INDEX, servoCalibrateVal,0);
+        setServo(LINK0_INDEX, servoCalebrateValue,0);
+        setServo(LINK1_INDEX, servoCalebrateValue,0);
+        setServo(LINK2_INDEX, servoCalebrateValue,0);
 #else
         calibrate = FALSE;
         setPidIsr(TRUE);
@@ -312,6 +320,7 @@ int main()
         int arm =0;
         SetPID(HEATER0_INDEX,140);
 	while(1){
+
             Bowler_Server_Local(&MyPacket);
             #if !defined(NO_ETHERNET)
                 RunEthernetServices(&MyPacket);
@@ -321,7 +330,7 @@ int main()
                 float time = pos.setPoint/3;
                 //time=0;
                 int up=0;
-                int down = 512;
+                int down = -3000;
                 switch(arm){
                     case 0:
                         SetPIDTimed(LINK0_INDEX,down,time);
@@ -353,11 +362,17 @@ int main()
 #endif
             float diff = RunEvery(&pid);
             if(diff>0){
-                println_I("\n\n");
-                for(i=numPidMotors;i<numPidTotal;i++){
-                    println_I("ADC voltage PID ");p_ul_I(i);print_I(" = ");p_fl_I(getHeaterTempreture(i));
-                }
-                printPIDvals(HEATER0_INDEX);
+//                println_I("\n\n");
+//                for(i=numPidMotors;i<numPidTotal;i++){
+//                    println_I("ADC voltage PID ");p_ul_I(i);print_I(" = ");p_fl_I(getHeaterTempreture(i));
+//                }
+//                printPIDvals(HEATER0_INDEX);
+                
+//                println_I("\n\n");
+//                printPIDvals(LINK0_INDEX);
+//                printPIDvals(LINK1_INDEX);
+//                printPIDvals(LINK2_INDEX);
+                
                 if(!calibrate){
 #if !defined(NO_PID)
                     Print_Level l = getPrintLevel();
@@ -383,14 +398,14 @@ int main()
 #endif
                 }else{
 #if defined(CALIBRATE)
-                    if(getMs()>4500){
+                    if(getMs()>15000){
                         calibrate = FALSE;
                         println_E("Link 0 value:");p_sl_E(readEncoder(LINK0_INDEX));
                         println_E("Link 1 value:");p_sl_E(readEncoder(LINK1_INDEX));
                         println_E("Link 2 value:");p_sl_E(readEncoder(LINK2_INDEX));
-                        pidReset(LINK0_INDEX,-625);
-                        pidReset(LINK1_INDEX,-625);
-                        pidReset(LINK2_INDEX,-625);
+                        pidReset(LINK0_INDEX,servoHomeValue);
+                        pidReset(LINK1_INDEX,servoHomeValue);
+                        pidReset(LINK2_INDEX,servoHomeValue);
                         pidReset(EXTRUDER0_INDEX,0);
                         println_E("Link 0 value:");p_sl_E(readEncoder(LINK0_INDEX));
                         println_E("Link 1 value:");p_sl_E(readEncoder(LINK1_INDEX));
