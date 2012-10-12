@@ -12,6 +12,7 @@ import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
 import javax.vecmath.AxisAngle4f;
 import javax.vecmath.Color3f;
+import javax.vecmath.Matrix3f;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3d;
 import javax.vecmath.Vector3f;
@@ -437,11 +438,23 @@ public class STLTransformGroup extends TransformGroup{
 	}
 	
 	public STLObject getTransformedSTLObject() {
-		return this.theTransformableSTLObject.getTransformedSTLObject();
+		Transform3D tran = new Transform3D();
+		this.getTransform(tran);		
+		return this.getSTLObject().getTransformedSTLObject(new Transform3DAdapter(tran));
+		//return this.theTransformableSTLObject.getTransformedSTLObject();
 	}
 
-	public STLTransformGroup getDuplicate(){
+	public STLTransformGroup getDuplicate(boolean retainOrientation){
 		STLObject stlClone = theBaseSTLObject.clone();
+		if(retainOrientation){
+			Transform3D tran = new Transform3D();
+			this.getTransform(tran);
+			Transform3D justOrient = new Transform3D();
+			Matrix3f mat = new Matrix3f();
+			tran.get(mat);
+			justOrient.set(mat);
+			stlClone = stlClone.getTransformedSTLObject(new Transform3DAdapter(justOrient));
+		}		
 		Shape3D dupModel = STLShape3DFactory.getModelShape3D(stlClone);
 		Shape3D dupOutline = STLShape3DFactory.getFacetOutline(stlClone);
 		return new STLTransformGroup(stlClone, dupModel, dupOutline);

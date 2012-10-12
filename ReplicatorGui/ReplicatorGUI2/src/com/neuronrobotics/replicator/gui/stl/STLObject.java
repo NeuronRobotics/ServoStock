@@ -17,6 +17,7 @@ public class STLObject implements Iterable<STLFacet> {
 	private ArrayList<STLFace> theFaces;
 	private boolean facesAnalyzed;
 	
+	
 	private ArrayList<Vector3f> uniqueNormals;
 	
 	public static STLObject getMergedSTLObject(String name,
@@ -207,4 +208,7 @@ public class STLObject implements Iterable<STLFacet> {
 		System.out.println("Norms "+uniqueNormals);
 		return uniqueNormals.iterator();
 	}
+
+
+	
 }

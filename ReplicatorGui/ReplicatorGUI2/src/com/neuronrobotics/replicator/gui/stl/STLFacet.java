@@ -5,12 +5,14 @@ public class STLFacet {
 
 	private Point3f vertex1, vertex2, vertex3;
 	private Vector3f normal;
-		
+	private float surfaceArea, volumeUnder,projectedArea,originToPlaneDistance;
+			
 	public STLFacet(Point3f a, Point3f b, Point3f c){
 		vertex1 = a;
 		vertex2 = b;
 		vertex3 = c;
 		calculateNormal(a,b,c);
+		this.calculateMetaInformation();
 	}
 	
 	public STLFacet(Point3f a, Point3f b, Point3f c, Vector3f norm){
@@ -18,6 +20,7 @@ public class STLFacet {
 		vertex2 = b;
 		vertex3 = c;
 		normal = norm;
+		this.calculateMetaInformation();
 	}
 		
 	public boolean pointIsWithin(Point3f a){
@@ -98,17 +101,60 @@ public class STLFacet {
 		return new Point3f(x,y,z);
 	}
 	
-	//TODO need to test, but this should work
-	public float originToPlaneDistance(){
-		//System
-		Vector3f temp = new Vector3f(this.getNormal());
-		temp.normalize();
-		float dist = temp.dot(new Vector3f(vertex1));
-		return dist;
+	public float getTriangleArea() {
+		return surfaceArea;
+	}
+	
+	public float volumeUnderTriangle(){
+		return volumeUnder;
+	}
+	
+	private float projectedTriangleArea() {
+		return projectedArea;
 	}
 		
+	public float originToPlaneDistance(){
+		return originToPlaneDistance;
+	}
+	
+	private void calculateMetaInformation(){
+		//private float surfaceArea, volumeUnder,projectedArea,originToPlaneDistance;
+		
+		//calculating plane distance from origin
+		Vector3f temp = this.getNormal();
+		temp.normalize();
+		originToPlaneDistance = temp.dot(new Vector3f(vertex1));
+		
+		//calculating surface area
+		Vector3f v = new Vector3f(this.vertex2), w = new Vector3f(this.vertex3);
+		Vector3f v0 = new Vector3f(vertex1);
+		v.sub(v0);
+		w.sub(v0);
+		Vector3f cr = new Vector3f();
+		cr.cross(v, w);
+		surfaceArea = (float) Math.abs(cr.length() / 2.0);
+
+		//calculating projected area
+		v.y=0;
+		w.y=0;
+		cr.cross(v, w);
+		projectedArea = (float) Math.abs(cr.length() / 2.0);
+		
+		//calculating volume under 
+		volumeUnder = (float)((vertex1.y+vertex2.y+vertex3.y)/3.0)*projectedArea;
+		
+	}	
+			
 	public String toString(){
-		return "Normal: "+normal+"\nVertices: "+vertex1+""+vertex2+""+vertex3;
+		return "Normal: "+normal+"\n"+
+				"Vertices: "+vertex1+""+vertex2+""+vertex3;
+	}
+	
+	public String metaInformation(){
+		return "Surface Area: "+this.surfaceArea+"\n"+
+				"Projeced Area: "+projectedArea+"\n"+
+				"Volume Under: "+volumeUnder+"\n"+
+				"Origin to plane distance: "+originToPlaneDistance;
 	}
 	
 }

@@ -18,18 +18,19 @@ public abstract class STLWriter {
 	public void writeSTLToFile(File f) throws IOException{
 		FileWriter fw = new FileWriter(f);
 		writeHeader(fw);
-		
+
 		Iterator<STLFacet> theFacets = theSTL.iterator();
-		if(theFacets.hasNext()){
-		STLFacet fac = theFacets.next();
-		while (theFacets.hasNext()){
-			writeFacet(fac,fw);
-		}
+		if (theFacets.hasNext()) {
+			STLFacet fac;
+			while (theFacets.hasNext()) {
+				fac = theFacets.next();
+				writeFacet(fac, fw);
+			}
 		}
 		writeFooter(fw);
 		fw.close();
 	}
-	
+
 	public abstract void writeHeader(FileWriter fw) throws IOException;
 	
 	public abstract void writeFacet(STLFacet fac, FileWriter fw) throws IOException;

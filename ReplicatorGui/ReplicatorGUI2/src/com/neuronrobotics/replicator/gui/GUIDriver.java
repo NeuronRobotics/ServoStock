@@ -88,6 +88,7 @@ public class GUIDriver implements PrinterStatusListener, GUIBackendInterface {
 	}
 
 	public boolean requestPrint(File GCode) {
+		System.out.println("Starting print...");
 		if (this.currentDriverState != DriverState.IDLE)
 			return false;
 		try {
@@ -104,7 +105,7 @@ public class GUIDriver implements PrinterStatusListener, GUIBackendInterface {
 	}
 
 	public boolean requestPrint(File stl, File GCode) {
-
+		System.out.println("Starting print...");
 		if (this.currentDriverState == DriverState.PRINTING) {
 			theFrontend.errorDialog("Already Printing!");
 			return false;
@@ -376,6 +377,7 @@ public class GUIDriver implements PrinterStatusListener, GUIBackendInterface {
 
 		@Override
 		public void run() {
+			System.out.println("In print thread");
 			if (!done)
 				done = true;
 			else
@@ -397,7 +399,6 @@ public class GUIDriver implements PrinterStatusListener, GUIBackendInterface {
 				statusString = "Print completed succssfully!";
 			setDriverState(DriverState.IDLE);
 			theFrontend.alertStatusUpdated();
-			
 			return;
 		}
 

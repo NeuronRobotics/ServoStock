@@ -17,7 +17,9 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Scanner;
 
+import javax.media.j3d.Transform3D;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -29,11 +31,17 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.vecmath.Point3d;
 import javax.vecmath.Vector3d;
+import javax.vecmath.Vector3f;
 
 import com.neuronrobotics.replicator.gui.GUIFrontendInterface;
 import com.neuronrobotics.replicator.gui.navigator.FileTransferable;
 import com.neuronrobotics.replicator.gui.preview.STLPreviewCameraController.CameraMode;
 import com.neuronrobotics.replicator.gui.preview.STLPreviewMouseControls.MouseControlMode;
+import com.neuronrobotics.replicator.gui.stl.GeneralTransform3D;
+import com.neuronrobotics.replicator.gui.stl.STLFacet;
+import com.neuronrobotics.replicator.gui.stl.STLObject;
+import com.neuronrobotics.replicator.gui.stl.STLObjectCalculationUtilities;
+import com.neuronrobotics.replicator.gui.stl.Transform3DAdapter;
 
 public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 		ChangeListener,STLPreviewTabListener, STLPreviewCanvas3DListener, DropTargetListener {
@@ -43,7 +51,7 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 	 */
 	private static final long serialVersionUID = -5820208700200328570L;
 	private JTabbedPane previewTabbedPane;
-	private Hashtable<File, STLPreviewTab> thePreviewTabs;
+	private Hashtable<STLPreviewTab, STLPreviewTab> thePreviewTabs;
 
 	private JComboBox<STLPreviewMouseControls.MouseControlMode> mouseModeMenu;
 	private JComboBox<STLPreviewCameraController.CameraMode> focusModeMenu;
@@ -55,11 +63,10 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 	private GUIFrontendInterface theFrontend;
 	
 	private OrientationIndicatorCanvas3D orientationIndicator;
+	private JButton analyzePlacement;
 	
 	public STLPreviewPanel(GUIFrontendInterface front) {
 
-		//workaroundTab = null;
-		
 		orientationIndicator = new OrientationIndicatorCanvas3D();
 		
 		theFrontend = front;
@@ -71,12 +78,13 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 		setLayout(gridbag);
 
 		previewTabbedPane = new JTabbedPane();
-		thePreviewTabs = new Hashtable<File, STLPreviewTab>();
+		thePreviewTabs = new Hashtable<STLPreviewTab, STLPreviewTab>();
 		cameraControls = new JToolBar();
 		resetCamera = new JButton("Reset Camera");
 		centerModel = new JButton("Reset STL");
 		removePreview = new JButton("Remove current preview");
 		forceReload = new JButton("Force Reload");
+		analyzePlacement = new JButton("Analyze");
 
 		STLPreviewMouseControls.MouseControlMode[] mouseModes = STLPreviewMouseControls.MouseControlMode
 				.getModes();
@@ -98,6 +106,7 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 		focusModeMenu.addActionListener(this);
 
 		forceReload.addActionListener(this);
+		analyzePlacement.addActionListener(this);
 
 		previewTabbedPane.addChangeListener(this);
 		
@@ -112,9 +121,8 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 		cameraControls.add(focusModeMenu);
 
 		cameraControls.add(forceReload);
-		
-		cameraControls.add(orientationIndicator);
-		
+		cameraControls.add(analyzePlacement);
+				
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1.0;
 
@@ -141,7 +149,7 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 		ImageIcon imageIcon = new ImageIcon("Images\\simpleCube.png");
 		STLPreviewTab newTab = new STLPreviewTab(wsName,workspaceSTL);
 		newTab.addTabListener(this);
-		thePreviewTabs.put(workspaceSTL, newTab);
+		thePreviewTabs.put(newTab, newTab);
 		//previewTabbedPane.add(newTab);
 		previewTabbedPane.add(newTab, wsName);
 		int tcount = previewTabbedPane.getTabCount();
@@ -163,9 +171,8 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 		ImageIcon imageIcon = new ImageIcon("Images\\simpleCube.png");
 
 		if (!thePreviewTabs.containsKey(stl)) {
-			STLPreviewTab newTab = new STLPreviewTab(this, stl, gcode,
-					workspaceSTL);
-			thePreviewTabs.put(stl, newTab);
+			STLPreviewTab newTab = new STLPreviewTab(this, stl,	workspaceSTL);
+			thePreviewTabs.put(newTab, newTab);
 			previewTabbedPane.add(newTab);
 			previewTabbedPane.add(newTab, name);
 			int tcount = previewTabbedPane.getTabCount();
@@ -229,7 +236,23 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 				currentPreview.setOutlineVisibility(onOff);
 			} else if (event.getSource().equals(forceReload)) {
 				currentTab.reload();
-			} 
+			} else if (event.getSource().equals(analyzePlacement)){
+				//TODO currently just for testing
+				STLObject curr = this.getCurrentPreview().getMergedSTLObject();
+				Transform3D t = new Transform3D();
+				t.setTranslation(new Vector3f(0,-curr.getMin().y,0));
+				GeneralTransform3D tran = new Transform3DAdapter(t);
+				
+				
+				curr=curr.getTransformedSTLObject(tran);
+				for(STLFacet fac:curr){
+					System.out.println(fac.getMin());
+				}
+				//Scanner s = new Scanner(System.in);
+				//s.next();
+				
+				System.out.println(STLObjectCalculationUtilities.approximateSupportVolume(curr, 10));
+			}
 		}
 		
 		if (event.getSource().equals(removePreview)) {
@@ -274,7 +297,7 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 	}
 
 	public void alertTabIsDead(STLPreviewTab deadTab) {
-		theFrontend.errorDialog("Preview for " + deadTab.getSTLFile().getName()
+		theFrontend.errorDialog("Preview for " + deadTab.getName()
 				+ " has met with an unexpected error");
 		removeTab(deadTab);
 	}
@@ -292,8 +315,9 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 		theFrontend.requestValidate();
 	}
 	
+	//TODO remove completely
 	private void updateOrientationIndicator(boolean reload) {
-		
+		if(1==1) return;
 		if (reload) {
 			cameraControls.remove(orientationIndicator);
 			orientationIndicator = new OrientationIndicatorCanvas3D();
@@ -311,7 +335,8 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 		int index = previewTabbedPane.indexOfComponent(toRemove);
 		
 		if (thePreviewTabs.contains(toRemove)) {
-			thePreviewTabs.remove(toRemove.getSTLFile());
+			thePreviewTabs.remove(toRemove);
+			//thePreviewTabs.remove(toRemove.getSTLFile());
 			previewTabbedPane.remove(toRemove);
 		}		
 				
@@ -369,7 +394,7 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 						
 			if(newSTL.getName().endsWith(".stl")){
 				if(this.hasNoPreviews()){
-					//this.addEmptyWorkspace("Untitiled", workspaceSTL);
+					//this.addEmptyWorkspace("Untitled", workspaceSTL);
 					//TODO
 					return;
 				}

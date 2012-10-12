@@ -25,11 +25,10 @@ import javax.vecmath.Vector3f;
 
 import com.neuronrobotics.replicator.gui.stl.STLLoader;
 import com.neuronrobotics.replicator.gui.stl.STLObject;
-import com.neuronrobotics.replicator.gui.stl.STLObjectIntersectionUtilities;
+import com.neuronrobotics.replicator.gui.stl.STLObjectCalculationUtilities;
 import com.neuronrobotics.replicator.gui.stl.STLTransformGroup;
 import com.neuronrobotics.replicator.gui.stl.STLTransformGroupListener;
 import com.neuronrobotics.replicator.gui.stl.STLWorkspaceBranchGroup;
-import com.neuronrobotics.replicator.gui.stl.TransformableSTLObject;
 import com.sun.j3d.utils.picking.PickResult;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
@@ -139,7 +138,7 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 		theWorkspaceSTL = workspaceSTL;
 	}
 
-	public STLPreviewCanvas3D(File stl, File gcode, File workspaceSTL) {
+	public STLPreviewCanvas3D(File stl, File workspaceSTL) {
 		this(workspaceSTL);
 		toBeAdded.add(stl);
 	}
@@ -347,7 +346,7 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 		STLObject stl1 = m1.getTransformedSTLObject();
 		STLObject stl2 = m2.getTransformedSTLObject();
 
-		return (STLObjectIntersectionUtilities.objectsIntersect(stl1, stl2));
+		return (STLObjectCalculationUtilities.objectsIntersect(stl1, stl2));
 	}
 
 	public void resetModelTransforms() {
@@ -592,7 +591,7 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 			STLTransformGroup stgA = theSTLTransforms.get(i);
 			for (int j = i + 1; j < size; j++) {
 				STLTransformGroup stgB = theSTLTransforms.get(j);
-				boolean coll = STLObjectIntersectionUtilities.objectsIntersect(
+				boolean coll = STLObjectCalculationUtilities.objectsIntersect(
 						stgA.getSTLObject(), stgB.getSTLObject());
 				collisionTable.get(j).set(i, coll);
 				collisionTable.get(i).set(j, coll);
@@ -742,7 +741,7 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 			return;
 		}
 
-		STLTransformGroup newTransform = currentSTLTransform.getDuplicate();
+		STLTransformGroup newTransform = currentSTLTransform.getDuplicate(true);
 
 		this.addModelToWorkspace(newTransform);
 

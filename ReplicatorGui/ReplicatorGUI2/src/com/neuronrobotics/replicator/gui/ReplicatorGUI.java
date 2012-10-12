@@ -373,21 +373,24 @@ public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, FileN
 					return;
 				}
 		if (rewrite) {
+			System.out.println("Rewriting...");
 			STLObject tranObj = previewContainer.getCurrentPreview()
 					.getMergedSTLObject();// .getTransformedSTLObject(previewContainer.getCurrentPreview().getTransform3D());
 			// STLObject tranObj =
 			// previewPanel.getCurrentPreview().getSTLObject().getTransformedSTLObject(previewPanel.getCurrentPreview().getTransform3D());
-
+			System.out.println("Here");
 			ASCIISTLWriter aw = new ASCIISTLWriter(tranObj);
 			try {
 				this.statusLabel.setText("Rewriting new STL");
+				System.out.println("And here");
 				aw.writeSTLToFile(currentFile);
+				System.out.println("Finished rewriting");
 			} catch (IOException e) {
 				this.statusLabel.setText("Rewrite failed. Aborting print.");
 				this.errorDialog("Rewrite failed!");
 				e.printStackTrace();
 				return;
-			}
+			} 
 			
 		}
 		

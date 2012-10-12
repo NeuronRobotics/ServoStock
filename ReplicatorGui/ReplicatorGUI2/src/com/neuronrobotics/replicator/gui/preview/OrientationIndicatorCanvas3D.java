@@ -1,7 +1,9 @@
 package com.neuronrobotics.replicator.gui.preview;
 
 import javax.media.j3d.Appearance;
+import javax.media.j3d.Background;
 import javax.media.j3d.BoundingSphere;
+import javax.media.j3d.Bounds;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Canvas3D;
 import javax.media.j3d.ColoringAttributes;
@@ -29,15 +31,17 @@ public class OrientationIndicatorCanvas3D extends Canvas3D{
 
 	public OrientationIndicatorCanvas3D() {
 		super(SimpleUniverse.getPreferredConfiguration());
+		
 		simpleU = new SimpleUniverse(this);
+		
 		BranchGroup mainBranch = new BranchGroup();
 		
 		mainBranch.addChild(this.getIndicatorArrow(ArrowDirection.POSITIVE_X));
 		mainBranch.addChild(this.getIndicatorArrow(ArrowDirection.POSITIVE_Y));
 		mainBranch.addChild(this.getIndicatorArrow(ArrowDirection.POSITIVE_Z));
-		mainBranch.addChild(this.getIndicatorArrow(ArrowDirection.NEGATIVE_X));
-		mainBranch.addChild(this.getIndicatorArrow(ArrowDirection.NEGATIVE_Y));
-		mainBranch.addChild(this.getIndicatorArrow(ArrowDirection.NEGATIVE_Z));
+		//mainBranch.addChild(this.getIndicatorArrow(ArrowDirection.NEGATIVE_X));
+		//mainBranch.addChild(this.getIndicatorArrow(ArrowDirection.NEGATIVE_Y));
+		//mainBranch.addChild(this.getIndicatorArrow(ArrowDirection.NEGATIVE_Z));
 		
 		theLight = new DirectionalLight();
 		theLight.setInfluencingBounds(new BoundingSphere(new Point3d(0, 0, 0),
@@ -45,13 +49,36 @@ public class OrientationIndicatorCanvas3D extends Canvas3D{
 		theLight.setCapability(DirectionalLight.ALLOW_DIRECTION_READ);
 		theLight.setCapability(DirectionalLight.ALLOW_DIRECTION_WRITE);
 	
+		Background b = createBackground();
+		mainBranch.addChild(b);
+		
 		mainBranch.compile();
 		
-		simpleU.addBranchGraph(mainBranch);
+		simpleU.addBranchGraph(mainBranch);		
 		
 		setCamera(new Point3d(2,2,2),new Point3d(0,0,0),new Vector3d(0,1,0));
 		
 	}
+	
+	protected Background createBackground()
+	 {
+	  //We create a color by specifying the Red, Green, and Blue
+	  //components, in this case a light gray.
+	  Background back = new Background(
+	   new Color3f( 0.7f, 0.7f, 0.7f ) );
+	  	  
+	  //Color3f col = new Color3f(1f,1f,1f);
+	  
+	  //We need to set the volume within the scene within which the
+	  //Background is active
+	  back.setApplicationBounds( createApplicationBounds() );
+	  return back;
+	 }
+	
+	protected Bounds createApplicationBounds()
+	 {
+	  return new BoundingSphere(new Point3d(0.0,0.0,0.0), 100.0);
+	 }
 	
 	public void setCamera(Point3d position, Point3d direction,Vector3d cameraOrientation){
 			
@@ -61,7 +88,7 @@ public class OrientationIndicatorCanvas3D extends Canvas3D{
 		temp.sub(direction);
 		temp.normalize();		
 		newPosition = new Point3d(temp); 
-		newPosition.scale(4);
+		newPosition.scale(3);
 		
 		newDirection = new Point3d(0,0,0);
 		

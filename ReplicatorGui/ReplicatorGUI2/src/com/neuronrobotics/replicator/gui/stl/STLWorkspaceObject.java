@@ -56,10 +56,10 @@ public class STLWorkspaceObject extends STLObject {
 	public boolean stlIsInside(STLObject stlo){
 		
 		
-		boolean intersect = STLObjectIntersectionUtilities.objectsIntersect(this, stlo);
+		boolean intersect = STLObjectCalculationUtilities.objectsIntersect(this, stlo);
 		if(intersect) return false;
 		
-		return STLObjectIntersectionUtilities.isWithinBoundingBox(this, stlo);
+		return STLObjectCalculationUtilities.isWithinBoundingBox(this, stlo);
 		
 		/*
 		for(STLFacet facet:stlo){
