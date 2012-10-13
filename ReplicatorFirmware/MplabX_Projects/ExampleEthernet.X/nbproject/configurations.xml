@@ -113,6 +113,7 @@
         <itemPath>../../src/Bowler/StepperSim.c</itemPath>
         <itemPath>../../src/Bowler/ForgeHeater.c</itemPath>
         <itemPath>../../src/Bowler/CartesianController.c</itemPath>
+        <itemPath>../../src/Bowler/DeltaKinematics.c</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
