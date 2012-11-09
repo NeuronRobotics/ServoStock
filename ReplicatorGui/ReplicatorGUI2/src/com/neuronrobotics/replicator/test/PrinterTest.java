@@ -17,13 +17,13 @@ import com.neuronrobotics.sdk.ui.ConnectionDialog;
 
 public class PrinterTest implements PrinterStatusListener {
 	private PrinterTest() {
-		DeltaDoodle delt = new DeltaDoodle();
-		delt.setConnection(new SerialConnection("/dev/DeltaDoodle0"));
-		delt.connect();
-		NRPrinter printer = new NRPrinter(delt);
-		//NRPrinter printer = new NRPrinter(null);
+//		DeltaDoodle delt = new DeltaDoodle();
+//		delt.setConnection(new SerialConnection("/dev/DeltaDoodle0"));
+//		delt.connect();
+//		NRPrinter printer = new NRPrinter(delt);
+		NRPrinter printer = new NRPrinter(null);
 		printer.addPrinterStatusListener(this);
-		Log.enableDebugPrint(false);
+		//Log.enableDebugPrint(false);
 		File gcode = new File("test.gcode");
 		try {
 			//This is time consuming

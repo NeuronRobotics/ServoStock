@@ -68,7 +68,7 @@ public class JoystickRecord {
 				double XYscale = 70;
 				double x=padX.getPollData()*-XYscale;
 				double y=padY.getPollData()*XYscale;
-				double z=padZ.getPollData()*100 + 200;
+				double z=padZ.getPollData()*100;
 				if(z<150)
 					z=150;
 
