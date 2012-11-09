@@ -9,7 +9,7 @@
 		<name>Link0</name>
 		<type>pid-rotory</type>
 		<index>4</index>
-		<scale>-0.087890625</scale>
+		<scale>-0.012555804</scale><!--  one revolution == 4096 * 7 -->
 		<upperLimit>800</upperLimit>
 		<lowerLimit>-200</lowerLimit>
 		<pGain>.05</pGain>
@@ -25,7 +25,7 @@
 		<name>Link1</name>
 		<type>pid-rotory</type>
 		<index>6</index>
-		<scale>-0.087890625</scale>
+		<scale>-0.012555804</scale>
 		<upperLimit>800</upperLimit>
 		<lowerLimit>-200</lowerLimit>
 		<pGain>.05</pGain>
@@ -42,7 +42,7 @@
 		<name>Link2</name>
 		<type>pid-rotory</type>
 		<index>7</index>
-		<scale>-0.087890625</scale>
+		<scale>-0.012555804</scale>
 		<upperLimit>800</upperLimit>
 		<lowerLimit>-200</lowerLimit>
 		<pGain>.05</pGain>
@@ -57,12 +57,28 @@
 	
 	<link>
 		<name>extruder</name>
-		<type>pid-rotory</type>
+		<type>pid-linear</type>
 		<index>0</index>
-		<scale>0.087890625</scale>
+		<scale>0.024414062</scale><!--  one revolution == 100 mm -->
 		<upperLimit>10000000000</upperLimit>
 		<lowerLimit>-10000000000</lowerLimit>
 		<pGain>1</pGain>
+		<iGain>0</iGain>
+		<dGain>0</dGain>
+		<isInverted>true</isInverted>
+		<isLatch>false</isLatch>
+		<indexLatch>0</indexLatch>
+		<isStopOnLatch>false</isStopOnLatch>	
+		<homingTPS>500</homingTPS>			
+	</link>
+	<link>
+		<name>hotEnd</name>
+		<type>pid-rotory</type>
+		<index>11</index>
+		<scale>1</scale>
+		<upperLimit>130</upperLimit>
+		<lowerLimit>0</lowerLimit>
+		<pGain>10</pGain>
 		<iGain>0</iGain>
 		<dGain>0</dGain>
 		<isInverted>true</isInverted>

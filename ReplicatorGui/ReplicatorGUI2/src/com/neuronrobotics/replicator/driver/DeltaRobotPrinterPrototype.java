@@ -5,6 +5,7 @@ import java.io.InputStream;
 import com.neuronrobotics.replicator.driver.delta.DeltaRobotConfig;
 import com.neuronrobotics.replicator.driver.delta.DeltaRobotKinematics;
 import com.neuronrobotics.sdk.addons.kinematics.AbstractKinematicsNR;
+import com.neuronrobotics.sdk.addons.kinematics.AbstractLink;
 import com.neuronrobotics.sdk.addons.kinematics.LinkFactory;
 import com.neuronrobotics.sdk.addons.kinematics.math.TransformNR;
 import com.neuronrobotics.sdk.addons.kinematics.xml.XmlFactory;
@@ -20,14 +21,19 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 	private  double rf = 112.0;
 	private  double extrusionCachedValue = 0;
 	//static InputStream s = XmlFactory.getDefaultConfigurationStream("DeltaPrototype.xml");
+	private AbstractLink extruder;
+	private AbstractLink hotEnd;
 	
 	public DeltaRobotPrinterPrototype(DeltaDoodle delt) {
 		super(DeltaRobotKinematics.class.getResourceAsStream("DeltaPrototype.xml"),new LinkFactory( delt));
+		
+		extruder = getFactory().getLink("extruder");
+		hotEnd = getFactory().getLink("hotEnd");
+		
 		//parse out the extruder configs
 		//parse delta robot configs
 		
 		kinematics = new DeltaRobotKinematics(new DeltaRobotConfig(e, f, re, rf));
-		//setNoFlush(true);
 	}
 	
 	public MaterialData getMaterialData() {
@@ -35,16 +41,16 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 	}
 	
 	public void setExtrusionTempreture(double [] extTemp) {
-		
+		hotEnd.setTargetEngineeringUnits(extTemp[0]);
 	}
 	public void setBedTempreture(double bedTemp) {
 		
 	}
 	public double[] setDesiredPrintLocetion(TransformNR taskSpaceTransform,double extrusionLegnth, double seconds) throws Exception{
+		setExtrusionPoint(0, extrusionLegnth);
 		double[] back = super.setDesiredTaskSpaceTransform(taskSpaceTransform, seconds);
 		//Set the extruder value
-		
-		//getFactory().flush(seconds);
+
 		return back;
 	}
 
@@ -84,6 +90,7 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 		this.extrusionCachedValue = extrusionCachedValue;
 	}
 	public void setExtrusionPoint(int materialNumber, double setPoint) {
-
+		//TODO another method to set material
+		extruder.setTargetEngineeringUnits(setPoint);
 	}
 }
