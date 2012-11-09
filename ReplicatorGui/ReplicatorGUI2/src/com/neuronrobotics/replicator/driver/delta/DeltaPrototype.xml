@@ -10,8 +10,8 @@
 		<type>pid-rotory</type>
 		<index>4</index>
 		<scale>-0.012555804</scale><!--  one revolution == 4096 * 7 -->
-		<upperLimit>800</upperLimit>
-		<lowerLimit>-200</lowerLimit>
+		<upperLimit>1600</upperLimit>
+		<lowerLimit>-6500</lowerLimit>
 		<pGain>.05</pGain>
 		<iGain>0.07</iGain>
 		<dGain>0.15</dGain>
@@ -26,8 +26,8 @@
 		<type>pid-rotory</type>
 		<index>6</index>
 		<scale>-0.012555804</scale>
-		<upperLimit>800</upperLimit>
-		<lowerLimit>-200</lowerLimit>
+		<upperLimit>1600</upperLimit>
+		<lowerLimit>-6500</lowerLimit>
 		<pGain>.05</pGain>
 		<iGain>0.07</iGain>
 		<dGain>0.15</dGain>
@@ -43,8 +43,8 @@
 		<type>pid-rotory</type>
 		<index>7</index>
 		<scale>-0.012555804</scale>
-		<upperLimit>800</upperLimit>
-		<lowerLimit>-200</lowerLimit>
+		<upperLimit>1600</upperLimit>
+		<lowerLimit>-6500</lowerLimit>
 		<pGain>.05</pGain>
 		<iGain>0.07</iGain>
 		<dGain>0.15</dGain>
