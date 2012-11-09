@@ -79,8 +79,10 @@ void __ISR(_TIMER_2_VECTOR, ipl5) Timer2Handler(void)
                     Print_Level l = getPrintLevel();
                     setPrintLevelNoPrint();
                     RunPIDControl();
+                    setPrintLevelInfoPrint();
                     RunVel();
                     setPrintLevel(l);
+
                 }
                 runLinearInterpolationServo(start,stop);
                 runSort();

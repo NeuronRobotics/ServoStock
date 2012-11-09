@@ -72,7 +72,11 @@
 //#define TEST_MOTION
 //#define EXTRUDER_TEST
 #define servoCalebrateValue 122
-#define servoHomeValue      (625*7)
+#define ticksPerRev         (4096.0)
+#define ticksPerDegree      (ticksPerRev/360.0)
+#define gearRatio           (7.0)
+#define calibrationAngle    (25.0)
+#define servoHomeValue      (ticksPerDegree*calibrationAngle*gearRatio)
 typedef enum {
     EXCEP_IRQ = 0,          // interrupt
     EXCEP_AdEL = 4,         // address error exception (load or ifetch)
@@ -205,7 +209,7 @@ static int calibrate = TRUE;
 static BowlerPacket MyPacket;
 
 static RunEveryData pid ={0,50};
-static RunEveryData pos ={0,2000};
+static RunEveryData pos ={0,5000};
 
 
 
@@ -318,7 +322,13 @@ int main()
         StartStepperSim();
 #endif
         int arm =0;
-        SetPID(HEATER0_INDEX,140);
+        SetPID(HEATER0_INDEX,0);
+
+        println_E("ticksPerRev ");      p_fl_E(ticksPerRev);
+        println_E("ticksPerDegree ");   p_fl_E(ticksPerDegree);
+        println_E("gearRatio ");        p_fl_E(gearRatio);
+        println_E("calibrationAngle "); p_fl_E(calibrationAngle);
+        println_E("servoHomeValue ");   p_fl_E(servoHomeValue);
 	while(1){
 
             Bowler_Server_Local(&MyPacket);
@@ -327,7 +337,7 @@ int main()
             #endif
 #if defined(TEST_MOTION)
             if(RunEvery(&pos)>0 && !calibrate){
-                float time = pos.setPoint/3;
+                float time = pos.setPoint;
                 //time=0;
                 int up=0;
                 int down = -3000;
@@ -403,9 +413,9 @@ int main()
                         println_E("Link 0 value:");p_sl_E(readEncoder(LINK0_INDEX));
                         println_E("Link 1 value:");p_sl_E(readEncoder(LINK1_INDEX));
                         println_E("Link 2 value:");p_sl_E(readEncoder(LINK2_INDEX));
-                        pidReset(LINK0_INDEX,servoHomeValue);
-                        pidReset(LINK1_INDEX,servoHomeValue);
-                        pidReset(LINK2_INDEX,servoHomeValue);
+                        pidReset(LINK0_INDEX,(INT32)servoHomeValue);
+                        pidReset(LINK1_INDEX,(INT32)servoHomeValue);
+                        pidReset(LINK2_INDEX,(INT32)servoHomeValue);
                         pidReset(EXTRUDER0_INDEX,0);
                         println_E("Link 0 value:");p_sl_E(readEncoder(LINK0_INDEX));
                         println_E("Link 1 value:");p_sl_E(readEncoder(LINK1_INDEX));

@@ -29,7 +29,7 @@ void initPIDLocal(){
                     pidGroups[i].Polarity=0;
                     pidGroups[i].K.P=.07;
                     pidGroups[i].K.I=0.01;
-                    pidGroups[i].K.D=0;
+                    pidGroups[i].K.D=0.15;
                 }
                 if(i==EXTRUDER0_INDEX){
                     pidGroups[i].K.P=.1;
@@ -133,10 +133,10 @@ void setOutputMine(int group, float v){
     if(group<numPidMotors){
         int val = (int)(v);
         val += 128;
-        if (val>255)
-                val=255;
-        if(val<0)
-                val=0;
+        if (val>200)
+                val=200;
+        if(val<50)
+                val=50;
 
 	int set = (int)val;
 
