@@ -48,7 +48,7 @@
 		<pGain>.05</pGain>
 		<iGain>0.07</iGain>
 		<dGain>0.15</dGain>
-		<isInverted>true</isInverted>
+		<isInverted>flase</isInverted>
 		<isLatch>false</isLatch>
 		<indexLatch>0</indexLatch>
 		<isStopOnLatch>false</isStopOnLatch>	
