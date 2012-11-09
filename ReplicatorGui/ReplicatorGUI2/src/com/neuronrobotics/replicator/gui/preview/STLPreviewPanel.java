@@ -14,10 +14,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.Hashtable;
 import java.util.List;
-import java.util.Scanner;
 
 import javax.media.j3d.Transform3D;
 import javax.swing.ImageIcon;
@@ -29,22 +27,21 @@ import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.vecmath.Point3d;
-import javax.vecmath.Vector3d;
 import javax.vecmath.Vector3f;
 
 import com.neuronrobotics.replicator.gui.GUIFrontendInterface;
-import com.neuronrobotics.replicator.gui.navigator.FileTransferable;
 import com.neuronrobotics.replicator.gui.preview.STLPreviewCameraController.CameraMode;
-import com.neuronrobotics.replicator.gui.preview.STLPreviewMouseControls.MouseControlMode;
+import com.neuronrobotics.replicator.gui.preview.j3d.GeneralTransform3DJava3DAdapter;
+import com.neuronrobotics.replicator.gui.preview.j3d.STLPreviewCanvas3D;
+import com.neuronrobotics.replicator.gui.preview.j3d.STLPreviewMouseControls;
+import com.neuronrobotics.replicator.gui.preview.j3d.STLPreviewMouseControls.MouseControlMode;
 import com.neuronrobotics.replicator.gui.stl.GeneralTransform3D;
 import com.neuronrobotics.replicator.gui.stl.STLFacet;
 import com.neuronrobotics.replicator.gui.stl.STLObject;
 import com.neuronrobotics.replicator.gui.stl.STLObjectCalculationUtilities;
-import com.neuronrobotics.replicator.gui.stl.Transform3DAdapter;
 
 public class STLPreviewPanel extends JLayeredPane implements ActionListener,
-		ChangeListener,STLPreviewTabListener, STLPreviewCanvas3DListener, DropTargetListener {
+		ChangeListener,STLPreviewTabListener, STLPreviewWorkspaceViewListener, DropTargetListener {
 
 	/**
 	 * 
@@ -62,12 +59,9 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 		
 	private GUIFrontendInterface theFrontend;
 	
-	private OrientationIndicatorCanvas3D orientationIndicator;
 	private JButton analyzePlacement;
 	
 	public STLPreviewPanel(GUIFrontendInterface front) {
-
-		orientationIndicator = new OrientationIndicatorCanvas3D();
 		
 		theFrontend = front;
 
@@ -241,9 +235,8 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 				STLObject curr = this.getCurrentPreview().getMergedSTLObject();
 				Transform3D t = new Transform3D();
 				t.setTranslation(new Vector3f(0,-curr.getMin().y,0));
-				GeneralTransform3D tran = new Transform3DAdapter(t);
-				
-				
+				GeneralTransform3D tran = new GeneralTransform3DJava3DAdapter(t);
+								
 				curr=curr.getTransformedSTLObject(tran);
 				for(STLFacet fac:curr){
 					System.out.println(fac.getMin());
@@ -277,7 +270,6 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 							getCurrentSelectedCameraFocusMode());
 					currentTab.getTheSTLPreview().setOutlineVisibility(
 							isOutlineSelected());
-					updateOrientationIndicator(false);
 				}
 			} catch (ClassCastException e) {
 				e.printStackTrace();
@@ -309,45 +301,21 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 		loadedTab.getTheSTLPreview().getTheCameraController().resetCamera();
 		
 		loadedTab.getTheSTLPreview().addListener(this);
-		
-		updateOrientationIndicator(true);
-		
+				
 		theFrontend.requestValidate();
 	}
 	
-	//TODO remove completely
-	private void updateOrientationIndicator(boolean reload) {
-		if(1==1) return;
-		if (reload) {
-			cameraControls.remove(orientationIndicator);
-			orientationIndicator = new OrientationIndicatorCanvas3D();
-			cameraControls.add(orientationIndicator);
-		}
-		
-		STLPreviewCanvas3D curr = getCurrentPreview();
-		if(curr!=null){
-			orientationIndicator.setCamera(curr.getCameraPosition(), curr.getCameraDirection(), curr.getCameraOrientation());
-		}
-	}
-
 	public void removeTab(STLPreviewTab toRemove) {
-		
-		int index = previewTabbedPane.indexOfComponent(toRemove);
-		
 		if (thePreviewTabs.contains(toRemove)) {
 			thePreviewTabs.remove(toRemove);
 			//thePreviewTabs.remove(toRemove.getSTLFile());
 			previewTabbedPane.remove(toRemove);
 		}		
 				
-		if(index==previewTabbedPane.getTabCount()) updateOrientationIndicator(true);
-		else updateOrientationIndicator(false);
-		
 		STLPreviewCanvas3D curr = getCurrentPreview();
 		
 		if(curr!=null){
 			curr.getTheCameraController().rotateCameraXZ(6.28);
-			updateOrientationIndicator(false);
 		}
 		
 		theFrontend.requestValidate();
@@ -363,12 +331,6 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 	}
 
 	@Override
-	public void alertCameraMoved(Point3d position, Point3d direction,
-			Vector3d orientation) {
-		updateOrientationIndicator(false);		
-	}
-
-	@Override
 	public void dragEnter(DropTargetDragEvent arg0) {		
 	}
 
@@ -380,6 +342,7 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 	public void dragOver(DropTargetDragEvent arg0) {		
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void drop(DropTargetDropEvent arg0) {
 		if(arg0.getCurrentDataFlavorsAsList().contains(DataFlavor.javaFileListFlavor)){
@@ -405,6 +368,16 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 
 	@Override
 	public void dropActionChanged(DropTargetDragEvent arg0) {		
+	}
+
+	@Override
+	public void alertCameraMoved(double[] position, double[] direction,	double[] orientation) {
+		//Point3d pos = new Point3d(position);
+		//Point3d dir = new Point3d(direction);
+		//Vector3d or = new Vector3d(orientation);
+		//this.alertCameraMoved(pos, dir, or);	
+		//currently doesn't have to listen to this
+		//TODO remove
 	}
 	
 }

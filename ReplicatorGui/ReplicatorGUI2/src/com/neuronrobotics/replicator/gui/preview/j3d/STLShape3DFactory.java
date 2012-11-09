@@ -1,4 +1,4 @@
-package com.neuronrobotics.replicator.gui.stl;
+package com.neuronrobotics.replicator.gui.preview.j3d;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,6 +16,10 @@ import javax.media.j3d.TriangleArray;
 import javax.vecmath.Color3f;
 import javax.vecmath.Point3f;
 
+import com.neuronrobotics.replicator.gui.stl.Edge3f;
+import com.neuronrobotics.replicator.gui.stl.STLFace;
+import com.neuronrobotics.replicator.gui.stl.STLFacet;
+import com.neuronrobotics.replicator.gui.stl.STLObject;
 import com.sun.j3d.utils.geometry.GeometryInfo;
 import com.sun.j3d.utils.geometry.NormalGenerator;
 

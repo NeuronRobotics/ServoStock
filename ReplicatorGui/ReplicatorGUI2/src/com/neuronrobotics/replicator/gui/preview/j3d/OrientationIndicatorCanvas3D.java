@@ -1,4 +1,4 @@
-package com.neuronrobotics.replicator.gui.preview;
+package com.neuronrobotics.replicator.gui.preview.j3d;
 
 import javax.media.j3d.Appearance;
 import javax.media.j3d.Background;
@@ -66,6 +66,7 @@ public class OrientationIndicatorCanvas3D extends Canvas3D{
 	  //components, in this case a light gray.
 	  Background back = new Background(
 	   new Color3f( 0.7f, 0.7f, 0.7f ) );
+	  back = new Background(new Color3f(0f,0f,0f));
 	  	  
 	  //Color3f col = new Color3f(1f,1f,1f);
 	  
@@ -96,7 +97,7 @@ public class OrientationIndicatorCanvas3D extends Canvas3D{
 				.getViewPlatformTransform();
 
 		Transform3D t3d = new Transform3D();
-		t3d.lookAt(newPosition, newDirection, new Vector3d(0,1,0));
+		t3d.lookAt(newPosition, newDirection, cameraOrientation);
 		t3d.invert();
 		viewTransform.setTransform(t3d);
 		

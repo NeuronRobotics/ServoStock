@@ -1,4 +1,4 @@
-package com.neuronrobotics.replicator.gui.stl;
+package com.neuronrobotics.replicator.gui.preview.j3d;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,6 +6,11 @@ import java.io.IOException;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Shape3D;
 import javax.vecmath.Vector3f;
+
+import com.neuronrobotics.replicator.gui.stl.STLFace;
+import com.neuronrobotics.replicator.gui.stl.STLLoader;
+import com.neuronrobotics.replicator.gui.stl.STLObject;
+import com.neuronrobotics.replicator.gui.stl.STLWorkspaceObject;
 
 
 public class STLWorkspaceBranchGroup extends BranchGroup{

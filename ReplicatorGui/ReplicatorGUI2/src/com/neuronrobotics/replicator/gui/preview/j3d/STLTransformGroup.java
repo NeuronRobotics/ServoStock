@@ -1,4 +1,4 @@
-package com.neuronrobotics.replicator.gui.stl;
+package com.neuronrobotics.replicator.gui.preview.j3d;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -17,7 +17,11 @@ import javax.vecmath.Point3f;
 import javax.vecmath.Vector3d;
 import javax.vecmath.Vector3f;
 
-import com.neuronrobotics.replicator.gui.preview.STLPreviewCanvas3D;
+import com.neuronrobotics.replicator.gui.stl.STLFace;
+import com.neuronrobotics.replicator.gui.stl.STLObject;
+import com.neuronrobotics.replicator.gui.stl.STLTransformGroupListener;
+import com.neuronrobotics.replicator.gui.stl.STLWorkspaceObject;
+import com.neuronrobotics.replicator.gui.stl.TransformableSTLObject;
 import com.sun.j3d.utils.picking.PickTool;
 
 public class STLTransformGroup extends TransformGroup{
@@ -142,7 +146,7 @@ public class STLTransformGroup extends TransformGroup{
 		super.setTransform(newTran);
 		updateIndicatorLightBounds();
 		//this.transformedSTLObject=theBaseSTLObject.getTransformedSTLObject(new Transform3DAdapter(newTran));
-		this.theTransformableSTLObject.setTransform(new Transform3DAdapter(newTran));
+		this.theTransformableSTLObject.setTransform(new GeneralTransform3DJava3DAdapter(newTran));
 		this.alertListenersModelMoved(); //Shouldn't call this anywhere else
 	}
 	
@@ -440,7 +444,7 @@ public class STLTransformGroup extends TransformGroup{
 	public STLObject getTransformedSTLObject() {
 		Transform3D tran = new Transform3D();
 		this.getTransform(tran);		
-		return this.getSTLObject().getTransformedSTLObject(new Transform3DAdapter(tran));
+		return this.getSTLObject().getTransformedSTLObject(new GeneralTransform3DJava3DAdapter(tran));
 		//return this.theTransformableSTLObject.getTransformedSTLObject();
 	}
 
@@ -453,7 +457,7 @@ public class STLTransformGroup extends TransformGroup{
 			Matrix3f mat = new Matrix3f();
 			tran.get(mat);
 			justOrient.set(mat);
-			stlClone = stlClone.getTransformedSTLObject(new Transform3DAdapter(justOrient));
+			stlClone = stlClone.getTransformedSTLObject(new GeneralTransform3DJava3DAdapter(justOrient));
 		}		
 		Shape3D dupModel = STLShape3DFactory.getModelShape3D(stlClone);
 		Shape3D dupOutline = STLShape3DFactory.getFacetOutline(stlClone);

@@ -1,15 +1,25 @@
 package com.neuronrobotics.replicator.gui.preview;
 
 import java.awt.Color;
+import java.awt.Container;
+import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.vecmath.Point3d;
 import javax.vecmath.Vector3d;
+
+import com.neuronrobotics.replicator.gui.preview.j3d.OrientationIndicatorCanvas3D;
+import com.neuronrobotics.replicator.gui.preview.j3d.STLPreviewCanvas3D;
+import com.neuronrobotics.replicator.gui.preview.j3d.STLPreviewMouseControls;
 
 public class STLPreviewTab extends JLayeredPane{
 	
@@ -26,6 +36,9 @@ public class STLPreviewTab extends JLayeredPane{
 	private SimpleLoadingScreen theLoadingScreen;
 	private STLPreviewCanvas3D theSTLPreview;
 	private LoadPreviewThread theLoadingThread;
+	
+	private JPanel indicatorPanel;
+	//private JButton testButton, testButton2;
 	
 	private final JPanel canvasLayer = new JPanel(), loadingScreenLayer = new JPanel();
 		
@@ -109,42 +122,86 @@ public class STLPreviewTab extends JLayeredPane{
 		tempPreview.setMouseControls(theMouseControls);
 				
 		final OrientationIndicatorCanvas3D theind = new OrientationIndicatorCanvas3D();
-		tempPreview.addListener(new STLPreviewCanvas3DListener() {
-			
+		tempPreview.addListener(new STLPreviewWorkspaceViewListener() {
+					
 			@Override
-			public void alertCameraMoved(Point3d position, Point3d direction,
-					Vector3d orientation) {
-				theind.setCamera(position, direction, orientation);
+			public void alertCameraMoved(double[] position, double[] direction,
+					double[] orientation) {
+				theind.setCamera(new Point3d(position),new Point3d(direction), new Vector3d(orientation));
+				
 			}
 		});
 		
 		//theind.setSize(90,90);
 		//theind.setLocation(0, 0);
 		
-		JPanel indicatorPanel = new JPanel();
+		indicatorPanel = new JPanel();
 		indicatorPanel.setSize(100,100);
-		indicatorPanel.setLocation(5,5);
-		indicatorPanel.setLayout(new GridLayout(1,1));
-		indicatorPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-				
+		//indicatorPanel.setLocation(5,5);
+		indicatorPanel.setLayout(new GridLayout(1,1));		
+		indicatorPanel.setBorder(BorderFactory.createLineBorder(Color.gray));
+		
+		/*
+		testButton = new JButton();
+		testButton.setText("Test");
+		testButton.setSize(45, 45);
+		//testButton.setLocation(5, 110);
+		testButton.setBackground(Color.black);
+		testButton.setForeground(Color.black);
+		testButton.setBorder(BorderFactory.createLineBorder(Color.gray));
+		testButton.setIcon(new ImageIcon("Images\\logo.png"));
+		
+		testButton2 = new JButton();
+		testButton2.setText("Test");
+		testButton2.setSize(45, 45);
+		//testButton2.setLocation(60, 110);
+		testButton2.setBackground(Color.black);
+		testButton2.setBorder(BorderFactory.createLineBorder(Color.gray));
+							
+		*/
+		
 		indicatorPanel.add(theind);
 		this.add(indicatorPanel,0);
+		//this.add(testButton);//TODO
+		//this.add(testButton2);
 		this.moveToFront(tempPreview);
 		this.moveToFront(theind);
+		//this.moveToFront(testButton);
+		//this.moveToFront(testButton2);	
 		
+		layoutControlLayer();
 		
-		
-		
-		//Color noAlph = new Color(26,26,26,0);
-		//overlayLayer.setBackground(noAlph);
-		
-		//overlayLayer.add(theind);
-				
+		this.addComponentListener(new ComponentListener(){
+
+			@Override
+			public void componentHidden(ComponentEvent arg0) {				
+			}
+
+			@Override
+			public void componentMoved(ComponentEvent arg0) {				
+			}
+
+			@Override
+			public void componentResized(ComponentEvent arg0) {
+				 layoutControlLayer();
+			}
+
+			@Override
+			public void componentShown(ComponentEvent arg0) {
+			}});
+						
 		validate();
 						
 		for(STLPreviewTabListener sptl:theTabListeners) sptl.alertTabIsLoaded(this);
 		
 		theLoadingThread = null;
+	}
+	
+	private void layoutControlLayer(){
+		int xS = getSize().width,yS=getSize().height;
+		indicatorPanel.setLocation(5,yS-105);
+		//testButton.setLocation(5, indicatorPanel.getY()-50);
+		//testButton2.setLocation(60, indicatorPanel.getY()-50);
 	}
 			
 	public STLPreviewCanvas3D getTheSTLPreview() {

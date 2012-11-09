@@ -1,4 +1,4 @@
-package com.neuronrobotics.replicator.gui.preview;
+package com.neuronrobotics.replicator.gui.preview.j3d;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -23,17 +23,20 @@ import javax.vecmath.Point3f;
 import javax.vecmath.Vector3d;
 import javax.vecmath.Vector3f;
 
+import com.neuronrobotics.replicator.gui.preview.STLPreviewCameraController;
+import com.neuronrobotics.replicator.gui.preview.STLPreviewCameraData;
+import com.neuronrobotics.replicator.gui.preview.STLPreviewWorkspaceView;
+import com.neuronrobotics.replicator.gui.preview.STLPreviewWorkspaceViewListener;
+import com.neuronrobotics.replicator.gui.preview.STLWorkspaceModel;
 import com.neuronrobotics.replicator.gui.stl.STLLoader;
 import com.neuronrobotics.replicator.gui.stl.STLObject;
 import com.neuronrobotics.replicator.gui.stl.STLObjectCalculationUtilities;
-import com.neuronrobotics.replicator.gui.stl.STLTransformGroup;
 import com.neuronrobotics.replicator.gui.stl.STLTransformGroupListener;
-import com.neuronrobotics.replicator.gui.stl.STLWorkspaceBranchGroup;
 import com.sun.j3d.utils.picking.PickResult;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
 public class STLPreviewCanvas3D extends Canvas3D implements
-		STLTransformGroupListener{
+		STLTransformGroupListener, STLPreviewWorkspaceView{
 
 	/**
 	 * 
@@ -49,6 +52,8 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 	private STLTransformGroup currentSTLTransform;
 	private ArrayList<STLTransformGroup> theSTLTransforms;
 	private ArrayList<ArrayList<Boolean>> collisionTable;
+	
+	//private STLWorkspaceModel theWorkspaceModel;//TODO this is not used yet
 
 	// transform group that displays the area in which the printer can reliably
 	// print
@@ -66,7 +71,7 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 
 	private boolean isDead;
 
-	private ArrayList<STLPreviewCanvas3DListener> theListeners;
+	private ArrayList<STLPreviewWorkspaceViewListener> theListeners;
 	private ArrayList<File> toBeAdded;
 
 	private File theWorkspaceSTL;
@@ -115,10 +120,11 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 
 	private ArrayList<PlacementStatus> placementStatuses;
 
+	
 	public STLPreviewCanvas3D() {
 		super(SimpleUniverse.getPreferredConfiguration());
 
-		theListeners = new ArrayList<STLPreviewCanvas3DListener>();
+		theListeners = new ArrayList<STLPreviewWorkspaceViewListener>();
 		initialized = false;
 		isDead = false;
 		theCameraController = new STLPreviewCameraController(this);
@@ -143,7 +149,7 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 		toBeAdded.add(stl);
 	}
 
-	public void addListener(STLPreviewCanvas3DListener spcl) {
+	public void addListener(STLPreviewWorkspaceViewListener spcl) {
 		if (!theListeners.contains(spcl))
 			theListeners.add(spcl);
 	}
@@ -267,11 +273,11 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 		return initialized;
 	}
 
-	protected STLTransformGroup getCurrentSTLTransform() {
+	public STLTransformGroup getCurrentSTLTransform() {
 		return currentSTLTransform;
 	}
 
-	protected STLWorkspaceBranchGroup getTheWorkspaceTransform() {
+	public STLWorkspaceBranchGroup getTheWorkspaceTransform() {
 		return theWorkspace;
 	}
 	
@@ -304,11 +310,25 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 		} 
 		
 
-		for (STLPreviewCanvas3DListener spcl : theListeners) {
-			spcl.alertCameraMoved(position, direction, orient);
+		for (STLPreviewWorkspaceViewListener spcl : theListeners) {
+			double[] pos = new double[3],dir = new double[3],or=new double[3];
+			position.get(pos);
+			direction.get(dir);
+			orient.get(or);
+			spcl.alertCameraMoved(pos, dir, or);
 		}
 		updateIndicatorLights();
 	}
+	
+	@Override
+	public void setCamera(double[] position, double[] lookAt) {
+		Vector3d up = new Vector3d(0,1,0);
+		Point3d pos = new Point3d(position[0],position[1],position[2]);
+		Point3d dir = new Point3d(lookAt[0],lookAt[1],lookAt[2]);
+		
+		setCamera(pos,dir,up);
+		
+	}	
 	
 	// light transform functions
 	
@@ -648,8 +668,9 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 	public void alertMouseControlModeChanged(
 			STLPreviewMouseControls stlPreviewMouseControls) {
 		if (stlPreviewMouseControls.getCurrentMode() == STLPreviewMouseControls.MouseControlMode.MODEL_TRANSLATE_XZ) {
-			this.theCameraController
-					.setCameraFocusMode(STLPreviewCameraController.CameraMode.AERIAL);
+			//this.theCameraController
+				//	.setCameraFocusMode(STLPreviewCameraController.CameraMode.AERIAL);
+			this.setCamera(new double[]{0,100,250}, new double[]{0,0,0});//TODO
 		}
 	}
 
@@ -749,6 +770,14 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 
 	public int getModelCount(){
 		return this.theSTLTransforms.size();
-	}	
+	}
+	
+	@Override
+	public void setWorkspaceModel(STLWorkspaceModel stlwm) {
+		//theWorkspaceModel = stlwm;
+	}
+	
+
+	
 	
 }

@@ -8,6 +8,9 @@ import java.util.ArrayList;
 
 import javax.media.j3d.*;
 
+import com.neuronrobotics.replicator.gui.preview.j3d.STLShape3DFactory;
+import com.neuronrobotics.replicator.gui.preview.j3d.STLTransformGroup;
+
 public class STLLoader {
 	
 	/**

@@ -157,4 +157,11 @@ public class STLFacet {
 				"Origin to plane distance: "+originToPlaneDistance;
 	}
 	
+	protected void acceptTransform(GeneralTransform3D gt){
+		gt.transform(this.vertex1);
+		gt.transform(this.vertex2);
+		gt.transform(this.vertex3);
+		gt.transform(this.normal);
+	}
+	
 }

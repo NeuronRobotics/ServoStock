@@ -1,4 +1,4 @@
-package com.neuronrobotics.replicator.gui.preview;
+package com.neuronrobotics.replicator.gui.preview.j3d;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -6,7 +6,6 @@ import java.awt.geom.Point2D;
 
 import javax.swing.SwingUtilities;
 
-import com.neuronrobotics.replicator.gui.stl.STLTransformGroup;
 import com.sun.j3d.utils.picking.PickCanvas;
 import com.sun.j3d.utils.picking.PickResult;
 
@@ -133,8 +132,10 @@ public class STLPreviewMouseControls extends MouseAdapter  {
 			protected void mouseDragged(STLPreviewCanvas3D preview,
 					double xDist, double yDist) {
 				if(preview.getCurrentSTLTransform()==null) return;
+				System.out.println("Starting translate");
 				preview.getCurrentSTLTransform().translateLeftRight(xDist/translateScale);
 				preview.getCurrentSTLTransform().translateBackForth(yDist/translateScale);
+				System.out.println("Finished translate");
 				
 			}
 			

@@ -4,6 +4,7 @@ import javax.vecmath.Point3d;
 import javax.vecmath.Tuple3d;
 import javax.vecmath.Vector3d;
 
+import com.neuronrobotics.replicator.gui.preview.j3d.STLPreviewCanvas3D;
 import com.neuronrobotics.replicator.gui.stl.STLObject;
 
 public class STLPreviewCameraController {
@@ -412,7 +413,7 @@ public class STLPreviewCameraController {
 		thePreview.setCamera(tempPos, tempDir, tempOri);
 	}
 
-	protected void autoPan() {
+	public void autoPan() {
 
 		panTo(this.currentCameraFocusMode.getFocus(thePreview));
 

@@ -1,7 +1,6 @@
 package com.neuronrobotics.replicator.gui.stl;
 
 import javax.vecmath.Matrix3d;
-import javax.vecmath.Matrix3f;
 import javax.vecmath.Point3d;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3d;
@@ -19,7 +18,10 @@ public interface GeneralTransform3D {
 	
 	public double get(Matrix3d rotation, Vector3d translation);
 	
-	public float get(Matrix3f rotation, Vector3f translation);
-
+	public void transform(double[] p);
+	
+	public void get(double[] transform);
+	
+	public void set(double[] newTransform);
 	
 }

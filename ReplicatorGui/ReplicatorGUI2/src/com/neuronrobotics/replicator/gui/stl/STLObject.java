@@ -173,7 +173,7 @@ public class STLObject implements Iterable<STLFacet> {
 		facesAnalyzed = true;
 	}
 
-	protected STLObject clone(){
+	public STLObject clone(){
 		
 		ArrayList<STLFacet> listCopy = new ArrayList<STLFacet>();
 		for(STLFacet fac:theFacets){
