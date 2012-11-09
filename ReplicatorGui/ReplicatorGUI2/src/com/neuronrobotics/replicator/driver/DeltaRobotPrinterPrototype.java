@@ -53,6 +53,18 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 		System.out.println("Setting printer to position: "+taskSpaceTransform);
 		double [] links = kinematics.delta_calcInverse(taskSpaceTransform);
 		double [] all = {links[0],links[1],links[2],getExtrusionCachedValue()};
+		
+		String s = "[ ";
+		for(int i=0;i<links.length;i++) {
+			s+=links[i];
+			if(i<links.length-1) {
+				s+=",";
+			}
+		}
+		s+="]";
+		
+		System.out.println("Joint level = "+s);
+		
 		return all;
 	}
 

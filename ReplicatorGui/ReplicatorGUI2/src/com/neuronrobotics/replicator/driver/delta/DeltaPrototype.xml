@@ -9,14 +9,14 @@
 		<name>Link0</name>
 		<type>pid-rotory</type>
 		<index>4</index>
-		<scale>0.087890625</scale>
-		<upperLimit>1024</upperLimit>
-		<lowerLimit>-512</lowerLimit>
-		<pGain>.07</pGain>
-		<iGain>10</iGain>
-		<dGain>.1</dGain>
+		<scale>-0.087890625</scale>
+		<upperLimit>800</upperLimit>
+		<lowerLimit>-200</lowerLimit>
+		<pGain>.05</pGain>
+		<iGain>0.07</iGain>
+		<dGain>0.15</dGain>
 		<isInverted>false</isInverted>
-		<isLatch>true</isLatch>
+		<isLatch>false</isLatch>
 		<indexLatch>0</indexLatch>
 		<isStopOnLatch>false</isStopOnLatch>	
 		<homingTPS>500</homingTPS>			
@@ -25,14 +25,14 @@
 		<name>Link1</name>
 		<type>pid-rotory</type>
 		<index>6</index>
-		<scale>0.087890625</scale>
-		<upperLimit>1024</upperLimit>
-		<lowerLimit>-512</lowerLimit>
-		<pGain>.07</pGain>
-		<iGain>10</iGain>
-		<dGain>.1</dGain>
+		<scale>-0.087890625</scale>
+		<upperLimit>800</upperLimit>
+		<lowerLimit>-200</lowerLimit>
+		<pGain>.05</pGain>
+		<iGain>0.07</iGain>
+		<dGain>0.15</dGain>
 		<isInverted>false</isInverted>
-		<isLatch>true</isLatch>
+		<isLatch>false</isLatch>
 		<indexLatch>0</indexLatch>
 		<isStopOnLatch>false</isStopOnLatch>	
 		<homingTPS>500</homingTPS>	
@@ -42,14 +42,14 @@
 		<name>Link2</name>
 		<type>pid-rotory</type>
 		<index>7</index>
-		<scale>0.087890625</scale>
-		<upperLimit>1024</upperLimit>
-		<lowerLimit>-512</lowerLimit>
-		<pGain>.07</pGain>
-		<iGain>10</iGain>
-		<dGain>.1</dGain>
+		<scale>-0.087890625</scale>
+		<upperLimit>800</upperLimit>
+		<lowerLimit>-200</lowerLimit>
+		<pGain>.05</pGain>
+		<iGain>0.07</iGain>
+		<dGain>0.15</dGain>
 		<isInverted>true</isInverted>
-		<isLatch>true</isLatch>
+		<isLatch>false</isLatch>
 		<indexLatch>0</indexLatch>
 		<isStopOnLatch>false</isStopOnLatch>	
 		<homingTPS>500</homingTPS>			
@@ -66,7 +66,7 @@
 		<iGain>0</iGain>
 		<dGain>0</dGain>
 		<isInverted>true</isInverted>
-		<isLatch>true</isLatch>
+		<isLatch>false</isLatch>
 		<indexLatch>0</indexLatch>
 		<isStopOnLatch>false</isStopOnLatch>	
 		<homingTPS>500</homingTPS>			
@@ -91,7 +91,7 @@
 			<iGain>0</iGain>
 			<dGain>0</dGain>
 			<isInverted>true</isInverted>
-			<isLatch>true</isLatch>
+			<isLatch>false</isLatch>
 			<indexLatch>0</indexLatch>
 			<isStopOnLatch>false</isStopOnLatch>	
 			<homingTPS>500</homingTPS>			
@@ -113,7 +113,7 @@
 			<iGain>0</iGain>
 			<dGain>0</dGain>
 			<isInverted>true</isInverted>
-			<isLatch>true</isLatch>
+			<isLatch>false</isLatch>
 			<indexLatch>0</indexLatch>
 			<isStopOnLatch>false</isStopOnLatch>	
 			<homingTPS>500</homingTPS>			
@@ -135,7 +135,7 @@
 			<iGain>0</iGain>
 			<dGain>0</dGain>
 			<isInverted>true</isInverted>
-			<isLatch>true</isLatch>
+			<isLatch>false</isLatch>
 			<indexLatch>0</indexLatch>
 			<isStopOnLatch>false</isStopOnLatch>	
 			<homingTPS>500</homingTPS>			
@@ -155,7 +155,7 @@
 	<baseToZframe>
 		<x>0</x>
 		<y>0</y>
-		<z>10</z>
+		<z>-200</z>
 		<rotw>1</rotw>
 		<rotx>0</rotx>
 		<roty>0</roty>
