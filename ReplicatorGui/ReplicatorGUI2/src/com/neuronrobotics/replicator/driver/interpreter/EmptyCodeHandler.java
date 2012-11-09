@@ -7,7 +7,7 @@ package com.neuronrobotics.replicator.driver.interpreter;
  * @author 
  * @version 
  */
-public class EmptyCodeHandler implements CodeHandler {
+public class EmptyCodeHandler extends CodeHandler {
 	public void execute(GCodeLineData prev, GCodeLineData line) throws Exception {
 	}
 }

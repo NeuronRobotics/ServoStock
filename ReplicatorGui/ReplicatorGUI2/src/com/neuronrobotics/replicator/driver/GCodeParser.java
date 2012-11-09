@@ -32,11 +32,11 @@ public class GCodeParser {
 
 	void addHandlers(GCodeInterpreter interp) {
 		// Temperature control
-		interp.addMHandler(104, new CodeHandler() {
+		interp.addGHandler(104, new CodeHandler() {
 			public void execute(GCodeLineData prev, GCodeLineData next) throws Exception {
 				double d[]=new double[1];
 				d[0]=next.getWord('S');
-				device.setExtrusionTemperature(d);
+				device.setExtrusionTempreture(d);
 			}
 		});
 		// Add the 
