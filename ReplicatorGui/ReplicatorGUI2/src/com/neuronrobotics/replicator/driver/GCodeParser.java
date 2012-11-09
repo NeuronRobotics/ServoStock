@@ -30,6 +30,51 @@ public class GCodeParser {
 		return false;
 	}
 
+	void addHandlers(GCodeInterpreter interp) {
+		// Temperature control
+		interp.addMHandler(104, new CodeHandler() {
+			public void execute(GCodeLineData prev, GCodeLineData next) throws Exception {
+				double d[]=new double[1];
+				d[0]=next.getWord('S');
+				device.setExtrusionTemperature(d);
+			}
+		});
+		// Add the 
+		interp.addGHandler(1, new CodeHandler() {
+			public void execute(GCodeLineData prev, GCodeLineData next) throws Exception {
+				// uh... set the new setpoint.
+				device.setExtrusionPoint((int)next.getWord('T'), next.getWord('A'));
+			}
+		});
+		// Linearize.
+		interp.setGHandler(1, new CodeHandler() {
+			public void execute(GCodeLineData prev, GCodeLineData next) throws Exception {
+				//Bah. This will be better in the firmware.
+				//This is the /WRONG/ but straightforward way to do this.
+				double a=next.getWord('A')-prev.getWord('A');
+				double x=next.getWord('X')-prev.getWord('X');
+				double y=next.getWord('Y')-prev.getWord('Y');
+				double z=next.getWord('Z')-prev.getWord('Z');
+				double overallLength=Math.sqrt(x*x+y*y+z*z);
+				double ua=a/overallLength;
+				double ux=x/overallLength;
+				double uy=y/overallLength;
+				double uz=z/overallLength;
+				GCodeLineData psub=prev;
+				for(double n=0;n<(overallLength-0.1);n+=0.1) {
+					GCodeLineData sub=new GCodeLineData(next);
+					sub.storeWord('A',prev.getWord('A')+ua*n);
+					sub.storeWord('X',prev.getWord('X')+ux*n);
+					sub.storeWord('Y',prev.getWord('Y')+uy*n);
+					sub.storeWord('Z',prev.getWord('Z')+uz*n);
+					callSubMethods(psub, sub);
+					psub=sub;
+				}
+				callSubMethods(psub, next);
+			}
+		});
+	}
+
 	public boolean cancel() {
 		if(interp!=null) {
 			return interp.cancel();

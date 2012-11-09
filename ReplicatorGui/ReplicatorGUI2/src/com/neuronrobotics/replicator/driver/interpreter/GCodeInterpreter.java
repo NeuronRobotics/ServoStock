@@ -217,7 +217,7 @@ public class GCodeInterpreter {
 	 * Add a handler for a G code. The new handler executes before any
 	 * previously installed handler for the code, to permit composition; for
 	 * instance, where the first-installed G01 handler specifies motion and
-	 * flushes the commands to device, a handler installed later could
+* flushes the commands to device, a handler installed later could
 	 * handle tool behavior without flushing the device, and provide
 	 * coordinated behavior.
 	 * 
@@ -238,6 +238,7 @@ public class GCodeInterpreter {
 	 * @param handler the handler implementation.
 	 */
 	public void setGHandler(int code, CodeHandler handler) { // For overriding all default behavior of a code.
+		handler.setSubHandlers(gHandlers[code]);
 		gHandlers[code]=new ArrayList<CodeHandler>();
 		gHandlers[code].add(handler);
 	}

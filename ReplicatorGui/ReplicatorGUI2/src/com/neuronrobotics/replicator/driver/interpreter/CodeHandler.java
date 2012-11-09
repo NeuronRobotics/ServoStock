@@ -6,7 +6,7 @@ package com.neuronrobotics.replicator.driver.interpreter;
  * @author Jonathan D.K. Gibbons
  * @version 1
  */
-public interface CodeHandler {
+public abstract class CodeHandler {
 	
 	/** 
 	 * Execute the action associated with this handler.
@@ -16,6 +16,16 @@ public interface CodeHandler {
 	 * @param line The current set of register values for this line of G code.
 	 * @throws Exception 
 	 */
-	public void execute(GCodeLineData prev, GCodeLineData line) throws Exception;
+	public abstract void execute(GCodeLineData prev, GCodeLineData line) throws Exception;
+
+	List<CodeHandler> subHandlers;
+	public void setSubHandlers(List<CodeHandler> subHandlers) {
+		this.subHandlers=subHandlers;
+	}
+
+	public void callSubMethods(GCodeLineData prev, GCodeLineData line) throws Exception {
+		for(CodeHandler handler: subHandlers)
+			handler.execute(prev, line);
+	}
 }
 
