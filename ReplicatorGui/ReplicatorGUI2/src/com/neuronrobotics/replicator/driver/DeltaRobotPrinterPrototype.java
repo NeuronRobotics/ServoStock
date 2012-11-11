@@ -58,7 +58,7 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 	public double[] inverseKinematics(TransformNR taskSpaceTransform)throws Exception {
 		System.out.println("Setting printer to position: "+taskSpaceTransform);
 		double [] links = kinematics.delta_calcInverse(taskSpaceTransform);
-		double [] all = {links[0],links[1],links[2],getExtrusionCachedValue()};
+		double [] all = {links[0],links[1],links[2],getExtrusionCachedValue(),130};
 		
 		String s = "[ ";
 		for(int i=0;i<all.length;i++) {
@@ -66,7 +66,7 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 			if(i<all.length-1) {
 				s+=",";
 			}
-			all[i] = Math.toDegrees(all[i]);
+			//all[i] = Math.toDegrees(all[i]);
 		}
 		s+="]";
 		
@@ -80,9 +80,7 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 	public TransformNR forwardKinematics(double[] jointSpaceVector) {
 		if(kinematics == null)
 			return new TransformNR();
-		for(int i=0;i<jointSpaceVector.length;i++){
-			jointSpaceVector[i] = Math.toRadians(jointSpaceVector[i]);
-		}
+
 		return kinematics.delta_calcForward(jointSpaceVector);
 	}
 

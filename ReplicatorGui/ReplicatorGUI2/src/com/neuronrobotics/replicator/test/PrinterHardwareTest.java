@@ -1,29 +1,38 @@
 package com.neuronrobotics.replicator.test;
 
 import com.neuronrobotics.replicator.driver.NRPrinter;
+import com.neuronrobotics.sdk.addons.kinematics.math.RotationNR;
+import com.neuronrobotics.sdk.addons.kinematics.math.TransformNR;
 import com.neuronrobotics.sdk.util.ThreadUtil;
 
 public class PrinterHardwareTest {
 	
 	
-	public PrinterHardwareTest(){
+	public PrinterHardwareTest() throws Exception{
 //		DeltaDoodle delt = new DeltaDoodle();
 //		delt.setConnection(new SerialConnection("/dev/DeltaDoodle0"));
 //		delt.connect();
 //		NRPrinter printer = new NRPrinter(delt);
 		NRPrinter printer = new NRPrinter(null);
 		
-		for (int i=0;i<5;i++){
-			int angle =(13*i)-20;
-			double []jointSpaceVect = new double[]{angle,angle,angle,0,130};
-			try {
-				printer.getDevice().setDesiredJointSpaceVector(jointSpaceVect, 0);
-				ThreadUtil.wait(1000);
-				System.out.println("Target Angle: = "+angle+"\n"+printer.getDevice().getCurrentTaskSpaceTransform());
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		for (int i=0;i<8;i++){
+//			int angle =(13*i)-20;
+//			double []jointSpaceVect = new double[]{angle,angle,angle,0,130};
+//			try {
+//				printer.getDevice().setDesiredJointSpaceVector(jointSpaceVect, 0);
+//				ThreadUtil.wait(1000);
+//				System.out.println("Target Angle: = "+angle+"\n"+printer.getDevice().getCurrentTaskSpaceTransform());
+//			} catch (Exception e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+			
+			double z = -1*((27.785*i)+272.08);
+			TransformNR target = new TransformNR(0, 0, z, new RotationNR());
+			printer.getDevice().setDesiredTaskSpaceTransform(target, 0);
+			ThreadUtil.wait(1000);
+			System.out.println("Target z = "+z+"\n"+printer.getDevice().getCurrentTaskSpaceTransform());
+			
 		}
 		System.exit(0);
 		
@@ -32,7 +41,12 @@ public class PrinterHardwareTest {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		new PrinterHardwareTest();
+		try {
+			new PrinterHardwareTest();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

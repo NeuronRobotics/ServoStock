@@ -33,9 +33,9 @@ public class DeltaRobotKinematics {
 	 // returned status:  CartesianCoordinante=OK, null=non-existing position
 	 public TransformNR delta_calcForward(double [] input) {
 		 double x0, y0, z0;
-		 double theta1 = input[0];
-		 double theta2 = input[1];
-		 double theta3 = input[2];
+		 double theta1 = Math.toRadians(input[0]);
+		 double theta2 = Math.toRadians(input[1]);
+		 double theta3 = Math.toRadians(input[2]);
 	     double t = (getF()-getE())*tan30/2;
 	 
 	     double y1 = -(t + getRf()*Math.cos(theta1));
@@ -82,8 +82,8 @@ public class DeltaRobotKinematics {
 	 // helper functions, calculates angle theta1 (for YZ-pane)
 	 private double delta_calcAngleYZ(double x0, double y0, double z0 ) {
 		 double theta;
-		 if(z0<=0)
-			 throw new RuntimeException("Z values must be greater then zero");
+//		 if(z0<=0)
+//			 throw new RuntimeException("Z values must be greater then zero");
 	     double y1 = -0.5 * 0.57735 * getF(); // f/2 * tg 30
 	     y0 -= 0.5 * 0.57735    * getE();    // shift center to edge
 	     // z = a + b*y
