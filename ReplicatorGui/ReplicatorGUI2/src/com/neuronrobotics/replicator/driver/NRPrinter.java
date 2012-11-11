@@ -8,7 +8,7 @@ import com.neuronrobotics.sdk.common.Log;
 import com.neuronrobotics.sdk.dyio.DyIO;
 
 public class NRPrinter {
-	DeltaRobotPrinterPrototype device;
+	private DeltaRobotPrinterPrototype device;
 	private GCodeParser parser;
 	private StlSlicer slicer;
 	
@@ -16,9 +16,9 @@ public class NRPrinter {
 	public NRPrinter(DeltaDoodle d) {
 		Log.enableDebugPrint(true);
 		
-		device = new DeltaRobotPrinterPrototype(d);
-		setParser(new GCodeParser(device));
-		setSlicer(new StlSlicer(device.getMaterialData()));
+		setDevice(new DeltaRobotPrinterPrototype(d));
+		setParser(new GCodeParser(getDevice()));
+		setSlicer(new StlSlicer(getDevice().getMaterialData()));
 	}
 	/**
 	 * 
@@ -67,6 +67,12 @@ public class NRPrinter {
 	}
 	public GCodeParser getParser() {
 		return parser;
+	}
+	public DeltaRobotPrinterPrototype getDevice() {
+		return device;
+	}
+	public void setDevice(DeltaRobotPrinterPrototype device) {
+		this.device = device;
 	}
 	
 }

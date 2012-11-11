@@ -61,11 +61,12 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 		double [] all = {links[0],links[1],links[2],getExtrusionCachedValue()};
 		
 		String s = "[ ";
-		for(int i=0;i<links.length;i++) {
-			s+=links[i];
-			if(i<links.length-1) {
+		for(int i=0;i<all.length;i++) {
+			s+=all[i];
+			if(i<all.length-1) {
 				s+=",";
 			}
+			all[i] = Math.toDegrees(all[i]);
 		}
 		s+="]";
 		
@@ -79,6 +80,9 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 	public TransformNR forwardKinematics(double[] jointSpaceVector) {
 		if(kinematics == null)
 			return new TransformNR();
+		for(int i=0;i<jointSpaceVector.length;i++){
+			jointSpaceVector[i] = Math.toRadians(jointSpaceVector[i]);
+		}
 		return kinematics.delta_calcForward(jointSpaceVector);
 	}
 
