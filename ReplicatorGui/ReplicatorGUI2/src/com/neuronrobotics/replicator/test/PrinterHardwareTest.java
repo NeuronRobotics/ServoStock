@@ -3,6 +3,7 @@ package com.neuronrobotics.replicator.test;
 import com.neuronrobotics.replicator.driver.NRPrinter;
 import com.neuronrobotics.sdk.addons.kinematics.math.RotationNR;
 import com.neuronrobotics.sdk.addons.kinematics.math.TransformNR;
+import com.neuronrobotics.sdk.common.Log;
 import com.neuronrobotics.sdk.util.ThreadUtil;
 
 public class PrinterHardwareTest {
@@ -14,8 +15,10 @@ public class PrinterHardwareTest {
 //		delt.connect();
 //		NRPrinter printer = new NRPrinter(delt);
 		NRPrinter printer = new NRPrinter(null);
-		
-		for (int i=0;i<8;i++){
+		Log.enableSystemPrint(false);
+		int i=0;
+		while(true){
+			i++;
 //			int angle =(13*i)-20;
 //			double []jointSpaceVect = new double[]{angle,angle,angle,0,130};
 //			try {
@@ -27,14 +30,14 @@ public class PrinterHardwareTest {
 //				e.printStackTrace();
 //			}
 			
-			double z = -1*((27.785*i)+272.08);
+			double z = -1*(i+272.08);
 			TransformNR target = new TransformNR(0, 0, z, new RotationNR());
 			printer.getDevice().setDesiredTaskSpaceTransform(target, 0);
-			ThreadUtil.wait(1000);
+			ThreadUtil.wait(100);
 			System.out.println("Target z = "+z+"\n"+printer.getDevice().getCurrentTaskSpaceTransform());
 			
 		}
-		System.exit(0);
+		//System.exit(0);
 		
 	}
 	/**
@@ -47,6 +50,7 @@ public class PrinterHardwareTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.exit(0);
 	}
 
 }

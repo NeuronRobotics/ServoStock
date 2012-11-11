@@ -56,7 +56,7 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 
 	@Override
 	public double[] inverseKinematics(TransformNR taskSpaceTransform)throws Exception {
-		System.out.println("Setting printer to position: "+taskSpaceTransform);
+		//System.out.println("Setting printer to position: "+taskSpaceTransform);
 		double [] links = kinematics.delta_calcInverse(taskSpaceTransform);
 		double [] all = {links[0],links[1],links[2],getExtrusionCachedValue(),130};
 		

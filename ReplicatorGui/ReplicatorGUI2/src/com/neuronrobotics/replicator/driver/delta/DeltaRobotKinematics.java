@@ -33,6 +33,10 @@ public class DeltaRobotKinematics {
 	 // returned status:  CartesianCoordinante=OK, null=non-existing position
 	 public TransformNR delta_calcForward(double [] input) {
 		 double x0, y0, z0;
+		 for(int i=0;i<3;i++){
+			 if(input[i]>=85)
+				 throw new RuntimeException("Angle hit toggle point: "+input[i] );
+		 }
 		 double theta1 = Math.toRadians(input[0]);
 		 double theta2 = Math.toRadians(input[1]);
 		 double theta3 = Math.toRadians(input[2]);
