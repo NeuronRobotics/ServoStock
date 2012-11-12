@@ -15,7 +15,7 @@ public class PrinterHardwareTest {
 //		delt.connect();
 //		NRPrinter printer = new NRPrinter(delt);
 		NRPrinter printer = new NRPrinter(null);
-		Log.enableSystemPrint(false);
+		//Log.enableSystemPrint(false);
 		int i=0;
 		while(true){
 			i++;

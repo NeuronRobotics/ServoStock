@@ -70,7 +70,7 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 		}
 		s+="]";
 		
-		System.out.println("Joint level = "+s);
+		//System.out.println("Joint level = "+s);
 		
 		return all;
 	}
