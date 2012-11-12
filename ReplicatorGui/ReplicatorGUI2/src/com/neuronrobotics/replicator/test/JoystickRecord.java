@@ -60,17 +60,17 @@ public class JoystickRecord {
 			boolean save = saveLocation.getPollData()<=0;
 			if(button!=lastButton) {
 				lastButton = button;
+				deltaRobot.setExtrusionPoint(0, 0);
 //				hand.SetPosition(button?open:closed);
 //				hand.flush();
 			}
 			Log.enableDebugPrint(false);
 			try {
 				double XYscale = 70;
+				double zscale  = 80;
 				double x=padX.getPollData()*-XYscale;
 				double y=padY.getPollData()*XYscale;
-				double z=padZ.getPollData()*100;
-				if(z<150)
-					z=150;
+				double z=(padZ.getPollData()*zscale)+zscale ;
 
 				currentNew = new TransformNR(x, y, z, new RotationNR());
 				System.out.println("Attempting :"+currentNew);

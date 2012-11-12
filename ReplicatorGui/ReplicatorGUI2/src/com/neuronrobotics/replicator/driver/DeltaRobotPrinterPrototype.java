@@ -91,8 +91,10 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 	public void setExtrusionCachedValue(double extrusionCachedValue) {
 		this.extrusionCachedValue = extrusionCachedValue;
 	}
+	
 	public void setExtrusionPoint(int materialNumber, double setPoint) {
 		//TODO another method to set material
 		extruder.setTargetEngineeringUnits(setPoint);
+		setExtrusionCachedValue(setPoint);
 	}
 }
