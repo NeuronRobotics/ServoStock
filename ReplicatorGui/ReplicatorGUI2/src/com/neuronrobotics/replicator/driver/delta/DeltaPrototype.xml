@@ -62,7 +62,7 @@
 		<scale>0.024414062</scale><!--  one revolution == 100 mm -->
 		<upperLimit>10000000000</upperLimit>
 		<lowerLimit>-10000000000</lowerLimit>
-		<pGain>1</pGain>
+		<pGain>.1</pGain>
 		<iGain>0</iGain>
 		<dGain>0</dGain>
 		<isInverted>true</isInverted>
