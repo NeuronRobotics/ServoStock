@@ -73,10 +73,10 @@
 	</link>
 	<link>
 		<name>hotEnd</name>
-		<type>pid-rotory</type>
+		<type>pid-linear</type>
 		<index>11</index>
 		<scale>1</scale>
-		<upperLimit>130</upperLimit>
+		<upperLimit>140</upperLimit>
 		<lowerLimit>0</lowerLimit>
 		<pGain>10</pGain>
 		<iGain>0</iGain>
