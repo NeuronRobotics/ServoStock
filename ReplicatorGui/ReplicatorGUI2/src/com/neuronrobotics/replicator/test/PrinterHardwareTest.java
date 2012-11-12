@@ -33,7 +33,7 @@ public class PrinterHardwareTest {
 	//				e.printStackTrace();
 	//			}
 				
-				double z = -1*(i);
+				double z = 1*(i);
 				TransformNR target = new TransformNR(0, 0, z, new RotationNR());
 				printer.getDevice().setDesiredTaskSpaceTransform(target, .2);
 				ThreadUtil.wait(100);
