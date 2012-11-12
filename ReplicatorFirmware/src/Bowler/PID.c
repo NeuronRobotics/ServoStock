@@ -27,9 +27,9 @@ void initPIDLocal(){
 		limits[i].type=NO_LIMIT;
                 if(i==LINK0_INDEX || i== LINK1_INDEX || i== LINK2_INDEX){
                     pidGroups[i].Polarity=0;
-                    pidGroups[i].K.P=.07;
-                    pidGroups[i].K.I=0.01;
-                    pidGroups[i].K.D=0.15;
+                    pidGroups[i].K.P=.05;
+                    pidGroups[i].K.I=0.1;
+                    pidGroups[i].K.D=0.0;
                 }
                 if(i==EXTRUDER0_INDEX){
                     pidGroups[i].K.P=.1;

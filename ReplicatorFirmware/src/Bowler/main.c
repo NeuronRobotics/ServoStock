@@ -69,14 +69,9 @@
 #define NO_ETHERNET
 #define CALIBRATE
 //#define NO_PID
-//#define TEST_MOTION
+#define TEST_MOTION
 //#define EXTRUDER_TEST
-#define servoCalebrateValue 122
-#define ticksPerRev         (4096.0)
-#define ticksPerDegree      (ticksPerRev/360.0)
-#define gearRatio           (7.0)
-#define calibrationAngle    (25.0)
-#define servoHomeValue      (ticksPerDegree*calibrationAngle*gearRatio)
+
 typedef enum {
     EXCEP_IRQ = 0,          // interrupt
     EXCEP_AdEL = 4,         // address error exception (load or ifetch)
@@ -203,7 +198,11 @@ void _general_exception_handler(unsigned cause, unsigned status){
 const BYTE MY_MAC_ADDRESS[]={0x74,0xf7,0x26,0x01,0x01,0x01};
 extern const MAC_ADDR Broadcast __attribute__ ((section (".scs_global_var")));
 extern MAC_ADDR MyMAC __attribute__ ((section (".scs_global_var")));
-static const unsigned char pidNSName[] = "bcs.pid.*;0.3;;";
+static const unsigned char pidNSName[]   = "bcs.pid.*;0.3;;";
+static const unsigned char deltaNSName[] = "bcs.delta.*;0.3;;";
+static const unsigned char cartNSName[]  = "bcs.cartesian.*;0.3;;";
+static const unsigned char printNSName[]  = "bcs.printer.*;0.3;;";
+
 static BowlerPacket Packet;
 static int calibrate = TRUE;
 static BowlerPacket MyPacket;
@@ -273,7 +272,12 @@ int main()
         println_I(dev);
 	//This Method calls INTEnableSystemMultiVectoredInt();
 	usb_CDC_Serial_Init(dev,macStr,0x04D8,0x0001);
+
 	AddNamespace(sizeof(pidNSName), pidNSName);
+        AddNamespace(sizeof(deltaNSName), deltaNSName);
+        AddNamespace(sizeof(cartNSName), cartNSName);
+        AddNamespace(sizeof(printNSName), printNSName);
+
 	setMethodCallback(BOWLER_GET,UserGetRPCs);
 	setMethodCallback(BOWLER_POST,UserPostRPCs);
 	setMethodCallback(BOWLER_CRIT,UserCriticalRPCs);
@@ -329,6 +333,9 @@ int main()
         println_E("gearRatio ");        p_fl_E(gearRatio);
         println_E("calibrationAngle "); p_fl_E(calibrationAngle);
         println_E("servoHomeValue ");   p_fl_E(servoHomeValue);
+
+        
+        
 	while(1){
 
             Bowler_Server_Local(&MyPacket);
@@ -338,28 +345,26 @@ int main()
 #if defined(TEST_MOTION)
             if(RunEvery(&pos)>0 && !calibrate){
                 float time = pos.setPoint;
-                //time=0;
-                int up=0;
-                int down = -3000;
+                float boxSize = 50;
                 switch(arm){
                     case 0:
-                        SetPIDTimed(LINK0_INDEX,down,time);
-                        SetPIDTimed(LINK1_INDEX,up,time);
-                        SetPIDTimed(LINK2_INDEX,up,time);
+                        setInterpolateXYZ( boxSize, boxSize, 50, time);
                         break;
                     case 1:
-                        SetPIDTimed(LINK0_INDEX,up,time);
-                        SetPIDTimed(LINK1_INDEX,down,time);
-                        SetPIDTimed(LINK2_INDEX,up,time);
+                        setInterpolateXYZ( -boxSize, boxSize, 50, time);
                         break;
                     case 2:
-                        SetPIDTimed(LINK0_INDEX,up,time);
-                        SetPIDTimed(LINK1_INDEX,up,time);
-                        SetPIDTimed(LINK2_INDEX,down,time);
+                        setInterpolateXYZ( boxSize, -boxSize, 50, time);
+                        break;
+                    case 3:
+                        setInterpolateXYZ( -boxSize, -boxSize, 50, time);
+                        break;
+                    case 4:
+                        setInterpolateXYZ( 0, 0, 50, time);
                         break;
                 }
                 arm++;
-                if (arm==3)
+                if (arm==5)
                     arm=0;
                 int i;
             }
@@ -429,6 +434,7 @@ int main()
                         setServo(LINK2_INDEX, 128,0);
                         setPidIsr(TRUE);
                         pos.MsTime=getMs();
+                        initializeCartesianController();
                     }
 #endif
                 }

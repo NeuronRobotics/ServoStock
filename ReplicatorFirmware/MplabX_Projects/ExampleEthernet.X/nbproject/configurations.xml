@@ -52,6 +52,7 @@
         <itemPath>../../include/replicator/main.h</itemPath>
         <itemPath>../../include/replicator/StepperSim.h</itemPath>
         <itemPath>../../include/replicator/CartesianController.h</itemPath>
+        <itemPath>../../include/replicator/delta.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="LibraryFiles"
@@ -114,6 +115,7 @@
         <itemPath>../../src/Bowler/ForgeHeater.c</itemPath>
         <itemPath>../../src/Bowler/CartesianController.c</itemPath>
         <itemPath>../../src/Bowler/DeltaKinematics.c</itemPath>
+        <itemPath>../../src/Bowler/delta.c</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"

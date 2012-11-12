@@ -6,6 +6,8 @@ int offset[numPidTotal];
 int raw[numPidTotal];
 
 #define jump 3000
+void encoderSPIInit();
+void AS5055ResetErrorFlag(BYTE index);
 
 void initializeEncoders(){
     DelayMs(200);

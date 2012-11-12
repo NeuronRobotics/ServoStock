@@ -76,6 +76,7 @@ void __ISR(_TIMER_2_VECTOR, ipl5) Timer2Handler(void)
         switch(state){
             case LOW:
                 if(getRunPidIsr()){
+                    interpolateZXY();
                     Print_Level l = getPrintLevel();
                     setPrintLevelNoPrint();
                     RunPIDControl();
@@ -192,7 +193,8 @@ BYTE getServoPosition(BYTE PIN){
 void runLinearInterpolationServo(BYTE blockStart,BYTE blockEnd){
 	BYTE i;
 	for (i=blockStart;i<blockEnd;i++){
-		float ip = interpolate(&velocity[i],getMs());
+		//float ip = interpolate(&velocity[i],getMs());
+                float ip = velocity[i].set;
 		if(ip>(255- SERVO_BOUND)){
 			ip=(255- SERVO_BOUND);
 		}

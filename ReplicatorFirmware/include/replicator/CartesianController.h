@@ -26,12 +26,22 @@ extern "C" {
  */
 unsigned char ProcessCartesianPacket(BowlerPacket * Packet);
 
-void InitializeCartesianController( BOOL (*asyncCallbackPtr)(BowlerPacket *Packet),
-                                    BOOL (*forwardKinematicsCallbackPtr)(float * currentLinkPositions, Transform * result),
-                                    BOOL (*inverseKinematicsCallbackPtr)(Transform * currentTransform, float * result ),
-                                    BOOL (*setPositionCallbackPtr)(int linkIndex,float degrees,float ms),
-                                    BOOL (*getAllPositionsCallbackPtr)(float * currentLinkPositions)
-                                  );
+void initializeCartesianController();
+
+BYTE setInterpolateXYZ(float x, float y, float z,float ms);
+
+void interpolateZXY();
+
+BYTE setXYZ(float x, float y, float z);
+
+int getCurrentPosition(float * x, float * y, float * z);
+
+//void InitializeCartesianController( BOOL (*asyncCallbackPtr)(BowlerPacket *Packet),
+//                                    BOOL (*forwardKinematicsCallbackPtr)(float * currentLinkPositions, Transform * result),
+//                                    BOOL (*inverseKinematicsCallbackPtr)(Transform * currentTransform, float * result ),
+//                                    BOOL (*setPositionCallbackPtr)(int linkIndex,float degrees,float ms),
+//                                    BOOL (*getAllPositionsCallbackPtr)(float * currentLinkPositions)
+//                                  );
 
 
 #ifdef	__cplusplus
