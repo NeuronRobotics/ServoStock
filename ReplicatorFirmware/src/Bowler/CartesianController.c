@@ -9,7 +9,11 @@ void interpolateZXY();
 float getLinkAngle(int index);
 float setLinkAngle(int index, float value);
 
-BOOL done = FALSE;
+BOOL done = TRUE;
+
+BOOL isCartesianInterpolationDone(){
+    return done;
+}
 
 void initializeCartesianController(){
     initializeDelta();
@@ -25,18 +29,17 @@ void interpolateZXY(){
     x = interpolate((INTERPOLATE_DATA *)&intCartesian[0],ms);
     y = interpolate((INTERPOLATE_DATA *)&intCartesian[1],ms);
     z = interpolate((INTERPOLATE_DATA *)&intCartesian[2],ms);
+    if(!isCartesianInterpolationDone())
+        setXYZ( x, y, z);
     BOOL move = FALSE;
     int i;
     for(i=0;i<3;i++){
         if(move==FALSE && intCartesian[i].setTime > 0){
             move = TRUE;
-            done = FALSE;
         }
     }
-    if(move){
-       setXYZ( x, y, z);
-    }else{
-        if(done == FALSE){
+    if(!move){
+        if(!isCartesianInterpolationDone()){
             done = TRUE;
         }
     }
@@ -69,7 +72,10 @@ BYTE setInterpolateXYZ(float x, float y, float z,float ms){
     }
     if(ms==0){
         setXYZ( x,  y,  z);
+    }else{
+        done = FALSE;
     }
+
 }
 
 BYTE setXYZ(float x, float y, float z){

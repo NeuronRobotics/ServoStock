@@ -49,7 +49,7 @@ void setServoTimer(int value){
 }
 
 void setTimerLowTime(){
-    setServoTimer(300*18);
+    setServoTimer(300*10);
     state = LOW;
 }
 
@@ -76,12 +76,13 @@ void __ISR(_TIMER_2_VECTOR, ipl5) Timer2Handler(void)
         switch(state){
             case LOW:
                 if(getRunPidIsr()){
-                    interpolateZXY();
+                    
                     Print_Level l = getPrintLevel();
                     setPrintLevelNoPrint();
+                    interpolateZXY();
                     RunPIDControl();
-                    setPrintLevelInfoPrint();
                     RunVel();
+                    setPrintLevelInfoPrint();
                     setPrintLevel(l);
 
                 }
