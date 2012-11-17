@@ -22,14 +22,14 @@ BYTE UserGetRPCs(BowlerPacket *Packet){
     return FALSE;
 }
 BYTE UserPostRPCs(BowlerPacket *Packet){
-    if(processPIDGet(Packet))
+    if(processPIDPost(Packet))
         return TRUE;
     if(onCartesianPacket(Packet))
         return TRUE;
     return FALSE;
 }
 BYTE UserCriticalRPCs(BowlerPacket *Packet){
-    if(processPIDGet(Packet))
+    if(processPIDCrit(Packet))
         return TRUE;
     if(onCartesianPacket(Packet))
         return TRUE;

@@ -27,7 +27,7 @@ void initPIDLocal(){
 		limits[i].type=NO_LIMIT;
                 if(i==LINK0_INDEX || i== LINK1_INDEX || i== LINK2_INDEX){
                     pidGroups[i].Polarity=0;
-                    pidGroups[i].K.P=.07;
+                    pidGroups[i].K.P=.05;
                     pidGroups[i].K.I=0.0;
                     pidGroups[i].K.D=0.00;
                 }
@@ -80,6 +80,7 @@ void setPidIsr(BOOL v){
 
 
 BOOL asyncCallback(BowlerPacket *Packet){
+    //println_I("Async>>");printPacket(Packet,INFO_PRINT);
     PutBowlerPacket(Packet);// This only works with USB and UART
     return isUSBActave();
 }
@@ -160,5 +161,5 @@ BOOL isUpToTempreture(){
    return bound(pidGroups[HEATER0_INDEX].SetPoint,
            getHeaterTempreture(HEATER0_INDEX),
            25,
-           5)&& pidGroups[HEATER0_INDEX].SetPoint>100;
+           25)&& pidGroups[HEATER0_INDEX].SetPoint>100;
 }

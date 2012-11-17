@@ -20,6 +20,7 @@ typedef struct  _Transform{
 }Transform;
 
 #define _SLI			0x696c735f // '_sli'  Set Linear Interpolation
+#define PRCL			0x6c637270 // 'prcl'  Cancle print
 
 /**
  * Handle a Cartesian packet.

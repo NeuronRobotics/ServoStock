@@ -17,6 +17,7 @@ float setLinkAngle(int index, float value);
 
 BOOL done = TRUE;
 BOOL full = FALSE;
+int  lastPushedBufferSize =0;
 
 static RunEveryData pid ={0,100};
 
@@ -38,7 +39,7 @@ void pushBufferEmpty(){
 	packetTemp.use.head.MessageID = 1;
 	packetTemp.use.head.RPC = GetRPCValue("_sli");
 	INT32_UNION tmp;
-        tmp.Val=FifoGetPacketSpaceAvailible(&packetFifo);
+        tmp.Val=lastPushedBufferSize;
         packetTemp.use.data[0]=tmp.byte.FB;
         packetTemp.use.data[1]=tmp.byte.TB;
         packetTemp.use.data[2]=tmp.byte.SB;
@@ -49,7 +50,9 @@ void pushBufferEmpty(){
 
 void cartesianAsync(){
     if(RunEvery(&pid)){
-        if(full==TRUE && FifoGetPacketSpaceAvailible(&packetFifo)!=0){
+        int tmp =FifoGetPacketSpaceAvailible(&packetFifo);
+        if(tmp!= lastPushedBufferSize){
+            lastPushedBufferSize=tmp;
             pushBufferEmpty();
             full = FALSE;
         }
@@ -99,6 +102,12 @@ BOOL onCartesianPost(BowlerPacket *Packet){
             //println_I("Cached linear Packet ");
             setPrintLevel(l);
             return TRUE;
+        case PRCL:
+            while(FifoGetPacketCount(&packetFifo)>0){
+                FifoGetPacket(&packetFifo,&linTmpPack);
+            }
+            return TRUE;
+
     }
     return FALSE;
 }
@@ -191,7 +200,7 @@ BYTE setInterpolateXYZ(float x, float y, float z,float ms){
 BYTE setXYZ(float x, float y, float z){
     float t0=0,t1=0,t2=0;
     if(delta_calcInverse( x,  y, z,  &t0, &t1, &t2)==0){
-        //println_I("New target angles t1=");p_fl_E(t0);print_E(" t2=");p_fl_E(t1);print_E(" t3=");p_fl_E(t2);
+        println_I("New target angles t1=");p_fl_E(t0);print_E(" t2=");p_fl_E(t1);print_E(" t3=");p_fl_E(t2);
         setLinkAngle(0,t0);
         setLinkAngle(1,t1);
         setLinkAngle(2,t2);
