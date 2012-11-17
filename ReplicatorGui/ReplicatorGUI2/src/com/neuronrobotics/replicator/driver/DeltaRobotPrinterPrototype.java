@@ -9,6 +9,7 @@ import com.neuronrobotics.sdk.addons.kinematics.AbstractLink;
 import com.neuronrobotics.sdk.addons.kinematics.LinkFactory;
 import com.neuronrobotics.sdk.addons.kinematics.math.TransformNR;
 import com.neuronrobotics.sdk.addons.kinematics.xml.XmlFactory;
+import com.neuronrobotics.sdk.common.DeviceConnectionException;
 import com.neuronrobotics.sdk.dyio.DyIO;
 
 public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
@@ -97,5 +98,9 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 		//TODO another method to set material
 		extruder.setTargetEngineeringUnits(setPoint);
 		setExtrusionCachedValue(setPoint);
+	}
+	
+	public int getNumberOfSpacesInBuffer() {
+		return deltaDevice.getNumberOfSpacesInBuffer();
 	}
 }
