@@ -5,12 +5,13 @@
  // robot geometry
  // (look at pics above for explanation)
 //TOTO guessed values
-float e = 63.5;     // end effector
-float f = 107.95;     // base
-float re = 241.3;
-float rf = 101.6;
+//e=66.39528,f=108.54185,rf=100,re=240
+float e = 66.39528;     // end effector
+float f = 108.54185;     // base
+float re = 240;
+float rf = 100;
 
-float zOffset = -300.0;
+float zOffset = -287.5;
 
 // trigonometric constants
 float sqrt3 ;

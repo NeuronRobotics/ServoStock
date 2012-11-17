@@ -15,13 +15,25 @@ static int val;
 BowlerPacket tmpData;
 
 BYTE UserGetRPCs(BowlerPacket *Packet){
-    return processPIDGet(Packet);
+    if(processPIDGet(Packet))
+        return TRUE;
+    if(onCartesianPacket(Packet))
+        return TRUE;
+    return FALSE;
 }
 BYTE UserPostRPCs(BowlerPacket *Packet){
-    return processPIDPost(Packet);
+    if(processPIDGet(Packet))
+        return TRUE;
+    if(onCartesianPacket(Packet))
+        return TRUE;
+    return FALSE;
 }
 BYTE UserCriticalRPCs(BowlerPacket *Packet){
-    return processPIDCrit(Packet);
+    if(processPIDGet(Packet))
+        return TRUE;
+    if(onCartesianPacket(Packet))
+        return TRUE;
+    return FALSE;
 }
 
 

@@ -116,6 +116,8 @@
         <itemPath>../../src/Bowler/CartesianController.c</itemPath>
         <itemPath>../../src/Bowler/DeltaKinematics.c</itemPath>
         <itemPath>../../src/Bowler/delta.c</itemPath>
+        <itemPath>../../src/Bowler/Calibration.c</itemPath>
+        <itemPath>../../src/Bowler/MotionTest.c</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"

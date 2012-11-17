@@ -9,6 +9,9 @@
 #define	CARTESIANCONTROLLER_H
 #include "Bowler/Bowler_Helper.h"
 
+#ifdef	__cplusplus
+extern "C" {
+#endif
 typedef struct  _Transform{
     float x;
     float y;
@@ -16,9 +19,7 @@ typedef struct  _Transform{
     float rotation[3][3];
 }Transform;
 
-#ifdef	__cplusplus
-extern "C" {
-#endif
+#define _SLI			0x696c735f // '_sli'  Set Linear Interpolation
 
 /**
  * Handle a Cartesian packet.
@@ -35,6 +36,8 @@ void interpolateZXY();
 BYTE setXYZ(float x, float y, float z);
 
 int getCurrentPosition(float * x, float * y, float * z);
+
+void cartesianAsync();
 
 //void InitializeCartesianController( BOOL (*asyncCallbackPtr)(BowlerPacket *Packet),
 //                                    BOOL (*forwardKinematicsCallbackPtr)(float * currentLinkPositions, Transform * result),

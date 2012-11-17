@@ -133,6 +133,8 @@ void setPidIsr(BOOL v);
 #define LINK1_INDEX 6
 #define LINK2_INDEX 7
 
+BOOL isUpToTempreture();
+
 #ifdef	__cplusplus
 }
 #endif

@@ -69,8 +69,31 @@
 #define NO_ETHERNET
 #define CALIBRATE
 //#define NO_PID
-#define TEST_MOTION
+//#define TEST_MOTION
 //#define EXTRUDER_TEST
+
+///////////////////////////////////////////////////////
+const BYTE MY_MAC_ADDRESS[]={0x74,0xf7,0x26,0x01,0x01,0x01};
+extern const MAC_ADDR Broadcast __attribute__ ((section (".scs_global_var")));
+extern MAC_ADDR MyMAC __attribute__ ((section (".scs_global_var")));
+static const unsigned char pidNSName[]   = "bcs.pid.*;0.3;;";
+static const unsigned char deltaNSName[] = "bcs.delta.*;0.3;;";
+static const unsigned char cartNSName[]  = "bcs.cartesian.*;0.3;;";
+static const unsigned char printNSName[]  = "bcs.printer.*;0.3;;";
+
+static BowlerPacket Packet;
+static int calibrate = TRUE;
+static BowlerPacket MyPacket;
+
+static RunEveryData pid ={0,50};
+static RunEveryData calibrationTest ={0,1000};
+static RunEveryData pos ={0,5000};
+
+static int linkValue[3];
+
+
+float height = 0;
+int j=0,i=0;
 
 typedef enum {
     EXCEP_IRQ = 0,          // interrupt
@@ -194,28 +217,7 @@ void _general_exception_handler(unsigned cause, unsigned status){
 	}
 }
 
-///////////////////////////////////////////////////////
-const BYTE MY_MAC_ADDRESS[]={0x74,0xf7,0x26,0x01,0x01,0x01};
-extern const MAC_ADDR Broadcast __attribute__ ((section (".scs_global_var")));
-extern MAC_ADDR MyMAC __attribute__ ((section (".scs_global_var")));
-static const unsigned char pidNSName[]   = "bcs.pid.*;0.3;;";
-static const unsigned char deltaNSName[] = "bcs.delta.*;0.3;;";
-static const unsigned char cartNSName[]  = "bcs.cartesian.*;0.3;;";
-static const unsigned char printNSName[]  = "bcs.printer.*;0.3;;";
 
-static BowlerPacket Packet;
-static int calibrate = TRUE;
-static BowlerPacket MyPacket;
-
-static RunEveryData pid ={0,50};
-static RunEveryData calibrationTest ={0,2000};
-static RunEveryData pos ={0,5000};
-
-static int linkValue[3];
-
-
-
-int j=0,i=0;
 BYTE Bowler_Server_Local(BowlerPacket * Packet){
         Print_Level l = getPrintLevel();
         setPrintLevelNoPrint();
@@ -345,16 +347,16 @@ int main()
         
         
 	while(1){
-
+            cartesianAsync();
             Bowler_Server_Local(&MyPacket);
             #if !defined(NO_ETHERNET)
                 RunEthernetServices(&MyPacket);
             #endif
 #if defined(TEST_MOTION)
             if(isCartesianInterpolationDone() && !calibrate){
-                float time = 1500;
+                float time = 2000;
                 float boxSize = 50;
-                float height = 0;
+                
                 switch(arm){
                     case 0:
                         setInterpolateXYZ( boxSize, boxSize, height, time);
@@ -363,13 +365,14 @@ int main()
                         setInterpolateXYZ( -boxSize, boxSize, height, time);
                         break;
                     case 2:
-                        setInterpolateXYZ( boxSize, -boxSize, height, time);
+                        setInterpolateXYZ( -boxSize, -boxSize, height, time);
                         break;
                     case 3:
-                        setInterpolateXYZ( -boxSize, -boxSize, height, time);
+                        setInterpolateXYZ( boxSize, -boxSize, height, time);
                         break;
                     case 4:
                         setInterpolateXYZ( 0, 0, height, time);
+                        height+=.1;
                         break;
                 }
                 arm++;
@@ -453,14 +456,18 @@ int main()
                             setPidIsr(TRUE);
                             pos.MsTime=getMs();
                             initializeCartesianController();
+#if defined(TEST_MOTION)
+                            SetPID(HEATER0_INDEX, 140);
+                            StartPDVel(EXTRUDER0_INDEX,100,0);
+#endif
                         }else{
-                            println_E("\n\nCurrent:\n\r\tLink 0 value:");p_sl_E(l0);
-                            println_E("\tLink 1 value:");p_sl_E(l1);
-                            println_E("\tLink 2 value:");p_sl_E(l2);
-
-                            println_E("Previous:\n\r\tLink 0 value:");p_sl_E(linkValue[0]);
-                            println_E("\tLink 1 value:");p_sl_E(linkValue[1]);
-                            println_E("\tLink 2 value:");p_sl_E(linkValue[2]);
+//                            println_E("\n\nCurrent:\n\r\tLink 0 value:");p_sl_E(l0);
+//                            println_E("\tLink 1 value:");p_sl_E(l1);
+//                            println_E("\tLink 2 value:");p_sl_E(l2);
+//
+//                            println_E("Previous:\n\r\tLink 0 value:");p_sl_E(linkValue[0]);
+//                            println_E("\tLink 1 value:");p_sl_E(linkValue[1]);
+//                            println_E("\tLink 2 value:");p_sl_E(linkValue[2]);
                             linkValue[0]=l0;
                             linkValue[1]=l1;
                             linkValue[2]=l2;
