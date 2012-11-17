@@ -30,7 +30,9 @@ public class DeltaDoodle extends GenericPIDDevice {
 																				4),//number of bytes
 																				false);//True for signed data
 		System.out.println("Running line x="+taskSpaceTransform.getX()+" y="+taskSpaceTransform.getY()+" z="+taskSpaceTransform.getZ()+" num spaces="+numSpacesRemaining);
-		return numSpacesRemaining>0;
+		if(numSpacesRemaining == 0 )
+			throw new RuntimeException("There is no more room left");
+		return true;
 	}
 	
 	public void cancelRunningPrint() {

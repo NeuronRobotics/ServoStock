@@ -37,6 +37,7 @@ public class NRPrinter {
 	 */
 	public boolean print(InputStream gcode) {
 		System.out.println("Printing now.");
+		getDevice().cancelRunningPrint();
 		return getParser().print(gcode);
 	}
 	
