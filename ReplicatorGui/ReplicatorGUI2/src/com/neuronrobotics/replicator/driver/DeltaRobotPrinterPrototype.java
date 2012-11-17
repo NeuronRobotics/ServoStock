@@ -103,4 +103,8 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 	public int getNumberOfSpacesInBuffer() {
 		return deltaDevice.getNumberOfSpacesInBuffer();
 	}
+	
+	public void cancelRunningPrint() {
+		deltaDevice.cancelRunningPrint();
+	}
 }
