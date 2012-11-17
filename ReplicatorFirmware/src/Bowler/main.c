@@ -220,7 +220,7 @@ void _general_exception_handler(unsigned cause, unsigned status){
 
 BYTE Bowler_Server_Local(BowlerPacket * Packet){
         Print_Level l = getPrintLevel();
-        setPrintLevelNoPrint();
+        //setPrintLevelNoPrint();
 	if (GetBowlerPacket_arch(Packet)){
 		//setLed(1,1,1);
                 if(Packet->use.head.RPC != _PNG){

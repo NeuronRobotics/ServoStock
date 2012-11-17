@@ -83,6 +83,7 @@ void processLinearInterpPacket(BowlerPacket * Packet){
 }
 
 BOOL onCartesianPost(BowlerPacket *Packet){
+    Print_Level l = getPrintLevel();
     switch(Packet->use.head.RPC){
         case _SLI:
             FifoAddPacket(&packetFifo,Packet);
@@ -97,15 +98,20 @@ BOOL onCartesianPost(BowlerPacket *Packet){
             if(tmp.Val == 0){
                 full=TRUE;
             }
-            Print_Level l = getPrintLevel();
+            
             setPrintLevelInfoPrint();
-            //println_I("Cached linear Packet ");
+            println_I("Cached linear Packet ");
             setPrintLevel(l);
             return TRUE;
         case PRCL:
+            setPrintLevelInfoPrint();
+            println_I("Cancel Print");
+            setPrintLevel(l);
             while(FifoGetPacketCount(&packetFifo)>0){
                 FifoGetPacket(&packetFifo,&linTmpPack);
             }
+            initializeCartesianController();
+            READY(Packet,35,35);
             return TRUE;
 
     }
@@ -120,7 +126,8 @@ BOOL onCartesianCrit(BowlerPacket *Packet){
 
 BOOL onCartesianPacket(BowlerPacket *Packet){
     Print_Level l = getPrintLevel();
-    //setPrintLevelInfoPrint();
+    setPrintLevelInfoPrint();
+    println_I("Packet Checked by Cartesian Controller");
     BOOL ret = FALSE;
     switch(Packet->use.head.Method){
         case BOWLER_POST:

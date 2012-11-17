@@ -43,7 +43,7 @@ public class DeltaDoodle extends GenericPIDDevice {
 	public void onAsyncResponse(BowlerDatagram data) {
 		super.onAsyncResponse(data);
 		if(data.getRPC().equalsIgnoreCase("_sli")) {
-			System.out.println(data);
+			//System.out.println(data);
 			numSpacesRemaining = ByteList.convertToInt(data.getData().getBytes(	0,//Starting index
 																				4),//number of bytes
 																				false);//True for signed data

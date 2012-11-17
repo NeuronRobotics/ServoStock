@@ -13,7 +13,7 @@
 #include "CartesianController.h"
 #include "delta.h"
 
-#define servoCalebrateValue 128
+#define servoCalebrateValue 122
 #define ticksPerRev         (4096.0)
 #define ticksPerDegree      (ticksPerRev/360.0)
 #define gearRatio           (7.0)
