@@ -6,24 +6,24 @@ import com.neuronrobotics.replicator.driver.delta.DeltaRobotConfig;
 import com.neuronrobotics.replicator.driver.delta.DeltaRobotKinematics;
 import com.neuronrobotics.sdk.addons.kinematics.AbstractKinematicsNR;
 import com.neuronrobotics.sdk.addons.kinematics.AbstractLink;
+import com.neuronrobotics.sdk.addons.kinematics.ILinkListener;
 import com.neuronrobotics.sdk.addons.kinematics.LinkFactory;
 import com.neuronrobotics.sdk.addons.kinematics.math.TransformNR;
 import com.neuronrobotics.sdk.addons.kinematics.xml.XmlFactory;
 import com.neuronrobotics.sdk.common.DeviceConnectionException;
 import com.neuronrobotics.sdk.dyio.DyIO;
+import com.neuronrobotics.sdk.pid.PIDLimitEvent;
+import com.neuronrobotics.sdk.util.ThreadUtil;
 
 public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 	DeltaRobotKinematics kinematics;
 	
 	//Configuration hard coded
-	private  double e = 115.0;     // end effector
-	private  double f = 457.3;     // base
-	private  double re = 232.0;
-	private  double rf = 112.0;
 	private  double extrusionCachedValue = 0;
 	//static InputStream s = XmlFactory.getDefaultConfigurationStream("DeltaPrototype.xml");
 	private AbstractLink extruder;
 	private AbstractLink hotEnd;
+	private double temp = 0;
 
 	private final DeltaDoodle deltaDevice;
 	
@@ -33,11 +33,35 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 		
 		extruder = getFactory().getLink("extruder");
 		hotEnd = getFactory().getLink("hotEnd");
+		setTempreture(getTempreture());
+		getFactory().addLinkListener(new ILinkListener() {
+			
+			@Override
+			public void onLinkPositionUpdate(AbstractLink source,double engineeringUnitsValue) {
+				if(source == hotEnd) {
+					setTempreture(engineeringUnitsValue);
+				}
+			}
+			
+			@Override
+			public void onLinkLimit(AbstractLink source, PIDLimitEvent event) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		
 		//parse out the extruder configs
 		//parse delta robot configs
 		
-		kinematics = new DeltaRobotKinematics(new DeltaRobotConfig(e, f, re, rf));
+		//kinematics = new DeltaRobotKinematics(new DeltaRobotConfig(e, f, re, rf));
+	}
+	
+	private double getTempreture() {
+		setTempreture(hotEnd.getCurrentEngineeringUnits());
+		return temp;
+	}
+	public void setTempreture(double temp) {
+		this.temp = temp;
 	}
 	
 	public MaterialData getMaterialData() {
@@ -46,6 +70,11 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 	
 	public void setExtrusionTempreture(double [] extTemp) {
 		hotEnd.setTargetEngineeringUnits(extTemp[0]);
+		System.out.println("Waiting for Printer to come up to tempreture");
+		while(temp>(extTemp[0]+20) || temp< (extTemp[0]-20)) {
+			System.out.println("Current Temp = "+getTempreture());
+			ThreadUtil.wait(10000);
+		}
 	}
 	public void setBedTempreture(double bedTemp) {
 		
@@ -107,4 +136,6 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 	public void cancelRunningPrint() {
 		deltaDevice.cancelRunningPrint();
 	}
+	
+
 }
