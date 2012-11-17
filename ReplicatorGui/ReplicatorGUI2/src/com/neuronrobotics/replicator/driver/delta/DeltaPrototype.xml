@@ -1,9 +1,9 @@
 <root>
 	<deltaRobot>
-		<e>63.5</e>
-		<f>107.95</f>
-		<re>241.3</re>
-		<rf>101.6</rf>
+		<e>66.39528</e>
+		<f>108.54185</f>
+		<re>240</re>
+		<rf>100</rf>
 	</deltaRobot>
 	<link>
 		<name>Link0</name>
@@ -171,7 +171,7 @@
 	<baseToZframe>
 		<x>0</x>
 		<y>0</y>
-		<z>300</z>
+		<z>287.5</z>
 		<rotw>1</rotw>
 		<rotx>0</rotx>
 		<roty>0</roty>

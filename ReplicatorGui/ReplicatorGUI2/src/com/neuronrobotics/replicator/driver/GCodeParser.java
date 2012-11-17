@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.concurrent.locks.ReentrantLock;
 import com.neuronrobotics.replicator.gui.PrinterStatusListener;
+import com.neuronrobotics.sdk.addons.kinematics.math.TransformNR;
 
 public class GCodeParser {
 	private ArrayList<PrinterStatusListener> listeners = new ArrayList<PrinterStatusListener>();
@@ -17,7 +18,9 @@ public class GCodeParser {
 
 	public boolean print(InputStream gcode) {
 		//this should be a thread that takes the gcode and sends it to the printer
+
 		interp=new GenericKinematicsGCodeInterpreter(device); // Could reuse.
+		addHandlers(interp);
 		System.out.println("Reached print.");
 		try {
 			interp.tryInterpretStream(gcode);
@@ -39,15 +42,32 @@ public class GCodeParser {
 				device.setExtrusionTempreture(d);
 			}
 		});
+		interp.setGHandler(0, new CodeHandler() {
+			public void execute(GCodeLineData prev, GCodeLineData next) throws Exception {
+				TransformNR t=new TransformNR(next.getWord('X'),next.getWord('Y'),next.getWord('Z'),1,0,0,0);
+				TransformNR prevT=new TransformNR(prev.getWord('X'),prev.getWord('Y'),prev.getWord('Z'),1,0,0,0);
+				double seconds=(t.getOffsetVectorMagnitude(prevT));
+				device.setDesiredPrintLocetion(t, next.getWord('A'), seconds);
+			}
+		});
+		interp.setGHandler(1, new CodeHandler() {
+			public void execute(GCodeLineData prev, GCodeLineData next) throws Exception {
+				TransformNR t=new TransformNR(next.getWord('X'),next.getWord('Y'),next.getWord('Z'),1,0,0,0);
+				TransformNR prevT=new TransformNR(prev.getWord('X'),prev.getWord('Y'),prev.getWord('Z'),1,0,0,0);
+				double seconds=(t.getOffsetVectorMagnitude(prevT)/next.getWord('F'))*60.0;
+				device.setDesiredPrintLocetion(t, next.getWord('A'), seconds);
+			}
+		});
+		
 		// Add the 
-		interp.addGHandler(1, new CodeHandler() {
+		/*interp.addGHandler(1, new CodeHandler() {
 			public void execute(GCodeLineData prev, GCodeLineData next) throws Exception {
 				// uh... set the new setpoint.
 				device.setExtrusionPoint((int)next.getWord('T'), next.getWord('A'));
 			}
-		});
+		});*/
 		// Linearize.
-		interp.setGHandler(1, new CodeHandler() {
+		/*interp.setGHandler(1, new CodeHandler() {
 			public void execute(GCodeLineData prev, GCodeLineData next) throws Exception {
 				//Bah. This will be better in the firmware.
 				//This is the /WRONG/ but straightforward way to do this.
@@ -72,7 +92,7 @@ public class GCodeParser {
 				}
 				callSubMethods(psub, next);
 			}
-		});
+		});*/
 	}
 
 	public boolean cancel() {

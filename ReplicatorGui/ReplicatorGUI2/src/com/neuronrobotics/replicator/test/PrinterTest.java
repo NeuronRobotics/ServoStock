@@ -24,7 +24,8 @@ public class PrinterTest implements PrinterStatusListener {
 //		NRPrinter printer = new NRPrinter(null);
 		printer.addPrinterStatusListener(this);
 		//Log.enableDebugPrint(false);
-		File gcode = new File("test.gcode");
+		File gcode = new File("shotGlass.gcode");
+		//File gcode = new File("test.gcode");
 		try {
 			//This is time consuming
 //			printer.slice(PrinterTest.class.getResourceAsStream("bottle.stl"),new FileOutputStream(gcode));
@@ -36,7 +37,7 @@ public class PrinterTest implements PrinterStatusListener {
 			e.printStackTrace();
 		}
 		
-		
+		System.exit(0);
 	}
 	/**
 	 * @param args

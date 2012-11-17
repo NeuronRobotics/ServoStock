@@ -23,9 +23,12 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 	//static InputStream s = XmlFactory.getDefaultConfigurationStream("DeltaPrototype.xml");
 	private AbstractLink extruder;
 	private AbstractLink hotEnd;
+
+	private final DeltaDoodle deltaDevice;
 	
 	public DeltaRobotPrinterPrototype(DeltaDoodle delt) {
 		super(DeltaRobotKinematics.class.getResourceAsStream("DeltaPrototype.xml"),new LinkFactory( delt));
+		this.deltaDevice = delt;
 		
 		extruder = getFactory().getLink("extruder");
 		hotEnd = getFactory().getLink("hotEnd");
@@ -46,12 +49,9 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 	public void setBedTempreture(double bedTemp) {
 		
 	}
-	public double[] setDesiredPrintLocetion(TransformNR taskSpaceTransform,double extrusionLegnth, double seconds) throws Exception{
-		setExtrusionPoint(0, extrusionLegnth);
-		double[] back = super.setDesiredTaskSpaceTransform(taskSpaceTransform, seconds);
-		//Set the extruder value
+	public boolean setDesiredPrintLocetion(TransformNR taskSpaceTransform,double extrusionLegnth, double seconds) throws Exception{
 
-		return back;
+		return deltaDevice.sendLinearSection(taskSpaceTransform, extrusionLegnth, (int) (seconds*1000));
 	}
 
 	@Override
@@ -72,7 +72,8 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 		
 		//System.out.println("Joint level = "+s);
 		
-		return all;
+		//return all;
+		throw new RuntimeException();
 	}
 
 
