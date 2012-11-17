@@ -42,6 +42,11 @@ public class GCodeParser {
 				device.setExtrusionTempreture(d);
 			}
 		});
+		interp.addGHandler(6, new CodeHandler() {
+			public void execute(GCodeLineData prev, GCodeLineData next) throws Exception {
+				
+			}
+		});
 		interp.setGHandler(0, new CodeHandler() {
 			public void execute(GCodeLineData prev, GCodeLineData next) throws Exception {
 				TransformNR t=new TransformNR(next.getWord('X'),next.getWord('Y'),next.getWord('Z'),1,0,0,0);
@@ -55,6 +60,7 @@ public class GCodeParser {
 				TransformNR t=new TransformNR(next.getWord('X'),next.getWord('Y'),next.getWord('Z'),1,0,0,0);
 				TransformNR prevT=new TransformNR(prev.getWord('X'),prev.getWord('Y'),prev.getWord('Z'),1,0,0,0);
 				double seconds=(t.getOffsetVectorMagnitude(prevT)/next.getWord('F'))*60.0;
+				while(device.getNumberOfSpacesInBuffer()==0) Thread.currentThread.sleep(100);
 				device.setDesiredPrintLocetion(t, next.getWord('A'), seconds);
 			}
 		});
