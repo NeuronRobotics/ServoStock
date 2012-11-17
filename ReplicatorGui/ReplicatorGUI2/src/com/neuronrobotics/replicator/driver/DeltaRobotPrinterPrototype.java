@@ -70,6 +70,7 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 	
 	public void setExtrusionTempreture(double [] extTemp) {
 		hotEnd.setTargetEngineeringUnits(extTemp[0]);
+		hotEnd.flush(0);
 		System.out.println("Waiting for Printer to come up to tempreture");
 		while(temp>(extTemp[0]+20) || temp< (extTemp[0]-20)) {
 			System.out.println("Current Temp = "+getTempreture());
@@ -80,7 +81,7 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 		
 	}
 	public boolean setDesiredPrintLocetion(TransformNR taskSpaceTransform,double extrusionLegnth, double seconds) throws Exception{
-
+		System.out.println("Telling printer to go to extrusion len "+extrusionLegnth);
 		return deltaDevice.sendLinearSection(taskSpaceTransform, extrusionLegnth, (int) (seconds*1000));
 	}
 
@@ -134,7 +135,9 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 	}
 	
 	public void cancelRunningPrint() {
+		
 		deltaDevice.cancelRunningPrint();
+		
 	}
 	
 

@@ -37,6 +37,7 @@ public class DeltaDoodle extends GenericPIDDevice {
 	
 	public void cancelRunningPrint() {
 		send(new CancelPrintCommand());
+		
 	}
 	
 	@Override

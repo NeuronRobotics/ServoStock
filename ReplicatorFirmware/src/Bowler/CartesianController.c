@@ -1,5 +1,5 @@
 #include "main.h"
-#define SIZE_OR_PACKET_BUFFER 400
+#define SIZE_OR_PACKET_BUFFER 401
 PACKET_FIFO_STORAGE  packetFifo;
 BowlerPacket buffer[SIZE_OR_PACKET_BUFFER];
 BowlerPacket linTmpPack;
@@ -7,8 +7,10 @@ BowlerPacket packetTemp;
 INTERPOLATE_DATA intCartesian[3];
 
 
+
+
 float scale = -1/(ticksPerDegree*gearRatio);
-float extrusionScale = -10/(ticksPerDegree);
+float extrusionScale = (ticksPerDegree)/100;
 
 BYTE setXYZ(float x, float y, float z);
 void interpolateZXY();
@@ -17,7 +19,10 @@ float setLinkAngle(int index, float value);
 
 BOOL done = TRUE;
 BOOL full = FALSE;
+
+
 int  lastPushedBufferSize =0;
+float lastXYZ[3];
 
 static RunEveryData pid ={0,100};
 
@@ -27,9 +32,8 @@ BOOL isCartesianInterpolationDone(){
 
 void initializeCartesianController(){
     initializeDelta();
-    float cx=0,cy=0,cz=0;
-    getCurrentPosition(&cx, &cy, &cz);
-    setInterpolateXYZ(cx, cy, cz, 0);
+    getCurrentPosition(&lastXYZ[0], &lastXYZ[1], &lastXYZ[2]);
+    setInterpolateXYZ(lastXYZ[0], lastXYZ[1], lastXYZ[2], 0);
     InitPacketFifo(&packetFifo,buffer,SIZE_OR_PACKET_BUFFER);
 }
 
@@ -48,6 +52,31 @@ void pushBufferEmpty(){
         asyncCallback(&packetTemp);
 }
 
+void loadCurrentPosition(BowlerPacket * Packet){
+        prep(Packet);
+	Packet->use.head.Method=BOWLER_STATUS;
+	Packet->use.head.MessageID = 1;
+	Packet->use.head.RPC = GetRPCValue("ctps");
+	INT32_UNION tmp;
+        tmp.Val=lastPushedBufferSize;
+        Packet->use.data[0]=tmp.byte.FB;
+        Packet->use.data[1]=tmp.byte.TB;
+        Packet->use.data[2]=tmp.byte.SB;
+        Packet->use.data[3]=tmp.byte.LB;
+        Packet->use.head.DataLegnth=4+4;
+}
+
+void checkPositionChange(){
+    float tmp[3];
+    getCurrentPosition(&tmp[0], &tmp[1], &tmp[2]);
+    if(     tmp[0]!=lastXYZ[0]||
+            tmp[1]!=lastXYZ[1]||
+            tmp[2]!=lastXYZ[2]){
+        
+
+    }
+}
+
 void cartesianAsync(){
     if(RunEvery(&pid)){
         int tmp =FifoGetPacketSpaceAvailible(&packetFifo);
@@ -56,6 +85,7 @@ void cartesianAsync(){
             pushBufferEmpty();
             full = FALSE;
         }
+        checkPositionChange();
     }
 }
 
@@ -78,8 +108,10 @@ void processLinearInterpPacket(BowlerPacket * Packet){
     Print_Level l = getPrintLevel();
     setPrintLevelInfoPrint();
     setInterpolateXYZ(tmpData[1], tmpData[2], tmpData[3],tmpData[0]);
+    float extr =tmpData[4]*extrusionScale;
+    println_I("Current Extruder MM=");p_fl_E(tmpData[4]);print_I(", Ticks=");p_fl_E(extr);
     setPrintLevel(l);
-    SetPIDTimed(EXTRUDER0_INDEX, tmpData[4]/extrusionScale,tmpData[0]);
+    SetPIDTimed(EXTRUDER0_INDEX, extr,tmpData[0]);
 }
 
 BOOL onCartesianPost(BowlerPacket *Packet){
@@ -100,7 +132,7 @@ BOOL onCartesianPost(BowlerPacket *Packet){
             }
             
             setPrintLevelInfoPrint();
-            println_I("Cached linear Packet ");
+            //println_I("Cached linear Packet ");
             setPrintLevel(l);
             return TRUE;
         case PRCL:
@@ -111,6 +143,7 @@ BOOL onCartesianPost(BowlerPacket *Packet){
                 FifoGetPacket(&packetFifo,&linTmpPack);
             }
             initializeCartesianController();
+            ZeroPID(EXTRUDER0_INDEX);
             READY(Packet,35,35);
             return TRUE;
 
@@ -127,7 +160,7 @@ BOOL onCartesianCrit(BowlerPacket *Packet){
 BOOL onCartesianPacket(BowlerPacket *Packet){
     Print_Level l = getPrintLevel();
     setPrintLevelInfoPrint();
-    println_I("Packet Checked by Cartesian Controller");
+    //println_I("Packet Checked by Cartesian Controller");
     BOOL ret = FALSE;
     switch(Packet->use.head.Method){
         case BOWLER_POST:
@@ -189,7 +222,7 @@ BYTE setInterpolateXYZ(float x, float y, float z,float ms){
     intCartesian[2].start=cz;
     println_I("\n\nSetting new position x=");p_fl_E(x);print_E(" y=");p_fl_E(y);print_E(" z=");p_fl_E(z);print_E(" Time MS=");p_fl_E(ms);
     println_I("Current  position cx=");p_fl_E(cx);print_E(" cy=");p_fl_E(cy);print_E(" cz=");p_fl_E(cz);
-    println_I("Current  angles t1=");p_fl_E(getLinkAngle(0));print_E(" t2=");p_fl_E(getLinkAngle(1));print_E(" t3=");p_fl_E(getLinkAngle(2));
+    //println_I("Current  angles t1=");p_fl_E(getLinkAngle(0));print_E(" t2=");p_fl_E(getLinkAngle(1));print_E(" t3=");p_fl_E(getLinkAngle(2));
 
     for(i=0;i<3;i++){
 	intCartesian[i].setTime=ms;

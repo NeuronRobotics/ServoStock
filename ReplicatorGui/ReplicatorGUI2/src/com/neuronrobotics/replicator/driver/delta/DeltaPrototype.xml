@@ -12,8 +12,8 @@
 		<scale>-0.012555804</scale><!--  one revolution == 4096 * 7 -->
 		<upperLimit>1650</upperLimit>
 		<lowerLimit>-6500</lowerLimit>
-		<pGain>.05</pGain>
-		<iGain>0.1</iGain>
+		<pGain>.07</pGain>
+		<iGain>0.0</iGain>
 		<dGain>0.0</dGain>
 		<isInverted>false</isInverted>
 		<isLatch>false</isLatch>
@@ -28,8 +28,8 @@
 		<scale>-0.012555804</scale>
 		<upperLimit>1650</upperLimit>
 		<lowerLimit>-6500</lowerLimit>
-		<pGain>.05</pGain>
-		<iGain>0.1</iGain>
+		<pGain>.07</pGain>
+		<iGain>0.0</iGain>
 		<dGain>0.0</dGain>
 		<isInverted>false</isInverted>
 		<isLatch>false</isLatch>
@@ -45,8 +45,8 @@
 		<scale>-0.012555804</scale>
 		<upperLimit>1650</upperLimit>
 		<lowerLimit>-6500</lowerLimit>
-		<pGain>.05</pGain>
-		<iGain>0.1</iGain>
+		<pGain>.07</pGain>
+		<iGain>0.0</iGain>
 		<dGain>0.0</dGain>
 		<isInverted>flase</isInverted>
 		<isLatch>false</isLatch>
