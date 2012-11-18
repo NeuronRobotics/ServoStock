@@ -60,8 +60,17 @@ public class GCodeParser {
 				TransformNR t=new TransformNR(next.getWord('X'),next.getWord('Y'),next.getWord('Z'),1,0,0,0);
 				TransformNR prevT=new TransformNR(prev.getWord('X'),prev.getWord('Y'),prev.getWord('Z'),1,0,0,0);
 				double seconds=(t.getOffsetVectorMagnitude(prevT)/next.getWord('F'))*60.0;
-				while(device.getNumberOfSpacesInBuffer()<5) Thread.sleep(100);//Wait for at least 5 spaces in the buffer
-				device.setDesiredPrintLocetion(t, next.getWord('A'), seconds);
+				while(device.getNumberOfSpacesInBuffer()<2) Thread.sleep(100);//Wait for at least 2 spaces in the buffer
+				int iter=0;
+				while(iter++<1000) {
+					try {
+						device.setDesiredPrintLocetion(t, next.getWord('A'), seconds);
+						return;
+					}catch (RuntimeException ex) {
+						//keep trying
+						Thread.sleep(100);
+					}
+				}
 			}
 		});
 		
