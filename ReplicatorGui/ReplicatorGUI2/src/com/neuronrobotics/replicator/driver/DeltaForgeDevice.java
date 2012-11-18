@@ -7,7 +7,7 @@ import com.neuronrobotics.sdk.common.BowlerDatagram;
 import com.neuronrobotics.sdk.common.ByteList;
 import com.neuronrobotics.sdk.genericdevice.GenericPIDDevice;
 
-public class DeltaDoodle extends GenericPIDDevice {
+public class DeltaForgeDevice extends GenericPIDDevice {
 	
 	private int numSpacesRemaining = 1;
 	

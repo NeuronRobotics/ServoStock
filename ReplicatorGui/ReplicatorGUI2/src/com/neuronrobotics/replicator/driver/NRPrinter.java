@@ -13,7 +13,7 @@ public class NRPrinter {
 	private StlSlicer slicer;
 	
 	
-	public NRPrinter(DeltaDoodle d) {
+	public NRPrinter(DeltaForgeDevice d) {
 		Log.enableDebugPrint(true);
 		
 		setDevice(new DeltaRobotPrinterPrototype(d));

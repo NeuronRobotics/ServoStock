@@ -25,9 +25,9 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 	private AbstractLink hotEnd;
 	private double temp = 0;
 
-	private final DeltaDoodle deltaDevice;
+	private final DeltaForgeDevice deltaDevice;
 	
-	public DeltaRobotPrinterPrototype(DeltaDoodle delt) {
+	public DeltaRobotPrinterPrototype(DeltaForgeDevice delt) {
 		super(DeltaRobotKinematics.class.getResourceAsStream("DeltaPrototype.xml"),new LinkFactory( delt));
 		this.deltaDevice = delt;
 		
