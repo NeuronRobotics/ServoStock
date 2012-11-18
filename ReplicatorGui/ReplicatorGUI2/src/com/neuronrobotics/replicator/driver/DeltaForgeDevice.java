@@ -23,7 +23,10 @@ public class DeltaForgeDevice extends GenericPIDDevice {
 	 */
 	public int sendLinearSection(TransformNR taskSpaceTransform, double mmOfFiliment, int ms) {
 		
-		
+		if(numSpacesRemaining == 0 ) {
+			RuntimeException e= new RuntimeException("There is no more room left");;
+			throw e;
+		}
 		
 		BowlerDatagram dg = send(new LinearInterpolationCommand(taskSpaceTransform, mmOfFiliment, ms));
 		
@@ -31,12 +34,7 @@ public class DeltaForgeDevice extends GenericPIDDevice {
 																				4),//number of bytes
 																				false);//True for signed data
 		System.out.println("Running line x="+taskSpaceTransform.getX()+" y="+taskSpaceTransform.getY()+" z="+taskSpaceTransform.getZ()+" num spaces="+numSpacesRemaining);
-		if(numSpacesRemaining == 0 ) {
-			RuntimeException e= new RuntimeException("There is no more room left");
-			//e.printStackTrace();
-			//System.exit(1);
-			throw e;
-		}
+
 		return numSpacesRemaining;
 	}
 	
