@@ -151,6 +151,9 @@ BOOL onCartesianPost(BowlerPacket *Packet){
             }
             initializeCartesianController();
             ZeroPID(EXTRUDER0_INDEX);
+            setLinkAngle(0,-20);
+            setLinkAngle(1,-20);
+            setLinkAngle(2,-20);
             READY(Packet,35,35);
             return TRUE;
 
