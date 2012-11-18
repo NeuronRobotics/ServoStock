@@ -5,7 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-import com.neuronrobotics.replicator.driver.DeltaDoodle;
+import com.neuronrobotics.replicator.driver.DeltaForgeDevice;
 import com.neuronrobotics.replicator.driver.NRPrinter;
 import com.neuronrobotics.replicator.driver.PrinterStatus;
 import com.neuronrobotics.replicator.driver.SliceStatusData;
@@ -17,7 +17,7 @@ import com.neuronrobotics.sdk.ui.ConnectionDialog;
 
 public class PrinterTest implements PrinterStatusListener {
 	private PrinterTest() {
-		DeltaDoodle delt = new DeltaDoodle();
+		DeltaForgeDevice delt = new DeltaForgeDevice();
 		delt.setConnection(new SerialConnection("/dev/DeltaDoodle0"));
 		delt.connect();
 		NRPrinter printer = new NRPrinter(delt);

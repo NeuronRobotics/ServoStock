@@ -11,6 +11,7 @@ import com.neuronrobotics.sdk.addons.kinematics.LinkFactory;
 import com.neuronrobotics.sdk.addons.kinematics.math.TransformNR;
 import com.neuronrobotics.sdk.addons.kinematics.xml.XmlFactory;
 import com.neuronrobotics.sdk.common.DeviceConnectionException;
+import com.neuronrobotics.sdk.common.Log;
 import com.neuronrobotics.sdk.dyio.DyIO;
 import com.neuronrobotics.sdk.pid.PIDLimitEvent;
 import com.neuronrobotics.sdk.util.ThreadUtil;
@@ -35,7 +36,6 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 		hotEnd = getFactory().getLink("hotEnd");
 		setTempreture(getTempreture());
 		getFactory().addLinkListener(new ILinkListener() {
-			
 			@Override
 			public void onLinkPositionUpdate(AbstractLink source,double engineeringUnitsValue) {
 				if(source == hotEnd) {
@@ -71,16 +71,20 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 	public void setExtrusionTempreture(double [] extTemp) {
 		hotEnd.setTargetEngineeringUnits(extTemp[0]);
 		hotEnd.flush(0);
+		getTempreture();
 		System.out.println("Waiting for Printer to come up to tempreture");
+		Log.enableSystemPrint(false);
 		while(temp>(extTemp[0]+20) || temp< (extTemp[0]-20)) {
-			System.out.println("Current Temp = "+getTempreture());
-			ThreadUtil.wait(10000);
+			getTempreture();
+			//System.out.println("Current Temp = "+getTempreture());
+			ThreadUtil.wait(100);
 		}
+		Log.enableSystemPrint(true);
 	}
 	public void setBedTempreture(double bedTemp) {
 		
 	}
-	public boolean setDesiredPrintLocetion(TransformNR taskSpaceTransform,double extrusionLegnth, double seconds) throws Exception{
+	public int setDesiredPrintLocetion(TransformNR taskSpaceTransform,double extrusionLegnth, double seconds) throws Exception{
 		System.out.println("Telling printer to go to extrusion len "+extrusionLegnth);
 		return deltaDevice.sendLinearSection(taskSpaceTransform, extrusionLegnth, (int) (seconds*1000));
 	}

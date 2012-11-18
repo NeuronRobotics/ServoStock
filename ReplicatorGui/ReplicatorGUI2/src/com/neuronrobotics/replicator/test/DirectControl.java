@@ -9,7 +9,7 @@ import javax.swing.JTabbedPane;
 
 import net.miginfocom.swing.MigLayout;
 
-import com.neuronrobotics.replicator.driver.DeltaDoodle;
+import com.neuronrobotics.replicator.driver.DeltaForgeDevice;
 import com.neuronrobotics.replicator.driver.DeltaRobotPrinterPrototype;
 import com.neuronrobotics.sdk.addons.kinematics.AbstractKinematicsNR;
 import com.neuronrobotics.sdk.addons.kinematics.ITaskSpaceUpdateListenerNR;
@@ -110,7 +110,7 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 		model = new DHParameterKinematics(master,"TrobotMaster.xml");
 		model.addPoseUpdateListener(this);
 		
-		DeltaDoodle delt = new DeltaDoodle();
+		DeltaForgeDevice delt = new DeltaForgeDevice();
 		delt.setConnection(new SerialConnection("/dev/DeltaDoodle0"));
 		delt.connect();
 		

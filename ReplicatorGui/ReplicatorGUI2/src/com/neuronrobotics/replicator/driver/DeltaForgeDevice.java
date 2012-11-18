@@ -6,6 +6,7 @@ import com.neuronrobotics.sdk.commands.cartesian.LinearInterpolationCommand;
 import com.neuronrobotics.sdk.common.BowlerDatagram;
 import com.neuronrobotics.sdk.common.ByteList;
 import com.neuronrobotics.sdk.genericdevice.GenericPIDDevice;
+import com.neuronrobotics.sdk.util.ThreadUtil;
 
 public class DeltaForgeDevice extends GenericPIDDevice {
 	
@@ -18,9 +19,9 @@ public class DeltaForgeDevice extends GenericPIDDevice {
 	 * @param z new z position
 	 * @param mmOfFiliment new target for mm of filiment
 	 * @param ms time in MS
-	 * @return true is there is space for more packets in the buffer
+	 * @return number of spaces in the buffer
 	 */
-	public boolean sendLinearSection(TransformNR taskSpaceTransform, double mmOfFiliment, int ms) {
+	public int sendLinearSection(TransformNR taskSpaceTransform, double mmOfFiliment, int ms) {
 		
 		
 		
@@ -30,9 +31,13 @@ public class DeltaForgeDevice extends GenericPIDDevice {
 																				4),//number of bytes
 																				false);//True for signed data
 		System.out.println("Running line x="+taskSpaceTransform.getX()+" y="+taskSpaceTransform.getY()+" z="+taskSpaceTransform.getZ()+" num spaces="+numSpacesRemaining);
-		if(numSpacesRemaining == 0 )
-			throw new RuntimeException("There is no more room left");
-		return true;
+		if(numSpacesRemaining == 0 ) {
+			RuntimeException e= new RuntimeException("There is no more room left");
+			//e.printStackTrace();
+			//System.exit(1);
+			throw e;
+		}
+		return numSpacesRemaining;
 	}
 	
 	public void cancelRunningPrint() {

@@ -178,7 +178,9 @@ public class GCodeInterpreter {
 			}
 			//} catch(InterruptedException e) {
 			// Expected cancel behavior; possibly feed out a status report?
-		} finally {
+		}catch (Exception ex) {
+			ex.printStackTrace();
+		}finally {
 			interpretingThread=null;
 			executingLock.unlock();
 		}

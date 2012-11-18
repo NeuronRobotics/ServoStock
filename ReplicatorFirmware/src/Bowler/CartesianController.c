@@ -9,8 +9,8 @@ INTERPOLATE_DATA intCartesian[3];
 
 
 
-float scale = -1/(ticksPerDegree*gearRatio);
-float extrusionScale = (ticksPerDegree)/100;
+float scale = -1.0/(ticksPerDegree*gearRatio);
+float extrusionScale = (((float)ticksPerRev)/100.00);
 
 BYTE setXYZ(float x, float y, float z);
 void interpolateZXY();
@@ -118,22 +118,29 @@ BOOL onCartesianPost(BowlerPacket *Packet){
     Print_Level l = getPrintLevel();
     switch(Packet->use.head.RPC){
         case _SLI:
-            FifoAddPacket(&packetFifo,Packet);
-            Packet->use.head.Method = BOWLER_STATUS;
-            INT32_UNION tmp;
-            tmp.Val=FifoGetPacketSpaceAvailible(&packetFifo);
-            Packet->use.data[0]=tmp.byte.FB;
-            Packet->use.data[1]=tmp.byte.TB;
-            Packet->use.data[2]=tmp.byte.SB;
-            Packet->use.data[3]=tmp.byte.LB;
-            Packet->use.head.DataLegnth=4+4;
-            if(tmp.Val == 0){
-                full=TRUE;
+            if(FifoGetPacketSpaceAvailible(&packetFifo)>0){
+                FifoAddPacket(&packetFifo,Packet);
+                Packet->use.head.Method = BOWLER_STATUS;
+                INT32_UNION tmp;
+                tmp.Val=FifoGetPacketSpaceAvailible(&packetFifo);
+                Packet->use.data[0]=tmp.byte.FB;
+                Packet->use.data[1]=tmp.byte.TB;
+                Packet->use.data[2]=tmp.byte.SB;
+                Packet->use.data[3]=tmp.byte.LB;
+                Packet->use.head.DataLegnth=4+4;
+                if(tmp.Val == 0){
+                    full=TRUE;
+                }
+
+                setPrintLevelInfoPrint();
+                println_I("Cached linear Packet ");p_sl_I(FifoGetPacketSpaceAvailible(&packetFifo));
+                setPrintLevel(l);
+            }else{
+                setPrintLevelInfoPrint();
+                println_I("###ERROR BUFFER FULL!!");p_sl_I(FifoGetPacketSpaceAvailible(&packetFifo));
+                setPrintLevel(l);
+                ERR(Packet,33,33);
             }
-            
-            setPrintLevelInfoPrint();
-            //println_I("Cached linear Packet ");
-            setPrintLevel(l);
             return TRUE;
         case PRCL:
             setPrintLevelInfoPrint();
