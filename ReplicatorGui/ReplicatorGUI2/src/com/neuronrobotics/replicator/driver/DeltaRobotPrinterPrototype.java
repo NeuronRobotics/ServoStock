@@ -21,6 +21,7 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 	
 	//Configuration hard coded
 	private  double extrusionCachedValue = 0;
+	private double currentTemp =0;
 	//static InputStream s = XmlFactory.getDefaultConfigurationStream("DeltaPrototype.xml");
 	private AbstractLink extruder;
 	private AbstractLink hotEnd;
@@ -69,6 +70,10 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 	}
 	
 	public void setExtrusionTempreture(double [] extTemp) {
+		if(extTemp[0] == currentTemp)
+			return;
+		else
+			currentTemp=extTemp[0];
 		hotEnd.setTargetEngineeringUnits(extTemp[0]);
 		hotEnd.flush(0);
 		getTempreture();

@@ -22,13 +22,15 @@ public class DeltaForgeDevice extends GenericPIDDevice {
 	 * @return number of spaces in the buffer
 	 */
 	public int sendLinearSection(TransformNR taskSpaceTransform, double mmOfFiliment, int ms) {
-		
+		RuntimeException e= new RuntimeException("There is no more room left");;
 		if(numSpacesRemaining == 0 ) {
-			RuntimeException e= new RuntimeException("There is no more room left");;
 			throw e;
 		}
 		
 		BowlerDatagram dg = send(new LinearInterpolationCommand(taskSpaceTransform, mmOfFiliment, ms));
+		if(dg.getRPC().equalsIgnoreCase("_err")) {
+			throw e;
+		}
 		
 		numSpacesRemaining = ByteList.convertToInt(dg.getData().getBytes(	0,//Starting index
 																				4),//number of bytes

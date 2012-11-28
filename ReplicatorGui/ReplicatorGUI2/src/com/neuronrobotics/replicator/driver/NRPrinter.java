@@ -38,7 +38,9 @@ public class NRPrinter {
 	public boolean print(InputStream gcode) {
 		System.out.println("Printing now.");
 		getDevice().cancelRunningPrint();
+		long start = System.currentTimeMillis();
 		boolean b = getParser().print(gcode);
+		System.out.println("Print Done, took "+((((double)(System.currentTimeMillis()-start))/1000.0)/60.0)+" minutes");
 		getDevice().cancelRunningPrint();
 		return b;
 	}
