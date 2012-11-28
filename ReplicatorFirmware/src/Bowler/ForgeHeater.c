@@ -96,7 +96,7 @@ float getHeaterTempreture(int group){
     setPrintLevel(l);
     return sum*50.0;
     */
-     return       getAdcVoltage(mapHeaterIndex(group))*50;
+     return       getAdcVoltage(mapHeaterIndex(group))*75;
 }
 
 void setHeater(int group, float v){

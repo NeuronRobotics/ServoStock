@@ -10,19 +10,19 @@ INTERPOLATE_DATA intCartesian[3];
 
 
 float scale = -1.0/(ticksPerDegree*gearRatio);
-float extrusionScale = (((float)ticksPerRev)/100.00);
+float extrusionScale = 1/(((float)ticksPerRev)/100.00);
 
 BYTE setXYZ(float x, float y, float z);
 void interpolateZXY();
 float getLinkAngle(int index);
-float setLinkAngle(int index, float value);
+float setLinkAngle(int index, float value, float ms);
 
 BOOL done = TRUE;
 BOOL full = FALSE;
 
 
 int  lastPushedBufferSize =0;
-float lastXYZ[3];
+float lastXYZE[4];
 
 static RunEveryData pid ={0,100};
 
@@ -32,8 +32,8 @@ BOOL isCartesianInterpolationDone(){
 
 void initializeCartesianController(){
     initializeDelta();
-    getCurrentPosition(&lastXYZ[0], &lastXYZ[1], &lastXYZ[2]);
-    setInterpolateXYZ(lastXYZ[0], lastXYZ[1], lastXYZ[2], 0);
+    getCurrentPosition(&lastXYZE[0], &lastXYZE[1], &lastXYZE[2]);
+    setInterpolateXYZ(lastXYZE[0], lastXYZE[1], lastXYZE[2], 0);
     InitPacketFifo(&packetFifo,buffer,SIZE_OR_PACKET_BUFFER);
 }
 
@@ -63,17 +63,48 @@ void loadCurrentPosition(BowlerPacket * Packet){
         Packet->use.data[1]=tmp.byte.TB;
         Packet->use.data[2]=tmp.byte.SB;
         Packet->use.data[3]=tmp.byte.LB;
-        Packet->use.head.DataLegnth=4+4;
+
+        tmp.Val=SIZE_OR_PACKET_BUFFER;
+        Packet->use.data[4]=tmp.byte.FB;
+        Packet->use.data[5]=tmp.byte.TB;
+        Packet->use.data[6]=tmp.byte.SB;
+        Packet->use.data[7]=tmp.byte.LB;
+
+        Packet->use.head.DataLegnth=4+4+4;
 }
 
 void checkPositionChange(){
-    float tmp[3];
+    int i;
+    float tmp[4];
     getCurrentPosition(&tmp[0], &tmp[1], &tmp[2]);
-    if(     tmp[0]!=lastXYZ[0]||
-            tmp[1]!=lastXYZ[1]||
-            tmp[2]!=lastXYZ[2]){
-        
-
+    tmp[3] = getLinkAngle(3);
+    if(     tmp[0]!=lastXYZE[0]||
+            tmp[1]!=lastXYZE[1]||
+            tmp[2]!=lastXYZE[2]||
+            tmp[3]!=lastXYZE[3]){
+        for(i=0;i<4;i++){
+           lastXYZE[i] =tmp[i];
+        }
+        println_I("Current  position X=");p_fl_E(lastXYZE[0]);
+        print_E(" Y=");p_fl_E(lastXYZE[1]);
+        print_E(" Z=");p_fl_E(lastXYZE[2]);
+        print_E(" extr=");p_fl_E(lastXYZE[3]);
+        INT32_UNION PID_Temp;
+        prep(& packetTemp);
+        packetTemp.use.head.DataLegnth=4;
+        packetTemp.use.head.RPC = GetRPCValue("cpos");
+        int i;
+        for(i=0;i<4;i++){
+                PID_Temp.Val=lastXYZE[i];
+                packetTemp.use.data[0+(i*4)]=PID_Temp.byte.FB;
+                packetTemp.use.data[1+(i*4)]=PID_Temp.byte.TB;
+                packetTemp.use.data[2+(i*4)]=PID_Temp.byte.SB;
+                packetTemp.use.data[3+(i*4)]=PID_Temp.byte.LB;
+                packetTemp.use.head.DataLegnth+=4;
+        }
+        packetTemp.use.head.Method=BOWLER_ASYN;
+        FixPacket(&packetTemp);
+	asyncCallback(& packetTemp);
     }
 }
 
@@ -90,28 +121,30 @@ void cartesianAsync(){
 }
 
 void processLinearInterpPacket(BowlerPacket * Packet){
-    INT32_UNION tmp;
-    float tmpData [5];
-    int i;
-    tmp.byte.FB=Packet->use.data[0];
-    tmp.byte.TB=Packet->use.data[1];
-    tmp.byte.SB=Packet->use.data[2];
-    tmp.byte.LB=Packet->use.data[3];
-    tmpData[0] = ((float)tmp.Val);
-    for(i=1;i<5;i++){
-        tmp.byte.FB=Packet->use.data[(i*4)+0];
-        tmp.byte.TB=Packet->use.data[(i*4)+1];
-        tmp.byte.SB=Packet->use.data[(i*4)+2];
-        tmp.byte.LB=Packet->use.data[(i*4)+3];
-        tmpData[i] = ((float)tmp.Val)/1000;
-    }
-    Print_Level l = getPrintLevel();
-    setPrintLevelInfoPrint();
-    setInterpolateXYZ(tmpData[1], tmpData[2], tmpData[3],tmpData[0]);
-    float extr =tmpData[4]*extrusionScale;
-    println_I("Current Extruder MM=");p_fl_E(tmpData[4]);print_I(", Ticks=");p_fl_E(extr);
-    setPrintLevel(l);
-    SetPIDTimed(EXTRUDER0_INDEX, extr,tmpData[0]);
+    if(Packet->use.head.RPC == _SLI){
+        INT32_UNION tmp;
+        float tmpData [5];
+        int i;
+        tmp.byte.FB=Packet->use.data[0];
+        tmp.byte.TB=Packet->use.data[1];
+        tmp.byte.SB=Packet->use.data[2];
+        tmp.byte.LB=Packet->use.data[3];
+        tmpData[0] = ((float)tmp.Val);
+        for(i=1;i<5;i++){
+            tmp.byte.FB=Packet->use.data[(i*4)+0];
+            tmp.byte.TB=Packet->use.data[(i*4)+1];
+            tmp.byte.SB=Packet->use.data[(i*4)+2];
+            tmp.byte.LB=Packet->use.data[(i*4)+3];
+            tmpData[i] = ((float)tmp.Val)/1000;
+        }
+        Print_Level l = getPrintLevel();
+        setPrintLevelInfoPrint();
+        setInterpolateXYZ(tmpData[1], tmpData[2], tmpData[3],tmpData[0]);
+        float extr =tmpData[4]/extrusionScale;
+        println_I("Current Extruder MM=");p_fl_E(tmpData[4]);print_I(", Ticks=");p_fl_E(extr);
+        setPrintLevel(l);
+        SetPIDTimed(EXTRUDER0_INDEX, extr,tmpData[0]);
+     }
 }
 
 BOOL onCartesianPost(BowlerPacket *Packet){
@@ -127,13 +160,20 @@ BOOL onCartesianPost(BowlerPacket *Packet){
                 Packet->use.data[1]=tmp.byte.TB;
                 Packet->use.data[2]=tmp.byte.SB;
                 Packet->use.data[3]=tmp.byte.LB;
-                Packet->use.head.DataLegnth=4+4;
+
+                tmp.Val=SIZE_OR_PACKET_BUFFER;
+                Packet->use.data[4]=tmp.byte.FB;
+                Packet->use.data[5]=tmp.byte.TB;
+                Packet->use.data[6]=tmp.byte.SB;
+                Packet->use.data[7]=tmp.byte.LB;
+
+                Packet->use.head.DataLegnth=4+4+4;
                 if(tmp.Val == 0){
                     full=TRUE;
                 }
 
                 setPrintLevelInfoPrint();
-                println_I("Cached linear Packet ");p_sl_I(FifoGetPacketSpaceAvailible(&packetFifo));
+                //println_I("Cached linear Packet ");p_sl_I(FifoGetPacketSpaceAvailible(&packetFifo));
                 setPrintLevel(l);
             }else{
                 setPrintLevelInfoPrint();
@@ -151,9 +191,9 @@ BOOL onCartesianPost(BowlerPacket *Packet){
             }
             initializeCartesianController();
             ZeroPID(EXTRUDER0_INDEX);
-            setLinkAngle(0,-20);
-            setLinkAngle(1,-20);
-            setLinkAngle(2,-20);
+            setLinkAngle(0,-20,0);
+            setLinkAngle(1,-20,0);
+            setLinkAngle(2,-20,0);
             READY(Packet,35,35);
             return TRUE;
 
@@ -203,6 +243,9 @@ void interpolateZXY(){
             move = TRUE;
         }
     }
+    if(isPIDInterpolating(EXTRUDER0_INDEX)){
+        move = TRUE;
+    }
     if(!move){
         if(!isCartesianInterpolationDone()){
             done = TRUE;
@@ -236,7 +279,6 @@ BYTE setInterpolateXYZ(float x, float y, float z,float ms){
 
     for(i=0;i<3;i++){
 	intCartesian[i].setTime=ms;
-	
 	intCartesian[i].startTime=start;
     }
     if(ms==0){
@@ -251,9 +293,9 @@ BYTE setXYZ(float x, float y, float z){
     float t0=0,t1=0,t2=0;
     if(delta_calcInverse( x,  y, z,  &t0, &t1, &t2)==0){
         println_I("New target angles t1=");p_fl_E(t0);print_E(" t2=");p_fl_E(t1);print_E(" t3=");p_fl_E(t2);
-        setLinkAngle(0,t0);
-        setLinkAngle(1,t1);
-        setLinkAngle(2,t2);
+        setLinkAngle(0,t0,0);
+        setLinkAngle(1,t1,0);
+        setLinkAngle(2,t2,0);
         done = FALSE;
     }else{
         println_E("Interpolate failed, can't reach: x=");p_fl_E(x);print_E(" y=");p_fl_E(y);print_E(" z=");p_fl_E(z);
@@ -272,8 +314,21 @@ int linkToHWIndex(int index){
         case 2:
             localIndex = LINK2_INDEX;
             break;
+        case 3:
+            localIndex = EXTRUDER0_INDEX;
+            break;
     }
     return localIndex;
+}
+float getLinkScale(int index){
+    switch(index){
+        case 0:
+        case 1:
+        case 2:
+            return  scale;
+        case 3:
+            return extrusionScale;
+    }
 }
 
 int getCurrentPosition(float * x, float * y, float * z){
@@ -285,19 +340,24 @@ int getCurrentPosition(float * x, float * y, float * z){
 
 float getLinkAngle(int index){
     int localIndex=linkToHWIndex(index);
-    return GetPIDPosition(localIndex)*scale;
+    return GetPIDPosition(localIndex)*getLinkScale(index);
 }
 
-float setLinkAngle(int index, float value){
+float setLinkAngle(int index, float value, float ms){
     int localIndex=linkToHWIndex(index);
-    float v = value/scale;
-    if(v>1650){
-        println_E("Upper Capped link ");p_sl_E(index);print_E(", attempted: ");p_fl_E(value);
-        v=1650;
+    float v = value/getLinkScale(index);
+    if( index ==0||
+        index ==1||
+        index ==2
+      ){
+        if(v>1650){
+            println_E("Upper Capped link ");p_sl_E(index);print_E(", attempted: ");p_fl_E(value);
+            v=1650;
+        }
+        if(v<-6500){
+            v=-6500;
+            println_E("Lower Capped link ");p_sl_E(index);print_E(", attempted: ");p_fl_E(value);
+        }
     }
-    if(v<-6500){
-        v=-6500;
-        println_E("Lower Capped link ");p_sl_E(index);print_E(", attempted: ");p_fl_E(value);
-    }
-    return SetPID(localIndex,v);
+    return SetPIDTimed(localIndex,v,ms);
 }

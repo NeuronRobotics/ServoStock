@@ -17,7 +17,7 @@
 #define ticksPerRev         (4096.0)
 #define ticksPerDegree      (ticksPerRev/360.0)
 #define gearRatio           (7.0)
-#define calibrationAngle    (25.0)
+#define calibrationAngle    (27.0)
 #define servoHomeValue      (ticksPerDegree*calibrationAngle*gearRatio)
 
 #if !defined(NUM_PID_GROUPS)

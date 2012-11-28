@@ -11,7 +11,7 @@ float f = 108.54185;     // base
 float re = 240;
 float rf = 100;
 
-float zOffset = -295.5;
+float zOffset = -293;
 
 // trigonometric constants
 float sqrt3 ;
