@@ -135,6 +135,22 @@ void setPidIsr(BOOL v);
 
 BOOL isUpToTempreture();
 
+
+#define defaultMaxZ -293
+
+#define servoCalebrateValue 121
+#define ticksPerRev         (4096.0)
+#define ticksPerDegree      (ticksPerRev/360.0)
+#define gearRatio           (7.0)
+#define calibrationAngle    (27.0)
+#define servoHomeValue      (ticksPerDegree*calibrationAngle*gearRatio)
+
+#if !defined(NUM_PID_GROUPS)
+	#define NUM_PID_GROUPS (8)
+#endif
+void LoadCorePacket(BowlerPacket * Packet);
+void setDebug(BOOL d);
+
 #ifdef	__cplusplus
 }
 #endif

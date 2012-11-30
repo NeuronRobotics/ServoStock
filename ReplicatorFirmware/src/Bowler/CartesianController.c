@@ -1,5 +1,5 @@
 #include "main.h"
-#define SIZE_OR_PACKET_BUFFER 401
+#define SIZE_OR_PACKET_BUFFER 4
 PACKET_FIFO_STORAGE  packetFifo;
 BowlerPacket buffer[SIZE_OR_PACKET_BUFFER];
 BowlerPacket linTmpPack;
@@ -85,10 +85,14 @@ void checkPositionChange(){
         for(i=0;i<4;i++){
            lastXYZE[i] =tmp[i];
         }
-        println_I("Current  position X=");p_fl_E(lastXYZE[0]);
-        print_E(" Y=");p_fl_E(lastXYZE[1]);
-        print_E(" Z=");p_fl_E(lastXYZE[2]);
-        print_E(" extr=");p_fl_E(lastXYZE[3]);
+
+        println_I("Current Voltage of sensor");p_fl_E(getAdcVoltage(mapHeaterIndex(HEATER0_INDEX),10));
+        print_E(" Temp = ");p_fl_E(getHeaterTempreture(HEATER0_INDEX));
+        print_E(" Raw ADC = ");p_sl_E(getAdcRaw(mapHeaterIndex(HEATER0_INDEX),10));
+//        println_I("Current  position X=");p_fl_E(lastXYZE[0]);
+//        print_E(" Y=");p_fl_E(lastXYZE[1]);
+//        print_E(" Z=");p_fl_E(lastXYZE[2]);
+//        print_E(" extr=");p_fl_E(lastXYZE[3]);
         INT32_UNION PID_Temp;
         prep(& packetTemp);
         packetTemp.use.head.DataLegnth=4;
@@ -189,11 +193,9 @@ BOOL onCartesianPost(BowlerPacket *Packet){
             while(FifoGetPacketCount(&packetFifo)>0){
                 FifoGetPacket(&packetFifo,&linTmpPack);
             }
-            initializeCartesianController();
+            setInterpolateXYZ(0, 0, 112, 2000);
             ZeroPID(EXTRUDER0_INDEX);
-            setLinkAngle(0,-20,0);
-            setLinkAngle(1,-20,0);
-            setLinkAngle(2,-20,0);
+            SetPIDTimed(HEATER0_INDEX,0,0);
             READY(Packet,35,35);
             return TRUE;
 
@@ -263,16 +265,18 @@ BYTE setInterpolateXYZ(float x, float y, float z,float ms){
     if(ms<.01)
         ms=0;
     float start = getMs();
-    intCartesian[0].set=x;
-    intCartesian[1].set=y;
-    intCartesian[2].set=z;
-    
     float cx=0,cy=0,cz=0;
 
     getCurrentPosition(&cx, &cy, &cz);
+    
+    intCartesian[0].set=x;
+    intCartesian[1].set=y;
+    intCartesian[2].set=z;
+
     intCartesian[0].start=cx;
     intCartesian[1].start=cy;
     intCartesian[2].start=cz;
+
     println_I("\n\nSetting new position x=");p_fl_E(x);print_E(" y=");p_fl_E(y);print_E(" z=");p_fl_E(z);print_E(" Time MS=");p_fl_E(ms);
     println_I("Current  position cx=");p_fl_E(cx);print_E(" cy=");p_fl_E(cy);print_E(" cz=");p_fl_E(cz);
     //println_I("Current  angles t1=");p_fl_E(getLinkAngle(0));print_E(" t2=");p_fl_E(getLinkAngle(1));print_E(" t3=");p_fl_E(getLinkAngle(2));

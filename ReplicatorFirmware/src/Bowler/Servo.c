@@ -49,7 +49,7 @@ void setServoTimer(int value){
 }
 
 void setTimerLowTime(){
-    setServoTimer(300*18);
+    setServoTimer(300*15);
     state = LOW;
 }
 
