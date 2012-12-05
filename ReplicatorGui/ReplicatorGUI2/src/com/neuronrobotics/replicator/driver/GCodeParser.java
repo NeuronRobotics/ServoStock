@@ -24,18 +24,20 @@ public class GCodeParser {
 		System.out.println("Reached print.");
 		try {
 			interp.tryInterpretStream(gcode);
+			System.out.println("End of print.");
 			return true;
 		} catch (Exception e) { 
 			// um... this is bad. Ideally, the kinematics methods probably shouldn't through Exception, but we'll just catch it here for now.
 			System.err.println(e);
 			e.printStackTrace();
+			System.out.println("Abnormal end of print");
+			return false;
 		}
-		return false;
 	}
 
 	void addHandlers(GCodeInterpreter interp) {
 		// Temperature control
-		interp.addGHandler(104, new CodeHandler() {
+		interp.addMHandler(104, new CodeHandler() {
 			public void execute(GCodeLineData prev, GCodeLineData next) throws Exception {
 				double d[]=new double[1];
 				d[0]=next.getWord('S');
@@ -60,7 +62,7 @@ public class GCodeParser {
 				TransformNR t=new TransformNR(next.getWord('X'),next.getWord('Y'),next.getWord('Z'),1,0,0,0);
 				TransformNR prevT=new TransformNR(prev.getWord('X'),prev.getWord('Y'),prev.getWord('Z'),1,0,0,0);
 				double seconds=(t.getOffsetVectorMagnitude(prevT)/next.getWord('F'))*60.0;
-				while(device.getNumberOfSpacesInBuffer()<2) Thread.sleep(100);//Wait for at least 2 spaces in the buffer
+				while(device!=null && device.getNumberOfSpacesInBuffer()<2) Thread.sleep(100);//Wait for at least 2 spaces in the buffer
 				int iter=0;
 				while(iter++<1000) {
 					try {

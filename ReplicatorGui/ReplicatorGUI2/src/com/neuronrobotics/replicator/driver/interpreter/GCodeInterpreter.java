@@ -6,7 +6,12 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Collections;
 import java.util.concurrent.locks.ReentrantLock;
+import java.io.EOFException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.CharBuffer;
 
 
 /** 
@@ -111,9 +116,10 @@ public class GCodeInterpreter {
 	 * @throws Exception 
 	 */
 	void parseWord(Scanner s) throws Exception {
-		s.useDelimiter("[ \t]+(\\(.*\\))?[ \t]*|(?=\n)|(?<=\n)|\\(.*\\)");
+		s.useDelimiter("[ \t]+(\\(.*\\))?[ \t]*|(?=\n)|(?<=\n)");
+//		s.useDelimiter("[ \t]+(\\(.*\\))?[ \t]*|(?=\n)|(?<=\n)|\\(.*\\)");
 		String word=s.next();
-//		System.out.println("Token: "+word);
+		System.out.println("Token: "+word);
 		char c=word.charAt(0);
 		switch(Character.toUpperCase(c)) {
 			case 'M':
@@ -133,12 +139,64 @@ public class GCodeInterpreter {
 		}
 	}
 
+	void parseLine(InputStream r) throws Exception { // Okay, whatever, I'll write this like in C.
+		char c=' ';
+		char pc=' ';
+		CharBuffer numBuffer=CharBuffer.allocate(128);
+		numBuffer.put(0,'0');
+		while(c!='\n') {
+			c=(char)r.read();
+			if(c==((char)-1)) throw new EOFException();
+			while(c=='(') {// Skip comments.
+				int depth=1;
+				while(depth>0) {
+					c=(char)r.read();
+					if(c=='(') depth++;
+					if(c==')') depth--;
+					if(c=='\n') System.out.println("Newline in comment?");
+					if(c==((char)-1)) throw new EOFException();
+					}
+				c=(char)r.read(); if(c==((char)-1)) throw new EOFException();
+				}
+			if(c=='\n') c=',';
+			if(Character.isWhitespace(c)) c=' '; // Just normalize spaces, for the switch.
+			if(Character.isDigit(c) || c=='+' || c=='-' || c=='.') {
+				numBuffer.put(c);
+			} else {
+				numBuffer.flip();
+				pc=Character.toUpperCase(pc);
+				switch(pc) {
+					case ' ': // Spaces will come in with no number to parse, so we don't parse it.
+					break;
+					case 'M':
+					mcodes.add(Integer.parseInt(numBuffer.toString()));
+					break;
+					case 'G':
+					gcodes.add(Integer.parseInt(numBuffer.toString()));
+					break;
+					case '\n':
+					case '\r':
+					case ',':
+					executeLine();
+					return;
+					default:
+					nextLine.storeWord(pc,Double.parseDouble(numBuffer.toString()));
+					break;
+				}
+				pc=c;
+				numBuffer.clear();
+				numBuffer.put(0,'0');
+			}
+		}
+	}
+
 	/** 
 	 * Execute the action(s) specified by the already built-up line of G-code.
 	 * 
 	 * @throws Exception 
 	 */
 	void executeLine() throws Exception {
+		System.out.println(nextLine);
 		for(int m : mcodes)
 			if(mHandlers[m]!=null) {
 				for(CodeHandler handler: mHandlers[m]) {
@@ -170,16 +228,20 @@ public class GCodeInterpreter {
 	 */
 	public void interpretStream(InputStream in) throws Exception {
 		executingLock.lock();
+		
 		interpretingThread=Thread.currentThread();
 		try {
-			Scanner s=new Scanner(in);
-			while(s.hasNext()) {
-				parseWord(s);
+			while(true) {
+				parseLine(in);
 			}
+//			Scanner s=new Scanner(inWithoutComments);
+//			while(s.hasNext()) {
+//				System.out.println("TOK"+s.next());
+//				parseWord(s);
+//			}
 			//} catch(InterruptedException e) {
 			// Expected cancel behavior; possibly feed out a status report?
-		}catch (Exception ex) {
-			ex.printStackTrace();
+		} catch (EOFException e) {
 		}finally {
 			interpretingThread=null;
 			executingLock.unlock();
@@ -245,6 +307,35 @@ public class GCodeInterpreter {
 		gHandlers[code].add(handler);
 	}
 
+	/** 
+	 * Add a handler for an M code. The new handler executes before any
+	 * previously installed handler for the code, to permit composition; for
+	 * instance, where the first-installed G01 handler specifies motion and
+* flushes the commands to device, a handler installed later could
+	 * handle tool behavior without flushing the device, and provide
+	 * coordinated behavior.
+	 * 
+	 * @param code the G code to bind this handler to.
+	 * @param handler the handler implementation.
+	 */
+	public void addMHandler(int code, CodeHandler handler) { // Should really do boundschecking. New code happens before old.
+		if(mHandlers[code]==null) mHandlers[code]=new ArrayList<CodeHandler>();
+		mHandlers[code].add(handler);
+	}
+	
+	/** 
+	 * Clear any previous handlers for a code, and install a new one.
+	 * This is usually unneccessary, but it allows you to clear a handler
+	 * set and start from scratch.
+	 * 
+	 * @param code the G code to bind this handler to.
+	 * @param handler the handler implementation.
+	 */
+	public void setMHandler(int code, CodeHandler handler) { // For overriding all default behavior of a code.
+		handler.setSubHandlers(mHandlers[code]);
+		mHandlers[code]=new ArrayList<CodeHandler>();
+		mHandlers[code].add(handler);
+	}
 	
 	/** 
 	 * Add rules for how to sort G codes before executing them.

@@ -9,10 +9,15 @@ import java.io.OutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.ProcessBuilder.Redirect;
 
 public class ExternalSlicer {
 	List<String> cmdline;
-	
+
+	public ExternalSlicer() {
+
+	}
+
 	public ExternalSlicer(MaterialData data) {
 		// Ignore the data for now.
 	}
@@ -21,11 +26,17 @@ public class ExternalSlicer {
 	try {
 		ProcessBuilder builder=new ProcessBuilder();
 		File input=File.createTempFile("replicator_toprint",".stl");
-		File output=new File(input.getAbsolutePath().replaceAll("\\.stl\\z","_export.gcode")); // For the moment.
+		File output=File.createTempFile("replicator_slicer_output",".stl");
+//		File output=new File(input.getAbsolutePath().replaceAll("\\.stl\\z",".gcode")); // For the moment.
 		List<String> thisCommand=new ArrayList<String>(cmdline);
+		thisCommand.add("-o");
+		thisCommand.add(output.getAbsolutePath());
 		thisCommand.add(input.getAbsolutePath());
 		OutputStream toTemp=new FileOutputStream(input);
 		new StreamDump(stl, toTemp).run();
+		System.err.println(thisCommand);
+		builder.redirectErrorStream(true);
+		builder.redirectOutput(Redirect.INHERIT);
 		builder.command(thisCommand);
 		Process p=builder.start();
 		new Thread(new StreamDump(p.getInputStream(), System.out)).start();
@@ -34,16 +45,19 @@ public class ExternalSlicer {
 		new StreamDump(inFromTemp, gcode).run();
 		return true;
 	} catch(IOException e) {
+		System.err.println(e);
 		return false;
 	} catch(InterruptedException e) {
+		System.err.println(e);
 		return false;
 	}
 	}
 	public static void main(String args[]) throws Exception {
-		ExternalSlicer slicer=new ExternalSlicer(null);
-		slicer.cmdline=Arrays.asList("skeinforge");
+		ExternalSlicer slicer=new MiracleGrue(null);
+//		slicer.cmdline=Arrays.asList("skeinforge");
 		FileInputStream stlFile=new FileInputStream(args[0]);
-		slicer.slice(stlFile, System.out);
+		FileOutputStream dumpFile=new FileOutputStream(args[0]+"-dump.gcode");
+		slicer.slice(stlFile, dumpFile);
 	}
 }
 

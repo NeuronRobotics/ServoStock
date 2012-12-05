@@ -58,4 +58,12 @@ public class GCodeLineData {
 		}
 		return d;
 	}
+
+	public String toString() {
+		String str="GCodeLine: ";
+		char c;
+		for(c='A';c<='Z';c++)
+			str=str+" "+c+getWord(c);
+		return str;
+	}
 }

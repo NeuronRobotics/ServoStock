@@ -16,16 +16,17 @@ import com.neuronrobotics.sdk.serial.SerialConnection;
 import com.neuronrobotics.sdk.ui.ConnectionDialog;
 
 public class PrinterTest implements PrinterStatusListener {
-	private PrinterTest() {
+	private PrinterTest(String filename) {
 		DeltaForgeDevice delt = new DeltaForgeDevice();
+
 		delt.setConnection(new SerialConnection("/dev/DeltaDoodle0"));
 		delt.connect();
 		NRPrinter printer = new NRPrinter(delt);
 //		NRPrinter printer = new NRPrinter(null);
 		printer.addPrinterStatusListener(this);
 		//Log.enableDebugPrint(false);
-		File gcode = new File("shotGlass.gcode");
-		//File gcode = new File("test.gcode");
+//		File gcode = new File("cube.stl-dump.gcode");
+		File gcode = new File(filename);
 		try {
 			//This is time consuming
 //			printer.slice(PrinterTest.class.getResourceAsStream("bottle.stl"),new FileOutputStream(gcode));
@@ -39,12 +40,19 @@ public class PrinterTest implements PrinterStatusListener {
 		
 		System.exit(0);
 	}
+	PrinterTest() {
+		this("test.gcode");
+	}
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		try {
-			new PrinterTest();
+			if(args.length>1) {
+				new PrinterTest(args[0]);
+			} else {
+				new PrinterTest();
+			}
 		}catch (Exception ex) {
 			ex.printStackTrace();
 			System.exit(1);
