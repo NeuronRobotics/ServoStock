@@ -129,14 +129,14 @@ void setPidIsr(BOOL v);
 
 #define EXTRUDER0_INDEX 0
 #define HEATER0_INDEX   11
-#define LINK0_INDEX 4
-#define LINK1_INDEX 6
-#define LINK2_INDEX 7
+#define LINK0_INDEX 6
+#define LINK1_INDEX 7
+#define LINK2_INDEX 4
 
 BOOL isUpToTempreture();
 
 
-#define defaultMaxZ -293
+#define defaultMaxZ -289.5
 
 #define servoCalebrateValue 121
 #define ticksPerRev         (4096.0)

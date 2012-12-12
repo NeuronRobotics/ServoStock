@@ -40,6 +40,8 @@ int getCurrentPosition(float * x, float * y, float * z);
 
 void cartesianAsync();
 
+void cancelPrint();
+
 //void InitializeCartesianController( BOOL (*asyncCallbackPtr)(BowlerPacket *Packet),
 //                                    BOOL (*forwardKinematicsCallbackPtr)(float * currentLinkPositions, Transform * result),
 //                                    BOOL (*inverseKinematicsCallbackPtr)(Transform * currentTransform, float * result ),

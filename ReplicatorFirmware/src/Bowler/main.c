@@ -446,9 +446,9 @@ int main()
                             pidReset(LINK2_INDEX,(INT32)servoHomeValue);
                             pidReset(EXTRUDER0_INDEX,0);
 
-                            SetPIDTimed(LINK0_INDEX,0,1000);
-                            SetPIDTimed(LINK1_INDEX,0,1000);
-                            SetPIDTimed(LINK2_INDEX,0,1000);
+//                            SetPIDTimed(LINK0_INDEX,0,1000);
+//                            SetPIDTimed(LINK1_INDEX,0,1000);
+//                            SetPIDTimed(LINK2_INDEX,0,1000);
                             println_E("Calibration Done!");
                             setServo(LINK0_INDEX, 128,0);
                             setServo(LINK1_INDEX, 128,0);
@@ -456,6 +456,7 @@ int main()
                             setPidIsr(TRUE);
                             pos.MsTime=getMs();
                             initializeCartesianController();
+                            cancelPrint();
 #if defined(TEST_MOTION)
                             SetPID(HEATER0_INDEX, 140);
                             StartPDVel(EXTRUDER0_INDEX,100,0);

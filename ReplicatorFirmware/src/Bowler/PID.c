@@ -129,7 +129,7 @@ float getPositionMine(int group){
 
     return val;
 }
-int historesisVal =3;
+int historesisVal =2;
 void setOutputMine(int group, float v){
     if(group<numPidMotors){
         int val = (int)(v);

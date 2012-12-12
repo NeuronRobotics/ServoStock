@@ -1,5 +1,5 @@
 #include "main.h"
-#define SIZE_OR_PACKET_BUFFER 4
+#define SIZE_OR_PACKET_BUFFER 400
 PACKET_FIFO_STORAGE  packetFifo;
 BowlerPacket buffer[SIZE_OR_PACKET_BUFFER];
 BowlerPacket linTmpPack;
@@ -86,9 +86,10 @@ void checkPositionChange(){
            lastXYZE[i] =tmp[i];
         }
 
-        println_I("Current Voltage of sensor");p_fl_E(getAdcVoltage(mapHeaterIndex(HEATER0_INDEX),10));
-        print_E(" Temp = ");p_fl_E(getHeaterTempreture(HEATER0_INDEX));
-        print_E(" Raw ADC = ");p_sl_E(getAdcRaw(mapHeaterIndex(HEATER0_INDEX),10));
+//        println_I("Current Voltage of sensor");p_fl_E(getAdcVoltage(mapHeaterIndex(HEATER0_INDEX),10));
+//        print_E(" Temp = ");p_fl_E(getHeaterTempreture(HEATER0_INDEX));
+//        print_E(" Raw ADC = ");p_sl_E(getAdcRaw(mapHeaterIndex(HEATER0_INDEX),10));
+
 //        println_I("Current  position X=");p_fl_E(lastXYZE[0]);
 //        print_E(" Y=");p_fl_E(lastXYZE[1]);
 //        print_E(" Z=");p_fl_E(lastXYZE[2]);
@@ -187,21 +188,27 @@ BOOL onCartesianPost(BowlerPacket *Packet){
             }
             return TRUE;
         case PRCL:
-            setPrintLevelInfoPrint();
-            println_I("Cancel Print");
-            setPrintLevel(l);
-            while(FifoGetPacketCount(&packetFifo)>0){
-                FifoGetPacket(&packetFifo,&linTmpPack);
-            }
-            setInterpolateXYZ(0, 0, 112, 2000);
-            ZeroPID(EXTRUDER0_INDEX);
-            SetPIDTimed(HEATER0_INDEX,0,0);
+            cancelPrint();
             READY(Packet,35,35);
             return TRUE;
 
     }
     return FALSE;
 }
+
+void cancelPrint(){
+    Print_Level l = getPrintLevel();
+    setPrintLevelInfoPrint();
+    println_I("Cancel Print");
+    setPrintLevel(l);
+    while(FifoGetPacketCount(&packetFifo)>0){
+        FifoGetPacket(&packetFifo,&linTmpPack);
+    }
+    setInterpolateXYZ(0, 0, 112, 2000);
+    ZeroPID(EXTRUDER0_INDEX);
+    SetPIDTimed(HEATER0_INDEX,0,0);
+}
+
 BOOL onCartesianGet(BowlerPacket *Packet){
     return FALSE;
 }
