@@ -203,7 +203,9 @@ public class GCodeInterpreter {
 					handler.execute(lastLine, nextLine);
 				}
 			} else {
-				System.out.println("No implementation found for M"+m);
+				//System.out.println("No implementation found for M"+m);
+				
+				throw new RuntimeException("No implementation found for M"+m);
 			}
 		for(int g : gcodes)
 			if(gHandlers[g]!=null) {
@@ -211,8 +213,10 @@ public class GCodeInterpreter {
 					handler.execute(lastLine, nextLine);
 				}
 			} else {
-				System.out.println("No implementation found for G"+g);
+				//System.out.println("No implementation found for G"+g);
+				throw new RuntimeException("No implementation found for G"+g);
 			}
+		
 		lastLine=nextLine;
 		nextLine=new GCodeLineData(lastLine);
 		gcodes.removeAll(gOneShot);
