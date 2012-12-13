@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import com.neuronrobotics.replicator.gui.PrinterStatusListener;
 import com.neuronrobotics.sdk.common.Log;
 import com.neuronrobotics.sdk.dyio.DyIO;
+import com.neuronrobotics.sdk.util.ThreadUtil;
 
 public class NRPrinter {
 	private DeltaRobotPrinterPrototype device;
@@ -37,15 +38,17 @@ public class NRPrinter {
 	 */
 	public boolean print(InputStream gcode) {
 		System.out.println("Printing now.");
-		getDevice().cancelRunningPrint();
+		cancelPrint();
+		ThreadUtil.wait(5000);
 		long start = System.currentTimeMillis();
 		boolean b = getParser().print(gcode);
 		System.out.println("Print Done, took "+((((double)(System.currentTimeMillis()-start))/1000.0)/60.0)+" minutes");
-		getDevice().cancelRunningPrint();
+		cancelPrint();
 		return b;
 	}
 	
 	public boolean cancelPrint() {
+		getDevice().cancelRunningPrint();
 		return getParser().cancel();
 	}
 	public boolean isReady() {

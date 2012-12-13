@@ -54,11 +54,10 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 		//parse out the extruder configs
 		//parse delta robot configs
 		
-		//kinematics = new DeltaRobotKinematics(new DeltaRobotConfig(e, f, re, rf));
+		setExtrusionTempreture(new double [] {getTempreture()});
 	}
 	
 	private double getTempreture() {
-		setTempreture(hotEnd.getCurrentEngineeringUnits());
 		return temp;
 	}
 	public void setTempreture(double temp) {
@@ -70,19 +69,27 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 	}
 	
 	public void setExtrusionTempreture(double [] extTemp) {
-		if(extTemp[0] == currentTemp)
+		if(extTemp[0] == currentTemp) {
+			System.out.println("Printer at tempreture "+currentTemp+" C");
 			return;
-		else
+		}else
 			currentTemp=extTemp[0];
+		setTempreture(hotEnd.getCurrentEngineeringUnits());
 		hotEnd.setTargetEngineeringUnits(extTemp[0]);
 		hotEnd.flush(0);
 		getTempreture();
-		System.out.println("Waiting for Printer to come up to tempreture");
+		System.out.print("\r\nWaiting for Printer to come up to tempreture "+currentTemp+" C \n");
 		Log.enableSystemPrint(false);
-		while(temp>(extTemp[0]+20) || temp< (extTemp[0]-20)) {
+		int iter=0;
+		while(temp>(extTemp[0]+10) || temp< (extTemp[0]-10)) {
 			getTempreture();
-			//System.out.println("Current Temp = "+getTempreture());
+			System.out.print(".");
 			ThreadUtil.wait(100);
+			iter++;
+			if(iter==50) {
+				System.out.print("\r\n "+temp+" C");
+				iter=0;
+			}
 		}
 		Log.enableSystemPrint(true);
 	}

@@ -41,7 +41,7 @@ public class PrinterTest implements PrinterStatusListener {
 		System.exit(0);
 	}
 	PrinterTest() {
-		this("test.gcode");
+		this("shotGlass.gcode");
 	}
 	/**
 	 * @param args
