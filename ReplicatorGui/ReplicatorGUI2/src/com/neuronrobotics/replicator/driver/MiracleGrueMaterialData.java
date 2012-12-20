@@ -5,4 +5,7 @@ public class MiracleGrueMaterialData extends MaterialData {
 	public String toString() {
 		return configData;
 	}
+	public StlSlicer getSlicerForConfig() {
+		return new MiracleGrue(this);
+	}
 }

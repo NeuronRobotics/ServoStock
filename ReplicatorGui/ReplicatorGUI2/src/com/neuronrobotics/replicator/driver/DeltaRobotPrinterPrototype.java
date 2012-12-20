@@ -65,7 +65,7 @@ public class DeltaRobotPrinterPrototype extends AbstractKinematicsNR{
 	}
 	
 	public MaterialData getMaterialData() {
-		return new MaterialData();
+		return new MiracleGrueMaterialData();
 	}
 	
 	public void setExtrusionTempreture(double [] extTemp) {

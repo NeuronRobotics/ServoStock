@@ -11,14 +11,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.ProcessBuilder.Redirect;
 
-public class ExternalSlicer {
+public class ExternalSlicer extends StlSlicer {
 	List<String> cmdline;
 
 	public ExternalSlicer() {
-
+		super(new MaterialData());
 	}
 
 	public ExternalSlicer(MaterialData data) {
+		super(data);
 		// Ignore the data for now.
 	}
 

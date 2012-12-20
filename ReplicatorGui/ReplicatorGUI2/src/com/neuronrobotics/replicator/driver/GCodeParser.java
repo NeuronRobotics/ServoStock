@@ -1,8 +1,12 @@
 package com.neuronrobotics.replicator.driver;
+import com.neuronrobotics.replicator.driver.PrinterStatus.PrinterState;
 import com.neuronrobotics.replicator.driver.interpreter.*;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.concurrent.locks.ReentrantLock;
+
+import javax.vecmath.Point3f;
+
 import com.neuronrobotics.replicator.gui.PrinterStatusListener;
 import com.neuronrobotics.sdk.addons.kinematics.math.TransformNR;
 
@@ -42,6 +46,13 @@ public class GCodeParser {
 				double d[]=new double[1];
 				d[0]=next.getWord('S');
 				device.setExtrusionTempreture(d);
+			}
+		});
+		interp.addMHandler(73, new CodeHandler() {
+			public void execute(GCodeLineData prev, GCodeLineData next) throws Exception {
+				for(PrinterStatusListener l : listeners) {
+					l.printStatus(new PrinterStatus(new Point3f(),(int)next.getWord('P'),PrinterState.PRINTING));
+				}
 			}
 		});
 		interp.addGHandler(6, new CodeHandler() {

@@ -19,7 +19,8 @@ public class NRPrinter {
 		
 		setDevice(new DeltaRobotPrinterPrototype(d));
 		setParser(new GCodeParser(getDevice()));
-		setSlicer(new StlSlicer(getDevice().getMaterialData()));
+//		setSlicer(new StlSlicer(getDevice().getMaterialData()));
+		setSlicer(new MiracleGrue(getDevice().getMaterialData()));
 	}
 	/**
 	 * 

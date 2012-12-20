@@ -22,7 +22,7 @@ public class PrinterTest implements PrinterStatusListener {
 		delt.setConnection(new SerialConnection("/dev/DeltaDoodle0"));
 		delt.connect();
 		NRPrinter printer = new NRPrinter(delt);
-//		NRPrinter printer = new NRPrinter(null);
+//	NRPrinter printer = new NRPrinter(null);
 		printer.addPrinterStatusListener(this);
 		//Log.enableDebugPrint(false);
 //		File gcode = new File("cube.stl-dump.gcode");
