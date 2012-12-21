@@ -1,9 +1,10 @@
-package com.neuronrobotics.replicator.gui.preview;
+package com.neuronrobotics.replicator.gui.preview.ToRemove;
 
 import javax.vecmath.Point3d;
 import javax.vecmath.Vector3d;
 
-public class STLPreviewCameraData {
+public abstract class STLPreviewCameraData {
+	
 	
 	private Point3d position, direction;
 	private Vector3d orientation;
@@ -25,5 +26,5 @@ public class STLPreviewCameraData {
 	public Vector3d getCameraOrientation(){
 		return orientation;
 	}
-
+	
 }

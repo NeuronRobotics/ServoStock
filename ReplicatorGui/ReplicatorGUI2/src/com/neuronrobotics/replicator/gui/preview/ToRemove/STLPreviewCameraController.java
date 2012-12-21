@@ -1,10 +1,9 @@
-package com.neuronrobotics.replicator.gui.preview;
+package com.neuronrobotics.replicator.gui.preview.ToRemove;
 
 import javax.vecmath.Point3d;
 import javax.vecmath.Tuple3d;
 import javax.vecmath.Vector3d;
 
-import com.neuronrobotics.replicator.gui.preview.j3d.STLPreviewCanvas3D;
 import com.neuronrobotics.replicator.gui.stl.STLObject;
 
 public class STLPreviewCameraController {

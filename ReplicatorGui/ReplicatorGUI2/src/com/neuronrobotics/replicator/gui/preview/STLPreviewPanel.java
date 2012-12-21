@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.Hashtable;
 import java.util.List;
 
-import javax.media.j3d.Transform3D;
+//import javax.media.j3d.Transform3D;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -27,21 +27,25 @@ import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.vecmath.Vector3f;
+//import javax.vecmath.Vector3f;
 
 import com.neuronrobotics.replicator.gui.GUIFrontendInterface;
-import com.neuronrobotics.replicator.gui.preview.STLPreviewCameraController.CameraMode;
-import com.neuronrobotics.replicator.gui.preview.j3d.GeneralTransform3DJava3DAdapter;
-import com.neuronrobotics.replicator.gui.preview.j3d.STLPreviewCanvas3D;
-import com.neuronrobotics.replicator.gui.preview.j3d.STLPreviewMouseControls;
-import com.neuronrobotics.replicator.gui.preview.j3d.STLPreviewMouseControls.MouseControlMode;
-import com.neuronrobotics.replicator.gui.stl.GeneralTransform3D;
-import com.neuronrobotics.replicator.gui.stl.STLFacet;
-import com.neuronrobotics.replicator.gui.stl.STLObject;
-import com.neuronrobotics.replicator.gui.stl.STLObjectCalculationUtilities;
+//import com.neuronrobotics.replicator.gui.preview.STLPreviewCameraController.CameraMode;
+import com.neuronrobotics.replicator.gui.preview.controller.STLPreviewMouseController.MouseControlMode;
+//import com.neuronrobotics.replicator.gui.preview.j3d.GeneralTransform3DJava3DAdapter;
+//import com.neuronrobotics.replicator.gui.preview.j3d.STLPreviewCanvas3D;
+//import com.neuronrobotics.replicator.gui.preview.j3d.STLPreviewMouseControls;
+//import com.neuronrobotics.replicator.gui.preview.j3d.STLPreviewMouseControls.MouseControlMode;
+ 
+import com.neuronrobotics.replicator.gui.preview.view.STLWorkspaceViewListener;
+//import com.neuronrobotics.replicator.gui.stl.GeneralTransform3D;
+//import com.neuronrobotics.replicator.gui.stl.STLFacet;
+//import com.neuronrobotics.replicator.gui.stl.STLObject;
+//import com.neuronrobotics.replicator.gui.stl.STLObjectCalculationUtilities;
+import com.neuronrobotics.replicator.gui.stl.STLLoader;
 
 public class STLPreviewPanel extends JLayeredPane implements ActionListener,
-		ChangeListener,STLPreviewTabListener, STLPreviewWorkspaceViewListener, DropTargetListener {
+		ChangeListener,STLPreviewTabListener, STLWorkspaceViewListener, DropTargetListener {
 
 	/**
 	 * 
@@ -50,16 +54,16 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 	private JTabbedPane previewTabbedPane;
 	private Hashtable<STLPreviewTab, STLPreviewTab> thePreviewTabs;
 
-	private JComboBox<STLPreviewMouseControls.MouseControlMode> mouseModeMenu;
-	private JComboBox<STLPreviewCameraController.CameraMode> focusModeMenu;
+	private JComboBox<MouseControlMode> mouseModeMenu;
+	//private JComboBox<STLPreviewCameraController.CameraMode> focusModeMenu;
 
 	private JToolBar cameraControls;
-	private JButton resetCamera, centerModel, removePreview, forceReload;
+	private JButton resetCamera, removePreview;// centerModel, forceReload;
 	private JToggleButton toggleOutline;
 		
 	private GUIFrontendInterface theFrontend;
 	
-	private JButton analyzePlacement;
+	//private JButton analyzePlacement;
 	
 	public STLPreviewPanel(GUIFrontendInterface front) {
 		
@@ -75,47 +79,45 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 		thePreviewTabs = new Hashtable<STLPreviewTab, STLPreviewTab>();
 		cameraControls = new JToolBar();
 		resetCamera = new JButton("Reset Camera");
-		centerModel = new JButton("Reset STL");
+	//	centerModel = new JButton("Reset STL");
 		removePreview = new JButton("Remove current preview");
-		forceReload = new JButton("Force Reload");
-		analyzePlacement = new JButton("Analyze");
+	//	forceReload = new JButton("Force Reload");
+		//analyzePlacement = new JButton("Analyze");
 
-		STLPreviewMouseControls.MouseControlMode[] mouseModes = STLPreviewMouseControls.MouseControlMode
-				.getModes();
-		STLPreviewCameraController.CameraMode[] focusModes = STLPreviewCameraController.CameraMode
-				.getModes();
+		MouseControlMode[] mouseModes = MouseControlMode.getModes();
+		//STLPreviewCameraController.CameraMode[] focusModes = STLPreviewCameraController.CameraMode.getModes();
 
-		mouseModeMenu = new JComboBox<STLPreviewMouseControls.MouseControlMode>(
+		mouseModeMenu = new JComboBox<MouseControlMode>(
 				mouseModes);
-		focusModeMenu = new JComboBox<STLPreviewCameraController.CameraMode>(focusModes);
+	//	focusModeMenu = new JComboBox<STLPreviewCameraController.CameraMode>(focusModes);
 
 		toggleOutline = new JToggleButton("Outline: OFF", false);
 
 		resetCamera.addActionListener(this);
-		centerModel.addActionListener(this);
+		//centerModel.addActionListener(this);
 		removePreview.addActionListener(this);
 
 		toggleOutline.addActionListener(this);
 		mouseModeMenu.addActionListener(this);
-		focusModeMenu.addActionListener(this);
+	//	focusModeMenu.addActionListener(this);
 
-		forceReload.addActionListener(this);
-		analyzePlacement.addActionListener(this);
+		//forceReload.addActionListener(this);
+		//analyzePlacement.addActionListener(this);
 
 		previewTabbedPane.addChangeListener(this);
 		
 		cameraControls.add(resetCamera);
-		cameraControls.add(centerModel);
+		//cameraControls.add(centerModel);
 
 		cameraControls.add(removePreview);
 
 		cameraControls.add(toggleOutline);
 
 		cameraControls.add(mouseModeMenu);
-		cameraControls.add(focusModeMenu);
+		//cameraControls.add(focusModeMenu);
 
-		cameraControls.add(forceReload);
-		cameraControls.add(analyzePlacement);
+		//cameraControls.add(forceReload);
+		//cameraControls.add(analyzePlacement);
 				
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1.0;
@@ -184,7 +186,7 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 
 	}
 
-	public STLPreviewCanvas3D getCurrentPreview() {
+	/*public STLPreviewCanvas3D getCurrentPreview() {
 		if (thePreviewTabs.size() == 0)
 			return null;
 		STLPreviewTab currentTab = ((STLPreviewTab) previewTabbedPane
@@ -192,7 +194,7 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 		if (currentTab.isLoaded())
 			return currentTab.getTheSTLPreview();
 		return null;
-	}
+	}*/
 
 	public boolean hasNoPreviews() {
 		return previewTabbedPane.getTabCount() == 0;
@@ -202,33 +204,38 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 	public void actionPerformed(ActionEvent event) {
 
 		STLPreviewTab currentTab;
-		STLPreviewCanvas3D currentPreview;
+		//STLPreviewCanvas3D currentPreview;
 
 		currentTab = ((STLPreviewTab) previewTabbedPane.getSelectedComponent());
 
 		if (currentTab != null && currentTab.isLoaded() ) {
 
-			currentPreview = currentTab.getTheSTLPreview();
+			//currentPreview = currentTab.getTheSTLPreview();
 			
-			currentPreview.setOutlineVisibility(isOutlineSelected());
+			//currentPreview.setOutlineVisibility(isOutlineSelected());
+			//TODO no functionality for this yet in the new version
 			
-			if(event.getSource().equals(focusModeMenu)){
+			/*if(event.getSource().equals(focusModeMenu)){
 				currentPreview.getTheCameraController()
 				.setCameraFocusMode(getCurrentSelectedCameraFocusMode());
-			} else if(event.getSource().equals(this.mouseModeMenu)){
-				currentPreview.getMouseControls().setMouseControlMode(
-						getCurrentSelectedMouseMode());
+			} else */if(event.getSource().equals(this.mouseModeMenu)){
+				//currentPreview.getMouseControls().setMouseControlMode(getCurrentSelectedMouseMode());
+				currentTab.getTheMotherFuckingController().getSTLPreviewMouseController().setCurrentMouseControlMode(getCurrentSelectedMouseMode());
+				
 			} else if (event.getSource().equals(resetCamera)) {
-				currentPreview.getTheCameraController().resetCamera();
-			} else if (event.getSource().equals(centerModel)) {
+				//currentPreview.getTheCameraController().resetCamera();
+				currentTab.getTheMotherFuckingController().getGeneralCameraController().setCamera(new double[]{100,100,100},new double[]{0,0,0});
+				//TODO maybe a better way to reset the camera?
+			} /*else if (event.getSource().equals(centerModel)) {
 				currentPreview.resetModelTransforms();
+								
 				//currentPreview.centerOnWorkspace();
-			} else if (event.getSource().equals(toggleOutline)) {
+			}*/ else if (event.getSource().equals(toggleOutline)) {
 				boolean onOff = isOutlineSelected();
 				String newText = (onOff) ? "Outline:  ON" : "Outline: OFF";
 				toggleOutline.setText(newText);
-				currentPreview.setOutlineVisibility(onOff);
-			} else if (event.getSource().equals(forceReload)) {
+				//currentPreview.setOutlineVisibility(onOff);
+			} /*else if (event.getSource().equals(forceReload)) {
 				currentTab.reload();
 			} else if (event.getSource().equals(analyzePlacement)){
 				//TODO currently just for testing
@@ -245,7 +252,7 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 				//s.next();
 				
 				System.out.println(STLObjectCalculationUtilities.approximateSupportVolume(curr, 10));
-			}
+			}*/
 		}
 		
 		if (event.getSource().equals(removePreview)) {
@@ -264,12 +271,12 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 				STLPreviewTab currentTab = ((STLPreviewTab) previewTabbedPane
 						.getSelectedComponent());
 				if (currentTab.isLoaded()) {
-					currentTab.getTheSTLPreview().getMouseControls()
-							.setMouseControlMode(getCurrentSelectedMouseMode());
-					currentTab.getTheSTLPreview().getTheCameraController().setCameraFocusMode(
-							getCurrentSelectedCameraFocusMode());
-					currentTab.getTheSTLPreview().setOutlineVisibility(
-							isOutlineSelected());
+					//currentTab.getTheSTLPreview().getMouseControls().setMouseControlMode(getCurrentSelectedMouseMode());
+					
+					currentTab.getTheMotherFuckingController().getSTLPreviewMouseController().setCurrentMouseControlMode(getCurrentSelectedMouseMode());
+					
+					//currentTab.getTheSTLPreview().getTheCameraController().setCameraFocusMode(getCurrentSelectedCameraFocusMode());
+					//currentTab.getTheSTLPreview().setOutlineVisibility(isOutlineSelected());
 				}
 			} catch (ClassCastException e) {
 				e.printStackTrace();
@@ -278,9 +285,10 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 		this.theFrontend.requestValidate();
 	}
 
+	/*
 	public CameraMode getCurrentSelectedCameraFocusMode() {
 		return (CameraMode) this.focusModeMenu.getSelectedItem();
-	}
+	}*/
 
 	public MouseControlMode getCurrentSelectedMouseMode() {
 
@@ -295,12 +303,16 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 	}
 
 	public void alertTabIsLoaded(STLPreviewTab loadedTab){
-		loadedTab.getTheSTLPreview().getTheCameraController().setCameraFocusMode(getCurrentSelectedCameraFocusMode());
-		loadedTab.getTheSTLPreview().setOutlineVisibility(isOutlineSelected());
-		loadedTab.getTheSTLPreview().getMouseControls().setMouseControlMode(getCurrentSelectedMouseMode());
-		loadedTab.getTheSTLPreview().getTheCameraController().resetCamera();
+		//loadedTab.getTheSTLPreview().getTheCameraController().setCameraFocusMode(getCurrentSelectedCameraFocusMode());
+		//loadedTab.getTheSTLPreview().setOutlineVisibility(isOutlineSelected());
+	
+		//loadedTab.getTheSTLPreview().getMouseControls().setMouseControlMode(getCurrentSelectedMouseMode());
+		loadedTab.getTheMotherFuckingController().getSTLPreviewMouseController().setCurrentMouseControlMode(getCurrentSelectedMouseMode());
 		
-		loadedTab.getTheSTLPreview().addListener(this);
+		//loadedTab.getTheSTLPreview().getTheCameraController().resetCamera();
+		
+		//loadedTab.getTheSTLPreview().addListener(this);
+		//TODO should add some types of listeners for new version perhaps?
 				
 		theFrontend.requestValidate();
 	}
@@ -312,11 +324,11 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 			previewTabbedPane.remove(toRemove);
 		}		
 				
-		STLPreviewCanvas3D curr = getCurrentPreview();
+		//STLPreviewCanvas3D curr = getCurrentPreview();
 		
-		if(curr!=null){
-			curr.getTheCameraController().rotateCameraXZ(6.28);
-		}
+	//	if(curr!=null){
+			//curr.getTheCameraController().rotateCameraXZ(6.28);
+		//}
 		
 		theFrontend.requestValidate();
 		
@@ -350,7 +362,6 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 			try {
 				newSTL = ((List<File>)arg0.getTransferable().getTransferData(DataFlavor.javaFileListFlavor)).get(0);
 			} catch (UnsupportedFlavorException | IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return;
 			}
@@ -361,7 +372,15 @@ public class STLPreviewPanel extends JLayeredPane implements ActionListener,
 					//TODO
 					return;
 				}
-				this.getCurrentPreview().addModelToWorkspace(newSTL);
+				//this.getCurrentPreview().addModelToWorkspace(newSTL);
+				try {
+					this.getCurrentTab().getTheMotherFuckingModel().addSTLObject(STLLoader.loadFile(newSTL));
+					this.getCurrentTab().alertSTLObjectAdded();
+				} catch (IOException e) {
+					this.theFrontend.errorDialog("IO Error loading STL");
+					e.printStackTrace();
+				}
+				
 			} 
 		}
 	}

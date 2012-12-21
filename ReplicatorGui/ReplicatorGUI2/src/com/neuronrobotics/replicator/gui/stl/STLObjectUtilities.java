@@ -1,7 +1,6 @@
 package com.neuronrobotics.replicator.gui.stl;
 
 import java.util.LinkedList;
-import java.util.Scanner;
 
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
@@ -9,12 +8,14 @@ import javax.vecmath.Vector3f;
 import com.neuronrobotics.replicator.gui.stl.STLFacet;
 import com.neuronrobotics.replicator.gui.stl.STLObject;
 
-public class STLObjectCalculationUtilities {
+public class STLObjectUtilities {
 
+	private static int bruasdkl =1;
 	public static boolean objectsIntersect(STLObject s1, STLObject s2) {
-
+		System.out.println("Entering objects intersect...");
 		if (!boundingBoxesIntersect(s1, s2))
 			return false;
+		//if(1==bruasdkl) return true;//TODO for testing
 
 		for (STLFacet f1 : s1) {
 			for (STLFacet f2 : s2) {
@@ -22,11 +23,13 @@ public class STLObjectCalculationUtilities {
 					// System.out.println("Facet Intersection found: ");
 					// System.out.println("Facet 1: "+f1);
 					// System.out.println("Facet 2: "+f2);
+					//System.out.println("Returning...");
 					return true;
 				}
 			}
 		}
-
+		
+		System.out.println("Returning...");
 		return false;
 	}
 

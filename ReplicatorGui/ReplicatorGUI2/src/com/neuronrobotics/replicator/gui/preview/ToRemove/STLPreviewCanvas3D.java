@@ -1,6 +1,7 @@
-package com.neuronrobotics.replicator.gui.preview.j3d;
+package com.neuronrobotics.replicator.gui.preview.ToRemove;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -23,20 +24,22 @@ import javax.vecmath.Point3f;
 import javax.vecmath.Vector3d;
 import javax.vecmath.Vector3f;
 
-import com.neuronrobotics.replicator.gui.preview.STLPreviewCameraController;
-import com.neuronrobotics.replicator.gui.preview.STLPreviewCameraData;
-import com.neuronrobotics.replicator.gui.preview.STLPreviewWorkspaceView;
-import com.neuronrobotics.replicator.gui.preview.STLPreviewWorkspaceViewListener;
-import com.neuronrobotics.replicator.gui.preview.STLWorkspaceModel;
+import com.neuronrobotics.replicator.gui.preview.j3d.STLShape3DFactory;
+import com.neuronrobotics.replicator.gui.preview.j3d.STLTransformGroup;
+import com.neuronrobotics.replicator.gui.preview.j3d.STLTransformGroupListener;
+import com.neuronrobotics.replicator.gui.preview.j3d.STLWorkspaceBranchGroup;
+import com.neuronrobotics.replicator.gui.preview.model.STLWorkspaceModel;
+import com.neuronrobotics.replicator.gui.preview.view.STLWorkspaceView;
+import com.neuronrobotics.replicator.gui.preview.view.STLWorkspaceViewListener;
 import com.neuronrobotics.replicator.gui.stl.STLLoader;
 import com.neuronrobotics.replicator.gui.stl.STLObject;
-import com.neuronrobotics.replicator.gui.stl.STLObjectCalculationUtilities;
-import com.neuronrobotics.replicator.gui.stl.STLTransformGroupListener;
+import com.neuronrobotics.replicator.gui.stl.STLObjectUtilities;
+import com.neuronrobotics.replicator.gui.stl.TransformableSTLObject;
 import com.sun.j3d.utils.picking.PickResult;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
-public class STLPreviewCanvas3D extends Canvas3D implements
-		STLTransformGroupListener, STLPreviewWorkspaceView{
+public abstract class STLPreviewCanvas3D extends Canvas3D implements
+		STLTransformGroupListener, STLWorkspaceView{
 
 	/**
 	 * 
@@ -71,7 +74,7 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 
 	private boolean isDead;
 
-	private ArrayList<STLPreviewWorkspaceViewListener> theListeners;
+	private ArrayList<STLWorkspaceViewListener> theListeners;
 	private ArrayList<File> toBeAdded;
 
 	private File theWorkspaceSTL;
@@ -119,12 +122,11 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 	}
 
 	private ArrayList<PlacementStatus> placementStatuses;
-
 	
-	public STLPreviewCanvas3D() {
+	private STLPreviewCanvas3D() {
 		super(SimpleUniverse.getPreferredConfiguration());
 
-		theListeners = new ArrayList<STLPreviewWorkspaceViewListener>();
+		theListeners = new ArrayList<STLWorkspaceViewListener>();
 		initialized = false;
 		isDead = false;
 		theCameraController = new STLPreviewCameraController(this);
@@ -139,17 +141,17 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 		intializeUniverse();
 	}
 
-	public STLPreviewCanvas3D(File workspaceSTL) {
+	private STLPreviewCanvas3D(File workspaceSTL) {
 		this();
 		theWorkspaceSTL = workspaceSTL;
 	}
 
-	public STLPreviewCanvas3D(File stl, File workspaceSTL) {
+	private STLPreviewCanvas3D(File stl, File workspaceSTL) {
 		this(workspaceSTL);
 		toBeAdded.add(stl);
 	}
 
-	public void addListener(STLPreviewWorkspaceViewListener spcl) {
+	public void addListener(STLWorkspaceViewListener spcl) {
 		if (!theListeners.contains(spcl))
 			theListeners.add(spcl);
 	}
@@ -219,7 +221,7 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 		directionalLight2.setDirection(0, -1, 0);
 		
 		this.theCameraController.resetCamera();
-
+		
 	}
 
 	public void loadFromQueue() {
@@ -248,11 +250,10 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 
 		}
 
-		if (theWorkspace != null)
-			for (STLTransformGroup stlTransform : theSTLTransforms) {
-				stlTransform.centerOnWorkspace(theWorkspace
-						.getWorkspaceSTLObject());
-			}
+		//if (theWorkspace != null)
+			//for (STLTransformGroup stlTransform : theSTLTransforms) {
+			//	stlTransform.centerOnWorkspace(theWorkspace.getWorkspaceSTLObject());
+			//}
 
 		// mainBranch.addChild(theLight);
 
@@ -310,7 +311,7 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 		} 
 		
 
-		for (STLPreviewWorkspaceViewListener spcl : theListeners) {
+		for (STLWorkspaceViewListener spcl : theListeners) {
 			double[] pos = new double[3],dir = new double[3],or=new double[3];
 			position.get(pos);
 			direction.get(dir);
@@ -366,7 +367,7 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 		STLObject stl1 = m1.getTransformedSTLObject();
 		STLObject stl2 = m2.getTransformedSTLObject();
 
-		return (STLObjectCalculationUtilities.objectsIntersect(stl1, stl2));
+		return (STLObjectUtilities.objectsIntersect(stl1, stl2));
 	}
 
 	public void resetModelTransforms() {
@@ -522,9 +523,9 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 			System.out.println(placementStatuses);
 			updateIndicatorLights();
 			// alertSTLTransformMoved(currentSTLTransform);
-			if (theWorkspace != null)
-				currentSTLTransform.centerOnWorkspace(theWorkspace
-						.getWorkspaceSTLObject());
+			//if (theWorkspace != null)
+			//	currentSTLTransform.centerOnWorkspace(theWorkspace
+				//		.getWorkspaceSTLObject());
 		}
 	}
 
@@ -557,7 +558,7 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 
 		STLObject theSTLObject = STLLoader.loadFile(f);
 
-		stlTransform = STLLoader.createSTLTransform(theSTLObject);
+		stlTransform = STLShape3DFactory.createSTLTransform(theSTLObject);
 
 		return stlTransform;
 	}
@@ -611,7 +612,7 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 			STLTransformGroup stgA = theSTLTransforms.get(i);
 			for (int j = i + 1; j < size; j++) {
 				STLTransformGroup stgB = theSTLTransforms.get(j);
-				boolean coll = STLObjectCalculationUtilities.objectsIntersect(
+				boolean coll = STLObjectUtilities.objectsIntersect(
 						stgA.getSTLObject(), stgB.getSTLObject());
 				collisionTable.get(j).set(i, coll);
 				collisionTable.get(i).set(j, coll);
@@ -650,8 +651,8 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 	}
 	
 	public STLPreviewCameraData getCameraData() {
-		return new STLPreviewCameraData(cameraPosition, cameraDirection,
-				cameraOrientation);
+		return null;//new STLPreviewCameraData(cameraPosition, cameraDirection,
+				//cameraOrientation);
 	}
 
 	public STLObject getMergedSTLObject() {
@@ -738,11 +739,11 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 
 		if (currentSTLTransform != null) {
 
-			currentSTLTransform.reorientToNextFace();
+			//currentSTLTransform.reorientToNextFace();
 
 			Point3f min = currentSTLTransform.getCurrentMin();
 			Double y = this.theWorkspace.getWorkspaceSTLObject().getSurfaceY();
-			if(!y.isNaN()) currentSTLTransform.translateUpDown(min.y - y-.0001f);
+			//if(!y.isNaN()) currentSTLTransform.translateUpDown(min.y - y-.0001f);
 		}
 	}
 	
@@ -752,8 +753,8 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 			return;
 		}
 		currentSTLTransform.resetModelTransforms();
-		currentSTLTransform.centerOnWorkspace(theWorkspace
-				.getWorkspaceSTLObject());
+		//currentSTLTransform.centerOnWorkspace(theWorkspace
+			//	.getWorkspaceSTLObject());
 	}
 
 	protected void duplicateCurrentModel() {
@@ -772,9 +773,33 @@ public class STLPreviewCanvas3D extends Canvas3D implements
 		return this.theSTLTransforms.size();
 	}
 	
+	//TODO none of these actually do anything yet, clearly,
+	//hope to move model/controller based functionality out of this class
+	//in part by properly implementing these
 	@Override
 	public void setWorkspaceModel(STLWorkspaceModel stlwm) {
 		//theWorkspaceModel = stlwm;
+		//TODO
+	}
+
+	@Override
+	public void getCameraData(double[] position, double[] lookAt) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public TransformableSTLObject getPick() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public void setPickLocation(double x, double y){
+		//TODO
+	}
+
+	@Override
+	public Component getComponent() {
+		return this;
 	}
 	
 

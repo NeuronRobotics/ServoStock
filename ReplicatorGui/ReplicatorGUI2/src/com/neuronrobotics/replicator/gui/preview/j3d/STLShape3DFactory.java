@@ -10,7 +10,9 @@ import javax.media.j3d.GeometryArray;
 import javax.media.j3d.IndexedLineArray;
 import javax.media.j3d.LineArray;
 import javax.media.j3d.Material;
+import javax.media.j3d.RenderingAttributes;
 import javax.media.j3d.Shape3D;
+import javax.media.j3d.TransformGroup;
 import javax.media.j3d.TransparencyAttributes;
 import javax.media.j3d.TriangleArray;
 import javax.vecmath.Color3f;
@@ -238,6 +240,44 @@ public class STLShape3DFactory {
 		return -1;
 	}
 
+	/**
+	 * Uses the STLObject and creates model and model outline which are added to
+	 * an STLTransformGroup object along with a the capability for the outline
+	 * to have its visibility read and written and the entire group to allow
+	 * transform reads and writes
+	 * 
+	 * @param stl
+	 * @param root
+	 * @return
+	 */
+	public static STLTransformGroup createSTLTransform(STLObject stl) {
+		// STLTransformGroup tg = new STLTransformGroup();
+
+		// Actual 3d model
+		Shape3D theModel = STLShape3DFactory.getModelShape3D(stl);
+
+		// Outline with visibility option
+		Shape3D outline = STLShape3DFactory.getFacetOutline(stl);
+
+		RenderingAttributes ra = new RenderingAttributes();
+		ra.setVisible(true);
+		ra.setCapability(RenderingAttributes.ALLOW_VISIBLE_READ
+				| RenderingAttributes.ALLOW_VISIBLE_WRITE);
+
+		Appearance outlineAppearance = new Appearance();
+		outlineAppearance.setRenderingAttributes(ra);
+
+		outline.setAppearance(outlineAppearance);
+
+		// end outline creation
+
+		STLTransformGroup tg = new STLTransformGroup(stl, theModel, outline);
+
+		tg.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
+		tg.setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
+
+		return tg;
+	}
 	
 	
 }

@@ -18,9 +18,10 @@ import javax.vecmath.Point3d;
 import javax.vecmath.Vector3d;
 import javax.vecmath.Vector3f;
 
+import com.neuronrobotics.replicator.gui.preview.view.STLWorkspaceViewListener;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
-public class OrientationIndicatorCanvas3D extends Canvas3D{
+public class OrientationIndicatorCanvas3D extends Canvas3D implements STLWorkspaceViewListener{
 	
 	/**
 	 * 
@@ -303,6 +304,13 @@ public class OrientationIndicatorCanvas3D extends Canvas3D{
 		theShape.setAppearance(theAppearance);
 		
 		return theShape;	
+		
+	}
+
+	@Override
+	public void alertCameraMoved(double[] position, double[] direction, double[] orientation) {
+
+		this.setCamera(new Point3d(position), new Point3d(direction), new Vector3d(orientation));
 		
 	}
 

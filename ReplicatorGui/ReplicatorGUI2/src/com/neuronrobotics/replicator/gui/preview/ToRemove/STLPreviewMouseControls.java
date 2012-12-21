@@ -1,4 +1,4 @@
-package com.neuronrobotics.replicator.gui.preview.j3d;
+package com.neuronrobotics.replicator.gui.preview.ToRemove;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -6,11 +6,13 @@ import java.awt.geom.Point2D;
 
 import javax.swing.SwingUtilities;
 
+import com.neuronrobotics.replicator.gui.preview.j3d.STLTransformGroup;
 import com.sun.j3d.utils.picking.PickCanvas;
 import com.sun.j3d.utils.picking.PickResult;
 
-public class STLPreviewMouseControls extends MouseAdapter  {
+public abstract class STLPreviewMouseControls extends MouseAdapter  {
 
+	
 	private STLPreviewCanvas3D thePreview;
 
 	private Point2D lastLocation;
@@ -51,7 +53,7 @@ public class STLPreviewMouseControls extends MouseAdapter  {
 			protected void mouseDragged(STLPreviewCanvas3D preview, double xDist, double yDist) {
 			
 				if(preview.getCurrentSTLTransform()==null) return;
-				preview.getCurrentSTLTransform().rotateX(yDist/rotateScale);
+				//preview.getCurrentSTLTransform().rotateX(yDist/rotateScale);
 			}
 			
 			public String toString(){
@@ -65,7 +67,7 @@ public class STLPreviewMouseControls extends MouseAdapter  {
 			@Override
 			protected void mouseDragged(STLPreviewCanvas3D preview, double xDist, double yDist) {
 				STLTransformGroup current = preview.getCurrentSTLTransform();
-				if(current!=null) current.rotateAroundUpVector(xDist/rotateScale);
+				//if(current!=null) current.rotateAroundUpVector(xDist/rotateScale);
 			}
 			
 			public String toString(){
@@ -78,7 +80,7 @@ public class STLPreviewMouseControls extends MouseAdapter  {
 			@Override
 			protected void mouseDragged(STLPreviewCanvas3D preview, double xDist, double yDist) {
 				if(preview.getCurrentSTLTransform()==null) return;		
-				preview.getCurrentSTLTransform().rotateZ(xDist/rotateScale);
+			//	preview.getCurrentSTLTransform().rotateZ(xDist/rotateScale);
 			}
 			
 			public String toString(){
@@ -98,8 +100,8 @@ public class STLPreviewMouseControls extends MouseAdapter  {
 				if(preview.getCurrentSTLTransform()==null) return;
 				STLTransformGroup currObj = preview.getCurrentSTLTransform();
 								
-				currObj.translateLeftRight(xDist/translateScale);
-				currObj.translateUpDown(yDist/translateScale);
+				//currObj.translateLeftRight(xDist/translateScale);
+				//currObj.translateUpDown(yDist/translateScale);
 				
 			}
 			
@@ -116,8 +118,8 @@ public class STLPreviewMouseControls extends MouseAdapter  {
 				//preview.translateZ(xDist);
 				//preview.translateY(yDist);
 				if(preview.getCurrentSTLTransform()==null) return;			
-				preview.getCurrentSTLTransform().translateBackForth(xDist/translateScale);
-				preview.getCurrentSTLTransform().translateUpDown(yDist/translateScale);
+			//preview.getCurrentSTLTransform().translateBackForth(xDist/translateScale);
+				//preview.getCurrentSTLTransform().translateUpDown(yDist/translateScale);
 			}
 			
 			public String toString(){
@@ -133,8 +135,8 @@ public class STLPreviewMouseControls extends MouseAdapter  {
 					double xDist, double yDist) {
 				if(preview.getCurrentSTLTransform()==null) return;
 				System.out.println("Starting translate");
-				preview.getCurrentSTLTransform().translateLeftRight(xDist/translateScale);
-				preview.getCurrentSTLTransform().translateBackForth(yDist/translateScale);
+			//	preview.getCurrentSTLTransform().translateLeftRight(xDist/translateScale);
+			//	preview.getCurrentSTLTransform().translateBackForth(yDist/translateScale);
 				System.out.println("Finished translate");
 				
 			}

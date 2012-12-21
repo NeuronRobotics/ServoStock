@@ -1,25 +1,21 @@
 package com.neuronrobotics.replicator.gui.stl;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
-import javax.vecmath.Point3f;
-
-import com.neuronrobotics.replicator.gui.preview.j3d.GeneralTransform3DJava3DAdapter;
+import com.neuronrobotics.replicator.gui.preview.TransformableSTLObjectListener;
 
 public class TransformableSTLObject extends STLObject {
 
-	private GeneralTransform3D currentTransform = new GeneralTransform3DJava3DAdapter();
+	private GeneralTransform3D currentTransform = new DefaultGeneralTransform3D(new double[]{1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1});
 	private STLObject baseSTLObject;
-	
+	private ArrayList<TransformableSTLObjectListener> theListeners = new ArrayList<TransformableSTLObjectListener>();
 	
 	public TransformableSTLObject(String name, ArrayList<STLFacet> facets) {
-		super(name, facets);
-		baseSTLObject = this.clone();
+		this(new STLObject(name,facets));
 	}
 	
 	public TransformableSTLObject(STLObject stlo){
-		this(stlo.getName(),stlo.clone().theFacets);
+		super(stlo.getName(),stlo.clone().theFacets);
 		baseSTLObject = stlo;
 	}
 	
@@ -30,8 +26,37 @@ public class TransformableSTLObject extends STLObject {
 	
 	public void setTransform(GeneralTransform3D newTransform){
 		currentTransform = newTransform;
+		for(STLFacet fac:this){
+			if(!fac.acceptTransform(newTransform)){
+				fac.setAllowTransforms(true);
+				fac.acceptTransform(newTransform);
+			}
+		}
+		this.calcMaxMin();
+		
+		fireTransformChanged();
 	}
 	
+	public STLObject getBaseSTLOject(){
+		return this.baseSTLObject;
+	}
 	
+	public GeneralTransform3D getCurrentTransform(){
+		return this.currentTransform;
+	}
+	
+	public void addTransformableSTLObjectListener(TransformableSTLObjectListener newL){
+		theListeners.add(newL);
+	}
+	
+	public void removeTransformableSTLObjectListener(TransformableSTLObjectListener newL){
+		theListeners.remove(newL);
+	}
+	
+	private void fireTransformChanged(){
+		for(TransformableSTLObjectListener l:theListeners){
+			l.alertTransformChanged(baseSTLObject, currentTransform);
+		}
+	}
 	
 }

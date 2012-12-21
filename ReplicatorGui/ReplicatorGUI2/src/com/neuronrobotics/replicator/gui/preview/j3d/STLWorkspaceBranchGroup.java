@@ -5,9 +5,6 @@ import java.io.IOException;
 
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Shape3D;
-import javax.vecmath.Vector3f;
-
-import com.neuronrobotics.replicator.gui.stl.STLFace;
 import com.neuronrobotics.replicator.gui.stl.STLLoader;
 import com.neuronrobotics.replicator.gui.stl.STLObject;
 import com.neuronrobotics.replicator.gui.stl.STLWorkspaceObject;
@@ -19,8 +16,8 @@ public class STLWorkspaceBranchGroup extends BranchGroup{
 	private Shape3D theWorkspaceShape;
 	private Shape3D theWorkspaceOutline;
 	
-	private STLFace theSurface;
-	private double surfaceY;
+	//private STLFace theSurface;
+	//private double surfaceY;
 		
 	public static STLWorkspaceBranchGroup STLWorkspaceBranchGroupFactory(STLWorkspaceObject wsp){
 		return new STLWorkspaceBranchGroup(wsp);
@@ -43,8 +40,8 @@ public class STLWorkspaceBranchGroup extends BranchGroup{
 		this.addChild(theWorkspaceShape);
 		this.addChild(theWorkspaceOutline);		
 		
-		theSurface = null;
-		surfaceY = Double.MAX_VALUE;
+		//theSurface = null;
+		//surfaceY = Double.MAX_VALUE;
 	}
 	
 	public boolean stlIsInside(STLObject stlo){

@@ -27,10 +27,9 @@ import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 
 import com.neuronrobotics.replicator.gui.navigator.FileNavigator;
-import com.neuronrobotics.replicator.gui.navigator.FileNavigatorListener;
-import com.neuronrobotics.replicator.gui.navigator.FileNotDirectoryException;
-import com.neuronrobotics.replicator.gui.preview.STLPreviewPanel;
+import com.neuronrobotics.replicator.gui.navigator.FileNavigatorListener;import com.neuronrobotics.replicator.gui.preview.STLPreviewPanel;
 import com.neuronrobotics.replicator.gui.stl.ASCIISTLWriter;
+import com.neuronrobotics.replicator.gui.stl.STLLoader;
 import com.neuronrobotics.replicator.gui.stl.STLObject;
 
 public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, FileNavigatorListener {
@@ -193,7 +192,7 @@ public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, FileN
 			public void actionPerformed(ActionEvent arg0) {
 				String folderName = JOptionPane.showInputDialog("New Workspace Name: ");
 				
-				String err = null;
+				//String err = null;
 				
 				//try {
 					//theDirectoryTree.addNewFolder(folderName);
@@ -374,8 +373,9 @@ public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, FileN
 				}
 		if (rewrite) {
 			System.out.println("Rewriting...");
-			STLObject tranObj = previewContainer.getCurrentPreview()
-					.getMergedSTLObject();// .getTransformedSTLObject(previewContainer.getCurrentPreview().getTransform3D());
+			STLObject tranObj = previewContainer.getCurrentTab().getTheMotherFuckingModel().getMergedSTLObject();
+					
+					//getCurrentPreview().getMergedSTLObject(); .getTransformedSTLObject(previewContainer.getCurrentPreview().getTransform3D());
 			// STLObject tranObj =
 			// previewPanel.getCurrentPreview().getSTLObject().getTransformedSTLObject(previewPanel.getCurrentPreview().getTransform3D());
 			System.out.println("Here");
@@ -473,9 +473,9 @@ public class ReplicatorGUI extends JFrame implements GUIFrontendInterface, FileN
 	@Override
 	public void alertDirectoryLeafDoubleClicked() {
 		try {
-			//TODO for testing right now
 			if(!this.previewContainer.hasNoPreviews()){
-				this.previewContainer.getCurrentPreview().addModelToWorkspace(theDirectoryTree.getSelectedSTLFile());
+				STLObject newSTL = STLLoader.loadFile(theDirectoryTree.getSelectedSTLFile());
+				this.previewContainer.getCurrentTab().getTheMotherFuckingModel().addSTLObject(newSTL);
 			} else  this.addPreview(theDirectoryTree.getSelectedSTLFile(), theDirectoryTree.getSelectedGCodeFile());
 		} catch (Exception e) {
 			this.errorDialog("Unknown IO Error Loading Preview");

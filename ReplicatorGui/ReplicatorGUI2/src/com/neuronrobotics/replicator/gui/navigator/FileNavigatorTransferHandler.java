@@ -1,12 +1,8 @@
 package com.neuronrobotics.replicator.gui.navigator;
 import java.awt.datatransfer.Transferable;
-import java.awt.datatransfer.UnsupportedFlavorException;
-import java.io.IOException;
-import java.util.ArrayList;
  
 import javax.swing.*;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreePath;
 
 import com.neuronrobotics.replicator.gui.navigator.FileNavigator;
  

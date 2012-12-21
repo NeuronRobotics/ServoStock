@@ -19,6 +19,7 @@ public class STLObject implements Iterable<STLFacet> {
 	
 	
 	private ArrayList<Vector3f> uniqueNormals;
+	private Iterator<Vector3f> uniqueNormalIterator;
 	
 	public static STLObject getMergedSTLObject(String name,
 			Collection<STLObject> theObjects) {
@@ -102,7 +103,7 @@ public class STLObject implements Iterable<STLFacet> {
 		return new Point3f(max);
 	}
 
-	private void calcMaxMin() {
+	protected void calcMaxMin() {
 		
 		max = null;
 		min = null;
@@ -146,21 +147,60 @@ public class STLObject implements Iterable<STLFacet> {
 			calculateFaces();
 		return theFaces.iterator();
 	}
+	
+	public int getFaceAmount(){
+		if (!facesAnalyzed)
+			calculateFaces();
+		return theFaces.size();
+	}
+	
+	public STLObject getTransformedSTLObject(double[] transform){
+
+		if(transform.length<16){
+			System.out.println("Transform array too short: returning null");
+			return null;
+		} else if(transform.length>16){
+			System.out.println("Warning: Transform is longer than expected");
+		}
+		
+		String newName = this.name + "Transformed";
+		
+		Matrix4d mat = new Matrix4d(transform);		
+		
+		ArrayList<STLFacet> newFacetList = new ArrayList<STLFacet>();
+		for (STLFacet f : this) {
+			Point3f temp1 = f.getVertex1();
+			mat.transform(temp1);
+			Point3f temp2 = f.getVertex2();
+			mat.transform(temp2);
+			Point3f temp3 = f.getVertex3();
+			mat.transform(temp3);
+			Vector3f newNormal = f.getNormal();
+			mat.transform(newNormal);
+			newFacetList.add(new STLFacet(temp1, temp2, temp3,newNormal));
+		}
+		
+		return new STLObject(newName, newFacetList);
+	}
 
 	public STLObject getTransformedSTLObject(GeneralTransform3D tran) {
 
 		String newName = this.name + "Transformed";
-
+		
+		double[] temp = new double[16];
+		tran.get(temp);
+		Matrix4d mat = new Matrix4d(temp);		
+		
 		ArrayList<STLFacet> newFacetList = new ArrayList<STLFacet>();
 		for (STLFacet f : this) {
 			Point3f temp1 = f.getVertex1();
-			tran.transform(temp1);
+			mat.transform(temp1);
 			Point3f temp2 = f.getVertex2();
-			tran.transform(temp2);
+			mat.transform(temp2);
 			Point3f temp3 = f.getVertex3();
-			tran.transform(temp3);
+			mat.transform(temp3);
 			Vector3f newNormal = f.getNormal();
-			tran.transform(newNormal);
+			mat.transform(newNormal);
 			newFacetList.add(new STLFacet(temp1, temp2, temp3,newNormal));
 		}
 		
@@ -208,7 +248,16 @@ public class STLObject implements Iterable<STLFacet> {
 		System.out.println("Norms "+uniqueNormals);
 		return uniqueNormals.iterator();
 	}
-
-
+	
+	public void getNextUniqueNormal(double[] normalVector){
+		if (uniqueNormals==null) findUniqueNormals();
+		if(uniqueNormalIterator==null||!uniqueNormalIterator.hasNext()){
+			uniqueNormalIterator = uniqueNormals.iterator();
+		}
+		Vector3f currNorm = uniqueNormalIterator.next();		
+		normalVector[0] = currNorm.x;
+		normalVector[1] = currNorm.y;
+		normalVector[2] = currNorm.z;
+	}
 	
 }

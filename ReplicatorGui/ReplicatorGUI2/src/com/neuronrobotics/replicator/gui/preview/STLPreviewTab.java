@@ -1,265 +1,374 @@
 package com.neuronrobotics.replicator.gui.preview;
 
 import java.awt.Color;
-import java.awt.Container;
-import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLayeredPane;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.vecmath.Point3d;
-import javax.vecmath.Vector3d;
+import javax.swing.JPopupMenu;
 
+import com.neuronrobotics.replicator.gui.preview.controller.DefaultSTLPreviewController;
+import com.neuronrobotics.replicator.gui.preview.controller.STLPreviewMouseControlListener;
 import com.neuronrobotics.replicator.gui.preview.j3d.OrientationIndicatorCanvas3D;
-import com.neuronrobotics.replicator.gui.preview.j3d.STLPreviewCanvas3D;
-import com.neuronrobotics.replicator.gui.preview.j3d.STLPreviewMouseControls;
+import com.neuronrobotics.replicator.gui.preview.model.DefaultSTLPreviewWorkspaceModel;
+import com.neuronrobotics.replicator.gui.preview.model.STLWorkspaceModel;
+import com.neuronrobotics.replicator.gui.preview.view.STLWorkspaceView;
+import com.neuronrobotics.replicator.gui.preview.view.TestCanvas3D;
+import com.neuronrobotics.replicator.gui.stl.STLLoader;
+import com.neuronrobotics.replicator.gui.stl.STLObject;
+import com.neuronrobotics.replicator.gui.stl.STLWorkspaceObject;
 
-public class STLPreviewTab extends JLayeredPane{
-	
+public class STLPreviewTab extends JLayeredPane implements STLPreviewMouseControlListener {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -5559016123774970333L;
 
 	private ArrayList<STLPreviewTabListener> theTabListeners;
-	
+
 	private boolean loaded, isDead;
 	private File theSTLFile;
-	
+
 	private SimpleLoadingScreen theLoadingScreen;
-	private STLPreviewCanvas3D theSTLPreview;
+
+	private STLWorkspaceModel theWorkspaceModel;
+	private STLWorkspaceView theWorkspaceView;
+	private DefaultSTLPreviewController theWorkspaceController;
+
 	private LoadPreviewThread theLoadingThread;
-	
+
 	private JPanel indicatorPanel;
-	//private JButton testButton, testButton2;
-	
-	private final JPanel canvasLayer = new JPanel(), loadingScreenLayer = new JPanel();
-		
+
+	private final JPanel canvasLayer = new JPanel(),
+			loadingScreenLayer = new JPanel();
+
 	private File theWorkspaceSTLFile;
-		
-	public STLPreviewTab(String name, File wstl){
+
+	public STLPreviewTab(String name, File wstl) {
 		loaded = false;
 		isDead = false;
-		
+
 		theTabListeners = new ArrayList<STLPreviewTabListener>();
-		theWorkspaceSTLFile = wstl;		
+		theWorkspaceSTLFile = wstl;
 		theSTLFile = null;
-		theSTLPreview = null;
-		theLoadingScreen = new SimpleLoadingScreen(name+" preview loading...",true);		
-		//this.setLayout(new GridLayout(1,1));
+		// theSTLPreview = null;
+		theLoadingScreen = new SimpleLoadingScreen(
+				name + " preview loading...", true);
+		// this.setLayout(new GridLayout(1,1));
 		theLoadingThread = null;
-				
+
 		this.setName(name);
-		
-		loadingScreenLayer.setLayout(new GridLayout(1,1));
-		//overlayLayer.setLayout(new GridLayout(1,1));
-		canvasLayer.setLayout(new GridLayout(1,1));
-		
-		//this.add
-		
+
+		loadingScreenLayer.setLayout(new GridLayout(1, 1));
+		// overlayLayer.setLayout(new GridLayout(1,1));
+		canvasLayer.setLayout(new GridLayout(1, 1));
+
+		// this.add
+
 		this.add(loadingScreenLayer);
-		//this.add(overlayLayer,150);
+		// this.add(overlayLayer,150);
 		this.add(canvasLayer);
 	}
-		
-	public STLPreviewTab(File stl, File wstl){
-		this(stl.getName(),wstl);
+
+	public STLPreviewTab(File stl, File wstl) {
+		this(stl.getName(), wstl);
 		theSTLFile = stl;
-		theSTLPreview = null;
+		// theSTLPreview = null;
 	}
-	
- 	public STLPreviewTab(STLPreviewTabListener stlc, File stl, File wstl){
-		this(stl,wstl);
+
+	public STLPreviewTab(STLPreviewTabListener stlc, File stl, File wstl) {
+		this(stl, wstl);
 		theTabListeners.add(stlc);
 	}
- 	
- 	public void addTabListener(STLPreviewTabListener sptl){
- 		this.theTabListeners.add(sptl);
- 	}
-	
-	public void load(){
+
+	public void addTabListener(STLPreviewTabListener sptl) {
+		this.theTabListeners.add(sptl);
+	}
+
+	public void load() {
 		if (!loaded) {
 			loadingScreenLayer.setSize(this.getSize());
 			canvasLayer.setSize(this.getSize());
-			//this.removeAll();
-			
-			//this.add(theLoadingScreen);
+			// this.removeAll();
+
+			// this.add(theLoadingScreen);
 			loadingScreenLayer.add(theLoadingScreen);
 			loadingScreenLayer.setVisible(true);
-			
-			if (theLoadingThread == null){
-					theLoadingThread = new LoadPreviewThread(theLoadingScreen,theSTLFile, theWorkspaceSTLFile);
+
+			if (theLoadingThread == null) {
+				theLoadingThread = new LoadPreviewThread(theLoadingScreen,
+						theSTLFile, theWorkspaceSTLFile);
 			}
-			
+
 			theLoadingThread.start();
 		}
 	}
-	
-	public void reload(){
+
+	public void reload() {
 		loaded = false;
 		this.removeAll();
-		//this.add(theLoadingScreen);
+		// this.add(theLoadingScreen);
 		loadingScreenLayer.setVisible(true);
 		theLoadingThread = null;
-		theSTLPreview= null;
+		// theSTLPreview= null;
+
+		this.theWorkspaceModel = null;
+		this.theWorkspaceController = null;
+		this.theWorkspaceView = null;
+
 		load();
 	}
 
-	private void alertPreviewLoaded(STLPreviewCanvas3D tempPreview) {
+	private void alertPreviewLoaded(STLWorkspaceModel tempNewModel,
+			STLWorkspaceView tempNewView,
+			DefaultSTLPreviewController tempNewController) {
 		loadingScreenLayer.setVisible(false);
-		theSTLPreview = tempPreview;
-		canvasLayer.add(tempPreview);
 		loaded = true;
+
+		this.theWorkspaceModel = tempNewModel;
+		this.theWorkspaceView = tempNewView;
+		this.theWorkspaceController = tempNewController;
 		
-		STLPreviewMouseControls theMouseControls = new STLPreviewMouseControls(tempPreview);
-		tempPreview.setMouseControls(theMouseControls);
-				
+		this.theWorkspaceController.getSTLPreviewMouseController().addSTLPreviewMouseControlListener(this);
+		this.theWorkspaceController.placeAllObjectsOnWorkspace();
+		
+		canvasLayer.add(this.theWorkspaceView.getComponent());
+
 		final OrientationIndicatorCanvas3D theind = new OrientationIndicatorCanvas3D();
-		tempPreview.addListener(new STLPreviewWorkspaceViewListener() {
-					
-			@Override
-			public void alertCameraMoved(double[] position, double[] direction,
-					double[] orientation) {
-				theind.setCamera(new Point3d(position),new Point3d(direction), new Vector3d(orientation));
-				
-			}
-		});
+		this.theWorkspaceView.addViewListener(theind);
 		
-		//theind.setSize(90,90);
-		//theind.setLocation(0, 0);
-		
+
 		indicatorPanel = new JPanel();
-		indicatorPanel.setSize(100,100);
-		//indicatorPanel.setLocation(5,5);
-		indicatorPanel.setLayout(new GridLayout(1,1));		
+		indicatorPanel.setSize(100, 100);
+		indicatorPanel.setLayout(new GridLayout(1, 1));
 		indicatorPanel.setBorder(BorderFactory.createLineBorder(Color.gray));
-		
-		/*
-		testButton = new JButton();
-		testButton.setText("Test");
-		testButton.setSize(45, 45);
-		//testButton.setLocation(5, 110);
-		testButton.setBackground(Color.black);
-		testButton.setForeground(Color.black);
-		testButton.setBorder(BorderFactory.createLineBorder(Color.gray));
-		testButton.setIcon(new ImageIcon("Images\\logo.png"));
-		
-		testButton2 = new JButton();
-		testButton2.setText("Test");
-		testButton2.setSize(45, 45);
-		//testButton2.setLocation(60, 110);
-		testButton2.setBackground(Color.black);
-		testButton2.setBorder(BorderFactory.createLineBorder(Color.gray));
-							
-		*/
-		
+
+
 		indicatorPanel.add(theind);
-		this.add(indicatorPanel,0);
-		//this.add(testButton);//TODO
-		//this.add(testButton2);
-		this.moveToFront(tempPreview);
+		this.add(indicatorPanel, 0);
+		this.moveToFront(this.theWorkspaceView.getComponent());
 		this.moveToFront(theind);
-		//this.moveToFront(testButton);
-		//this.moveToFront(testButton2);	
-		
+
 		layoutControlLayer();
-		
-		this.addComponentListener(new ComponentListener(){
+
+		this.addComponentListener(new ComponentListener() {
 
 			@Override
-			public void componentHidden(ComponentEvent arg0) {				
+			public void componentHidden(ComponentEvent arg0) {
 			}
 
 			@Override
-			public void componentMoved(ComponentEvent arg0) {				
+			public void componentMoved(ComponentEvent arg0) {
 			}
 
 			@Override
 			public void componentResized(ComponentEvent arg0) {
-				 layoutControlLayer();
+				layoutControlLayer();
 			}
 
 			@Override
 			public void componentShown(ComponentEvent arg0) {
-			}});
-						
+			}
+		});
+
 		validate();
-						
-		for(STLPreviewTabListener sptl:theTabListeners) sptl.alertTabIsLoaded(this);
-		
+
+		for (STLPreviewTabListener sptl : theTabListeners)
+			sptl.alertTabIsLoaded(this);
+
 		theLoadingThread = null;
 	}
-	
-	private void layoutControlLayer(){
-		int xS = getSize().width,yS=getSize().height;
-		indicatorPanel.setLocation(5,yS-105);
-		//testButton.setLocation(5, indicatorPanel.getY()-50);
-		//testButton2.setLocation(60, indicatorPanel.getY()-50);
-	}
-			
-	public STLPreviewCanvas3D getTheSTLPreview() {
-		return theSTLPreview;
+
+	private void layoutControlLayer() {
+		// int xS = getSize().width;
+		int yS = getSize().height;
+		indicatorPanel.setLocation(5, yS - 105);
+		// testButton.setLocation(5, indicatorPanel.getY()-50);
+		// testButton2.setLocation(60, indicatorPanel.getY()-50);
 	}
 
-	private void alertTabIsDead(Exception e){
-		isDead = true;
-		for(STLPreviewTabListener sptl:theTabListeners) sptl.alertTabIsDead(this);
+	public STLWorkspaceView getTheMotherfuckingView() {
+		return this.theWorkspaceView;
 	}
-			
-	public boolean isDead(){
+
+	public STLWorkspaceModel getTheMotherFuckingModel() {
+		return this.theWorkspaceModel;
+	}
+
+	public DefaultSTLPreviewController getTheMotherFuckingController() {
+		return this.theWorkspaceController;
+	}
+
+	private void alertTabIsDead(Exception e) {
+		isDead = true;
+		for (STLPreviewTabListener sptl : theTabListeners)
+			sptl.alertTabIsDead(this);
+	}
+
+	public boolean isDead() {
 		return isDead;
 	}
 
 	public boolean isLoaded() {
 		return loaded;
 	}
+
+	public void alertSTLObjectAdded(){
+		theWorkspaceController.placeAllObjectsOnWorkspace();
+	}
 	
-	public void killTab(){
-		isDead = true;
-		theLoadingScreen = null;
-		theLoadingThread = null;
-		theSTLPreview.killPreview();
-		theSTLPreview = null;
-		this.theTabListeners = null;
+	public void alertRightClick(int x, int y) {
+
+		JPopupMenu popup = new JPopupMenu();
+
+		final STLObject currPick = this.theWorkspaceView.getPick();
+
+		if (currPick == null) {
+			popup.add(new JMenuItem("Basic"));
+		} else {
+
+			JMenuItem remove = new JMenuItem("Remove");
+			remove.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					removeCurrentModel(currPick);
+				}
+			});
+			popup.add(remove);
+			JMenuItem duplicate = new JMenuItem("Duplicate");
+			duplicate.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					duplicateCurrentModel(currPick);
+				}
+
+			});
+			popup.add(duplicate);
+
+			JMenuItem resetTransforms = new JMenuItem("Reset Transforms");
+			resetTransforms.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					resetCurrentModel(currPick);
+				}
+			});
+			popup.add(resetTransforms);
+
+			JMenuItem reorient = new JMenuItem("Reorient");
+			reorient.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					orientNextFace(currPick);
+				}
+
+			});
+			popup.add(reorient);
+			
+			JMenuItem debug = new JMenuItem("Debug");
+			debug.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					printDebugDetails(currPick);
+				}
+
+			});
+			popup.add(debug);
+			
+
+		}
+		popup.show(this, x, y);
+	}
+
+	protected void printDebugDetails(STLObject currPick) {
+		System.out.println("DEBUG STUFF");
+		double[] result = new double[3];		
+		this.theWorkspaceModel.getCurrMins(currPick, result);	
+		System.out.println("Curr Mins: "+Arrays.toString(result));
+		STLWorkspaceObject temp = this.theWorkspaceModel.getWorkspaceObject();
+		if(temp!=null){
+			System.out.println(temp.getSurfaceY());
+		}
+		System.out.println("END DEBUG DETAILS");
+	}
+
+	private void orientNextFace(STLObject currPick) {
+		this.theWorkspaceController.orientNextFace(currPick);
+		this.theWorkspaceController.placeAllObjectsOnWorkspace();
+	}
+
+	private void resetCurrentModel(STLObject currPick) {
+		this.theWorkspaceController.resetCurrentModel(currPick);
+		this.theWorkspaceController.placeAllObjectsOnWorkspace();
+	}
+
+	private void removeCurrentModel(STLObject currPick) {
+		this.theWorkspaceModel.removeSTLObject(currPick);
+	}
+
+	private void duplicateCurrentModel(STLObject currPick) {
+		STLObject newObj = currPick.clone();
 		
-		//theSTLPreviewContainer = null;
-		
+		this.theWorkspaceModel.addSTLObject(newObj);
+		this.theWorkspaceController.placeAllObjectsOnWorkspace();
 	}
 
 	private class LoadPreviewThread extends Thread {
 
-		//SimpleLoadingScreen theLoadingScreen;
+		// SimpleLoadingScreen theLoadingScreen;
 		File stl;
 		File workspaceSTL;
 
-		public LoadPreviewThread(SimpleLoadingScreen sls, File stl, 
-				File wstl) {
+		public LoadPreviewThread(SimpleLoadingScreen sls, File stl, File wstl) {
 			super();
-			//theLoadingScreen = sls;
+			// theLoadingScreen = sls;
 			this.stl = stl;
 			this.workspaceSTL = wstl;
-			//currentlyLoading.add(stl);
+			// currentlyLoading.add(stl);
 
 		}
 
 		@Override
 		public void run() {
-			
-			try {
-				STLPreviewCanvas3D tempPreview;
-				if (stl != null) tempPreview = new STLPreviewCanvas3D(stl, workspaceSTL);
-				 else tempPreview = new STLPreviewCanvas3D(workspaceSTL);
-				
-				tempPreview.loadFromQueue();
 
-				alertPreviewLoaded(tempPreview);
+			try {
+				// STLPreviewCanvas3D tempPreview;
+				STLWorkspaceView tempNewView;
+				STLWorkspaceModel tempNewModel = new DefaultSTLPreviewWorkspaceModel();
+
+				if (stl != null) {
+					// tempPreview = new STLPreviewCanvas3D(stl, workspaceSTL);
+					tempNewModel.addSTLObject(STLLoader.loadFile(stl));
+				} else {
+					// tempPreview = new STLPreviewCanvas3D(workspaceSTL);
+				}
+
+				if (workspaceSTL != null) {
+					tempNewModel.setWorkspace(new STLWorkspaceObject(STLLoader
+							.loadFile(workspaceSTL)));
+				}
+
+				tempNewView = new TestCanvas3D(tempNewModel);
+				DefaultSTLPreviewController tempNewController = new DefaultSTLPreviewController(
+						tempNewView, tempNewModel);
+
+				// tempPreview.loadFromQueue();
+
+				alertPreviewLoaded(tempNewModel, tempNewView, tempNewController);
 			} catch (Exception e) {
 				e.printStackTrace();
 				alertTabIsDead(e);
@@ -267,6 +376,5 @@ public class STLPreviewTab extends JLayeredPane{
 		}
 
 	}
-
 
 }

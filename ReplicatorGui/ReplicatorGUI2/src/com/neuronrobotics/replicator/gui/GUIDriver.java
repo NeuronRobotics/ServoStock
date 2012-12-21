@@ -13,7 +13,6 @@ import com.neuronrobotics.replicator.driver.DeltaForgeDevice;
 import com.neuronrobotics.replicator.driver.NRPrinter;
 import com.neuronrobotics.replicator.driver.PrinterStatus;
 import com.neuronrobotics.replicator.driver.SliceStatusData;
-import com.neuronrobotics.sdk.dyio.DyIO;
 import com.neuronrobotics.sdk.ui.ConnectionDialog;
 
 public class GUIDriver implements PrinterStatusListener, GUIBackendInterface {

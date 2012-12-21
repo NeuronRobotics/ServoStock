@@ -1,35 +1,23 @@
 package com.neuronrobotics.replicator.gui.navigator;
 
-//import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
-//import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-//import java.nio.file.FileSystems;
-//import java.nio.file.Path;
 import java.util.LinkedList;
 
 
-//import java.util.ArrayList;
-//import java.util.Enumeration;
-
 import javax.swing.DropMode;
 import javax.swing.JTree;
-import javax.swing.TransferHandler;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
-//import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
-//import javax.swing.tree.MutableTreeNode;
-//import javax.swing.tree.TreeNode;
-//import javax.swing.tree.TreeCellRenderer;
 
 public class FileNavigator extends JTree implements TreeSelectionListener, MouseListener {
 	
