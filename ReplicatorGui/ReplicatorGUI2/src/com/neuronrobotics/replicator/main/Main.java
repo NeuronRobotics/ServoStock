@@ -1,4 +1,4 @@
-package com.neuronrobotics.replicator.gui;
+package com.neuronrobotics.replicator.main;
 
 import java.awt.Frame;
 import java.io.File;
@@ -9,6 +9,9 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import com.neuronrobotics.replicator.gui.DirectorySelectionDialog;
+import com.neuronrobotics.replicator.gui.GUIDriver;
+import com.neuronrobotics.replicator.gui.ReplicatorGUI;
 import com.neuronrobotics.sdk.util.ThreadUtil;
 
 public class Main {
