@@ -4,12 +4,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.PrintStream;
 
 import com.neuronrobotics.replicator.driver.DeltaForgeDevice;
 import com.neuronrobotics.replicator.driver.NRPrinter;
 import com.neuronrobotics.replicator.driver.PrinterStatus;
 import com.neuronrobotics.replicator.driver.SliceStatusData;
+import com.neuronrobotics.replicator.driver.interpreter.CodeHandler;
 import com.neuronrobotics.replicator.driver.interpreter.GCodeInterpreter;
+import com.neuronrobotics.replicator.driver.interpreter.GCodeLineData;
 import com.neuronrobotics.replicator.gui.PrinterStatusListener;
 import com.neuronrobotics.sdk.common.Log;
 import com.neuronrobotics.sdk.dyio.DyIO;
@@ -24,7 +27,8 @@ public class GcodeTest implements PrinterStatusListener {
 //		delt.setConnection(new SerialConnection("/dev/DeltaDoodle0"));
 //		delt.connect();
 //		NRPrinter printer = new NRPrinter(delt);
-	NRPrinter printer = new NRPrinter(null);
+		final PrintStream trace=new PrintStream(new FileOutputStream("trace.txt"));
+		NRPrinter printer = new NRPrinter(null);
 		printer.addPrinterStatusListener(this);
 		//Log.enableDebugPrint(false);
 //		File gcode = new File("cube.stl-dump.gcode");
@@ -36,12 +40,32 @@ public class GcodeTest implements PrinterStatusListener {
 		//	if(printer.isReady())
 //				printer.print(new FileInputStream(gcode));
 			GCodeInterpreter interp=new GCodeInterpreter();
+			int i;
+			for(i=0;i<300;i++) {
+				final int j=i;
+				interp.setGHandler(j,new CodeHandler() {
+				public void execute(GCodeLineData prev, GCodeLineData next) {
+					trace.println("TRACE: G handler "+j);
+					trace.println("PREV: "+prev);
+					trace.println("NEXT: "+next);
+					trace.println();
+				}
+				});
+				interp.setMHandler(j,new CodeHandler() {
+				public void execute(GCodeLineData prev, GCodeLineData next) {
+					trace.println("TRACE: M handler "+j);
+					trace.println("PREV: "+prev);
+					trace.println("NEXT: "+next);
+					trace.println();
+				}
+				});
+			}
 			interp.tryInterpretStream(new FileInputStream(gcode));
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+		trace.close();
 		System.exit(0);
 	}
 	GcodeTest() throws Exception {
