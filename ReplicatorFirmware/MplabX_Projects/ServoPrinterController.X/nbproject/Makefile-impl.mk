@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=ExampleEthernet.X
+PROJECTNAME=ServoPrinterController.X
 
 # Active Configuration
 DEFAULTCONF=default
