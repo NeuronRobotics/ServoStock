@@ -261,7 +261,9 @@ int main()
 
         setPrintLevelInfoPrint();
         ATX_DISENABLE();
-        
+
+        Pic32_Bowler_HAL_Init();
+
 	Bowler_Init();
         DelayMs(2000);//This si to prevent runaway during programming
 	// enable driven to 3.3v on uart 1
