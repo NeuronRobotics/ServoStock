@@ -71,37 +71,6 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="f3" displayName="BowlerStack" projectFiles="true">
-        <logicalFolder name="BowlerStack" displayName="BowlerStack" projectFiles="true">
-          <itemPath>../../../NR-Clib/src/BowlerStack/Scheduler.c</itemPath>
-          <itemPath>../../../NR-Clib/src/BowlerStack/Bowler_Transport.c</itemPath>
-          <itemPath>../../../NR-Clib/src/BowlerStack/FIFO.c</itemPath>
-          <itemPath>../../../NR-Clib/src/BowlerStack/AbstractPID.c</itemPath>
-          <itemPath>../../../NR-Clib/src/BowlerStack/Bowler_Server.c</itemPath>
-          <itemPath>../../../NR-Clib/src/BowlerStack/Debug.c</itemPath>
-          <itemPath>../../../NR-Clib/src/BowlerStack/Bowler_Stack_Callback.c</itemPath>
-          <itemPath>../../../NR-Clib/src/BowlerStack/Bowler_RPC_Process.c</itemPath>
-          <itemPath>../../../NR-Clib/src/BowlerStack/Bowler_Helper.c</itemPath>
-          <itemPath>../../../NR-Clib/src/arch/pic32/ADC.c</itemPath>
-        </logicalFolder>
-        <logicalFolder name="pic32" displayName="pic32" projectFiles="true">
-          <logicalFolder name="usb" displayName="usb" projectFiles="true">
-            <itemPath>../../../NR-Clib/src/arch/pic32/usb/usb_fifo.c</itemPath>
-            <itemPath>../../../NR-Clib/src/arch/pic32/usb/usb_device.c</itemPath>
-            <itemPath>../../../NR-Clib/src/arch/pic32/usb/usb_function_cdc.c</itemPath>
-            <itemPath>../../../NR-Clib/src/arch/pic32/usb/usb_interrupt.c</itemPath>
-            <itemPath>../../../NR-Clib/src/arch/pic32/usb/usb_callback.c</itemPath>
-            <itemPath>../../../NR-Clib/src/arch/pic32/usb/usb_descriptors.c</itemPath>
-          </logicalFolder>
-          <itemPath>../../../NR-Clib/src/arch/pic32/FlashStorage.c</itemPath>
-          <itemPath>../../../NR-Clib/src/arch/pic32/UART.c</itemPath>
-          <itemPath>../../../NR-Clib/src/arch/pic32/Delay.c</itemPath>
-          <itemPath>../../../NR-Clib/src/arch/pic32/LED.c</itemPath>
-          <itemPath>../../../NR-Clib/src/arch/pic32/Tick.c</itemPath>
-          <itemPath>../../../NR-Clib/src/arch/pic32/Bowler_USB_HAL.c</itemPath>
-          <itemPath>../../../NR-Clib/src/arch/pic32/Bowler_HAL.c</itemPath>
-          <itemPath>../../../NR-Clib/src/arch/pic32/Bowler_UART_HAL.c</itemPath>
-          <itemPath>../../../NR-Clib/src/arch/pic32/HAL_P32.c</itemPath>
-        </logicalFolder>
       </logicalFolder>
       <logicalFolder name="Bowler" displayName="DeltaDoodle" projectFiles="true">
         <itemPath>../../src/Bowler/SPIClient.c</itemPath>
@@ -144,6 +113,7 @@
         <developmentServer>localhost</developmentServer>
         <targetDevice>PIC32MX795F512L</targetDevice>
         <targetHeader></targetHeader>
+        <targetPluginBoard></targetPluginBoard>
         <platformTool>PICkit3PlatformTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>1.00</languageToolchainVersion>
@@ -193,6 +163,8 @@
       </C32-AS>
       <C32-LD>
       </C32-LD>
+      <C32CPP>
+      </C32CPP>
       <C32Global>
         <property key="legacy-libc" value="false"/>
       </C32Global>
