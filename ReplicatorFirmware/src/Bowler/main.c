@@ -78,9 +78,8 @@ extern const MAC_ADDR Broadcast __attribute__ ((section (".scs_global_var")));
 extern MAC_ADDR MyMAC __attribute__ ((section (".scs_global_var")));
 
 
-static const unsigned char deltaNSName[] = "bcs.delta.*;0.3;;";
-static const unsigned char cartNSName[]  = "bcs.cartesian.*;0.3;;";
-static const unsigned char printNSName[]  = "bcs.printer.*;0.3;;";
+//static const unsigned char deltaNSName[] = "bcs.delta.*;0.3;;";
+//static const unsigned char printNSName[]  = "bcs.printer.*;0.3;;";
 
 static BowlerPacket Packet;
 static int calibrate = TRUE;
@@ -283,15 +282,10 @@ int main()
 	//This Method calls INTEnableSystemMultiVectoredInt();
 	usb_CDC_Serial_Init(dev,macStr,0x04D8,0x0001);
 
-        addNamespaceToList(getBcsPidNamespace());
-
-        AddNamespace(sizeof(deltaNSName), deltaNSName);
-        AddNamespace(sizeof(cartNSName), cartNSName);
-        AddNamespace(sizeof(printNSName), printNSName);
-
-	setMethodCallback(BOWLER_GET,UserGetRPCs);
-	setMethodCallback(BOWLER_POST,UserPostRPCs);
-	setMethodCallback(BOWLER_CRIT,UserCriticalRPCs);
+        addNamespaceToList((NAMESPACE_LIST *)getBcsCartesianNamespace());
+        
+        addNamespaceToList((NAMESPACE_LIST *)getBcsPidNamespace());
+        
 
         
 #if !defined(NO_ETHERNET)
@@ -351,7 +345,7 @@ int main()
         
         
 	while(1){
-            cartesianAsync();
+            
             Bowler_Server_Local(&MyPacket);
             #if !defined(NO_ETHERNET)
                 RunEthernetServices(&MyPacket);
@@ -407,7 +401,7 @@ int main()
                 if(!calibrate){
 #if !defined(NO_PID)
                     Print_Level l = getPrintLevel();
-                    RunPIDComs();
+                    RunNamespaceAsync(&asyncCallback);
                     setPrintLevelNoPrint();
                     if(!getRunPidIsr()){
                         RunPIDControl();

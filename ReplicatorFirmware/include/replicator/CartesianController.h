@@ -42,6 +42,8 @@ void cartesianAsync();
 
 void cancelPrint();
 
+BOOL onCartesianPost(BowlerPacket *Packet);
+
 //void InitializeCartesianController( BOOL (*asyncCallbackPtr)(BowlerPacket *Packet),
 //                                    BOOL (*forwardKinematicsCallbackPtr)(float * currentLinkPositions, Transform * result),
 //                                    BOOL (*inverseKinematicsCallbackPtr)(Transform * currentTransform, float * result ),

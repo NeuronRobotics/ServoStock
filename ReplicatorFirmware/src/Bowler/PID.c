@@ -9,7 +9,7 @@ static PidLimitEvent            limits[numPidTotal];
 float getPositionMine(int group);
 void setOutputMine(int group, float val);
 int resetPositionMine(int group, int target);
-BOOL asyncCallback(BowlerPacket *Packet);
+
 void onPidConfigureMine(int);
 PidLimitEvent * checkPIDLimitEventsMine(BYTE group);
 
@@ -75,8 +75,6 @@ BOOL getRunPidIsr(){
 void setPidIsr(BOOL v){
     runPidIsr=v;
 }
-
-
 
 
 BOOL asyncCallback(BowlerPacket *Packet){

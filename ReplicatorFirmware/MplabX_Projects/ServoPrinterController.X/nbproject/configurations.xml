@@ -104,6 +104,7 @@
           <itemPath>../../../NR-Clib/BowlerStack/src/Scheduler.c</itemPath>
           <itemPath>../../../NR-Clib/BowlerStack/src/Bowler_Server.c</itemPath>
           <itemPath>../../../NR-Clib/BowlerStack/src/Namespace_bcs_core.c</itemPath>
+          <itemPath>../../../NR-Clib/BowlerStack/src/Namespace_bcs_pid.c</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="Bowler" displayName="DeltaDoodle" projectFiles="true">
@@ -121,6 +122,7 @@
         <itemPath>../../src/Bowler/delta.c</itemPath>
         <itemPath>../../src/Bowler/Calibration.c</itemPath>
         <itemPath>../../src/Bowler/MotionTest.c</itemPath>
+        <itemPath>../../src/Bowler/namespace/Namespace_bcs_cartesian.c</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"

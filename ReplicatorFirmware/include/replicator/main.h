@@ -13,6 +13,9 @@
 #include "CartesianController.h"
 #include "delta.h"
 
+BOOL asyncCallback(BowlerPacket *Packet);
+
+NAMESPACE_LIST * getBcsCartesianNamespace();
 
 
 #endif //MAIN_H
