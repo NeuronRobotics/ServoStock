@@ -9,15 +9,15 @@ BOOL cartesianAsyncEventCallback(BOOL (*pidAsyncCallbackPtr)(BowlerPacket *Packe
     return FALSE;
 }
 
-static RPC_LIST cartesian__SLI={	BOWLER_POST,
-                                "_sli",
-                                &onCartesianPost,
+static RPC_LIST cartesian__SLI={	BOWLER_POST,// Method
+                                "_sli",//RPC as string
+                                &onCartesianPost,//function pointer to a packet parsinf function
                                 NULL //Termination
 };
 
-static RPC_LIST cartesian_PRCL={	BOWLER_POST,
-                                "pclr",
-                                &onCartesianPost,
+static RPC_LIST cartesian_PRCL={	BOWLER_POST,// Method
+                                "pclr",//RPC as string
+                                &onCartesianPost,//function pointer to a packet parsinf function
                                 NULL //Termination
 };
 
@@ -32,10 +32,11 @@ static BOOL namespcaedAdded = FALSE;
 NAMESPACE_LIST * getBcsCartesianNamespace(){
 	if(!namespcaedAdded){
                 //POST
-		addRpcToNamespace(&bcsCartesian,& cartesian__SLI);
+                //Add the RPC structs to the namespace
+                addRpcToNamespace(&bcsCartesian,& cartesian__SLI);
                 addRpcToNamespace(&bcsCartesian,& cartesian_PRCL);
-		namespcaedAdded =TRUE;
+                namespcaedAdded =TRUE;
 	}
 
-	return &bcsCartesian;
+	return &bcsCartesian;//Return pointer to the struct
 }
