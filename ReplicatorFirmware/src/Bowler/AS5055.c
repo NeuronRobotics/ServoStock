@@ -160,6 +160,7 @@ UINT16 AS5055readAngle(BYTE index){
         read.uint0_15 = AS5055send(index, 0xffff);
 
         if(read.regs.EF){
+            setPrintLevelErrorPrint();
             if(read.regs.AlarmHI == 1 && read.regs.AlarmLO == 0){
                 println_E("Alarm bit indicating a too high magnetic field");
                 read.regs.EF=0;

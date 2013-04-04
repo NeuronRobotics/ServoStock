@@ -85,7 +85,7 @@ static BowlerPacket Packet;
 static int calibrate = TRUE;
 static BowlerPacket MyPacket;
 
-static RunEveryData pid ={0,50};
+static RunEveryData pid ={0,20};
 static RunEveryData calibrationTest ={0,1000};
 static RunEveryData pos ={0,5000};
 
@@ -219,6 +219,7 @@ void _general_exception_handler(unsigned cause, unsigned status){
 
 
 BYTE Bowler_Server_Local(BowlerPacket * Packet){
+  
         Print_Level l = getPrintLevel();
         setPrintLevelNoPrint();
 	if (GetBowlerPacket_arch(Packet)){
@@ -248,11 +249,8 @@ BYTE Bowler_Server_Local(BowlerPacket * Packet){
 }
 
 
-
-
-int main()
-{
-        // Configure the device for maximum performance but do not change the PBDIV
+void hardwareInit(){
+     // Configure the device for maximum performance but do not change the PBDIV
 	// Given the options, this function will change the flash wait states, RAM
 	// wait state and enable prefetch cache but will not change the PBDIV.
 	// The PBDIV value is already set via the pragma FPBDIV option above..
@@ -269,7 +267,7 @@ int main()
 	mPORTDOpenDrainClose(BIT_3); mPORTFOpenDrainClose(BIT_5);
 	println_I("\n\n\nStarting PIC initialization");
 	char macStr[13];
-	
+
 	for (i=0;i<6;i++){
 		macStr[j++]=GetHighNib(MyMAC.v[i]);
 		macStr[j++]=GetLowNib(MyMAC.v[i]);
@@ -277,23 +275,22 @@ int main()
 	macStr[12]=0;
 	println_I("MAC address is =");
 	print_I(macStr);
-	char * dev = "DeltaDoodle";
+	char * dev = "ServoBoard";
         println_I(dev);
 	//This Method calls INTEnableSystemMultiVectoredInt();
 	usb_CDC_Serial_Init(dev,macStr,0x04D8,0x0001);
 
         addNamespaceToList((NAMESPACE_LIST *)getBcsCartesianNamespace());
-        
         addNamespaceToList((NAMESPACE_LIST *)getBcsPidNamespace());
-        
 
-        
+
+
 #if !defined(NO_ETHERNET)
 	InitializeEthernet();
 #endif
 
         ATX_ENABLE(); // Turn on ATX Supply, Must be called before talking to the Encoders!!
-        
+
         Print_Level l = getPrintLevel();
         setPrintLevelNoPrint();
         initializeEncoders();// Power supply must be turned on first
@@ -304,8 +301,8 @@ int main()
 #if !defined(NO_PID)
         initPIDLocal();
 #endif
-        
-        
+
+
 #if defined(CALIBRATE)
         println_I("#Calibrating...");
         setServo(LINK0_INDEX, servoCalebrateValue,0);
@@ -326,165 +323,68 @@ int main()
         setPrintLevel(l);
 #endif
 
-#if defined(EXTRUDER_TEST)
-        SetPIDEnabled(LINK0_INDEX,FALSE);
-        SetPIDEnabled(LINK1_INDEX,FALSE);
-        SetPIDEnabled(LINK2_INDEX,FALSE);
-        int lastStepVal=0;//Stepper setpoint
-        StartStepperSim();
-#endif
         int arm =0;
         SetPID(HEATER0_INDEX,0);
+}
 
-//        println_E("ticksPerRev ");      p_fl_E(ticksPerRev);
-//        println_E("ticksPerDegree ");   p_fl_E(ticksPerDegree);
-//        println_E("gearRatio ");        p_fl_E(gearRatio);
-//        println_E("calibrationAngle "); p_fl_E(calibrationAngle);
-//        println_E("servoHomeValue ");   p_fl_E(servoHomeValue);
-
-        
-        
-	while(1){
-            
-            Bowler_Server_Local(&MyPacket);
-            #if !defined(NO_ETHERNET)
-                RunEthernetServices(&MyPacket);
-            #endif
-#if defined(TEST_MOTION)
-            if(isCartesianInterpolationDone() && !calibrate){
-                float time = 2000;
-                float boxSize = 50;
-                
-                switch(arm){
-                    case 0:
-                        setInterpolateXYZ( boxSize, boxSize, height, time);
-                        break;
-                    case 1:
-                        setInterpolateXYZ( -boxSize, boxSize, height, time);
-                        break;
-                    case 2:
-                        setInterpolateXYZ( -boxSize, -boxSize, height, time);
-                        break;
-                    case 3:
-                        setInterpolateXYZ( boxSize, -boxSize, height, time);
-                        break;
-                    case 4:
-                        setInterpolateXYZ( 0, 0, height, time);
-                        height+=.1;
-                        break;
-                }
-                arm++;
-                if (arm==5)
-                    arm=0;
-                int i;
+int main(){
+    hardwareInit();
+    while(1){
+        Bowler_Server_Local(&MyPacket);
+        float diff = RunEvery(&pid);
+        if(diff>0){
+            RunNamespaceAsync(&MyPacket,&asyncCallback);
+            if(calibrate){
+                calibration();
             }
-#else
-    #if defined(EXTRUDER_TEST)
-                if(RunEvery(&pos)>0 && !calibrate){
-                    //printPIDvals(EXTRUDER0_INDEX);
-                }
-    #endif
-#endif
-            float diff = RunEvery(&pid);
-            if(diff>0){
-//                println_I("\n\n");
-//                for(i=numPidMotors;i<numPidTotal;i++){
-//                    println_I("ADC voltage PID ");p_ul_I(i);print_I(" = ");p_fl_I(getHeaterTempreture(i));
-//                }
-//                printPIDvals(HEATER0_INDEX);
-                
-//                println_I("\n\n");
-//                printPIDvals(LINK0_INDEX);
-//                printPIDvals(LINK1_INDEX);
-//                printPIDvals(LINK2_INDEX);
-                
-                if(!calibrate){
-#if !defined(NO_PID)
-                    Print_Level l = getPrintLevel();
-                    RunNamespaceAsync(&asyncCallback);
-                    setPrintLevelNoPrint();
-                    if(!getRunPidIsr()){
-                        RunPIDControl();
-                    }
-                    setPrintLevel(l);
-                   
-//                    println_I("\n");
-//                    for (i=0;i<numPidMotor;i++){
-//                        if(isPidEnabled(i))
-//                            printPIDvals(i);
-//                    }
-    #if defined(EXTRUDER_TEST)
-                    if(getStepperSimCurrent() != lastStepVal){
-                        lastStepVal=getStepperSimCurrent();
-                        SetPID(EXTRUDER0_INDEX,lastStepVal);
-                        println_E("New Stepper Value: ");p_ul_E(lastStepVal);print_E(" PID pos ");p_ul_E(GetPIDPosition(EXTRUDER0_INDEX));
-                    }
-    #endif
-#endif
-                }else{
-#if defined(CALIBRATE)
-                    if(RunEvery(&calibrationTest)>0){
-                        float boundVal = 2.0;
-                        float l0=(float)readEncoder(LINK0_INDEX);
-                        float l1=(float)readEncoder(LINK1_INDEX);
-                        float l2=(float)readEncoder(LINK2_INDEX);
-                        if( bound((float)linkValue[0], l0, boundVal, boundVal)&&
-                            bound((float)linkValue[1], l1, boundVal, boundVal)&&
-                            bound((float)linkValue[2], l2, boundVal, boundVal)
-                          ){
-                            calibrate = FALSE;
-                            println_E("\n\nStopped At:\n\r\tLink 0 value:");p_sl_E(l0);
-                            println_E("\tLink 1 value:");p_sl_E(l1);
-                            println_E("\tLink 2 value:");p_sl_E(l2);
-                            println_E("Previous:\n\r\tLink 0 value:");p_sl_E(linkValue[0]);
-                            println_E("\tLink 1 value:");p_sl_E(linkValue[1]);
-                            println_E("\tLink 2 value:");p_sl_E(linkValue[2]);
-                            pidReset(LINK0_INDEX,(INT32)servoHomeValue);
-                            pidReset(LINK1_INDEX,(INT32)servoHomeValue);
-                            pidReset(LINK2_INDEX,(INT32)servoHomeValue);
-                            pidReset(EXTRUDER0_INDEX,0);
-
-//                            SetPIDTimed(LINK0_INDEX,0,1000);
-//                            SetPIDTimed(LINK1_INDEX,0,1000);
-//                            SetPIDTimed(LINK2_INDEX,0,1000);
-                            println_E("Calibration Done!");
-                            setServo(LINK0_INDEX, 128,0);
-                            setServo(LINK1_INDEX, 128,0);
-                            setServo(LINK2_INDEX, 128,0);
-                            setPidIsr(TRUE);
-                            pos.MsTime=getMs();
-                            initializeCartesianController();
-                            cancelPrint();
-#if defined(TEST_MOTION)
-                            SetPID(HEATER0_INDEX, 140);
-                            StartPDVel(EXTRUDER0_INDEX,100,0);
-#endif
-                        }else{
-//                            println_E("\n\nCurrent:\n\r\tLink 0 value:");p_sl_E(l0);
-//                            println_E("\tLink 1 value:");p_sl_E(l1);
-//                            println_E("\tLink 2 value:");p_sl_E(l2);
-//
-//                            println_E("Previous:\n\r\tLink 0 value:");p_sl_E(linkValue[0]);
-//                            println_E("\tLink 1 value:");p_sl_E(linkValue[1]);
-//                            println_E("\tLink 2 value:");p_sl_E(linkValue[2]);
-                            linkValue[0]=l0;
-                            linkValue[1]=l1;
-                            linkValue[2]=l2;
-                        }
-                    }
-#endif
-                }
-                if(diff>pid.setPoint/2){
-                    println_E("Time diff ran over! ");p_fl_E(diff);
-                    pid.MsTime=getMs();
-                }
+            if(diff>pid.setPoint){
+                println_E("Time diff ran over! ");p_fl_E(diff);
+                pid.MsTime=getMs();
             }
+        }
 
-	}
+    }
 }
 
 
-
+void calibration(){
+#if defined(CALIBRATE)
+    if(RunEvery(&calibrationTest)>0){
+        float boundVal = 2.0;
+        float l0=(float)readEncoder(LINK0_INDEX);
+        float l1=(float)readEncoder(LINK1_INDEX);
+        float l2=(float)readEncoder(LINK2_INDEX);
+        if( bound((float)linkValue[0], l0, boundVal, boundVal)&&
+            bound((float)linkValue[1], l1, boundVal, boundVal)&&
+            bound((float)linkValue[2], l2, boundVal, boundVal)
+          ){
+            calibrate = FALSE;
+            println_E("\n\nStopped At:\n\r\tLink 0 value:");p_sl_E(l0);
+            println_E("\tLink 1 value:");p_sl_E(l1);
+            println_E("\tLink 2 value:");p_sl_E(l2);
+            println_E("Previous:\n\r\tLink 0 value:");p_sl_E(linkValue[0]);
+            println_E("\tLink 1 value:");p_sl_E(linkValue[1]);
+            println_E("\tLink 2 value:");p_sl_E(linkValue[2]);
+            pidReset(LINK0_INDEX,(INT32)servoHomeValue);
+            pidReset(LINK1_INDEX,(INT32)servoHomeValue);
+            pidReset(LINK2_INDEX,(INT32)servoHomeValue);
+            pidReset(EXTRUDER0_INDEX,0);
+            println_E("Calibration Done!");
+            setServo(LINK0_INDEX, 128,0);
+            setServo(LINK1_INDEX, 128,0);
+            setServo(LINK2_INDEX, 128,0);
+            setPidIsr(TRUE);
+            pos.MsTime=getMs();
+            initializeCartesianController();
+            cancelPrint();
+        }else{
+            linkValue[0]=l0;
+            linkValue[1]=l1;
+            linkValue[2]=l2;
+        }
+    }
+#endif
+}
 
 
 

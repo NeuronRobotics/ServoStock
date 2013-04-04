@@ -1,11 +1,20 @@
 #include "Bowler/Bowler.h"
 #include "CartesianController.h"
+#include "ReplicatorHeader.h"
 
 static const unsigned char cartNSName[]  = "bcs.cartesian.*;0.3;;";
 
-BOOL cartesianAsyncEventCallback(BOOL (*pidAsyncCallbackPtr)(BowlerPacket *Packet)){
+BOOL cartesianAsyncEventCallback(BowlerPacket * Packet,BOOL (*pidAsyncCallbackPtr)(BowlerPacket *Packet)){
+
+    Print_Level l = getPrintLevel();
+    setPrintLevelNoPrint();
+    if(!getRunPidIsr()){
+        RunPIDControl();
+    }
+    setPrintLevel(l);
+    //printPIDvals(6);
     // uses its own async callback
-    cartesianAsync();
+    //cartesianAsync();
     return FALSE;
 }
 

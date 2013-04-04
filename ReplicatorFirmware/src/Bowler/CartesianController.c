@@ -17,7 +17,6 @@ void interpolateZXY();
 float getLinkAngle(int index);
 float setLinkAngle(int index, float value, float ms);
 
-BOOL done = TRUE;
 BOOL full = FALSE;
 
 
@@ -27,7 +26,16 @@ float lastXYZE[4];
 static RunEveryData pid ={0,100};
 
 BOOL isCartesianInterpolationDone(){
-    return done;
+    int i;
+    for(i=0;i<4;i++){
+        if( isPIDInterpolating(linkToHWIndex(i))||
+            !isPIDArrivedAtSetpoint(i, 50)
+          ){
+            return FALSE;
+        }
+
+    }
+    return TRUE;
 }
 
 void initializeCartesianController(){
@@ -246,20 +254,11 @@ void interpolateZXY(){
     if(!isCartesianInterpolationDone())
         setXYZ( x, y, z);
     BOOL move = FALSE;
-    int i;
-    for(i=0;i<3;i++){
-        if(move==FALSE && intCartesian[i].setTime > 0){
-            move = TRUE;
-        }
-    }
+ 
     if(isPIDInterpolating(EXTRUDER0_INDEX)){
         move = TRUE;
     }
-    if(!move){
-        if(!isCartesianInterpolationDone()){
-            done = TRUE;
-        }
-    }
+
     if(isCartesianInterpolationDone() && FifoGetPacketCount(&packetFifo)>0){
         if(FifoGetPacket(&packetFifo,&linTmpPack)){
             processLinearInterpPacket(&linTmpPack);
@@ -294,8 +293,6 @@ BYTE setInterpolateXYZ(float x, float y, float z,float ms){
     }
     if(ms==0){
         setXYZ( x,  y,  z);
-    }else{
-        done = FALSE;
     }
 
 }
@@ -307,7 +304,6 @@ BYTE setXYZ(float x, float y, float z){
         setLinkAngle(0,t0,0);
         setLinkAngle(1,t1,0);
         setLinkAngle(2,t2,0);
-        done = FALSE;
     }else{
         println_E("Interpolate failed, can't reach: x=");p_fl_E(x);print_E(" y=");p_fl_E(y);print_E(" z=");p_fl_E(z);
     }

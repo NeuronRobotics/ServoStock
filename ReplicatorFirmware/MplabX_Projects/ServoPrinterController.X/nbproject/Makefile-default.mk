@@ -45,11 +45,11 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/711791526/SPIClient.o ${OBJECTDIR}/_ext/711791526/main.o ${OBJECTDIR}/_ext/711791526/Callbacks.o ${OBJECTDIR}/_ext/711791526/UpstreamPackets.o ${OBJECTDIR}/_ext/711791526/AS5055.o ${OBJECTDIR}/_ext/711791526/PID.o ${OBJECTDIR}/_ext/711791526/Servo.o ${OBJECTDIR}/_ext/711791526/StepperSim.o ${OBJECTDIR}/_ext/711791526/ForgeHeater.o ${OBJECTDIR}/_ext/711791526/CartesianController.o ${OBJECTDIR}/_ext/711791526/DeltaKinematics.o ${OBJECTDIR}/_ext/711791526/delta.o ${OBJECTDIR}/_ext/711791526/Calibration.o ${OBJECTDIR}/_ext/711791526/MotionTest.o ${OBJECTDIR}/_ext/1487882678/usb_descriptors.o ${OBJECTDIR}/_ext/1487882678/usb_function_cdc.o ${OBJECTDIR}/_ext/1487882678/usb_fifo.o ${OBJECTDIR}/_ext/1487882678/usb_callback.o ${OBJECTDIR}/_ext/1487882678/usb_interrupt.o ${OBJECTDIR}/_ext/1487882678/usb_device.o ${OBJECTDIR}/_ext/2118813141/Delay.o ${OBJECTDIR}/_ext/2118813141/FlashStorage.o ${OBJECTDIR}/_ext/2118813141/HAL_P32.o ${OBJECTDIR}/_ext/2118813141/LED.o ${OBJECTDIR}/_ext/2118813141/Tick.o ${OBJECTDIR}/_ext/2118813141/Bowler_UART_HAL.o ${OBJECTDIR}/_ext/2118813141/UART.o ${OBJECTDIR}/_ext/2118813141/ADC.o ${OBJECTDIR}/_ext/2118813141/Bowler_USB_HAL.o ${OBJECTDIR}/_ext/1080174469/Bowler_Helper.o ${OBJECTDIR}/_ext/1080174469/AbstractPID.o ${OBJECTDIR}/_ext/1080174469/Bowler_Stack_Callback.o ${OBJECTDIR}/_ext/1080174469/FIFO.o ${OBJECTDIR}/_ext/1080174469/Bowler_RPC_Process.o ${OBJECTDIR}/_ext/1080174469/Bowler_Transport.o ${OBJECTDIR}/_ext/1080174469/Debug.o ${OBJECTDIR}/_ext/1080174469/Scheduler.o ${OBJECTDIR}/_ext/1080174469/Bowler_Server.o ${OBJECTDIR}/_ext/1080174469/Namespace_bcs_core.o ${OBJECTDIR}/_ext/1080174469/Namespace_bcs_pid.o ${OBJECTDIR}/_ext/664674842/Namespace_bcs_cartesian.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/711791526/SPIClient.o.d ${OBJECTDIR}/_ext/711791526/main.o.d ${OBJECTDIR}/_ext/711791526/Callbacks.o.d ${OBJECTDIR}/_ext/711791526/UpstreamPackets.o.d ${OBJECTDIR}/_ext/711791526/AS5055.o.d ${OBJECTDIR}/_ext/711791526/PID.o.d ${OBJECTDIR}/_ext/711791526/Servo.o.d ${OBJECTDIR}/_ext/711791526/StepperSim.o.d ${OBJECTDIR}/_ext/711791526/ForgeHeater.o.d ${OBJECTDIR}/_ext/711791526/CartesianController.o.d ${OBJECTDIR}/_ext/711791526/DeltaKinematics.o.d ${OBJECTDIR}/_ext/711791526/delta.o.d ${OBJECTDIR}/_ext/711791526/Calibration.o.d ${OBJECTDIR}/_ext/711791526/MotionTest.o.d ${OBJECTDIR}/_ext/1487882678/usb_descriptors.o.d ${OBJECTDIR}/_ext/1487882678/usb_function_cdc.o.d ${OBJECTDIR}/_ext/1487882678/usb_fifo.o.d ${OBJECTDIR}/_ext/1487882678/usb_callback.o.d ${OBJECTDIR}/_ext/1487882678/usb_interrupt.o.d ${OBJECTDIR}/_ext/1487882678/usb_device.o.d ${OBJECTDIR}/_ext/2118813141/Delay.o.d ${OBJECTDIR}/_ext/2118813141/FlashStorage.o.d ${OBJECTDIR}/_ext/2118813141/HAL_P32.o.d ${OBJECTDIR}/_ext/2118813141/LED.o.d ${OBJECTDIR}/_ext/2118813141/Tick.o.d ${OBJECTDIR}/_ext/2118813141/Bowler_UART_HAL.o.d ${OBJECTDIR}/_ext/2118813141/UART.o.d ${OBJECTDIR}/_ext/2118813141/ADC.o.d ${OBJECTDIR}/_ext/2118813141/Bowler_USB_HAL.o.d ${OBJECTDIR}/_ext/1080174469/Bowler_Helper.o.d ${OBJECTDIR}/_ext/1080174469/AbstractPID.o.d ${OBJECTDIR}/_ext/1080174469/Bowler_Stack_Callback.o.d ${OBJECTDIR}/_ext/1080174469/FIFO.o.d ${OBJECTDIR}/_ext/1080174469/Bowler_RPC_Process.o.d ${OBJECTDIR}/_ext/1080174469/Bowler_Transport.o.d ${OBJECTDIR}/_ext/1080174469/Debug.o.d ${OBJECTDIR}/_ext/1080174469/Scheduler.o.d ${OBJECTDIR}/_ext/1080174469/Bowler_Server.o.d ${OBJECTDIR}/_ext/1080174469/Namespace_bcs_core.o.d ${OBJECTDIR}/_ext/1080174469/Namespace_bcs_pid.o.d ${OBJECTDIR}/_ext/664674842/Namespace_bcs_cartesian.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1487882678/usb_descriptors.o ${OBJECTDIR}/_ext/1487882678/usb_function_cdc.o ${OBJECTDIR}/_ext/1487882678/usb_fifo.o ${OBJECTDIR}/_ext/1487882678/usb_callback.o ${OBJECTDIR}/_ext/1487882678/usb_interrupt.o ${OBJECTDIR}/_ext/1487882678/usb_device.o ${OBJECTDIR}/_ext/2118813141/Delay.o ${OBJECTDIR}/_ext/2118813141/FlashStorage.o ${OBJECTDIR}/_ext/2118813141/HAL_P32.o ${OBJECTDIR}/_ext/2118813141/LED.o ${OBJECTDIR}/_ext/2118813141/Tick.o ${OBJECTDIR}/_ext/2118813141/Bowler_UART_HAL.o ${OBJECTDIR}/_ext/2118813141/UART.o ${OBJECTDIR}/_ext/2118813141/ADC.o ${OBJECTDIR}/_ext/2118813141/Bowler_USB_HAL.o ${OBJECTDIR}/_ext/1080174469/Bowler_Helper.o ${OBJECTDIR}/_ext/1080174469/AbstractPID.o ${OBJECTDIR}/_ext/1080174469/Bowler_Stack_Callback.o ${OBJECTDIR}/_ext/1080174469/FIFO.o ${OBJECTDIR}/_ext/1080174469/Bowler_RPC_Process.o ${OBJECTDIR}/_ext/1080174469/Bowler_Transport.o ${OBJECTDIR}/_ext/1080174469/Debug.o ${OBJECTDIR}/_ext/1080174469/Scheduler.o ${OBJECTDIR}/_ext/1080174469/Bowler_Server.o ${OBJECTDIR}/_ext/1080174469/Namespace_bcs_core.o ${OBJECTDIR}/_ext/1080174469/Namespace_bcs_pid.o ${OBJECTDIR}/_ext/711791526/SPIClient.o ${OBJECTDIR}/_ext/711791526/main.o ${OBJECTDIR}/_ext/711791526/Callbacks.o ${OBJECTDIR}/_ext/711791526/UpstreamPackets.o ${OBJECTDIR}/_ext/711791526/AS5055.o ${OBJECTDIR}/_ext/711791526/PID.o ${OBJECTDIR}/_ext/711791526/Servo.o ${OBJECTDIR}/_ext/711791526/StepperSim.o ${OBJECTDIR}/_ext/711791526/ForgeHeater.o ${OBJECTDIR}/_ext/711791526/CartesianController.o ${OBJECTDIR}/_ext/711791526/DeltaKinematics.o ${OBJECTDIR}/_ext/711791526/delta.o ${OBJECTDIR}/_ext/711791526/Calibration.o ${OBJECTDIR}/_ext/711791526/MotionTest.o ${OBJECTDIR}/_ext/664674842/Namespace_bcs_cartesian.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1487882678/usb_descriptors.o.d ${OBJECTDIR}/_ext/1487882678/usb_function_cdc.o.d ${OBJECTDIR}/_ext/1487882678/usb_fifo.o.d ${OBJECTDIR}/_ext/1487882678/usb_callback.o.d ${OBJECTDIR}/_ext/1487882678/usb_interrupt.o.d ${OBJECTDIR}/_ext/1487882678/usb_device.o.d ${OBJECTDIR}/_ext/2118813141/Delay.o.d ${OBJECTDIR}/_ext/2118813141/FlashStorage.o.d ${OBJECTDIR}/_ext/2118813141/HAL_P32.o.d ${OBJECTDIR}/_ext/2118813141/LED.o.d ${OBJECTDIR}/_ext/2118813141/Tick.o.d ${OBJECTDIR}/_ext/2118813141/Bowler_UART_HAL.o.d ${OBJECTDIR}/_ext/2118813141/UART.o.d ${OBJECTDIR}/_ext/2118813141/ADC.o.d ${OBJECTDIR}/_ext/2118813141/Bowler_USB_HAL.o.d ${OBJECTDIR}/_ext/1080174469/Bowler_Helper.o.d ${OBJECTDIR}/_ext/1080174469/AbstractPID.o.d ${OBJECTDIR}/_ext/1080174469/Bowler_Stack_Callback.o.d ${OBJECTDIR}/_ext/1080174469/FIFO.o.d ${OBJECTDIR}/_ext/1080174469/Bowler_RPC_Process.o.d ${OBJECTDIR}/_ext/1080174469/Bowler_Transport.o.d ${OBJECTDIR}/_ext/1080174469/Debug.o.d ${OBJECTDIR}/_ext/1080174469/Scheduler.o.d ${OBJECTDIR}/_ext/1080174469/Bowler_Server.o.d ${OBJECTDIR}/_ext/1080174469/Namespace_bcs_core.o.d ${OBJECTDIR}/_ext/1080174469/Namespace_bcs_pid.o.d ${OBJECTDIR}/_ext/711791526/SPIClient.o.d ${OBJECTDIR}/_ext/711791526/main.o.d ${OBJECTDIR}/_ext/711791526/Callbacks.o.d ${OBJECTDIR}/_ext/711791526/UpstreamPackets.o.d ${OBJECTDIR}/_ext/711791526/AS5055.o.d ${OBJECTDIR}/_ext/711791526/PID.o.d ${OBJECTDIR}/_ext/711791526/Servo.o.d ${OBJECTDIR}/_ext/711791526/StepperSim.o.d ${OBJECTDIR}/_ext/711791526/ForgeHeater.o.d ${OBJECTDIR}/_ext/711791526/CartesianController.o.d ${OBJECTDIR}/_ext/711791526/DeltaKinematics.o.d ${OBJECTDIR}/_ext/711791526/delta.o.d ${OBJECTDIR}/_ext/711791526/Calibration.o.d ${OBJECTDIR}/_ext/711791526/MotionTest.o.d ${OBJECTDIR}/_ext/664674842/Namespace_bcs_cartesian.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/_ext/711791526/SPIClient.o ${OBJECTDIR}/_ext/711791526/main.o ${OBJECTDIR}/_ext/711791526/Callbacks.o ${OBJECTDIR}/_ext/711791526/UpstreamPackets.o ${OBJECTDIR}/_ext/711791526/AS5055.o ${OBJECTDIR}/_ext/711791526/PID.o ${OBJECTDIR}/_ext/711791526/Servo.o ${OBJECTDIR}/_ext/711791526/StepperSim.o ${OBJECTDIR}/_ext/711791526/ForgeHeater.o ${OBJECTDIR}/_ext/711791526/CartesianController.o ${OBJECTDIR}/_ext/711791526/DeltaKinematics.o ${OBJECTDIR}/_ext/711791526/delta.o ${OBJECTDIR}/_ext/711791526/Calibration.o ${OBJECTDIR}/_ext/711791526/MotionTest.o ${OBJECTDIR}/_ext/1487882678/usb_descriptors.o ${OBJECTDIR}/_ext/1487882678/usb_function_cdc.o ${OBJECTDIR}/_ext/1487882678/usb_fifo.o ${OBJECTDIR}/_ext/1487882678/usb_callback.o ${OBJECTDIR}/_ext/1487882678/usb_interrupt.o ${OBJECTDIR}/_ext/1487882678/usb_device.o ${OBJECTDIR}/_ext/2118813141/Delay.o ${OBJECTDIR}/_ext/2118813141/FlashStorage.o ${OBJECTDIR}/_ext/2118813141/HAL_P32.o ${OBJECTDIR}/_ext/2118813141/LED.o ${OBJECTDIR}/_ext/2118813141/Tick.o ${OBJECTDIR}/_ext/2118813141/Bowler_UART_HAL.o ${OBJECTDIR}/_ext/2118813141/UART.o ${OBJECTDIR}/_ext/2118813141/ADC.o ${OBJECTDIR}/_ext/2118813141/Bowler_USB_HAL.o ${OBJECTDIR}/_ext/1080174469/Bowler_Helper.o ${OBJECTDIR}/_ext/1080174469/AbstractPID.o ${OBJECTDIR}/_ext/1080174469/Bowler_Stack_Callback.o ${OBJECTDIR}/_ext/1080174469/FIFO.o ${OBJECTDIR}/_ext/1080174469/Bowler_RPC_Process.o ${OBJECTDIR}/_ext/1080174469/Bowler_Transport.o ${OBJECTDIR}/_ext/1080174469/Debug.o ${OBJECTDIR}/_ext/1080174469/Scheduler.o ${OBJECTDIR}/_ext/1080174469/Bowler_Server.o ${OBJECTDIR}/_ext/1080174469/Namespace_bcs_core.o ${OBJECTDIR}/_ext/1080174469/Namespace_bcs_pid.o ${OBJECTDIR}/_ext/664674842/Namespace_bcs_cartesian.o
+OBJECTFILES=${OBJECTDIR}/_ext/1487882678/usb_descriptors.o ${OBJECTDIR}/_ext/1487882678/usb_function_cdc.o ${OBJECTDIR}/_ext/1487882678/usb_fifo.o ${OBJECTDIR}/_ext/1487882678/usb_callback.o ${OBJECTDIR}/_ext/1487882678/usb_interrupt.o ${OBJECTDIR}/_ext/1487882678/usb_device.o ${OBJECTDIR}/_ext/2118813141/Delay.o ${OBJECTDIR}/_ext/2118813141/FlashStorage.o ${OBJECTDIR}/_ext/2118813141/HAL_P32.o ${OBJECTDIR}/_ext/2118813141/LED.o ${OBJECTDIR}/_ext/2118813141/Tick.o ${OBJECTDIR}/_ext/2118813141/Bowler_UART_HAL.o ${OBJECTDIR}/_ext/2118813141/UART.o ${OBJECTDIR}/_ext/2118813141/ADC.o ${OBJECTDIR}/_ext/2118813141/Bowler_USB_HAL.o ${OBJECTDIR}/_ext/1080174469/Bowler_Helper.o ${OBJECTDIR}/_ext/1080174469/AbstractPID.o ${OBJECTDIR}/_ext/1080174469/Bowler_Stack_Callback.o ${OBJECTDIR}/_ext/1080174469/FIFO.o ${OBJECTDIR}/_ext/1080174469/Bowler_RPC_Process.o ${OBJECTDIR}/_ext/1080174469/Bowler_Transport.o ${OBJECTDIR}/_ext/1080174469/Debug.o ${OBJECTDIR}/_ext/1080174469/Scheduler.o ${OBJECTDIR}/_ext/1080174469/Bowler_Server.o ${OBJECTDIR}/_ext/1080174469/Namespace_bcs_core.o ${OBJECTDIR}/_ext/1080174469/Namespace_bcs_pid.o ${OBJECTDIR}/_ext/711791526/SPIClient.o ${OBJECTDIR}/_ext/711791526/main.o ${OBJECTDIR}/_ext/711791526/Callbacks.o ${OBJECTDIR}/_ext/711791526/UpstreamPackets.o ${OBJECTDIR}/_ext/711791526/AS5055.o ${OBJECTDIR}/_ext/711791526/PID.o ${OBJECTDIR}/_ext/711791526/Servo.o ${OBJECTDIR}/_ext/711791526/StepperSim.o ${OBJECTDIR}/_ext/711791526/ForgeHeater.o ${OBJECTDIR}/_ext/711791526/CartesianController.o ${OBJECTDIR}/_ext/711791526/DeltaKinematics.o ${OBJECTDIR}/_ext/711791526/delta.o ${OBJECTDIR}/_ext/711791526/Calibration.o ${OBJECTDIR}/_ext/711791526/MotionTest.o ${OBJECTDIR}/_ext/664674842/Namespace_bcs_cartesian.o
 
 
 CFLAGS=
@@ -85,76 +85,6 @@ endif
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/_ext/711791526/SPIClient.o: ../../src/Bowler/SPIClient.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
-	@${RM} ${OBJECTDIR}/_ext/711791526/SPIClient.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/SPIClient.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/SPIClient.o.d" -o ${OBJECTDIR}/_ext/711791526/SPIClient.o ../../src/Bowler/SPIClient.c   
-	
-${OBJECTDIR}/_ext/711791526/main.o: ../../src/Bowler/main.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
-	@${RM} ${OBJECTDIR}/_ext/711791526/main.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/main.o.d" -o ${OBJECTDIR}/_ext/711791526/main.o ../../src/Bowler/main.c   
-	
-${OBJECTDIR}/_ext/711791526/Callbacks.o: ../../src/Bowler/Callbacks.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
-	@${RM} ${OBJECTDIR}/_ext/711791526/Callbacks.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/Callbacks.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/Callbacks.o.d" -o ${OBJECTDIR}/_ext/711791526/Callbacks.o ../../src/Bowler/Callbacks.c   
-	
-${OBJECTDIR}/_ext/711791526/UpstreamPackets.o: ../../src/Bowler/UpstreamPackets.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
-	@${RM} ${OBJECTDIR}/_ext/711791526/UpstreamPackets.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/UpstreamPackets.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/UpstreamPackets.o.d" -o ${OBJECTDIR}/_ext/711791526/UpstreamPackets.o ../../src/Bowler/UpstreamPackets.c   
-	
-${OBJECTDIR}/_ext/711791526/AS5055.o: ../../src/Bowler/AS5055.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
-	@${RM} ${OBJECTDIR}/_ext/711791526/AS5055.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/AS5055.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/AS5055.o.d" -o ${OBJECTDIR}/_ext/711791526/AS5055.o ../../src/Bowler/AS5055.c   
-	
-${OBJECTDIR}/_ext/711791526/PID.o: ../../src/Bowler/PID.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
-	@${RM} ${OBJECTDIR}/_ext/711791526/PID.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/PID.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/PID.o.d" -o ${OBJECTDIR}/_ext/711791526/PID.o ../../src/Bowler/PID.c   
-	
-${OBJECTDIR}/_ext/711791526/Servo.o: ../../src/Bowler/Servo.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
-	@${RM} ${OBJECTDIR}/_ext/711791526/Servo.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/Servo.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/Servo.o.d" -o ${OBJECTDIR}/_ext/711791526/Servo.o ../../src/Bowler/Servo.c   
-	
-${OBJECTDIR}/_ext/711791526/StepperSim.o: ../../src/Bowler/StepperSim.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
-	@${RM} ${OBJECTDIR}/_ext/711791526/StepperSim.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/StepperSim.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/StepperSim.o.d" -o ${OBJECTDIR}/_ext/711791526/StepperSim.o ../../src/Bowler/StepperSim.c   
-	
-${OBJECTDIR}/_ext/711791526/ForgeHeater.o: ../../src/Bowler/ForgeHeater.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
-	@${RM} ${OBJECTDIR}/_ext/711791526/ForgeHeater.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/ForgeHeater.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/ForgeHeater.o.d" -o ${OBJECTDIR}/_ext/711791526/ForgeHeater.o ../../src/Bowler/ForgeHeater.c   
-	
-${OBJECTDIR}/_ext/711791526/CartesianController.o: ../../src/Bowler/CartesianController.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
-	@${RM} ${OBJECTDIR}/_ext/711791526/CartesianController.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/CartesianController.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/CartesianController.o.d" -o ${OBJECTDIR}/_ext/711791526/CartesianController.o ../../src/Bowler/CartesianController.c   
-	
-${OBJECTDIR}/_ext/711791526/DeltaKinematics.o: ../../src/Bowler/DeltaKinematics.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
-	@${RM} ${OBJECTDIR}/_ext/711791526/DeltaKinematics.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/DeltaKinematics.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/DeltaKinematics.o.d" -o ${OBJECTDIR}/_ext/711791526/DeltaKinematics.o ../../src/Bowler/DeltaKinematics.c   
-	
-${OBJECTDIR}/_ext/711791526/delta.o: ../../src/Bowler/delta.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
-	@${RM} ${OBJECTDIR}/_ext/711791526/delta.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/delta.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/delta.o.d" -o ${OBJECTDIR}/_ext/711791526/delta.o ../../src/Bowler/delta.c   
-	
-${OBJECTDIR}/_ext/711791526/Calibration.o: ../../src/Bowler/Calibration.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
-	@${RM} ${OBJECTDIR}/_ext/711791526/Calibration.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/Calibration.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/Calibration.o.d" -o ${OBJECTDIR}/_ext/711791526/Calibration.o ../../src/Bowler/Calibration.c   
-	
-${OBJECTDIR}/_ext/711791526/MotionTest.o: ../../src/Bowler/MotionTest.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
-	@${RM} ${OBJECTDIR}/_ext/711791526/MotionTest.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/MotionTest.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/MotionTest.o.d" -o ${OBJECTDIR}/_ext/711791526/MotionTest.o ../../src/Bowler/MotionTest.c   
-	
 ${OBJECTDIR}/_ext/1487882678/usb_descriptors.o: ../../../NR-Clib/Platform/src/pic32/usb/usb_descriptors.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1487882678 
 	@${RM} ${OBJECTDIR}/_ext/1487882678/usb_descriptors.o.d 
@@ -285,82 +215,82 @@ ${OBJECTDIR}/_ext/1080174469/Namespace_bcs_pid.o: ../../../NR-Clib/BowlerStack/s
 	@${RM} ${OBJECTDIR}/_ext/1080174469/Namespace_bcs_pid.o.d 
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1080174469/Namespace_bcs_pid.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/1080174469/Namespace_bcs_pid.o.d" -o ${OBJECTDIR}/_ext/1080174469/Namespace_bcs_pid.o ../../../NR-Clib/BowlerStack/src/Namespace_bcs_pid.c   
 	
+${OBJECTDIR}/_ext/711791526/SPIClient.o: ../../src/Bowler/SPIClient.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
+	@${RM} ${OBJECTDIR}/_ext/711791526/SPIClient.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/SPIClient.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/SPIClient.o.d" -o ${OBJECTDIR}/_ext/711791526/SPIClient.o ../../src/Bowler/SPIClient.c   
+	
+${OBJECTDIR}/_ext/711791526/main.o: ../../src/Bowler/main.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
+	@${RM} ${OBJECTDIR}/_ext/711791526/main.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/main.o.d" -o ${OBJECTDIR}/_ext/711791526/main.o ../../src/Bowler/main.c   
+	
+${OBJECTDIR}/_ext/711791526/Callbacks.o: ../../src/Bowler/Callbacks.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
+	@${RM} ${OBJECTDIR}/_ext/711791526/Callbacks.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/Callbacks.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/Callbacks.o.d" -o ${OBJECTDIR}/_ext/711791526/Callbacks.o ../../src/Bowler/Callbacks.c   
+	
+${OBJECTDIR}/_ext/711791526/UpstreamPackets.o: ../../src/Bowler/UpstreamPackets.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
+	@${RM} ${OBJECTDIR}/_ext/711791526/UpstreamPackets.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/UpstreamPackets.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/UpstreamPackets.o.d" -o ${OBJECTDIR}/_ext/711791526/UpstreamPackets.o ../../src/Bowler/UpstreamPackets.c   
+	
+${OBJECTDIR}/_ext/711791526/AS5055.o: ../../src/Bowler/AS5055.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
+	@${RM} ${OBJECTDIR}/_ext/711791526/AS5055.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/AS5055.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/AS5055.o.d" -o ${OBJECTDIR}/_ext/711791526/AS5055.o ../../src/Bowler/AS5055.c   
+	
+${OBJECTDIR}/_ext/711791526/PID.o: ../../src/Bowler/PID.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
+	@${RM} ${OBJECTDIR}/_ext/711791526/PID.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/PID.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/PID.o.d" -o ${OBJECTDIR}/_ext/711791526/PID.o ../../src/Bowler/PID.c   
+	
+${OBJECTDIR}/_ext/711791526/Servo.o: ../../src/Bowler/Servo.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
+	@${RM} ${OBJECTDIR}/_ext/711791526/Servo.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/Servo.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/Servo.o.d" -o ${OBJECTDIR}/_ext/711791526/Servo.o ../../src/Bowler/Servo.c   
+	
+${OBJECTDIR}/_ext/711791526/StepperSim.o: ../../src/Bowler/StepperSim.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
+	@${RM} ${OBJECTDIR}/_ext/711791526/StepperSim.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/StepperSim.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/StepperSim.o.d" -o ${OBJECTDIR}/_ext/711791526/StepperSim.o ../../src/Bowler/StepperSim.c   
+	
+${OBJECTDIR}/_ext/711791526/ForgeHeater.o: ../../src/Bowler/ForgeHeater.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
+	@${RM} ${OBJECTDIR}/_ext/711791526/ForgeHeater.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/ForgeHeater.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/ForgeHeater.o.d" -o ${OBJECTDIR}/_ext/711791526/ForgeHeater.o ../../src/Bowler/ForgeHeater.c   
+	
+${OBJECTDIR}/_ext/711791526/CartesianController.o: ../../src/Bowler/CartesianController.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
+	@${RM} ${OBJECTDIR}/_ext/711791526/CartesianController.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/CartesianController.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/CartesianController.o.d" -o ${OBJECTDIR}/_ext/711791526/CartesianController.o ../../src/Bowler/CartesianController.c   
+	
+${OBJECTDIR}/_ext/711791526/DeltaKinematics.o: ../../src/Bowler/DeltaKinematics.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
+	@${RM} ${OBJECTDIR}/_ext/711791526/DeltaKinematics.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/DeltaKinematics.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/DeltaKinematics.o.d" -o ${OBJECTDIR}/_ext/711791526/DeltaKinematics.o ../../src/Bowler/DeltaKinematics.c   
+	
+${OBJECTDIR}/_ext/711791526/delta.o: ../../src/Bowler/delta.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
+	@${RM} ${OBJECTDIR}/_ext/711791526/delta.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/delta.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/delta.o.d" -o ${OBJECTDIR}/_ext/711791526/delta.o ../../src/Bowler/delta.c   
+	
+${OBJECTDIR}/_ext/711791526/Calibration.o: ../../src/Bowler/Calibration.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
+	@${RM} ${OBJECTDIR}/_ext/711791526/Calibration.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/Calibration.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/Calibration.o.d" -o ${OBJECTDIR}/_ext/711791526/Calibration.o ../../src/Bowler/Calibration.c   
+	
+${OBJECTDIR}/_ext/711791526/MotionTest.o: ../../src/Bowler/MotionTest.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
+	@${RM} ${OBJECTDIR}/_ext/711791526/MotionTest.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/MotionTest.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/MotionTest.o.d" -o ${OBJECTDIR}/_ext/711791526/MotionTest.o ../../src/Bowler/MotionTest.c   
+	
 ${OBJECTDIR}/_ext/664674842/Namespace_bcs_cartesian.o: ../../src/Bowler/namespace/Namespace_bcs_cartesian.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/664674842 
 	@${RM} ${OBJECTDIR}/_ext/664674842/Namespace_bcs_cartesian.o.d 
 	@${FIXDEPS} "${OBJECTDIR}/_ext/664674842/Namespace_bcs_cartesian.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/664674842/Namespace_bcs_cartesian.o.d" -o ${OBJECTDIR}/_ext/664674842/Namespace_bcs_cartesian.o ../../src/Bowler/namespace/Namespace_bcs_cartesian.c   
 	
 else
-${OBJECTDIR}/_ext/711791526/SPIClient.o: ../../src/Bowler/SPIClient.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
-	@${RM} ${OBJECTDIR}/_ext/711791526/SPIClient.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/SPIClient.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/SPIClient.o.d" -o ${OBJECTDIR}/_ext/711791526/SPIClient.o ../../src/Bowler/SPIClient.c   
-	
-${OBJECTDIR}/_ext/711791526/main.o: ../../src/Bowler/main.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
-	@${RM} ${OBJECTDIR}/_ext/711791526/main.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/main.o.d" -o ${OBJECTDIR}/_ext/711791526/main.o ../../src/Bowler/main.c   
-	
-${OBJECTDIR}/_ext/711791526/Callbacks.o: ../../src/Bowler/Callbacks.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
-	@${RM} ${OBJECTDIR}/_ext/711791526/Callbacks.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/Callbacks.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/Callbacks.o.d" -o ${OBJECTDIR}/_ext/711791526/Callbacks.o ../../src/Bowler/Callbacks.c   
-	
-${OBJECTDIR}/_ext/711791526/UpstreamPackets.o: ../../src/Bowler/UpstreamPackets.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
-	@${RM} ${OBJECTDIR}/_ext/711791526/UpstreamPackets.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/UpstreamPackets.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/UpstreamPackets.o.d" -o ${OBJECTDIR}/_ext/711791526/UpstreamPackets.o ../../src/Bowler/UpstreamPackets.c   
-	
-${OBJECTDIR}/_ext/711791526/AS5055.o: ../../src/Bowler/AS5055.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
-	@${RM} ${OBJECTDIR}/_ext/711791526/AS5055.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/AS5055.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/AS5055.o.d" -o ${OBJECTDIR}/_ext/711791526/AS5055.o ../../src/Bowler/AS5055.c   
-	
-${OBJECTDIR}/_ext/711791526/PID.o: ../../src/Bowler/PID.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
-	@${RM} ${OBJECTDIR}/_ext/711791526/PID.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/PID.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/PID.o.d" -o ${OBJECTDIR}/_ext/711791526/PID.o ../../src/Bowler/PID.c   
-	
-${OBJECTDIR}/_ext/711791526/Servo.o: ../../src/Bowler/Servo.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
-	@${RM} ${OBJECTDIR}/_ext/711791526/Servo.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/Servo.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/Servo.o.d" -o ${OBJECTDIR}/_ext/711791526/Servo.o ../../src/Bowler/Servo.c   
-	
-${OBJECTDIR}/_ext/711791526/StepperSim.o: ../../src/Bowler/StepperSim.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
-	@${RM} ${OBJECTDIR}/_ext/711791526/StepperSim.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/StepperSim.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/StepperSim.o.d" -o ${OBJECTDIR}/_ext/711791526/StepperSim.o ../../src/Bowler/StepperSim.c   
-	
-${OBJECTDIR}/_ext/711791526/ForgeHeater.o: ../../src/Bowler/ForgeHeater.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
-	@${RM} ${OBJECTDIR}/_ext/711791526/ForgeHeater.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/ForgeHeater.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/ForgeHeater.o.d" -o ${OBJECTDIR}/_ext/711791526/ForgeHeater.o ../../src/Bowler/ForgeHeater.c   
-	
-${OBJECTDIR}/_ext/711791526/CartesianController.o: ../../src/Bowler/CartesianController.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
-	@${RM} ${OBJECTDIR}/_ext/711791526/CartesianController.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/CartesianController.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/CartesianController.o.d" -o ${OBJECTDIR}/_ext/711791526/CartesianController.o ../../src/Bowler/CartesianController.c   
-	
-${OBJECTDIR}/_ext/711791526/DeltaKinematics.o: ../../src/Bowler/DeltaKinematics.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
-	@${RM} ${OBJECTDIR}/_ext/711791526/DeltaKinematics.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/DeltaKinematics.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/DeltaKinematics.o.d" -o ${OBJECTDIR}/_ext/711791526/DeltaKinematics.o ../../src/Bowler/DeltaKinematics.c   
-	
-${OBJECTDIR}/_ext/711791526/delta.o: ../../src/Bowler/delta.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
-	@${RM} ${OBJECTDIR}/_ext/711791526/delta.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/delta.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/delta.o.d" -o ${OBJECTDIR}/_ext/711791526/delta.o ../../src/Bowler/delta.c   
-	
-${OBJECTDIR}/_ext/711791526/Calibration.o: ../../src/Bowler/Calibration.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
-	@${RM} ${OBJECTDIR}/_ext/711791526/Calibration.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/Calibration.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/Calibration.o.d" -o ${OBJECTDIR}/_ext/711791526/Calibration.o ../../src/Bowler/Calibration.c   
-	
-${OBJECTDIR}/_ext/711791526/MotionTest.o: ../../src/Bowler/MotionTest.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
-	@${RM} ${OBJECTDIR}/_ext/711791526/MotionTest.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/MotionTest.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/MotionTest.o.d" -o ${OBJECTDIR}/_ext/711791526/MotionTest.o ../../src/Bowler/MotionTest.c   
-	
 ${OBJECTDIR}/_ext/1487882678/usb_descriptors.o: ../../../NR-Clib/Platform/src/pic32/usb/usb_descriptors.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1487882678 
 	@${RM} ${OBJECTDIR}/_ext/1487882678/usb_descriptors.o.d 
@@ -490,6 +420,76 @@ ${OBJECTDIR}/_ext/1080174469/Namespace_bcs_pid.o: ../../../NR-Clib/BowlerStack/s
 	@${MKDIR} ${OBJECTDIR}/_ext/1080174469 
 	@${RM} ${OBJECTDIR}/_ext/1080174469/Namespace_bcs_pid.o.d 
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1080174469/Namespace_bcs_pid.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/1080174469/Namespace_bcs_pid.o.d" -o ${OBJECTDIR}/_ext/1080174469/Namespace_bcs_pid.o ../../../NR-Clib/BowlerStack/src/Namespace_bcs_pid.c   
+	
+${OBJECTDIR}/_ext/711791526/SPIClient.o: ../../src/Bowler/SPIClient.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
+	@${RM} ${OBJECTDIR}/_ext/711791526/SPIClient.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/SPIClient.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/SPIClient.o.d" -o ${OBJECTDIR}/_ext/711791526/SPIClient.o ../../src/Bowler/SPIClient.c   
+	
+${OBJECTDIR}/_ext/711791526/main.o: ../../src/Bowler/main.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
+	@${RM} ${OBJECTDIR}/_ext/711791526/main.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/main.o.d" -o ${OBJECTDIR}/_ext/711791526/main.o ../../src/Bowler/main.c   
+	
+${OBJECTDIR}/_ext/711791526/Callbacks.o: ../../src/Bowler/Callbacks.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
+	@${RM} ${OBJECTDIR}/_ext/711791526/Callbacks.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/Callbacks.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/Callbacks.o.d" -o ${OBJECTDIR}/_ext/711791526/Callbacks.o ../../src/Bowler/Callbacks.c   
+	
+${OBJECTDIR}/_ext/711791526/UpstreamPackets.o: ../../src/Bowler/UpstreamPackets.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
+	@${RM} ${OBJECTDIR}/_ext/711791526/UpstreamPackets.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/UpstreamPackets.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/UpstreamPackets.o.d" -o ${OBJECTDIR}/_ext/711791526/UpstreamPackets.o ../../src/Bowler/UpstreamPackets.c   
+	
+${OBJECTDIR}/_ext/711791526/AS5055.o: ../../src/Bowler/AS5055.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
+	@${RM} ${OBJECTDIR}/_ext/711791526/AS5055.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/AS5055.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/AS5055.o.d" -o ${OBJECTDIR}/_ext/711791526/AS5055.o ../../src/Bowler/AS5055.c   
+	
+${OBJECTDIR}/_ext/711791526/PID.o: ../../src/Bowler/PID.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
+	@${RM} ${OBJECTDIR}/_ext/711791526/PID.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/PID.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/PID.o.d" -o ${OBJECTDIR}/_ext/711791526/PID.o ../../src/Bowler/PID.c   
+	
+${OBJECTDIR}/_ext/711791526/Servo.o: ../../src/Bowler/Servo.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
+	@${RM} ${OBJECTDIR}/_ext/711791526/Servo.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/Servo.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/Servo.o.d" -o ${OBJECTDIR}/_ext/711791526/Servo.o ../../src/Bowler/Servo.c   
+	
+${OBJECTDIR}/_ext/711791526/StepperSim.o: ../../src/Bowler/StepperSim.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
+	@${RM} ${OBJECTDIR}/_ext/711791526/StepperSim.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/StepperSim.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/StepperSim.o.d" -o ${OBJECTDIR}/_ext/711791526/StepperSim.o ../../src/Bowler/StepperSim.c   
+	
+${OBJECTDIR}/_ext/711791526/ForgeHeater.o: ../../src/Bowler/ForgeHeater.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
+	@${RM} ${OBJECTDIR}/_ext/711791526/ForgeHeater.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/ForgeHeater.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/ForgeHeater.o.d" -o ${OBJECTDIR}/_ext/711791526/ForgeHeater.o ../../src/Bowler/ForgeHeater.c   
+	
+${OBJECTDIR}/_ext/711791526/CartesianController.o: ../../src/Bowler/CartesianController.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
+	@${RM} ${OBJECTDIR}/_ext/711791526/CartesianController.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/CartesianController.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/CartesianController.o.d" -o ${OBJECTDIR}/_ext/711791526/CartesianController.o ../../src/Bowler/CartesianController.c   
+	
+${OBJECTDIR}/_ext/711791526/DeltaKinematics.o: ../../src/Bowler/DeltaKinematics.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
+	@${RM} ${OBJECTDIR}/_ext/711791526/DeltaKinematics.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/DeltaKinematics.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/DeltaKinematics.o.d" -o ${OBJECTDIR}/_ext/711791526/DeltaKinematics.o ../../src/Bowler/DeltaKinematics.c   
+	
+${OBJECTDIR}/_ext/711791526/delta.o: ../../src/Bowler/delta.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
+	@${RM} ${OBJECTDIR}/_ext/711791526/delta.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/delta.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/delta.o.d" -o ${OBJECTDIR}/_ext/711791526/delta.o ../../src/Bowler/delta.c   
+	
+${OBJECTDIR}/_ext/711791526/Calibration.o: ../../src/Bowler/Calibration.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
+	@${RM} ${OBJECTDIR}/_ext/711791526/Calibration.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/Calibration.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/Calibration.o.d" -o ${OBJECTDIR}/_ext/711791526/Calibration.o ../../src/Bowler/Calibration.c   
+	
+${OBJECTDIR}/_ext/711791526/MotionTest.o: ../../src/Bowler/MotionTest.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/711791526 
+	@${RM} ${OBJECTDIR}/_ext/711791526/MotionTest.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/711791526/MotionTest.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../../include/replicator" -I"../../../NR-Clib/BowlerStack/include" -I"../../../NR-Clib/Platform/include" -MMD -MF "${OBJECTDIR}/_ext/711791526/MotionTest.o.d" -o ${OBJECTDIR}/_ext/711791526/MotionTest.o ../../src/Bowler/MotionTest.c   
 	
 ${OBJECTDIR}/_ext/664674842/Namespace_bcs_cartesian.o: ../../src/Bowler/namespace/Namespace_bcs_cartesian.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/664674842 

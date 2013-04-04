@@ -18,6 +18,7 @@ void initPIDLocal(){
 	//WORD loop;
 	for (i=0;i<numPidTotal;i++){
 		pidGroups[i].Enabled=FALSE;
+                pidGroups[i].Async = TRUE;
 		pidGroups[i].channel = i;
                 pidGroups[i].K.P=.1;
                 pidGroups[i].K.I=0;
@@ -120,7 +121,8 @@ int resetPositionMine(int group, int current){
 float getPositionMine(int group){
     float val=0;
     if(group<numPidMotors){
-        val = readEncoder(group);
+        if(pidGroups[group].Enabled)
+            val = readEncoder(group);
     }else{
         val = getHeaterTempreture(group);
     }
