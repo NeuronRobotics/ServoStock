@@ -323,7 +323,6 @@ void hardwareInit(){
         setPrintLevel(l);
 #endif
 
-        int arm =0;
         SetPID(HEATER0_INDEX,0);
 }
 

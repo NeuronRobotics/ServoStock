@@ -29,8 +29,11 @@ BOOL isCartesianInterpolationDone(){
     int i;
     for(i=0;i<4;i++){
         if( isPIDInterpolating(linkToHWIndex(i))||
-            !isPIDArrivedAtSetpoint(i, 50)
+            !isPIDArrivedAtSetpoint(i, 100)
           ){
+//            println_I("\n\nLINK not done moving index=");p_sl_E(linkToHWIndex(i));
+//            print_E(" isInterpolating");p_sl_E(isPIDInterpolating(linkToHWIndex(i)));
+//            print_E(" has arrived =");p_sl_E(isPIDArrivedAtSetpoint(i, 100));
             return FALSE;
         }
 
@@ -130,6 +133,7 @@ void cartesianAsync(){
             full = FALSE;
         }
         checkPositionChange();
+
     }
 }
 
@@ -251,12 +255,8 @@ void interpolateZXY(){
     x = interpolate((INTERPOLATE_DATA *)&intCartesian[0],ms);
     y = interpolate((INTERPOLATE_DATA *)&intCartesian[1],ms);
     z = interpolate((INTERPOLATE_DATA *)&intCartesian[2],ms);
-    if(!isCartesianInterpolationDone())
+    if(!isCartesianInterpolationDone()){
         setXYZ( x, y, z);
-    BOOL move = FALSE;
- 
-    if(isPIDInterpolating(EXTRUDER0_INDEX)){
-        move = TRUE;
     }
 
     if(isCartesianInterpolationDone() && FifoGetPacketCount(&packetFifo)>0){

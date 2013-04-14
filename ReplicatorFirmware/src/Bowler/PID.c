@@ -60,7 +60,7 @@ void initPIDLocal(){
                                 &getPositionMine,
                                 &setOutputMine,
                                 &resetPositionMine,
-                                &asyncCallback,
+                                //&asyncCallback,
                                 &onPidConfigureMine,
                                 &checkPIDLimitEventsMine); 
        setPidIsr(FALSE);

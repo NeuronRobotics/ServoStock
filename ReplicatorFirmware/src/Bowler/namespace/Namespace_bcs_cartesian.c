@@ -14,7 +14,7 @@ BOOL cartesianAsyncEventCallback(BowlerPacket * Packet,BOOL (*pidAsyncCallbackPt
     setPrintLevel(l);
     //printPIDvals(6);
     // uses its own async callback
-    //cartesianAsync();
+    cartesianAsync();
     return FALSE;
 }
 
