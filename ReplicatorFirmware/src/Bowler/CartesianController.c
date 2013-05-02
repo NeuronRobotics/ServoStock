@@ -216,6 +216,7 @@ void cancelPrint(){
     while(FifoGetPacketCount(&packetFifo)>0){
         FifoGetPacket(&packetFifo,&linTmpPack);
     }
+    return;
     setInterpolateXYZ(0, 0, 112, 2000);
     ZeroPID(EXTRUDER0_INDEX);
     SetPIDTimed(HEATER0_INDEX,0,0);
@@ -366,5 +367,6 @@ float setLinkAngle(int index, float value, float ms){
             println_E("Lower Capped link ");p_int_E(index);print_E(", attempted: ");p_fl_E(value);
         }
     }
-    return SetPIDTimed(localIndex,v,ms);
+    println_I("Setting position from cartesian controller");
+    //return SetPIDTimed(localIndex,v,ms);
 }
