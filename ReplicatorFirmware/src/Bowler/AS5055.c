@@ -102,7 +102,7 @@ UINT16 AS5055send(BYTE index, UINT16 data){
 }
 
 UINT16 AS5055reset(BYTE index){
-    println_I("[AS5055] Resetting ");p_sl_I(index);
+    println_I("[AS5055] Resetting ");p_int_I(index);
     AS5055CommandPacket cmd;
     AS5055ReadPacket read;
 
@@ -140,12 +140,12 @@ void printSystemConfig(BYTE index){
     Print_Level l = getPrintLevel();
     if(l!=NO_PRINT){
         println_I("System config: ");       prHEX16(read.uint0_15,INFO_PRINT);
-        println_I("\tResolution: ");        p_sl(read.regs.resolution,INFO_PRINT);
-        println_I("\tchip ID: ");           p_sl(read.regs.id,INFO_PRINT);
-        println_I("\tinvert_spinning: ");   p_sl(read.regs.invert,INFO_PRINT);
-        println_I("\tFE_bw_setting: ");     p_sl(read.regs.bw,INFO_PRINT);
-        println_I("\tFE_gain_setting: ");   p_sl(read.regs.gain,INFO_PRINT);
-        println_I("\tbreak_AGC_loop: ");    p_sl(read.regs.break_loop,INFO_PRINT);
+        println_I("\tResolution: ");        p_int(read.regs.resolution,INFO_PRINT);
+        println_I("\tchip ID: ");           p_int(read.regs.id,INFO_PRINT);
+        println_I("\tinvert_spinning: ");   p_int(read.regs.invert,INFO_PRINT);
+        println_I("\tFE_bw_setting: ");     p_int(read.regs.bw,INFO_PRINT);
+        println_I("\tFE_gain_setting: ");   p_int(read.regs.gain,INFO_PRINT);
+        println_I("\tbreak_AGC_loop: ");    p_int(read.regs.break_loop,INFO_PRINT);
     }
     setPrintLevel(l);
 }
@@ -169,7 +169,7 @@ UINT16 AS5055readAngle(BYTE index){
                 read.regs.EF=0;
             }
             if(read.regs.AlarmHI == 1 && read.regs.AlarmLO == 1){
-                println_E("\n\n\n**Error flag on data read! Index: ");p_ul_E(index);
+                println_E("\n\n\n**Error flag on data read! Index: ");p_int_E(index);
                 printSystemConfig(index);
                 AS5055reset(index);
                 AS5055ResetErrorFlag(index);

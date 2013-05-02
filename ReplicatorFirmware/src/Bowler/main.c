@@ -148,7 +148,7 @@ void _general_exception_handler(unsigned cause, unsigned status){
         prHEX32(cause,INFO_PRINT);print_I(" status=");
         prHEX32(status,INFO_PRINT);
         print_I(" exec code=");
-        p_sl_I(u.EXCCODE);
+        p_int_I(u.EXCCODE);
         print_I(" return address=");
         prHEX32(x,INFO_PRINT);
         println_I("===    CAUSE val Parsed    ===\n\r");
@@ -358,12 +358,12 @@ void calibration(){
             bound((float)linkValue[2], l2, boundVal, boundVal)
           ){
             calibrate = FALSE;
-            println_E("\n\nStopped At:\n\r\tLink 0 value:");p_sl_E(l0);
-            println_E("\tLink 1 value:");p_sl_E(l1);
-            println_E("\tLink 2 value:");p_sl_E(l2);
-            println_E("Previous:\n\r\tLink 0 value:");p_sl_E(linkValue[0]);
-            println_E("\tLink 1 value:");p_sl_E(linkValue[1]);
-            println_E("\tLink 2 value:");p_sl_E(linkValue[2]);
+            println_E("\n\nStopped At:\n\r\tLink 0 value:");p_int_E(l0);
+            println_E("\tLink 1 value:");p_int_E(l1);
+            println_E("\tLink 2 value:");p_int_E(l2);
+            println_E("Previous:\n\r\tLink 0 value:");p_int_E(linkValue[0]);
+            println_E("\tLink 1 value:");p_int_E(linkValue[1]);
+            println_E("\tLink 2 value:");p_int_E(linkValue[2]);
             pidReset(LINK0_INDEX,(INT32)servoHomeValue);
             pidReset(LINK1_INDEX,(INT32)servoHomeValue);
             pidReset(LINK2_INDEX,(INT32)servoHomeValue);

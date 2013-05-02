@@ -31,9 +31,9 @@ BOOL isCartesianInterpolationDone(){
         if( isPIDInterpolating(linkToHWIndex(i))||
             !isPIDArrivedAtSetpoint(i, 100)
           ){
-//            println_I("\n\nLINK not done moving index=");p_sl_E(linkToHWIndex(i));
-//            print_E(" isInterpolating");p_sl_E(isPIDInterpolating(linkToHWIndex(i)));
-//            print_E(" has arrived =");p_sl_E(isPIDArrivedAtSetpoint(i, 100));
+//            println_I("\n\nLINK not done moving index=");p_int_E(linkToHWIndex(i));
+//            print_E(" isInterpolating");p_int_E(isPIDInterpolating(linkToHWIndex(i)));
+//            print_E(" has arrived =");p_int_E(isPIDArrivedAtSetpoint(i, 100));
             return FALSE;
         }
 
@@ -99,7 +99,7 @@ void checkPositionChange(){
 
 //        println_I("Current Voltage of sensor");p_fl_E(getAdcVoltage(mapHeaterIndex(HEATER0_INDEX),10));
 //        print_E(" Temp = ");p_fl_E(getHeaterTempreture(HEATER0_INDEX));
-//        print_E(" Raw ADC = ");p_sl_E(getAdcRaw(mapHeaterIndex(HEATER0_INDEX),10));
+//        print_E(" Raw ADC = ");p_int_E(getAdcRaw(mapHeaterIndex(HEATER0_INDEX),10));
 
 //        println_I("Current  position X=");p_fl_E(lastXYZE[0]);
 //        print_E(" Y=");p_fl_E(lastXYZE[1]);
@@ -190,11 +190,11 @@ BOOL onCartesianPost(BowlerPacket *Packet){
                 }
 
                 setPrintLevelInfoPrint();
-                //println_I("Cached linear Packet ");p_sl_I(FifoGetPacketSpaceAvailible(&packetFifo));
+                //println_I("Cached linear Packet ");p_int_I(FifoGetPacketSpaceAvailible(&packetFifo));
                 setPrintLevel(l);
             }else{
                 setPrintLevelInfoPrint();
-                println_I("###ERROR BUFFER FULL!!");p_sl_I(FifoGetPacketSpaceAvailible(&packetFifo));
+                println_I("###ERROR BUFFER FULL!!");p_int_I(FifoGetPacketSpaceAvailible(&packetFifo));
                 setPrintLevel(l);
                 ERR(Packet,33,33);
             }
@@ -358,12 +358,12 @@ float setLinkAngle(int index, float value, float ms){
         index ==2
       ){
         if(v>1650){
-            println_E("Upper Capped link ");p_sl_E(index);print_E(", attempted: ");p_fl_E(value);
+            println_E("Upper Capped link ");p_int_E(index);print_E(", attempted: ");p_fl_E(value);
             v=1650;
         }
         if(v<-6500){
             v=-6500;
-            println_E("Lower Capped link ");p_sl_E(index);print_E(", attempted: ");p_fl_E(value);
+            println_E("Lower Capped link ");p_int_E(index);print_E(", attempted: ");p_fl_E(value);
         }
     }
     return SetPIDTimed(localIndex,v,ms);

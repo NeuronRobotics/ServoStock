@@ -38,7 +38,7 @@ void pushPIDLimitMine(BYTE chan,BYTE index,INT32  tick){
 */
 
 void pushPIDMine(BYTE chan, INT32 value){
-	println_I("Pushing async for board: ");p_sl_I(chan);print_I(" value: ");p_sl_I(value);
+	println_I("Pushing async for board: ");p_int_I(chan);print_I(" value: ");p_int_I(value);
 	//SetColor(0,1,0);
 	//LoadCorePacket(& packetTemp);
 	packetTemp.use.head.Method=BOWLER_ASYN;
