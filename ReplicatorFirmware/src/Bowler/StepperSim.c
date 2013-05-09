@@ -1,15 +1,24 @@
 #include "main.h"
 
 int current = 0;
+#if defined(__32MX795F512L__)
+    #define INT_PIN _RB15
+    #define DIR_PIN _RE0
+#elif defined(__32MX440F128H__)
+    #define INT_PIN _RB15
+    #define DIR_PIN _RE0
+#endif
 
-#define INT_PIN _RA15
-#define DIR_PIN _RE0
 
 
 void StartStepperSim(){
+#if defined(__32MX795F512L__)
     _TRISA15 = INPUT;
     _TRISE0 = INPUT;
     ConfigINT4(EXT_INT_ENABLE | RISING_EDGE_INT | EXT_INT_PRI_1);
+#elif defined(__32MX440F128H__)
+
+#endif
 }
 
 int getStepperSimCurrent(){

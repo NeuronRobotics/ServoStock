@@ -1,5 +1,9 @@
 #include "main.h"
-#define SIZE_OR_PACKET_BUFFER 400
+#if defined(__32MX795F512L__)
+    #define SIZE_OR_PACKET_BUFFER 400
+#elif defined(__32MX440F128H__)
+    #define SIZE_OR_PACKET_BUFFER 40
+#endif
 PACKET_FIFO_STORAGE  packetFifo;
 BowlerPacket buffer[SIZE_OR_PACKET_BUFFER];
 BowlerPacket linTmpPack;

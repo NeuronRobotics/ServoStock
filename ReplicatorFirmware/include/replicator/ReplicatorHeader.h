@@ -7,93 +7,171 @@
 
 #ifndef REPLICATORHEADER_H
 #define	REPLICATORHEADER_H
-
+#include "arch/pic32/Compiler.h"
 #ifdef	__cplusplus
 extern "C" {
 #endif
 
-// ATX MAcros and defines
-#define     ATX_PWR_ON_TRIS    _TRISD5 // tris
-#define     ATX_PWR_ON         _RD5
-#define     ATX_ENABLED        0
+#if defined(__32MX440F128H__)
+    // ATX MAcros and defines
+    #define     ATX_PWR_ON_TRIS    _TRISD5 // tris
+    #define     ATX_PWR_ON         _RD5
+    #define     ATX_ENABLED        0
 
-#define     ATX_ENABLE()       ATX_PWR_ON_TRIS = 0; ATX_PWR_ON = ATX_ENABLED;DelayMs(100); // set to output and pull low. This should probubly be an open collector pin.
-#define     ATX_DISENABLE()    ATX_PWR_ON_TRIS = 1; // dont want to DRIVE an io line that's pulled high. Set to input and let it get pulled up.
 
-// eNCODER Connector macros and defines
-#define     ENC0_CSN           _RA0
-#define     ENC0_CSN_TRIS      _TRISA0
-#define     ENC0_SERVO_TRIS    _TRISC13
-#define     ENC0_SERVO         _RC13
+    // eNCODER Connector macros and defines
+    #define     ENC0_CSN           _RB0
+    #define     ENC0_CSN_TRIS      _TRISB0
+    #define     ENC0_SERVO_TRIS    _TRISC13
+    #define     ENC0_SERVO         _RC13
 
-#define     ENC1_CSN           _RA1
-#define     ENC1_CSN_TRIS      _TRISA1
-#define     ENC1_SERVO_TRIS    _TRISC14
-#define     ENC1_SERVO         _RC14
+    #define     ENC1_CSN           _RB1
+    #define     ENC1_CSN_TRIS      _TRISB1
+    #define     ENC1_SERVO_TRIS    _TRISC14
+    #define     ENC1_SERVO         _RC14
 
-#define     ENC2_CSN           _RB13
-#define     ENC2_CSN_TRIS      _TRISB13
-#define     ENC2_SERVO_TRIS    _TRISF2
-#define     ENC2_SERVO         _RF2
+    #define     ENC2_CSN           _RB13
+    #define     ENC2_CSN_TRIS      _TRISB13
+    #define     ENC2_SERVO_TRIS    _TRISF2
+    #define     ENC2_SERVO         _RF2
 
-#define     ENC3_CSN           _RA3
-#define     ENC3_CSN_TRIS      _TRISA3
-#define     ENC3_SERVO_TRIS    _TRISF8
-#define     ENC3_SERVO         _RF8
+    #define     ENC3_CSN           _RB3
+    #define     ENC3_CSN_TRIS      _TRISB3
+    #define     ENC3_SERVO_TRIS    _TRISB8
+    #define     ENC3_SERVO         _RB8
 
-#define     ENC4_CSN           _RA9
-#define     ENC4_CSN_TRIS      _TRISA9
-#define     ENC4_SERVO_TRIS    _TRISD1
-#define     ENC4_SERVO         _RD1
+    #define     ENC4_CSN           _RB9
+    #define     ENC4_CSN_TRIS      _TRISB9
+    #define     ENC4_SERVO_TRIS    _TRISD1
+    #define     ENC4_SERVO         _RD1
 
-#define     ENC5_CSN           _RB14
-#define     ENC5_CSN_TRIS      _TRISB14
-#define     ENC5_SERVO_TRIS    _TRISD2
-#define     ENC5_SERVO         _RD2
-    
-#define     ENC6_CSN           _RA6
-#define     ENC6_CSN_TRIS      _TRISA6
-#define     ENC6_SERVO_TRIS    _TRISD3
-#define     ENC6_SERVO         _RD3
+    #define     ENC5_CSN           _RB14
+    #define     ENC5_CSN_TRIS      _TRISB14
+    #define     ENC5_SERVO_TRIS    _TRISD2
+    #define     ENC5_SERVO         _RD2
 
-#define     ENC7_CSN           _RA7
-#define     ENC7_CSN_TRIS      _TRISA7
-#define     ENC7_SERVO_TRIS    _TRISD4
-#define     ENC7_SERVO         _RD4
+    #define     ENC6_CSN           _RB6
+    #define     ENC6_CSN_TRIS      _TRISB6
+    #define     ENC6_SERVO_TRIS    _TRISD3
+    #define     ENC6_SERVO         _RD3
 
-#define    HEATER_0            _RG7
-#define    HEATER_0_TRIS       _TRISG7
+    #define     ENC7_CSN           _RB7
+    #define     ENC7_CSN_TRIS      _TRISB7
+    #define     ENC7_SERVO_TRIS    _TRISD4
+    #define     ENC7_SERVO         _RD4
 
-#define    HEATER_1            _RB4
-#define    HEATER_1_TRIS       _TRISB4
+    #define    HEATER_0            _RB7
+    #define    HEATER_0_TRIS       _TRISB7
 
-#define    HEATER_2            _RG13
-#define    HEATER_2_TRIS       _TRISG13
+    #define    HEATER_1            _RB4
+    #define    HEATER_1_TRIS       _TRISB4
 
-#define    HEATER_3            _RB5
-#define    HEATER_3_TRIS       _TRISB5
+    #define    HEATER_2            _RB13
+    #define    HEATER_2_TRIS       _TRISB13
 
-#define     CloseServoOpenCollector() mPORTCOpenDrainClose(BIT_13);\
-                                    mPORTCOpenDrainClose(BIT_14);\
-                                    mPORTFOpenDrainClose(BIT_2);\
-                                    mPORTFOpenDrainClose(BIT_8);\
-                                    mPORTDOpenDrainClose(BIT_1);\
-                                    mPORTDOpenDrainClose(BIT_2);\
-                                    mPORTDOpenDrainClose(BIT_3);\
-                                    mPORTDOpenDrainClose(BIT_4);
-#define     CloseSpiSSOpenCollector() mPORTAOpenDrainClose(BIT_0);\
-                                    mPORTAOpenDrainClose(BIT_1);\
-                                    mPORTBOpenDrainClose(BIT_13);\
-                                    mPORTAOpenDrainClose(BIT_3);\
-                                    mPORTAOpenDrainClose(BIT_9);\
-                                    mPORTBOpenDrainClose(BIT_14);\
-                                    mPORTAOpenDrainClose(BIT_6);\
-                                    mPORTAOpenDrainClose(BIT_7);
+    #define    HEATER_3            _RB5
+    #define    HEATER_3_TRIS       _TRISB5
+
+    #define     CloseServoOpenCollector() mPORTCOpenDrainClose(BIT_13);\
+                                        mPORTCOpenDrainClose(BIT_14);\
+                                        mPORTBOpenDrainClose(BIT_2);\
+                                        mPORTBOpenDrainClose(BIT_8);\
+                                        mPORTDOpenDrainClose(BIT_1);\
+                                        mPORTDOpenDrainClose(BIT_2);\
+                                        mPORTDOpenDrainClose(BIT_3);\
+                                        mPORTDOpenDrainClose(BIT_4);
+    #define     CloseSpiSSOpenCollector() mPORTBOpenDrainClose(BIT_0);\
+                                        mPORTBOpenDrainClose(BIT_1);\
+                                        mPORTBOpenDrainClose(BIT_13);\
+                                        mPORTBOpenDrainClose(BIT_3);\
+                                        mPORTBOpenDrainClose(BIT_9);\
+                                        mPORTBOpenDrainClose(BIT_14);\
+                                        mPORTBOpenDrainClose(BIT_6);\
+                                        mPORTBOpenDrainClose(BIT_7);
+
+#elif defined(__32MX795F512L__)
+    // ATX MAcros and defines
+    #define     ATX_PWR_ON_TRIS    _TRISD5 // tris
+    #define     ATX_PWR_ON         _RD5
+    #define     ATX_ENABLED        0
+
+
+    // eNCODER Connector macros and defines
+    #define     ENC0_CSN           _RA0
+    #define     ENC0_CSN_TRIS      _TRISA0
+    #define     ENC0_SERVO_TRIS    _TRISC13
+    #define     ENC0_SERVO         _RC13
+
+    #define     ENC1_CSN           _RA1
+    #define     ENC1_CSN_TRIS      _TRISA1
+    #define     ENC1_SERVO_TRIS    _TRISC14
+    #define     ENC1_SERVO         _RC14
+
+    #define     ENC2_CSN           _RB13
+    #define     ENC2_CSN_TRIS      _TRISB13
+    #define     ENC2_SERVO_TRIS    _TRISF2
+    #define     ENC2_SERVO         _RF2
+
+    #define     ENC3_CSN           _RA3
+    #define     ENC3_CSN_TRIS      _TRISA3
+    #define     ENC3_SERVO_TRIS    _TRISF8
+    #define     ENC3_SERVO         _RF8
+
+    #define     ENC4_CSN           _RA9
+    #define     ENC4_CSN_TRIS      _TRISA9
+    #define     ENC4_SERVO_TRIS    _TRISD1
+    #define     ENC4_SERVO         _RD1
+
+    #define     ENC5_CSN           _RB14
+    #define     ENC5_CSN_TRIS      _TRISB14
+    #define     ENC5_SERVO_TRIS    _TRISD2
+    #define     ENC5_SERVO         _RD2
+
+    #define     ENC6_CSN           _RA6
+    #define     ENC6_CSN_TRIS      _TRISA6
+    #define     ENC6_SERVO_TRIS    _TRISD3
+    #define     ENC6_SERVO         _RD3
+
+    #define     ENC7_CSN           _RA7
+    #define     ENC7_CSN_TRIS      _TRISA7
+    #define     ENC7_SERVO_TRIS    _TRISD4
+    #define     ENC7_SERVO         _RD4
+
+    #define    HEATER_0            _RG7
+    #define    HEATER_0_TRIS       _TRISG7
+
+    #define    HEATER_1            _RB4
+    #define    HEATER_1_TRIS       _TRISB4
+
+    #define    HEATER_2            _RG13
+    #define    HEATER_2_TRIS       _TRISG13
+
+    #define    HEATER_3            _RB5
+    #define    HEATER_3_TRIS       _TRISB5
+
+    #define     CloseServoOpenCollector() mPORTCOpenDrainClose(BIT_13);\
+                                        mPORTCOpenDrainClose(BIT_14);\
+                                        mPORTFOpenDrainClose(BIT_2);\
+                                        mPORTFOpenDrainClose(BIT_8);\
+                                        mPORTDOpenDrainClose(BIT_1);\
+                                        mPORTDOpenDrainClose(BIT_2);\
+                                        mPORTDOpenDrainClose(BIT_3);\
+                                        mPORTDOpenDrainClose(BIT_4);
+    #define     CloseSpiSSOpenCollector() mPORTAOpenDrainClose(BIT_0);\
+                                        mPORTAOpenDrainClose(BIT_1);\
+                                        mPORTBOpenDrainClose(BIT_13);\
+                                        mPORTAOpenDrainClose(BIT_3);\
+                                        mPORTAOpenDrainClose(BIT_9);\
+                                        mPORTBOpenDrainClose(BIT_14);\
+                                        mPORTAOpenDrainClose(BIT_6);\
+                                        mPORTAOpenDrainClose(BIT_7);
+
+
+
+#endif
 
 #define     CSN_Enabled       0
 #define     CSN_Disabled     1
-
-
 
 #define     ENC_CSN_INIT()          CloseSpiSSOpenCollector();\
                                     ENC0_CSN_TRIS=0;ENC0_CSN=CSN_Disabled;\
@@ -114,7 +192,8 @@ extern "C" {
                                     ENC2_SERVO_TRIS=0;\
                                     ENC1_SERVO_TRIS=0;\
                                     ENC0_SERVO_TRIS=0;
-
+#define     ATX_ENABLE()       ATX_PWR_ON_TRIS = OUTPUT; ATX_PWR_ON = ATX_ENABLED;DelayMs(100); // set to output and pull low. This should probubly be an open collector pin.
+#define     ATX_DISENABLE()    ATX_PWR_ON_TRIS = INPUT; // dont want to DRIVE an io line that's pulled high. Set to input and let it get pulled up.
 
 #define     bDelay()    i=2; while (i>1) i++;
 

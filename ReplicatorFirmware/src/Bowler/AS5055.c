@@ -8,6 +8,7 @@ int raw[numPidTotal];
 #define jump 3000
 void encoderSPIInit();
 void AS5055ResetErrorFlag(BYTE index);
+UINT16 AS5055send(BYTE index, UINT16 data);
 
 void initializeEncoders(){
     DelayMs(200);
@@ -20,7 +21,7 @@ void initializeEncoders(){
         overflow[i]=0;
         offset[i]=0;
         int j;
-        for(j=0;j<1;j++){
+        for(j=0;j<2;j++){
             //Read a bunch of times to get the system flushed after startup
             AS5055ResetErrorFlag(i);
             raw[i]=AS5055readAngle(i);
@@ -63,13 +64,22 @@ float readEncoder(BYTE index){
         ret += (readEncoderWithoutOffset(index)-offset[index]);
     return ret/size;
 }
-
+BYTE initialized = FALSE;
 void encoderSPIInit(){
+    if(initialized )
+        return;
+    initialized=TRUE;
+#if defined(__32MX795F512L__)
     OpenSPI1(CLK_POL_ACTIVE_HIGH\
             |SPI_MODE8_ON|ENABLE_SDO_PIN|SLAVE_ENABLE_OFF|SPI_CKE_OFF\
             |MASTER_ENABLE_ON|SEC_PRESCAL_3_1|PRI_PRESCAL_4_1
             , SPI_ENABLE);
-
+#elif defined(__32MX440F128H__)
+    OpenSPI2(CLK_POL_ACTIVE_HIGH\
+            |SPI_MODE8_ON|ENABLE_SDO_PIN|SLAVE_ENABLE_OFF|SPI_CKE_OFF\
+            |MASTER_ENABLE_ON|SEC_PRESCAL_3_1|PRI_PRESCAL_4_1
+            , SPI_ENABLE);
+#endif
 }
 
 UINT8   AS5055CalculateParity(UINT16 data){
@@ -84,25 +94,10 @@ UINT8   AS5055CalculateParity(UINT16 data){
     return 0;
 }
 
-UINT16 AS5055send(BYTE index, UINT16 data){
-    UINT16_UNION tmp;
-    UINT16_UNION back;
-    if(data ==0)
-        data = 0xffff;
-    tmp.Val=data;
-    EncoderSS(index,CSN_Enabled);
-    //println_I("[AS5055send] Sending data: ");prHEX8(tmp.byte.SB,INFO_PRINT);prHEX8(tmp.byte.LB,INFO_PRINT);println_I("");
-//    back.byte.SB = SPITransceve(0xFF);
-//    back.byte.LB = SPITransceve(0xFF);
-    back.byte.SB = SPITransceve(tmp.byte.SB);
-    back.byte.LB = SPITransceve(tmp.byte.LB);
-    EncoderSS(index,CSN_Disabled);
-    
-    return back.Val;
-}
+
 
 UINT16 AS5055reset(BYTE index){
-    println_I("[AS5055] Resetting ");p_int_I(index);
+    //println_I("[AS5055] Resetting ");p_int_I(index);
     AS5055CommandPacket cmd;
     AS5055ReadPacket read;
 
@@ -117,7 +112,7 @@ UINT16 AS5055reset(BYTE index){
 }
 
 void AS5055ResetErrorFlag(BYTE index){
-    println_I("[AS5055send] Clear Error Flags");
+    //println_I("[AS5055send] Clear Error Flags");
     AS5055CommandPacket cmd;
 
     cmd.regs.Address=AS5055REG_ClearErrorFlagReset;
@@ -156,38 +151,55 @@ UINT16 AS5055readAngle(BYTE index){
     AS5055AngularDataPacket read;
     int loop=0;
     do{
-        AS5055send(index, 0xffff);
+        
         read.uint0_15 = AS5055send(index, 0xffff);
-
+        
         if(read.regs.EF){
-            setPrintLevelErrorPrint();
+            //setPrintLevelErrorPrint();
             if(read.regs.AlarmHI == 1 && read.regs.AlarmLO == 0){
-                println_E("Alarm bit indicating a too high magnetic field");
+                //println_E("Alarm bit indicating a too high magnetic field");
                 read.regs.EF=0;
             }if(read.regs.AlarmHI == 0 && read.regs.AlarmLO == 1){
-                println_E("Alarm bit indicating a too low magnetic field");
+                //println_E("Alarm bit indicating a too low magnetic field");
                 read.regs.EF=0;
             }
             if(read.regs.AlarmHI == 1 && read.regs.AlarmLO == 1){
                 println_E("\n\n\n**Error flag on data read! Index: ");p_int_E(index);
-                printSystemConfig(index);
+                print_E(" 0x");prHEX16(read.uint0_15,ERROR_PRINT); print_E("\n");
+
+                //printSystemConfig(index);
                 AS5055reset(index);
                 AS5055ResetErrorFlag(index);
             }
+            AS5055send(index, 0xffff);
         }
         loop++;
-    }while(read.regs.EF && loop<5);
+    }while(read.regs.EF && loop<3);
 
-    if(loop>2){
-        //setPrintLevelErrorPrint();
-        //println_E("Read had error");
-    }
     setPrintLevel(l);
     return read.regs.Data;
 }
 
-
-
+BYTE lock = FALSE;
+UINT16 AS5055send(BYTE index, UINT16 data){
+    if(lock)
+        return 0xffff;
+    lock = TRUE;
+    UINT16_UNION tmp;
+    UINT16_UNION back;
+    if(data ==0)
+        data = 0xffff;
+    tmp.Val=data;
+    EncoderSS(index,CSN_Enabled);
+    //println_I("[AS5055send] Sending data: ");prHEX8(tmp.byte.SB,INFO_PRINT);prHEX8(tmp.byte.LB,INFO_PRINT);println_I("");
+//    back.byte.SB = SPITransceve(0xFF);
+//    back.byte.LB = SPITransceve(0xFF);
+    back.byte.SB = SPITransceve(tmp.byte.SB);
+    back.byte.LB = SPITransceve(tmp.byte.LB);
+    EncoderSS(index,CSN_Disabled);
+    lock = FALSE;
+    return back.Val;
+}
 
 
 void EncoderSS(BYTE index, BYTE state){
@@ -220,6 +232,7 @@ void EncoderSS(BYTE index, BYTE state){
             ENC7_CSN=state;
             break;
     }
-    Delay10us(1);
+    if(state == CSN_Enabled)
+        Delay10us(1);
 }
 

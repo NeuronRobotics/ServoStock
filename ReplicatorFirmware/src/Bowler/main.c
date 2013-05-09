@@ -60,9 +60,9 @@
 #pragma config ICESEL   = ICS_PGx2      // ICE/ICD Comm Channel Select
 #pragma config DEBUG    = OFF            // Background Debugger Enable
 
-
-#pragma config FVBUSONIO = OFF //Shuts off control of VBUSON pin on RB5
-
+#if defined(__32MX795F512L__)
+    #pragma config FVBUSONIO = OFF //Shuts off control of VBUSON pin on RB5
+#endif
 
 #define SYS_FREQ 			(80000000L)
 
@@ -85,7 +85,7 @@ static BowlerPacket Packet;
 static int calibrate = TRUE;
 static BowlerPacket MyPacket;
 
-static RunEveryData pid ={0,20};
+static RunEveryData pid ={0,40};
 static RunEveryData calibrationTest ={0,1000};
 static RunEveryData pos ={0,5000};
 
@@ -262,10 +262,10 @@ void hardwareInit(){
         Pic32_Bowler_HAL_Init();
 
 	Bowler_Init();
+        println_I("\n\n\nStarting PIC initialization");
         DelayMs(2000);//This si to prevent runaway during programming
 	// enable driven to 3.3v on uart 1
 	mPORTDOpenDrainClose(BIT_3); mPORTFOpenDrainClose(BIT_5);
-	println_I("\n\n\nStarting PIC initialization");
 	char macStr[13];
 
 	for (i=0;i<6;i++){
@@ -333,6 +333,14 @@ int main(){
         float diff = RunEvery(&pid);
         if(diff>0){
             RunNamespaceAsync(&MyPacket,&asyncCallback);
+            printPIDvals(LINK0_INDEX);
+//            println_I("Encoders [ ");
+//            p_int_I(AS5055readAngle(EXTRUDER0_INDEX));print_I(" , ");
+//            p_int_I(AS5055readAngle(LINK0_INDEX));print_I(" , ");
+//            p_int_I(AS5055readAngle(LINK1_INDEX));print_I(" , ");
+//            p_int_I(AS5055readAngle(LINK2_INDEX));
+//            print_I(" ] ");
+            
             if(calibrate){
                 calibration();
             }
