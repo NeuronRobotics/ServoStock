@@ -23,6 +23,8 @@ void initPIDLocal(){
                 pidGroups[i].K.P=.1;
                 pidGroups[i].K.I=0;
                 pidGroups[i].K.D=0;
+                vel[i].K.P = .1;
+                vel[i].K.D = 0;
                 pidGroups[i].Polarity=1;
 		vel[i].enabled=FALSE;
 		limits[i].type=NO_LIMIT;
@@ -121,7 +123,7 @@ int resetPositionMine(int group, int current){
 float getPositionMine(int group){
     float val=0;
     if(group<numPidMotors){
-        if(pidGroups[group].Enabled)
+        if(pidGroups[group].Enabled || vel[group].enabled)
             val = readEncoder(group);
     }else{
         val = getHeaterTempreture(group);
@@ -140,26 +142,26 @@ void setOutputMine(int group, float v){
             val = -historesisVal;
 
         val += 128;
-        if (val>200)
-                val=200;
-        if(val<50)
-                val=50;
+        if (val>255)
+                val=255;
+        if(val<0)
+                val=0;
 
-	int set = (int)val;
         if(group == EXTRUDER0_INDEX && !isUpToTempreture()){
             //Saftey so as not to try to feed into a cold extruder
             setServo(group,128,0);
             return;
         }
-        setServo(group,set,0);
+        setServo(group,val,0);
     }else{
        setHeater( group,  v);
     }
 }
 
 BOOL isUpToTempreture(){
-   return bound(pidGroups[HEATER0_INDEX].SetPoint,
-           getHeaterTempreture(HEATER0_INDEX),
-           25,
-           25)&& pidGroups[HEATER0_INDEX].SetPoint>100;
+    return TRUE;
+//   return bound(pidGroups[HEATER0_INDEX].SetPoint,
+//           getHeaterTempreture(HEATER0_INDEX),
+//           25,
+//           25)&& pidGroups[HEATER0_INDEX].SetPoint>100;
 }

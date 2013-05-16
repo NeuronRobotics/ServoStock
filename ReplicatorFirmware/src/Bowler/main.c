@@ -67,7 +67,7 @@
 #define SYS_FREQ 			(80000000L)
 
 #define NO_ETHERNET
-#define CALIBRATE
+//#define CALIBRATE
 //#define NO_PID
 //#define TEST_MOTION
 //#define EXTRUDER_TEST
@@ -221,7 +221,7 @@ void _general_exception_handler(unsigned cause, unsigned status){
 BYTE Bowler_Server_Local(BowlerPacket * Packet){
   
         Print_Level l = getPrintLevel();
-        setPrintLevelNoPrint();
+        //setPrintLevelNoPrint();
 	if (GetBowlerPacket_arch(Packet)){
 		//setLed(1,1,1);
                 if(Packet->use.head.RPC != _PNG){
@@ -333,7 +333,7 @@ int main(){
         float diff = RunEvery(&pid);
         if(diff>0){
             RunNamespaceAsync(&MyPacket,&asyncCallback);
-            printPIDvals(LINK0_INDEX);
+            //printPIDvals(EXTRUDER0_INDEX);
 //            println_I("Encoders [ ");
 //            p_int_I(AS5055readAngle(EXTRUDER0_INDEX));print_I(" , ");
 //            p_int_I(AS5055readAngle(LINK0_INDEX));print_I(" , ");
