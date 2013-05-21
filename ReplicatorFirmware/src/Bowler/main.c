@@ -67,6 +67,7 @@
 #define SYS_FREQ 			(80000000L)
 
 #define NO_ETHERNET
+#define CALIBRATE_SERVO
 //#define CALIBRATE
 //#define NO_PID
 //#define TEST_MOTION
@@ -82,11 +83,11 @@ extern MAC_ADDR MyMAC __attribute__ ((section (".scs_global_var")));
 //static const unsigned char printNSName[]  = "bcs.printer.*;0.3;;";
 
 static BowlerPacket Packet;
-static int calibrate = TRUE;
+static int homingAllLinks = TRUE;
 static BowlerPacket MyPacket;
-
 static RunEveryData pid ={0,40};
 static RunEveryData calibrationTest ={0,1000};
+
 static RunEveryData pos ={0,5000};
 
 static int linkValue[3];
@@ -312,7 +313,7 @@ void hardwareInit(){
         linkValue[1]=0;
         linkValue[2]=0;
 #else
-        calibrate = FALSE;
+        homingAllLinks = FALSE;
         setPidIsr(TRUE);
         l = getPrintLevel();
         setPrintLevelNoPrint();
@@ -322,39 +323,38 @@ void hardwareInit(){
         pidReset(LINK2_INDEX,0);
         setPrintLevel(l);
 #endif
+    SetPID(HEATER0_INDEX,0);
+#if defined(CALIBRATE_SERVO)
+    runServoCalibration(EXTRUDER0_INDEX);
 
-        SetPID(HEATER0_INDEX,0);
+#endif
+        
+}
+
+void system(){
+    Bowler_Server_Local(&MyPacket);
+    float diff = RunEvery(&pid);
+    if(diff>0){
+        RunNamespaceAsync(&MyPacket,&asyncCallback);
+        if(diff>pid.setPoint){
+            println_E("Time diff ran over! ");p_fl_E(diff);
+            pid.MsTime=getMs();
+        }
+    }
 }
 
 int main(){
     hardwareInit();
     while(1){
-        Bowler_Server_Local(&MyPacket);
-        float diff = RunEvery(&pid);
-        if(diff>0){
-            RunNamespaceAsync(&MyPacket,&asyncCallback);
-            //printPIDvals(EXTRUDER0_INDEX);
-//            println_I("Encoders [ ");
-//            p_int_I(AS5055readAngle(EXTRUDER0_INDEX));print_I(" , ");
-//            p_int_I(AS5055readAngle(LINK0_INDEX));print_I(" , ");
-//            p_int_I(AS5055readAngle(LINK1_INDEX));print_I(" , ");
-//            p_int_I(AS5055readAngle(LINK2_INDEX));
-//            print_I(" ] ");
-            
-            if(calibrate){
-                calibration();
-            }
-            if(diff>pid.setPoint){
-                println_E("Time diff ran over! ");p_fl_E(diff);
-                pid.MsTime=getMs();
-            }
+        if(homingAllLinks){
+            HomeLinks();
         }
-
+        system();
     }
 }
 
 
-void calibration(){
+void HomeLinks(){
 #if defined(CALIBRATE)
     if(RunEvery(&calibrationTest)>0){
         float boundVal = 2.0;
@@ -365,7 +365,7 @@ void calibration(){
             bound((float)linkValue[1], l1, boundVal, boundVal)&&
             bound((float)linkValue[2], l2, boundVal, boundVal)
           ){
-            calibrate = FALSE;
+            homingAllLinks = FALSE;
             println_E("\n\nStopped At:\n\r\tLink 0 value:");p_int_E(l0);
             println_E("\tLink 1 value:");p_int_E(l1);
             println_E("\tLink 2 value:");p_int_E(l2);

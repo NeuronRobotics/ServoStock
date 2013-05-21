@@ -1,9 +1,11 @@
 #include "main.h"
 
 
+
 static AbsPID 			pidGroups[numPidTotal];
 static PD_VEL 			vel[numPidTotal];
 static PidLimitEvent            limits[numPidTotal];
+
 
 
 float getPositionMine(int group);
@@ -17,42 +19,43 @@ void initPIDLocal(){
    	BYTE i;
 	//WORD loop;
 	for (i=0;i<numPidTotal;i++){
-		pidGroups[i].Enabled=FALSE;
-                pidGroups[i].Async = TRUE;
-		pidGroups[i].channel = i;
+
+            pidGroups[i].Enabled=FALSE;
+            pidGroups[i].Async = TRUE;
+            pidGroups[i].channel = i;
+            pidGroups[i].K.P=.1;
+            pidGroups[i].K.I=0;
+            pidGroups[i].K.D=0;
+            vel[i].K.P = .1;
+            vel[i].K.D = 0;
+            pidGroups[i].Polarity=1;
+            vel[i].enabled=FALSE;
+            limits[i].type=NO_LIMIT;
+            if(i==LINK0_INDEX || i== LINK1_INDEX || i== LINK2_INDEX){
+                pidGroups[i].Polarity=0;
+                pidGroups[i].K.P=.07;
+                pidGroups[i].K.I=0.0;
+                pidGroups[i].K.D=0.00;
+            }
+            if(i==EXTRUDER0_INDEX){
                 pidGroups[i].K.P=.1;
                 pidGroups[i].K.I=0;
                 pidGroups[i].K.D=0;
-                vel[i].K.P = .1;
-                vel[i].K.D = 0;
                 pidGroups[i].Polarity=1;
-		vel[i].enabled=FALSE;
-		limits[i].type=NO_LIMIT;
-                if(i==LINK0_INDEX || i== LINK1_INDEX || i== LINK2_INDEX){
-                    pidGroups[i].Polarity=0;
-                    pidGroups[i].K.P=.07;
-                    pidGroups[i].K.I=0.0;
-                    pidGroups[i].K.D=0.00;
-                }
-                if(i==EXTRUDER0_INDEX){
-                    pidGroups[i].K.P=.3;
-                    pidGroups[i].K.I=0;
-                    pidGroups[i].K.D=0;
-                    pidGroups[i].Polarity=1;
-                }
-                if(i>=numPidMotors){
-                    //These are the PID gains for the tempreture system
-                    pidGroups[i].K.P=10;
-                    pidGroups[i].K.I=0;
-                    pidGroups[i].K.D=0;
-                    pidGroups[i].Polarity=1;
-                }
-                if(i==HEATER0_INDEX){
-                    pidGroups[i].K.P=10;
-                    pidGroups[i].K.I=0;
-                    pidGroups[i].K.D=0;
-                    pidGroups[i].Polarity=1;
-                }
+            }
+            if(i>=numPidMotors){
+                //These are the PID gains for the tempreture system
+                pidGroups[i].K.P=10;
+                pidGroups[i].K.I=0;
+                pidGroups[i].K.D=0;
+                pidGroups[i].Polarity=1;
+            }
+            if(i==HEATER0_INDEX){
+                pidGroups[i].K.P=10;
+                pidGroups[i].K.I=0;
+                pidGroups[i].K.D=0;
+                pidGroups[i].Polarity=1;
+            }
 
 	}
 
@@ -131,17 +134,17 @@ float getPositionMine(int group){
 
     return val;
 }
-int historesisVal =2;
+
 void setOutputMine(int group, float v){
     if(group<numPidMotors){
         int val = (int)(v);
 
-        if(val>0 && val<historesisVal)
-            val = historesisVal;
-        if(val<0 && val>-historesisVal)
-            val = -historesisVal;
+        if(val>0 && val<getUpperServoHistoresis(group))
+            val = getUpperServoHistoresis(group);
+        if(val<0 && val>getLowerServoHistoresis(group))
+            val = getLowerServoHistoresis(group);
 
-        val += 128;
+        val += getServoStop(group);
         if (val>255)
                 val=255;
         if(val<0)
@@ -149,7 +152,7 @@ void setOutputMine(int group, float v){
 
         if(group == EXTRUDER0_INDEX && !isUpToTempreture()){
             //Saftey so as not to try to feed into a cold extruder
-            setServo(group,128,0);
+            setServo(group,getServoStop(group),0);
             return;
         }
         setServo(group,val,0);

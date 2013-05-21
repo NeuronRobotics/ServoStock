@@ -213,7 +213,7 @@ void setPidIsr(BOOL v);
 #define LINK2_INDEX 4
 
 BOOL isUpToTempreture();
-void calibration();
+void HomeLinks();
 
 
 #define defaultMaxZ -289.5

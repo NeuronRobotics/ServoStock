@@ -56,6 +56,7 @@
         <itemPath>../../include/replicator/StepperSim.h</itemPath>
         <itemPath>../../include/replicator/CartesianController.h</itemPath>
         <itemPath>../../include/replicator/delta.h</itemPath>
+        <itemPath>../../include/replicator/servoCalibration.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="LibraryFiles"
@@ -123,6 +124,7 @@
         <itemPath>../../src/Bowler/Calibration.c</itemPath>
         <itemPath>../../src/Bowler/MotionTest.c</itemPath>
         <itemPath>../../src/Bowler/namespace/Namespace_bcs_cartesian.c</itemPath>
+        <itemPath>../../src/Bowler/servoCalibration.c</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -236,6 +238,8 @@
         <property key="UART6" value="true"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
+        <property key="memories.bootflash" value="false"/>
+        <property key="memories.configurationmemory" value="false"/>
         <property key="memories.eeprom" value="false"/>
         <property key="memories.flashdata" value="true"/>
         <property key="memories.id" value="false"/>

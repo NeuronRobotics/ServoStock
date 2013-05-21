@@ -4,16 +4,17 @@
 
 #define NUM_SERVOS 8
 
-INTERPOLATE_DATA velocity[NUM_SERVOS+1];
-int position[NUM_SERVOS+1];
-int sort[NUM_SERVOS+1];
+
+INTERPOLATE_DATA velocity[NUM_SERVOS];
+int position[NUM_SERVOS];
+int sort[NUM_SERVOS];
 int lastValue;
 int sortedIndex = 0;
 BYTE start=0;
 BYTE stop=NUM_SERVOS;
 void delayLoop();
 
-ServoState state = LOW;
+ServoState servoCalibrationState = LOW;
 
 void runSort(){
     int i=0,k=0,x;
@@ -50,17 +51,17 @@ void setServoTimer(int value){
 
 void setTimerLowTime(){
     setServoTimer(300*18);
-    state = LOW;
+    servoCalibrationState = LOW;
 }
 
 void setTimerPreTime(){
     setServoTimer(285);
-    state = PRETIME;
+    servoCalibrationState = PRETIME;
 }
 
 void setTimerServoTicks(int value){
     setServoTimer((int)((float)value*1.4));
-    state = TIME;
+    servoCalibrationState = TIME;
 }
 
 #define MIN_SERVO 0.
@@ -73,7 +74,7 @@ void __ISR(_TIMER_2_VECTOR, ipl5) Timer2Handler(void)
 	//StartCritical();
         CloseTimer2();
         int j;
-        switch(state){
+        switch(servoCalibrationState){
             case LOW:
                 if(getRunPidIsr()){
                     
@@ -82,7 +83,6 @@ void __ISR(_TIMER_2_VECTOR, ipl5) Timer2Handler(void)
                     interpolateZXY();
                     RunPIDControl();
                     RunVel();
-                    setPrintLevelInfoPrint();
                     setPrintLevel(l);
 
                 }
@@ -112,7 +112,7 @@ void __ISR(_TIMER_2_VECTOR, ipl5) Timer2Handler(void)
                 sortedIndex++;
 
                 if(sortedIndex == NUM_SERVOS){
-                    state = FINISH;
+                    servoCalibrationState = FINISH;
                 }else{
                     do{//Loop throug to see if there is more then one value ready to turn off
                         nextServo = sort[sortedIndex];
@@ -120,7 +120,7 @@ void __ISR(_TIMER_2_VECTOR, ipl5) Timer2Handler(void)
                         diff = nextValue - lastValue;
                         if(!(diff > MIN_SERVO)){
                             int tmp =  diff;
-                            while(tmp-->0){
+                            while((tmp--)>0){
                                 delayLoop();
                             }
                             //Stop next value and increment
@@ -279,41 +279,5 @@ void delayLoop(){
     Nop();
     Nop();
 }
-
-/**
- * Run the pulse for all pins
- */
-//void runServos(){
-//    return;
-//	//disableDebug();
-//	UINT16 j;
-//	BYTE xIndex;
-//	//return;
-//
-//
-//	runLinearInterpolationServo(start,stop);
-//
-//	BYTE num=0;
-//	for (j=start;j<stop;j++){
-//		num+=pinOn(j);
-//	}
-//	//run minimal .75 ms pulse
-//	DelayPreServoPulse();
-//	//loop 255 times and turn off all servos as their set position is equal to the loop counter
-//	for (j=0;j<256;j++){
-//		//check all servo positions
-//		for (xIndex=start; xIndex < stop ;xIndex++){
-//			if (j == position[xIndex] ){
-//				//turn off if it is time to turn off
-//				pinOff(xIndex);
-//			}
-//		}
-//                delayLoop();
-//	}
-////	for (xIndex=start; xIndex < stop ;xIndex++){
-////            pinOff(xIndex);
-////	}
-//}
-
 
 
