@@ -14,7 +14,7 @@ static SERVO_CALIBRATION servoCal[numPidMotors];
 enum CAL_STATE servoCalibration(int group);
 void calcCenter(int group);
 
-static RunEveryData servoCalibrationTest ={0,500};
+static RunEveryData servoCalibrationTest ={0,1000};
 
 enum CAL_STATE
 {
@@ -93,10 +93,12 @@ enum CAL_STATE servoCalibration(int group){
         }else{
             println_I("Encoder moved ");p_fl_I(extr);
             if(state == backward){
+                servoCal[group].lowerHistoresis--;
                 println_I("Backward Calibrated for link# ");p_int_I(group);
                 state = forward;
                 setCurrentValue(group, 0);
             }else{
+                servoCal[group].upperHistoresis++;
                 println_I("Calibration done for link# ");p_int_I(group);
                 state = done;
             }
