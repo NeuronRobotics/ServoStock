@@ -331,7 +331,7 @@ void hardwareInit(){
         
 }
 
-void system(){
+void bowlerSystem(){
     Bowler_Server_Local(&MyPacket);
     float diff = RunEvery(&pid);
     if(diff>0){
@@ -349,7 +349,7 @@ int main(){
         if(homingAllLinks){
             HomeLinks();
         }
-        system();
+        bowlerSystem();
     }
 }
 

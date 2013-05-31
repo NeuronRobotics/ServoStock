@@ -182,6 +182,7 @@ void setServo(BYTE PIN, BYTE val,float time){
     if (val==position[PIN]){
             velocity[PIN].setTime=0;
     }
+    println_I("Srv ");p_int_I(val);
 }
 
 /**

@@ -19,7 +19,7 @@ BOOL asyncCallback(BowlerPacket *Packet);
 NAMESPACE_LIST * getBcsCartesianNamespace();
 
 
-void system();
+void bowlerSystem();
 
 
 #endif //MAIN_H
