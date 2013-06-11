@@ -21,12 +21,18 @@ BOOL cartesianAsyncEventCallback(BowlerPacket * Packet,BOOL (*pidAsyncCallbackPt
 static RPC_LIST cartesian__SLI={	BOWLER_POST,// Method
                                 "_sli",//RPC as string
                                 &onCartesianPost,//function pointer to a packet parsinf function
+                                NULL,// Calling arguments
+                                BOWLER_POST,// response method
+                                NULL,// Response arguments
                                 NULL //Termination
 };
 
 static RPC_LIST cartesian_PRCL={	BOWLER_POST,// Method
                                 "pclr",//RPC as string
                                 &onCartesianPost,//function pointer to a packet parsinf function
+                                NULL,// Calling arguments
+                                BOWLER_POST,// response method
+                                NULL,// Response arguments
                                 NULL //Termination
 };
 

@@ -106,6 +106,7 @@
           <itemPath>../../../NR-Clib/BowlerStack/src/Bowler_Server.c</itemPath>
           <itemPath>../../../NR-Clib/BowlerStack/src/Namespace_bcs_core.c</itemPath>
           <itemPath>../../../NR-Clib/BowlerStack/src/Namespace_bcs_pid.c</itemPath>
+          <itemPath>../../../NR-Clib/BowlerStack/src/Namespace_bcs_rpc.c</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="Bowler" displayName="DeltaDoodle" projectFiles="true">

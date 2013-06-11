@@ -281,6 +281,7 @@ void hardwareInit(){
 	//This Method calls INTEnableSystemMultiVectoredInt();
 	usb_CDC_Serial_Init(dev,macStr,0x04D8,0x0001);
 
+       
         addNamespaceToList((NAMESPACE_LIST *)getBcsCartesianNamespace());
         addNamespaceToList((NAMESPACE_LIST *)getBcsPidNamespace());
 
