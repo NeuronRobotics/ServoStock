@@ -67,7 +67,7 @@
 #define SYS_FREQ 			(80000000L)
 
 #define NO_ETHERNET
-#define CALIBRATE_SERVO
+//#define CALIBRATE_SERVO
 //#define CALIBRATE
 //#define NO_PID
 //#define TEST_MOTION
