@@ -12,163 +12,82 @@
 extern "C" {
 #endif
 
-#if defined(__32MX440F128H__)
     // ATX MAcros and defines
-    #define     ATX_PWR_ON_TRIS    _TRISD5 // tris
-    #define     ATX_PWR_ON         _RD5
+    #define     ATX_PWR_ON_TRIS    _TRISF0 // tris
+    #define     ATX_PWR_ON         _RF0
     #define     ATX_ENABLED        0
 
 
     // eNCODER Connector macros and defines
-    #define     ENC0_CSN           _RB0
-    #define     ENC0_CSN_TRIS      _TRISB0
-    #define     ENC0_SERVO_TRIS    _TRISC13
-    #define     ENC0_SERVO         _RC13
+	//PORT 0
+    #define     ENC0_CSN           _RE7
+    #define     ENC0_CSN_TRIS      _TRISE7
+    #define     ENC0_SERVO_TRIS    _TRISB10
+    #define     ENC0_SERVO         _RB10
+	//PORT 1
+    #define     ENC1_CSN           _RD7
+    #define     ENC1_CSN_TRIS      _TRISD7
+    #define     ENC1_SERVO_TRIS    _TRISB15
+    #define     ENC1_SERVO         _RB15
+	// Port 2
+    #define     ENC2_CSN           _RG9
+    #define     ENC2_CSN_TRIS      _TRISG9
+    #define     ENC2_SERVO_TRIS    _TRISB11
+    #define     ENC2_SERVO         _RB11
+	// PORT 3
+    #define     ENC3_CSN           _RD6
+    #define     ENC3_CSN_TRIS      _TRISD6
+    #define     ENC3_SERVO_TRIS    _TRISB9
+    #define     ENC3_SERVO         _RB9
+	// PORT 4
+    #define     ENC4_CSN           _RE5
+    #define     ENC4_CSN_TRIS      _TRISE5
+    #define     ENC4_SERVO_TRIS    _TRISB12
+    #define     ENC4_SERVO         _RB12
+	// PORT 5
+    #define     ENC5_CSN           _RD5
+    #define     ENC5_CSN_TRIS      _TRISD5
+    #define     ENC5_SERVO_TRIS    _TRISB14
+    #define     ENC5_SERVO         _RB14
+	//PORT 6
+    #define     ENC6_CSN           _RE6
+    #define     ENC6_CSN_TRIS      _TRISE6
+    #define     ENC6_SERVO_TRIS    _TRISB13
+    #define     ENC6_SERVO         _RB13
+	//PORT 7
+    #define     ENC7_CSN           _RD4
+    #define     ENC7_CSN_TRIS      _TRISD4
+    #define     ENC7_SERVO_TRIS    _TRISB8
+    #define     ENC7_SERVO         _RB8
 
-    #define     ENC1_CSN           _RB1
-    #define     ENC1_CSN_TRIS      _TRISB1
-    #define     ENC1_SERVO_TRIS    _TRISC14
-    #define     ENC1_SERVO         _RC14
+    #define    HEATER_0            _RB5
+    #define    HEATER_0_TRIS       _TRISB5
 
-    #define     ENC2_CSN           _RB13
-    #define     ENC2_CSN_TRIS      _TRISB13
-    #define     ENC2_SERVO_TRIS    _TRISF2
-    #define     ENC2_SERVO         _RF2
+    #define    HEATER_1            _RB0
+    #define    HEATER_1_TRIS       _TRISB0
 
-    #define     ENC3_CSN           _RB3
-    #define     ENC3_CSN_TRIS      _TRISB3
-    #define     ENC3_SERVO_TRIS    _TRISB8
-    #define     ENC3_SERVO         _RB8
-
-    #define     ENC4_CSN           _RB9
-    #define     ENC4_CSN_TRIS      _TRISB9
-    #define     ENC4_SERVO_TRIS    _TRISD1
-    #define     ENC4_SERVO         _RD1
-
-    #define     ENC5_CSN           _RB14
-    #define     ENC5_CSN_TRIS      _TRISB14
-    #define     ENC5_SERVO_TRIS    _TRISD2
-    #define     ENC5_SERVO         _RD2
-
-    #define     ENC6_CSN           _RB6
-    #define     ENC6_CSN_TRIS      _TRISB6
-    #define     ENC6_SERVO_TRIS    _TRISD3
-    #define     ENC6_SERVO         _RD3
-
-    #define     ENC7_CSN           _RB7
-    #define     ENC7_CSN_TRIS      _TRISB7
-    #define     ENC7_SERVO_TRIS    _TRISD4
-    #define     ENC7_SERVO         _RD4
-
-    #define    HEATER_0            _RB7
-    #define    HEATER_0_TRIS       _TRISB7
-
-    #define    HEATER_1            _RB4
-    #define    HEATER_1_TRIS       _TRISB4
-
-    #define    HEATER_2            _RB13
-    #define    HEATER_2_TRIS       _TRISB13
-
-    #define    HEATER_3            _RB5
-    #define    HEATER_3_TRIS       _TRISB5
-
-    #define     CloseServoOpenCollector() mPORTCOpenDrainClose(BIT_13);\
-                                        mPORTCOpenDrainClose(BIT_14);\
-                                        mPORTBOpenDrainClose(BIT_2);\
-                                        mPORTBOpenDrainClose(BIT_8);\
-                                        mPORTDOpenDrainClose(BIT_1);\
-                                        mPORTDOpenDrainClose(BIT_2);\
-                                        mPORTDOpenDrainClose(BIT_3);\
-                                        mPORTDOpenDrainClose(BIT_4);
-    #define     CloseSpiSSOpenCollector() mPORTBOpenDrainClose(BIT_0);\
-                                        mPORTBOpenDrainClose(BIT_1);\
-                                        mPORTBOpenDrainClose(BIT_13);\
-                                        mPORTBOpenDrainClose(BIT_3);\
-                                        mPORTBOpenDrainClose(BIT_9);\
-                                        mPORTBOpenDrainClose(BIT_14);\
-                                        mPORTBOpenDrainClose(BIT_6);\
-                                        mPORTBOpenDrainClose(BIT_7);
-
-#elif defined(__32MX795F512L__)
-    // ATX MAcros and defines
-    #define     ATX_PWR_ON_TRIS    _TRISD5 // tris
-    #define     ATX_PWR_ON         _RD5
-    #define     ATX_ENABLED        0
+    #define    HEATER_2            _RB2
+    #define    HEATER_2_TRIS       _TRISB2
 
 
-    // eNCODER Connector macros and defines
-    #define     ENC0_CSN           _RA0
-    #define     ENC0_CSN_TRIS      _TRISA0
-    #define     ENC0_SERVO_TRIS    _TRISC13
-    #define     ENC0_SERVO         _RC13
+    #define     CloseServoOpenCollector() 	mPORTEOpenDrainClose(BIT_7);\//
+											mPORTBOpenDrainClose(BIT_15);\//
+											mPORTBOpenDrainClose(BIT_11);\//
+											mPORTBOpenDrainClose(BIT_9);\//
+											mPORTBOpenDrainClose(BIT_12);\//
+											mPORTBOpenDrainClose(BIT_14);\//
+											mPORTBOpenDrainClose(BIT_13);\//
+											mPORTBOpenDrainClose(BIT_8);
 
-    #define     ENC1_CSN           _RA1
-    #define     ENC1_CSN_TRIS      _TRISA1
-    #define     ENC1_SERVO_TRIS    _TRISC14
-    #define     ENC1_SERVO         _RC14
+    #define     CloseSpiSSOpenCollector() 	mPORTBOpenDrainClose(BIT_10);\//
+											mPORTDOpenDrainClose(BIT_7);\//
+											mPORTGOpenDrainClose(BIT_9);\//
+											mPORTDOpenDrainClose(BIT_6);\//
+											mPORTEOpenDrainClose(BIT_5);\//
+											mPORTDOpenDrainClose(BIT_5);\//
+											mPORTEOpenDrainClose(BIT_6);\//
+											mPORTDOpenDrainClose(BIT_4);
 
-    #define     ENC2_CSN           _RB13
-    #define     ENC2_CSN_TRIS      _TRISB13
-    #define     ENC2_SERVO_TRIS    _TRISF2
-    #define     ENC2_SERVO         _RF2
-
-    #define     ENC3_CSN           _RA3
-    #define     ENC3_CSN_TRIS      _TRISA3
-    #define     ENC3_SERVO_TRIS    _TRISF8
-    #define     ENC3_SERVO         _RF8
-
-    #define     ENC4_CSN           _RA9
-    #define     ENC4_CSN_TRIS      _TRISA9
-    #define     ENC4_SERVO_TRIS    _TRISD1
-    #define     ENC4_SERVO         _RD1
-
-    #define     ENC5_CSN           _RB14
-    #define     ENC5_CSN_TRIS      _TRISB14
-    #define     ENC5_SERVO_TRIS    _TRISD2
-    #define     ENC5_SERVO         _RD2
-
-    #define     ENC6_CSN           _RA6
-    #define     ENC6_CSN_TRIS      _TRISA6
-    #define     ENC6_SERVO_TRIS    _TRISD3
-    #define     ENC6_SERVO         _RD3
-
-    #define     ENC7_CSN           _RA7
-    #define     ENC7_CSN_TRIS      _TRISA7
-    #define     ENC7_SERVO_TRIS    _TRISD4
-    #define     ENC7_SERVO         _RD4
-
-    #define    HEATER_0            _RG7
-    #define    HEATER_0_TRIS       _TRISG7
-
-    #define    HEATER_1            _RB4
-    #define    HEATER_1_TRIS       _TRISB4
-
-    #define    HEATER_2            _RG13
-    #define    HEATER_2_TRIS       _TRISG13
-
-    #define    HEATER_3            _RB5
-    #define    HEATER_3_TRIS       _TRISB5
-
-    #define     CloseServoOpenCollector() mPORTCOpenDrainClose(BIT_13);\
-                                        mPORTCOpenDrainClose(BIT_14);\
-                                        mPORTFOpenDrainClose(BIT_2);\
-                                        mPORTFOpenDrainClose(BIT_8);\
-                                        mPORTDOpenDrainClose(BIT_1);\
-                                        mPORTDOpenDrainClose(BIT_2);\
-                                        mPORTDOpenDrainClose(BIT_3);\
-                                        mPORTDOpenDrainClose(BIT_4);
-    #define     CloseSpiSSOpenCollector() mPORTAOpenDrainClose(BIT_0);\
-                                        mPORTAOpenDrainClose(BIT_1);\
-                                        mPORTBOpenDrainClose(BIT_13);\
-                                        mPORTAOpenDrainClose(BIT_3);\
-                                        mPORTAOpenDrainClose(BIT_9);\
-                                        mPORTBOpenDrainClose(BIT_14);\
-                                        mPORTAOpenDrainClose(BIT_6);\
-                                        mPORTAOpenDrainClose(BIT_7);
-
-
-
-#endif
 
 #define     CSN_Enabled       0
 #define     CSN_Disabled     1
@@ -202,7 +121,7 @@ void setPidIsr(BOOL v);
 
 #define numPidMotors 8
 
-#define numPidHeater 4
+#define numPidHeater 3
 
 #define numPidTotal (numPidMotors+numPidHeater)
 
@@ -226,7 +145,7 @@ void HomeLinks();
 #define servoHomeValue      (ticksPerDegree*calibrationAngle*gearRatio)
 
 #if !defined(NUM_PID_GROUPS)
-	#define NUM_PID_GROUPS (8)
+	#define NUM_PID_GROUPS (numPidMotors)
 #endif
 void LoadCorePacket(BowlerPacket * Packet);
 void setDebug(BOOL d);

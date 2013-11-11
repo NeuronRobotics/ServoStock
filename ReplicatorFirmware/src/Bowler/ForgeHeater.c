@@ -28,13 +28,12 @@ void heaterPin(int index, int value){
 int mapHeaterIndex(int group){
     switch(group){
         case 8:
-            return 3;
+            return 4;
         case 9:
             return 1;
         case 10:
-            return 2;
-        case 11:
-            return 0;
+            return 3;
+
     }
 }
 
