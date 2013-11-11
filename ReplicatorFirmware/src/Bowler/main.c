@@ -294,13 +294,15 @@ void hardwareInit(){
         ATX_ENABLE(); // Turn on ATX Supply, Must be called before talking to the Encoders!!
 
         Print_Level l = getPrintLevel();
-        setPrintLevelNoPrint();
+        println_I("Starting Encoders");
         initializeEncoders();// Power supply must be turned on first
         setPrintLevel(l);
+        println_I("Starting Heater");
         initializeHeater();
-
+        println_I("Starting Servos");
         initServos();
 #if !defined(NO_PID)
+        println_I("Starting PID");
         initPIDLocal();
 #endif
 
@@ -326,6 +328,7 @@ void hardwareInit(){
 #endif
     SetPID(HEATER0_INDEX,0);
 #if defined(CALIBRATE_SERVO)
+    println_I("Calibrating Servo");
     runServoCalibration(EXTRUDER0_INDEX);
 
 #endif
@@ -341,11 +344,18 @@ void bowlerSystem(){
             println_E("Time diff ran over! ");p_fl_E(diff);
             pid.MsTime=getMs();
         }
+
+        int i;
+        for(i=0;i< 1;i++){
+            print_I("\r\n Encoder ");p_int_I(i);print_I(" value = ");p_fl_I(readEncoder(i));
+        }
     }
 }
 
 int main(){
     hardwareInit();
+    println_I("Hardware initialized");
+    pid.MsTime=getMs();
     while(1){
         if(homingAllLinks){
             HomeLinks();

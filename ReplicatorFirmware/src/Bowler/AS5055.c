@@ -66,6 +66,7 @@ float readEncoder(BYTE index){
 }
 BYTE initialized = FALSE;
 void encoderSPIInit(){
+    Delay10us(1);
     if(initialized )
         return;
     initialized=TRUE;
@@ -164,12 +165,12 @@ UINT16 AS5055readAngle(BYTE index){
                 read.regs.EF=0;
             }
             if(read.regs.AlarmHI == 1 && read.regs.AlarmLO == 1){
-                println_E("\n\n\n**Error flag on data read! Index: ");p_int_E(index);
-                print_E(" 0x");prHEX16(read.uint0_15,ERROR_PRINT); print_E("\n");
-
-                //printSystemConfig(index);
-                AS5055reset(index);
-                AS5055ResetErrorFlag(index);
+//                println_E("**Error flag on data read! Index: ");p_int_E(index);
+//                print_E(" 0x");prHEX16(read.uint0_15,ERROR_PRINT); print_E("\n");
+//
+//                //printSystemConfig(index);
+//                AS5055reset(index);
+//                AS5055ResetErrorFlag(index);
             }
             AS5055send(index, 0xffff);
         }

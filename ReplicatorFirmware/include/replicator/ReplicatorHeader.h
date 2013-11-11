@@ -70,22 +70,22 @@ extern "C" {
     #define    HEATER_2_TRIS       _TRISB2
 
 
-    #define     CloseServoOpenCollector() 	mPORTEOpenDrainClose(BIT_7);\//
-											mPORTBOpenDrainClose(BIT_15);\//
-											mPORTBOpenDrainClose(BIT_11);\//
-											mPORTBOpenDrainClose(BIT_9);\//
-											mPORTBOpenDrainClose(BIT_12);\//
-											mPORTBOpenDrainClose(BIT_14);\//
-											mPORTBOpenDrainClose(BIT_13);\//
+    #define     CloseServoOpenCollector() 	mPORTEOpenDrainClose(BIT_7);\
+											mPORTBOpenDrainClose(BIT_15);\
+											mPORTBOpenDrainClose(BIT_11);\
+											mPORTBOpenDrainClose(BIT_9);\
+											mPORTBOpenDrainClose(BIT_12);\
+											mPORTBOpenDrainClose(BIT_14);\
+											mPORTBOpenDrainClose(BIT_13);\
 											mPORTBOpenDrainClose(BIT_8);
 
-    #define     CloseSpiSSOpenCollector() 	mPORTBOpenDrainClose(BIT_10);\//
-											mPORTDOpenDrainClose(BIT_7);\//
-											mPORTGOpenDrainClose(BIT_9);\//
-											mPORTDOpenDrainClose(BIT_6);\//
-											mPORTEOpenDrainClose(BIT_5);\//
-											mPORTDOpenDrainClose(BIT_5);\//
-											mPORTEOpenDrainClose(BIT_6);\//
+    #define     CloseSpiSSOpenCollector() 	mPORTBOpenDrainClose(BIT_10);\
+											mPORTDOpenDrainClose(BIT_7);\
+											mPORTGOpenDrainClose(BIT_9);\
+											mPORTDOpenDrainClose(BIT_6);\
+											mPORTEOpenDrainClose(BIT_5);\
+											mPORTDOpenDrainClose(BIT_5);\
+											mPORTEOpenDrainClose(BIT_6);\
 											mPORTDOpenDrainClose(BIT_4);
 
 

@@ -19,9 +19,6 @@ void heaterPin(int index, int value){
         case 2:
             HEATER_2 = value?1:0;
             break;
-        case 3:
-            HEATER_3 = value?1:0;
-            break;
     }
 }
 
@@ -51,7 +48,6 @@ void initializeHeater(){
     HEATER_0_TRIS=OUTPUT;
     HEATER_1_TRIS=OUTPUT;
     HEATER_2_TRIS=OUTPUT;
-    HEATER_3_TRIS=OUTPUT;
     mPORTBSetPinsDigitalOut(BIT_4|BIT_5);
 
     // init lowpass
