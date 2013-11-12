@@ -166,77 +166,77 @@ Microchip PIC32 Memory-Usage Report
 kseg0 Program-Memory Usage
 section                    address  length [bytes]      (dec)  Description
 -------                 ----------  -------------------------  -----------
-.text                   0x9d000008        0x123a8       74664  App's exec code 
-.dinit                  0x9d0123b0          0x828        2088   
-.text                   0x9d012bd8         0x21e0        8672  App's exec code 
-.rodata                 0x9d014db8          0xa70        2672  Read-only const 
-.text                   0x9d015828         0x3218       12824  App's exec code 
-.rodata                 0x9d018a40          0x308         776  Read-only const 
-.text                   0x9d018d48          0x37c         892  App's exec code 
-.text._NVMOperation     0x9d0190c4          0x114         276   
-.text                   0x9d0191d8          0x108         264  App's exec code 
-.rodata                 0x9d0192e0           0xf8         248  Read-only const 
-.text                   0x9d0193d8           0xec         236  App's exec code 
-.text.general_exception 0x9d0194c4           0xd0         208   
-.text                   0x9d019594           0xc4         196  App's exec code 
-.rodata                 0x9d019658           0xb4         180  Read-only const 
-.text                   0x9d01970c          0x150         336  App's exec code 
-.rodata                 0x9d01985c          0x190         400  Read-only const 
-.text.UARTEnable        0x9d0199ec           0x80         128   
-.rodata                 0x9d019a6c           0x68         104  Read-only const 
-.text.OpenSPI2          0x9d019ad4           0x60          96   
-.rodata                 0x9d019b34           0x5c          92  Read-only const 
-.text.UARTSetDataRate   0x9d019b90           0x5c          92   
-.text.INTEnable         0x9d019bec           0x58          88   
-.rodata                 0x9d019c44           0xe8         232  Read-only const 
-.text.sqrtf             0x9d019d2c           0x4c          76   
-.text                   0x9d019d78           0x48          72  App's exec code 
-.rodata                 0x9d019dc0           0x8c         140  Read-only const 
-.text.PORTSetPinsDigita 0x9d019e4c           0x40          64   
-.text.UARTGetDataRate   0x9d019e8c           0x40          64   
-.text.INTSetVectorPrior 0x9d019ecc           0x3c          60   
-.text.INTSetVectorSubPr 0x9d019f08           0x3c          60   
-.text.UARTConfigure     0x9d019f44           0x3c          60   
-.text.UARTSetAddress    0x9d019f80           0x3c          60   
-.rodata                 0x9d019fbc           0x70         112  Read-only const 
-.text.UARTWatchForAddre 0x9d01a02c           0x38          56   
-.rodata                 0x9d01a064           0x34          52  Read-only const 
-.text.INTEnableSystemMu 0x9d01a098           0x34          52   
-.text.NVMWriteWord      0x9d01a0cc           0x34          52   
-.text.INTGetVectorPrior 0x9d01a100           0x30          48   
-.text.INTGetVectorSubPr 0x9d01a130           0x30          48   
-.text.SpiChnGetC        0x9d01a160           0x30          48   
-.text.SpiChnPutC        0x9d01a190           0x30          48   
-.text.INTClearFlag      0x9d01a1c0           0x2c          44   
-.text.INTSetFlag        0x9d01a1ec           0x2c          44   
-.text.INTGetFlag        0x9d01a218           0x2c          44   
-.text.INTGetEnable      0x9d01a244           0x2c          44   
-.text.NVMErasePage      0x9d01a270           0x2c          44   
-.rodata                 0x9d01a29c           0x50          80  Read-only const 
-.text.PORTClearBits     0x9d01a2ec           0x28          40   
-.text.PORTSetBits       0x9d01a314           0x28          40   
-.text.UARTSetFifoMode   0x9d01a33c           0x28          40   
-.text.UARTSetLineContro 0x9d01a364           0x28          40   
-.rodata                 0x9d01a38c           0x20          32  Read-only const 
-.text.SpiChnReadC       0x9d01a3ac           0x20          32   
-.text.SpiChnWriteC      0x9d01a3cc           0x20          32   
-.rodata                 0x9d01a3ec           0x1c          28  Read-only const 
-.text.INTRestoreInterru 0x9d01a408           0x1c          28   
-.text.SpiChnBuffer      0x9d01a424           0x1c          28   
-.rodata                 0x9d01a440           0x30          48  Read-only const 
-.text                   0x9d01a470           0x18          24  App's exec code 
-.text.CheKseg0CacheOff  0x9d01a488           0x18          24   
-.text.CheKseg0CacheOn   0x9d01a4a0           0x18          24   
-.rodata                 0x9d01a4b8           0x14          20  Read-only const 
-.text                   0x9d01a4cc           0x10          16  App's exec code 
-.rodata                 0x9d01a4dc            0xc          12  Read-only const 
-.text._bootstrap_except 0x9d01a4e8            0xc          12   
-.text._on_reset         0x9d01a4f4            0x8           8   
-.text._on_bootstrap     0x9d01a4fc            0x8           8   
-.text.INTEnableInterrup 0x9d01a504            0x8           8   
-.text.INTDisableInterru 0x9d01a50c            0x8           8   
-.rodata                 0x9d01a514            0xc          12  Read-only const 
-      Total kseg0_program_mem used  :     0x1a518      107800  82.2% of 0x20000
+.text                   0x9d000008        0x1242c       74796  App's exec code 
+.dinit                  0x9d012434          0x828        2088   
+.text                   0x9d012c5c         0x21e0        8672  App's exec code 
+.rodata                 0x9d014e3c          0xa70        2672  Read-only const 
+.text                   0x9d0158ac         0x3218       12824  App's exec code 
+.rodata                 0x9d018ac4          0x308         776  Read-only const 
+.text                   0x9d018dcc          0x37c         892  App's exec code 
+.text._NVMOperation     0x9d019148          0x114         276   
+.text                   0x9d01925c          0x108         264  App's exec code 
+.rodata                 0x9d019364           0xf8         248  Read-only const 
+.text                   0x9d01945c           0xec         236  App's exec code 
+.text.general_exception 0x9d019548           0xd0         208   
+.text                   0x9d019618           0xc4         196  App's exec code 
+.rodata                 0x9d0196dc           0xb4         180  Read-only const 
+.text                   0x9d019790          0x150         336  App's exec code 
+.rodata                 0x9d0198e0          0x190         400  Read-only const 
+.text.UARTEnable        0x9d019a70           0x80         128   
+.rodata                 0x9d019af0           0x68         104  Read-only const 
+.text.OpenSPI2          0x9d019b58           0x60          96   
+.rodata                 0x9d019bb8           0x5c          92  Read-only const 
+.text.UARTSetDataRate   0x9d019c14           0x5c          92   
+.text.INTEnable         0x9d019c70           0x58          88   
+.rodata                 0x9d019cc8           0xe8         232  Read-only const 
+.text.sqrtf             0x9d019db0           0x4c          76   
+.text                   0x9d019dfc           0x48          72  App's exec code 
+.rodata                 0x9d019e44           0x8c         140  Read-only const 
+.text.PORTSetPinsDigita 0x9d019ed0           0x40          64   
+.text.UARTGetDataRate   0x9d019f10           0x40          64   
+.text.INTSetVectorPrior 0x9d019f50           0x3c          60   
+.text.INTSetVectorSubPr 0x9d019f8c           0x3c          60   
+.text.UARTConfigure     0x9d019fc8           0x3c          60   
+.text.UARTSetAddress    0x9d01a004           0x3c          60   
+.rodata                 0x9d01a040           0x70         112  Read-only const 
+.text.UARTWatchForAddre 0x9d01a0b0           0x38          56   
+.rodata                 0x9d01a0e8           0x34          52  Read-only const 
+.text.INTEnableSystemMu 0x9d01a11c           0x34          52   
+.text.NVMWriteWord      0x9d01a150           0x34          52   
+.text.INTGetVectorPrior 0x9d01a184           0x30          48   
+.text.INTGetVectorSubPr 0x9d01a1b4           0x30          48   
+.text.SpiChnGetC        0x9d01a1e4           0x30          48   
+.text.SpiChnPutC        0x9d01a214           0x30          48   
+.text.INTClearFlag      0x9d01a244           0x2c          44   
+.text.INTSetFlag        0x9d01a270           0x2c          44   
+.text.INTGetFlag        0x9d01a29c           0x2c          44   
+.text.INTGetEnable      0x9d01a2c8           0x2c          44   
+.text.NVMErasePage      0x9d01a2f4           0x2c          44   
+.rodata                 0x9d01a320           0x50          80  Read-only const 
+.text.PORTClearBits     0x9d01a370           0x28          40   
+.text.PORTSetBits       0x9d01a398           0x28          40   
+.text.UARTSetFifoMode   0x9d01a3c0           0x28          40   
+.text.UARTSetLineContro 0x9d01a3e8           0x28          40   
+.rodata                 0x9d01a410           0x20          32  Read-only const 
+.text.SpiChnReadC       0x9d01a430           0x20          32   
+.text.SpiChnWriteC      0x9d01a450           0x20          32   
+.rodata                 0x9d01a470           0x1c          28  Read-only const 
+.text.INTRestoreInterru 0x9d01a48c           0x1c          28   
+.text.SpiChnBuffer      0x9d01a4a8           0x1c          28   
+.rodata                 0x9d01a4c4           0x30          48  Read-only const 
+.text                   0x9d01a4f4           0x18          24  App's exec code 
+.text.CheKseg0CacheOff  0x9d01a50c           0x18          24   
+.text.CheKseg0CacheOn   0x9d01a524           0x18          24   
+.rodata                 0x9d01a53c           0x14          20  Read-only const 
+.text                   0x9d01a550           0x10          16  App's exec code 
+.rodata                 0x9d01a560            0xc          12  Read-only const 
+.text._bootstrap_except 0x9d01a56c            0xc          12   
+.text._on_reset         0x9d01a578            0x8           8   
+.text._on_bootstrap     0x9d01a580            0x8           8   
+.text.INTEnableInterrup 0x9d01a588            0x8           8   
+.text.INTDisableInterru 0x9d01a590            0x8           8   
+.rodata                 0x9d01a598            0xc          12  Read-only const 
+      Total kseg0_program_mem used  :     0x1a59c      107932  82.3% of 0x20000
 
 kseg0 Boot-Memory Usage
 section                    address  length [bytes]      (dec)  Description
@@ -262,7 +262,7 @@ section                    address  length [bytes]      (dec)  Description
 .bev_excpt              0xbfc00380           0x10          16  BEV-Exception 
          Total kseg1_boot_mem used  :       0x204         516  44.2% of 0x490
         --------------------------------------------------------------------------
-         Total Program Memory used  :     0x1a75c      108380  78.1% of 0x21e00
+         Total Program Memory used  :     0x1a7e0      108512  78.2% of 0x21e00
         --------------------------------------------------------------------------
 
 
@@ -974,8 +974,8 @@ END GROUP
                 0xa0000148                i
  .sbss          0xa000014c        0xc build/default/production/_ext/711791526/Callbacks.o
  .sbss          0xa0000158        0x3 build/default/production/_ext/711791526/AS5055.o
-                0xa0000158                busy
-                0xa0000159                initialized
+                0xa0000158                initialized
+                0xa0000159                busy
                 0xa000015a                lock
  *fill*         0xa000015b        0x1 00
  .sbss          0xa000015c        0x4 build/default/production/_ext/711791526/PID.o
@@ -1604,7 +1604,7 @@ END GROUP
  .debug_abbrev  0x0000627a        0x1 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(_ports_tbl_libp.o)
  .debug_abbrev  0x0000627b       0x38 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(uart_lib.o)
 
-.debug_line     0x00000000     0x702b
+.debug_line     0x00000000     0x7032
  *(.debug_line)
  .debug_line    0x00000000      0x244 build/default/production/_ext/1487882678/usb_descriptors.o
  .debug_line    0x00000244      0x339 build/default/production/_ext/1487882678/usb_function_cdc.o
@@ -1637,44 +1637,44 @@ END GROUP
  .debug_line    0x0000442b      0x3a9 build/default/production/_ext/711791526/main.o
  .debug_line    0x000047d4      0x207 build/default/production/_ext/711791526/Callbacks.o
  .debug_line    0x000049db      0x242 build/default/production/_ext/711791526/UpstreamPackets.o
- .debug_line    0x00004c1d      0x2e1 build/default/production/_ext/711791526/AS5055.o
- .debug_line    0x00004efe      0x2db build/default/production/_ext/711791526/PID.o
- .debug_line    0x000051d9      0x31b build/default/production/_ext/711791526/Servo.o
- .debug_line    0x000054f4      0x1b8 build/default/production/_ext/711791526/StepperSim.o
- .debug_line    0x000056ac      0x240 build/default/production/_ext/711791526/ForgeHeater.o
- .debug_line    0x000058ec      0x3b8 build/default/production/_ext/711791526/CartesianController.o
- .debug_line    0x00005ca4      0x128 build/default/production/_ext/711791526/DeltaKinematics.o
- .debug_line    0x00005dcc      0x240 build/default/production/_ext/711791526/delta.o
- .debug_line    0x0000600c      0x128 build/default/production/_ext/711791526/Calibration.o
- .debug_line    0x00006134      0x128 build/default/production/_ext/711791526/MotionTest.o
- .debug_line    0x0000625c      0x1ff build/default/production/_ext/664674842/Namespace_bcs_cartesian.o
- .debug_line    0x0000645b      0x267 build/default/production/_ext/711791526/servoCalibration.o
- .debug_line    0x000066c2       0x6d /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/libgcc.a(floatunsisf.o)
- .debug_line    0x0000672f       0x89 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(default-bootstrap-exception-handler.o)
- .debug_line    0x000067b8       0x76 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(default-on-reset.o)
- .debug_line    0x0000682e       0x7a /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(default-on-bootstrap.o)
- .debug_line    0x000068a8       0x6e /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(w_sqrtf.o)
- .debug_line    0x00006916        0x0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(s_lib_ver.o)
- .debug_line    0x00006916        0x0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(errno.o)
- .debug_line    0x00006916       0x62 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(pcache.o)
- .debug_line    0x00006978       0x72 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_enable_interrupts_lib.o)
- .debug_line    0x000069ea       0x73 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_disable_interrupts_lib.o)
- .debug_line    0x00006a5d       0x73 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_restore_interrupts_lib.o)
- .debug_line    0x00006ad0       0x6e /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_enable_mv_int_lib.o)
- .debug_line    0x00006b3e       0x64 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_tbl_lib.o)
- .debug_line    0x00006ba2       0x69 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_chn_getc_lib.o)
- .debug_line    0x00006c0b       0x69 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_chn_putc_lib.o)
- .debug_line    0x00006c74        0x0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_map_tbl_libp.o)
- .debug_line    0x00006c74       0x71 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_open_spi2_lib_legacy.o)
- .debug_line    0x00006ce5        0x0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_brg_tbl_lib_legacy.o)
- .debug_line    0x00006ce5       0x6b /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(nvm_erase_page_lib.o)
- .debug_line    0x00006d50       0xbc /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(nvm_operation_lib.o)
- .debug_line    0x00006e0c       0x6b /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(nvm_write_word_lib.o)
- .debug_line    0x00006e77       0x78 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(port_set_pins_digital_out_lib.o)
- .debug_line    0x00006eef       0x6e /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(port_clear_bits_lib.o)
- .debug_line    0x00006f5d       0x6c /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(port_set_bits_lib.o)
- .debug_line    0x00006fc9        0x0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(_ports_tbl_libp.o)
- .debug_line    0x00006fc9       0x62 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(uart_lib.o)
+ .debug_line    0x00004c1d      0x2e8 build/default/production/_ext/711791526/AS5055.o
+ .debug_line    0x00004f05      0x2db build/default/production/_ext/711791526/PID.o
+ .debug_line    0x000051e0      0x31b build/default/production/_ext/711791526/Servo.o
+ .debug_line    0x000054fb      0x1b8 build/default/production/_ext/711791526/StepperSim.o
+ .debug_line    0x000056b3      0x240 build/default/production/_ext/711791526/ForgeHeater.o
+ .debug_line    0x000058f3      0x3b8 build/default/production/_ext/711791526/CartesianController.o
+ .debug_line    0x00005cab      0x128 build/default/production/_ext/711791526/DeltaKinematics.o
+ .debug_line    0x00005dd3      0x240 build/default/production/_ext/711791526/delta.o
+ .debug_line    0x00006013      0x128 build/default/production/_ext/711791526/Calibration.o
+ .debug_line    0x0000613b      0x128 build/default/production/_ext/711791526/MotionTest.o
+ .debug_line    0x00006263      0x1ff build/default/production/_ext/664674842/Namespace_bcs_cartesian.o
+ .debug_line    0x00006462      0x267 build/default/production/_ext/711791526/servoCalibration.o
+ .debug_line    0x000066c9       0x6d /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/libgcc.a(floatunsisf.o)
+ .debug_line    0x00006736       0x89 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(default-bootstrap-exception-handler.o)
+ .debug_line    0x000067bf       0x76 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(default-on-reset.o)
+ .debug_line    0x00006835       0x7a /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(default-on-bootstrap.o)
+ .debug_line    0x000068af       0x6e /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(w_sqrtf.o)
+ .debug_line    0x0000691d        0x0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(s_lib_ver.o)
+ .debug_line    0x0000691d        0x0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(errno.o)
+ .debug_line    0x0000691d       0x62 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(pcache.o)
+ .debug_line    0x0000697f       0x72 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_enable_interrupts_lib.o)
+ .debug_line    0x000069f1       0x73 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_disable_interrupts_lib.o)
+ .debug_line    0x00006a64       0x73 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_restore_interrupts_lib.o)
+ .debug_line    0x00006ad7       0x6e /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_enable_mv_int_lib.o)
+ .debug_line    0x00006b45       0x64 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_tbl_lib.o)
+ .debug_line    0x00006ba9       0x69 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_chn_getc_lib.o)
+ .debug_line    0x00006c12       0x69 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_chn_putc_lib.o)
+ .debug_line    0x00006c7b        0x0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_map_tbl_libp.o)
+ .debug_line    0x00006c7b       0x71 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_open_spi2_lib_legacy.o)
+ .debug_line    0x00006cec        0x0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_brg_tbl_lib_legacy.o)
+ .debug_line    0x00006cec       0x6b /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(nvm_erase_page_lib.o)
+ .debug_line    0x00006d57       0xbc /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(nvm_operation_lib.o)
+ .debug_line    0x00006e13       0x6b /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(nvm_write_word_lib.o)
+ .debug_line    0x00006e7e       0x78 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(port_set_pins_digital_out_lib.o)
+ .debug_line    0x00006ef6       0x6e /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(port_clear_bits_lib.o)
+ .debug_line    0x00006f64       0x6c /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(port_set_bits_lib.o)
+ .debug_line    0x00006fd0        0x0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(_ports_tbl_libp.o)
+ .debug_line    0x00006fd0       0x62 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(uart_lib.o)
 
 .debug_frame    0x00000000     0x2bb8
  *(.debug_frame)
@@ -2855,7 +2855,7 @@ LOAD data_init
 .data%z216      0x00000000        0x0
  .data          0x00000000        0x0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/crt0.o
 
-.text           0x9d000008    0x123a8
+.text           0x9d000008    0x1242c
  .text          0x9d000008     0x3140 build/default/production/_ext/1080174469/AbstractPID.o
                 0x9d000008                getPidGroupDataTable
                 0x9d00002c                isPidEnabled
@@ -2989,637 +2989,637 @@ LOAD data_init
                 0x9d00be54                delta_calcForward
                 0x9d00c798                delta_calcAngleYZ
                 0x9d00cbc0                delta_calcInverse
- .text          0x9d00cdb4      0xec8 build/default/production/_ext/711791526/AS5055.o
+ .text          0x9d00cdb4      0xf4c build/default/production/_ext/711791526/AS5055.o
                 0x9d00cdb4                initializeEncoders
                 0x9d00d0b8                readEncoderWithoutOffset
                 0x9d00d22c                setCurrentValue
                 0x9d00d2c8                readEncoder
                 0x9d00d3d0                encoderSPIInit
-                0x9d00d434                AS5055CalculateParity
-                0x9d00d4dc                AS5055reset
-                0x9d00d57c                AS5055ResetErrorFlag
-                0x9d00d608                printSystemConfig
-                0x9d00d8a4                AS5055readAngle
-                0x9d00d9dc                AS5055send
-                0x9d00dab0                EncoderSS
- .text          0x9d00dc7c      0xbd0 build/default/production/_ext/1080174469/FIFO.o
-                0x9d00dc7c                printFiFoState
-                0x9d00dd9c                lockFifo
-                0x9d00ddd4                unLockFifo
-                0x9d00de14                InitByteFifo
-                0x9d00dec4                clearByteFifo
-                0x9d00df2c                ReadFirstByte
-                0x9d00df68                calcByteCount
-                0x9d00e020                FifoGetByteCount
-                0x9d00e058                FifoAddByte
-                0x9d00e180                getByte
-                0x9d00e250                FifoGetByteStream
-                0x9d00e33c                FifoReadByteStream
-                0x9d00e444                InitPacketFifo
-                0x9d00e4e8                FifoAddPacket
-                0x9d00e654                FifoGetPacketCount
-                0x9d00e70c                FifoGetPacketSpaceAvailible
-                0x9d00e75c                FifoGetPacket
- .text          0x9d00e84c      0xb74 build/default/production/_ext/1487882678/usb_function_cdc.o
-                0x9d00e84c                USBCheckCDCRequest
-                0x9d00eccc                CDCInitEP
-                0x9d00ed5c                getsUSBUSART
-                0x9d00ee88                USBUSARTRxIsReady
-                0x9d00eee4                putUSBUSART
-                0x9d00ef84                putsUSBUSART
-                0x9d00f070                putrsUSBUSART
-                0x9d00f158                CDCTxService
- .text          0x9d00f3c0      0xb0c build/default/production/_ext/711791526/PID.o
-                0x9d00f3c0                initPIDLocal
-                0x9d00f88c                getRunPidIsr
-                0x9d00f8b0                setPidIsr
-                0x9d00f8dc                asyncCallback
-                0x9d00f91c                onPidConfigureMine
-                0x9d00fa2c                trigerPIDLimit
-                0x9d00fb08                checkPIDLimitEventsMine
-                0x9d00fb4c                resetPositionMine
-                0x9d00fc44                getPositionMine
-                0x9d00fd04                setOutputMine
-                0x9d00fea8                isUpToTempreture
- .text          0x9d00fecc      0xa08 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(fparc32.o)
-                0x9d00fecc                fpexatan
-                0x9d010218                fpatan
-                0x9d010218                atanf
-                0x9d0102b4                fpatan2
-                0x9d0102b4                __mchp_atan2f
-                0x9d0104f8                __mchp_asinf
-                0x9d0104f8                fpasin
-                0x9d0106d0                fpacos
-                0x9d0106d0                __mchp_acosf
- .text          0x9d0108d4      0x968 build/default/production/_ext/1080174469/Bowler_Helper.o
-                0x9d0108d4                LoadCorePacket
-                0x9d0109a0                CalcCRC
-                0x9d010a18                CheckCRC
-                0x9d010a78                SetCRC
-                0x9d010ac0                GetRPCValue
-                0x9d010b34                READY
-                0x9d010bd0                ERR
-                0x9d010c6c                SetPacketLegnth
-                0x9d010cac                GetPacketLegnth
-                0x9d010ce0                DataLegnthFromPacket
-                0x9d010d0c                copyPacket
-                0x9d010d88                Bytes2Int32
-                0x9d010df0                CheckAddress
-                0x9d010e78                interpolate
-                0x9d011174                bound
- .text          0x9d01123c      0x8ec /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(fp32.o)
-                0x9d01123c                __subsf3
-                0x9d01123c                fpsub
-                0x9d011244                fpadd
-                0x9d011244                __addsf3
-                0x9d0114b0                __mulsf3
-                0x9d0114b0                fpmul
-                0x9d011668                __divsf3
-                0x9d011668                fpdiv
-                0x9d011894                sitofp
-                0x9d011894                __floatsisf
-                0x9d011894                litofp
-                0x9d0118f0                uitofp
-                0x9d0118f0                ultofp
-                0x9d01193c                __fixsfsi
-                0x9d01193c                fptoli
-                0x9d01193c                fptosi
-                0x9d0119b4                fptoui
-                0x9d0119b4                __fixunssfsi
-                0x9d0119b4                fptoul
-                0x9d011a28                __lesf2
-                0x9d011a28                __nesf2
-                0x9d011a28                __gtsf2
-                0x9d011a28                __eqsf2
-                0x9d011a28                __ltsf2
-                0x9d011a28                fpcmp
-                0x9d011a28                __gesf2
-                0x9d011abc                fabsf
-                0x9d011abc                fpfabs
-                0x9d011acc                __negsf2
-                0x9d011adc                fpnan
-                0x9d011adc                nanf
- .text          0x9d011b28      0x888 build/default/production/_ext/1080174469/Namespace_bcs_core.o
-                0x9d011b28                getNumberOfNamespaces
-                0x9d011b9c                getNumberOfRpcs
-                0x9d011c38                getNamespaceAtIndex
-                0x9d011cf4                _png
-                0x9d011d5c                _nms
-                0x9d011f5c                addRpcToNamespace
-                0x9d012058                addNamespaceToList
-                0x9d012120                getRpcByID
-                0x9d0121e8                getRpcByIndex
-                0x9d012298                RunNamespaceAsync
-                0x9d01233c                getBcsCoreNamespace
+                0x9d00d4a4                AS5055CalculateParity
+                0x9d00d54c                AS5055reset
+                0x9d00d5ec                AS5055ResetErrorFlag
+                0x9d00d678                printSystemConfig
+                0x9d00d914                AS5055readAngle
+                0x9d00da4c                AS5055send
+                0x9d00db20                EncoderSS
+ .text          0x9d00dd00      0xbd0 build/default/production/_ext/1080174469/FIFO.o
+                0x9d00dd00                printFiFoState
+                0x9d00de20                lockFifo
+                0x9d00de58                unLockFifo
+                0x9d00de98                InitByteFifo
+                0x9d00df48                clearByteFifo
+                0x9d00dfb0                ReadFirstByte
+                0x9d00dfec                calcByteCount
+                0x9d00e0a4                FifoGetByteCount
+                0x9d00e0dc                FifoAddByte
+                0x9d00e204                getByte
+                0x9d00e2d4                FifoGetByteStream
+                0x9d00e3c0                FifoReadByteStream
+                0x9d00e4c8                InitPacketFifo
+                0x9d00e56c                FifoAddPacket
+                0x9d00e6d8                FifoGetPacketCount
+                0x9d00e790                FifoGetPacketSpaceAvailible
+                0x9d00e7e0                FifoGetPacket
+ .text          0x9d00e8d0      0xb74 build/default/production/_ext/1487882678/usb_function_cdc.o
+                0x9d00e8d0                USBCheckCDCRequest
+                0x9d00ed50                CDCInitEP
+                0x9d00ede0                getsUSBUSART
+                0x9d00ef0c                USBUSARTRxIsReady
+                0x9d00ef68                putUSBUSART
+                0x9d00f008                putsUSBUSART
+                0x9d00f0f4                putrsUSBUSART
+                0x9d00f1dc                CDCTxService
+ .text          0x9d00f444      0xb0c build/default/production/_ext/711791526/PID.o
+                0x9d00f444                initPIDLocal
+                0x9d00f910                getRunPidIsr
+                0x9d00f934                setPidIsr
+                0x9d00f960                asyncCallback
+                0x9d00f9a0                onPidConfigureMine
+                0x9d00fab0                trigerPIDLimit
+                0x9d00fb8c                checkPIDLimitEventsMine
+                0x9d00fbd0                resetPositionMine
+                0x9d00fcc8                getPositionMine
+                0x9d00fd88                setOutputMine
+                0x9d00ff2c                isUpToTempreture
+ .text          0x9d00ff50      0xa08 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(fparc32.o)
+                0x9d00ff50                fpexatan
+                0x9d01029c                fpatan
+                0x9d01029c                atanf
+                0x9d010338                fpatan2
+                0x9d010338                __mchp_atan2f
+                0x9d01057c                __mchp_asinf
+                0x9d01057c                fpasin
+                0x9d010754                fpacos
+                0x9d010754                __mchp_acosf
+ .text          0x9d010958      0x968 build/default/production/_ext/1080174469/Bowler_Helper.o
+                0x9d010958                LoadCorePacket
+                0x9d010a24                CalcCRC
+                0x9d010a9c                CheckCRC
+                0x9d010afc                SetCRC
+                0x9d010b44                GetRPCValue
+                0x9d010bb8                READY
+                0x9d010c54                ERR
+                0x9d010cf0                SetPacketLegnth
+                0x9d010d30                GetPacketLegnth
+                0x9d010d64                DataLegnthFromPacket
+                0x9d010d90                copyPacket
+                0x9d010e0c                Bytes2Int32
+                0x9d010e74                CheckAddress
+                0x9d010efc                interpolate
+                0x9d0111f8                bound
+ .text          0x9d0112c0      0x8ec /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(fp32.o)
+                0x9d0112c0                __subsf3
+                0x9d0112c0                fpsub
+                0x9d0112c8                fpadd
+                0x9d0112c8                __addsf3
+                0x9d011534                __mulsf3
+                0x9d011534                fpmul
+                0x9d0116ec                __divsf3
+                0x9d0116ec                fpdiv
+                0x9d011918                sitofp
+                0x9d011918                __floatsisf
+                0x9d011918                litofp
+                0x9d011974                uitofp
+                0x9d011974                ultofp
+                0x9d0119c0                __fixsfsi
+                0x9d0119c0                fptoli
+                0x9d0119c0                fptosi
+                0x9d011a38                fptoui
+                0x9d011a38                __fixunssfsi
+                0x9d011a38                fptoul
+                0x9d011aac                __lesf2
+                0x9d011aac                __nesf2
+                0x9d011aac                __gtsf2
+                0x9d011aac                __eqsf2
+                0x9d011aac                __ltsf2
+                0x9d011aac                fpcmp
+                0x9d011aac                __gesf2
+                0x9d011b40                fabsf
+                0x9d011b40                fpfabs
+                0x9d011b50                __negsf2
+                0x9d011b60                fpnan
+                0x9d011b60                nanf
+ .text          0x9d011bac      0x888 build/default/production/_ext/1080174469/Namespace_bcs_core.o
+                0x9d011bac                getNumberOfNamespaces
+                0x9d011c20                getNumberOfRpcs
+                0x9d011cbc                getNamespaceAtIndex
+                0x9d011d78                _png
+                0x9d011de0                _nms
+                0x9d011fe0                addRpcToNamespace
+                0x9d0120dc                addNamespaceToList
+                0x9d0121a4                getRpcByID
+                0x9d01226c                getRpcByIndex
+                0x9d01231c                RunNamespaceAsync
+                0x9d0123c0                getBcsCoreNamespace
 
-.dinit          0x9d0123b0      0x828
- .dinit         0x9d0123b0      0x828 data_init
+.dinit          0x9d012434      0x828
+ .dinit         0x9d012434      0x828 data_init
 
-.text           0x9d012bd8     0x21e0
- .text          0x9d012bd8      0x7a0 build/default/production/_ext/1487882678/usb_fifo.o
-                0x9d012bd8                GotUSBData
-                0x9d012c00                GetPICUSBFifo
-                0x9d012c24                SetPICUSBFifo
-                0x9d012c74                usb_CDC_Serial_Init
-                0x9d012d44                USBGetArray
-                0x9d012dec                waitForTxToBeFree
-                0x9d012f1c                flush
-                0x9d012fd0                isUSBActave
-                0x9d012ff8                forceOpenUSB
-                0x9d013020                USBPutArray
-                0x9d013234                GetNumUSBBytes
-                0x9d013278                usb_Buffer_Update
- .text          0x9d013378      0x714 build/default/production/_ext/711791526/servoCalibration.o
-                0x9d013378                incrementHistoresis
-                0x9d0133e4                decrementHistoresis
-                0x9d013450                calcCenter
-                0x9d0135cc                getUpperServoHistoresis
-                0x9d013608                getLowerServoHistoresis
-                0x9d013644                getServoStop
-                0x9d013680                runServoCalibration
-                0x9d013814                servoCalibration
- .text          0x9d013a8c      0x674 build/default/production/_ext/1080174469/Bowler_Transport.o
-                0x9d013a8c                allign
-                0x9d013b58                _getBowlerPacket
-                0x9d013ee8                GetBowlerPacket
-                0x9d013f2c                GetBowlerPacketDebug
-                0x9d013f70                getNumBytes
-                0x9d013fac                getStream
-                0x9d014000                FixPacket
-                0x9d01408c                PutBowlerPacket
- .text          0x9d014100      0x668 build/default/production/_ext/2118813141/FlashStorage.o
-                0x9d014100                FlashLoad
-                0x9d014178                FlashSync
-                0x9d014218                FlashSetMac
-                0x9d0142d8                FlashSetName
-                0x9d014360                FlashGetMac
-                0x9d014448                FlashGetName
-                0x9d0144c8                FlashGetBlRev
-                0x9d014548                FlashGetFwRev
-                0x9d0145c8                FlashSetFwRev
-                0x9d014698                FlashSetBlRev
- .text          0x9d014768      0x650 build/default/production/_ext/711791526/ForgeHeater.o
-                0x9d014768                heaterPin
-                0x9d01481c                mapHeaterIndex
-                0x9d014894                initializeHeater
-                0x9d014acc                resetHeater
-                0x9d014af4                getHeaterTempreture
-                0x9d014b58                setHeater
-                0x9d014bf0                Timer3Handler
+.text           0x9d012c5c     0x21e0
+ .text          0x9d012c5c      0x7a0 build/default/production/_ext/1487882678/usb_fifo.o
+                0x9d012c5c                GotUSBData
+                0x9d012c84                GetPICUSBFifo
+                0x9d012ca8                SetPICUSBFifo
+                0x9d012cf8                usb_CDC_Serial_Init
+                0x9d012dc8                USBGetArray
+                0x9d012e70                waitForTxToBeFree
+                0x9d012fa0                flush
+                0x9d013054                isUSBActave
+                0x9d01307c                forceOpenUSB
+                0x9d0130a4                USBPutArray
+                0x9d0132b8                GetNumUSBBytes
+                0x9d0132fc                usb_Buffer_Update
+ .text          0x9d0133fc      0x714 build/default/production/_ext/711791526/servoCalibration.o
+                0x9d0133fc                incrementHistoresis
+                0x9d013468                decrementHistoresis
+                0x9d0134d4                calcCenter
+                0x9d013650                getUpperServoHistoresis
+                0x9d01368c                getLowerServoHistoresis
+                0x9d0136c8                getServoStop
+                0x9d013704                runServoCalibration
+                0x9d013898                servoCalibration
+ .text          0x9d013b10      0x674 build/default/production/_ext/1080174469/Bowler_Transport.o
+                0x9d013b10                allign
+                0x9d013bdc                _getBowlerPacket
+                0x9d013f6c                GetBowlerPacket
+                0x9d013fb0                GetBowlerPacketDebug
+                0x9d013ff4                getNumBytes
+                0x9d014030                getStream
+                0x9d014084                FixPacket
+                0x9d014110                PutBowlerPacket
+ .text          0x9d014184      0x668 build/default/production/_ext/2118813141/FlashStorage.o
+                0x9d014184                FlashLoad
+                0x9d0141fc                FlashSync
+                0x9d01429c                FlashSetMac
+                0x9d01435c                FlashSetName
+                0x9d0143e4                FlashGetMac
+                0x9d0144cc                FlashGetName
+                0x9d01454c                FlashGetBlRev
+                0x9d0145cc                FlashGetFwRev
+                0x9d01464c                FlashSetFwRev
+                0x9d01471c                FlashSetBlRev
+ .text          0x9d0147ec      0x650 build/default/production/_ext/711791526/ForgeHeater.o
+                0x9d0147ec                heaterPin
+                0x9d0148a0                mapHeaterIndex
+                0x9d014918                initializeHeater
+                0x9d014b50                resetHeater
+                0x9d014b78                getHeaterTempreture
+                0x9d014bdc                setHeater
+                0x9d014c74                Timer3Handler
 
-.rodata         0x9d014db8      0xa70
- .rodata        0x9d014db8      0x548 build/default/production/_ext/711791526/main.o
-                0x9d014db8                MY_MAC_ADDRESS
- .rodata        0x9d015300      0x528 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_tbl_lib.o)
-                0x9d015300                __IntSrcTbl
-                0x9d015600                __IntVectorTbl
+.rodata         0x9d014e3c      0xa70
+ .rodata        0x9d014e3c      0x548 build/default/production/_ext/711791526/main.o
+                0x9d014e3c                MY_MAC_ADDRESS
+ .rodata        0x9d015384      0x528 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_tbl_lib.o)
+                0x9d015384                __IntSrcTbl
+                0x9d015684                __IntVectorTbl
 
-.text           0x9d015828     0x3218
- .text          0x9d015828      0x4fc build/default/production/_ext/2118813141/Bowler_UART_HAL.o
-                0x9d015828                GotUARTData
-                0x9d015850                GetPICUARTFifo
-                0x9d015874                SetPICUARTFifo
-                0x9d0158a0                newByteUartHal
-                0x9d015920                U1_ISR
-                0x9d015a3c                CalcBaud
-                0x9d015a98                Pic32UARTSetBaud
-                0x9d015ba8                Pic32UART_HAL_INIT
-                0x9d015c08                Pic32UARTGetArray
-                0x9d015c6c                Pic32Get_UART_Byte_Count
-                0x9d015ca8                Pic32UARTPutArray
- .text          0x9d015d24      0x4fc build/default/production/_ext/1080174469/Namespace_bcs_rpc.o
-                0x9d015d24                _rpc
-                0x9d015ecc                _rpcArgs
-                0x9d0161ac                getBcsRpcNamespace
- .text          0x9d016220      0x45c build/default/production/_ext/2118813141/HAL_P32.o
-                0x9d016220                Pic32_Bowler_HAL_Init
-                0x9d0162c4                Get_HAL_Packet
-                0x9d016374                Send_HAL_Packet
-                0x9d016404                Get_HAL_Byte_Count
-                0x9d0164b4                GetBowlerPacket_arch
-                0x9d016558                putStream
-                0x9d0165a4                getMs
-                0x9d0165d4                putCharDebug
-                0x9d016614                startScheduler
-                0x9d016644                EnableDebugTerminal
- .text          0x9d01667c      0x450 build/default/production/_ext/711791526/UpstreamPackets.o
-                0x9d01667c                push
-                0x9d0166d0                pushPIDMine
-                0x9d01698c                pushEncoders
- .text          0x9d016acc      0x440 build/default/production/_ext/2118813141/ADC.o
-                0x9d016acc                InitADCHardware
-                0x9d016d8c                getAdcRaw
-                0x9d016e9c                getAdcVoltage
- .text          0x9d016f0c      0x3a0 build/default/production/_ext/1080174469/Bowler_Server.o
-                0x9d016f0c                Bowler_Init
-                0x9d016f5c                process
-                0x9d017120                Bowler_Server_Static
-                0x9d01718c                Bowler_Server
- .text          0x9d0172ac      0x2cc build/default/production/_ext/1487882678/usb_callback.o
-                0x9d0172ac                USBCBSuspend
-                0x9d0172cc                USBCBWakeFromSuspend
-                0x9d0172ec                USBCB_SOF_Handler
-                0x9d01730c                USBCBErrorHandler
-                0x9d01732c                USBCBCheckOtherReq
-                0x9d01735c                USBCBStdSetDscHandler
-                0x9d01737c                USBCBInitEP
-                0x9d0173ac                USBCBSendResume
-                0x9d017414                USER_USB_CALLBACK_EVENT_HANDLER
-                0x9d017548                mySetLineCodingHandler
- .text          0x9d017578      0x2bc build/default/production/_ext/1080174469/Bowler_RPC_Process.o
-                0x9d017578                getLastPacketTime
-                0x9d0175f0                Process_Self_Packet
- .text          0x9d017834      0x2b8 build/default/production/_ext/2118813141/Tick.o
-                0x9d017834                TickInit
-                0x9d0178d0                TickGet
-                0x9d017910                TickGetUpper
-                0x9d017934                TickGetLower
-                0x9d017958                MyTickConvertToMilliseconds
-                0x9d0179b0                TickGetMS
-                0x9d017a40                Timer1Handler
- .text          0x9d017aec      0x2a0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(fpsqrt32.o)
-                0x9d017aec                fpexsqrt
-                0x9d017be4                __mchp_sqrtf
-                0x9d017be4                fpsqrt
- .text          0x9d017d8c      0x214 build/default/production/_ext/711791526/StepperSim.o
-                0x9d017d8c                StartStepperSim
-                0x9d017dac                getStepperSimCurrent
-                0x9d017dd0                INT1_ISR
- .text          0x9d017fa0      0x208 build/default/production/_ext/2118813141/UART.o
-                0x9d017fa0                Write32UART2
-                0x9d0180a8                Write32UART1
- .text          0x9d0181a8      0x204 build/default/production/_ext/2118813141/LED.o
-                0x9d0181a8                InitLEDS
-                0x9d018214                SetGreen
-                0x9d018278                SetRed
-                0x9d0182dc                SetBlue
-                0x9d018340                SetColor
- .text          0x9d0183ac      0x1d4 build/default/production/_ext/2118813141/Delay.o
-                0x9d0183ac                DelayMs
-                0x9d018440                DelayPreServo
-                0x9d0184a4                DelayIncServo
-                0x9d0184c4                Delay10us
-                0x9d01851c                Delay1us
- .text          0x9d018580      0x1a8 build/default/production/_ext/1080174469/Namespace_bcs_pid.o
-                0x9d018580                pidAsyncEventCallbackLocal
-                0x9d0185c4                getBcsPidNamespace
- .text          0x9d018728      0x190 build/default/production/_ext/1080174469/Scheduler.o
-                0x9d018728                RunEvery
- .text          0x9d0188b8      0x188 build/default/production/_ext/1487882678/usb_descriptors.o
-                0x9d0188b8                WriteUSBSerialNumber
-                0x9d018954                SetUSB_VID_PID
-                0x9d0189a4                WriteUSBDeviceString
+.text           0x9d0158ac     0x3218
+ .text          0x9d0158ac      0x4fc build/default/production/_ext/2118813141/Bowler_UART_HAL.o
+                0x9d0158ac                GotUARTData
+                0x9d0158d4                GetPICUARTFifo
+                0x9d0158f8                SetPICUARTFifo
+                0x9d015924                newByteUartHal
+                0x9d0159a4                U1_ISR
+                0x9d015ac0                CalcBaud
+                0x9d015b1c                Pic32UARTSetBaud
+                0x9d015c2c                Pic32UART_HAL_INIT
+                0x9d015c8c                Pic32UARTGetArray
+                0x9d015cf0                Pic32Get_UART_Byte_Count
+                0x9d015d2c                Pic32UARTPutArray
+ .text          0x9d015da8      0x4fc build/default/production/_ext/1080174469/Namespace_bcs_rpc.o
+                0x9d015da8                _rpc
+                0x9d015f50                _rpcArgs
+                0x9d016230                getBcsRpcNamespace
+ .text          0x9d0162a4      0x45c build/default/production/_ext/2118813141/HAL_P32.o
+                0x9d0162a4                Pic32_Bowler_HAL_Init
+                0x9d016348                Get_HAL_Packet
+                0x9d0163f8                Send_HAL_Packet
+                0x9d016488                Get_HAL_Byte_Count
+                0x9d016538                GetBowlerPacket_arch
+                0x9d0165dc                putStream
+                0x9d016628                getMs
+                0x9d016658                putCharDebug
+                0x9d016698                startScheduler
+                0x9d0166c8                EnableDebugTerminal
+ .text          0x9d016700      0x450 build/default/production/_ext/711791526/UpstreamPackets.o
+                0x9d016700                push
+                0x9d016754                pushPIDMine
+                0x9d016a10                pushEncoders
+ .text          0x9d016b50      0x440 build/default/production/_ext/2118813141/ADC.o
+                0x9d016b50                InitADCHardware
+                0x9d016e10                getAdcRaw
+                0x9d016f20                getAdcVoltage
+ .text          0x9d016f90      0x3a0 build/default/production/_ext/1080174469/Bowler_Server.o
+                0x9d016f90                Bowler_Init
+                0x9d016fe0                process
+                0x9d0171a4                Bowler_Server_Static
+                0x9d017210                Bowler_Server
+ .text          0x9d017330      0x2cc build/default/production/_ext/1487882678/usb_callback.o
+                0x9d017330                USBCBSuspend
+                0x9d017350                USBCBWakeFromSuspend
+                0x9d017370                USBCB_SOF_Handler
+                0x9d017390                USBCBErrorHandler
+                0x9d0173b0                USBCBCheckOtherReq
+                0x9d0173e0                USBCBStdSetDscHandler
+                0x9d017400                USBCBInitEP
+                0x9d017430                USBCBSendResume
+                0x9d017498                USER_USB_CALLBACK_EVENT_HANDLER
+                0x9d0175cc                mySetLineCodingHandler
+ .text          0x9d0175fc      0x2bc build/default/production/_ext/1080174469/Bowler_RPC_Process.o
+                0x9d0175fc                getLastPacketTime
+                0x9d017674                Process_Self_Packet
+ .text          0x9d0178b8      0x2b8 build/default/production/_ext/2118813141/Tick.o
+                0x9d0178b8                TickInit
+                0x9d017954                TickGet
+                0x9d017994                TickGetUpper
+                0x9d0179b8                TickGetLower
+                0x9d0179dc                MyTickConvertToMilliseconds
+                0x9d017a34                TickGetMS
+                0x9d017ac4                Timer1Handler
+ .text          0x9d017b70      0x2a0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(fpsqrt32.o)
+                0x9d017b70                fpexsqrt
+                0x9d017c68                __mchp_sqrtf
+                0x9d017c68                fpsqrt
+ .text          0x9d017e10      0x214 build/default/production/_ext/711791526/StepperSim.o
+                0x9d017e10                StartStepperSim
+                0x9d017e30                getStepperSimCurrent
+                0x9d017e54                INT1_ISR
+ .text          0x9d018024      0x208 build/default/production/_ext/2118813141/UART.o
+                0x9d018024                Write32UART2
+                0x9d01812c                Write32UART1
+ .text          0x9d01822c      0x204 build/default/production/_ext/2118813141/LED.o
+                0x9d01822c                InitLEDS
+                0x9d018298                SetGreen
+                0x9d0182fc                SetRed
+                0x9d018360                SetBlue
+                0x9d0183c4                SetColor
+ .text          0x9d018430      0x1d4 build/default/production/_ext/2118813141/Delay.o
+                0x9d018430                DelayMs
+                0x9d0184c4                DelayPreServo
+                0x9d018528                DelayIncServo
+                0x9d018548                Delay10us
+                0x9d0185a0                Delay1us
+ .text          0x9d018604      0x1a8 build/default/production/_ext/1080174469/Namespace_bcs_pid.o
+                0x9d018604                pidAsyncEventCallbackLocal
+                0x9d018648                getBcsPidNamespace
+ .text          0x9d0187ac      0x190 build/default/production/_ext/1080174469/Scheduler.o
+                0x9d0187ac                RunEvery
+ .text          0x9d01893c      0x188 build/default/production/_ext/1487882678/usb_descriptors.o
+                0x9d01893c                WriteUSBSerialNumber
+                0x9d0189d8                SetUSB_VID_PID
+                0x9d018a28                WriteUSBDeviceString
 
-.rodata         0x9d018a40      0x308
- .rodata        0x9d018a40      0x188 build/default/production/_ext/1080174469/Debug.o
-                0x9d018a40                AsciiHex
- .rodata        0x9d018bc8      0x180 build/default/production/_ext/711791526/CartesianController.o
+.rodata         0x9d018ac4      0x308
+ .rodata        0x9d018ac4      0x188 build/default/production/_ext/1080174469/Debug.o
+                0x9d018ac4                AsciiHex
+ .rodata        0x9d018c4c      0x180 build/default/production/_ext/711791526/CartesianController.o
 
-.text           0x9d018d48      0x37c
- .text          0x9d018d48      0x150 build/default/production/_ext/711791526/Callbacks.o
-                0x9d018d48                UserGetRPCs
-                0x9d018db8                UserPostRPCs
-                0x9d018e28                UserCriticalRPCs
- .text          0x9d018e98      0x118 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(fpsin32.o)
-                0x9d018e98                fpsin
-                0x9d018e98                sinf
- .text          0x9d018fb0      0x114 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(fpcos32.o)
-                0x9d018fb0                fpcos
-                0x9d018fb0                cosf
+.text           0x9d018dcc      0x37c
+ .text          0x9d018dcc      0x150 build/default/production/_ext/711791526/Callbacks.o
+                0x9d018dcc                UserGetRPCs
+                0x9d018e3c                UserPostRPCs
+                0x9d018eac                UserCriticalRPCs
+ .text          0x9d018f1c      0x118 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(fpsin32.o)
+                0x9d018f1c                fpsin
+                0x9d018f1c                sinf
+ .text          0x9d019034      0x114 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(fpcos32.o)
+                0x9d019034                fpcos
+                0x9d019034                cosf
 
 .text._NVMOperation
-                0x9d0190c4      0x114
+                0x9d019148      0x114
  .text._NVMOperation
-                0x9d0190c4      0x114 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(nvm_operation_lib.o)
-                0x9d0190c4                _NVMOperation
+                0x9d019148      0x114 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(nvm_operation_lib.o)
+                0x9d019148                _NVMOperation
 
-.text           0x9d0191d8      0x108
- .text          0x9d0191d8      0x108 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(fpreduct32.o)
-                0x9d0191d8                fpreduct
+.text           0x9d01925c      0x108
+ .text          0x9d01925c      0x108 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(fpreduct32.o)
+                0x9d01925c                fpreduct
 
-.rodata         0x9d0192e0       0xf8
- .rodata        0x9d0192e0       0xf8 build/default/production/_ext/711791526/servoCalibration.o
+.rodata         0x9d019364       0xf8
+ .rodata        0x9d019364       0xf8 build/default/production/_ext/711791526/servoCalibration.o
 
-.text           0x9d0193d8       0xec
- .text          0x9d0193d8       0xec build/default/production/_ext/664674842/Namespace_bcs_cartesian.o
-                0x9d0193d8                cartesianAsyncEventCallback
-                0x9d019450                getBcsCartesianNamespace
+.text           0x9d01945c       0xec
+ .text          0x9d01945c       0xec build/default/production/_ext/664674842/Namespace_bcs_cartesian.o
+                0x9d01945c                cartesianAsyncEventCallback
+                0x9d0194d4                getBcsCartesianNamespace
 
 .text.general_exception
-                0x9d0194c4       0xd0
+                0x9d019548       0xd0
  .text.general_exception
-                0x9d0194c4       0xd0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(general-exception.o)
-                0x9d0194c4                _general_exception_context
+                0x9d019548       0xd0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(general-exception.o)
+                0x9d019548                _general_exception_context
 
-.text           0x9d019594       0xc4
- .text          0x9d019594       0xc4 build/default/production/_ext/2118813141/Bowler_USB_HAL.o
-                0x9d019594                GetPacketUSB
-                0x9d0195e0                SendPacketUSB
-                0x9d019628                Get_USB_Byte_Count
+.text           0x9d019618       0xc4
+ .text          0x9d019618       0xc4 build/default/production/_ext/2118813141/Bowler_USB_HAL.o
+                0x9d019618                GetPacketUSB
+                0x9d019664                SendPacketUSB
+                0x9d0196ac                Get_USB_Byte_Count
 
-.rodata         0x9d019658       0xb4
- .rodata        0x9d019658       0xb4 build/default/production/_ext/1080174469/Bowler_Transport.o
+.rodata         0x9d0196dc       0xb4
+ .rodata        0x9d0196dc       0xb4 build/default/production/_ext/1080174469/Bowler_Transport.o
 
-.text           0x9d01970c      0x150
- .text          0x9d01970c       0xa8 build/default/production/_ext/711791526/SPIClient.o
-                0x9d01970c                SPITransceve
-                0x9d01976c                get
- .text          0x9d0197b4       0xa8 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(memset.o)
-                0x9d0197b4                memset
+.text           0x9d019790      0x150
+ .text          0x9d019790       0xa8 build/default/production/_ext/711791526/SPIClient.o
+                0x9d019790                SPITransceve
+                0x9d0197f0                get
+ .text          0x9d019838       0xa8 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(memset.o)
+                0x9d019838                memset
 
-.rodata         0x9d01985c      0x190
- .rodata        0x9d01985c       0x90 build/default/production/_ext/1080174469/AbstractPID.o
- .rodata        0x9d0198ec       0x80 build/default/production/_ext/711791526/AS5055.o
- .rodata        0x9d01996c       0x80 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_brg_tbl_lib_legacy.o)
-                0x9d01996c                _SpiBrgConvTbl
+.rodata         0x9d0198e0      0x190
+ .rodata        0x9d0198e0       0x90 build/default/production/_ext/1080174469/AbstractPID.o
+ .rodata        0x9d019970       0x80 build/default/production/_ext/711791526/AS5055.o
+ .rodata        0x9d0199f0       0x80 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_brg_tbl_lib_legacy.o)
+                0x9d0199f0                _SpiBrgConvTbl
 
 .text.UARTEnable
-                0x9d0199ec       0x80
+                0x9d019a70       0x80
  .text.UARTEnable
-                0x9d0199ec       0x80 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(uart_lib.o)
-                0x9d0199ec                UARTEnable
+                0x9d019a70       0x80 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(uart_lib.o)
+                0x9d019a70                UARTEnable
 
-.rodata         0x9d019a6c       0x68
- .rodata        0x9d019a6c       0x68 build/default/production/_ext/1080174469/FIFO.o
+.rodata         0x9d019af0       0x68
+ .rodata        0x9d019af0       0x68 build/default/production/_ext/1080174469/FIFO.o
 
-.text.OpenSPI2  0x9d019ad4       0x60
+.text.OpenSPI2  0x9d019b58       0x60
  .text.OpenSPI2
-                0x9d019ad4       0x60 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_open_spi2_lib_legacy.o)
-                0x9d019ad4                OpenSPI2
+                0x9d019b58       0x60 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_open_spi2_lib_legacy.o)
+                0x9d019b58                OpenSPI2
 
-.rodata         0x9d019b34       0x5c
- .rodata        0x9d019b34       0x5c build/default/production/_ext/1080174469/Bowler_Server.o
-                0x9d019b34                Broadcast
+.rodata         0x9d019bb8       0x5c
+ .rodata        0x9d019bb8       0x5c build/default/production/_ext/1080174469/Bowler_Server.o
+                0x9d019bb8                Broadcast
 
 .text.UARTSetDataRate
-                0x9d019b90       0x5c
+                0x9d019c14       0x5c
  .text.UARTSetDataRate
-                0x9d019b90       0x5c /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(uart_lib.o)
-                0x9d019b90                UARTSetDataRate
+                0x9d019c14       0x5c /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(uart_lib.o)
+                0x9d019c14                UARTSetDataRate
 
 .text.INTEnable
-                0x9d019bec       0x58
+                0x9d019c70       0x58
  .text.INTEnable
-                0x9d019bec       0x58 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_tbl_lib.o)
-                0x9d019bec                INTEnable
+                0x9d019c70       0x58 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_tbl_lib.o)
+                0x9d019c70                INTEnable
 
-.rodata         0x9d019c44       0xe8
- .rodata        0x9d019c44       0x50 build/default/production/_ext/1080174469/Namespace_bcs_pid.o
- .rodata        0x9d019c94       0x4c build/default/production/_ext/1080174469/Bowler_RPC_Process.o
- .rodata        0x9d019ce0       0x4c build/default/production/_ext/1080174469/Namespace_bcs_core.o
-                0x9d019ce0                coreName
+.rodata         0x9d019cc8       0xe8
+ .rodata        0x9d019cc8       0x50 build/default/production/_ext/1080174469/Namespace_bcs_pid.o
+ .rodata        0x9d019d18       0x4c build/default/production/_ext/1080174469/Bowler_RPC_Process.o
+ .rodata        0x9d019d64       0x4c build/default/production/_ext/1080174469/Namespace_bcs_core.o
+                0x9d019d64                coreName
 
-.text.sqrtf     0x9d019d2c       0x4c
- .text.sqrtf    0x9d019d2c       0x4c /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(w_sqrtf.o)
-                0x9d019d2c                sqrtf
+.text.sqrtf     0x9d019db0       0x4c
+ .text.sqrtf    0x9d019db0       0x4c /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(w_sqrtf.o)
+                0x9d019db0                sqrtf
 
-.text           0x9d019d78       0x48
- .text          0x9d019d78       0x48 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/libgcc.a(floatunsisf.o)
-                0x9d019d78                __floatunsisf
+.text           0x9d019dfc       0x48
+ .text          0x9d019dfc       0x48 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/libgcc.a(floatunsisf.o)
+                0x9d019dfc                __floatunsisf
 
-.rodata         0x9d019dc0       0x8c
- .rodata        0x9d019dc0       0x48 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(_ports_tbl_libp.o)
-                0x9d019dc0                PortRegTbl
- .rodata        0x9d019e08       0x44 build/default/production/_ext/1487882678/usb_function_cdc.o
+.rodata         0x9d019e44       0x8c
+ .rodata        0x9d019e44       0x48 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(_ports_tbl_libp.o)
+                0x9d019e44                PortRegTbl
+ .rodata        0x9d019e8c       0x44 build/default/production/_ext/1487882678/usb_function_cdc.o
 
 .text.PORTSetPinsDigitalOut
-                0x9d019e4c       0x40
+                0x9d019ed0       0x40
  .text.PORTSetPinsDigitalOut
-                0x9d019e4c       0x40 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(port_set_pins_digital_out_lib.o)
-                0x9d019e4c                PORTSetPinsDigitalOut
+                0x9d019ed0       0x40 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(port_set_pins_digital_out_lib.o)
+                0x9d019ed0                PORTSetPinsDigitalOut
 
 .text.UARTGetDataRate
-                0x9d019e8c       0x40
+                0x9d019f10       0x40
  .text.UARTGetDataRate
-                0x9d019e8c       0x40 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(uart_lib.o)
-                0x9d019e8c                UARTGetDataRate
+                0x9d019f10       0x40 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(uart_lib.o)
+                0x9d019f10                UARTGetDataRate
 
 .text.INTSetVectorPriority
-                0x9d019ecc       0x3c
+                0x9d019f50       0x3c
  .text.INTSetVectorPriority
-                0x9d019ecc       0x3c /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_tbl_lib.o)
-                0x9d019ecc                INTSetVectorPriority
+                0x9d019f50       0x3c /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_tbl_lib.o)
+                0x9d019f50                INTSetVectorPriority
 
 .text.INTSetVectorSubPriority
-                0x9d019f08       0x3c
+                0x9d019f8c       0x3c
  .text.INTSetVectorSubPriority
-                0x9d019f08       0x3c /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_tbl_lib.o)
-                0x9d019f08                INTSetVectorSubPriority
+                0x9d019f8c       0x3c /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_tbl_lib.o)
+                0x9d019f8c                INTSetVectorSubPriority
 
 .text.UARTConfigure
-                0x9d019f44       0x3c
+                0x9d019fc8       0x3c
  .text.UARTConfigure
-                0x9d019f44       0x3c /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(uart_lib.o)
-                0x9d019f44                UARTConfigure
+                0x9d019fc8       0x3c /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(uart_lib.o)
+                0x9d019fc8                UARTConfigure
 
 .text.UARTSetAddress
-                0x9d019f80       0x3c
+                0x9d01a004       0x3c
  .text.UARTSetAddress
-                0x9d019f80       0x3c /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(uart_lib.o)
-                0x9d019f80                UARTSetAddress
+                0x9d01a004       0x3c /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(uart_lib.o)
+                0x9d01a004                UARTSetAddress
 
-.rodata         0x9d019fbc       0x70
- .rodata        0x9d019fbc       0x38 build/default/production/_ext/711791526/UpstreamPackets.o
- .rodata        0x9d019ff4       0x38 build/default/production/_ext/711791526/PID.o
+.rodata         0x9d01a040       0x70
+ .rodata        0x9d01a040       0x38 build/default/production/_ext/711791526/UpstreamPackets.o
+ .rodata        0x9d01a078       0x38 build/default/production/_ext/711791526/PID.o
 
 .text.UARTWatchForAddress
-                0x9d01a02c       0x38
+                0x9d01a0b0       0x38
  .text.UARTWatchForAddress
-                0x9d01a02c       0x38 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(uart_lib.o)
-                0x9d01a02c                UARTWatchForAddress
+                0x9d01a0b0       0x38 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(uart_lib.o)
+                0x9d01a0b0                UARTWatchForAddress
 
-.rodata         0x9d01a064       0x34
- .rodata        0x9d01a064       0x34 build/default/production/_ext/1487882678/usb_fifo.o
+.rodata         0x9d01a0e8       0x34
+ .rodata        0x9d01a0e8       0x34 build/default/production/_ext/1487882678/usb_fifo.o
 
 .text.INTEnableSystemMultiVectoredInt
-                0x9d01a098       0x34
+                0x9d01a11c       0x34
  .text.INTEnableSystemMultiVectoredInt
-                0x9d01a098       0x34 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_enable_mv_int_lib.o)
-                0x9d01a098                INTEnableSystemMultiVectoredInt
+                0x9d01a11c       0x34 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_enable_mv_int_lib.o)
+                0x9d01a11c                INTEnableSystemMultiVectoredInt
 
 .text.NVMWriteWord
-                0x9d01a0cc       0x34
+                0x9d01a150       0x34
  .text.NVMWriteWord
-                0x9d01a0cc       0x34 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(nvm_write_word_lib.o)
-                0x9d01a0cc                NVMWriteWord
+                0x9d01a150       0x34 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(nvm_write_word_lib.o)
+                0x9d01a150                NVMWriteWord
 
 .text.INTGetVectorPriority
-                0x9d01a100       0x30
+                0x9d01a184       0x30
  .text.INTGetVectorPriority
-                0x9d01a100       0x30 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_tbl_lib.o)
-                0x9d01a100                INTGetVectorPriority
+                0x9d01a184       0x30 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_tbl_lib.o)
+                0x9d01a184                INTGetVectorPriority
 
 .text.INTGetVectorSubPriority
-                0x9d01a130       0x30
+                0x9d01a1b4       0x30
  .text.INTGetVectorSubPriority
-                0x9d01a130       0x30 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_tbl_lib.o)
-                0x9d01a130                INTGetVectorSubPriority
+                0x9d01a1b4       0x30 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_tbl_lib.o)
+                0x9d01a1b4                INTGetVectorSubPriority
 
 .text.SpiChnGetC
-                0x9d01a160       0x30
+                0x9d01a1e4       0x30
  .text.SpiChnGetC
-                0x9d01a160       0x30 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_chn_getc_lib.o)
-                0x9d01a160                SpiChnGetC
+                0x9d01a1e4       0x30 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_chn_getc_lib.o)
+                0x9d01a1e4                SpiChnGetC
 
 .text.SpiChnPutC
-                0x9d01a190       0x30
+                0x9d01a214       0x30
  .text.SpiChnPutC
-                0x9d01a190       0x30 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_chn_putc_lib.o)
-                0x9d01a190                SpiChnPutC
+                0x9d01a214       0x30 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_chn_putc_lib.o)
+                0x9d01a214                SpiChnPutC
 
 .text.INTClearFlag
-                0x9d01a1c0       0x2c
+                0x9d01a244       0x2c
  .text.INTClearFlag
-                0x9d01a1c0       0x2c /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_tbl_lib.o)
-                0x9d01a1c0                INTClearFlag
+                0x9d01a244       0x2c /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_tbl_lib.o)
+                0x9d01a244                INTClearFlag
 
 .text.INTSetFlag
-                0x9d01a1ec       0x2c
+                0x9d01a270       0x2c
  .text.INTSetFlag
-                0x9d01a1ec       0x2c /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_tbl_lib.o)
-                0x9d01a1ec                INTSetFlag
+                0x9d01a270       0x2c /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_tbl_lib.o)
+                0x9d01a270                INTSetFlag
 
 .text.INTGetFlag
-                0x9d01a218       0x2c
+                0x9d01a29c       0x2c
  .text.INTGetFlag
-                0x9d01a218       0x2c /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_tbl_lib.o)
-                0x9d01a218                INTGetFlag
+                0x9d01a29c       0x2c /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_tbl_lib.o)
+                0x9d01a29c                INTGetFlag
 
 .text.INTGetEnable
-                0x9d01a244       0x2c
+                0x9d01a2c8       0x2c
  .text.INTGetEnable
-                0x9d01a244       0x2c /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_tbl_lib.o)
-                0x9d01a244                INTGetEnable
+                0x9d01a2c8       0x2c /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_tbl_lib.o)
+                0x9d01a2c8                INTGetEnable
 
 .text.NVMErasePage
-                0x9d01a270       0x2c
+                0x9d01a2f4       0x2c
  .text.NVMErasePage
-                0x9d01a270       0x2c /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(nvm_erase_page_lib.o)
-                0x9d01a270                NVMErasePage
+                0x9d01a2f4       0x2c /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(nvm_erase_page_lib.o)
+                0x9d01a2f4                NVMErasePage
 
-.rodata         0x9d01a29c       0x50
- .rodata        0x9d01a29c       0x28 build/default/production/_ext/711791526/delta.o
- .rodata        0x9d01a2c4       0x28 build/default/production/_ext/664674842/Namespace_bcs_cartesian.o
+.rodata         0x9d01a320       0x50
+ .rodata        0x9d01a320       0x28 build/default/production/_ext/711791526/delta.o
+ .rodata        0x9d01a348       0x28 build/default/production/_ext/664674842/Namespace_bcs_cartesian.o
 
 .text.PORTClearBits
-                0x9d01a2ec       0x28
+                0x9d01a370       0x28
  .text.PORTClearBits
-                0x9d01a2ec       0x28 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(port_clear_bits_lib.o)
-                0x9d01a2ec                PORTClearBits
+                0x9d01a370       0x28 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(port_clear_bits_lib.o)
+                0x9d01a370                PORTClearBits
 
 .text.PORTSetBits
-                0x9d01a314       0x28
+                0x9d01a398       0x28
  .text.PORTSetBits
-                0x9d01a314       0x28 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(port_set_bits_lib.o)
-                0x9d01a314                PORTSetBits
+                0x9d01a398       0x28 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(port_set_bits_lib.o)
+                0x9d01a398                PORTSetBits
 
 .text.UARTSetFifoMode
-                0x9d01a33c       0x28
+                0x9d01a3c0       0x28
  .text.UARTSetFifoMode
-                0x9d01a33c       0x28 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(uart_lib.o)
-                0x9d01a33c                UARTSetFifoMode
+                0x9d01a3c0       0x28 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(uart_lib.o)
+                0x9d01a3c0                UARTSetFifoMode
 
 .text.UARTSetLineControl
-                0x9d01a364       0x28
+                0x9d01a3e8       0x28
  .text.UARTSetLineControl
-                0x9d01a364       0x28 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(uart_lib.o)
-                0x9d01a364                UARTSetLineControl
+                0x9d01a3e8       0x28 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(uart_lib.o)
+                0x9d01a3e8                UARTSetLineControl
 
-.rodata         0x9d01a38c       0x20
- .rodata        0x9d01a38c       0x20 build/default/production/_ext/1080174469/Namespace_bcs_rpc.o
+.rodata         0x9d01a410       0x20
+ .rodata        0x9d01a410       0x20 build/default/production/_ext/1080174469/Namespace_bcs_rpc.o
 
 .text.SpiChnReadC
-                0x9d01a3ac       0x20
+                0x9d01a430       0x20
  .text.SpiChnReadC
-                0x9d01a3ac       0x20 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_chn_getc_lib.o)
-                0x9d01a3ac                SpiChnReadC
+                0x9d01a430       0x20 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_chn_getc_lib.o)
+                0x9d01a430                SpiChnReadC
 
 .text.SpiChnWriteC
-                0x9d01a3cc       0x20
+                0x9d01a450       0x20
  .text.SpiChnWriteC
-                0x9d01a3cc       0x20 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_chn_putc_lib.o)
-                0x9d01a3cc                SpiChnWriteC
+                0x9d01a450       0x20 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_chn_putc_lib.o)
+                0x9d01a450                SpiChnWriteC
 
-.rodata         0x9d01a3ec       0x1c
- .rodata        0x9d01a3ec       0x1c build/default/production/_ext/1080174469/Bowler_Helper.o
+.rodata         0x9d01a470       0x1c
+ .rodata        0x9d01a470       0x1c build/default/production/_ext/1080174469/Bowler_Helper.o
 
 .text.INTRestoreInterrupts
-                0x9d01a408       0x1c
+                0x9d01a48c       0x1c
  .text.INTRestoreInterrupts
-                0x9d01a408       0x1c /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_restore_interrupts_lib.o)
-                0x9d01a408                INTRestoreInterrupts
+                0x9d01a48c       0x1c /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_restore_interrupts_lib.o)
+                0x9d01a48c                INTRestoreInterrupts
 
 .text.SpiChnBuffer
-                0x9d01a424       0x1c
+                0x9d01a4a8       0x1c
  .text.SpiChnBuffer
-                0x9d01a424       0x1c /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_chn_putc_lib.o)
-                0x9d01a424                SpiChnBuffer
+                0x9d01a4a8       0x1c /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_chn_putc_lib.o)
+                0x9d01a4a8                SpiChnBuffer
 
-.rodata         0x9d01a440       0x30
- .rodata        0x9d01a440       0x18 build/default/production/_ext/711791526/Servo.o
- .rodata        0x9d01a458       0x18 build/default/production/_ext/711791526/ForgeHeater.o
+.rodata         0x9d01a4c4       0x30
+ .rodata        0x9d01a4c4       0x18 build/default/production/_ext/711791526/Servo.o
+ .rodata        0x9d01a4dc       0x18 build/default/production/_ext/711791526/ForgeHeater.o
 
-.text           0x9d01a470       0x18
- .text          0x9d01a470       0x18 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(default-nmi-handler.o)
-                0x9d01a470                _nmi_handler
+.text           0x9d01a4f4       0x18
+ .text          0x9d01a4f4       0x18 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(default-nmi-handler.o)
+                0x9d01a4f4                _nmi_handler
 
 .text.CheKseg0CacheOff
-                0x9d01a488       0x18
+                0x9d01a50c       0x18
  .text.CheKseg0CacheOff
-                0x9d01a488       0x18 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(pcache.o)
-                0x9d01a488                CheKseg0CacheOff
+                0x9d01a50c       0x18 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(pcache.o)
+                0x9d01a50c                CheKseg0CacheOff
 
 .text.CheKseg0CacheOn
-                0x9d01a4a0       0x18
+                0x9d01a524       0x18
  .text.CheKseg0CacheOn
-                0x9d01a4a0       0x18 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(pcache.o)
-                0x9d01a4a0                CheKseg0CacheOn
+                0x9d01a524       0x18 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(pcache.o)
+                0x9d01a524                CheKseg0CacheOn
 
-.rodata         0x9d01a4b8       0x14
- .rodata        0x9d01a4b8       0x14 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_map_tbl_libp.o)
-                0x9d01a4b8                _SpiMapTbl
+.rodata         0x9d01a53c       0x14
+ .rodata        0x9d01a53c       0x14 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_map_tbl_libp.o)
+                0x9d01a53c                _SpiMapTbl
 
-.text           0x9d01a4cc       0x10
- .text          0x9d01a4cc       0x10 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/crt0.o
-                0x9d01a4d4                __crt0_exit
+.text           0x9d01a550       0x10
+ .text          0x9d01a550       0x10 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/crt0.o
+                0x9d01a558                __crt0_exit
 
-.rodata         0x9d01a4dc        0xc
- .rodata        0x9d01a4dc        0xc build/default/production/_ext/2118813141/Tick.o
+.rodata         0x9d01a560        0xc
+ .rodata        0x9d01a560        0xc build/default/production/_ext/2118813141/Tick.o
 
 .text._bootstrap_exception_handler
-                0x9d01a4e8        0xc
+                0x9d01a56c        0xc
  .text._bootstrap_exception_handler
-                0x9d01a4e8        0xc /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(default-bootstrap-exception-handler.o)
-                0x9d01a4e8                _bootstrap_exception_handler
+                0x9d01a56c        0xc /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(default-bootstrap-exception-handler.o)
+                0x9d01a56c                _bootstrap_exception_handler
 
 .text._on_reset
-                0x9d01a4f4        0x8
+                0x9d01a578        0x8
  .text._on_reset
-                0x9d01a4f4        0x8 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(default-on-reset.o)
-                0x9d01a4f4                _on_reset
+                0x9d01a578        0x8 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(default-on-reset.o)
+                0x9d01a578                _on_reset
 
 .text._on_bootstrap
-                0x9d01a4fc        0x8
+                0x9d01a580        0x8
  .text._on_bootstrap
-                0x9d01a4fc        0x8 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(default-on-bootstrap.o)
-                0x9d01a4fc                _on_bootstrap
+                0x9d01a580        0x8 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(default-on-bootstrap.o)
+                0x9d01a580                _on_bootstrap
 
 .text.INTEnableInterrupts
-                0x9d01a504        0x8
+                0x9d01a588        0x8
  .text.INTEnableInterrupts
-                0x9d01a504        0x8 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_enable_interrupts_lib.o)
-                0x9d01a504                INTEnableInterrupts
+                0x9d01a588        0x8 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_enable_interrupts_lib.o)
+                0x9d01a588                INTEnableInterrupts
 
 .text.INTDisableInterrupts
-                0x9d01a50c        0x8
+                0x9d01a590        0x8
  .text.INTDisableInterrupts
-                0x9d01a50c        0x8 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_disable_interrupts_lib.o)
-                0x9d01a50c                INTDisableInterrupts
+                0x9d01a590        0x8 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_disable_interrupts_lib.o)
+                0x9d01a590                INTDisableInterrupts
 
-.rodata         0x9d01a514        0xc
- .rodata        0x9d01a514        0x8 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(uart_lib.o)
-                0x9d01a514                uartReg
- .rodata        0x9d01a51c        0x4 build/default/production/_ext/2118813141/ADC.o
+.rodata         0x9d01a598        0xc
+ .rodata        0x9d01a598        0x8 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(uart_lib.o)
+                0x9d01a598                uartReg
+ .rodata        0x9d01a5a0        0x4 build/default/production/_ext/2118813141/ADC.o
 
 .text%z217      0x00000000        0x0
  .text          0x00000000        0x0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(uart_lib.o)

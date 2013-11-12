@@ -17,6 +17,12 @@ extern "C" {
     #define     ATX_PWR_ON         _RF0
     #define     ATX_ENABLED        0
 
+    #define     SPI_CLK_TRIS        _TRISG6 // tris
+    #define     SPI_MISO_TRIS       _TRISG7 // tris
+    #define     SPI_MOSI_TRIS       _TRISG8 // tris
+    #define     CloseSPIOpenCollector() mPORTGOpenDrainClose(BIT_6);\
+                                        mPORTGOpenDrainClose(BIT_7);\
+                                        mPORTGOpenDrainClose(BIT_8);
 
     // eNCODER Connector macros and defines
 	//PORT 0
