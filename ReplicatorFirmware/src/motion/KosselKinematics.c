@@ -18,10 +18,11 @@
   You should have received a copy of the GNU General Public License
   along with Grbl.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-#include "Marlin.h"
-#include "stepper.h"
-#include "planner.h"
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <inttypes.h>
 
 // The arc is approximated by generating a huge number of tiny, linear segments. The length of each
 // segment is configured in settings.mm_per_arc_segment.
