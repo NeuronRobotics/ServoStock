@@ -15,11 +15,11 @@ Archive member included because of file (symbol)
 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(default-nmi-handler.o)
                               /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/crt0.o (_nmi_handler)
 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(w_atan2f.o)
-                              build/default/production/_ext/519170017/KosselKinematics.o (atan2f)
+                              build/default/production/_ext/1494288313/KosselKinematics.o (atan2f)
 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(fparc32.o)
                               build/default/production/_ext/1494288313/delta.o (atanf)
 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(fpfloo32.o)
-                              build/default/production/_ext/519170017/KosselKinematics.o (floorf)
+                              build/default/production/_ext/1494288313/KosselKinematics.o (floorf)
 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(dp32.o)
                               /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(w_atan2f.o) (fptodp)
 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(fpsqrt32.o)
@@ -29,9 +29,9 @@ Archive member included because of file (symbol)
 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(fp32.o)
                               build/default/production/_ext/1487882678/usb_fifo.o (fpsub)
 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(fpcos32.o)
-                              build/default/production/_ext/1494288313/delta.o (cosf)
+                              build/default/production/_ext/1494288313/KosselKinematics.o (cosf)
 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(fpsin32.o)
-                              build/default/production/_ext/1494288313/delta.o (sinf)
+                              build/default/production/_ext/1494288313/KosselKinematics.o (sinf)
 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(fpreduct32.o)
                               /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(fpcos32.o) (fpreduct)
 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(sincof32.o)
@@ -39,7 +39,7 @@ Archive member included because of file (symbol)
 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(s_lib_ver.o)
                               /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(w_sqrtf.o) (math_errhandling)
 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(cabs.o)
-                              build/default/production/_ext/519170017/KosselKinematics.o (hypotf)
+                              build/default/production/_ext/1494288313/KosselKinematics.o (hypotf)
 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(support.o)
                               /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(cabs.o) (copysign)
 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(w_ldexp.o)
@@ -75,7 +75,7 @@ Archive member included because of file (symbol)
 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_map_tbl_libp.o)
                               /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_chn_getc_lib.o) (_SpiMapTbl)
 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_open_spi2_lib_legacy.o)
-                              build/default/production/_ext/519170017/AS5055.o (OpenSPI2)
+                              build/default/production/_ext/263962707/AS5055.o (OpenSPI2)
 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_brg_tbl_lib_legacy.o)
                               /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_open_spi2_lib_legacy.o) (_SpiBrgConvTbl)
 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(nvm_erase_page_lib.o)
@@ -102,13 +102,13 @@ pDst                0x4               build/default/production/_ext/1487882678/u
 packetFifo          0x18              build/default/production/_ext/1494288313/CartesianController.o
 control_signal_bitmap
                     0x4               build/default/production/_ext/1487882678/usb_function_cdc.o
-currentServo        0x4               build/default/production/_ext/519170017/Servo.o
+currentServo        0x4               build/default/production/_ext/263962707/Servo.o
 BDT                 0x80              build/default/production/_ext/1487882678/usb_device.o
 CtrlTrfData         0x40              build/default/production/_ext/1487882678/usb_device.o
 resetPosition       0x4               build/default/production/_ext/1080174469/AbstractPID.o
 MathCalculationVelocity
                     0x4               build/default/production/_ext/1080174469/AbstractPID.o
-lastValue           0x4               build/default/production/_ext/519170017/Servo.o
+lastValue           0x4               build/default/production/_ext/263962707/Servo.o
 cos120              0x4               build/default/production/_ext/1494288313/delta.o
 USBDeviceState      0x4               build/default/production/_ext/1487882678/usb_device.o
 sqrt3               0x4               build/default/production/_ext/1494288313/delta.o
@@ -121,11 +121,11 @@ intCartesian        0x30              build/default/production/_ext/1494288313/C
 velData             0x4               build/default/production/_ext/1080174469/AbstractPID.o
 MathCalculationPosition
                     0x4               build/default/production/_ext/1080174469/AbstractPID.o
-position            0x20              build/default/production/_ext/519170017/Servo.o
+position            0x20              build/default/production/_ext/263962707/Servo.o
 cdc_data_tx         0x40              build/default/production/_ext/1487882678/usb_function_cdc.o
 inPipes             0x7               build/default/production/_ext/1487882678/usb_device.o
 pBDTEntryIn         0x10              build/default/production/_ext/1487882678/usb_device.o
-overflow            0x2c              build/default/production/_ext/519170017/AS5055.o
+overflow            0x2c              build/default/production/_ext/263962707/AS5055.o
 CDCDataOutHandle    0x4               build/default/production/_ext/1487882678/usb_function_cdc.o
 cdc_rx_len          0x2               build/default/production/_ext/1487882678/usb_function_cdc.o
 linTmpPack          0x10a             build/default/production/_ext/1494288313/CartesianController.o
@@ -135,7 +135,7 @@ lastXYZE            0x10              build/default/production/_ext/1494288313/C
 onPidConfigure      0x4               build/default/production/_ext/1080174469/AbstractPID.o
 sin30               0x4               build/default/production/_ext/1494288313/delta.o
 tmpData             0x10a             build/default/production/_ext/2048476848/Callbacks.o
-sort                0x20              build/default/production/_ext/519170017/Servo.o
+sort                0x20              build/default/production/_ext/263962707/Servo.o
 buffer              0x2990            build/default/production/_ext/1494288313/CartesianController.o
 BaudRateGen         0x4               build/default/production/_ext/1487882678/usb_function_cdc.o
 pBDTEntryOut        0x10              build/default/production/_ext/1487882678/usb_device.o
@@ -143,13 +143,13 @@ CDCDataInHandle     0x4               build/default/production/_ext/1487882678/u
 BothEP0OutUOWNsSet  0x4               build/default/production/_ext/1487882678/usb_device.o
 cdc_data_rx         0x40              build/default/production/_ext/1487882678/usb_function_cdc.o
 cdc_notice          0x8               build/default/production/_ext/1487882678/usb_function_cdc.o
-velocity            0x80              build/default/production/_ext/519170017/Servo.o
+velocity            0x80              build/default/production/_ext/263962707/Servo.o
 pBDTEntryEP0OutNext
                     0x4               build/default/production/_ext/1487882678/usb_device.o
-nextServo           0x4               build/default/production/_ext/519170017/Servo.o
-nextValue           0x4               build/default/production/_ext/519170017/Servo.o
+nextServo           0x4               build/default/production/_ext/263962707/Servo.o
+nextValue           0x4               build/default/production/_ext/263962707/Servo.o
 flash               0x50              build/default/production/_ext/2118813141/FlashStorage.o
-raw                 0x2c              build/default/production/_ext/519170017/AS5055.o
+raw                 0x2c              build/default/production/_ext/263962707/AS5055.o
 cdc_trf_state       0x1               build/default/production/_ext/1487882678/usb_function_cdc.o
 SetupPkt            0x8               build/default/production/_ext/1487882678/usb_device.o
 pidGroups           0x4               build/default/production/_ext/1080174469/AbstractPID.o
@@ -157,8 +157,8 @@ pCDCDst             0x4               build/default/production/_ext/1487882678/u
 cdc_mem_type        0x1               build/default/production/_ext/1487882678/usb_function_cdc.o
 setOutput           0x4               build/default/production/_ext/1080174469/AbstractPID.o
 heaterLowpass       0x10              build/default/production/_ext/263962707/ForgeHeater.o
-offset              0x2c              build/default/production/_ext/519170017/AS5055.o
-diff                0x4               build/default/production/_ext/519170017/Servo.o
+offset              0x2c              build/default/production/_ext/263962707/AS5055.o
+diff                0x4               build/default/production/_ext/263962707/Servo.o
 shortPacketStatus   0x1               build/default/production/_ext/1487882678/usb_device.o
 pBDTEntryEP0OutCurrent
                     0x4               build/default/production/_ext/1487882678/usb_device.o
@@ -166,7 +166,7 @@ USBActiveConfiguration
                     0x1               build/default/production/_ext/1487882678/usb_device.o
 RemoteWakeup        0x4               build/default/production/_ext/1487882678/usb_device.o
 tan30               0x4               build/default/production/_ext/1494288313/delta.o
-currentValue        0x4               build/default/production/_ext/519170017/Servo.o
+currentValue        0x4               build/default/production/_ext/263962707/Servo.o
 pi                  0x4               build/default/production/_ext/1494288313/delta.o
 sin120              0x4               build/default/production/_ext/1494288313/delta.o
 USTATcopy           0x1               build/default/production/_ext/1487882678/usb_device.o
@@ -408,22 +408,24 @@ Discarded input sections
  .pdr           0x00000000       0x40 build/default/production/_ext/1080174469/Namespace_bcs_pid.o
  .reginfo       0x00000000       0x18 build/default/production/_ext/1080174469/Namespace_bcs_rpc.o
  .pdr           0x00000000       0x60 build/default/production/_ext/1080174469/Namespace_bcs_rpc.o
+ .reginfo       0x00000000       0x18 build/default/production/_ext/263962707/Servo.o
+ .pdr           0x00000000      0x200 build/default/production/_ext/263962707/Servo.o
  .reginfo       0x00000000       0x18 build/default/production/_ext/263962707/SPIClient.o
  .pdr           0x00000000       0x40 build/default/production/_ext/263962707/SPIClient.o
  .reginfo       0x00000000       0x18 build/default/production/_ext/263962707/ForgeHeater.o
  .pdr           0x00000000      0x100 build/default/production/_ext/263962707/ForgeHeater.o
+ .reginfo       0x00000000       0x18 build/default/production/_ext/263962707/AS5055.o
+ .pdr           0x00000000      0x180 build/default/production/_ext/263962707/AS5055.o
+ .reginfo       0x00000000       0x18 build/default/production/_ext/1494288313/KosselKinematics.o
+ .pdr           0x00000000       0x20 build/default/production/_ext/1494288313/KosselKinematics.o
  .reginfo       0x00000000       0x18 build/default/production/_ext/1494288313/CartesianController.o
  .pdr           0x00000000      0x280 build/default/production/_ext/1494288313/CartesianController.o
  .reginfo       0x00000000       0x18 build/default/production/_ext/1494288313/DeltaKinematics.o
  .pdr           0x00000000        0x0 build/default/production/_ext/1494288313/DeltaKinematics.o
  .reginfo       0x00000000       0x18 build/default/production/_ext/1494288313/delta.o
  .pdr           0x00000000       0xa0 build/default/production/_ext/1494288313/delta.o
- .reginfo       0x00000000       0x18 build/default/production/_ext/519170017/Servo.o
- .pdr           0x00000000      0x200 build/default/production/_ext/519170017/Servo.o
  .reginfo       0x00000000       0x18 build/default/production/_ext/519170017/MotionTest.o
  .pdr           0x00000000        0x0 build/default/production/_ext/519170017/MotionTest.o
- .reginfo       0x00000000       0x18 build/default/production/_ext/519170017/AS5055.o
- .pdr           0x00000000      0x180 build/default/production/_ext/519170017/AS5055.o
  .reginfo       0x00000000       0x18 build/default/production/_ext/519170017/Calibration.o
  .pdr           0x00000000        0x0 build/default/production/_ext/519170017/Calibration.o
  .reginfo       0x00000000       0x18 build/default/production/_ext/519170017/StepperSim.o
@@ -432,8 +434,6 @@ Discarded input sections
  .pdr           0x00000000      0x100 build/default/production/_ext/519170017/servoCalibration.o
  .reginfo       0x00000000       0x18 build/default/production/_ext/519170017/PID.o
  .pdr           0x00000000      0x160 build/default/production/_ext/519170017/PID.o
- .reginfo       0x00000000       0x18 build/default/production/_ext/519170017/KosselKinematics.o
- .pdr           0x00000000       0x20 build/default/production/_ext/519170017/KosselKinematics.o
  .reginfo       0x00000000       0x18 build/default/production/_ext/2048476848/UpstreamPackets.o
  .pdr           0x00000000       0x60 build/default/production/_ext/2048476848/UpstreamPackets.o
  .reginfo       0x00000000       0x18 build/default/production/_ext/2048476848/Namespace_bcs_cartesian.o
@@ -586,19 +586,19 @@ LOAD build/default/production/_ext/1080174469/Bowler_Server.o
 LOAD build/default/production/_ext/1080174469/Namespace_bcs_core.o
 LOAD build/default/production/_ext/1080174469/Namespace_bcs_pid.o
 LOAD build/default/production/_ext/1080174469/Namespace_bcs_rpc.o
+LOAD build/default/production/_ext/263962707/Servo.o
 LOAD build/default/production/_ext/263962707/SPIClient.o
 LOAD build/default/production/_ext/263962707/ForgeHeater.o
+LOAD build/default/production/_ext/263962707/AS5055.o
+LOAD build/default/production/_ext/1494288313/KosselKinematics.o
 LOAD build/default/production/_ext/1494288313/CartesianController.o
 LOAD build/default/production/_ext/1494288313/DeltaKinematics.o
 LOAD build/default/production/_ext/1494288313/delta.o
-LOAD build/default/production/_ext/519170017/Servo.o
 LOAD build/default/production/_ext/519170017/MotionTest.o
-LOAD build/default/production/_ext/519170017/AS5055.o
 LOAD build/default/production/_ext/519170017/Calibration.o
 LOAD build/default/production/_ext/519170017/StepperSim.o
 LOAD build/default/production/_ext/519170017/servoCalibration.o
 LOAD build/default/production/_ext/519170017/PID.o
-LOAD build/default/production/_ext/519170017/KosselKinematics.o
 LOAD build/default/production/_ext/2048476848/UpstreamPackets.o
 LOAD build/default/production/_ext/2048476848/Namespace_bcs_cartesian.o
 LOAD build/default/production/_ext/2048476848/Callbacks.o
@@ -711,7 +711,7 @@ END GROUP
 
 .vector_8       0x9fc01300        0x8
  *(.vector_8)
- .vector_8      0x9fc01300        0x8 build/default/production/_ext/519170017/Servo.o
+ .vector_8      0x9fc01300        0x8 build/default/production/_ext/263962707/Servo.o
                 0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_8) <= (_vector_spacing << 0x5))), function at exception vector 8 too large)
 
 .vector_9       0x9fc01320        0x0
@@ -1001,18 +1001,18 @@ END GROUP
  .sdata         0xa0000020        0x8 build/default/production/_ext/1080174469/Namespace_bcs_core.o
  .sdata         0xa0000028       0x4c build/default/production/_ext/1080174469/Namespace_bcs_pid.o
  .sdata         0xa0000074       0x18 build/default/production/_ext/1080174469/Namespace_bcs_rpc.o
- .sdata         0xa000008c       0x10 build/default/production/_ext/1494288313/CartesianController.o
-                0xa000008c                scale
-                0xa0000090                extrusionScale
- .sdata         0xa000009c       0x14 build/default/production/_ext/1494288313/delta.o
-                0xa000009c                e
-                0xa00000a0                f
-                0xa00000a4                re
-                0xa00000a8                rf
-                0xa00000ac                zOffset
- .sdata         0xa00000b0        0x1 build/default/production/_ext/519170017/Servo.o
-                0xa00000b0                stop
- *fill*         0xa00000b1        0x3 00
+ .sdata         0xa000008c        0x1 build/default/production/_ext/263962707/Servo.o
+                0xa000008c                stop
+ *fill*         0xa000008d        0x3 00
+ .sdata         0xa0000090       0x10 build/default/production/_ext/1494288313/CartesianController.o
+                0xa0000090                scale
+                0xa0000094                extrusionScale
+ .sdata         0xa00000a0       0x14 build/default/production/_ext/1494288313/delta.o
+                0xa00000a0                e
+                0xa00000a4                f
+                0xa00000a8                re
+                0xa00000ac                rf
+                0xa00000b0                zOffset
  .sdata         0xa00000b4        0x8 build/default/production/_ext/519170017/servoCalibration.o
  .sdata         0xa00000bc       0x1c build/default/production/_ext/1445274692/main.o
                 0xa00000d8                _sdata_end = .
@@ -1049,20 +1049,20 @@ END GROUP
  .sbss          0xa0000134        0x4 build/default/production/_ext/1080174469/Namespace_bcs_core.o
  .sbss          0xa0000138        0x4 build/default/production/_ext/1080174469/Namespace_bcs_pid.o
  .sbss          0xa000013c        0x4 build/default/production/_ext/1080174469/Namespace_bcs_rpc.o
- .sbss          0xa0000140        0x4 build/default/production/_ext/263962707/ForgeHeater.o
-                0xa0000140                heaterIndex
- .sbss          0xa0000144        0x8 build/default/production/_ext/1494288313/CartesianController.o
-                0xa0000144                full
-                0xa0000148                lastPushedBufferSize
- .sbss          0xa000014c        0xc build/default/production/_ext/519170017/Servo.o
-                0xa000014c                sortedIndex
-                0xa0000150                start
-                0xa0000154                servoCalibrationState
- .sbss          0xa0000158        0x3 build/default/production/_ext/519170017/AS5055.o
-                0xa0000158                initialized
-                0xa0000159                busy
-                0xa000015a                lock
- *fill*         0xa000015b        0x1 00
+ .sbss          0xa0000140        0xc build/default/production/_ext/263962707/Servo.o
+                0xa0000140                sortedIndex
+                0xa0000144                start
+                0xa0000148                servoCalibrationState
+ .sbss          0xa000014c        0x4 build/default/production/_ext/263962707/ForgeHeater.o
+                0xa000014c                heaterIndex
+ .sbss          0xa0000150        0x3 build/default/production/_ext/263962707/AS5055.o
+                0xa0000150                initialized
+                0xa0000151                busy
+                0xa0000152                lock
+ *fill*         0xa0000153        0x1 00
+ .sbss          0xa0000154        0x8 build/default/production/_ext/1494288313/CartesianController.o
+                0xa0000154                full
+                0xa0000158                lastPushedBufferSize
  .sbss          0xa000015c        0x4 build/default/production/_ext/519170017/StepperSim.o
                 0xa000015c                current
  .sbss          0xa0000160        0x4 build/default/production/_ext/519170017/PID.o
@@ -1116,23 +1116,23 @@ END GROUP
                 0xa0000220                setOutput
                 0xa0000224                getPosition
                 0xa0000228                checkPIDLimitEvents
- .scommon       0xa000022c        0x4 build/default/production/_ext/263962707/ForgeHeater.o
-                0xa000022c                heaterLowpassIndex
- .scommon       0xa0000230       0x1c build/default/production/_ext/1494288313/delta.o
-                0xa0000230                cos120
-                0xa0000234                sqrt3
-                0xa0000238                sin30
-                0xa000023c                tan30
-                0xa0000240                pi
-                0xa0000244                sin120
-                0xa0000248                tan60
- .scommon       0xa000024c       0x18 build/default/production/_ext/519170017/Servo.o
-                0xa000024c                currentServo
-                0xa0000250                lastValue
-                0xa0000254                nextServo
-                0xa0000258                nextValue
-                0xa000025c                diff
-                0xa0000260                currentValue
+ .scommon       0xa000022c       0x18 build/default/production/_ext/263962707/Servo.o
+                0xa000022c                currentServo
+                0xa0000230                lastValue
+                0xa0000234                nextServo
+                0xa0000238                nextValue
+                0xa000023c                diff
+                0xa0000240                currentValue
+ .scommon       0xa0000244        0x4 build/default/production/_ext/263962707/ForgeHeater.o
+                0xa0000244                heaterLowpassIndex
+ .scommon       0xa0000248       0x1c build/default/production/_ext/1494288313/delta.o
+                0xa0000248                cos120
+                0xa000024c                sqrt3
+                0xa0000250                sin30
+                0xa0000254                tan30
+                0xa0000258                pi
+                0xa000025c                sin120
+                0xa0000260                tan60
  .scommon       0xa0000264        0x4 build/default/production/_ext/519170017/servoCalibration.o
                 0xa0000264                state
                 0xa0000268                _sbss_end = .
@@ -1154,24 +1154,24 @@ END GROUP
  *fill*         0xa00006f7        0x1 00
  COMMON         0xa00006f8       0x50 build/default/production/_ext/2118813141/FlashStorage.o
                 0xa00006f8                flash
- COMMON         0xa0000748       0x10 build/default/production/_ext/263962707/ForgeHeater.o
-                0xa0000748                heaterLowpass
- COMMON         0xa0000758     0x2bfe build/default/production/_ext/1494288313/CartesianController.o
-                0xa0000758                packetFifo
-                0xa0000770                intCartesian
-                0xa00007a0                linTmpPack
-                0xa00008ac                lastXYZE
-                0xa00008bc                buffer
-                0xa000324c                packetTemp
- *fill*         0xa0003356        0x2 00
- COMMON         0xa0003358       0xc0 build/default/production/_ext/519170017/Servo.o
-                0xa0003358                position
-                0xa0003378                sort
-                0xa0003398                velocity
- COMMON         0xa0003418       0x84 build/default/production/_ext/519170017/AS5055.o
-                0xa0003418                overflow
-                0xa0003444                raw
-                0xa0003470                offset
+ COMMON         0xa0000748       0xc0 build/default/production/_ext/263962707/Servo.o
+                0xa0000748                position
+                0xa0000768                sort
+                0xa0000788                velocity
+ COMMON         0xa0000808       0x10 build/default/production/_ext/263962707/ForgeHeater.o
+                0xa0000808                heaterLowpass
+ COMMON         0xa0000818       0x84 build/default/production/_ext/263962707/AS5055.o
+                0xa0000818                overflow
+                0xa0000844                raw
+                0xa0000870                offset
+ COMMON         0xa000089c     0x2bfe build/default/production/_ext/1494288313/CartesianController.o
+                0xa000089c                packetFifo
+                0xa00008b4                intCartesian
+                0xa00008e4                linTmpPack
+                0xa00009f0                lastXYZE
+                0xa0000a00                buffer
+                0xa0003390                packetTemp
+ *fill*         0xa000349a        0x2 00
  COMMON         0xa000349c      0x10a build/default/production/_ext/2048476848/Callbacks.o
                 0xa000349c                tmpData
                 0xa00035a8                . = ALIGN (0x4)
@@ -1240,19 +1240,19 @@ END GROUP
  .comment       0x00000000       0x34 build/default/production/_ext/1080174469/Namespace_bcs_core.o
  .comment       0x00000000       0x34 build/default/production/_ext/1080174469/Namespace_bcs_pid.o
  .comment       0x00000000       0x34 build/default/production/_ext/1080174469/Namespace_bcs_rpc.o
+ .comment       0x00000000       0x34 build/default/production/_ext/263962707/Servo.o
  .comment       0x00000000       0x34 build/default/production/_ext/263962707/SPIClient.o
  .comment       0x00000000       0x34 build/default/production/_ext/263962707/ForgeHeater.o
+ .comment       0x00000000       0x34 build/default/production/_ext/263962707/AS5055.o
+ .comment       0x00000000       0x34 build/default/production/_ext/1494288313/KosselKinematics.o
  .comment       0x00000000       0x34 build/default/production/_ext/1494288313/CartesianController.o
  .comment       0x00000000       0x34 build/default/production/_ext/1494288313/DeltaKinematics.o
  .comment       0x00000000       0x34 build/default/production/_ext/1494288313/delta.o
- .comment       0x00000000       0x34 build/default/production/_ext/519170017/Servo.o
  .comment       0x00000000       0x34 build/default/production/_ext/519170017/MotionTest.o
- .comment       0x00000000       0x34 build/default/production/_ext/519170017/AS5055.o
  .comment       0x00000000       0x34 build/default/production/_ext/519170017/Calibration.o
  .comment       0x00000000       0x34 build/default/production/_ext/519170017/StepperSim.o
  .comment       0x00000000       0x34 build/default/production/_ext/519170017/servoCalibration.o
  .comment       0x00000000       0x34 build/default/production/_ext/519170017/PID.o
- .comment       0x00000000       0x34 build/default/production/_ext/519170017/KosselKinematics.o
  .comment       0x00000000       0x34 build/default/production/_ext/2048476848/UpstreamPackets.o
  .comment       0x00000000       0x34 build/default/production/_ext/2048476848/Namespace_bcs_cartesian.o
  .comment       0x00000000       0x34 build/default/production/_ext/2048476848/Callbacks.o
@@ -1360,25 +1360,25 @@ END GROUP
  .debug_aranges
                 0x00000300       0x20 build/default/production/_ext/1080174469/Namespace_bcs_rpc.o
  .debug_aranges
-                0x00000320       0x20 build/default/production/_ext/263962707/SPIClient.o
+                0x00000320       0x20 build/default/production/_ext/263962707/Servo.o
  .debug_aranges
-                0x00000340       0x20 build/default/production/_ext/263962707/ForgeHeater.o
+                0x00000340       0x20 build/default/production/_ext/263962707/SPIClient.o
  .debug_aranges
-                0x00000360       0x20 build/default/production/_ext/1494288313/CartesianController.o
+                0x00000360       0x20 build/default/production/_ext/263962707/ForgeHeater.o
  .debug_aranges
-                0x00000380       0x20 build/default/production/_ext/1494288313/delta.o
+                0x00000380       0x20 build/default/production/_ext/263962707/AS5055.o
  .debug_aranges
-                0x000003a0       0x20 build/default/production/_ext/519170017/Servo.o
+                0x000003a0       0x20 build/default/production/_ext/1494288313/KosselKinematics.o
  .debug_aranges
-                0x000003c0       0x20 build/default/production/_ext/519170017/AS5055.o
+                0x000003c0       0x20 build/default/production/_ext/1494288313/CartesianController.o
  .debug_aranges
-                0x000003e0       0x20 build/default/production/_ext/519170017/StepperSim.o
+                0x000003e0       0x20 build/default/production/_ext/1494288313/delta.o
  .debug_aranges
-                0x00000400       0x20 build/default/production/_ext/519170017/servoCalibration.o
+                0x00000400       0x20 build/default/production/_ext/519170017/StepperSim.o
  .debug_aranges
-                0x00000420       0x20 build/default/production/_ext/519170017/PID.o
+                0x00000420       0x20 build/default/production/_ext/519170017/servoCalibration.o
  .debug_aranges
-                0x00000440       0x20 build/default/production/_ext/519170017/KosselKinematics.o
+                0x00000440       0x20 build/default/production/_ext/519170017/PID.o
  .debug_aranges
                 0x00000460       0x20 build/default/production/_ext/2048476848/UpstreamPackets.o
  .debug_aranges
@@ -1498,25 +1498,25 @@ END GROUP
  .debug_pubnames
                 0x000016b2       0x3f build/default/production/_ext/1080174469/Namespace_bcs_rpc.o
  .debug_pubnames
-                0x000016f1       0x2b build/default/production/_ext/263962707/SPIClient.o
+                0x000016f1      0x1cc build/default/production/_ext/263962707/Servo.o
  .debug_pubnames
-                0x0000171c       0xd9 build/default/production/_ext/263962707/ForgeHeater.o
+                0x000018bd       0x2b build/default/production/_ext/263962707/SPIClient.o
  .debug_pubnames
-                0x000017f5      0x250 build/default/production/_ext/1494288313/CartesianController.o
+                0x000018e8       0xd9 build/default/production/_ext/263962707/ForgeHeater.o
  .debug_pubnames
-                0x00001a45       0xe9 build/default/production/_ext/1494288313/delta.o
+                0x000019c1      0x149 build/default/production/_ext/263962707/AS5055.o
  .debug_pubnames
-                0x00001b2e      0x1cc build/default/production/_ext/519170017/Servo.o
+                0x00001b0a       0x1d build/default/production/_ext/1494288313/KosselKinematics.o
  .debug_pubnames
-                0x00001cfa      0x149 build/default/production/_ext/519170017/AS5055.o
+                0x00001b27      0x250 build/default/production/_ext/1494288313/CartesianController.o
  .debug_pubnames
-                0x00001e43       0x58 build/default/production/_ext/519170017/StepperSim.o
+                0x00001d77       0xe9 build/default/production/_ext/1494288313/delta.o
  .debug_pubnames
-                0x00001e9b       0xd1 build/default/production/_ext/519170017/servoCalibration.o
+                0x00001e60       0x58 build/default/production/_ext/519170017/StepperSim.o
  .debug_pubnames
-                0x00001f6c       0xf9 build/default/production/_ext/519170017/PID.o
+                0x00001eb8       0xd1 build/default/production/_ext/519170017/servoCalibration.o
  .debug_pubnames
-                0x00002065       0x1d build/default/production/_ext/519170017/KosselKinematics.o
+                0x00001f89       0xf9 build/default/production/_ext/519170017/PID.o
  .debug_pubnames
                 0x00002082       0x3c build/default/production/_ext/2048476848/UpstreamPackets.o
  .debug_pubnames
@@ -1582,7 +1582,7 @@ END GROUP
  .debug_pubnames
                 0x0000277f       0xb1 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(uart_lib.o)
 
-.debug_info     0x00000000    0x42ccd
+.debug_info     0x00000000    0x42cd1
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000     0x169f build/default/production/_ext/1487882678/usb_descriptors.o
  .debug_info    0x0000169f     0x2907 build/default/production/_ext/1487882678/usb_function_cdc.o
@@ -1611,56 +1611,56 @@ END GROUP
  .debug_info    0x00024f25     0x19d4 build/default/production/_ext/1080174469/Namespace_bcs_core.o
  .debug_info    0x000268f9     0x17b1 build/default/production/_ext/1080174469/Namespace_bcs_pid.o
  .debug_info    0x000280aa     0x1810 build/default/production/_ext/1080174469/Namespace_bcs_rpc.o
- .debug_info    0x000298ba      0xfd1 build/default/production/_ext/263962707/SPIClient.o
- .debug_info    0x0002a88b     0x196f build/default/production/_ext/263962707/ForgeHeater.o
- .debug_info    0x0002c1fa     0x1e78 build/default/production/_ext/1494288313/CartesianController.o
- .debug_info    0x0002e072      0xf66 build/default/production/_ext/1494288313/DeltaKinematics.o
- .debug_info    0x0002efd8     0x170c build/default/production/_ext/1494288313/delta.o
- .debug_info    0x000306e4     0x1de6 build/default/production/_ext/519170017/Servo.o
- .debug_info    0x000324ca      0xf5d build/default/production/_ext/519170017/MotionTest.o
- .debug_info    0x00033427     0x23ae build/default/production/_ext/519170017/AS5055.o
- .debug_info    0x000357d5      0xf5e build/default/production/_ext/519170017/Calibration.o
- .debug_info    0x00036733     0x1543 build/default/production/_ext/519170017/StepperSim.o
- .debug_info    0x00037c76     0x164e build/default/production/_ext/519170017/servoCalibration.o
- .debug_info    0x000392c4     0x1b79 build/default/production/_ext/519170017/PID.o
- .debug_info    0x0003ae3d      0x462 build/default/production/_ext/519170017/KosselKinematics.o
- .debug_info    0x0003b29f     0x15dc build/default/production/_ext/2048476848/UpstreamPackets.o
- .debug_info    0x0003c87b     0x173c build/default/production/_ext/2048476848/Namespace_bcs_cartesian.o
- .debug_info    0x0003dfb7     0x1578 build/default/production/_ext/2048476848/Callbacks.o
- .debug_info    0x0003f52f     0x1f5f build/default/production/_ext/1445274692/main.o
- .debug_info    0x0004148e      0x146 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/libgcc.a(floatunsisf.o)
- .debug_info    0x000415d4       0xcb /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(default-bootstrap-exception-handler.o)
- .debug_info    0x0004169f       0xa5 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(default-on-reset.o)
- .debug_info    0x00041744       0xad /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(default-on-bootstrap.o)
- .debug_info    0x000417f1       0xb7 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(w_atan2f.o)
- .debug_info    0x000418a8       0x99 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(w_sqrtf.o)
- .debug_info    0x00041941        0x0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(s_lib_ver.o)
- .debug_info    0x00041941       0xcf /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(cabs.o)
- .debug_info    0x00041a10      0x18f /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(support.o)
- .debug_info    0x00041b9f       0xa0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(w_ldexp.o)
- .debug_info    0x00041c3f       0x97 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(w_sqrt.o)
- .debug_info    0x00041cd6        0x0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(errno.o)
- .debug_info    0x00041cd6       0xfc /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(isinf.o)
- .debug_info    0x00041dd2       0xaa /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libe.a(_unorddf2.o)
- .debug_info    0x00041e7c       0xd4 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(pcache.o)
- .debug_info    0x00041f50       0xc9 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_enable_interrupts_lib.o)
- .debug_info    0x00042019       0xcb /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_disable_interrupts_lib.o)
- .debug_info    0x000420e4       0xcb /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_restore_interrupts_lib.o)
- .debug_info    0x000421af       0xd1 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_enable_mv_int_lib.o)
- .debug_info    0x00042280      0x1ab /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_tbl_lib.o)
- .debug_info    0x0004242b       0xd1 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_chn_getc_lib.o)
- .debug_info    0x000424fc       0xed /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_chn_putc_lib.o)
- .debug_info    0x000425e9        0x0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_map_tbl_libp.o)
- .debug_info    0x000425e9       0xbd /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_open_spi2_lib_legacy.o)
- .debug_info    0x000426a6        0x0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_brg_tbl_lib_legacy.o)
- .debug_info    0x000426a6       0xbb /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(nvm_erase_page_lib.o)
- .debug_info    0x00042761       0xdc /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(nvm_operation_lib.o)
- .debug_info    0x0004283d       0xbb /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(nvm_write_word_lib.o)
- .debug_info    0x000428f8       0xd1 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(port_set_pins_digital_out_lib.o)
- .debug_info    0x000429c9       0xbf /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(port_clear_bits_lib.o)
- .debug_info    0x00042a88       0xbb /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(port_set_bits_lib.o)
- .debug_info    0x00042b43        0x0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(_ports_tbl_libp.o)
- .debug_info    0x00042b43      0x18a /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(uart_lib.o)
+ .debug_info    0x000298ba     0x1de6 build/default/production/_ext/263962707/Servo.o
+ .debug_info    0x0002b6a0      0xfd1 build/default/production/_ext/263962707/SPIClient.o
+ .debug_info    0x0002c671     0x196f build/default/production/_ext/263962707/ForgeHeater.o
+ .debug_info    0x0002dfe0     0x23ae build/default/production/_ext/263962707/AS5055.o
+ .debug_info    0x0003038e      0x466 build/default/production/_ext/1494288313/KosselKinematics.o
+ .debug_info    0x000307f4     0x1e78 build/default/production/_ext/1494288313/CartesianController.o
+ .debug_info    0x0003266c      0xf66 build/default/production/_ext/1494288313/DeltaKinematics.o
+ .debug_info    0x000335d2     0x170c build/default/production/_ext/1494288313/delta.o
+ .debug_info    0x00034cde      0xf5d build/default/production/_ext/519170017/MotionTest.o
+ .debug_info    0x00035c3b      0xf5e build/default/production/_ext/519170017/Calibration.o
+ .debug_info    0x00036b99     0x1543 build/default/production/_ext/519170017/StepperSim.o
+ .debug_info    0x000380dc     0x164e build/default/production/_ext/519170017/servoCalibration.o
+ .debug_info    0x0003972a     0x1b79 build/default/production/_ext/519170017/PID.o
+ .debug_info    0x0003b2a3     0x15dc build/default/production/_ext/2048476848/UpstreamPackets.o
+ .debug_info    0x0003c87f     0x173c build/default/production/_ext/2048476848/Namespace_bcs_cartesian.o
+ .debug_info    0x0003dfbb     0x1578 build/default/production/_ext/2048476848/Callbacks.o
+ .debug_info    0x0003f533     0x1f5f build/default/production/_ext/1445274692/main.o
+ .debug_info    0x00041492      0x146 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/libgcc.a(floatunsisf.o)
+ .debug_info    0x000415d8       0xcb /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(default-bootstrap-exception-handler.o)
+ .debug_info    0x000416a3       0xa5 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(default-on-reset.o)
+ .debug_info    0x00041748       0xad /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(default-on-bootstrap.o)
+ .debug_info    0x000417f5       0xb7 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(w_atan2f.o)
+ .debug_info    0x000418ac       0x99 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(w_sqrtf.o)
+ .debug_info    0x00041945        0x0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(s_lib_ver.o)
+ .debug_info    0x00041945       0xcf /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(cabs.o)
+ .debug_info    0x00041a14      0x18f /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(support.o)
+ .debug_info    0x00041ba3       0xa0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(w_ldexp.o)
+ .debug_info    0x00041c43       0x97 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(w_sqrt.o)
+ .debug_info    0x00041cda        0x0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(errno.o)
+ .debug_info    0x00041cda       0xfc /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(isinf.o)
+ .debug_info    0x00041dd6       0xaa /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libe.a(_unorddf2.o)
+ .debug_info    0x00041e80       0xd4 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(pcache.o)
+ .debug_info    0x00041f54       0xc9 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_enable_interrupts_lib.o)
+ .debug_info    0x0004201d       0xcb /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_disable_interrupts_lib.o)
+ .debug_info    0x000420e8       0xcb /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_restore_interrupts_lib.o)
+ .debug_info    0x000421b3       0xd1 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_enable_mv_int_lib.o)
+ .debug_info    0x00042284      0x1ab /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_tbl_lib.o)
+ .debug_info    0x0004242f       0xd1 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_chn_getc_lib.o)
+ .debug_info    0x00042500       0xed /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_chn_putc_lib.o)
+ .debug_info    0x000425ed        0x0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_map_tbl_libp.o)
+ .debug_info    0x000425ed       0xbd /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_open_spi2_lib_legacy.o)
+ .debug_info    0x000426aa        0x0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_brg_tbl_lib_legacy.o)
+ .debug_info    0x000426aa       0xbb /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(nvm_erase_page_lib.o)
+ .debug_info    0x00042765       0xdc /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(nvm_operation_lib.o)
+ .debug_info    0x00042841       0xbb /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(nvm_write_word_lib.o)
+ .debug_info    0x000428fc       0xd1 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(port_set_pins_digital_out_lib.o)
+ .debug_info    0x000429cd       0xbf /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(port_clear_bits_lib.o)
+ .debug_info    0x00042a8c       0xbb /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(port_set_bits_lib.o)
+ .debug_info    0x00042b47        0x0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(_ports_tbl_libp.o)
+ .debug_info    0x00042b47      0x18a /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(uart_lib.o)
 
 .debug_abbrev   0x00000000     0x64ac
  *(.debug_abbrev)
@@ -1691,19 +1691,19 @@ END GROUP
  .debug_abbrev  0x00003446      0x2a8 build/default/production/_ext/1080174469/Namespace_bcs_core.o
  .debug_abbrev  0x000036ee      0x242 build/default/production/_ext/1080174469/Namespace_bcs_pid.o
  .debug_abbrev  0x00003930      0x251 build/default/production/_ext/1080174469/Namespace_bcs_rpc.o
- .debug_abbrev  0x00003b81      0x19d build/default/production/_ext/263962707/SPIClient.o
- .debug_abbrev  0x00003d1e      0x217 build/default/production/_ext/263962707/ForgeHeater.o
- .debug_abbrev  0x00003f35      0x357 build/default/production/_ext/1494288313/CartesianController.o
- .debug_abbrev  0x0000428c      0x166 build/default/production/_ext/1494288313/DeltaKinematics.o
- .debug_abbrev  0x000043f2      0x1ee build/default/production/_ext/1494288313/delta.o
- .debug_abbrev  0x000045e0      0x2b1 build/default/production/_ext/519170017/Servo.o
- .debug_abbrev  0x00004891      0x166 build/default/production/_ext/519170017/MotionTest.o
- .debug_abbrev  0x000049f7      0x292 build/default/production/_ext/519170017/AS5055.o
- .debug_abbrev  0x00004c89      0x166 build/default/production/_ext/519170017/Calibration.o
- .debug_abbrev  0x00004def      0x1ca build/default/production/_ext/519170017/StepperSim.o
- .debug_abbrev  0x00004fb9      0x250 build/default/production/_ext/519170017/servoCalibration.o
- .debug_abbrev  0x00005209      0x2aa build/default/production/_ext/519170017/PID.o
- .debug_abbrev  0x000054b3       0x7a build/default/production/_ext/519170017/KosselKinematics.o
+ .debug_abbrev  0x00003b81      0x2b1 build/default/production/_ext/263962707/Servo.o
+ .debug_abbrev  0x00003e32      0x19d build/default/production/_ext/263962707/SPIClient.o
+ .debug_abbrev  0x00003fcf      0x217 build/default/production/_ext/263962707/ForgeHeater.o
+ .debug_abbrev  0x000041e6      0x292 build/default/production/_ext/263962707/AS5055.o
+ .debug_abbrev  0x00004478       0x7a build/default/production/_ext/1494288313/KosselKinematics.o
+ .debug_abbrev  0x000044f2      0x357 build/default/production/_ext/1494288313/CartesianController.o
+ .debug_abbrev  0x00004849      0x166 build/default/production/_ext/1494288313/DeltaKinematics.o
+ .debug_abbrev  0x000049af      0x1ee build/default/production/_ext/1494288313/delta.o
+ .debug_abbrev  0x00004b9d      0x166 build/default/production/_ext/519170017/MotionTest.o
+ .debug_abbrev  0x00004d03      0x166 build/default/production/_ext/519170017/Calibration.o
+ .debug_abbrev  0x00004e69      0x1ca build/default/production/_ext/519170017/StepperSim.o
+ .debug_abbrev  0x00005033      0x250 build/default/production/_ext/519170017/servoCalibration.o
+ .debug_abbrev  0x00005283      0x2aa build/default/production/_ext/519170017/PID.o
  .debug_abbrev  0x0000552d      0x219 build/default/production/_ext/2048476848/UpstreamPackets.o
  .debug_abbrev  0x00005746      0x258 build/default/production/_ext/2048476848/Namespace_bcs_cartesian.o
  .debug_abbrev  0x0000599e      0x242 build/default/production/_ext/2048476848/Callbacks.o
@@ -1742,7 +1742,7 @@ END GROUP
  .debug_abbrev  0x00006473        0x1 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(_ports_tbl_libp.o)
  .debug_abbrev  0x00006474       0x38 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(uart_lib.o)
 
-.debug_line     0x00000000     0x7467
+.debug_line     0x00000000     0x746b
  *(.debug_line)
  .debug_line    0x00000000      0x244 build/default/production/_ext/1487882678/usb_descriptors.o
  .debug_line    0x00000244      0x339 build/default/production/_ext/1487882678/usb_function_cdc.o
@@ -1771,56 +1771,56 @@ END GROUP
  .debug_line    0x00003bd0      0x2b1 build/default/production/_ext/1080174469/Namespace_bcs_core.o
  .debug_line    0x00003e81      0x206 build/default/production/_ext/1080174469/Namespace_bcs_pid.o
  .debug_line    0x00004087      0x242 build/default/production/_ext/1080174469/Namespace_bcs_rpc.o
- .debug_line    0x000042c9      0x162 build/default/production/_ext/263962707/SPIClient.o
- .debug_line    0x0000442b      0x240 build/default/production/_ext/263962707/ForgeHeater.o
- .debug_line    0x0000466b      0x3bc build/default/production/_ext/1494288313/CartesianController.o
- .debug_line    0x00004a27      0x128 build/default/production/_ext/1494288313/DeltaKinematics.o
- .debug_line    0x00004b4f      0x244 build/default/production/_ext/1494288313/delta.o
- .debug_line    0x00004d93      0x31b build/default/production/_ext/519170017/Servo.o
- .debug_line    0x000050ae      0x128 build/default/production/_ext/519170017/MotionTest.o
- .debug_line    0x000051d6      0x2e8 build/default/production/_ext/519170017/AS5055.o
- .debug_line    0x000054be      0x128 build/default/production/_ext/519170017/Calibration.o
- .debug_line    0x000055e6      0x1b8 build/default/production/_ext/519170017/StepperSim.o
- .debug_line    0x0000579e      0x267 build/default/production/_ext/519170017/servoCalibration.o
- .debug_line    0x00005a05      0x2db build/default/production/_ext/519170017/PID.o
- .debug_line    0x00005ce0      0x131 build/default/production/_ext/519170017/KosselKinematics.o
- .debug_line    0x00005e11      0x245 build/default/production/_ext/2048476848/UpstreamPackets.o
- .debug_line    0x00006056      0x1f8 build/default/production/_ext/2048476848/Namespace_bcs_cartesian.o
- .debug_line    0x0000624e      0x20a build/default/production/_ext/2048476848/Callbacks.o
- .debug_line    0x00006458      0x3a2 build/default/production/_ext/1445274692/main.o
- .debug_line    0x000067fa       0x6d /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/libgcc.a(floatunsisf.o)
- .debug_line    0x00006867       0x89 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(default-bootstrap-exception-handler.o)
- .debug_line    0x000068f0       0x76 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(default-on-reset.o)
- .debug_line    0x00006966       0x7a /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(default-on-bootstrap.o)
- .debug_line    0x000069e0       0x6f /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(w_atan2f.o)
- .debug_line    0x00006a4f       0x6e /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(w_sqrtf.o)
- .debug_line    0x00006abd        0x0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(s_lib_ver.o)
- .debug_line    0x00006abd       0x69 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(cabs.o)
- .debug_line    0x00006b26       0x6c /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(support.o)
- .debug_line    0x00006b92       0x75 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(w_ldexp.o)
- .debug_line    0x00006c07       0x6d /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(w_sqrt.o)
- .debug_line    0x00006c74        0x0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(errno.o)
- .debug_line    0x00006c74       0x69 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(isinf.o)
- .debug_line    0x00006cdd       0x75 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libe.a(_unorddf2.o)
- .debug_line    0x00006d52       0x62 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(pcache.o)
- .debug_line    0x00006db4       0x72 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_enable_interrupts_lib.o)
- .debug_line    0x00006e26       0x73 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_disable_interrupts_lib.o)
- .debug_line    0x00006e99       0x73 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_restore_interrupts_lib.o)
- .debug_line    0x00006f0c       0x6e /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_enable_mv_int_lib.o)
- .debug_line    0x00006f7a       0x64 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_tbl_lib.o)
- .debug_line    0x00006fde       0x69 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_chn_getc_lib.o)
- .debug_line    0x00007047       0x69 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_chn_putc_lib.o)
- .debug_line    0x000070b0        0x0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_map_tbl_libp.o)
- .debug_line    0x000070b0       0x71 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_open_spi2_lib_legacy.o)
- .debug_line    0x00007121        0x0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_brg_tbl_lib_legacy.o)
- .debug_line    0x00007121       0x6b /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(nvm_erase_page_lib.o)
- .debug_line    0x0000718c       0xbc /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(nvm_operation_lib.o)
- .debug_line    0x00007248       0x6b /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(nvm_write_word_lib.o)
- .debug_line    0x000072b3       0x78 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(port_set_pins_digital_out_lib.o)
- .debug_line    0x0000732b       0x6e /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(port_clear_bits_lib.o)
- .debug_line    0x00007399       0x6c /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(port_set_bits_lib.o)
- .debug_line    0x00007405        0x0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(_ports_tbl_libp.o)
- .debug_line    0x00007405       0x62 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(uart_lib.o)
+ .debug_line    0x000042c9      0x31b build/default/production/_ext/263962707/Servo.o
+ .debug_line    0x000045e4      0x162 build/default/production/_ext/263962707/SPIClient.o
+ .debug_line    0x00004746      0x240 build/default/production/_ext/263962707/ForgeHeater.o
+ .debug_line    0x00004986      0x2e8 build/default/production/_ext/263962707/AS5055.o
+ .debug_line    0x00004c6e      0x135 build/default/production/_ext/1494288313/KosselKinematics.o
+ .debug_line    0x00004da3      0x3bc build/default/production/_ext/1494288313/CartesianController.o
+ .debug_line    0x0000515f      0x128 build/default/production/_ext/1494288313/DeltaKinematics.o
+ .debug_line    0x00005287      0x244 build/default/production/_ext/1494288313/delta.o
+ .debug_line    0x000054cb      0x128 build/default/production/_ext/519170017/MotionTest.o
+ .debug_line    0x000055f3      0x128 build/default/production/_ext/519170017/Calibration.o
+ .debug_line    0x0000571b      0x1b8 build/default/production/_ext/519170017/StepperSim.o
+ .debug_line    0x000058d3      0x267 build/default/production/_ext/519170017/servoCalibration.o
+ .debug_line    0x00005b3a      0x2db build/default/production/_ext/519170017/PID.o
+ .debug_line    0x00005e15      0x245 build/default/production/_ext/2048476848/UpstreamPackets.o
+ .debug_line    0x0000605a      0x1f8 build/default/production/_ext/2048476848/Namespace_bcs_cartesian.o
+ .debug_line    0x00006252      0x20a build/default/production/_ext/2048476848/Callbacks.o
+ .debug_line    0x0000645c      0x3a2 build/default/production/_ext/1445274692/main.o
+ .debug_line    0x000067fe       0x6d /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/libgcc.a(floatunsisf.o)
+ .debug_line    0x0000686b       0x89 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(default-bootstrap-exception-handler.o)
+ .debug_line    0x000068f4       0x76 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(default-on-reset.o)
+ .debug_line    0x0000696a       0x7a /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(default-on-bootstrap.o)
+ .debug_line    0x000069e4       0x6f /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(w_atan2f.o)
+ .debug_line    0x00006a53       0x6e /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(w_sqrtf.o)
+ .debug_line    0x00006ac1        0x0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(s_lib_ver.o)
+ .debug_line    0x00006ac1       0x69 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(cabs.o)
+ .debug_line    0x00006b2a       0x6c /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(support.o)
+ .debug_line    0x00006b96       0x75 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(w_ldexp.o)
+ .debug_line    0x00006c0b       0x6d /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libm.a(w_sqrt.o)
+ .debug_line    0x00006c78        0x0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(errno.o)
+ .debug_line    0x00006c78       0x69 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(isinf.o)
+ .debug_line    0x00006ce1       0x75 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libe.a(_unorddf2.o)
+ .debug_line    0x00006d56       0x62 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(pcache.o)
+ .debug_line    0x00006db8       0x72 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_enable_interrupts_lib.o)
+ .debug_line    0x00006e2a       0x73 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_disable_interrupts_lib.o)
+ .debug_line    0x00006e9d       0x73 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_restore_interrupts_lib.o)
+ .debug_line    0x00006f10       0x6e /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_enable_mv_int_lib.o)
+ .debug_line    0x00006f7e       0x64 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(int_tbl_lib.o)
+ .debug_line    0x00006fe2       0x69 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_chn_getc_lib.o)
+ .debug_line    0x0000704b       0x69 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_chn_putc_lib.o)
+ .debug_line    0x000070b4        0x0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_map_tbl_libp.o)
+ .debug_line    0x000070b4       0x71 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_open_spi2_lib_legacy.o)
+ .debug_line    0x00007125        0x0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_brg_tbl_lib_legacy.o)
+ .debug_line    0x00007125       0x6b /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(nvm_erase_page_lib.o)
+ .debug_line    0x00007190       0xbc /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(nvm_operation_lib.o)
+ .debug_line    0x0000724c       0x6b /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(nvm_write_word_lib.o)
+ .debug_line    0x000072b7       0x78 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(port_set_pins_digital_out_lib.o)
+ .debug_line    0x0000732f       0x6e /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(port_clear_bits_lib.o)
+ .debug_line    0x0000739d       0x6c /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(port_set_bits_lib.o)
+ .debug_line    0x00007409        0x0 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(_ports_tbl_libp.o)
+ .debug_line    0x00007409       0x62 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(uart_lib.o)
 
 .debug_frame    0x00000000     0x2edc
  *(.debug_frame)
@@ -1849,16 +1849,16 @@ END GROUP
  .debug_frame   0x0000198c      0x148 build/default/production/_ext/1080174469/Namespace_bcs_core.o
  .debug_frame   0x00001ad4       0x48 build/default/production/_ext/1080174469/Namespace_bcs_pid.o
  .debug_frame   0x00001b1c       0x64 build/default/production/_ext/1080174469/Namespace_bcs_rpc.o
- .debug_frame   0x00001b80       0x48 build/default/production/_ext/263962707/SPIClient.o
- .debug_frame   0x00001bc8      0x100 build/default/production/_ext/263962707/ForgeHeater.o
- .debug_frame   0x00001cc8      0x250 build/default/production/_ext/1494288313/CartesianController.o
- .debug_frame   0x00001f18       0xac build/default/production/_ext/1494288313/delta.o
- .debug_frame   0x00001fc4      0x1e8 build/default/production/_ext/519170017/Servo.o
- .debug_frame   0x000021ac      0x168 build/default/production/_ext/519170017/AS5055.o
- .debug_frame   0x00002314       0x8c build/default/production/_ext/519170017/StepperSim.o
- .debug_frame   0x000023a0       0xf4 build/default/production/_ext/519170017/servoCalibration.o
- .debug_frame   0x00002494      0x14c build/default/production/_ext/519170017/PID.o
- .debug_frame   0x000025e0       0x30 build/default/production/_ext/519170017/KosselKinematics.o
+ .debug_frame   0x00001b80      0x1e8 build/default/production/_ext/263962707/Servo.o
+ .debug_frame   0x00001d68       0x48 build/default/production/_ext/263962707/SPIClient.o
+ .debug_frame   0x00001db0      0x100 build/default/production/_ext/263962707/ForgeHeater.o
+ .debug_frame   0x00001eb0      0x168 build/default/production/_ext/263962707/AS5055.o
+ .debug_frame   0x00002018       0x30 build/default/production/_ext/1494288313/KosselKinematics.o
+ .debug_frame   0x00002048      0x250 build/default/production/_ext/1494288313/CartesianController.o
+ .debug_frame   0x00002298       0xac build/default/production/_ext/1494288313/delta.o
+ .debug_frame   0x00002344       0x8c build/default/production/_ext/519170017/StepperSim.o
+ .debug_frame   0x000023d0       0xf4 build/default/production/_ext/519170017/servoCalibration.o
+ .debug_frame   0x000024c4      0x14c build/default/production/_ext/519170017/PID.o
  .debug_frame   0x00002610       0x6c build/default/production/_ext/2048476848/UpstreamPackets.o
  .debug_frame   0x0000267c       0x48 build/default/production/_ext/2048476848/Namespace_bcs_cartesian.o
  .debug_frame   0x000026c4       0x64 build/default/production/_ext/2048476848/Callbacks.o
@@ -1921,19 +1921,19 @@ END GROUP
  .debug_str     0x00001965      0x109 build/default/production/_ext/1080174469/Namespace_bcs_core.o
  .debug_str     0x00001a6e       0xe2 build/default/production/_ext/1080174469/Namespace_bcs_pid.o
  .debug_str     0x00001b50       0xeb build/default/production/_ext/1080174469/Namespace_bcs_rpc.o
- .debug_str     0x00001c3b       0xe2 build/default/production/_ext/263962707/SPIClient.o
- .debug_str     0x00001d1d      0x152 build/default/production/_ext/263962707/ForgeHeater.o
- .debug_str     0x00001e6f      0x16a build/default/production/_ext/1494288313/CartesianController.o
- .debug_str     0x00001fd9       0xe2 build/default/production/_ext/1494288313/DeltaKinematics.o
- .debug_str     0x000020bb       0xe2 build/default/production/_ext/1494288313/delta.o
- .debug_str     0x0000219d      0x187 build/default/production/_ext/519170017/Servo.o
- .debug_str     0x00002324       0xe2 build/default/production/_ext/519170017/MotionTest.o
- .debug_str     0x00002406      0x18a build/default/production/_ext/519170017/AS5055.o
+ .debug_str     0x00001c3b      0x187 build/default/production/_ext/263962707/Servo.o
+ .debug_str     0x00001dc2       0xe2 build/default/production/_ext/263962707/SPIClient.o
+ .debug_str     0x00001ea4      0x152 build/default/production/_ext/263962707/ForgeHeater.o
+ .debug_str     0x00001ff6      0x18a build/default/production/_ext/263962707/AS5055.o
+ .debug_str     0x00002180        0x0 build/default/production/_ext/1494288313/KosselKinematics.o
+ .debug_str     0x00002180      0x16a build/default/production/_ext/1494288313/CartesianController.o
+ .debug_str     0x000022ea       0xe2 build/default/production/_ext/1494288313/DeltaKinematics.o
+ .debug_str     0x000023cc       0xe2 build/default/production/_ext/1494288313/delta.o
+ .debug_str     0x000024ae       0xe2 build/default/production/_ext/519170017/MotionTest.o
  .debug_str     0x00002590       0xe2 build/default/production/_ext/519170017/Calibration.o
  .debug_str     0x00002672       0xf6 build/default/production/_ext/519170017/StepperSim.o
  .debug_str     0x00002768       0xf6 build/default/production/_ext/519170017/servoCalibration.o
  .debug_str     0x0000285e       0xf2 build/default/production/_ext/519170017/PID.o
- .debug_str     0x00002950        0x0 build/default/production/_ext/519170017/KosselKinematics.o
  .debug_str     0x00002950       0xe2 build/default/production/_ext/2048476848/UpstreamPackets.o
  .debug_str     0x00002a32       0xe2 build/default/production/_ext/2048476848/Namespace_bcs_cartesian.o
  .debug_str     0x00002b14       0xfb build/default/production/_ext/2048476848/Callbacks.o
@@ -2049,31 +2049,31 @@ END GROUP
  .debug_pubtypes
                 0x00002349      0x1cd build/default/production/_ext/1080174469/Namespace_bcs_rpc.o
  .debug_pubtypes
-                0x00002516       0xc6 build/default/production/_ext/263962707/SPIClient.o
+                0x00002516      0x168 build/default/production/_ext/263962707/Servo.o
  .debug_pubtypes
-                0x000025dc      0x102 build/default/production/_ext/263962707/ForgeHeater.o
+                0x0000267e       0xc6 build/default/production/_ext/263962707/SPIClient.o
  .debug_pubtypes
-                0x000026de      0x201 build/default/production/_ext/1494288313/CartesianController.o
+                0x00002744      0x102 build/default/production/_ext/263962707/ForgeHeater.o
  .debug_pubtypes
-                0x000028df       0xbd build/default/production/_ext/1494288313/DeltaKinematics.o
+                0x00002846      0x278 build/default/production/_ext/263962707/AS5055.o
  .debug_pubtypes
-                0x0000299c       0xbd build/default/production/_ext/1494288313/delta.o
+                0x00002abe       0x3c build/default/production/_ext/1494288313/KosselKinematics.o
  .debug_pubtypes
-                0x00002a59      0x168 build/default/production/_ext/519170017/Servo.o
+                0x00002afa      0x201 build/default/production/_ext/1494288313/CartesianController.o
  .debug_pubtypes
-                0x00002bc1       0xbd build/default/production/_ext/519170017/MotionTest.o
+                0x00002cfb       0xbd build/default/production/_ext/1494288313/DeltaKinematics.o
  .debug_pubtypes
-                0x00002c7e      0x278 build/default/production/_ext/519170017/AS5055.o
+                0x00002db8       0xbd build/default/production/_ext/1494288313/delta.o
  .debug_pubtypes
-                0x00002ef6       0xbd build/default/production/_ext/519170017/Calibration.o
+                0x00002e75       0xbd build/default/production/_ext/519170017/MotionTest.o
  .debug_pubtypes
-                0x00002fb3       0xe1 build/default/production/_ext/519170017/StepperSim.o
+                0x00002f32       0xbd build/default/production/_ext/519170017/Calibration.o
  .debug_pubtypes
-                0x00003094      0x13c build/default/production/_ext/519170017/servoCalibration.o
+                0x00002fef       0xe1 build/default/production/_ext/519170017/StepperSim.o
  .debug_pubtypes
-                0x000031d0      0x1ea build/default/production/_ext/519170017/PID.o
+                0x000030d0      0x13c build/default/production/_ext/519170017/servoCalibration.o
  .debug_pubtypes
-                0x000033ba       0x3c build/default/production/_ext/519170017/KosselKinematics.o
+                0x0000320c      0x1ea build/default/production/_ext/519170017/PID.o
  .debug_pubtypes
                 0x000033f6      0x157 build/default/production/_ext/2048476848/UpstreamPackets.o
  .debug_pubtypes
@@ -2175,31 +2175,31 @@ END GROUP
  .gnu.attributes
                 0x000001a0       0x10 build/default/production/_ext/1080174469/Namespace_bcs_rpc.o
  .gnu.attributes
-                0x000001b0       0x10 build/default/production/_ext/263962707/SPIClient.o
+                0x000001b0       0x10 build/default/production/_ext/263962707/Servo.o
  .gnu.attributes
-                0x000001c0       0x10 build/default/production/_ext/263962707/ForgeHeater.o
+                0x000001c0       0x10 build/default/production/_ext/263962707/SPIClient.o
  .gnu.attributes
-                0x000001d0       0x10 build/default/production/_ext/1494288313/CartesianController.o
+                0x000001d0       0x10 build/default/production/_ext/263962707/ForgeHeater.o
  .gnu.attributes
-                0x000001e0       0x10 build/default/production/_ext/1494288313/DeltaKinematics.o
+                0x000001e0       0x10 build/default/production/_ext/263962707/AS5055.o
  .gnu.attributes
-                0x000001f0       0x10 build/default/production/_ext/1494288313/delta.o
+                0x000001f0       0x10 build/default/production/_ext/1494288313/KosselKinematics.o
  .gnu.attributes
-                0x00000200       0x10 build/default/production/_ext/519170017/Servo.o
+                0x00000200       0x10 build/default/production/_ext/1494288313/CartesianController.o
  .gnu.attributes
-                0x00000210       0x10 build/default/production/_ext/519170017/MotionTest.o
+                0x00000210       0x10 build/default/production/_ext/1494288313/DeltaKinematics.o
  .gnu.attributes
-                0x00000220       0x10 build/default/production/_ext/519170017/AS5055.o
+                0x00000220       0x10 build/default/production/_ext/1494288313/delta.o
  .gnu.attributes
-                0x00000230       0x10 build/default/production/_ext/519170017/Calibration.o
+                0x00000230       0x10 build/default/production/_ext/519170017/MotionTest.o
  .gnu.attributes
-                0x00000240       0x10 build/default/production/_ext/519170017/StepperSim.o
+                0x00000240       0x10 build/default/production/_ext/519170017/Calibration.o
  .gnu.attributes
-                0x00000250       0x10 build/default/production/_ext/519170017/servoCalibration.o
+                0x00000250       0x10 build/default/production/_ext/519170017/StepperSim.o
  .gnu.attributes
-                0x00000260       0x10 build/default/production/_ext/519170017/PID.o
+                0x00000260       0x10 build/default/production/_ext/519170017/servoCalibration.o
  .gnu.attributes
-                0x00000270       0x10 build/default/production/_ext/519170017/KosselKinematics.o
+                0x00000270       0x10 build/default/production/_ext/519170017/PID.o
  .gnu.attributes
                 0x00000280       0x10 build/default/production/_ext/2048476848/UpstreamPackets.o
  .gnu.attributes
@@ -2772,124 +2772,124 @@ LOAD data_init
 
 .mdebug.abi32%z137
                 0x00000000        0x0
- .mdebug.abi32  0x00000000        0x0 build/default/production/_ext/519170017/KosselKinematics.o
-
-.bss%z138       0x00000000        0x0
- .bss           0x00000000        0x0 build/default/production/_ext/519170017/KosselKinematics.o
-
-.data%z139      0x00000000        0x0
- .data          0x00000000        0x0 build/default/production/_ext/519170017/KosselKinematics.o
-
-.mdebug.abi32%z140
-                0x00000000        0x0
  .mdebug.abi32  0x00000000        0x0 build/default/production/_ext/519170017/PID.o
 
-.data%z141      0x00000000        0x0
+.data%z138      0x00000000        0x0
  .data          0x00000000        0x0 build/default/production/_ext/519170017/PID.o
 
-.mdebug.abi32%z142
+.mdebug.abi32%z139
                 0x00000000        0x0
  .mdebug.abi32  0x00000000        0x0 build/default/production/_ext/519170017/servoCalibration.o
 
-.data%z143      0x00000000        0x0
+.data%z140      0x00000000        0x0
  .data          0x00000000        0x0 build/default/production/_ext/519170017/servoCalibration.o
 
-.mdebug.abi32%z144
+.mdebug.abi32%z141
                 0x00000000        0x0
  .mdebug.abi32  0x00000000        0x0 build/default/production/_ext/519170017/StepperSim.o
 
-.bss%z145       0x00000000        0x0
+.bss%z142       0x00000000        0x0
  .bss           0x00000000        0x0 build/default/production/_ext/519170017/StepperSim.o
 
-.data%z146      0x00000000        0x0
+.data%z143      0x00000000        0x0
  .data          0x00000000        0x0 build/default/production/_ext/519170017/StepperSim.o
 
-.mdebug.abi32%z147
+.mdebug.abi32%z144
                 0x00000000        0x0
  .mdebug.abi32  0x00000000        0x0 build/default/production/_ext/519170017/Calibration.o
 
-.bss%z148       0x00000000        0x0
+.bss%z145       0x00000000        0x0
  .bss           0x00000000        0x0 build/default/production/_ext/519170017/Calibration.o
 
-.data%z149      0x00000000        0x0
+.data%z146      0x00000000        0x0
  .data          0x00000000        0x0 build/default/production/_ext/519170017/Calibration.o
 
-.mdebug.abi32%z150
-                0x00000000        0x0
- .mdebug.abi32  0x00000000        0x0 build/default/production/_ext/519170017/AS5055.o
-
-.bss%z151       0x00000000        0x0
- .bss           0x00000000        0x0 build/default/production/_ext/519170017/AS5055.o
-
-.data%z152      0x00000000        0x0
- .data          0x00000000        0x0 build/default/production/_ext/519170017/AS5055.o
-
-.mdebug.abi32%z153
+.mdebug.abi32%z147
                 0x00000000        0x0
  .mdebug.abi32  0x00000000        0x0 build/default/production/_ext/519170017/MotionTest.o
 
-.bss%z154       0x00000000        0x0
+.bss%z148       0x00000000        0x0
  .bss           0x00000000        0x0 build/default/production/_ext/519170017/MotionTest.o
 
-.data%z155      0x00000000        0x0
+.data%z149      0x00000000        0x0
  .data          0x00000000        0x0 build/default/production/_ext/519170017/MotionTest.o
 
-.mdebug.abi32%z156
-                0x00000000        0x0
- .mdebug.abi32  0x00000000        0x0 build/default/production/_ext/519170017/Servo.o
-
-.bss%z157       0x00000000        0x0
- .bss           0x00000000        0x0 build/default/production/_ext/519170017/Servo.o
-
-.data%z158      0x00000000        0x0
- .data          0x00000000        0x0 build/default/production/_ext/519170017/Servo.o
-
-.mdebug.abi32%z159
+.mdebug.abi32%z150
                 0x00000000        0x0
  .mdebug.abi32  0x00000000        0x0 build/default/production/_ext/1494288313/delta.o
 
-.bss%z160       0x00000000        0x0
+.bss%z151       0x00000000        0x0
  .bss           0x00000000        0x0 build/default/production/_ext/1494288313/delta.o
 
-.data%z161      0x00000000        0x0
+.data%z152      0x00000000        0x0
  .data          0x00000000        0x0 build/default/production/_ext/1494288313/delta.o
 
-.mdebug.abi32%z162
+.mdebug.abi32%z153
                 0x00000000        0x0
  .mdebug.abi32  0x00000000        0x0 build/default/production/_ext/1494288313/DeltaKinematics.o
 
-.bss%z163       0x00000000        0x0
+.bss%z154       0x00000000        0x0
  .bss           0x00000000        0x0 build/default/production/_ext/1494288313/DeltaKinematics.o
 
-.data%z164      0x00000000        0x0
+.data%z155      0x00000000        0x0
  .data          0x00000000        0x0 build/default/production/_ext/1494288313/DeltaKinematics.o
 
-.mdebug.abi32%z165
+.mdebug.abi32%z156
                 0x00000000        0x0
  .mdebug.abi32  0x00000000        0x0 build/default/production/_ext/1494288313/CartesianController.o
 
-.bss%z166       0x00000000        0x0
+.bss%z157       0x00000000        0x0
  .bss           0x00000000        0x0 build/default/production/_ext/1494288313/CartesianController.o
 
-.data%z167      0x00000000        0x0
+.data%z158      0x00000000        0x0
  .data          0x00000000        0x0 build/default/production/_ext/1494288313/CartesianController.o
 
-.mdebug.abi32%z168
+.mdebug.abi32%z159
+                0x00000000        0x0
+ .mdebug.abi32  0x00000000        0x0 build/default/production/_ext/1494288313/KosselKinematics.o
+
+.bss%z160       0x00000000        0x0
+ .bss           0x00000000        0x0 build/default/production/_ext/1494288313/KosselKinematics.o
+
+.data%z161      0x00000000        0x0
+ .data          0x00000000        0x0 build/default/production/_ext/1494288313/KosselKinematics.o
+
+.mdebug.abi32%z162
+                0x00000000        0x0
+ .mdebug.abi32  0x00000000        0x0 build/default/production/_ext/263962707/AS5055.o
+
+.bss%z163       0x00000000        0x0
+ .bss           0x00000000        0x0 build/default/production/_ext/263962707/AS5055.o
+
+.data%z164      0x00000000        0x0
+ .data          0x00000000        0x0 build/default/production/_ext/263962707/AS5055.o
+
+.mdebug.abi32%z165
                 0x00000000        0x0
  .mdebug.abi32  0x00000000        0x0 build/default/production/_ext/263962707/ForgeHeater.o
 
-.data%z169      0x00000000        0x0
+.data%z166      0x00000000        0x0
  .data          0x00000000        0x0 build/default/production/_ext/263962707/ForgeHeater.o
 
-.mdebug.abi32%z170
+.mdebug.abi32%z167
                 0x00000000        0x0
  .mdebug.abi32  0x00000000        0x0 build/default/production/_ext/263962707/SPIClient.o
 
-.bss%z171       0x00000000        0x0
+.bss%z168       0x00000000        0x0
  .bss           0x00000000        0x0 build/default/production/_ext/263962707/SPIClient.o
 
-.data%z172      0x00000000        0x0
+.data%z169      0x00000000        0x0
  .data          0x00000000        0x0 build/default/production/_ext/263962707/SPIClient.o
+
+.mdebug.abi32%z170
+                0x00000000        0x0
+ .mdebug.abi32  0x00000000        0x0 build/default/production/_ext/263962707/Servo.o
+
+.bss%z171       0x00000000        0x0
+ .bss           0x00000000        0x0 build/default/production/_ext/263962707/Servo.o
+
+.data%z172      0x00000000        0x0
+ .data          0x00000000        0x0 build/default/production/_ext/263962707/Servo.o
 
 .mdebug.abi32%z173
                 0x00000000        0x0
@@ -3290,7 +3290,7 @@ LOAD data_init
                 0x9d00bd98                dpfabs
                 0x9d00bdb4                nan
                 0x9d00bdb4                dpnan
- .text          0x9d00be10     0x107c build/default/production/_ext/519170017/Servo.o
+ .text          0x9d00be10     0x107c build/default/production/_ext/263962707/Servo.o
                 0x9d00be10                runSort
                 0x9d00bf98                setServoTimer
                 0x9d00c068                setTimerLowTime
@@ -3312,7 +3312,7 @@ LOAD data_init
                 0x9d00cf7c                delta_calcForward
                 0x9d00d8c0                delta_calcAngleYZ
                 0x9d00dce8                delta_calcInverse
- .text          0x9d00dedc      0xf4c build/default/production/_ext/519170017/AS5055.o
+ .text          0x9d00dedc      0xf4c build/default/production/_ext/263962707/AS5055.o
                 0x9d00dedc                initializeEncoders
                 0x9d00e1e0                readEncoderWithoutOffset
                 0x9d00e354                setCurrentValue
@@ -3461,7 +3461,7 @@ LOAD data_init
                 0x9d0147f0                getServoStop
                 0x9d01482c                runServoCalibration
                 0x9d0149c0                servoCalibration
- .text          0x9d014c38      0x6d4 build/default/production/_ext/519170017/KosselKinematics.o
+ .text          0x9d014c38      0x6d4 build/default/production/_ext/1494288313/KosselKinematics.o
                 0x9d014c38                mc_arc
  .text          0x9d01530c      0x674 build/default/production/_ext/1080174469/Bowler_Transport.o
                 0x9d01530c                allign
@@ -3704,7 +3704,7 @@ LOAD data_init
                 0x9d01cb34                isinff
 
 .rodata         0x9d01cbbc      0x100
- .rodata        0x9d01cbbc       0x80 build/default/production/_ext/519170017/AS5055.o
+ .rodata        0x9d01cbbc       0x80 build/default/production/_ext/263962707/AS5055.o
  .rodata        0x9d01cc3c       0x80 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libmchp_peripheral_32MX440F128H.a(spi_brg_tbl_lib_legacy.o)
                 0x9d01cc3c                _SpiBrgConvTbl
 
@@ -4021,8 +4021,8 @@ LOAD data_init
                 0x9d01dbac                SpiChnBuffer
 
 .rodata         0x9d01dbc8       0x30
- .rodata        0x9d01dbc8       0x18 build/default/production/_ext/263962707/ForgeHeater.o
- .rodata        0x9d01dbe0       0x18 build/default/production/_ext/519170017/Servo.o
+ .rodata        0x9d01dbc8       0x18 build/default/production/_ext/263962707/Servo.o
+ .rodata        0x9d01dbe0       0x18 build/default/production/_ext/263962707/ForgeHeater.o
 
 .text           0x9d01dbf8       0x18
  .text          0x9d01dbf8       0x18 /home/opt/microchip/xc32/v1.00/bin/../lib/gcc/pic32mx/4.5.1/../../../../pic32mx/lib/libc.a(default-nmi-handler.o)
@@ -4049,7 +4049,7 @@ LOAD data_init
                 0x9d01dc5c                __crt0_exit
 
 .rodata         0x9d01dc64       0x1c
- .rodata        0x9d01dc64       0x10 build/default/production/_ext/519170017/KosselKinematics.o
+ .rodata        0x9d01dc64       0x10 build/default/production/_ext/1494288313/KosselKinematics.o
  .rodata        0x9d01dc74        0xc build/default/production/_ext/2118813141/Tick.o
 
 .text._bootstrap_exception_handler

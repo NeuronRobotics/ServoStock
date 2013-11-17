@@ -109,33 +109,31 @@
           <itemPath>../../../NR-Clib/BowlerStack/src/Namespace_bcs_rpc.c</itemPath>
         </logicalFolder>
       </logicalFolder>
-      <logicalFolder name="src" displayName="src" projectFiles="true">
-        <logicalFolder name="driver" displayName="driver" projectFiles="true">
-          <itemPath>../../src/driver/SPIClient.c</itemPath>
-          <itemPath>../../src/driver/ForgeHeater.c</itemPath>
-        </logicalFolder>
-        <logicalFolder name="kinematics" displayName="kinematics" projectFiles="true">
-          <itemPath>../../src/kinematics/CartesianController.c</itemPath>
-          <itemPath>../../src/kinematics/DeltaKinematics.c</itemPath>
-          <itemPath>../../src/kinematics/delta.c</itemPath>
-        </logicalFolder>
-        <logicalFolder name="motion" displayName="motion" projectFiles="true">
-          <itemPath>../../src/motion/Servo.c</itemPath>
-          <itemPath>../../src/motion/MotionTest.c</itemPath>
-          <itemPath>../../src/motion/AS5055.c</itemPath>
-          <itemPath>../../src/motion/Calibration.c</itemPath>
-          <itemPath>../../src/motion/StepperSim.c</itemPath>
-          <itemPath>../../src/motion/servoCalibration.c</itemPath>
-          <itemPath>../../src/motion/PID.c</itemPath>
-          <itemPath>../../src/motion/KosselKinematics.c</itemPath>
-        </logicalFolder>
-        <logicalFolder name="namespace" displayName="namespace" projectFiles="true">
-          <itemPath>../../src/namespace/UpstreamPackets.c</itemPath>
-          <itemPath>../../src/namespace/Namespace_bcs_cartesian.c</itemPath>
-          <itemPath>../../src/namespace/Callbacks.c</itemPath>
-        </logicalFolder>
-        <itemPath>../../src/main.c</itemPath>
+      <logicalFolder name="driver" displayName="driver" projectFiles="true">
+        <itemPath>../../src/driver/Servo.c</itemPath>
+        <itemPath>../../src/driver/SPIClient.c</itemPath>
+        <itemPath>../../src/driver/ForgeHeater.c</itemPath>
+        <itemPath>../../src/driver/AS5055.c</itemPath>
       </logicalFolder>
+      <logicalFolder name="kinematics" displayName="kinematics" projectFiles="true">
+        <itemPath>../../src/kinematics/KosselKinematics.c</itemPath>
+        <itemPath>../../src/kinematics/CartesianController.c</itemPath>
+        <itemPath>../../src/kinematics/DeltaKinematics.c</itemPath>
+        <itemPath>../../src/kinematics/delta.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="motion" displayName="motion" projectFiles="true">
+        <itemPath>../../src/motion/MotionTest.c</itemPath>
+        <itemPath>../../src/motion/Calibration.c</itemPath>
+        <itemPath>../../src/motion/StepperSim.c</itemPath>
+        <itemPath>../../src/motion/servoCalibration.c</itemPath>
+        <itemPath>../../src/motion/PID.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="namespace" displayName="namespace" projectFiles="true">
+        <itemPath>../../src/namespace/UpstreamPackets.c</itemPath>
+        <itemPath>../../src/namespace/Namespace_bcs_cartesian.c</itemPath>
+        <itemPath>../../src/namespace/Callbacks.c</itemPath>
+      </logicalFolder>
+      <itemPath>../../src/main.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
