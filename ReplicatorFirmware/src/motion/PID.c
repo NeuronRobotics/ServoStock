@@ -20,7 +20,7 @@ void initPIDLocal(){
 	//WORD loop;
 	for (i=0;i<numPidTotal;i++){
 
-            pidGroups[i].Enabled=FALSE;
+            pidGroups[i].Enabled=TRUE;
             pidGroups[i].Async = TRUE;
             pidGroups[i].channel = i;
             pidGroups[i].K.P=.1;

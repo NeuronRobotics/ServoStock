@@ -286,11 +286,6 @@ void hardwareInit(){
         addNamespaceToList((NAMESPACE_LIST *)getBcsPidNamespace());
 
 
-
-#if !defined(NO_ETHERNET)
-	InitializeEthernet();
-#endif
-
         ATX_ENABLE(); // Turn on ATX Supply, Must be called before talking to the Encoders!!
 
         Print_Level l = getPrintLevel();
@@ -347,14 +342,41 @@ void bowlerSystem(){
 
         int i;
         for(i=0;i< 1;i++){
-            print_I("\r\n Encoder ");p_int_I(i);print_I(" value = ");p_fl_I(readEncoder(i));
+            print_I("\r\n Encoder ");p_int_I(i);print_I(" value = ");p_fl_I(getRecentEncoderReading(i));
         }
     }
+}
+
+void SPItest(){
+    RunEveryData loop = {0,100};
+    BOOL val = TRUE;
+    CloseSPI2();
+    SPI_MISO_TRIS   =OUTPUT;
+    SPI_MOSI_TRIS   =OUTPUT;
+    SPI_CLK_TRIS    =OUTPUT;
+    
+    int i;
+    for(i=0;i< numPidTotal;i++){
+        SetPIDEnabled(i, FALSE);
+    }
+    /*while (1){
+      if(RunEvery(&loop)>0){
+           //_RG7 = val;
+           //_RG6 = val;
+           if(val==TRUE)
+               val=FALSE;
+           else
+               val=TRUE;
+           _RG8 = val;
+           println_E("Toggle pins");
+        }
+    }*/
 }
 
 int main(){
     hardwareInit();
     println_I("Hardware initialized");
+    //SPItest();
     pid.MsTime=getMs();
     while(1){
         if(homingAllLinks){

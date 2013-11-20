@@ -4,6 +4,7 @@
 int overflow[numPidTotal];
 int offset[numPidTotal];
 int raw[numPidTotal];
+float recent[numPidTotal];
 BYTE initialized = FALSE;
 BYTE busy =0;
 #define jump 3000
@@ -57,24 +58,28 @@ int setCurrentValue(BYTE index,int value){
     offset[index] = (readEncoderWithoutOffset( index) - value);
 }
 
+
+int getRecentEncoderReading(int index){
+    return recent[index];
+}
+
 float readEncoder(BYTE index){
     float size=3.0;
     float ret=0;
     int i;
     for(i=0;i<size;i++)
         ret += (readEncoderWithoutOffset(index)-offset[index]);
-    return ret/size;
+    recent[index]=ret/size;
+    return getRecentEncoderReading(index);
 }
 
 void encoderSPIInit(){
-   
-    if(initialized )
-        return;
-    initialized=TRUE;
     SPI_CLK_TRIS=OUTPUT;
     SPI_MISO_TRIS=INPUT;
     SPI_MOSI_TRIS=OUTPUT;
-    CloseSPIOpenCollector();
+    if(initialized )
+        return;
+    initialized=TRUE;  
 #if defined(__32MX795F512L__)
     OpenSPI1(CLK_POL_ACTIVE_HIGH\
             |SPI_MODE8_ON|ENABLE_SDO_PIN|SLAVE_ENABLE_OFF|SPI_CKE_OFF\
@@ -198,8 +203,8 @@ UINT16 AS5055send(BYTE index, UINT16 data){
     tmp.Val=data;
     EncoderSS(index,CSN_Enabled);
     //println_I("[AS5055send] Sending data: ");prHEX8(tmp.byte.SB,INFO_PRINT);prHEX8(tmp.byte.LB,INFO_PRINT);println_I("");
-//    back.byte.SB = SPITransceve(0xFF);
-//    back.byte.LB = SPITransceve(0xFF);
+    //back.byte.SB = SPITransceve(0xAA);
+    //back.byte.LB = SPITransceve(0x88);
     back.byte.SB = SPITransceve(tmp.byte.SB);
     back.byte.LB = SPITransceve(tmp.byte.LB);
     EncoderSS(index,CSN_Disabled);
