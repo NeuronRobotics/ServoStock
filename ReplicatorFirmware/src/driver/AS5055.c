@@ -185,7 +185,7 @@ UINT16 AS5055readAngle(BYTE index){
             AS5055send(index, 0xffff);
         }
         loop++;
-    }while(read.regs.EF && loop<3);
+    }while(read.regs.EF && loop<1);
 
     setPrintLevel(l);
     return read.regs.Data;
@@ -207,8 +207,12 @@ UINT16 AS5055send(BYTE index, UINT16 data){
     //back.byte.LB = SPITransceve(0x88);
     back.byte.SB = SPITransceve(tmp.byte.SB);
     back.byte.LB = SPITransceve(tmp.byte.LB);
+     //println_I("[AS5055send] Got data: ");prHEX8(back.byte.SB,INFO_PRINT);prHEX8(back.byte.LB,INFO_PRINT);println_I("");
+
     EncoderSS(index,CSN_Disabled);
+
     lock = FALSE;
+    //print_I("`");
     return back.Val;
 }
 

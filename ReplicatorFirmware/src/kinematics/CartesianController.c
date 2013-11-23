@@ -1,17 +1,18 @@
 #include "main.h"
 #if defined(__32MX795F512L__)
-    #define SIZE_OR_PACKET_BUFFER 400
+    #define SIZE_OF_PACKET_BUFFER 400
 #elif defined(__32MX440F128H__)
-    #define SIZE_OR_PACKET_BUFFER 40
+    #define SIZE_OF_PACKET_BUFFER 40
 #endif
+
+
+
+
 PACKET_FIFO_STORAGE  packetFifo;
-BowlerPacket buffer[SIZE_OR_PACKET_BUFFER];
+BowlerPacket buffer[SIZE_OF_PACKET_BUFFER];
 BowlerPacket linTmpPack;
 BowlerPacket packetTemp;
 INTERPOLATE_DATA intCartesian[3];
-
-
-
 
 float scale = -1.0/(ticksPerDegree*gearRatio);
 float extrusionScale = 1/(((float)ticksPerRev)/100.00);
@@ -28,6 +29,29 @@ int  lastPushedBufferSize =0;
 float lastXYZE[4];
 
 static RunEveryData pid ={0,100};
+
+
+//Default values for ServoStock
+HardwareMap hwMap ={
+    {1,1.0},//axis 0
+    {2,1.0},//axis 1
+    {3,1.0},//axis 2
+    {
+        {4,1.0},// Motor
+        {11,1.0}// Heater
+    },//Extruder 0
+    {
+        {AXIS_UNUSED,1.0},
+        {AXIS_UNUSED,1.0}
+    },//Extruder 1
+    {
+        {AXIS_UNUSED,1.0},
+        {AXIS_UNUSED,1.0}
+    },//Extruder 2
+    &servostock_calcForward,
+    &servostock_calcInverse
+};
+
 
 BOOL isCartesianInterpolationDone(){
     int i;
@@ -49,7 +73,32 @@ void initializeCartesianController(){
     initializeDelta();
     getCurrentPosition(&lastXYZE[0], &lastXYZE[1], &lastXYZE[2]);
     setInterpolateXYZ(lastXYZE[0], lastXYZE[1], lastXYZE[2], 0);
-    InitPacketFifo(&packetFifo,buffer,SIZE_OR_PACKET_BUFFER);
+    InitPacketFifo(&packetFifo,buffer,SIZE_OF_PACKET_BUFFER);
+    //TODO load configuration from Flash
+#if defined(CALIBRATE)
+        println_I("#Calibrating...");
+        setServo(linkToHWIndex(0), servoCalebrateValue,0);
+        setServo(linkToHWIndex(1), servoCalebrateValue,0);
+        setServo(linkToHWIndex(2), servoCalebrateValue,0);
+        linkValue[0]=0;
+        linkValue[1]=0;
+        linkValue[2]=0;
+#else
+        //homingAllLinks = FALSE;
+        setPidIsr(TRUE);
+        //l = getPrintLevel();
+        pidReset(hwMap.Extruder0.index,0);
+        pidReset(hwMap.Alpha.index,0);
+        pidReset(hwMap.Beta.index,0);
+        pidReset(hwMap.Gama.index,0);
+#endif
+    SetPID(hwMap.Heater0.index,0);
+#if defined(CALIBRATE_SERVO)
+    println_I("Calibrating Servo");
+    runServoCalibration(EXTRUDER0_INDEX);
+
+#endif
+
 }
 
 void pushBufferEmpty(){
@@ -79,7 +128,7 @@ void loadCurrentPosition(BowlerPacket * Packet){
         Packet->use.data[2]=tmp.byte.SB;
         Packet->use.data[3]=tmp.byte.LB;
 
-        tmp.Val=SIZE_OR_PACKET_BUFFER;
+        tmp.Val=SIZE_OF_PACKET_BUFFER;
         Packet->use.data[4]=tmp.byte.FB;
         Packet->use.data[5]=tmp.byte.TB;
         Packet->use.data[6]=tmp.byte.SB;
@@ -136,7 +185,7 @@ void cartesianAsync(){
             pushBufferEmpty();
             full = FALSE;
         }
-        checkPositionChange();
+        //checkPositionChange();
 
     }
 }
@@ -164,7 +213,7 @@ void processLinearInterpPacket(BowlerPacket * Packet){
         float extr =tmpData[4]/extrusionScale;
         println_I("Current Extruder MM=");p_fl_E(tmpData[4]);print_I(", Ticks=");p_fl_E(extr);
         setPrintLevel(l);
-        SetPIDTimed(EXTRUDER0_INDEX, extr,tmpData[0]);
+        SetPIDTimed(hwMap.Extruder0.index, extr,tmpData[0]);
      }
 }
 
@@ -182,7 +231,7 @@ BOOL onCartesianPost(BowlerPacket *Packet){
                 Packet->use.data[2]=tmp.byte.SB;
                 Packet->use.data[3]=tmp.byte.LB;
 
-                tmp.Val=SIZE_OR_PACKET_BUFFER;
+                tmp.Val=SIZE_OF_PACKET_BUFFER;
                 Packet->use.data[4]=tmp.byte.FB;
                 Packet->use.data[5]=tmp.byte.TB;
                 Packet->use.data[6]=tmp.byte.SB;
@@ -222,8 +271,8 @@ void cancelPrint(){
     }
     return;
     setInterpolateXYZ(0, 0, 112, 2000);
-    ZeroPID(EXTRUDER0_INDEX);
-    SetPIDTimed(HEATER0_INDEX,0,0);
+    ZeroPID(hwMap.Extruder0.index);
+    SetPIDTimed(hwMap.Heater0.index,0,0);
 }
 
 BOOL onCartesianGet(BowlerPacket *Packet){
@@ -304,7 +353,7 @@ BYTE setInterpolateXYZ(float x, float y, float z,float ms){
 
 BYTE setXYZ(float x, float y, float z){
     float t0=0,t1=0,t2=0;
-    if(delta_calcInverse( x,  y, z,  &t0, &t1, &t2)==0){
+    if(hwMap.iK_callback( x,  y, z,  &t0, &t1, &t2)==0){
         println_I("New target angles t1=");p_fl_E(t0);print_E(" t2=");p_fl_E(t1);print_E(" t3=");p_fl_E(t2);
         setLinkAngle(0,t0,0);
         setLinkAngle(1,t1,0);
@@ -318,16 +367,16 @@ int linkToHWIndex(int index){
    int localIndex=0;
     switch(index){
         case 0:
-            localIndex = LINK0_INDEX;
+            localIndex = hwMap.Alpha.index;
             break;
         case 1:
-            localIndex = LINK1_INDEX;
+            localIndex = hwMap.Beta.index;
             break;
         case 2:
-            localIndex = LINK2_INDEX;
+            localIndex = hwMap.Gama.index;
             break;
         case 3:
-            localIndex = EXTRUDER0_INDEX;
+            localIndex = hwMap.Extruder0.index;
             break;
     }
     return localIndex;
@@ -335,16 +384,18 @@ int linkToHWIndex(int index){
 float getLinkScale(int index){
     switch(index){
         case 0:
+           return hwMap.Alpha.scale;
         case 1:
+            return hwMap.Beta.scale;
         case 2:
-            return  scale;
+            return hwMap.Gama.scale;
         case 3:
-            return extrusionScale;
+            return hwMap.Extruder0.scale;
     }
 }
 
 int getCurrentPosition(float * x, float * y, float * z){
-   return delta_calcForward(    getLinkAngle(0),
+   return hwMap.fK_callback(    getLinkAngle(0),
                                 getLinkAngle(1),
                                 getLinkAngle(2),
                                 x, y, z);
@@ -362,15 +413,57 @@ float setLinkAngle(int index, float value, float ms){
         index ==1||
         index ==2
       ){
-        if(v>1650){
-            println_E("Upper Capped link ");p_int_E(index);print_E(", attempted: ");p_fl_E(value);
-            v=1650;
-        }
-        if(v<-6500){
-            v=-6500;
-            println_E("Lower Capped link ");p_int_E(index);print_E(", attempted: ");p_fl_E(value);
-        }
+//        if(v>1650){
+//            println_E("Upper Capped link ");p_int_E(index);print_E(", attempted: ");p_fl_E(value);
+//            v=1650;
+//        }
+//        if(v<-6500){
+//            v=-6500;
+//            println_E("Lower Capped link ");p_int_E(index);print_E(", attempted: ");p_fl_E(value);
+//        }
     }
     println_I("Setting position from cartesian controller");
-    //return SetPIDTimed(localIndex,v,ms);
+    return SetPIDTimed(localIndex,v,ms);
+}
+
+static int homingAllLinks = TRUE;
+static int linkValue[3]={0,0,0};
+static RunEveryData calibrationTest ={0,1000};
+
+void HomeLinks(){
+    if(homingAllLinks){
+        if(RunEvery(&calibrationTest)>0){
+            float boundVal = 2.0;
+            float l0=(float)readEncoder(linkToHWIndex(0));
+            float l1=(float)readEncoder(linkToHWIndex(1));
+            float l2=(float)readEncoder(linkToHWIndex(2));
+            if( bound((float)linkValue[0], l0, boundVal, boundVal)&&
+                bound((float)linkValue[1], l1, boundVal, boundVal)&&
+                bound((float)linkValue[2], l2, boundVal, boundVal)
+              ){
+                homingAllLinks = FALSE;
+                println_E("\n\nStopped At:\n\r\tLink 0 value:");p_int_E(l0);
+                println_E("\tLink 1 value:");p_int_E(l1);
+                println_E("\tLink 2 value:");p_int_E(l2);
+                println_E("Previous:\n\r\tLink 0 value:");p_int_E(linkValue[0]);
+                println_E("\tLink 1 value:");p_int_E(linkValue[1]);
+                println_E("\tLink 2 value:");p_int_E(linkValue[2]);
+                pidReset(linkToHWIndex(0),(INT32)servoHomeValue);
+                pidReset(linkToHWIndex(1),(INT32)servoHomeValue);
+                pidReset(linkToHWIndex(2),(INT32)servoHomeValue);
+                pidReset(linkToHWIndex(3),0);
+                println_E("Calibration Done!");
+                setServo(linkToHWIndex(0), 128,0);
+                setServo(linkToHWIndex(1), 128,0);
+                setServo(linkToHWIndex(2), 128,0);
+                setPidIsr(TRUE);
+                initializeCartesianController();
+                cancelPrint();
+            }else{
+                linkValue[0]=l0;
+                linkValue[1]=l1;
+                linkValue[2]=l2;
+            }
+        }
+    }
 }

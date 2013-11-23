@@ -20,7 +20,7 @@ void initPIDLocal(){
 	//WORD loop;
 	for (i=0;i<numPidTotal;i++){
 
-            pidGroups[i].Enabled=TRUE;
+            pidGroups[i].Enabled=FALSE;
             pidGroups[i].Async = TRUE;
             pidGroups[i].channel = i;
             pidGroups[i].K.P=.1;
@@ -31,18 +31,18 @@ void initPIDLocal(){
             pidGroups[i].Polarity=1;
             vel[i].enabled=FALSE;
             limits[i].type=NO_LIMIT;
-            if(i==LINK0_INDEX || i== LINK1_INDEX || i== LINK2_INDEX){
-                pidGroups[i].Polarity=0;
-                pidGroups[i].K.P=.07;
-                pidGroups[i].K.I=0.0;
-                pidGroups[i].K.D=0.00;
-            }
-            if(i==EXTRUDER0_INDEX){
-                pidGroups[i].K.P=.4;
-                pidGroups[i].K.I=0;
-                pidGroups[i].K.D=0;
-                pidGroups[i].Polarity=1;
-            }
+//            if(i==LINK0_INDEX || i== LINK1_INDEX || i== LINK2_INDEX){
+//                pidGroups[i].Polarity=0;
+//                pidGroups[i].K.P=.07;
+//                pidGroups[i].K.I=0.0;
+//                pidGroups[i].K.D=0.00;
+//            }
+//            if(i==EXTRUDER0_INDEX){
+//                pidGroups[i].K.P=.4;
+//                pidGroups[i].K.I=0;
+//                pidGroups[i].K.D=0;
+//                pidGroups[i].Polarity=1;
+//            }
             if(i>=numPidMotors){
                 //These are the PID gains for the tempreture system
                 pidGroups[i].K.P=10;
@@ -50,12 +50,12 @@ void initPIDLocal(){
                 pidGroups[i].K.D=0;
                 pidGroups[i].Polarity=1;
             }
-            if(i==HEATER0_INDEX){
-                pidGroups[i].K.P=10;
-                pidGroups[i].K.I=0;
-                pidGroups[i].K.D=0;
-                pidGroups[i].Polarity=1;
-            }
+//            if(i==HEATER0_INDEX){
+//                pidGroups[i].K.P=10;
+//                pidGroups[i].K.I=0;
+//                pidGroups[i].K.D=0;
+//                pidGroups[i].Polarity=1;
+//            }
 
 	}
 
@@ -90,15 +90,16 @@ BOOL asyncCallback(BowlerPacket *Packet){
 }
 
 void onPidConfigureMine(int group){
-    if(group==LINK0_INDEX || group== LINK1_INDEX || group== LINK2_INDEX){
-        //Synchronized gains for all 3 links, needed for stability
-        float p = pidGroups[group].K.P;
-        float i = pidGroups[group].K.I;
-        float d = pidGroups[group].K.D;
-        setPIDConstants(LINK0_INDEX,p,i,d);
-        setPIDConstants(LINK1_INDEX,p,i,d);
-        setPIDConstants(LINK2_INDEX,p,i,d);
-    }
+//    if(group==LINK0_INDEX || group== LINK1_INDEX || group== LINK2_INDEX){
+//        //Synchronized gains for all 3 links, needed for stability
+//        float p = pidGroups[group].K.P;
+//        float i = pidGroups[group].K.I;
+//        float d = pidGroups[group].K.D;
+//        setPIDConstants(LINK0_INDEX,p,i,d);
+//        setPIDConstants(LINK1_INDEX,p,i,d);
+//        setPIDConstants(LINK2_INDEX,p,i,d);
+//    }
+
 }
 
 void trigerPIDLimit(BYTE chan,PidLimitType type,INT32  tick){
@@ -150,11 +151,11 @@ void setOutputMine(int group, float v){
         if(val<0)
                 val=0;
 
-        if(group == EXTRUDER0_INDEX && !isUpToTempreture()){
-            //Saftey so as not to try to feed into a cold extruder
-            setServo(group,getServoStop(group),0);
-            return;
-        }
+//        if(group == EXTRUDER0_INDEX && !isUpToTempreture()){
+//            //Saftey so as not to try to feed into a cold extruder
+//            setServo(group,getServoStop(group),0);
+//            return;
+//        }
         setServo(group,val,0);
     }else{
        setHeater( group,  v);

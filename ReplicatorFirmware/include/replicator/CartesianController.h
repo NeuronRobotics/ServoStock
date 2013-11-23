@@ -9,6 +9,41 @@
 #define	CARTESIANCONTROLLER_H
 #include "Bowler/Bowler_Helper.h"
 
+//#define EXTRUDER0_INDEX 0
+//#define HEATER0_INDEX   11
+//#define LINK0_INDEX 6
+//#define LINK1_INDEX 7
+//#define LINK2_INDEX 4
+#define AXIS_UNUSED 0xFF
+typedef BOOL forwardKinematics(float Alpha, float Beta, float Gama, float * x0, float *y0, float * z0);
+typedef BOOL inverseKinematics(float x0, float y0, float z0, float *Alpha, float *Beta, float *Gama);
+
+typedef struct  _IndexScale{
+    int index;
+    float scale;
+}IndexScale;
+
+typedef struct  _HardwareMap{
+    IndexScale Alpha;
+    IndexScale Beta;
+    IndexScale Gama;
+    struct {
+        IndexScale Heater0;
+        IndexScale Extruder0;
+    };
+    struct{
+        IndexScale Heater1;
+        IndexScale Extruder1;
+    };
+    struct{
+        IndexScale Heater2;
+        IndexScale Extruder2;
+    };
+    forwardKinematics * fK_callback;
+    inverseKinematics * iK_callback;
+}HardwareMap;
+
+
 #ifdef	__cplusplus
 extern "C" {
 #endif
@@ -51,7 +86,9 @@ BOOL onCartesianPost(BowlerPacket *Packet);
 //                                    BOOL (*getAllPositionsCallbackPtr)(float * currentLinkPositions)
 //                                  );
 
+int servostock_calcInverse(float x0, float y0, float z0, float *theta1, float *theta2, float *theta3);
 
+int servostock_calcForward(float theta1, float theta2, float theta3, float * x0, float *y0, float * z0);
 #ifdef	__cplusplus
 }
 #endif

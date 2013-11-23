@@ -66,7 +66,6 @@
 
 #define SYS_FREQ 			(80000000L)
 
-#define NO_ETHERNET
 //#define CALIBRATE_SERVO
 //#define CALIBRATE
 //#define NO_PID
@@ -83,140 +82,15 @@ extern MAC_ADDR MyMAC __attribute__ ((section (".scs_global_var")));
 //static const unsigned char printNSName[]  = "bcs.printer.*;0.3;;";
 
 static BowlerPacket Packet;
-static int homingAllLinks = TRUE;
+
 static BowlerPacket MyPacket;
 static RunEveryData pid ={0,40};
-static RunEveryData calibrationTest ={0,1000};
 
 static RunEveryData pos ={0,5000};
-
-static int linkValue[3];
 
 
 float height = 0;
 int j=0,i=0;
-
-typedef enum {
-    EXCEP_IRQ = 0,          // interrupt
-    EXCEP_AdEL = 4,         // address error exception (load or ifetch)
-    EXCEP_AdES=5,             // address error exception (store)
-    EXCEP_IBE=6,              // bus error (ifetch)
-    EXCEP_DBE=7,              // bus error (load/store)
-    EXCEP_Sys=8,              // syscall
-    EXCEP_Bp=9,               // breakpoint
-    EXCEP_RI=10,               // reserved instruction
-    EXCEP_CpU=11,              // coprocessor unusable
-    EXCEP_Overflow=12,         // arithmetic overflow
-    EXCEP_Trap=13,             // trap (possible divide by zero)
-    EXCEP_IS1 = 16,         // implementation specfic 1
-    EXCEP_CEU=17,              // CorExtend Unuseable
-    EXCEP_C2E=18               // coprocessor 2
-} excep_code;
-
-typedef union {
-    UINT32 value;
-    struct{
-        unsigned :2;//reserved
-        unsigned EXCCODE :5;//Exception code
-        unsigned :1;//reserved
-        unsigned IP:2;//Controls request for software interrupt
-        unsigned RIPL :6;//Request Interupt Priority Level
-        unsigned :6;//reserved
-        unsigned R1 :1;//undocumented
-        unsigned IV :1;//Interrupt Vector Bit
-        unsigned :2;//reserved
-        unsigned R2 :1;//undocumented
-        unsigned DC :1;//Disable Count
-        unsigned CE:2;// Coprocessor Exception Bits
-        unsigned TI :1;// Timer Interrupt
-        unsigned BD :1;// Branch Delay
-    };
-
-}cause_union;
-void _general_exception_handler(unsigned cause, unsigned status){
-        unsigned int x = 0;
-        asm volatile ("move %0, $ra" : "=r" (x));
-        asm volatile ("sw $ra, %0" : "=m" (x));
-//        /register unsigned int cp0count asm ("c0r1");
-
-        cause_union u;
-        u.value=cause;
-
-        //setLed(1,0,0);
-        setPrintLevelInfoPrint();
-        
-        print_I("\r\n\r\n\r\nException handeler!! cause=");
-        prHEX32(cause,INFO_PRINT);print_I(" status=");
-        prHEX32(status,INFO_PRINT);
-        print_I(" exec code=");
-        p_int_I(u.EXCCODE);
-        print_I(" return address=");
-        prHEX32(x,INFO_PRINT);
-        println_I("===    CAUSE val Parsed    ===\n\r");
-        print_I("31:\t");prHEX32(u.BD,INFO_PRINT);print_I("\t Exception During Branch Delay\r\n");
-        print_I("30:\t");prHEX32(u.TI,INFO_PRINT);print_I("\t Exception During Pending Timer Interupt\r\n");
-        print_I("29:28:\t");prHEX32(u.CE,INFO_PRINT);print_I("\t Coproc Ref number fpr a coprpc unisable exception\r\n");
-        print_I("27:\t");prHEX32(u.DC,INFO_PRINT);print_I("\t Disable Count Register\r\n");
-        print_I("23:\t");prHEX32(u.IV,INFO_PRINT);print_I("\t Special Interrupt Vector used\r\n");
-        print_I("15:10:\t");prHEX32(u.RIPL,INFO_PRINT);print_I("\t Pending Interrupt indicator or Requested Interrupt Priority Level\r\n");
-        print_I("6:2:\t");prHEX32(u.EXCCODE,INFO_PRINT);print_I("\t Exception Code\r\n");
-        switch(u.EXCCODE){
-            case 0: print_I("\t\tInterrupt\r\n"); break;
-            case 4: print_I("\t\tAddress Error Exception (Load or Instruction Fetch)\r\n"); break;
-            case 5: print_I("\t\tAddress Error Exception (Store)\r\n"); break;
-            case 6: print_I("\t\tBus Error Exception (Instruction Fetch)\r\n"); break;
-            case 7: print_I("\t\tBus Error Exception (Data Reference: load or store)\r\n"); break;
-            case 8: print_I("\t\tSyscall Exception\r\n"); break;
-            case 9: print_I("\t\tBreakpoint Exception\r\n"); break;
-            case 10: print_I("\t\tReversed Instruction Exception\r\n"); break;
-            case 11: print_I("\t\tCoProcessor Unusable exception\r\n"); break;
-            case 12: print_I("\t\tArithmatic Overflow Exception\r\n"); break;
-            case 13: print_I("\t\tTrap Exception\r\n"); break;
-            case 16: print_I("\t\tImplementation Specific Exception (COP2)\r\n"); break;
-            case 17: print_I("\t\tCorExtend Unusable\r\n"); break;
-            case 18: print_I("\t\tCoprocessor 2 Exceptions\r\n"); break;
-            default: print_I("\t\treserved\r\n"); break;
-
-        }
-
-        println_I("=== CoProc 0 Register Dump ===");
-        println_I(" BadVAddr=\t");
-        prHEX32(_CP0_GET_BADVADDR(),INFO_PRINT);
-        println_I(" Compare=\t");
-        prHEX32(_CP0_GET_COMPARE(),INFO_PRINT);
-        println_I(" Count=\t");
-        prHEX32(_CP0_GET_COUNT(),INFO_PRINT);
-        println_I(" Status=\t");
-        prHEX32(_CP0_GET_STATUS(),INFO_PRINT);
-        println_I(" EPC=\t");
-        prHEX32(_CP0_GET_EPC(),INFO_PRINT);
-        println_I(" PRID=\t");
-        prHEX32(_CP0_GET_PRID(),INFO_PRINT);
-        println_I(" EBASE=\t");
-        prHEX32(_CP0_GET_EBASE(),INFO_PRINT);
-        println_I(" CONFIG=\t");
-        prHEX32(_CP0_GET_CONFIG(),INFO_PRINT);
-        println_I(" ERROREPC=\t");
-        prHEX32(_CP0_GET_DEPC(),INFO_PRINT);
-        println_I(" ERROREPC=\t");
-        prHEX32(_CP0_GET_DEPC(),INFO_PRINT);
-        print_I(" \r\n\r\n\r\n");
-
-
-        
-        print_I("\n\r1");
-        DelayMs(1000);
-
-        print_I("\n\r2");
-	while(1){
-//		if(isPressed()	)
-//			Reset();
-//		setLed(1,0,0);
-//		DelayMs(1000);
-//		setLed(0,1,0);
-//		DelayMs(1000);
-	}
-}
 
 
 BYTE Bowler_Server_Local(BowlerPacket * Packet){
@@ -276,10 +150,10 @@ void hardwareInit(){
 	macStr[12]=0;
 	println_I("MAC address is =");
 	print_I(macStr);
-	char * dev = "ServoBoard";
+	char * dev = "DyIO";
         println_I(dev);
 	//This Method calls INTEnableSystemMultiVectoredInt();
-	usb_CDC_Serial_Init(dev,macStr,0x04D8,0x0001);
+	usb_CDC_Serial_Init(dev,macStr,0x04D8,0x3742);
 
        
         addNamespaceToList((NAMESPACE_LIST *)getBcsCartesianNamespace());
@@ -300,33 +174,6 @@ void hardwareInit(){
         println_I("Starting PID");
         initPIDLocal();
 #endif
-
-
-#if defined(CALIBRATE)
-        println_I("#Calibrating...");
-        setServo(LINK0_INDEX, servoCalebrateValue,0);
-        setServo(LINK1_INDEX, servoCalebrateValue,0);
-        setServo(LINK2_INDEX, servoCalebrateValue,0);
-        linkValue[0]=0;
-        linkValue[1]=0;
-        linkValue[2]=0;
-#else
-        homingAllLinks = FALSE;
-        setPidIsr(TRUE);
-        l = getPrintLevel();
-        setPrintLevelNoPrint();
-        pidReset(EXTRUDER0_INDEX,0);
-        pidReset(LINK0_INDEX,0);
-        pidReset(LINK1_INDEX,0);
-        pidReset(LINK2_INDEX,0);
-        setPrintLevel(l);
-#endif
-    SetPID(HEATER0_INDEX,0);
-#if defined(CALIBRATE_SERVO)
-    println_I("Calibrating Servo");
-    runServoCalibration(EXTRUDER0_INDEX);
-
-#endif
         
 }
 
@@ -334,16 +181,23 @@ void bowlerSystem(){
     Bowler_Server_Local(&MyPacket);
     float diff = RunEvery(&pid);
     if(diff>0){
-        RunNamespaceAsync(&MyPacket,&asyncCallback);
+        //RunNamespaceAsync(&MyPacket,&asyncCallback);
         if(diff>pid.setPoint){
             println_E("Time diff ran over! ");p_fl_E(diff);
             pid.MsTime=getMs();
         }
 
-        int i;
-        for(i=0;i< 1;i++){
-            print_I("\r\n Encoder ");p_int_I(i);print_I(" value = ");p_fl_I(getRecentEncoderReading(i));
-        }
+//        int i;
+//        print_I("\r\n Encoder [ ");
+//        int last=4;
+//        for(i=1;i< last;i++){
+//           print_I("(\t"); p_int_I(i);print_I(",\t");p_fl_I(readEncoder(i));
+//           if(i==(last-1))
+//               print_I(")");
+//           else
+//               print_I(") , ");
+//        }
+//        print_I(" ]");
     }
 }
 
@@ -377,54 +231,27 @@ int main(){
     hardwareInit();
     println_I("Hardware initialized");
     //SPItest();
+    /*while(1) {
+        ENC0_CSN=~ENC0_CSN;
+        ENC1_CSN=~ENC1_CSN;
+        ENC2_CSN=~ENC2_CSN;
+        ENC3_CSN=~ENC3_CSN;
+        ENC4_CSN=~ENC4_CSN;
+        ENC5_CSN=~ENC5_CSN;
+        ENC6_CSN=~ENC6_CSN;
+        ENC7_CSN=~ENC7_CSN;
+
+    }*/
     pid.MsTime=getMs();
     while(1){
-        if(homingAllLinks){
-            HomeLinks();
-        }
+        //
+        //HomeLinks();
+        //}
         bowlerSystem();
     }
 }
 
 
-void HomeLinks(){
-#if defined(CALIBRATE)
-    if(RunEvery(&calibrationTest)>0){
-        float boundVal = 2.0;
-        float l0=(float)readEncoder(LINK0_INDEX);
-        float l1=(float)readEncoder(LINK1_INDEX);
-        float l2=(float)readEncoder(LINK2_INDEX);
-        if( bound((float)linkValue[0], l0, boundVal, boundVal)&&
-            bound((float)linkValue[1], l1, boundVal, boundVal)&&
-            bound((float)linkValue[2], l2, boundVal, boundVal)
-          ){
-            homingAllLinks = FALSE;
-            println_E("\n\nStopped At:\n\r\tLink 0 value:");p_int_E(l0);
-            println_E("\tLink 1 value:");p_int_E(l1);
-            println_E("\tLink 2 value:");p_int_E(l2);
-            println_E("Previous:\n\r\tLink 0 value:");p_int_E(linkValue[0]);
-            println_E("\tLink 1 value:");p_int_E(linkValue[1]);
-            println_E("\tLink 2 value:");p_int_E(linkValue[2]);
-            pidReset(LINK0_INDEX,(INT32)servoHomeValue);
-            pidReset(LINK1_INDEX,(INT32)servoHomeValue);
-            pidReset(LINK2_INDEX,(INT32)servoHomeValue);
-            pidReset(EXTRUDER0_INDEX,0);
-            println_E("Calibration Done!");
-            setServo(LINK0_INDEX, 128,0);
-            setServo(LINK1_INDEX, 128,0);
-            setServo(LINK2_INDEX, 128,0);
-            setPidIsr(TRUE);
-            pos.MsTime=getMs();
-            initializeCartesianController();
-            cancelPrint();
-        }else{
-            linkValue[0]=l0;
-            linkValue[1]=l1;
-            linkValue[2]=l2;
-        }
-    }
-#endif
-}
 
 
 

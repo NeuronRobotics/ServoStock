@@ -84,7 +84,6 @@ void __ISR(_TIMER_2_VECTOR, ipl5) Timer2Handler(void)
                     RunPIDControl();
                     RunVel();
                     setPrintLevel(l);
-
                 }
                 runLinearInterpolationServo(start,stop);
                 runSort();
@@ -218,11 +217,11 @@ void SetDIO(BYTE PIN, BOOL state){
             ENC1_SERVO = state;
             break;
     case 2:
-        if(getPrintLevel() == NO_PRINT)
+        //if(getPrintLevel() == NO_PRINT)
             ENC2_SERVO = state;
             break;
     case 3:
-        if(getPrintLevel() == NO_PRINT)
+        //if(getPrintLevel() == NO_PRINT)
             ENC3_SERVO = state;
             break;
     case 4:

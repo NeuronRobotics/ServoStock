@@ -32,13 +32,13 @@ extern "C" {
 	//PORT 1
     #define     ENC1_CSN           _RD7
     #define     ENC1_CSN_TRIS      _TRISD7
-    #define     ENC1_SERVO_TRIS    _TRISB15
-    #define     ENC1_SERVO         _RB15
+    #define     ENC1_SERVO_TRIS    _TRISB11
+    #define     ENC1_SERVO         _RB11
 	// Port 2
     #define     ENC2_CSN           _RG9
     #define     ENC2_CSN_TRIS      _TRISG9
-    #define     ENC2_SERVO_TRIS    _TRISB11
-    #define     ENC2_SERVO         _RB11
+    #define     ENC2_SERVO_TRIS    _TRISB15
+    #define     ENC2_SERVO         _RB15
 	// PORT 3
     #define     ENC3_CSN           _RD6
     #define     ENC3_CSN_TRIS      _TRISD6
@@ -130,11 +130,7 @@ void setPidIsr(BOOL v);
 
 #define numPidTotal (numPidMotors+numPidHeater)
 
-#define EXTRUDER0_INDEX 0
-#define HEATER0_INDEX   11
-#define LINK0_INDEX 6
-#define LINK1_INDEX 7
-#define LINK2_INDEX 4
+
 
 BOOL isUpToTempreture();
 void HomeLinks();
