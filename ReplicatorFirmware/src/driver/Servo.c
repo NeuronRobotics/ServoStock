@@ -14,7 +14,7 @@ BYTE start=0;
 BYTE stop=NUM_SERVOS;
 void delayLoop();
 
-ServoState servoCalibrationState = LOW;
+ServoState servoStateMachineCurrentState = LOW;
 
 void runSort(){
     int i=0,k=0,x;
@@ -51,30 +51,30 @@ void setServoTimer(int value){
 
 void setTimerLowTime(){
     setServoTimer(300*18);
-    servoCalibrationState = LOW;
+    servoStateMachineCurrentState = LOW;
 }
 
 void setTimerPreTime(){
     setServoTimer(285);
-    servoCalibrationState = PRETIME;
+    servoStateMachineCurrentState = PRETIME;
 }
 
 void setTimerServoTicks(int value){
     setServoTimer((int)((float)value*1.4));
-    servoCalibrationState = TIME;
+    servoStateMachineCurrentState = TIME;
 }
 
-#define MIN_SERVO 0.
+#define MIN_SERVO 1.0
 
 
-int currentServo,currentValue,diff,nextServo,nextValue;
+int currentServoIndex,currentValue,diff,nextServoIndex,nextValue;
 void __ISR(_TIMER_2_VECTOR, ipl5) Timer2Handler(void)
 {
         //mPORTDToggleBits(BIT_3);
 	//StartCritical();
         CloseTimer2();
         int j;
-        switch(servoCalibrationState){
+        switch(servoStateMachineCurrentState){
             case LOW:
                 if(getRunPidIsr()){
                     
@@ -93,49 +93,56 @@ void __ISR(_TIMER_2_VECTOR, ipl5) Timer2Handler(void)
                 lastValue = 0;
                 sortedIndex=0;
                 setTimerPreTime();
-                break;
+                return;
             case PRETIME:
-                currentServo = sort[sortedIndex];
-                currentValue = position[currentServo];
+                currentServoIndex = sort[sortedIndex];
+                currentValue = position[currentServoIndex];
                 diff = currentValue - lastValue;
                 if(diff>MIN_SERVO){
                     setTimerServoTicks(diff);
-                    break;
+                    return;
+                }else{
+                    //continue on right away
+                    servoStateMachineCurrentState=TIME;
                 }
             case TIME:
-                currentServo = sort[sortedIndex];
-                currentValue = position[currentServo];
-                pinOff(currentServo);
+                currentServoIndex   = sort[sortedIndex];
+                currentValue        = position[currentServoIndex];
+                pinOff(currentServoIndex);
                 lastValue = currentValue;
 
                 sortedIndex++;
 
                 if(sortedIndex == NUM_SERVOS){
-                    servoCalibrationState = FINISH;
+                    servoStateMachineCurrentState = FINISH;
                 }else{
                     do{//Loop throug to see if there is more then one value ready to turn off
-                        nextServo = sort[sortedIndex];
-                        nextValue = position[nextServo];
-                        diff = nextValue - lastValue;
-                        if(!(diff > MIN_SERVO)){
+                        nextServoIndex  = sort[sortedIndex];
+                        nextValue       = position[nextServoIndex];
+                        diff            = abs(nextValue - lastValue);
+                        if((diff < MIN_SERVO)){
                             int tmp =  diff;
                             while((tmp--)>0){
                                 delayLoop();
                             }
                             //Stop next value and increment
-                            pinOff(nextServo);
+                            pinOff(nextServoIndex);
                             lastValue = nextValue;
                             sortedIndex++;
+                             if(sortedIndex == NUM_SERVOS){
+                                servoStateMachineCurrentState = FINISH;
+                             }
                         }
-                    }while(!(diff > MIN_SERVO) && sortedIndex != NUM_SERVOS);
-                    if(diff>MIN_SERVO && sortedIndex != NUM_SERVOS){
+                    }while((diff < MIN_SERVO) && servoStateMachineCurrentState == TIME);
+
+                    if(diff>=MIN_SERVO && sortedIndex != NUM_SERVOS){
                         setTimerServoTicks(diff);
-                        break;
+                        return;
                     }
                 }
             case FINISH:
                 setTimerLowTime();
-                break;
+                return;
         }
         //EndCritical();
 }
@@ -181,7 +188,12 @@ void setServo(BYTE PIN, BYTE val,float time){
     if (val==position[PIN]){
             velocity[PIN].setTime=0;
     }
-    println_I("Srv ");p_int_I(val);
+    Print_Level l = getPrintLevel();
+    if(PIN == 1){
+         //setPrintLevelInfoPrint();
+    }
+    println_I("Srv ");p_int_I(PIN); print_I(" v=");p_int_I(val);
+    setPrintLevel(l);
 }
 
 /**
@@ -196,8 +208,8 @@ void runLinearInterpolationServo(BYTE blockStart,BYTE blockEnd){
 	for (i=blockStart;i<blockEnd;i++){
 		//float ip = interpolate(&velocity[i],getMs());
                 float ip = velocity[i].set;
-		if(ip>(255- SERVO_BOUND)){
-			ip=(255- SERVO_BOUND);
+		if(ip>(254- SERVO_BOUND)){
+			ip=(254- SERVO_BOUND);
 		}
 		if(ip<SERVO_BOUND){
 			ip=SERVO_BOUND;

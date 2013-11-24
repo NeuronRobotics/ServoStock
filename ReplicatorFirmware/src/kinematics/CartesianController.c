@@ -85,7 +85,7 @@ void initializeCartesianController(){
         linkValue[2]=0;
 #else
         //homingAllLinks = FALSE;
-        setPidIsr(TRUE);
+        //setPidIsr(TRUE);
         //l = getPrintLevel();
         pidReset(hwMap.Extruder0.index,0);
         pidReset(hwMap.Alpha.index,0);

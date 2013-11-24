@@ -68,7 +68,7 @@ void initPIDLocal(){
                                 //&asyncCallback,
                                 &onPidConfigureMine,
                                 &checkPIDLimitEventsMine); 
-       setPidIsr(FALSE);
+       setPidIsr(TRUE);
 
 }
 
@@ -139,7 +139,6 @@ float getPositionMine(int group){
 void setOutputMine(int group, float v){
     if(group<numPidMotors){
         int val = (int)(v);
-
         if(val>0 && val<getUpperServoHistoresis(group))
             val = getUpperServoHistoresis(group);
         if(val<0 && val>getLowerServoHistoresis(group))
@@ -150,12 +149,13 @@ void setOutputMine(int group, float v){
                 val=255;
         if(val<0)
                 val=0;
-
+        pidGroups[group].OutputSet = val;
 //        if(group == EXTRUDER0_INDEX && !isUpToTempreture()){
 //            //Saftey so as not to try to feed into a cold extruder
 //            setServo(group,getServoStop(group),0);
 //            return;
 //        }
+
         setServo(group,val,0);
     }else{
        setHeater( group,  v);

@@ -6,9 +6,10 @@ typedef struct _SERVO_CALIBRATION
     int lowerHistoresis;
     int stop;
     BOOL calibrating;
+    BOOL calibrated;
 } SERVO_CALIBRATION;
 #define historesisINIT 1
-#define defaultServoCenter 126
+#define defaultServoCenter 128
 static SERVO_CALIBRATION servoCal[numPidMotors];
 
 enum CAL_STATE servoCalibration(int group);
@@ -42,13 +43,25 @@ void calcCenter(int group){
     print_I(" lower: ");p_int_I(servoCal[group].stop+servoCal[group].lowerHistoresis);
 }
 
+void checkCalibration(int group){
+    if(servoCal[group].calibrated != TRUE){
+       servoCal[group].upperHistoresis=0;
+       servoCal[group].lowerHistoresis=0;
+       servoCal[group].stop=defaultServoCenter;
+       servoCal[group].calibrated = TRUE ;
+    }
+}
+
 int getUpperServoHistoresis(int group){
+    checkCalibration(group);
     return servoCal[group].upperHistoresis;
 }
 int getLowerServoHistoresis(int group){
+    checkCalibration(group);
     return servoCal[group].lowerHistoresis;
 }
 int getServoStop(int group){
+    checkCalibration(group);
     return servoCal[group].stop;
 }
 

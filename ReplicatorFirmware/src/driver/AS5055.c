@@ -16,6 +16,7 @@ void initializeEncoders(){
     DelayMs(200);
     int i;
     encoderSPIInit();
+    // AC: Do we still need this?
     mJTAGPortEnable(0); // Disable JTAG and free up channels 0 and 1
     ENC_CSN_INIT(); // Set pin modes for CS pins
     for(i=0;i<numPidTotal;i++){
@@ -166,7 +167,7 @@ UINT16 AS5055readAngle(BYTE index){
         read.uint0_15 = AS5055send(index, 0xffff);
         
         if(read.regs.EF){
-            //setPrintLevelErrorPrint();
+            setPrintLevelErrorPrint();
             if(read.regs.AlarmHI == 1 && read.regs.AlarmLO == 0){
                 //println_E("Alarm bit indicating a too high magnetic field");
                 read.regs.EF=0;
@@ -175,8 +176,8 @@ UINT16 AS5055readAngle(BYTE index){
                 read.regs.EF=0;
             }
             if(read.regs.AlarmHI == 1 && read.regs.AlarmLO == 1){
-//                println_E("**Error flag on data read! Index: ");p_int_E(index);
-//                print_E(" 0x");prHEX16(read.uint0_15,ERROR_PRINT); print_E("\n");
+               // println_E("**Error flag on data read! Index: ");p_int_E(index);
+               // print_E(" 0x");prHEX16(read.uint0_15,ERROR_PRINT); print_E("\n");
 //
 //                //printSystemConfig(index);
 //                AS5055reset(index);
@@ -205,6 +206,7 @@ UINT16 AS5055send(BYTE index, UINT16 data){
     //println_I("[AS5055send] Sending data: ");prHEX8(tmp.byte.SB,INFO_PRINT);prHEX8(tmp.byte.LB,INFO_PRINT);println_I("");
     //back.byte.SB = SPITransceve(0xAA);
     //back.byte.LB = SPITransceve(0x88);
+    // AC: This gives you the response from the previous command. You need to send outa nop to get the response for this command
     back.byte.SB = SPITransceve(tmp.byte.SB);
     back.byte.LB = SPITransceve(tmp.byte.LB);
      //println_I("[AS5055send] Got data: ");prHEX8(back.byte.SB,INFO_PRINT);prHEX8(back.byte.LB,INFO_PRINT);println_I("");

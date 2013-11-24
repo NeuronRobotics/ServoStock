@@ -86,7 +86,7 @@ static BowlerPacket Packet;
 static BowlerPacket MyPacket;
 static RunEveryData pid ={0,40};
 
-static RunEveryData pos ={0,5000};
+static RunEveryData pos ={0,1000};
 
 
 float height = 0;
@@ -176,28 +176,36 @@ void hardwareInit(){
 #endif
         
 }
+BOOL serVal =TRUE;
 
 void bowlerSystem(){
     Bowler_Server_Local(&MyPacket);
     float diff = RunEvery(&pid);
+
     if(diff>0){
         RunNamespaceAsync(&MyPacket,&asyncCallback);
         if(diff>pid.setPoint){
             println_E("Time diff ran over! ");p_fl_E(diff);
             pid.MsTime=getMs();
         }
+        
+ 
+    }
 
-//        int i;
-//        print_I("\r\n Encoder [ ");
-//        int last=4;
-//        for(i=1;i< last;i++){
-//           print_I("(\t"); p_int_I(i);print_I(",\t");p_fl_I(readEncoder(i));
-//           if(i==(last-1))
-//               print_I(")");
-//           else
-//               print_I(") , ");
-//        }
-//        print_I(" ]");
+    if(RunEvery(&pos)>0){
+        print_I("\033c");
+        int i;
+        //print_I("\r\n Encoder [ ");
+        int last=4;
+        for(i=1;i< last;i++){
+            SetPIDEnabled(i,TRUE);
+            printPIDvals(i);
+            //setServo(i,serVal?255:0,0);
+        }
+        if(serVal)
+            serVal=FALSE;
+        else
+            serVal=TRUE;
     }
 }
 
@@ -231,18 +239,16 @@ int main(){
     hardwareInit();
     println_I("Hardware initialized");
     //SPItest();
-    /*while(1) {
-        ENC0_CSN=~ENC0_CSN;
-        ENC1_CSN=~ENC1_CSN;
-        ENC2_CSN=~ENC2_CSN;
-        ENC3_CSN=~ENC3_CSN;
-        ENC4_CSN=~ENC4_CSN;
-        ENC5_CSN=~ENC5_CSN;
-        ENC6_CSN=~ENC6_CSN;
-        ENC7_CSN=~ENC7_CSN;
-
-    }*/
+    BOOL value = FALSE;
+//    while(1) {
+//        int i;
+//        //for(i=0;i<8;i++){
+//            SetDIO(1, value );
+//        //}
+//        value=~value;
+//    }
     pid.MsTime=getMs();
+
     while(1){
         //
         //HomeLinks();
