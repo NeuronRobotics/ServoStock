@@ -27,13 +27,13 @@ extern "C" {
 	//PORT 0
     #define     ENC0_CSN           _RE7
     #define     ENC0_CSN_TRIS      _TRISE7
-    #define     ENC0_SERVO_TRIS    _TRISB10
-    #define     ENC0_SERVO         _RB10
+    #define     ENC0_SERVO_TRIS    _TRISB12
+    #define     ENC0_SERVO         _RB12
 	//PORT 1
     #define     ENC1_CSN           _RD7
     #define     ENC1_CSN_TRIS      _TRISD7
-    #define     ENC1_SERVO_TRIS    _TRISB11
-    #define     ENC1_SERVO         _RB11
+    #define     ENC1_SERVO_TRIS    _TRISB10
+    #define     ENC1_SERVO         _RB10
 	// Port 2
     #define     ENC2_CSN           _RG9
     #define     ENC2_CSN_TRIS      _TRISG9
@@ -42,18 +42,18 @@ extern "C" {
 	// PORT 3
     #define     ENC3_CSN           _RD6
     #define     ENC3_CSN_TRIS      _TRISD6
-    #define     ENC3_SERVO_TRIS    _TRISB9
-    #define     ENC3_SERVO         _RB9
+    #define     ENC3_SERVO_TRIS    _TRISB10
+    #define     ENC3_SERVO         _RB10
 	// PORT 4
     #define     ENC4_CSN           _RE5
     #define     ENC4_CSN_TRIS      _TRISE5
-    #define     ENC4_SERVO_TRIS    _TRISB12
-    #define     ENC4_SERVO         _RB12
+    #define     ENC4_SERVO_TRIS    _TRISB14
+    #define     ENC4_SERVO         _RB14
 	// PORT 5
     #define     ENC5_CSN           _RD5
     #define     ENC5_CSN_TRIS      _TRISD5
-    #define     ENC5_SERVO_TRIS    _TRISB14
-    #define     ENC5_SERVO         _RB14
+    #define     ENC5_SERVO_TRIS    _TRISB9
+    #define     ENC5_SERVO         _RB9
 	//PORT 6
     #define     ENC6_CSN           _RE6
     #define     ENC6_CSN_TRIS      _TRISE6

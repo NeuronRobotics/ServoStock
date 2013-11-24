@@ -181,7 +181,7 @@ void bowlerSystem(){
     Bowler_Server_Local(&MyPacket);
     float diff = RunEvery(&pid);
     if(diff>0){
-        //RunNamespaceAsync(&MyPacket,&asyncCallback);
+        RunNamespaceAsync(&MyPacket,&asyncCallback);
         if(diff>pid.setPoint){
             println_E("Time diff ran over! ");p_fl_E(diff);
             pid.MsTime=getMs();

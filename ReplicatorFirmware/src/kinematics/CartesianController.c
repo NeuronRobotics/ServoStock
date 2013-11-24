@@ -102,7 +102,7 @@ void initializeCartesianController(){
 }
 
 void pushBufferEmpty(){
-    	prep(& packetTemp);
+    	LoadCorePacket(& packetTemp);
 	packetTemp.use.head.Method=BOWLER_ASYN;
 	packetTemp.use.head.MessageID = 1;
 	packetTemp.use.head.RPC = GetRPCValue("_sli");
@@ -117,7 +117,7 @@ void pushBufferEmpty(){
 }
 
 void loadCurrentPosition(BowlerPacket * Packet){
-        prep(Packet);
+        LoadCorePacket(Packet);
 	Packet->use.head.Method=BOWLER_STATUS;
 	Packet->use.head.MessageID = 1;
 	Packet->use.head.RPC = GetRPCValue("ctps");
@@ -159,7 +159,7 @@ void checkPositionChange(){
 //        print_E(" Z=");p_fl_E(lastXYZE[2]);
 //        print_E(" extr=");p_fl_E(lastXYZE[3]);
         INT32_UNION PID_Temp;
-        prep(& packetTemp);
+        LoadCorePacket(& packetTemp);
         packetTemp.use.head.DataLegnth=4;
         packetTemp.use.head.RPC = GetRPCValue("cpos");
         int i;
@@ -185,7 +185,7 @@ void cartesianAsync(){
             pushBufferEmpty();
             full = FALSE;
         }
-        //checkPositionChange();
+        checkPositionChange();
 
     }
 }
