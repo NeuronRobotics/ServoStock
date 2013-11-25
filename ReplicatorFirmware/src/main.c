@@ -194,6 +194,7 @@ void bowlerSystem(){
 
     if(RunEvery(&pos)>0){
         print_I("\033c");
+        printSortedData();
         int i;
         //print_I("\r\n Encoder [ ");
         int last=4;
@@ -202,6 +203,7 @@ void bowlerSystem(){
             printPIDvals(i);
             //setServo(i,serVal?255:0,0);
         }
+        //setServo(1,serVal?255:0,0);
         if(serVal)
             serVal=FALSE;
         else
