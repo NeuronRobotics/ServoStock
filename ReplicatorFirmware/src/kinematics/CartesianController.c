@@ -33,11 +33,11 @@ static RunEveryData pid ={0,100};
 
 //Default values for ServoStock
 HardwareMap hwMap ={
-    {2,1.0},//axis 0
-    {4,1.0},//axis 1
-    {5,1.0},//axis 2
+    {5,1.0},//axis 0
+    {6,1.0},//axis 1
+    {7,1.0},//axis 2
     {
-        {6,1.0},// Motor
+        {4,1.0},// Motor
         {11,1.0}// Heater
     },//Extruder 0
     {

@@ -125,7 +125,7 @@ void servoTimerEvent()
 {
         //mPORTDToggleBits(BIT_3);
 	//StartCritical();
-        CloseTimer2();
+        stopServos();
         int j;
         switch(servoStateMachineCurrentState){
             case LOW:
@@ -172,6 +172,10 @@ void servoTimerEvent()
 
 void __ISR(_TIMER_2_VECTOR, ipl5) Timer2Handler(void){
     servoTimerEvent();
+}
+
+void stopServos(){
+    CloseTimer2();
 }
 
 /**

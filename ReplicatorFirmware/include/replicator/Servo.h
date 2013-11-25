@@ -19,6 +19,9 @@ typedef enum _ServoState{
     FINISH=3
 } ServoState;
 
+    /*Stop the servo signals
+     */
+    void stopServos();
 
     /**
      * Start the servo hardware

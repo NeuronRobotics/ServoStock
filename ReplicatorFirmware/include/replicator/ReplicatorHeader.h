@@ -75,23 +75,23 @@ extern "C" {
     #define    HEATER_2_TRIS       _TRISB2
 
 
-    #define     CloseServoOpenCollector() 	mPORTEOpenDrainClose(BIT_7);\
-											mPORTBOpenDrainClose(BIT_15);\
-											mPORTBOpenDrainClose(BIT_11);\
-											mPORTBOpenDrainClose(BIT_9);\
-											mPORTBOpenDrainClose(BIT_12);\
-											mPORTBOpenDrainClose(BIT_14);\
-											mPORTBOpenDrainClose(BIT_13);\
-											mPORTBOpenDrainClose(BIT_8);
+    #define     CloseServoOpenCollector() 	mPORTBOpenDrainClose(BIT_12);\
+                                                mPORTBOpenDrainClose(BIT_15);\
+                                                mPORTBOpenDrainClose(BIT_11);\
+                                                mPORTBOpenDrainClose(BIT_9);\
+                                                mPORTBOpenDrainClose(BIT_12);\
+                                                mPORTBOpenDrainClose(BIT_14);\
+                                                mPORTBOpenDrainClose(BIT_13);\
+                                                mPORTBOpenDrainClose(BIT_8);
 
-    #define     CloseSpiSSOpenCollector() 	mPORTBOpenDrainClose(BIT_10);\
-											mPORTDOpenDrainClose(BIT_7);\
-											mPORTGOpenDrainClose(BIT_9);\
-											mPORTDOpenDrainClose(BIT_6);\
-											mPORTEOpenDrainClose(BIT_5);\
-											mPORTDOpenDrainClose(BIT_5);\
-											mPORTEOpenDrainClose(BIT_6);\
-											mPORTDOpenDrainClose(BIT_4);
+    #define     CloseSpiSSOpenCollector() 	mPORTEOpenDrainClose(BIT_7);\
+                                                mPORTDOpenDrainClose(BIT_7);\
+                                                mPORTGOpenDrainClose(BIT_9);\
+                                                mPORTDOpenDrainClose(BIT_6);\
+                                                mPORTEOpenDrainClose(BIT_5);\
+                                                mPORTDOpenDrainClose(BIT_5);\
+                                                mPORTEOpenDrainClose(BIT_6);\
+                                                mPORTDOpenDrainClose(BIT_4);
 
 
 #define     CSN_Enabled       0
@@ -105,7 +105,8 @@ extern "C" {
                                     ENC4_CSN_TRIS=0;ENC4_CSN=CSN_Disabled;\
                                     ENC5_CSN_TRIS=0;ENC5_CSN=CSN_Disabled;\
                                     ENC6_CSN_TRIS=0;ENC6_CSN=CSN_Disabled;\
-                                    ENC7_CSN_TRIS=0;ENC7_CSN=CSN_Disabled;
+                                    ENC7_CSN_TRIS=0;ENC7_CSN=CSN_Disabled;\
+                                    mPMPClose();
 
 #define     SERVO_HW_INIT()        CloseServoOpenCollector();\
                                     ENC7_SERVO_TRIS=0;\

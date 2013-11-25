@@ -86,7 +86,7 @@ static BowlerPacket Packet;
 static BowlerPacket MyPacket;
 static RunEveryData pid ={0,40};
 
-static RunEveryData pos ={0,1000};
+static RunEveryData pos ={0,50};
 
 
 float height = 0;
@@ -130,6 +130,7 @@ void hardwareInit(){
 	// wait state and enable prefetch cache but will not change the PBDIV.
 	// The PBDIV value is already set via the pragma FPBDIV option above..
 	SYSTEMConfig(SYS_FREQ, SYS_CFG_WAIT_STATES | SYS_CFG_PCACHE);
+        SYSTEMConfigPerformance(80000000);
 
         setPrintLevelInfoPrint();
         ATX_DISENABLE();
@@ -193,15 +194,19 @@ void bowlerSystem(){
     }
 
     if(RunEvery(&pos)>0){
-        print_I("\033c");
-        printSortedData();
+        stopServos();
+        //print_I("\033c");
+        //printSortedData();
         int i;
         //print_I("\r\n Encoder [ ");
-        int last=4;
-        for(i=1;i< last;i++){
-            SetPIDEnabled(i,TRUE);
-            printPIDvals(i);
+        for(i=0;i< 8;i++){
+            SetDIO(   i, serVal?0:1);
+            //EncoderSS(i, serVal?1:0);
+            ENC0_CSN = serVal?1:0;
+//            SetPIDEnabled(i,TRUE);
+//            printPIDvals(i);
             //setServo(i,serVal?255:0,0);
+
         }
         //setServo(1,serVal?255:0,0);
         if(serVal)
