@@ -42,8 +42,8 @@ extern "C" {
 	// PORT 3
     #define     ENC3_CSN           _RD6
     #define     ENC3_CSN_TRIS      _TRISD6
-    #define     ENC3_SERVO_TRIS    _TRISB10
-    #define     ENC3_SERVO         _RB10
+    #define     ENC3_SERVO_TRIS    _TRISB11
+    #define     ENC3_SERVO         _RB11
 	// PORT 4
     #define     ENC4_CSN           _RE5
     #define     ENC4_CSN_TRIS      _TRISE5

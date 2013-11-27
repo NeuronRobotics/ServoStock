@@ -193,27 +193,26 @@ void bowlerSystem(){
  
     }
 
-    if(RunEvery(&pos)>0){
-        stopServos();
-        //print_I("\033c");
-        //printSortedData();
-        int i;
-        //print_I("\r\n Encoder [ ");
-        for(i=0;i< 8;i++){
-            SetDIO(   i, serVal?0:1);
-            //EncoderSS(i, serVal?1:0);
-            ENC0_CSN = serVal?1:0;
-//            SetPIDEnabled(i,TRUE);
-//            printPIDvals(i);
-            //setServo(i,serVal?255:0,0);
-
-        }
-        //setServo(1,serVal?255:0,0);
-        if(serVal)
-            serVal=FALSE;
-        else
-            serVal=TRUE;
-    }
+//    if(RunEvery(&pos)>0){
+//        stopServos();
+//        //print_I("\033c");
+//        //printSortedData();
+//        int i;
+//        //print_I("\r\n Encoder [ ");
+//        for(i=0;i< 8;i++){
+//            SetDIO(   i, serVal?0:1);
+//            EncoderSS(i, serVal?1:0);
+////            SetPIDEnabled(i,TRUE);
+////            printPIDvals(i);
+//            //setServo(i,serVal?255:0,0);
+//
+//        }
+//        //setServo(1,serVal?255:0,0);
+//        if(serVal)
+//            serVal=FALSE;
+//        else
+//            serVal=TRUE;
+//    }
 }
 
 void SPItest(){

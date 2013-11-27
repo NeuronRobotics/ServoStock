@@ -89,7 +89,7 @@ void encoderSPIInit(){
 #elif defined(__32MX440F128H__)
     OpenSPI2(CLK_POL_ACTIVE_HIGH\
             |SPI_MODE8_ON|ENABLE_SDO_PIN|SLAVE_ENABLE_OFF|SPI_CKE_OFF\
-            |MASTER_ENABLE_ON|SEC_PRESCAL_8_1|PRI_PRESCAL_64_1
+            |MASTER_ENABLE_ON|SEC_PRESCAL_3_1|PRI_PRESCAL_4_1
             , SPI_ENABLE);
 #endif
 }
@@ -176,14 +176,15 @@ UINT16 AS5055readAngle(BYTE index){
                 read.regs.EF=0;
             }
             if(read.regs.AlarmHI == 1 && read.regs.AlarmLO == 1){
-               // println_E("**Error flag on data read! Index: ");p_int_E(index);
-               // print_E(" 0x");prHEX16(read.uint0_15,ERROR_PRINT); print_E("\n");
+                println_E("**Error flag on data read! Index: ");p_int_E(index);
+                print_E(" 0x");prHEX16(read.uint0_15,ERROR_PRINT); print_E("\n");
 //
 //                //printSystemConfig(index);
 //                AS5055reset(index);
 //                AS5055ResetErrorFlag(index);
             }
             AS5055send(index, 0xffff);
+            SetPIDEnabled(index,FALSE);
         }
         loop++;
     }while(read.regs.EF && loop<1);
@@ -223,7 +224,7 @@ void EncoderSS(BYTE index, BYTE state){
     if(state == CSN_Enabled){
         encoderSPIInit();
     }else{
-         Delay10us(10);
+         Delay10us(1);
     }
     switch(index){
         case 0:
@@ -252,6 +253,6 @@ void EncoderSS(BYTE index, BYTE state){
             break;
     }
     if(state == CSN_Enabled)
-        Delay10us(10);
+        Delay10us(1);
 }
 
