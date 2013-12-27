@@ -76,7 +76,7 @@ void setServoTimer(int value){
 }
 
 void setTimerLowTime(){
-    setServoTimer(300*5);
+    setServoTimer(300*18);
     servoStateMachineCurrentState = LOW;
 }
 
