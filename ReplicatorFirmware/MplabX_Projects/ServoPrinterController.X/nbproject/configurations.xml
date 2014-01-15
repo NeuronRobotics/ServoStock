@@ -123,7 +123,6 @@
       </logicalFolder>
       <logicalFolder name="motion" displayName="motion" projectFiles="true">
         <itemPath>../../src/motion/MotionTest.c</itemPath>
-        <itemPath>../../src/motion/Calibration.c</itemPath>
         <itemPath>../../src/motion/StepperSim.c</itemPath>
         <itemPath>../../src/motion/servoCalibration.c</itemPath>
         <itemPath>../../src/motion/PID.c</itemPath>

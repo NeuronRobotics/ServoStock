@@ -22,6 +22,7 @@ void interpolateZXY();
 float getLinkAngle(int index);
 float setLinkAngle(int index, float value, float ms);
 
+float xCurrent,yCurrent,zCurrent,eCurrent;
 BOOL full = FALSE;
 
 
@@ -33,11 +34,11 @@ static RunEveryData pid ={0,100};
 
 //Default values for ServoStock
 HardwareMap hwMap ={
-    {5,1.0},//axis 0
-    {6,1.0},//axis 1
-    {7,1.0},//axis 2
+    {0,1.0},//axis 0
+    {1,1.0},//axis 1
+    {2,1.0},//axis 2
     {
-        {4,1.0},// Motor
+        {3,1.0},// Motor
         {11,1.0}// Heater
     },//Extruder 0
     {
@@ -48,7 +49,7 @@ HardwareMap hwMap ={
         {AXIS_UNUSED,1.0},
         {AXIS_UNUSED,1.0}
     },//Extruder 2
-    &servostock_calcForward,
+//    &servostock_calcForward,
     &servostock_calcInverse
 };
 
@@ -57,7 +58,7 @@ BOOL isCartesianInterpolationDone(){
     int i;
     for(i=0;i<4;i++){
         if( isPIDInterpolating(linkToHWIndex(i))||
-            !isPIDArrivedAtSetpoint(i, 100)
+            !isPIDArrivedAtSetpoint(i, 10)
           ){
 //            println_I("\n\nLINK not done moving index=");p_int_E(linkToHWIndex(i));
 //            print_E(" isInterpolating");p_int_E(isPIDInterpolating(linkToHWIndex(i)));
@@ -71,7 +72,7 @@ BOOL isCartesianInterpolationDone(){
 
 void initializeCartesianController(){
     initializeDelta();
-    getCurrentPosition(&lastXYZE[0], &lastXYZE[1], &lastXYZE[2]);
+    //getCurrentPosition(&lastXYZE[0], &lastXYZE[1], &lastXYZE[2]);
     setInterpolateXYZ(lastXYZE[0], lastXYZE[1], lastXYZE[2], 0);
     InitPacketFifo(&packetFifo,buffer,SIZE_OF_PACKET_BUFFER);
     //TODO load configuration from Flash
@@ -140,7 +141,9 @@ void loadCurrentPosition(BowlerPacket * Packet){
 void checkPositionChange(){
     int i;
     float tmp[4];
-    getCurrentPosition(&tmp[0], &tmp[1], &tmp[2]);
+    tmp[0]=xCurrent;
+    tmp[1]=yCurrent;
+    tmp[2]=zCurrent;
     tmp[3] = getLinkAngle(3);
     if(     tmp[0]!=lastXYZE[0]||
             tmp[1]!=lastXYZE[1]||
@@ -325,17 +328,16 @@ BYTE setInterpolateXYZ(float x, float y, float z,float ms){
     if(ms<.01)
         ms=0;
     float start = getMs();
-    float cx=0,cy=0,cz=0;
-
-    getCurrentPosition(&cx, &cy, &cz);
     
     intCartesian[0].set=x;
     intCartesian[1].set=y;
     intCartesian[2].set=z;
 
-    intCartesian[0].start=cx;
-    intCartesian[1].start=cy;
-    intCartesian[2].start=cz;
+    intCartesian[0].start=xCurrent;
+    intCartesian[1].start=yCurrent;
+    intCartesian[2].start=zCurrent;
+
+
 
     println_I("\n\nSetting new position x=");p_fl_E(x);print_E(" y=");p_fl_E(y);print_E(" z=");p_fl_E(z);print_E(" Time MS=");p_fl_E(ms);
     println_I("Current  position cx=");p_fl_E(cx);print_E(" cy=");p_fl_E(cy);print_E(" cz=");p_fl_E(cz);
@@ -352,6 +354,9 @@ BYTE setInterpolateXYZ(float x, float y, float z,float ms){
 }
 
 BYTE setXYZ(float x, float y, float z){
+    xCurrent=x;
+    yCurrent=y;
+    zCurrent=z;
     float t0=0,t1=0,t2=0;
     if(hwMap.iK_callback( x,  y, z,  &t0, &t1, &t2)==0){
         println_I("New target angles t1=");p_fl_E(t0);print_E(" t2=");p_fl_E(t1);print_E(" t3=");p_fl_E(t2);
@@ -394,12 +399,6 @@ float getLinkScale(int index){
     }
 }
 
-int getCurrentPosition(float * x, float * y, float * z){
-   return hwMap.fK_callback(    getLinkAngle(0),
-                                getLinkAngle(1),
-                                getLinkAngle(2),
-                                x, y, z);
-}
 
 float getLinkAngle(int index){
     int localIndex=linkToHWIndex(index);

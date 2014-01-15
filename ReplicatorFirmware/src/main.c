@@ -244,6 +244,9 @@ void SPItest(){
 int main(){
     hardwareInit();
     println_I("Hardware initialized");
+    runServoCalibration(0);
+    runServoCalibration(1);
+    runServoCalibration(2);
     //SPItest();
     BOOL value = FALSE;
 //    while(1) {

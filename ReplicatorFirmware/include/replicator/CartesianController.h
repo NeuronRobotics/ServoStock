@@ -39,7 +39,7 @@ typedef struct  _HardwareMap{
         IndexScale Heater2;
         IndexScale Extruder2;
     };
-    forwardKinematics * fK_callback;
+    //forwardKinematics * fK_callback;
     inverseKinematics * iK_callback;
 }HardwareMap;
 
@@ -71,7 +71,7 @@ void interpolateZXY();
 
 BYTE setXYZ(float x, float y, float z);
 
-int getCurrentPosition(float * x, float * y, float * z);
+//int getCurrentPosition(float * x, float * y, float * z);
 
 void cartesianAsync();
 

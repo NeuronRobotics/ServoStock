@@ -66,20 +66,20 @@ int getServoStop(int group){
 }
 
 void runServoCalibration(int group){
-    println_I("\n\nStart calibration");
+    println_I("\r\n\nStart calibration #");p_int_I(group);
     
     servoCal[group].lowerHistoresis = historesisINIT*-1;
     servoCal[group].upperHistoresis = historesisINIT;
     servoCal[group].stop = defaultServoCenter;
-    println_I("Reset PID");
+    println_I("\tReset PID");
     pidReset(group,0);// Zero encoder reading
-    println_I("Disable PID");
+    println_I("\tDisable PID");
     SetPIDEnabled(group, FALSE);
     state =  backward;
-    println_I("Setting slow move");
+    println_I("\tSetting slow move");
     setOutputMine(group, -1.0f);
     servoCalibrationTest.MsTime=getMs();
-    println_I("Start wait loop");
+    println_I("\tStart wait loop");
     while(servoCalibration(group)!=done){
         //wait for calibration to finish
         bowlerSystem();
