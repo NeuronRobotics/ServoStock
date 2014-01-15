@@ -175,7 +175,9 @@ void hardwareInit(){
         println_I("Starting PID");
         initPIDLocal();
 #endif
-        
+    runServoCalibration(0);
+    runServoCalibration(1);
+    runServoCalibration(2);
 }
 BOOL serVal =TRUE;
 
@@ -223,10 +225,7 @@ void SPItest(){
     SPI_MOSI_TRIS   =OUTPUT;
     SPI_CLK_TRIS    =OUTPUT;
     
-    int i;
-    for(i=0;i< numPidTotal;i++){
-        SetPIDEnabled(i, FALSE);
-    }
+    
     /*while (1){
       if(RunEvery(&loop)>0){
            //_RG7 = val;
@@ -244,23 +243,13 @@ void SPItest(){
 int main(){
     hardwareInit();
     println_I("Hardware initialized");
-    runServoCalibration(0);
-    runServoCalibration(1);
-    runServoCalibration(2);
-    //SPItest();
-    BOOL value = FALSE;
-//    while(1) {
-//        int i;
-//        //for(i=0;i<8;i++){
-//            SetDIO(1, value );
-//        //}
-//        value=~value;
-//    }
-    pid.MsTime=getMs();
+    
 
+    pid.MsTime=getMs();
+    startHomingLinks();
     while(1){
         //
-        //HomeLinks();
+        HomeLinks();
         //}
         bowlerSystem();
     }

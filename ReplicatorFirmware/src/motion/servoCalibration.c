@@ -15,7 +15,7 @@ static SERVO_CALIBRATION servoCal[numPidMotors];
 enum CAL_STATE servoCalibration(int group);
 void calcCenter(int group);
 
-static RunEveryData servoCalibrationTest ={0,200};
+static RunEveryData servoCalibrationTest ={0,500};
 
 enum CAL_STATE
 {

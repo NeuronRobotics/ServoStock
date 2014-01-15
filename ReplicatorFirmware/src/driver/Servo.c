@@ -9,7 +9,7 @@
 //INTERPOLATE_DATA velocity[dataTableSize];
 int position[dataTableSize];
 int sort[dataTableSize];
-int lastValue;
+int lastValue=0;
 int sortedIndex = 0;
 BYTE start=0;
 BYTE stop=NUM_SERVO;
@@ -99,7 +99,7 @@ BOOL setUpNextServo(){
     lastValue = position[sort[sortedIndex]];
     if(diff<0){
         setPrintLevelErrorPrint();
-        println_E("Something is wrong!! Current minus last value is less then 0");
+        println_E("Servo.c: Something is wrong!! Current minus last value is less then 0");
         while(1);
     }
 

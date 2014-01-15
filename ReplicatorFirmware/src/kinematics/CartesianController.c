@@ -340,7 +340,10 @@ BYTE setInterpolateXYZ(float x, float y, float z,float ms){
 
 
     println_I("\n\nSetting new position x=");p_fl_E(x);print_E(" y=");p_fl_E(y);print_E(" z=");p_fl_E(z);print_E(" Time MS=");p_fl_E(ms);
-    println_I("Current  position cx=");p_fl_E(cx);print_E(" cy=");p_fl_E(cy);print_E(" cz=");p_fl_E(cz);
+    println_I("Current  position cx=");p_fl_E(xCurrent);
+    
+    print_E(" cy=");p_fl_E(yCurrent);
+    print_E(" cz=");p_fl_E(zCurrent);
     //println_I("Current  angles t1=");p_fl_E(getLinkAngle(0));print_E(" t2=");p_fl_E(getLinkAngle(1));print_E(" t3=");p_fl_E(getLinkAngle(2));
 
     for(i=0;i<3;i++){
@@ -425,9 +428,17 @@ float setLinkAngle(int index, float value, float ms){
     return SetPIDTimed(localIndex,v,ms);
 }
 
-static int homingAllLinks = TRUE;
+static int homingAllLinks = FALSE;
 static int linkValue[3]={0,0,0};
 static RunEveryData calibrationTest ={0,1000};
+
+void startHomingLinks(){
+    homingAllLinks =TRUE;
+    setOutputMine(linkToHWIndex(0), 1.0);
+    setOutputMine(linkToHWIndex(1), 1.0);
+    setOutputMine(linkToHWIndex(2), 1.0);
+
+}
 
 void HomeLinks(){
     if(homingAllLinks){

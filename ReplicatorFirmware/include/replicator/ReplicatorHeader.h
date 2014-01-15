@@ -135,6 +135,7 @@ void setPidIsr(BOOL v);
 
 BOOL isUpToTempreture();
 void HomeLinks();
+void startHomingLinks();
 
 
 #define defaultMaxZ -289.5
@@ -144,7 +145,7 @@ void HomeLinks();
 #define ticksPerDegree      (ticksPerRev/360.0)
 #define gearRatio           (7.0)
 #define calibrationAngle    (27.0)
-#define servoHomeValue      (ticksPerDegree*calibrationAngle*gearRatio)
+#define servoHomeValue      0
 
 #if !defined(NUM_PID_GROUPS)
 	#define NUM_PID_GROUPS (numPidMotors)
