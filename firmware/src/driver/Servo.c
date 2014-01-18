@@ -8,6 +8,7 @@
 
 //INTERPOLATE_DATA velocity[dataTableSize];
 int position[dataTableSize];
+int positionTemp[dataTableSize];
 int sort[dataTableSize];
 int lastValue=0;
 int sortedIndex = 0;
@@ -38,7 +39,9 @@ void runSort(){
                 current = position[i];
             }
         }
+        positionTemp[x]== position[x];
     }
+
 }
 
 void printSortedData(){
@@ -46,7 +49,7 @@ void printSortedData(){
     print_I("Servo Data \r\n[ ");
 
     for(x=0;x<dataTableSize;x++){
-        p_int_I(position[x]);print_I(" , ");
+        p_int_I(positionTemp[x]);print_I(" , ");
     }
     print_I(" ] ");
 
@@ -60,7 +63,7 @@ void printSortedData(){
     print_I("\r\n[ ");
 
     for(x=0;x<dataTableSize;x++){
-        p_int_I(position[sort[x]]);print_I(" , ");
+        p_int_I(positionTemp[sort[x]]);print_I(" , ");
     }
     print_I(" ] ");
 }
@@ -95,8 +98,8 @@ void setTimerServoTicks(int value){
 
 BOOL setUpNextServo(){
    
-    int diff = position[sort[sortedIndex]] - lastValue;
-    lastValue = position[sort[sortedIndex]];
+    int diff = positionTemp[sort[sortedIndex]] - lastValue;
+    lastValue = positionTemp[sort[sortedIndex]];
     if(diff<0){
         setPrintLevelErrorPrint();
         println_E("Servo.c: Something is wrong!! Current minus last value is less then 0");
