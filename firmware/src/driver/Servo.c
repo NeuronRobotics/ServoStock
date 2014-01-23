@@ -25,6 +25,9 @@ void runSort(){
         sort[k]=dataTableSize;
     }
     for(x=0;x<dataTableSize;x++){
+        positionTemp[x]=position[x];
+    }
+    for(x=0;x<dataTableSize;x++){
         current = 256;
         for(i=0;i<dataTableSize;i++){
             int used= FALSE;
@@ -33,13 +36,12 @@ void runSort(){
                     used=TRUE;
                 }
             }
-            if(position[i]<current && !used){
+            if(positionTemp[i]<current && !used){
                 sort[x]=i;
 
-                current = position[i];
+                current = positionTemp[i];
             }
         }
-        positionTemp[x]== position[x];
     }
 
 }
@@ -97,7 +99,7 @@ void setTimerServoTicks(int value){
 
 
 BOOL setUpNextServo(){
-   
+
     int diff = positionTemp[sort[sortedIndex]] - lastValue;
     lastValue = positionTemp[sort[sortedIndex]];
     if(diff<0){
@@ -133,7 +135,7 @@ void servoTimerEvent()
         switch(servoStateMachineCurrentState){
             case LOW:
                 if(getRunPidIsr()){
-                    
+
                     Print_Level l = getPrintLevel();
                     setPrintLevelNoPrint();
                     interpolateZXY();
@@ -205,7 +207,7 @@ void initServos(){
 //       println_I("Sorted Servo Positions index: ");p_sl_I(sort[i]); print_I(" value: ");p_sl_I(position[sort[i]]);
 //    }
 
-    
+
     setTimerLowTime();
 }
 

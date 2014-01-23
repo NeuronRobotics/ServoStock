@@ -66,6 +66,7 @@ int getServoStop(int group){
 }
 
 void runServoCalibration(int group){
+    DelayMs(100);
     println_I("\r\n\nStart calibration #");p_int_I(group);
     
     servoCal[group].lowerHistoresis = historesisINIT*-1;
