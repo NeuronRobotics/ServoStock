@@ -15,7 +15,7 @@ static SERVO_CALIBRATION servoCal[numPidMotors];
 enum CAL_STATE servoCalibration(int group);
 void calcCenter(int group);
 
-static RunEveryData servoCalibrationTest ={0,500};
+static RunEveryData servoCalibrationTest ={0,750};
 
 enum CAL_STATE
 {
@@ -27,20 +27,17 @@ enum CAL_STATE
 
 
 void incrementHistoresis(int group){
-    servoCal[group].upperHistoresis++;
-    calcCenter( group);
+    servoCal[group].upperHistoresis+=2;
+    //calcCenter( group);
 }
 void decrementHistoresis(int group){
-    servoCal[group].lowerHistoresis--;
-    calcCenter( group);
+    servoCal[group].lowerHistoresis-=2;
+    //calcCenter( group);
 }
 
 void calcCenter(int group){
     int diff = (servoCal[group].upperHistoresis+servoCal[group].lowerHistoresis)/2;
-    servoCal[group].stop = defaultServoCenter+diff;
-    println_I("New center at ");p_int_I(servoCal[group].stop);
-    print_I(" upper: ");p_int_I(servoCal[group].stop+servoCal[group].upperHistoresis);
-    print_I(" lower: ");p_int_I(servoCal[group].stop+servoCal[group].lowerHistoresis);
+    //servoCal[group].stop = defaultServoCenter+diff;
 }
 
 void checkCalibration(int group){
@@ -67,15 +64,16 @@ int getServoStop(int group){
 
 void runServoCalibration(int group){
     DelayMs(100);
-    println_I("\r\n\nStart calibration #");p_int_I(group);
+    println_E("\r\n\nStart calibration #");p_int_E(group);
     
     servoCal[group].lowerHistoresis = historesisINIT*-1;
     servoCal[group].upperHistoresis = historesisINIT;
     servoCal[group].stop = defaultServoCenter;
     println_I("\tReset PID");
     pidReset(group,0);// Zero encoder reading
-    println_I("\tDisable PID");
-    SetPIDEnabled(group, FALSE);
+    println_I("\tDisable PID Output");
+    SetPIDCalibrateionState(group, CALIBRARTION_hysteresis);
+    SetPIDEnabled(group, TRUE);
     state =  backward;
     println_I("\tSetting slow move");
     setOutputMine(group, -1.0f);
@@ -86,8 +84,12 @@ void runServoCalibration(int group){
         bowlerSystem();
     }
     pidReset(group,0);
-    calcCenter( group);
-    println_I("END calibration\n\n\r");
+    
+    SetPIDCalibrateionState(group, CALIBRARTION_DONE);
+    println_I("New center at ");p_int_I(servoCal[group].stop);
+    print_I(" upper: ");p_int_I(servoCal[group].stop+servoCal[group].upperHistoresis);
+    print_I(" lower: ");p_int_I(servoCal[group].stop+servoCal[group].lowerHistoresis);
+    println_E("END calibration\n\n\r");
 }
 
 enum CAL_STATE servoCalibration(int group){
@@ -95,27 +97,40 @@ enum CAL_STATE servoCalibration(int group){
     if(RunEvery(&servoCalibrationTest)>0){
         
         float boundVal = 5.0;
-        float extr=(float)readEncoder(group);
+        float extr=GetPIDPosition(group);
+        if(state == forward){
+            incrementHistoresis( group );
+        }else if (state == backward){
+            decrementHistoresis( group );
+        }
         if( bound(0, extr, boundVal, boundVal)){// check to see if the encoder has moved
             //we have not moved
-            println_I("Encoder NOT moved ");p_fl_I(extr);
-            if(state == forward){
-                incrementHistoresis( group );
-            }else if (state == backward){
-                decrementHistoresis( group );
+            println_I("NOT moved ");p_fl_I(extr);
+            int historesisBound = 20;
+            if(servoCal[group].upperHistoresis>historesisBound || servoCal[group].lowerHistoresis<-historesisBound){
+
+                println_E("Motor seems damaged, more then counts of historesis ");
+                if(state == backward){
+                   state = forward;
+                }else
+                    state = done;
+                //calcCenter( group);
             }
         }else{
-            println_I("Encoder moved ");p_fl_I(extr);
+            println_E("Moved ");p_fl_E(extr);
             if(state == backward){
                 servoCal[group].lowerHistoresis--;
                 println_I("Backward Calibrated for link# ");p_int_I(group);
                 state = forward;
-                setCurrentValue(group, 0);
             }else{
                 servoCal[group].upperHistoresis++;
                 println_I("Calibration done for link# ");p_int_I(group);
                 state = done;
+                //calcCenter( group);
             }
+            setCurrentValue(group, 0);
+            setOutputMine(group, 0);
+            DelayMs(10);
         }
         if(state == forward){
             setOutputMine(group, 1.0f);

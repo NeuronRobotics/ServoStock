@@ -174,10 +174,15 @@ void hardwareInit(){
 #if !defined(NO_PID)
         println_I("Starting PID");
         initPIDLocal();
+        int i;
+        for(i=3;i<numPidTotal;i++){
+            SetPIDEnabled(i,FALSE);
+        }
 #endif
     runServoCalibration(0);
     runServoCalibration(1);
     runServoCalibration(2);
+
 }
 BOOL serVal =TRUE;
 
@@ -243,10 +248,8 @@ void SPItest(){
 int main(){
     hardwareInit();
     println_I("Hardware initialized");
-    
-
     pid.MsTime=getMs();
-    startHomingLinks();
+    //startHomingLinks();
     while(1){
         //
         HomeLinks();

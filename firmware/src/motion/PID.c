@@ -31,6 +31,7 @@ void initPIDLocal(){
             pidGroups[i].Polarity=1;
             vel[i].enabled=FALSE;
             limits[i].type=NO_LIMIT;
+            pidGroups[i].calibration.calibrationState=CALIBRARTION_Uncalibrated;
 //            if(i==LINK0_INDEX || i== LINK1_INDEX || i== LINK2_INDEX){
 //                pidGroups[i].Polarity=0;
 //                pidGroups[i].K.P=.07;
