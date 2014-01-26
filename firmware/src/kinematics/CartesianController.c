@@ -431,12 +431,32 @@ float setLinkAngle(int index, float value, float ms){
 static int homingAllLinks = FALSE;
 static int linkValue[3]={0,0,0};
 static RunEveryData calibrationTest ={0,1000};
+void startHomingLink(int group, PidCalibrationType type);
 
 void startHomingLinks(){
+    println_I("Homing links for kinematics");
+
     homingAllLinks =TRUE;
-    setOutputMine(linkToHWIndex(0), 1.0);
-    setOutputMine(linkToHWIndex(1), 1.0);
-    setOutputMine(linkToHWIndex(2), 1.0);
+
+    startHomingLink(linkToHWIndex(0), CALIBRARTION_home_up);
+    startHomingLink(linkToHWIndex(1), CALIBRARTION_home_up);
+    startHomingLink(linkToHWIndex(2), CALIBRARTION_home_up);
+    println_I("Started Homing...");
+}
+
+void startHomingLink(int group, PidCalibrationType type){
+    float speed=1.0;
+    if(type == CALIBRARTION_home_up)
+       speed*=1.0;
+    else if (type == CALIBRARTION_home_down)
+        speed*=-1.0;
+    else{
+        println_E("Invalid homing type");
+        return;
+    }
+    SetPIDCalibrateionState(group, type);
+    setOutputMine(group, speed);
+    SetPIDCalibrateionState(group, CALIBRARTION_DONE);
 
 }
 

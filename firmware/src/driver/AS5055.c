@@ -65,7 +65,7 @@ int getRecentEncoderReading(int index){
 }
 
 float readEncoder(BYTE index){
-    float size=3.0;
+    float size=5.0;
     float ret=0;
     int i;
     for(i=0;i<size;i++)
