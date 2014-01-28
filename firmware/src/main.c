@@ -249,7 +249,7 @@ int main(){
     hardwareInit();
     println_I("Hardware initialized");
     pid.MsTime=getMs();
-    startHomingLinks();
+    //startHomingLinks();
     while(1){
         //
         HomeLinks();
