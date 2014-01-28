@@ -460,21 +460,6 @@ void startHomingLink(int group, PidCalibrationType type){
 
 }
 
-void startHomingLink(int group, PidCalibrationType type){
-    float speed=1.0;
-    if(type == CALIBRARTION_home_up)
-       speed*=1.0;
-    else if (type == CALIBRARTION_home_down)
-        speed*=-1.0;
-    else{
-        println_E("Invalid homing type");
-        return;
-    }
-    SetPIDCalibrateionState(group, type);
-    setOutputMine(group, speed);
-    SetPIDCalibrateionState(group, CALIBRARTION_DONE);
-}
-
 void HomeLinks(){
     if(homingAllLinks){
         if(RunEvery(&calibrationTest)>0){

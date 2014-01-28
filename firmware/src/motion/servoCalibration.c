@@ -110,11 +110,8 @@ enum CAL_STATE servoCalibration(int group){
             if(servoCal[group].upperHistoresis>historesisBound || servoCal[group].lowerHistoresis<-historesisBound){
 
                 println_E("Motor seems damaged, more then counts of historesis ");
-<<<<<<< HEAD
-                if(state == backward ){
-=======
+
                 if(state == backward){
->>>>>>> 4f213339350e6164413f1d7180d3c3a8feaa5fd9
                    state = forward;
                 }else
                     state = done;
