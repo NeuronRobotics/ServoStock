@@ -107,15 +107,17 @@ enum CAL_STATE servoCalibration(int group){
             //we have not moved
             println_I("NOT moved ");p_fl_I(extr);
             int historesisBound = 20;
-            if(servoCal[group].upperHistoresis>historesisBound || servoCal[group].lowerHistoresis<-historesisBound){
-
-                println_E("Motor seems damaged, more then counts of historesis ");
-
+            if(servoCal[group].lowerHistoresis<-historesisBound){
+                println_E("Backward Motor seems damaged, more then counts of historesis ");
                 if(state == backward){
                    state = forward;
-                }else
+                }
+            }
+            if( servoCal[group].upperHistoresis>historesisBound){
+                println_E("Forward Motor seems damaged, more then counts of historesis ");
+                if(state == forward){
                     state = done;
-                //calcCenter( group);
+                }
             }
         }else{
             println_E("Moved ");p_fl_E(extr);
