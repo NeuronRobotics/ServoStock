@@ -8,14 +8,14 @@ typedef struct _SERVO_CALIBRATION
     BOOL calibrating;
     BOOL calibrated;
 } SERVO_CALIBRATION;
-#define historesisINIT 1
+#define historesisINIT 0
 #define defaultServoCenter 128
 static SERVO_CALIBRATION servoCal[numPidMotors];
 
 enum CAL_STATE servoCalibration(int group);
 void calcCenter(int group);
 
-static RunEveryData servoCalibrationTest ={0,750};
+static RunEveryData servoCalibrationTest ={0,1000};
 
 enum CAL_STATE
 {
@@ -72,8 +72,9 @@ void runServoCalibration(int group){
     println_I("\tReset PID");
     pidReset(group,0);// Zero encoder reading
     println_I("\tDisable PID Output");
-    SetPIDCalibrateionState(group, CALIBRARTION_hysteresis);
     SetPIDEnabled(group, TRUE);
+    SetPIDCalibrateionState(group, CALIBRARTION_hysteresis);
+  
     state =  backward;
     println_I("\tSetting slow move");
     setOutputMine(group, -1.0f);
@@ -83,7 +84,7 @@ void runServoCalibration(int group){
         //wait for calibration to finish
         bowlerSystem();
     }
-    pidReset(group,0);
+    
     
     SetPIDCalibrateionState(group, CALIBRARTION_DONE);
     println_I("New center at ");p_int_I(servoCal[group].stop);
@@ -96,7 +97,7 @@ enum CAL_STATE servoCalibration(int group){
 
     if(RunEvery(&servoCalibrationTest)>0){
         
-        float boundVal = 5.0;
+        float boundVal = 6.0;
         float extr=GetPIDPosition(group);
         if(state == forward){
             incrementHistoresis( group );
@@ -106,18 +107,14 @@ enum CAL_STATE servoCalibration(int group){
         if( bound(0, extr, boundVal, boundVal)){// check to see if the encoder has moved
             //we have not moved
             println_I("NOT moved ");p_fl_I(extr);
-            int historesisBound = 20;
-            if(servoCal[group].lowerHistoresis<-historesisBound){
+            int historesisBound = 50;
+            if(servoCal[group].lowerHistoresis<-historesisBound && state == backward){
                 println_E("Backward Motor seems damaged, more then counts of historesis ");
-                if(state == backward){
-                   state = forward;
-                }
+                state = forward;
             }
-            if( servoCal[group].upperHistoresis>historesisBound){
+            if( servoCal[group].upperHistoresis>historesisBound && state == forward){
                 println_E("Forward Motor seems damaged, more then counts of historesis ");
-                if(state == forward){
-                    state = done;
-                }
+                state = done;
             }
         }else{
             println_E("Moved ");p_fl_E(extr);
@@ -131,9 +128,9 @@ enum CAL_STATE servoCalibration(int group){
                 state = done;
                 //calcCenter( group);
             }
-            setCurrentValue(group, 0);
+            pidReset(group,0);
             setOutputMine(group, 0);
-            DelayMs(10);
+            DelayMs(100);
         }
         if(state == forward){
             setOutputMine(group, 1.0f);

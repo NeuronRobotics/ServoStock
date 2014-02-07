@@ -12,8 +12,7 @@ int positionTemp[dataTableSize];
 int sort[dataTableSize];
 int lastValue=0;
 int sortedIndex = 0;
-BYTE start=0;
-BYTE stop=NUM_SERVO;
+
 void delayLoop();
 
 ServoState servoStateMachineCurrentState = LOW;
@@ -145,7 +144,7 @@ void servoTimerEvent()
                 }
                 //runLinearInterpolationServo(start,stop);
                 runSort();
-                for (j=start;j<stop;j++){
+                for (j=0;j<NUM_SERVO;j++){
                     pinOn(j);
                 }
                 lastValue = 0;
@@ -226,10 +225,8 @@ void setServo(BYTE PIN, BYTE val,float time){
 //    }
     position[PIN]=val;
     Print_Level l = getPrintLevel();
-    if(PIN == 1){
-         //setPrintLevelInfoPrint();
-    }
-    println_I("Srv ");p_int_I(PIN); print_I(" v=");p_int_I(val);
+
+    println_I("\tSrv ");p_int_I(PIN); print_I(" v=");p_int_I(val);
     setPrintLevel(l);
 }
 

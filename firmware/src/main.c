@@ -179,9 +179,7 @@ void hardwareInit(){
             SetPIDEnabled(i,FALSE);
         }
 #endif
-    runServoCalibration(0);
-    runServoCalibration(1);
-    runServoCalibration(2);
+    
 
 }
 BOOL serVal =TRUE;
@@ -247,6 +245,9 @@ void SPItest(){
 
 int main(){
     hardwareInit();
+    //runServoCalibration(0);
+    runServoCalibration(1);
+    //runServoCalibration(2);
     println_I("Hardware initialized");
     pid.MsTime=getMs();
     //startHomingLinks();
