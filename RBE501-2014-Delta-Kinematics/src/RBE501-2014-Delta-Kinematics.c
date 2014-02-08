@@ -1,10 +1,10 @@
 /*
  ============================================================================
  Name        : RBE501-2014-Delta-Kinematics.c
- Author      : Kevin Harrington
+ Author      : Kevin Harrington, Michael DiBlasi
  Version     :
- Copyright   : Your copyright notice
- Description : Hello World in C, Ansi-style
+ Copyright   : BSD with attribution
+ Description : The kinematics system for a Linear slide Delta
  ============================================================================
 
  This kinematics engine uses math from http://tinyurl.com/p8ce2rk
