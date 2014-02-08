@@ -1,10 +1,10 @@
 /*
  ============================================================================
  Name        : RBE501-2014-Delta-Kinematics.c
- Author      : Kevin Harrington
+ Author      : Kevin Harrington, Michael DiBlasi
  Version     :
- Copyright   : Your copyright notice
- Description : Hello World in C, Ansi-style
+ Copyright   : BSD with attribution
+ Description : The kinematics system for a Linear slide Delta
  ============================================================================
 
  This kinematics engine uses math from http://tinyurl.com/p8ce2rk
@@ -50,6 +50,8 @@ int main(void) {
 /**
  * Take the joint space positions and convert to a task space position
  * This should transform the output using the bed level calibration
+ * Return 0 for success
+ * Return error code for failure
  */
 int forwardKinematics( float * currentJointPositions,
 					   float ** outputTaskSpacePositionMatrix
@@ -60,6 +62,8 @@ int forwardKinematics( float * currentJointPositions,
 /**
  * Take the task space position and convert to a set of joint space positions
  * This should transform the input through the bed level calibration
+ * Return 0 for success
+ * Return error code for failure
  */
 int inverseKinematics( float ** currentTaskSpacePosition,
 					   float *  outputJointSpacePositionVector
