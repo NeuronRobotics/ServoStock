@@ -31,7 +31,7 @@ void initPIDLocal(){
             pidGroups[i].Polarity=1;
             vel[i].enabled=FALSE;
             limits[i].type=NO_LIMIT;
-            pidGroups[i].calibration.calibrationState=CALIBRARTION_Uncalibrated;
+            pidGroups[i].calibrationState=CALIBRARTION_Uncalibrated;
 //            if(i==LINK0_INDEX || i== LINK1_INDEX || i== LINK2_INDEX){
 //                pidGroups[i].Polarity=0;
 //                pidGroups[i].K.P=.07;
@@ -140,17 +140,14 @@ float getPositionMine(int group){
 void setOutputMine(int group, float v){
     if(group<numPidMotors){
         int val = (int)(v);
-        if(val>0 && val<getUpperServoHistoresis(group))
-            val = getUpperServoHistoresis(group);
-        if(val<0 && val>getLowerServoHistoresis(group))
-            val = getLowerServoHistoresis(group);
 
-        val += getServoStop(group);
+        val+=128;// center for servos
+
         if (val>255)
                 val=255;
         if(val<0)
                 val=0;
-        pidGroups[group].OutputSet = val;
+        
 //        if(group == EXTRUDER0_INDEX && !isUpToTempreture()){
 //            //Saftey so as not to try to feed into a cold extruder
 //            setServo(group,getServoStop(group),0);

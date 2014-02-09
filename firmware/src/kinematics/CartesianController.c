@@ -7,6 +7,7 @@
 
 
 
+static int homingAllLinks = FALSE;
 
 PACKET_FIFO_STORAGE  packetFifo;
 BowlerPacket buffer[SIZE_OF_PACKET_BUFFER];
@@ -75,30 +76,6 @@ void initializeCartesianController(){
     //getCurrentPosition(&lastXYZE[0], &lastXYZE[1], &lastXYZE[2]);
     setInterpolateXYZ(lastXYZE[0], lastXYZE[1], lastXYZE[2], 0);
     InitPacketFifo(&packetFifo,buffer,SIZE_OF_PACKET_BUFFER);
-    //TODO load configuration from Flash
-#if defined(CALIBRATE)
-        println_I("#Calibrating...");
-        setServo(linkToHWIndex(0), servoCalebrateValue,0);
-        setServo(linkToHWIndex(1), servoCalebrateValue,0);
-        setServo(linkToHWIndex(2), servoCalebrateValue,0);
-        linkValue[0]=0;
-        linkValue[1]=0;
-        linkValue[2]=0;
-#else
-        //homingAllLinks = FALSE;
-        //setPidIsr(TRUE);
-        //l = getPrintLevel();
-        pidReset(hwMap.Extruder0.index,0);
-        pidReset(hwMap.Alpha.index,0);
-        pidReset(hwMap.Beta.index,0);
-        pidReset(hwMap.Gama.index,0);
-#endif
-    SetPID(hwMap.Heater0.index,0);
-#if defined(CALIBRATE_SERVO)
-    println_I("Calibrating Servo");
-    runServoCalibration(EXTRUDER0_INDEX);
-
-#endif
 
 }
 
@@ -367,7 +344,7 @@ BYTE setXYZ(float x, float y, float z){
         setLinkAngle(1,t1,0);
         setLinkAngle(2,t2,0);
     }else{
-        println_E("Interpolate failed, can't reach: x=");p_fl_E(x);print_E(" y=");p_fl_E(y);print_E(" z=");p_fl_E(z);
+        //println_E("Interpolate failed, can't reach: x=");p_fl_E(x);print_E(" y=");p_fl_E(y);print_E(" z=");p_fl_E(z);
     }
 }
 
@@ -428,9 +405,8 @@ float setLinkAngle(int index, float value, float ms){
     return SetPIDTimed(localIndex,v,ms);
 }
 
-static int homingAllLinks = FALSE;
-static int linkValue[3]={0,0,0};
-static RunEveryData calibrationTest ={0,1000};
+
+
 void startHomingLink(int group, PidCalibrationType type);
 
 void startHomingLinks(){
@@ -438,14 +414,14 @@ void startHomingLinks(){
 
     homingAllLinks =TRUE;
 
-    startHomingLink(linkToHWIndex(0), CALIBRARTION_home_up);
-    startHomingLink(linkToHWIndex(1), CALIBRARTION_home_up);
-    startHomingLink(linkToHWIndex(2), CALIBRARTION_home_up);
+    startHomingLink(linkToHWIndex(0), CALIBRARTION_home_down);
+    startHomingLink(linkToHWIndex(1), CALIBRARTION_home_down);
+    startHomingLink(linkToHWIndex(2), CALIBRARTION_home_down);
     println_I("Started Homing...");
 }
 
 void startHomingLink(int group, PidCalibrationType type){
-    float speed=1.0;
+    float speed=20.0;
     if(type == CALIBRARTION_home_up)
        speed*=1.0;
     else if (type == CALIBRARTION_home_down)
@@ -455,45 +431,63 @@ void startHomingLink(int group, PidCalibrationType type){
         return;
     }
     SetPIDCalibrateionState(group, type);
-    setOutputMine(group, speed);
-    SetPIDCalibrateionState(group, CALIBRARTION_DONE);
+    setOutput(group, speed);
+    getPidGroupDataTable()[group].homing.timer.MsTime=getMs();
+    getPidGroupDataTable()[group].homing.timer.setPoint = 1000;
+    getPidGroupDataTable()[group].homing.homingStallBound = 2;
+    getPidGroupDataTable()[group].homing.previousValue = GetPIDPosition(group);
+}
 
+void checkLinkHomingStatus(int group){
+    if(!(   GetPIDCalibrateionState(group)==CALIBRARTION_home_down ||
+            GetPIDCalibrateionState(group)==CALIBRARTION_home_up)
+            ){
+        return;//Calibration is not running
+    }
+    if(RunEvery(&getPidGroupDataTable()[group].homing.timer)>0){
+            float boundVal = getPidGroupDataTable()[group].homing.homingStallBound;
+
+            if( bound(  getPidGroupDataTable()[group].homing.previousValue,
+                        GetPIDPosition(group),
+                        boundVal,
+                        boundVal
+                    )
+                ){
+                pidReset(group,0);
+                println_E("Homing Done for group ");p_int_E(group);
+                SetPIDCalibrateionState(group, CALIBRARTION_DONE);
+            }else{
+
+                getPidGroupDataTable()[group].homing.previousValue = GetPIDPosition(group);
+            }
+        }
 }
 
 void HomeLinks(){
     if(homingAllLinks){
-        if(RunEvery(&calibrationTest)>0){
-            float boundVal = 2.0;
-            float l0=(float)readEncoder(linkToHWIndex(0));
-            float l1=(float)readEncoder(linkToHWIndex(1));
-            float l2=(float)readEncoder(linkToHWIndex(2));
-            if( bound((float)linkValue[0], l0, boundVal, boundVal)&&
-                bound((float)linkValue[1], l1, boundVal, boundVal)&&
-                bound((float)linkValue[2], l2, boundVal, boundVal)
-              ){
-                homingAllLinks = FALSE;
-                println_E("\n\nStopped At:\n\r\tLink 0 value:");p_int_E(l0);
-                println_E("\tLink 1 value:");p_int_E(l1);
-                println_E("\tLink 2 value:");p_int_E(l2);
-                println_E("Previous:\n\r\tLink 0 value:");p_int_E(linkValue[0]);
-                println_E("\tLink 1 value:");p_int_E(linkValue[1]);
-                println_E("\tLink 2 value:");p_int_E(linkValue[2]);
-                pidReset(linkToHWIndex(0),(INT32)servoHomeValue);
-                pidReset(linkToHWIndex(1),(INT32)servoHomeValue);
-                pidReset(linkToHWIndex(2),(INT32)servoHomeValue);
-                pidReset(linkToHWIndex(3),0);
-                println_E("Calibration Done!");
-                setServo(linkToHWIndex(0), 128,0);
-                setServo(linkToHWIndex(1), 128,0);
-                setServo(linkToHWIndex(2), 128,0);
-                setPidIsr(TRUE);
-                initializeCartesianController();
-                cancelPrint();
-            }else{
-                linkValue[0]=l0;
-                linkValue[1]=l1;
-                linkValue[2]=l2;
-            }
-        }
+       checkLinkHomingStatus(linkToHWIndex(0));
+       checkLinkHomingStatus(linkToHWIndex(1));
+       checkLinkHomingStatus(linkToHWIndex(2));
+
+       if ( GetPIDCalibrateionState(linkToHWIndex(0))==CALIBRARTION_DONE&&
+            GetPIDCalibrateionState(linkToHWIndex(1))==CALIBRARTION_DONE&&
+            GetPIDCalibrateionState(linkToHWIndex(2))==CALIBRARTION_DONE
+               ){
+          homingAllLinks = FALSE;
+          println_E("All linkes reported in");
+
+          pidReset(hwMap.Extruder0.index,0);
+          int i;
+          for(i=0;i<3;i++){
+             pidReset(linkToHWIndex(i),-1000); 
+             SetPIDTimed(i,0,0);
+          }
+
+
+          initializeCartesianController();
+          cancelPrint();
+       }
+
+
     }
 }

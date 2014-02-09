@@ -198,26 +198,6 @@ void bowlerSystem(){
  
     }
 
-//    if(RunEvery(&pos)>0){
-//        stopServos();
-//        //print_I("\033c");
-//        //printSortedData();
-//        int i;
-//        //print_I("\r\n Encoder [ ");
-//        for(i=0;i< 8;i++){
-//            SetDIO(   i, serVal?0:1);
-//            EncoderSS(i, serVal?1:0);
-////            SetPIDEnabled(i,TRUE);
-////            printPIDvals(i);
-//            //setServo(i,serVal?255:0,0);
-//
-//        }
-//        //setServo(1,serVal?255:0,0);
-//        if(serVal)
-//            serVal=FALSE;
-//        else
-//            serVal=TRUE;
-//    }
 }
 
 void SPItest(){
@@ -242,16 +222,31 @@ void SPItest(){
         }
     }*/
 }
-
+BOOL printCalibrations = FALSE;
 int main(){
     hardwareInit();
-    //runServoCalibration(0);
-    runServoCalibration(1);
-    //runServoCalibration(2);
-    println_I("Hardware initialized");
+    runPidHysterisisCalibration(0);
+    runPidHysterisisCalibration(1);
+    runPidHysterisisCalibration(2);
+
     pid.MsTime=getMs();
     //startHomingLinks();
     while(1){
+        if(     printCalibrations == FALSE&&
+                GetPIDCalibrateionState(0)==CALIBRARTION_DONE&&
+                GetPIDCalibrateionState(1)==CALIBRARTION_DONE&&
+                GetPIDCalibrateionState(2)==CALIBRARTION_DONE
+
+                ){
+            printCalibrations = TRUE;
+            int group=0;
+            for(group=0;group<3;group++){
+                println_E("For Axis ");p_int_E(group);
+                print_E(" upper: ");p_int_E(getPidGroupDataTable()[group].calibration.stop+getPidGroupDataTable()[group].calibration.upperHistoresis);
+                print_E(" lower: ");p_int_E(getPidGroupDataTable()[group].calibration.stop+getPidGroupDataTable()[group].calibration.lowerHistoresis);
+            }
+            startHomingLinks();
+        }
         //
         HomeLinks();
         //}

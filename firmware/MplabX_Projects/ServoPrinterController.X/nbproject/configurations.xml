@@ -77,9 +77,7 @@
         <itemPath>../../src/kinematics/delta.c</itemPath>
       </logicalFolder>
       <logicalFolder name="motion" displayName="motion" projectFiles="true">
-        <itemPath>../../src/motion/MotionTest.c</itemPath>
         <itemPath>../../src/motion/StepperSim.c</itemPath>
-        <itemPath>../../src/motion/servoCalibration.c</itemPath>
         <itemPath>../../src/motion/PID.c</itemPath>
       </logicalFolder>
       <logicalFolder name="namespace" displayName="namespace" projectFiles="true">
@@ -266,6 +264,7 @@
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
         <property key="UART1" value="true"/>
         <property key="UART2" value="true"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="false"/>
