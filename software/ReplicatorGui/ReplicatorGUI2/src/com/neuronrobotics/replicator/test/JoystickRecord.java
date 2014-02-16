@@ -64,7 +64,7 @@ public class JoystickRecord {
 //				hand.SetPosition(button?open:closed);
 //				hand.flush();
 			}
-			Log.enableDebugPrint(false);
+			Log.enableDebugPrint();
 			try {
 				double XYscale = 70;
 				double zscale  = 80;

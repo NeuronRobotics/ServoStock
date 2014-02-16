@@ -25,7 +25,7 @@ public class AccuracyTest {
 		delt.setConnection(new SerialConnection("/dev/DeltaDoodle0"));
 		delt.connect();
 		deltaRobot = new DeltaRobotPrinterPrototype(delt);
-		Log.enableDebugPrint(false);
+		Log.enableDebugPrint();
 		deltaRobot.setCurrentPoseTarget(new TransformNR());
 		while (delt.isAvailable() ) {
 			for(int i=0;i<current.length;i++){
