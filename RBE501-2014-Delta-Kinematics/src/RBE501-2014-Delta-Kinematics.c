@@ -39,6 +39,12 @@ typedef struct _DeltaConfig{
 	float MinZ;
 }DeltaConfig;
 
+DeltaConfig defaultConfig ={203.82,//RodLength
+							150,//BaseRadius
+							40.32,//EndEffectorRadius
+							400,//MaxZ
+							0};//MinZ
+
 
 int main(void) {
 	puts("!!!Hello World!!!"); /* prints !!!Hello World!!! */
