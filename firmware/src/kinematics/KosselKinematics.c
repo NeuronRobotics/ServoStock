@@ -24,6 +24,19 @@
 #include <string.h>
 #include <inttypes.h>
 
+typedef struct _DeltaConfig{
+	float RodLength;
+	float BaseRadius;
+	float EndEffectorRadius;
+	float MaxZ;
+	float MinZ;
+}DeltaConfig;
+
+DeltaConfig defaultConfig ={203.82,//RodLength
+                            150,//BaseRadius
+                            40.32,//EndEffectorRadius
+                            400,//MaxZ
+                            0};//MinZ
 
 //TODO hack!
 //#define E_AXIS 0
@@ -31,8 +44,18 @@
 #define MM_PER_ARC_SEGMENT 1
 //TODO end hack!
 
-int servostock_calcInverse(float x0, float y0, float z0, float *Alpha, float *Beta, float *Gama){
-    
+
+int servostock_calcInverse(float X, float Y, float Z, float *Alpha, float *Beta, float *Gama){
+
+    float L = defaultConfig.RodLength;
+    float R = defaultConfig.BaseRadius-defaultConfig.EndEffectorRadius;
+    float Lsqr=L*L;
+
+    Alpha[0] = sqrt(Lsqr - (X - 0)*(X - 0)      - (Y - R)*(Y - R));
+    Beta[0]  = sqrt(Lsqr - (X - R/2)*(X - R/2)  - (Y + R*sqrt(3)/2)*(Y + R*sqrt(3)/2));
+    Gama[0]  = sqrt(Lsqr - (X + R/2)*(X + R/2)  - (Y + R*sqrt(3)/2)*(Y + R*sqrt(3)/2));
+
+
 }
 
 int servostock_calcForward(float Alpha, float Beta, float Gama, float * x0, float *y0, float * z0){

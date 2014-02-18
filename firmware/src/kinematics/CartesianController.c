@@ -2,7 +2,7 @@
 #if defined(__32MX795F512L__)
     #define SIZE_OF_PACKET_BUFFER 400
 #elif defined(__32MX440F128H__)
-    #define SIZE_OF_PACKET_BUFFER 40
+    #define SIZE_OF_PACKET_BUFFER 60
 #endif
 
 
@@ -51,19 +51,19 @@ HardwareMap hwMap ={
         {AXIS_UNUSED,1.0}
     },//Extruder 2
 //    &servostock_calcForward,
-    &servostock_calcInverse
+    (inverseKinematics *)&servostock_calcInverse
 };
 
 
 BOOL isCartesianInterpolationDone(){
     int i;
     for(i=0;i<4;i++){
-        if( isPIDInterpolating(linkToHWIndex(i))||
-            !isPIDArrivedAtSetpoint(i, 10)
+        if( isPIDInterpolating(linkToHWIndex(i)) == TRUE||
+            isPIDArrivedAtSetpoint(i, 30) == FALSE
           ){
-//            println_I("\n\nLINK not done moving index=");p_int_E(linkToHWIndex(i));
-//            print_E(" isInterpolating");p_int_E(isPIDInterpolating(linkToHWIndex(i)));
-//            print_E(" has arrived =");p_int_E(isPIDArrivedAtSetpoint(i, 100));
+            println_I("LINK not done moving index = ");p_int_I(linkToHWIndex(i));
+            print_I(" isInterpolating ");p_int_I(isPIDInterpolating(linkToHWIndex(i)));
+            print_I(" has arrived = ");p_int_I(isPIDArrivedAtSetpoint(i, 100));
             return FALSE;
         }
 
@@ -203,6 +203,7 @@ BOOL onCartesianPost(BowlerPacket *Packet){
         case _SLI:
             if(FifoGetPacketSpaceAvailible(&packetFifo)>0){
                 FifoAddPacket(&packetFifo,Packet);
+
                 Packet->use.head.Method = BOWLER_STATUS;
                 INT32_UNION tmp;
                 tmp.Val=FifoGetPacketSpaceAvailible(&packetFifo);
@@ -223,7 +224,7 @@ BOOL onCartesianPost(BowlerPacket *Packet){
                 }
 
                 setPrintLevelInfoPrint();
-                //println_I("Cached linear Packet ");p_int_I(FifoGetPacketSpaceAvailible(&packetFifo));
+                println_I("Cached linear Packet ");p_int_I(FifoGetPacketSpaceAvailible(&packetFifo));
                 setPrintLevel(l);
             }else{
                 setPrintLevelInfoPrint();
@@ -265,7 +266,7 @@ BOOL onCartesianCrit(BowlerPacket *Packet){
 BOOL onCartesianPacket(BowlerPacket *Packet){
     Print_Level l = getPrintLevel();
     setPrintLevelInfoPrint();
-    //println_I("Packet Checked by Cartesian Controller");
+    println_I("Packet Checked by Cartesian Controller");
     BOOL ret = FALSE;
     switch(Packet->use.head.Method){
         case BOWLER_POST:
@@ -291,6 +292,8 @@ void interpolateZXY(){
     z = interpolate((INTERPOLATE_DATA *)&intCartesian[2],ms);
     if(!isCartesianInterpolationDone()){
         setXYZ( x, y, z);
+    }else{
+        println_W("Interp not done");
     }
 
     if(isCartesianInterpolationDone() && FifoGetPacketCount(&packetFifo)>0){
@@ -479,7 +482,7 @@ void HomeLinks(){
           pidReset(hwMap.Extruder0.index,0);
           int i;
           for(i=0;i<3;i++){
-             pidReset(linkToHWIndex(i),-1000); 
+             pidReset(linkToHWIndex(i),-3000);
              SetPIDTimed(i,0,0);
           }
 

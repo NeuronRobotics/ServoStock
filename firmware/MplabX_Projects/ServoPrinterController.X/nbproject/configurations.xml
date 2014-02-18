@@ -50,19 +50,33 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <logicalFolder name="src" displayName="BowlerStack" projectFiles="true">
-        <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/Namespace_bcs_rpc.c</itemPath>
-        <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/Bowler_RPC_Process.c</itemPath>
-        <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/AbstractPID.c</itemPath>
-        <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/Scheduler.c</itemPath>
-        <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/Namespace_bcs_core.c</itemPath>
-        <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/Bowler_Transport.c</itemPath>
-        <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/Bowler_Server.c</itemPath>
-        <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/FIFO.c</itemPath>
-        <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/Debug.c</itemPath>
-        <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/Bowler_Stack_Callback.c</itemPath>
-        <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/Namespace_bcs_pid.c</itemPath>
-        <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/Bowler_Helper.c</itemPath>
+      <logicalFolder name="BowlerStack" displayName="BowlerStack" projectFiles="true">
+        <logicalFolder name="include" displayName="include" projectFiles="true">
+          <logicalFolder name="Bowler" displayName="Bowler" projectFiles="true">
+          </logicalFolder>
+        </logicalFolder>
+        <logicalFolder name="src" displayName="src" projectFiles="true">
+          <logicalFolder name="BCS" displayName="BCS" projectFiles="true">
+            <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/BCS/Namespace_bcs_rpc.c</itemPath>
+            <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/BCS/Namespace_bcs_core.c</itemPath>
+            <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/BCS/BowlerPacketParser.c</itemPath>
+            <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/BCS/Bowler_Server.c</itemPath>
+          </logicalFolder>
+          <logicalFolder name="Helper" displayName="Helper" projectFiles="true">
+            <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/Helper/Scheduler.c</itemPath>
+            <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/Helper/FIFO.c</itemPath>
+            <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/Helper/Debug.c</itemPath>
+            <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/Helper/Bowler_Helper.c</itemPath>
+          </logicalFolder>
+          <logicalFolder name="PID" displayName="PID" projectFiles="true">
+            <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/PID/AbstractPID.c</itemPath>
+            <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/PID/PidHysteresis.c</itemPath>
+            <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/PID/PidAsync.c</itemPath>
+            <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/PID/PidVelocity.c</itemPath>
+            <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/PID/PidRpc.c</itemPath>
+            <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/PID/Namespace_bcs_pid.c</itemPath>
+          </logicalFolder>
+        </logicalFolder>
       </logicalFolder>
       <logicalFolder name="driver" displayName="driver" projectFiles="true">
         <itemPath>../../src/driver/Servo.c</itemPath>
@@ -117,6 +131,7 @@
     <Elem>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack</Elem>
     <Elem>../../../../c-bowler/firmware/library/NR-Clib/development/Platform/src/pic32</Elem>
     <Elem>../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32</Elem>
+    <Elem>../../../../microcontroller-bowler/DyIO/development/pic</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -159,14 +174,14 @@
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
                   value="../../include/replicator;../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include;../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32;../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include"/>
-        <property key="generate-16-bit-code" value="false"/>
+        <property key="generate-16-bit-code" value="true"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="false"/>
-        <property key="make-warnings-into-errors" value="false"/>
-        <property key="optimization-level" value=""/>
+        <property key="make-warnings-into-errors" value="true"/>
+        <property key="optimization-level" value="-O1"/>
         <property key="place-data-into-section" value="false"/>
-        <property key="post-instruction-scheduling" value="default"/>
-        <property key="pre-instruction-scheduling" value="default"/>
+        <property key="post-instruction-scheduling" value="schedule-insns2"/>
+        <property key="pre-instruction-scheduling" value="schedule-insns"/>
         <property key="preprocessor-macros" value=""/>
         <property key="strict-ansi" value="false"/>
         <property key="support-ansi" value="false"/>
@@ -182,7 +197,7 @@
         <property key="exclude-floating-point-library" value="false"/>
         <property key="exclude-standard-libraries" value="false"/>
         <property key="extra-lib-directories" value=""/>
-        <property key="generate-16-bit-code" value="false"/>
+        <property key="generate-16-bit-code" value="true"/>
         <property key="generate-cross-reference-file" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="heap-size" value=""/>
@@ -264,7 +279,6 @@
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
         <property key="UART1" value="true"/>
         <property key="UART2" value="true"/>
-        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="false"/>

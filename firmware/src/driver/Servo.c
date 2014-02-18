@@ -136,8 +136,8 @@ void servoTimerEvent()
                 if(getRunPidIsr()){
 
                     Print_Level l = getPrintLevel();
-                    setPrintLevelNoPrint();
                     interpolateZXY();
+                    setPrintLevelNoPrint();
                     RunPIDControl();
                     RunVel();
                     setPrintLevel(l);
