@@ -33,7 +33,7 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 	DHParameterKinematics model;
 	//DeltaForgeDevice deltaRobot;
 	TransformNR current = new TransformNR();
-	double scale=1.0;
+	double scale=.75;
 	double [] startVect = new double [] { 0,0,0,0,0,0};
 	private boolean button=false;
 	private boolean lastButton=false;
@@ -144,7 +144,7 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 			JPanel starter = new JPanel(new MigLayout());
 			gui.setKinematicsModel(model);
 			try{
-				tabs.add("Display",new DHKinematicsViewer(model));
+				//tabs.add("Display",new DHKinematicsViewer(model));
 			}catch(Error ex){
 				JPanel error = new JPanel(new MigLayout());
 				error.add(new JLabel("Error while loading Java3d library:"),"wrap");
@@ -179,8 +179,10 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 			try {				
 
 				//printer.setDesiredTaskSpaceTransform(current,.1);
-				delt.sendLinearSection(current, 0, 0,true);
+				if(current.getZ()<400&&current.getZ()>100)
+					delt.sendLinearSection(current, 0, 0,true);
 				ThreadUtil.wait(1);
+				System.out.println("Setting x="+current.getX()+" y="+current.getY()+" z="+current.getZ());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -205,7 +207,7 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 		double ws=50;
 		current = new TransformNR(	((pose.getX()+ 87)*scale)+ws ,
 									((pose.getY()- 64)*scale)-ws,
-									((pose.getZ() -120)*scale),
+									((pose.getZ() +150)*scale),
 				new RotationNR());
 		//System.out.println("Current = "+current);
 		
