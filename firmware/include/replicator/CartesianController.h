@@ -85,7 +85,8 @@ BOOL onCartesianPost(BowlerPacket *Packet);
 //                                    BOOL (*setPositionCallbackPtr)(int linkIndex,float degrees,float ms),
 //                                    BOOL (*getAllPositionsCallbackPtr)(float * currentLinkPositions)
 //                                  );
-
+float getmaxZ();
+float getminZ();
 int servostock_calcInverse(float x0, float y0, float z0, float *theta1, float *theta2, float *theta3);
 
 int servostock_calcForward(float theta1, float theta2, float theta3, float * x0, float *y0, float * z0);

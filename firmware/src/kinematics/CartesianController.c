@@ -72,11 +72,7 @@ BOOL isCartesianInterpolationDone(){
 }
 
 void initializeCartesianController(){
-    initializeDelta();
-    //getCurrentPosition(&lastXYZE[0], &lastXYZE[1], &lastXYZE[2]);
-    setInterpolateXYZ(lastXYZE[0], lastXYZE[1], lastXYZE[2], 0);
     InitPacketFifo(&packetFifo,buffer,SIZE_OF_PACKET_BUFFER);
-
 }
 
 void pushBufferEmpty(){
@@ -245,8 +241,8 @@ void cancelPrint(){
     while(FifoGetPacketCount(&packetFifo)>0){
         FifoGetPacket(&packetFifo,&linTmpPack);
     }
-    return;
-    setInterpolateXYZ(0, 0, 112, 2000);
+
+    setInterpolateXYZ(0, 0, getmaxZ(), 0);
     ZeroPID(hwMap.Extruder0.index);
     SetPIDTimed(hwMap.Heater0.index,0,0);
 }
@@ -471,18 +467,17 @@ void HomeLinks(){
                ){
           homingAllLinks = FALSE;
           println_W("All linkes reported in");
-
+          setPrintLevelInfoPrint();
           pidReset(hwMap.Extruder0.index,0);
           int i;
+          float Alpha,Beta,Gama;
+          servostock_calcInverse(0, 0, getmaxZ(), &Alpha, &Beta, &Gama);
           for(i=0;i<3;i++){
-             pidReset(linkToHWIndex(i),-12000);
-             SetPIDTimed(i,0,0);
+             pidReset(linkToHWIndex(i), (Alpha+30)/getLinkScale(i));
           }
-
-
           initializeCartesianController();
           cancelPrint();
-          
+          setPrintLevelErrorPrint();
        }
 
 

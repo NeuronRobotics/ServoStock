@@ -35,9 +35,14 @@ typedef struct _DeltaConfig{
 DeltaConfig defaultConfig ={203.82,//RodLength
                             150,//BaseRadius
                             40.32,//EndEffectorRadius
-                            400,//MaxZ
-                            0};//MinZ
-
+                            300.0,//MaxZ
+                            0.0};//MinZ
+float getmaxZ(){
+    return defaultConfig.MaxZ;
+}
+float getminZ(){
+    return defaultConfig.MinZ;
+}
 //TODO hack!
 //#define E_AXIS 0
 #define N_ARC_CORRECTION 0
@@ -50,7 +55,7 @@ int servostock_calcInverse(float X, float Y, float Z, float *Alpha, float *Beta,
     float Lsqr=L*L;
     float root3=sqrt(3)/2;
 //#warning "Z is not used yet"
-    if(abs(X)>(R-10) || abs(Y)>(R-10) )
+    if(abs(X)>(R-10) || abs(Y)>(R-10) || Z<defaultConfig.MinZ||Z>defaultConfig.MaxZ)
         return 1;//This is ourside the reachable work area
     Alpha[0] = sqrt(Lsqr - (X - 0)*(X - 0)      - (Y - R)*(Y - R))+Z;
     Beta[0]  = sqrt(Lsqr - (X - R/2)*(X - R/2)  - (Y + R*root3)*(Y + R*root3))+Z;
