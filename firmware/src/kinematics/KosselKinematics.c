@@ -23,6 +23,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <inttypes.h>
+#include <Bowler/Debug.h>
 
 typedef struct _DeltaConfig{
 	float RodLength;
@@ -37,6 +38,10 @@ DeltaConfig defaultConfig ={203.82,//RodLength
                             40.32,//EndEffectorRadius
                             300.0,//MaxZ
                             0.0};//MinZ
+
+float getRodLength(){
+    return defaultConfig.RodLength;
+}
 float getmaxZ(){
     return defaultConfig.MaxZ;
 }
@@ -54,9 +59,12 @@ int servostock_calcInverse(float X, float Y, float Z, float *Alpha, float *Beta,
     float R = defaultConfig.BaseRadius-defaultConfig.EndEffectorRadius;
     float Lsqr=L*L;
     float root3=sqrt(3)/2;
+    float maxRad=(R*2/3);
 //#warning "Z is not used yet"
-    if(abs(X)>(R/2) || abs(Y)>(R/2) || Z<defaultConfig.MinZ||Z>defaultConfig.MaxZ)
+    if(abs(X)>maxRad || abs(Y)>maxRad || Z<defaultConfig.MinZ||Z>defaultConfig.MaxZ){
+        println_E("Outside of workspace x=");p_fl_E(X);print_E(" y=");p_fl_E(Y);print_E(" z=");p_fl_E(Z);print_E(" Bound radius=");p_fl_E((maxRad));
         return 1;//This is ourside the reachable work area
+    }
     Alpha[0] = sqrt(Lsqr - (X - 0)*(X - 0)      - (Y - R)*(Y - R))+Z;
     Beta[0]  = sqrt(Lsqr - (X - R/2)*(X - R/2)  - (Y + R*root3)*(Y + R*root3))+Z;
     Gama[0]  = sqrt(Lsqr - (X + R/2)*(X + R/2)  - (Y + R*root3)*(Y + R*root3))+Z;

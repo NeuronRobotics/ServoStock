@@ -473,7 +473,7 @@ void HomeLinks(){
           float Alpha,Beta,Gama;
           servostock_calcInverse(0, 0, getmaxZ(), &Alpha, &Beta, &Gama);
           for(i=0;i<3;i++){
-             pidReset(linkToHWIndex(i), (Alpha+30)/getLinkScale(i));
+             pidReset(linkToHWIndex(i), (Alpha+getRodLength()/2)/getLinkScale(i));
           }
           initializeCartesianController();
           cancelPrint();
