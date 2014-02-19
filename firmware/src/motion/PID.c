@@ -21,7 +21,7 @@ void initPIDLocal(){
 	for (i=0;i<numPidTotal;i++){
 
             pidGroups[i].Enabled=TRUE;
-            pidGroups[i].Async = TRUE;
+            pidGroups[i].Async = FALSE;
             pidGroups[i].channel = i;
             pidGroups[i].K.P=.1;
             pidGroups[i].K.I=0;

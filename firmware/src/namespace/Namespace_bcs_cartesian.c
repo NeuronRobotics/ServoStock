@@ -7,14 +7,14 @@ static const unsigned char cartNSName[]  = "bcs.cartesian.*;0.3;;";
 BOOL cartesianAsyncEventCallback(BowlerPacket * Packet,BOOL (*pidAsyncCallbackPtr)(BowlerPacket *Packet)){
 
     Print_Level l = getPrintLevel();
-    setPrintLevelNoPrint();
+    //setPrintLevelNoPrint();
     if(!getRunPidIsr()){
         RunPIDControl();
     }
     setPrintLevel(l);
     //printPIDvals(6);
     // uses its own async callback
-    cartesianAsync();
+    //cartesianAsync();
     return FALSE;
 }
 

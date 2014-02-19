@@ -84,9 +84,9 @@ extern MAC_ADDR MyMAC __attribute__ ((section (".scs_global_var")));
 static BowlerPacket Packet;
 
 static BowlerPacket MyPacket;
-static RunEveryData pid ={0,40};
+static RunEveryData pid ={0,200};
 
-static RunEveryData pos ={0,50};
+//static RunEveryData pos ={0,5};
 
 
 float height = 0;
@@ -103,12 +103,20 @@ BYTE Bowler_Server_Local(BowlerPacket * Packet){
                     println_I("Got:");printPacket(Packet,INFO_PRINT);
                 }
 		if ( (CheckAddress(MyMAC.v,Packet->use.head.MAC.v) == TRUE) || ((CheckAddress((BYTE *)Broadcast.v,(BYTE *)Packet->use.head.MAC.v) == TRUE) )) {
-			Process_Self_Packet(Packet);
+                        float start=getMs();
+                        Process_Self_Packet(Packet);
+                        if(getMs()-start>5){
+                            println_E("Process too long: ");p_fl_E(getMs()-start);
+                        }
 			for (i=0;i<6;i++){
 				Packet->use.head.MAC.v[i]=MyMAC.v[i];
 			}
 			SetCRC(Packet);
+                        start=getMs();
 			PutBowlerPacket(Packet);
+                        if(getMs()-start>5){
+                            println_E("Return too long: ");p_fl_E(getMs()-start);
+                        }
                          if(Packet->use.head.RPC != _PNG){
                             println_I("Response:");printPacket(Packet,INFO_PRINT);
                          }
@@ -185,7 +193,9 @@ void hardwareInit(){
 BOOL serVal =TRUE;
 
 void bowlerSystem(){
+    
     Bowler_Server_Local(&MyPacket);
+
     float diff = RunEvery(&pid);
 
     if(diff>0){
@@ -232,7 +242,7 @@ int main(){
     pid.MsTime=getMs();
     //startHomingLinks();
     disableSerialComs(TRUE);
-    setPrintLevelErrorPrint();
+    setPrintLevelWarningPrint();
     (_TRISB0)=1;
     SetColor(1,1,1);
     while(1){
