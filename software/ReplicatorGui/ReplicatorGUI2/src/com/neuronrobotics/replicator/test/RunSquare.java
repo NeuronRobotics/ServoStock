@@ -14,8 +14,9 @@ public class RunSquare {
 	public static void main(String[] args) {
 		TransformNR current = new TransformNR();
 		DeltaForgeDevice delt = new DeltaForgeDevice();
-		delt.setConnection(new SerialConnection("/dev/ttyACM1"));
+		delt.setConnection(new SerialConnection("/dev/DeltaForge0"));
 		delt.connect();
+		ThreadUtil.wait(1000);
 		for(int i=0;i<2;i++){
 			for(int j=0;j<2;j++){
 				current = new TransformNR(50*i, 50*j, 50, new RotationNR());

@@ -33,7 +33,7 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 	DHParameterKinematics model;
 	//DeltaForgeDevice deltaRobot;
 	TransformNR current = new TransformNR();
-	double scale=1.5;
+	double scale=1.0;
 	double [] startVect = new double [] { 0,0,0,0,0,0};
 	private boolean button=false;
 	private boolean lastButton=false;
@@ -123,7 +123,7 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 //			System.exit(0);
 //		}
 //		delt.setConnection(deltaConnection);		
-		delt.setConnection(new SerialConnection("/dev/ttyACM1"));
+		delt.setConnection(new SerialConnection("/dev/DeltaForge.74F726010101"));
 		delt.connect();
 		
 		//deltaRobot = new DeltaForgeDevice(delt);
@@ -179,8 +179,8 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 			try {				
 
 				//printer.setDesiredTaskSpaceTransform(current,.1);
-				delt.sendLinearSection(current, 0, 0);
-				ThreadUtil.wait(100);
+				delt.sendLinearSection(current, 0, 0,true);
+				ThreadUtil.wait(1);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -205,9 +205,9 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 		double ws=50;
 		current = new TransformNR(	((pose.getX()+ 87)*scale)+ws ,
 									((pose.getY()- 64)*scale)-ws,
-									((pose.getZ()+ 91)*-1*scale),
+									((pose.getZ() -120)*scale),
 				new RotationNR());
-		System.out.println("Current = "+current);
+		//System.out.println("Current = "+current);
 		
 	}
 	public void onTargetTaskSpaceUpdate(AbstractKinematicsNR source,TransformNR pose) {}
