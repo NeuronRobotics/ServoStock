@@ -207,7 +207,7 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 		double ws=50;
 		current = new TransformNR(	((pose.getX()+ 87)*scale)+ws ,
 									((pose.getY()- 64)*scale)-ws,
-									((pose.getZ() +150)*scale),
+									((pose.getZ() +165)*scale),
 				new RotationNR());
 		//System.out.println("Current = "+current);
 		
