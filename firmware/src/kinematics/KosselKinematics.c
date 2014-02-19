@@ -46,7 +46,7 @@ DeltaConfig defaultConfig ={203.82,//RodLength
 
 
 int servostock_calcInverse(float X, float Y, float Z, float *Alpha, float *Beta, float *Gama){
-
+//#warning "Z is not used yet"
     float L = defaultConfig.RodLength;
     float R = defaultConfig.BaseRadius-defaultConfig.EndEffectorRadius;
     float Lsqr=L*L;
@@ -55,7 +55,7 @@ int servostock_calcInverse(float X, float Y, float Z, float *Alpha, float *Beta,
     Beta[0]  = sqrt(Lsqr - (X - R/2)*(X - R/2)  - (Y + R*sqrt(3)/2)*(Y + R*sqrt(3)/2));
     Gama[0]  = sqrt(Lsqr - (X + R/2)*(X + R/2)  - (Y + R*sqrt(3)/2)*(Y + R*sqrt(3)/2));
 
-
+    return 0;//SUCCESS
 }
 
 int servostock_calcForward(float Alpha, float Beta, float Gama, float * x0, float *y0, float * z0){

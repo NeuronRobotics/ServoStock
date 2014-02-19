@@ -15,7 +15,7 @@ BowlerPacket linTmpPack;
 BowlerPacket packetTemp;
 INTERPOLATE_DATA intCartesian[3];
 
-float scale = -1.0/(ticksPerDegree*gearRatio);
+//float scale = -1.0*mmPerTick;
 float extrusionScale = 1/(((float)ticksPerRev)/100.00);
 
 BYTE setXYZ(float x, float y, float z);
@@ -35,9 +35,9 @@ static RunEveryData pid ={0,100};
 
 //Default values for ServoStock
 HardwareMap hwMap ={
-    {0,1.0},//axis 0
-    {1,1.0},//axis 1
-    {2,1.0},//axis 2
+    {0,-1.0*mmPerTick },//axis 0
+    {1,-1.0*mmPerTick },//axis 1
+    {2,-1.0*mmPerTick },//axis 2
     {
         {3,1.0},// Motor
         {11,1.0}// Heater
@@ -58,7 +58,7 @@ HardwareMap hwMap ={
 BOOL isCartesianInterpolationDone(){
     int i;
     for(i=0;i<4;i++){
-        if( isPIDInterpolating(linkToHWIndex(i)) == TRUE||
+        if( isPIDInterpolating(linkToHWIndex(i)) == TRUE &&
             isPIDArrivedAtSetpoint(i, 30) == FALSE
           ){
             println_I("LINK not done moving index = ");p_int_I(linkToHWIndex(i));
@@ -292,15 +292,13 @@ void interpolateZXY(){
     z = interpolate((INTERPOLATE_DATA *)&intCartesian[2],ms);
     if(!isCartesianInterpolationDone()){
         setXYZ( x, y, z);
-    }else{
-        println_W("Interp not done");
-    }
-
-    if(isCartesianInterpolationDone() && FifoGetPacketCount(&packetFifo)>0){
+    }else if(isCartesianInterpolationDone() && FifoGetPacketCount(&packetFifo)>0){
+        println_W("Loading new packet");
         if(FifoGetPacket(&packetFifo,&linTmpPack)){
             processLinearInterpPacket(&linTmpPack);
         }
     }
+
 }
 
 BYTE setInterpolateXYZ(float x, float y, float z,float ms){
@@ -347,7 +345,7 @@ BYTE setXYZ(float x, float y, float z){
         setLinkAngle(1,t1,0);
         setLinkAngle(2,t2,0);
     }else{
-        //println_E("Interpolate failed, can't reach: x=");p_fl_E(x);print_E(" y=");p_fl_E(y);print_E(" z=");p_fl_E(z);
+        println_E("Interpolate failed, can't reach: x=");p_fl_E(x);print_E(" y=");p_fl_E(y);print_E(" z=");p_fl_E(z);
     }
 }
 
@@ -404,7 +402,7 @@ float setLinkAngle(int index, float value, float ms){
 //            println_E("Lower Capped link ");p_int_E(index);print_E(", attempted: ");p_fl_E(value);
 //        }
     }
-    println_I("Setting position from cartesian controller");
+    println_I("Setting position from cartesian controller ");p_int_I(index);print_I(" to ");p_fl_I(v);
     return SetPIDTimed(localIndex,v,ms);
 }
 
@@ -482,7 +480,7 @@ void HomeLinks(){
           pidReset(hwMap.Extruder0.index,0);
           int i;
           for(i=0;i<3;i++){
-             pidReset(linkToHWIndex(i),-3000);
+             pidReset(linkToHWIndex(i),-10000);
              SetPIDTimed(i,0,0);
           }
 
