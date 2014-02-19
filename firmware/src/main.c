@@ -231,6 +231,7 @@ int main(){
 
     pid.MsTime=getMs();
     //startHomingLinks();
+    setPrintLevelNoPrint();
     while(1){
         if(     printCalibrations == FALSE&&
                 GetPIDCalibrateionState(0)==CALIBRARTION_DONE&&

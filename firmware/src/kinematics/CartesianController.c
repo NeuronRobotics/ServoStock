@@ -172,23 +172,17 @@ void cartesianAsync(){
 
 void processLinearInterpPacket(BowlerPacket * Packet){
     if(Packet->use.head.RPC == _SLI){
-        INT32_UNION tmp;
+        //INT32_UNION tmp;
         float tmpData [5];
         int i;
-        tmp.byte.FB=Packet->use.data[0];
-        tmp.byte.TB=Packet->use.data[1];
-        tmp.byte.SB=Packet->use.data[2];
-        tmp.byte.LB=Packet->use.data[3];
-        tmpData[0] = ((float)tmp.Val);
+
+        tmpData[0] = ((float)get32bit(Packet,1));
         for(i=1;i<5;i++){
-            tmp.byte.FB=Packet->use.data[(i*4)+0];
-            tmp.byte.TB=Packet->use.data[(i*4)+1];
-            tmp.byte.SB=Packet->use.data[(i*4)+2];
-            tmp.byte.LB=Packet->use.data[(i*4)+3];
-            tmpData[i] = ((float)tmp.Val)/1000;
+
+            tmpData[i] = ((float)get32bit(Packet,(i*4)+1))/1000;
         }
         Print_Level l = getPrintLevel();
-        setPrintLevelInfoPrint();
+        //setPrintLevelInfoPrint();
         setInterpolateXYZ(tmpData[1], tmpData[2], tmpData[3],tmpData[0]);
         float extr =tmpData[4]/extrusionScale;
         println_I("Current Extruder MM=");p_fl_E(tmpData[4]);print_I(", Ticks=");p_fl_E(extr);
@@ -202,8 +196,11 @@ BOOL onCartesianPost(BowlerPacket *Packet){
     switch(Packet->use.head.RPC){
         case _SLI:
             if(FifoGetPacketSpaceAvailible(&packetFifo)>0){
-                FifoAddPacket(&packetFifo,Packet);
-
+                if(Packet->use.data[0]==1){
+                    processLinearInterpPacket(Packet);
+                }else{
+                    FifoAddPacket(&packetFifo,Packet);
+                }
                 Packet->use.head.Method = BOWLER_STATUS;
                 INT32_UNION tmp;
                 tmp.Val=FifoGetPacketSpaceAvailible(&packetFifo);
@@ -223,11 +220,9 @@ BOOL onCartesianPost(BowlerPacket *Packet){
                     full=TRUE;
                 }
 
-                setPrintLevelInfoPrint();
                 println_I("Cached linear Packet ");p_int_I(FifoGetPacketSpaceAvailible(&packetFifo));
                 setPrintLevel(l);
             }else{
-                setPrintLevelInfoPrint();
                 println_I("###ERROR BUFFER FULL!!");p_int_I(FifoGetPacketSpaceAvailible(&packetFifo));
                 setPrintLevel(l);
                 ERR(Packet,33,33);
@@ -244,7 +239,7 @@ BOOL onCartesianPost(BowlerPacket *Packet){
 
 void cancelPrint(){
     Print_Level l = getPrintLevel();
-    setPrintLevelInfoPrint();
+
     println_I("Cancel Print");
     setPrintLevel(l);
     while(FifoGetPacketCount(&packetFifo)>0){
@@ -265,7 +260,7 @@ BOOL onCartesianCrit(BowlerPacket *Packet){
 
 BOOL onCartesianPacket(BowlerPacket *Packet){
     Print_Level l = getPrintLevel();
-    setPrintLevelInfoPrint();
+
     println_I("Packet Checked by Cartesian Controller");
     BOOL ret = FALSE;
     switch(Packet->use.head.Method){
@@ -480,13 +475,14 @@ void HomeLinks(){
           pidReset(hwMap.Extruder0.index,0);
           int i;
           for(i=0;i<3;i++){
-             pidReset(linkToHWIndex(i),-10000);
+             pidReset(linkToHWIndex(i),-12000);
              SetPIDTimed(i,0,0);
           }
 
 
           initializeCartesianController();
           cancelPrint();
+          
        }
 
 

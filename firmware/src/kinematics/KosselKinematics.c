@@ -44,16 +44,17 @@ DeltaConfig defaultConfig ={203.82,//RodLength
 #define MM_PER_ARC_SEGMENT 1
 //TODO end hack!
 
-
 int servostock_calcInverse(float X, float Y, float Z, float *Alpha, float *Beta, float *Gama){
-//#warning "Z is not used yet"
     float L = defaultConfig.RodLength;
     float R = defaultConfig.BaseRadius-defaultConfig.EndEffectorRadius;
     float Lsqr=L*L;
-
-    Alpha[0] = sqrt(Lsqr - (X - 0)*(X - 0)      - (Y - R)*(Y - R));
-    Beta[0]  = sqrt(Lsqr - (X - R/2)*(X - R/2)  - (Y + R*sqrt(3)/2)*(Y + R*sqrt(3)/2));
-    Gama[0]  = sqrt(Lsqr - (X + R/2)*(X + R/2)  - (Y + R*sqrt(3)/2)*(Y + R*sqrt(3)/2));
+    float root3=sqrt(3)/2;
+//#warning "Z is not used yet"
+    if(abs(X)>(R-10) || abs(Y)>(R-10) )
+        return 1;//This is ourside the reachable work area
+    Alpha[0] = sqrt(Lsqr - (X - 0)*(X - 0)      - (Y - R)*(Y - R))+Z;
+    Beta[0]  = sqrt(Lsqr - (X - R/2)*(X - R/2)  - (Y + R*root3)*(Y + R*root3))+Z;
+    Gama[0]  = sqrt(Lsqr - (X + R/2)*(X + R/2)  - (Y + R*root3)*(Y + R*root3))+Z;
 
     return 0;//SUCCESS
 }
