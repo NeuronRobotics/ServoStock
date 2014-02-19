@@ -68,9 +68,11 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 		for(DyIO d : temp){
 			String addr = d.getAddress().toString();
 			if(addr.equalsIgnoreCase("74:f7:26:00:00:6f")){
+				d.getConnection().setSynchronusPacketTimeoutTime(2000);
 				master = d;
 				System.out.println("Master found! "+master);
 			}else{
+				d.getConnection().setSynchronusPacketTimeoutTime(2000);
 				deltaConnection = d.getConnection();
 				d.disconnect();
 			}
@@ -174,7 +176,9 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 		}
 		model.addPoseUpdateListener(this);
 		Log.enableDebugPrint();
-		int loopTime=20;
+		int loopTime=50;
+		master.getConnection().setSynchronusPacketTimeoutTime(2000);
+		delt.getConnection().setSynchronusPacketTimeoutTime(2000);
 		while ( true) {
 			long time = System.currentTimeMillis();
 			try {				
@@ -212,7 +216,6 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 									((pose.getZ() +165)*scale),
 				new RotationNR());
 		//System.out.println("Current = "+current);
-		
 	}
 	public void onTargetTaskSpaceUpdate(AbstractKinematicsNR source,TransformNR pose) {}
 
