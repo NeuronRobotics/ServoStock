@@ -185,7 +185,7 @@ void processLinearInterpPacket(BowlerPacket * Packet){
         //setPrintLevelInfoPrint();
         setInterpolateXYZ(tmpData[1], tmpData[2], tmpData[3],tmpData[0]);
         float extr =tmpData[4]/extrusionScale;
-        println_I("Current Extruder MM=");p_fl_E(tmpData[4]);print_I(", Ticks=");p_fl_E(extr);
+        println_I("Current Extruder MM=");p_fl_W(tmpData[4]);print_I(", Ticks=");p_fl_W(extr);
         setPrintLevel(l);
         SetPIDTimed(hwMap.Extruder0.index, extr,tmpData[0]);
      }
@@ -312,11 +312,11 @@ BYTE setInterpolateXYZ(float x, float y, float z,float ms){
 
 
 
-    println_I("\n\nSetting new position x=");p_fl_E(x);print_E(" y=");p_fl_E(y);print_E(" z=");p_fl_E(z);print_E(" Time MS=");p_fl_E(ms);
-    println_I("Current  position cx=");p_fl_E(xCurrent);
+    println_I("\n\nSetting new position x=");p_fl_W(x);print_W(" y=");p_fl_W(y);print_W(" z=");p_fl_W(z);print_W(" Time MS=");p_fl_W(ms);
+    println_I("Current  position cx=");p_fl_W(xCurrent);
     
-    print_E(" cy=");p_fl_E(yCurrent);
-    print_E(" cz=");p_fl_E(zCurrent);
+    print_W(" cy=");p_fl_W(yCurrent);
+    print_W(" cz=");p_fl_W(zCurrent);
     //println_I("Current  angles t1=");p_fl_E(getLinkAngle(0));print_E(" t2=");p_fl_E(getLinkAngle(1));print_E(" t3=");p_fl_E(getLinkAngle(2));
 
     for(i=0;i<3;i++){
@@ -335,12 +335,12 @@ BYTE setXYZ(float x, float y, float z){
     zCurrent=z;
     float t0=0,t1=0,t2=0;
     if(hwMap.iK_callback( x,  y, z,  &t0, &t1, &t2)==0){
-        println_I("New target angles t1=");p_fl_E(t0);print_E(" t2=");p_fl_E(t1);print_E(" t3=");p_fl_E(t2);
+        println_I("New target angles t1=");p_fl_I(t0);print_I(" t2=");p_fl_I(t1);print_I(" t3=");p_fl_I(t2);
         setLinkAngle(0,t0,0);
         setLinkAngle(1,t1,0);
         setLinkAngle(2,t2,0);
     }else{
-        println_E("Interpolate failed, can't reach: x=");p_fl_E(x);print_E(" y=");p_fl_E(y);print_E(" z=");p_fl_E(z);
+        println_W("Interpolate failed, can't reach: x=");p_fl_W(x);print_W(" y=");p_fl_W(y);print_W(" z=");p_fl_W(z);
     }
 }
 
@@ -450,7 +450,7 @@ void checkLinkHomingStatus(int group){
                     )
                 ){
                 pidReset(group,0);
-                println_E("Homing Done for group ");p_int_E(group);
+                println_W("Homing Done for group ");p_int_W(group);
                 SetPIDCalibrateionState(group, CALIBRARTION_DONE);
             }else{
 
@@ -470,7 +470,7 @@ void HomeLinks(){
             GetPIDCalibrateionState(linkToHWIndex(2))==CALIBRARTION_DONE
                ){
           homingAllLinks = FALSE;
-          println_E("All linkes reported in");
+          println_W("All linkes reported in");
 
           pidReset(hwMap.Extruder0.index,0);
           int i;

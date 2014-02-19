@@ -231,8 +231,19 @@ int main(){
 
     pid.MsTime=getMs();
     //startHomingLinks();
-    setPrintLevelNoPrint();
+    disableSerialComs(TRUE);
+    setPrintLevelErrorPrint();
+    (_TRISB0)=1;
+    SetColor(1,1,1);
     while(1){
+        if (_RB0==1){
+            setPrintLevelErrorPrint();
+		p_int_E(0);print_E(" Reset Button Pressed from loop");
+		SetColor(1,1,1);
+		U1CON = 0x0000;
+		DelayMs(100);
+		Reset();
+	}
         if(     printCalibrations == FALSE&&
                 GetPIDCalibrateionState(0)==CALIBRARTION_DONE&&
                 GetPIDCalibrateionState(1)==CALIBRARTION_DONE&&
