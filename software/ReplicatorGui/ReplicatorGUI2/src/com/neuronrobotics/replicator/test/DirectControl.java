@@ -179,9 +179,9 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 			try {				
 
 				//printer.setDesiredTaskSpaceTransform(current,.1);
-				if(current.getZ()<400&&current.getZ()>100)
+				if(current.getZ()<400&&current.getZ()>0)
 					delt.sendLinearSection(current, 0, 0,true);
-				ThreadUtil.wait(1);
+				ThreadUtil.wait(20);
 				System.out.println("Setting x="+current.getX()+" y="+current.getY()+" z="+current.getZ());
 			} catch (Exception e) {
 				e.printStackTrace();
