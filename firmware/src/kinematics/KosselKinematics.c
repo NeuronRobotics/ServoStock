@@ -55,7 +55,7 @@ int servostock_calcInverse(float X, float Y, float Z, float *Alpha, float *Beta,
     float Lsqr=L*L;
     float root3=sqrt(3)/2;
 //#warning "Z is not used yet"
-    if(abs(X)>(R-10) || abs(Y)>(R-10) || Z<defaultConfig.MinZ||Z>defaultConfig.MaxZ)
+    if(abs(X)>(R/2) || abs(Y)>(R/2) || Z<defaultConfig.MinZ||Z>defaultConfig.MaxZ)
         return 1;//This is ourside the reachable work area
     Alpha[0] = sqrt(Lsqr - (X - 0)*(X - 0)      - (Y - R)*(Y - R))+Z;
     Beta[0]  = sqrt(Lsqr - (X - R/2)*(X - R/2)  - (Y + R*root3)*(Y + R*root3))+Z;
