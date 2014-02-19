@@ -11,6 +11,7 @@ import net.miginfocom.swing.MigLayout;
 
 import com.neuronrobotics.replicator.driver.DeltaForgeDevice;
 import com.neuronrobotics.replicator.driver.DeltaRobotPrinterPrototype;
+import com.neuronrobotics.replicator.driver.NRPrinter;
 import com.neuronrobotics.sdk.addons.kinematics.AbstractKinematicsNR;
 import com.neuronrobotics.sdk.addons.kinematics.ITaskSpaceUpdateListenerNR;
 import com.neuronrobotics.sdk.addons.kinematics.DHParameterKinematics;
@@ -18,6 +19,7 @@ import com.neuronrobotics.sdk.addons.kinematics.gui.DHKinematicsViewer;
 import com.neuronrobotics.sdk.addons.kinematics.gui.SampleGuiNR;
 import com.neuronrobotics.sdk.addons.kinematics.math.RotationNR;
 import com.neuronrobotics.sdk.addons.kinematics.math.TransformNR;
+import com.neuronrobotics.sdk.common.BowlerAbstractConnection;
 import com.neuronrobotics.sdk.common.Log;
 import com.neuronrobotics.sdk.dyio.DyIO;
 import com.neuronrobotics.sdk.dyio.peripherals.DigitalInputChannel;
@@ -25,9 +27,11 @@ import com.neuronrobotics.sdk.dyio.peripherals.IDigitalInputListener;
 import com.neuronrobotics.sdk.dyio.peripherals.ServoChannel;
 import com.neuronrobotics.sdk.dyio.sequencer.ServoOutputScheduleChannel;
 import com.neuronrobotics.sdk.serial.SerialConnection;
+import com.neuronrobotics.sdk.ui.ConnectionDialog;
+import com.neuronrobotics.sdk.util.ThreadUtil;
 public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputListener {
 	DHParameterKinematics model;
-	DeltaRobotPrinterPrototype deltaRobot;
+	//DeltaForgeDevice deltaRobot;
 	TransformNR current = new TransformNR();
 	double scale=1.5;
 	double [] startVect = new double [] { 0,0,0,0,0,0};
@@ -59,12 +63,16 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 				}
 			}
 		}
-		
+		BowlerAbstractConnection deltaConnection = null;
 		//Now that all connected DyIOs are connected, search for the correct MAC addresses 
 		for(DyIO d : temp){
 			String addr = d.getAddress().toString();
 			if(addr.equalsIgnoreCase("74:f7:26:00:00:6f")){
 				master = d;
+				System.out.println("Master found! "+master);
+			}else{
+				deltaConnection = d.getConnection();
+				d.disconnect();
 			}
 		}
 		//If both are not found then the system can not run
@@ -106,16 +114,20 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 //			throw new RuntimeException("Not a bowler Device on connection: ");
 //		}
 		
-		master.killAllPidGroups();
+		//master.killAllPidGroups();
 		model = new DHParameterKinematics(master,"TrobotMaster.xml");
-		model.addPoseUpdateListener(this);
+		
 		
 		DeltaForgeDevice delt = new DeltaForgeDevice();
-		delt.setConnection(new SerialConnection("/dev/DeltaDoodle0"));
+//		if(!ConnectionDialog.getBowlerDevice(delt)){
+//			System.exit(0);
+//		}
+//		delt.setConnection(deltaConnection);		
+		delt.setConnection(new SerialConnection("/dev/ttyACM1"));
 		delt.connect();
 		
-		deltaRobot = new DeltaRobotPrinterPrototype(delt);
-		deltaRobot.setCurrentPoseTarget(new TransformNR());
+		//deltaRobot = new DeltaForgeDevice(delt);
+		//deltaRobot.setCurrentPoseTarget(new TransformNR());
 		
 		DigitalInputChannel di = new DigitalInputChannel(master.getChannel(0));
 		di.addDigitalInputListener(this);
@@ -160,22 +172,20 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 			ex.printStackTrace();
 			System.exit(1);
 		}
+		model.addPoseUpdateListener(this);
 		
-//		while (slave.isAvailable() && master.isAvailable()) {
-//			long time = System.currentTimeMillis();
-//			try {				
-//				if(button!=lastButton) {
-//					lastButton = button;
-//					hand.SetPosition(button?open:closed);
-//					hand.flush();
-//				}
-//				deltaRobot.setDesiredTaskSpaceTransform(current,.1);
-//
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//			//System.out.println("Took "+(System.currentTimeMillis()-time)+"ms");
-//		}
+		while ( master.isAvailable()) {
+			long time = System.currentTimeMillis();
+			try {				
+
+				//printer.setDesiredTaskSpaceTransform(current,.1);
+				delt.sendLinearSection(current, 0, 0);
+				ThreadUtil.wait(100);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			//System.out.println("Took "+(System.currentTimeMillis()-time)+"ms");
+		}
 	}
 	
 	private void zero(){
@@ -191,7 +201,7 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 		new DirectControl();
 	}
 	public void onTaskSpaceUpdate(AbstractKinematicsNR source, TransformNR pose) {
-		System.err.println("Got:"+pose);
+		//System.err.println("Got:"+pose);
 		double ws=50;
 		current = new TransformNR(	((pose.getX()+ 87)*scale)+ws ,
 									((pose.getY()- 64)*scale)-ws,
