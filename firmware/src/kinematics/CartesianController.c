@@ -424,8 +424,8 @@ void startHomingLink(int group, PidCalibrationType type){
     }
     SetPIDCalibrateionState(group, type);
     setOutput(group, speed);
-    getPidGroupDataTable()[group].homing.timer.MsTime=getMs();
-    getPidGroupDataTable()[group].homing.timer.setPoint = 1000;
+    getPidGroupDataTable()[group].timer.MsTime=getMs();
+    getPidGroupDataTable()[group].timer.setPoint = 1000;
     getPidGroupDataTable()[group].homing.homingStallBound = 2;
     getPidGroupDataTable()[group].homing.previousValue = GetPIDPosition(group);
 }
@@ -436,7 +436,7 @@ void checkLinkHomingStatus(int group){
             ){
         return;//Calibration is not running
     }
-    if(RunEvery(&getPidGroupDataTable()[group].homing.timer)>0){
+    if(RunEvery(&getPidGroupDataTable()[group].timer)>0){
             float boundVal = getPidGroupDataTable()[group].homing.homingStallBound;
 
             if( bound(  getPidGroupDataTable()[group].homing.previousValue,
