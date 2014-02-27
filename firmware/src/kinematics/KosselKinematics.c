@@ -72,119 +72,82 @@ int servostock_calcInverse(float X, float Y, float Z, float *Alpha, float *Beta,
     return 0;//SUCCESS
 }
 
-int servostock_calcForward(float Alpha, float Beta, float Gama, float * x0, float *y0, float * z0){
+int servostock_calcForward(float Alpha, float Beta, float Gama, float * X, float *Y, float * Z){
+        float DELTA_DIAGONAL_ROD = defaultConfig.RodLength;
 
-}
+        // Horizontal offset from middle of printer to smooth rod center.
+        float DELTA_SMOOTH_ROD_OFFSET = defaultConfig.BaseRadius; // mm
 
-// The arc is approximated by generating a huge number of tiny, linear segments. The length of each
-// segment is configured in settings.mm_per_arc_segment.
-void mc_arc(float *position, float *target, float *offset, uint8_t axis_0, uint8_t axis_1,
-  uint8_t axis_linear, float feed_rate, float radius, uint8_t isclockwise, uint8_t extruder)
-{
-  //   int acceleration_manager_was_enabled = plan_is_acceleration_manager_enabled();
-  //   plan_set_acceleration_manager_enabled(false); // disable acceleration management for the duration of the arc
-  float center_axis0 = position[axis_0] + offset[axis_0];
-  float center_axis1 = position[axis_1] + offset[axis_1];
-  float linear_travel = target[axis_linear] - position[axis_linear];
-  //float extruder_travel = target[E_AXIS] - position[E_AXIS];
-  float r_axis0 = -offset[axis_0];  // Radius vector from center to current location
-  float r_axis1 = -offset[axis_1];
-  float rt_axis0 = target[axis_0] - center_axis0;
-  float rt_axis1 = target[axis_1] - center_axis1;
+        // Horizontal offset of the universal joints on the end effector.
+        // DELTA_EFFECTOR_OFFSET = 32.0 // mm
+        //float DELTA_EFFECTOR_OFFSET = 32.0 // mm
 
-  // CCW angle between position and target from circle center. Only one atan2() trig computation required.
-  float angular_travel = atan2(r_axis0*rt_axis1-r_axis1*rt_axis0, r_axis0*rt_axis0+r_axis1*rt_axis1);
-  if (angular_travel < 0) { angular_travel += 2*M_PI; }
-  if (isclockwise) { angular_travel -= 2*M_PI; }
+        // Horizontal offset of the universal joints on the carriages.
+        // DELTA_CARRIAGE_OFFSET = 26.0 // mm
+       float  DELTA_CARRIAGE_OFFSET = defaultConfig.EndEffectorRadius; // mm
 
-  float millimeters_of_travel = hypot(angular_travel*radius, fabs(linear_travel));
-  if (millimeters_of_travel < 0.001) { return; }
-  uint16_t segments = floor(millimeters_of_travel/MM_PER_ARC_SEGMENT);
-  if(segments == 0) segments = 1;
+        // In order to correct low-center, DELTA_RADIUS must be increased.
+        // In order to correct high-center, DELTA_RADIUS must be decreased.
+        // For convex/concave -- -20->-30 makes the center go DOWN
+        // DELTA_FUDGE -27.4 // 152.4 total radius
+        float DELTA_FUDGE = 0.5;
 
-  /*
-    // Multiply inverse feed_rate to compensate for the fact that this movement is approximated
-    // by a number of discrete segments. The inverse feed_rate should be correct for the sum of
-    // all segments.
-    if (invert_feed_rate) { feed_rate *= segments; }
-  */
-  float theta_per_segment = angular_travel/segments;
-  float linear_per_segment = linear_travel/segments;
-  //float extruder_per_segment = extruder_travel/segments;
+        // Effective horizontal distance bridged by diagonal push rods.
+        float DELTA_RADIUS = (DELTA_SMOOTH_ROD_OFFSET-DELTA_CARRIAGE_OFFSET-DELTA_FUDGE);
+        // DELTA_RADIUS = (DELTA_SMOOTH_ROD_OFFSET-DELTA_EFFECTOR_OFFSET-DELTA_CARRIAGE_OFFSET-DELTA_FUDGE)
 
-  /* Vector rotation by transformation matrix: r is the original vector, r_T is the rotated vector,
-     and phi is the angle of rotation. Based on the solution approach by Jens Geisler.
-         r_T = [cos(phi) -sin(phi);
-                sin(phi)  cos(phi] * r ;
+        float SIN_60 = 0.8660254037844386;
+        float COS_60 = 0.5;
 
-     For arc generation, the center of the circle is the axis of rotation and the radius vector is
-     defined from the circle center to the initial position. Each line segment is formed by successive
-     vector rotations. This requires only two cos() and sin() computations to form the rotation
-     matrix for the duration of the entire arc. Error may accumulate from numerical round-off, since
-     all double numbers are single precision on the Arduino. (True double precision will not have
-     round off issues for CNC applications.) Single precision error can accumulate to be greater than
-     tool precision in some cases. Therefore, arc path correction is implemented.
+        float DELTA_TOWER1_X = 0.0; // back middle tower
+        float DELTA_TOWER1_Y = DELTA_RADIUS;
 
-     Small angle approximation may be used to reduce computation overhead further. This approximation
-     holds for everything, but very small circles and large mm_per_arc_segment values. In other words,
-     theta_per_segment would need to be greater than 0.1 rad and N_ARC_CORRECTION would need to be large
-     to cause an appreciable drift error. N_ARC_CORRECTION~=25 is more than small enough to correct for
-     numerical drift error. N_ARC_CORRECTION may be on the order a hundred(s) before error becomes an
-     issue for CNC machines with the single precision Arduino calculations.
+        float  DELTA_TOWER2_X = -SIN_60*DELTA_RADIUS; // front left tower
+        float  DELTA_TOWER2_Y = -COS_60*DELTA_RADIUS;
 
-     This approximation also allows mc_arc to immediately insert a line segment into the planner
-     without the initial overhead of computing cos() or sin(). By the time the arc needs to be applied
-     a correction, the planner should have caught up to the lag caused by the initial mc_arc overhead.
-     This is important when there are successive arc motions.
-  */
-  // Vector rotation matrix values
-  float cos_T = 1-0.5*theta_per_segment*theta_per_segment; // Small angle approximation
-  float sin_T = theta_per_segment;
+        float DELTA_TOWER3_X = SIN_60*DELTA_RADIUS; // front right tower
+        float DELTA_TOWER3_Y = -COS_60*DELTA_RADIUS;
 
-  float arc_target[4];
-  float sin_Ti;
-  float cos_Ti;
-  float r_axisi;
-  uint16_t i;
-  int8_t count = 0;
+          float y1 = DELTA_TOWER1_Y;
+          float z1 = delta[X_AXIS];
 
-  // Initialize the linear axis
-  arc_target[axis_linear] = position[axis_linear];
+          float x2 = DELTA_TOWER2_X;
+          float y2 = DELTA_TOWER2_Y;
+          float z2 = delta[Y_AXIS];
 
-  // Initialize the extruder axis
-  //arc_target[E_AXIS] = position[E_AXIS];
+          float x3 = DELTA_TOWER3_X;
+          float y3 = DELTA_TOWER3_Y;
+          float z3 = delta[Z_AXIS];
 
-  for (i = 1; i<segments; i++) { // Increment (segments-1)
+          float re = DELTA_DIAGONAL_ROD;
 
-    if (count < N_ARC_CORRECTION) {
-      // Apply vector rotation matrix
-      r_axisi = r_axis0*sin_T + r_axis1*cos_T;
-      r_axis0 = r_axis0*cos_T - r_axis1*sin_T;
-      r_axis1 = r_axisi;
-      count++;
-    } else {
-      // Arc correction to radius vector. Computed only every N_ARC_CORRECTION increments.
-      // Compute exact location by applying transformation matrix from initial radius vector(=-offset).
-      cos_Ti = cos(i*theta_per_segment);
-      sin_Ti = sin(i*theta_per_segment);
-      r_axis0 = -offset[axis_0]*cos_Ti + offset[axis_1]*sin_Ti;
-      r_axis1 = -offset[axis_0]*sin_Ti - offset[axis_1]*cos_Ti;
-      count = 0;
-    }
+          float dnm = (y2-y1)*x3-(y3-y1)*x2;
 
-    // Update arc_target location
-    arc_target[axis_0] = center_axis0 + r_axis0;
-    arc_target[axis_1] = center_axis1 + r_axis1;
-    arc_target[axis_linear] += linear_per_segment;
-    //arc_target[E_AXIS] += extruder_per_segment;
+          float w1 = y1*y1 + z1*z1;
+          float w2 = x2*x2 + y2*y2 + z2*z2;
+          float w3 = x3*x3 + y3*y3 + z3*z3;
 
-    //clamp_to_software_endstops(arc_target);
-    //plan_buffer_line(arc_target[X_AXIS], arc_target[Y_AXIS], arc_target[Z_AXIS], arc_target[E_AXIS], feed_rate, extruder);
+          // x = (a1*z + b1)/dnm
+          float a1 = (z2-z1)*(y3-y1)-(z3-z1)*(y2-y1);
+          float b1 = -((w2-w1)*(y3-y1)-(w3-w1)*(y2-y1))/2.0;
 
-  }
-  // Ensure last segment arrives at target location.
-  //plan_buffer_line(target[X_AXIS], target[Y_AXIS], target[Z_AXIS], target[E_AXIS], feed_rate, extruder);
+          // y = (a2*z + b2)/dnm;
+          float a2 = -(z2-z1)*x3+(z3-z1)*x2;
+          float b2 = ((w2-w1)*x3 - (w3-w1)*x2)/2.0;
 
-  //   plan_set_acceleration_manager_enabled(acceleration_manager_was_enabled);
+          // a*z^2 + b*z + c = 0
+          float a = a1*a1 + a2*a2 + dnm*dnm;
+          float b = 2*(a1*b1 + a2*(b2-y1*dnm) - z1*dnm*dnm);
+          float c = (b2-y1*dnm)*(b2-y1*dnm) + b1*b1 + dnm*dnm*(z1*z1 - re*re);
+
+          // discriminant
+          float d = b*b - 4.0*a*c;
+          if (d < 0) return -1; // non-existing point
+
+          Z[0] = -0.5*(b+sqrt(d))/a;
+          X[0] = (a1*Z[0] + b1)/dnm;
+          Y[0] = (a2*Z[0] + b2)/dnm;
+
+          return 0;//success
 }
 

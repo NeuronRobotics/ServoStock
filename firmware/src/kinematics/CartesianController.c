@@ -23,12 +23,12 @@ void interpolateZXY();
 float getLinkAngle(int index);
 float setLinkAngle(int index, float value, float ms);
 
-float xCurrent,yCurrent,zCurrent,eCurrent;
+//float xCurrent,yCurrent,zCurrent,eCurrent;
 BOOL full = FALSE;
 
 
 int  lastPushedBufferSize =0;
-float lastXYZE[4];
+//float lastXYZE[4];
 
 static RunEveryData pid ={0,100};
 
@@ -181,7 +181,7 @@ void processLinearInterpPacket(BowlerPacket * Packet){
         //setPrintLevelInfoPrint();
         setInterpolateXYZ(tmpData[1], tmpData[2], tmpData[3],tmpData[0]);
         float extr =tmpData[4]/extrusionScale;
-        println_I("Current Extruder MM=");p_fl_W(tmpData[4]);print_I(", Ticks=");p_fl_W(extr);
+        //println_I("Current Extruder MM=");p_fl_W(tmpData[4]);print_I(", Ticks=");p_fl_W(extr);
         setPrintLevel(l);
         SetPIDTimed(hwMap.Extruder0.index, extr,tmpData[0]);
      }
@@ -195,6 +195,7 @@ BOOL onCartesianPost(BowlerPacket *Packet){
                 if(Packet->use.data[0]==1){
                     processLinearInterpPacket(Packet);
                 }else{
+                    println_I("Cached linear Packet ");p_int_I(FifoGetPacketSpaceAvailible(&packetFifo));
                     FifoAddPacket(&packetFifo,Packet);
                 }
                 Packet->use.head.Method = BOWLER_STATUS;
@@ -216,7 +217,6 @@ BOOL onCartesianPost(BowlerPacket *Packet){
                     full=TRUE;
                 }
 
-                println_I("Cached linear Packet ");p_int_I(FifoGetPacketSpaceAvailible(&packetFifo));
                 setPrintLevel(l);
             }else{
                 println_I("###ERROR BUFFER FULL!!");p_int_I(FifoGetPacketSpaceAvailible(&packetFifo));
@@ -467,17 +467,15 @@ void HomeLinks(){
                ){
           homingAllLinks = FALSE;
           println_W("All linkes reported in");
-          setPrintLevelInfoPrint();
           pidReset(hwMap.Extruder0.index,0);
           int i;
           float Alpha,Beta,Gama;
           servostock_calcInverse(0, 0, getmaxZ(), &Alpha, &Beta, &Gama);
           for(i=0;i<3;i++){
-             pidReset(linkToHWIndex(i), (Alpha+getRodLength()/2)/getLinkScale(i));
+             pidReset(linkToHWIndex(i), (Alpha+getRodLength()/3)/getLinkScale(i));
           }
           initializeCartesianController();
           cancelPrint();
-          setPrintLevelErrorPrint();
        }
 
 
