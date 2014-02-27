@@ -23,12 +23,12 @@ void interpolateZXY();
 float getLinkAngle(int index);
 float setLinkAngle(int index, float value, float ms);
 
-//float xCurrent,yCurrent,zCurrent,eCurrent;
+float xCurrent,yCurrent,zCurrent,eCurrent;
 BOOL full = FALSE;
 
 
 int  lastPushedBufferSize =0;
-//float lastXYZE[4];
+float lastXYZE[4];
 
 static RunEveryData pid ={0,100};
 
@@ -114,6 +114,15 @@ void loadCurrentPosition(BowlerPacket * Packet){
 void checkPositionChange(){
     int i;
     float tmp[4];
+    if(servostock_calcForward(
+                                getLinkAngle(0),
+                                getLinkAngle(1),
+                                getLinkAngle(2),
+                                &xCurrent,
+                                &yCurrent,
+                                &zCurrent)!=0){
+        return;
+    }
     tmp[0]=xCurrent;
     tmp[1]=yCurrent;
     tmp[2]=zCurrent;

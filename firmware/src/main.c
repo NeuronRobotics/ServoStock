@@ -204,7 +204,7 @@ void bowlerSystem(){
             println_E("Time diff ran over! ");p_fl_E(diff);
             pid.MsTime=getMs();
         }
-        
+        //checkPositionChange();
  
     }
 

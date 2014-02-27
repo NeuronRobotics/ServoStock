@@ -38,7 +38,9 @@ DeltaConfig defaultConfig ={203.82,//RodLength
                             40.32,//EndEffectorRadius
                             300.0,//MaxZ
                             0.0};//MinZ
-
+float sq(float num) {
+    return num*num; 
+}
 float getRodLength(){
     return defaultConfig.RodLength;
 }
@@ -90,7 +92,7 @@ int servostock_calcForward(float Alpha, float Beta, float Gama, float * X, float
         // In order to correct high-center, DELTA_RADIUS must be decreased.
         // For convex/concave -- -20->-30 makes the center go DOWN
         // DELTA_FUDGE -27.4 // 152.4 total radius
-        float DELTA_FUDGE = 0.5;
+        float DELTA_FUDGE = 0;
 
         // Effective horizontal distance bridged by diagonal push rods.
         float DELTA_RADIUS = (DELTA_SMOOTH_ROD_OFFSET-DELTA_CARRIAGE_OFFSET-DELTA_FUDGE);
@@ -109,15 +111,15 @@ int servostock_calcForward(float Alpha, float Beta, float Gama, float * X, float
         float DELTA_TOWER3_Y = -COS_60*DELTA_RADIUS;
 
           float y1 = DELTA_TOWER1_Y;
-          float z1 = delta[X_AXIS];
+          float z1 = Alpha;
 
           float x2 = DELTA_TOWER2_X;
           float y2 = DELTA_TOWER2_Y;
-          float z2 = delta[Y_AXIS];
+          float z2 = Beta;
 
           float x3 = DELTA_TOWER3_X;
           float y3 = DELTA_TOWER3_Y;
-          float z3 = delta[Z_AXIS];
+          float z3 = Gama;
 
           float re = DELTA_DIAGONAL_ROD;
 
@@ -142,7 +144,8 @@ int servostock_calcForward(float Alpha, float Beta, float Gama, float * X, float
 
           // discriminant
           float d = b*b - 4.0*a*c;
-          if (d < 0) return -1; // non-existing point
+          if (d < 0)
+              return -1; // non-existing point
 
           Z[0] = -0.5*(b+sqrt(d))/a;
           X[0] = (a1*Z[0] + b1)/dnm;
