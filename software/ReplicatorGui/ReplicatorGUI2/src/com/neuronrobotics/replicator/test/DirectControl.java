@@ -22,6 +22,7 @@ import com.neuronrobotics.sdk.addons.kinematics.math.TransformNR;
 import com.neuronrobotics.sdk.common.BowlerAbstractConnection;
 import com.neuronrobotics.sdk.common.Log;
 import com.neuronrobotics.sdk.dyio.DyIO;
+import com.neuronrobotics.sdk.dyio.DyIOChannel;
 import com.neuronrobotics.sdk.dyio.peripherals.DigitalInputChannel;
 import com.neuronrobotics.sdk.dyio.peripherals.IDigitalInputListener;
 import com.neuronrobotics.sdk.dyio.peripherals.ServoChannel;
@@ -138,7 +139,7 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 		
 //		ServoChannel hand = new ServoChannel(slave.getChannel(15));
 //		hand.SetPosition(open);
-		
+
 		try{
 			final SampleGuiNR gui = new SampleGuiNR();
 			final JFrame frame = new JFrame();
@@ -175,19 +176,31 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 			System.exit(1);
 		}
 		model.addPoseUpdateListener(this);
-		Log.enableDebugPrint();
+		Log.enableWarningPrint();
 		int loopTime=50;
 		master.getConnection().setSynchronusPacketTimeoutTime(2000);
 		delt.getConnection().setSynchronusPacketTimeoutTime(2000);
+		int x=0,y=0,z=0;
+		Log.enableDebugPrint();
+		for (DyIOChannel c: master.getChannels()){
+			c.setAsync(false);
+		}
 		while ( true) {
 			long time = System.currentTimeMillis();
 			try {				
-
+				master.getAllChannelValues();
 				//printer.setDesiredTaskSpaceTransform(current,.1);
-				if(current.getZ()<400&&current.getZ()>0)
-					delt.sendLinearSection(current, 0, 0,true);
-				ThreadUtil.wait(loopTime);
-				System.out.println("Setting x="+current.getX()+" y="+current.getY()+" z="+current.getZ());
+//				if((int)current.getX() != x && (int)current.getY() != y && (int)current.getZ() != z ){
+//					x=(int)current.getX();
+//					y=(int)current.getY();
+//					z=(int)current.getZ();
+					if(current.getZ()<400&&current.getZ()>0){
+						delt.sendLinearSection(current, 0, 0,true);
+						//System.out.println("Setting x="+current.getX()+" y="+current.getY()+" z="+current.getZ());
+					}
+				//}
+				ThreadUtil.wait(0,1);
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
