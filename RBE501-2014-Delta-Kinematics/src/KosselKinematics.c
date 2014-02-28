@@ -65,7 +65,7 @@ int servostock_calcInverse(float X, float Y, float Z, float *Alpha, float *Beta,
 //#warning "Z is not used yet"
     if(abs(X)>maxRad || abs(Y)>maxRad || Z<defaultConfig.MinZ||Z>defaultConfig.MaxZ){
         //println_E("Outside of workspace x=");p_fl_E(X);print_E(" y=");p_fl_E(Y);print_E(" z=");p_fl_E(Z);print_E(" Bound radius=");p_fl_E((maxRad));
-    	printf("\r\nOutside of workspace x=");
+    	printf("\r\nOutside of workspace x= %g y=%g z=%g Bound = %g",X,Y,Z,maxRad);
         return 1;//This is ourside the reachable work area
     }
     Alpha[0] = sqrt(Lsqr - (X - 0)*(X - 0)      - (Y - R)*(Y - R))+Z;
@@ -102,7 +102,7 @@ int servostock_calcForward(float Alpha, float Beta, float Gama, float * X, float
         float SIN_60 = 0.8660254037844386;
         float COS_60 = 0.5;
 
-        float DELTA_TOWER1_X = 0.0; // back middle tower
+        //float DELTA_TOWER1_X = 0.0; // back middle tower
         float DELTA_TOWER1_Y = DELTA_RADIUS;
 
         float  DELTA_TOWER2_X = -SIN_60*DELTA_RADIUS; // front left tower

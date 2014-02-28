@@ -49,25 +49,24 @@ typedef struct _DeltaConfig{
 
 int main(void) {
 	puts("Running basic kinematics test"); /* prints !!!Hello World!!! */
-	float cartestian [4][4]={ 	{1,0,0,0},
-								{0,1,0,0},
-								{0,0,1,0},
-								{0,0,0,1}};
+	float cartestian [4]={ 1,0,0,0};
 	//float joint [3] = {0,0,0};
 
-	float cartestianSet [4][4]={ 	{1,0,0,132},//random values
-									{0,1,0,25},
-									{0,0,1,-63},
-									{0,0,0,1}};
+	float cartestianSet[4] ={ -63,25,132,0//random values
+							};
 	float jointSet [3] = {0,0,0};
 
-	inverseKinematics((float **)cartestianSet, jointSet);
+	if(inverseKinematics(cartestianSet, jointSet)){
+		return 1;
+	}
 
-	forwardKinematics(jointSet,(float **)cartestian);
+	printf("\r\nJoints A=%g B=%g C=%g",jointSet[0],jointSet[1],jointSet[2]);
 
-	printf("\r\nSetting X=%g Y=%g Z=%g",cartestianSet[3][0],cartestianSet[3][1],cartestianSet[3][2]);
+	forwardKinematics(jointSet,cartestian);
 
-	printf("\r\nResult X=%g Y=%g Z=%g",cartestian[3][0],cartestian[3][1],cartestian[3][2]);
+	printf("\r\nSetting X=%g Y=%g Z=%g",cartestianSet[0],cartestianSet[1],cartestianSet[2]);
+
+	printf("\r\nResult X=%g Y=%g Z=%g",cartestian[0],cartestian[1],cartestian[2]);
 
 	return 0;
 }
@@ -79,15 +78,15 @@ int main(void) {
  * Return error code for failure
  */
 int forwardKinematics( float * currentJointPositions,
-					   float ** outputTaskSpacePositionMatrix
+					   float * outputTaskSpacePositionMatrix
 					){
 
 	return servostock_calcForward(	currentJointPositions[0],
 									currentJointPositions[1],
 									currentJointPositions[2],
-									&outputTaskSpacePositionMatrix[3][0],
-									&outputTaskSpacePositionMatrix[3][1],
-									&outputTaskSpacePositionMatrix[3][2]);
+									&outputTaskSpacePositionMatrix[0],
+									&outputTaskSpacePositionMatrix[1],
+									&outputTaskSpacePositionMatrix[2]);
 }
 
 /**
@@ -96,12 +95,12 @@ int forwardKinematics( float * currentJointPositions,
  * Return 0 for success
  * Return error code for failure
  */
-int inverseKinematics( float ** currentTaskSpacePosition,
+int inverseKinematics( float * currentTaskSpacePosition,
 					   float *  outputJointSpacePositionVector
 					){
-	float X = currentTaskSpacePosition[3][0];
-	float Y = currentTaskSpacePosition[3][1];
-	float Z = currentTaskSpacePosition[3][2];
+	float X = currentTaskSpacePosition[0];
+	float Y = currentTaskSpacePosition[1];
+	float Z = currentTaskSpacePosition[2];
 
 	return servostock_calcInverse(	X, Y, Z,
 									&outputJointSpacePositionVector[0],

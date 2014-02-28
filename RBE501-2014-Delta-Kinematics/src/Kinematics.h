@@ -14,7 +14,7 @@
  * Return error code for failure
  */
 int forwardKinematics( float * currentJointPositions,
-					   float ** outputTaskSpacePositionMatrix
+					   float * outputTaskSpacePositionMatrix
 					);
 
 /**
@@ -23,7 +23,7 @@ int forwardKinematics( float * currentJointPositions,
  * Return 0 for success
  * Return error code for failure
  */
-int inverseKinematics( float ** currentTaskSpacePosition,
+int inverseKinematics( float * currentTaskSpacePosition,
 					   float *  outputJointSpacePositionVector
 					);
 
