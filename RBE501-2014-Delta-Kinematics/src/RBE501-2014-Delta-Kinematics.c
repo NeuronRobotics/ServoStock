@@ -15,6 +15,9 @@
 
 #include <stdio.h>
 
+int servostock_calcInverse(float X, float Y, float Z, float *Alpha, float *Beta, float *Gama);
+int servostock_calcForward(float Alpha, float Beta, float Gama, float * X, float *Y, float * Z);
+
 float positionMatrix[4][4] = {
 								{1,0,0,0},
 								{0,1,0,0},
@@ -62,7 +65,13 @@ int main(void) {
 int forwardKinematics( float * currentJointPositions,
 					   float ** outputTaskSpacePositionMatrix
 					){
-	return 0;
+
+	return servostock_calcForward(	currentJointPositions[0],
+									currentJointPositions[1],
+									currentJointPositions[2],
+									&outputTaskSpacePositionMatrix[3][0],
+									&outputTaskSpacePositionMatrix[3][1],
+									&outputTaskSpacePositionMatrix[3][2]);
 }
 
 /**
@@ -74,7 +83,14 @@ int forwardKinematics( float * currentJointPositions,
 int inverseKinematics( float ** currentTaskSpacePosition,
 					   float *  outputJointSpacePositionVector
 					){
-	return 0;
+	float X = currentTaskSpacePosition[3][0];
+	float Y = currentTaskSpacePosition[3][1];
+	float Z = currentTaskSpacePosition[3][2];
+
+	return servostock_calcInverse(	X, Y, Z,
+									&outputJointSpacePositionVector[0],
+									&outputJointSpacePositionVector[1],
+									&outputJointSpacePositionVector[2]);
 }
 
 /**
