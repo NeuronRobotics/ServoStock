@@ -33,7 +33,7 @@ typedef struct _DeltaConfig{
 	float MinZ;
 }DeltaConfig;
 
-DeltaConfig defaultConfig ={203.82,//RodLength
+static DeltaConfig defaultConfig ={203.82,//RodLength
                             150,//BaseRadius
                             40.32,//EndEffectorRadius
                             300.0,//MaxZ

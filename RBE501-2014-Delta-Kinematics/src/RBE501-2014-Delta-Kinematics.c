@@ -14,9 +14,7 @@
  */
 
 #include <stdio.h>
-
-int servostock_calcInverse(float X, float Y, float Z, float *Alpha, float *Beta, float *Gama);
-int servostock_calcForward(float Alpha, float Beta, float Gama, float * X, float *Y, float * Z);
+#include "Kinematics.h"
 
 float positionMatrix[4][4] = {
 								{1,0,0,0},
@@ -42,16 +40,34 @@ typedef struct _DeltaConfig{
 	float MinZ;
 }DeltaConfig;
 
-DeltaConfig defaultConfig ={203.82,//RodLength
-							150,//BaseRadius
-							40.32,//EndEffectorRadius
-							400,//MaxZ
-							0};//MinZ
+//static DeltaConfig defaultConfig ={203.82,//RodLength
+//							150,//BaseRadius
+//							40.32,//EndEffectorRadius
+//							400,//MaxZ
+//							0};//MinZ
 
 
 int main(void) {
-	puts("!!!Hello World!!!"); /* prints !!!Hello World!!! */
+	puts("Running basic kinematics test"); /* prints !!!Hello World!!! */
+	float cartestian [4][4]={ 	{1,0,0,0},
+								{0,1,0,0},
+								{0,0,1,0},
+								{0,0,0,1}};
+	//float joint [3] = {0,0,0};
 
+	float cartestianSet [4][4]={ 	{1,0,0,132},//random values
+									{0,1,0,25},
+									{0,0,1,-63},
+									{0,0,0,1}};
+	float jointSet [3] = {0,0,0};
+
+	inverseKinematics((float **)cartestianSet, jointSet);
+
+	forwardKinematics(jointSet,(float **)cartestian);
+
+	printf("\r\nSetting X=%g Y=%g Z=%g",cartestianSet[3][0],cartestianSet[3][1],cartestianSet[3][2]);
+
+	printf("\r\nResult X=%g Y=%g Z=%g",cartestian[3][0],cartestian[3][1],cartestian[3][2]);
 
 	return 0;
 }
