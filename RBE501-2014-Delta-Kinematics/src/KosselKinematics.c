@@ -99,61 +99,36 @@ int servostock_calcForward(float Alpha, float Beta, float Gama, float * X, float
 
         // Effective horizontal distance bridged by diagonal push rods.
         float DELTA_RADIUS = (DELTA_SMOOTH_ROD_OFFSET-DELTA_CARRIAGE_OFFSET-DELTA_FUDGE);
-        // DELTA_RADIUS = (DELTA_SMOOTH_ROD_OFFSET-DELTA_EFFECTOR_OFFSET-DELTA_CARRIAGE_OFFSET-DELTA_FUDGE)
 
-        float SIN_60 = 0.8660254037844386;
-        float COS_60 = 0.5;
+#define AD (Alpha)
+#define BD (Beta)
+#define CD (Gama)
+#define Dx (*X)
+#define Dy (*Y)
+#define Dz (*Z)
 
-        //float DELTA_TOWER1_X = 0.0; // back middle tower
-        float DELTA_TOWER1_Y = DELTA_RADIUS;
+        /* Ax = rigid arms length */
+        /* Cz = moving tool platform radius */
+#define Ax (DELTA_DIAGONAL_ROD)
+#define Cx (DELTA_RADIUS*sqrt(3)/2)
+#define Bx (Cx*2)
+#define Cy (DELTA_RADIUS + (DELTA_RADIUS/2))
+#define Cz (DELTA_RADIUS)
 
-        float  DELTA_TOWER2_X = -SIN_60*DELTA_RADIUS; // front left tower
-        float  DELTA_TOWER2_Y = -COS_60*DELTA_RADIUS;
+        //http://www.cutting.lv/fileadmin/user_upload/lindeltakins.c
+        //http://blog.machinekit.io/2013/07/linear-delta-kinematics.html
+  Dx=(-sq(AD)+2*(Dz)*(AD)+sq(BD)-2*(Bx)*(Cz)*0.8660254-2*(BD)*(Dz)+sq(Bx))/(2*((Bx)-2*(Cz)*0.8660254));
 
-        float DELTA_TOWER3_X = SIN_60*DELTA_RADIUS; // front right tower
-        float DELTA_TOWER3_Y = -COS_60*DELTA_RADIUS;
+  Dy=((sq(Cz)*sq(0.8660254))+2*(Cz)*0.8660254*(Dx)-2*(Cz)*0.8660254*(Bx)-2*(Dx)*(Bx)+sq(Bx)+sq(BD)-2*(Dz)*(BD)+2*(Cx)*(Dx)-sq(Cx)-sq(Cy)+2*(Cy)*(Cz)-sq(Cz)-sq(CD)+2*(Dz)*(CD)+sq(Cz)*sq(0.5))/(2*((Cz)*0.5+(Cz)-(Cy)));
 
-          float y1 = DELTA_TOWER1_Y;
-          float z1 = Alpha;
+  Dz=AD-sqrt(sq(Ax)-sq((Dx)-0.8660254*(Cz))-sq((Dy)-0.5*(Cz)));
 
-          float x2 = DELTA_TOWER2_X;
-          float y2 = DELTA_TOWER2_Y;
-          float z2 = Beta;
+  return 0;
 
-          float x3 = DELTA_TOWER3_X;
-          float y3 = DELTA_TOWER3_Y;
-          float z3 = Gama;
-
-          float re = DELTA_DIAGONAL_ROD;
-
-          float dnm = (y2-y1)*x3-(y3-y1)*x2;
-
-          float w1 = y1*y1 + z1*z1;
-          float w2 = x2*x2 + y2*y2 + z2*z2;
-          float w3 = x3*x3 + y3*y3 + z3*z3;
-
-          // x = (a1*z + b1)/dnm
-          float a1 = (z2-z1)*(y3-y1)-(z3-z1)*(y2-y1);
-          float b1 = -((w2-w1)*(y3-y1)-(w3-w1)*(y2-y1))/2.0;
-
-          // y = (a2*z + b2)/dnm;
-          float a2 = -(z2-z1)*x3+(z3-z1)*x2;
-          float b2 = ((w2-w1)*x3 - (w3-w1)*x2)/2.0;
-
-          // a*z^2 + b*z + c = 0
-          float a = a1*a1 + a2*a2 + dnm*dnm;
-          float b = 2*(a1*b1 + a2*(b2-y1*dnm) - z1*dnm*dnm);
-          float c = (b2-y1*dnm)*(b2-y1*dnm) + b1*b1 + dnm*dnm*(z1*z1 - re*re);
-
-          // discriminant
-          float d = b*b - 4.0*a*c;
-          if (d < 0)
-              return -1; // non-existing point
-
-          Z[0] = -0.5*(b+sqrt(d))/a;
-          X[0] = (a1*Z[0] + b1)/dnm;
-          Y[0] = (a2*Z[0] + b2)/dnm;
-
-          return 0;//success
+#undef AD
+#undef BD
+#undef CD
+#undef Dx
+#undef Dy
+#undef Dz
 }
-
