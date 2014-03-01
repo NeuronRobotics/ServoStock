@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="6.5.0">
+<eagle version="6.3">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -17204,8 +17204,8 @@ Metric Code Size 5664</description>
 <part name="+3V6" library="supply1" deviceset="+3V3" device=""/>
 <part name="D1" library="diode" deviceset="CGRM400*-G" device="" technology="7"/>
 <part name="GND13" library="supply2" deviceset="DGND" device=""/>
-<part name="C2" library="rcl" deviceset="C-US" device="C0603" value=".1uF"/>
-<part name="C3" library="rcl" deviceset="C-US" device="C0603" value=".1uF"/>
+<part name="C2" library="rcl" deviceset="C-US" device="C0603" value="18p"/>
+<part name="C3" library="rcl" deviceset="C-US" device="C0603" value="18p"/>
 <part name="R19" library="ResistorBlocks" deviceset="4PACK" device=""/>
 <part name="X2" library="cmr3XXT" deviceset="CMR3XXT" device=""/>
 <part name="C4" library="rcl" deviceset="C-US" device="C0603" value=".1uF"/>
