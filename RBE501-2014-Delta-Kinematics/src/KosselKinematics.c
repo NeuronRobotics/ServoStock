@@ -76,6 +76,8 @@ int servostock_calcInverse(float X, float Y, float Z, float *Alpha, float *Beta,
 }
 
 int servostock_calcForward(float Alpha, float Beta, float Gama, float * X, float *Y, float * Z){
+		// modified from https://gist.github.com/kastner/5279172
+
         float DELTA_DIAGONAL_ROD = defaultConfig.RodLength;
 
         // Horizontal offset from middle of printer to smooth rod center.
@@ -93,7 +95,7 @@ int servostock_calcForward(float Alpha, float Beta, float Gama, float * X, float
         // In order to correct high-center, DELTA_RADIUS must be decreased.
         // For convex/concave -- -20->-30 makes the center go DOWN
         // DELTA_FUDGE -27.4 // 152.4 total radius
-        float DELTA_FUDGE = 0;
+        float DELTA_FUDGE =0;
 
         // Effective horizontal distance bridged by diagonal push rods.
         float DELTA_RADIUS = (DELTA_SMOOTH_ROD_OFFSET-DELTA_CARRIAGE_OFFSET-DELTA_FUDGE);
