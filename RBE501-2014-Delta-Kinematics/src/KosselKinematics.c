@@ -78,6 +78,9 @@ int servostock_calcInverse(float X, float Y, float Z, float *Alpha, float *Beta,
 int servostock_calcForward(float Alpha, float Beta, float Gama, float * X, float *Y, float * Z){
 		// modified from https://gist.github.com/kastner/5279172
 
+		//http://www.cutting.lv/fileadmin/user_upload/lindeltakins.c
+		//http://blog.machinekit.io/2013/07/linear-delta-kinematics.html
+
         float DELTA_DIAGONAL_ROD = defaultConfig.RodLength;
 
         // Horizontal offset from middle of printer to smooth rod center.
