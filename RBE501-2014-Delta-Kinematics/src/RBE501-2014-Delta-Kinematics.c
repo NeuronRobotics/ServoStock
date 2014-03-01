@@ -1,7 +1,7 @@
 /*
  ============================================================================
  Name        : RBE501-2014-Delta-Kinematics.c
- Author      : Kevin Harrington, Michael DiBlasi
+ Author      : Kevin Harrington, Michael DiBlasi and Tigger too
  Version     :
  Copyright   : BSD with attribution
  Description : The kinematics system for a Linear slide Delta
