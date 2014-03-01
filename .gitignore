@@ -2,3 +2,5 @@
 *.class
 RobotLog*.txt
 javadoc
+*.s#1
+*.b#1
