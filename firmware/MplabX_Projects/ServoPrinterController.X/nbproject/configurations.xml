@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="62">
+  <logicalFolder name="root" displayName="root" projectFiles="true">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <logicalFolder name="include" displayName="include" projectFiles="true">
+        <logicalFolder name="Bowler" displayName="Bowler" projectFiles="true">
+          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include/Bowler/Namespace_bcs_core.h</itemPath>
+          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include/Bowler/RPC_Process.h</itemPath>
+          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include/Bowler/BowlerServerHardwareAbstraction.h</itemPath>
+          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include/Bowler/Scheduler.h</itemPath>
+          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include/Bowler/BowlerRPCRegestration.h</itemPath>
+          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include/Bowler/Defines.h</itemPath>
+          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include/Bowler/Bowler_Struct_Def.h</itemPath>
+          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include/Bowler/Bowler.h</itemPath>
+          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include/Bowler/Debug.h</itemPath>
+          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include/Bowler/AbstractPID.h</itemPath>
+          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include/Bowler/Bowler_Server.h</itemPath>
+          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include/Bowler/FIFO.h</itemPath>
+          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include/Bowler/Bowler_Helper.h</itemPath>
+          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include/Bowler/namespace.h</itemPath>
+          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include/Bowler/BowlerTransport.h</itemPath>
+        </logicalFolder>
+      </logicalFolder>
+      <logicalFolder name="replicator" displayName="replicator" projectFiles="true">
+        <itemPath>../../include/replicator/GenericTypeDefs.h</itemPath>
+        <itemPath>../../include/replicator/ReplicatorHeader.h</itemPath>
+        <itemPath>../../include/replicator/AS5055.h</itemPath>
+        <itemPath>../../include/replicator/AuxUartServer.h</itemPath>
+        <itemPath>../../include/replicator/main.h</itemPath>
+        <itemPath>../../include/replicator/StepperSim.h</itemPath>
+        <itemPath>../../include/replicator/CartesianController.h</itemPath>
+        <itemPath>../../include/replicator/delta.h</itemPath>
+        <itemPath>../../include/replicator/servoCalibration.h</itemPath>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="LibraryFiles"
+                   displayName="Library Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="LinkerScript"
+                   displayName="Linker Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="ObjectFiles"
+                   displayName="Object Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <logicalFolder name="BowlerStack" displayName="BowlerStack" projectFiles="true">
+        <logicalFolder name="include" displayName="include" projectFiles="true">
+          <logicalFolder name="Bowler" displayName="Bowler" projectFiles="true">
+          </logicalFolder>
+        </logicalFolder>
+        <logicalFolder name="src" displayName="src" projectFiles="true">
+          <logicalFolder name="BCS" displayName="BCS" projectFiles="true">
+            <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/BCS/Namespace_bcs_rpc.c</itemPath>
+            <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/BCS/Namespace_bcs_core.c</itemPath>
+            <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/BCS/BowlerPacketParser.c</itemPath>
+            <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/BCS/Bowler_Server.c</itemPath>
+          </logicalFolder>
+          <logicalFolder name="Helper" displayName="Helper" projectFiles="true">
+            <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/Helper/Scheduler.c</itemPath>
+            <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/Helper/FIFO.c</itemPath>
+            <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/Helper/Debug.c</itemPath>
+            <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/Helper/Bowler_Helper.c</itemPath>
+          </logicalFolder>
+          <logicalFolder name="PID" displayName="PID" projectFiles="true">
+            <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/PID/AbstractPID.c</itemPath>
+            <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/PID/PidHysteresis.c</itemPath>
+            <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/PID/PidAsync.c</itemPath>
+            <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/PID/PidVelocity.c</itemPath>
+            <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/PID/PidRpc.c</itemPath>
+            <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/src/PID/Namespace_bcs_pid.c</itemPath>
+          </logicalFolder>
+        </logicalFolder>
+      </logicalFolder>
+      <logicalFolder name="driver" displayName="driver" projectFiles="true">
+        <itemPath>../../src/driver/Servo.c</itemPath>
+        <itemPath>../../src/driver/SPIClient.c</itemPath>
+        <itemPath>../../src/driver/ForgeHeater.c</itemPath>
+        <itemPath>../../src/driver/AS5055.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="kinematics" displayName="kinematics" projectFiles="true">
+        <itemPath>../../src/kinematics/KosselKinematics.c</itemPath>
+        <itemPath>../../src/kinematics/CartesianController.c</itemPath>
+        <itemPath>../../src/kinematics/DeltaKinematics.c</itemPath>
+        <itemPath>../../src/kinematics/delta.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="motion" displayName="motion" projectFiles="true">
+        <itemPath>../../src/motion/StepperSim.c</itemPath>
+        <itemPath>../../src/motion/PID.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="namespace" displayName="namespace" projectFiles="true">
+        <itemPath>../../src/namespace/UpstreamPackets.c</itemPath>
+        <itemPath>../../src/namespace/Namespace_bcs_cartesian.c</itemPath>
+        <itemPath>../../src/namespace/Callbacks.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="pic32" displayName="pic32" projectFiles="true">
+        <logicalFolder name="usb" displayName="usb" projectFiles="true">
+          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/Platform/src/pic32/usb/usb_interrupt.c</itemPath>
+          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/Platform/src/pic32/usb/usb_device.c</itemPath>
+          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/Platform/src/pic32/usb/usb_fifo.c</itemPath>
+          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/Platform/src/pic32/usb/usb_descriptors.c</itemPath>
+          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/Platform/src/pic32/usb/usb_callback.c</itemPath>
+          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/Platform/src/pic32/usb/usb_function_cdc.c</itemPath>
+        </logicalFolder>
+        <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/Platform/src/pic32/Bowler_UART_HAL.c</itemPath>
+        <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/Platform/src/pic32/Bowler_USB_HAL.c</itemPath>
+        <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/Platform/src/pic32/LED.c</itemPath>
+        <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/Platform/src/pic32/Tick.c</itemPath>
+        <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/Platform/src/pic32/Delay.c</itemPath>
+        <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/Platform/src/pic32/HAL_P32.c</itemPath>
+        <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/Platform/src/pic32/ADC.c</itemPath>
+        <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/Platform/src/pic32/UART.c</itemPath>
+        <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/Platform/src/pic32/FlashStorage.c</itemPath>
+      </logicalFolder>
+      <itemPath>../../src/main.c</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>../../src</Elem>
+    <Elem>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack</Elem>
+    <Elem>../../../../c-bowler/firmware/library/NR-Clib/development/Platform/src/pic32</Elem>
+    <Elem>../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32</Elem>
+    <Elem>../../../../microcontroller-bowler/DyIO/development/pic</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="default" type="2">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <targetDevice>PIC32MX440F128H</targetDevice>
+        <targetHeader></targetHeader>
+        <targetPluginBoard></targetPluginBoard>
+        <platformTool>PICkit3PlatformTool</platformTool>
+        <languageToolchain>XC32</languageToolchain>
+        <languageToolchainVersion>1.00</languageToolchainVersion>
+        <platform>2</platform>
+      </toolsSet>
+      <compileType>
+        <linkerTool>
+          <linkerLibItems>
+          </linkerLibItems>
+        </linkerTool>
+        <loading>
+          <useAlternateLoadableFile>false</useAlternateLoadableFile>
+          <alternateLoadableFile></alternateLoadableFile>
+        </loading>
+      </compileType>
+      <makeCustomizationType>
+        <makeCustomizationPreStepEnabled>false</makeCustomizationPreStepEnabled>
+        <makeCustomizationPreStep></makeCustomizationPreStep>
+        <makeCustomizationPostStepEnabled>false</makeCustomizationPostStepEnabled>
+        <makeCustomizationPostStep></makeCustomizationPostStep>
+        <makeCustomizationPutChecksumInUserID>false</makeCustomizationPutChecksumInUserID>
+        <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
+        <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
+      </makeCustomizationType>
+      <C32>
+        <property key="additional-warnings" value="false"/>
+        <property key="enable-app-io" value="false"/>
+        <property key="enable-omit-frame-pointer" value="false"/>
+        <property key="enable-symbols" value="true"/>
+        <property key="enable-unroll-loops" value="false"/>
+        <property key="exclude-floating-point" value="false"/>
+        <property key="extra-include-directories"
+                  value="../../include/replicator;../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include;../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32;../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include"/>
+        <property key="generate-16-bit-code" value="true"/>
+        <property key="generate-micro-compressed-code" value="false"/>
+        <property key="isolate-each-function" value="false"/>
+        <property key="make-warnings-into-errors" value="true"/>
+        <property key="optimization-level" value="-O1"/>
+        <property key="place-data-into-section" value="false"/>
+        <property key="post-instruction-scheduling" value="schedule-insns2"/>
+        <property key="pre-instruction-scheduling" value="schedule-insns"/>
+        <property key="preprocessor-macros" value=""/>
+        <property key="strict-ansi" value="false"/>
+        <property key="support-ansi" value="false"/>
+        <property key="use-cci" value="false"/>
+        <property key="use-iar" value="false"/>
+        <property key="use-indirect-calls" value="false"/>
+      </C32>
+      <C32-AS>
+      </C32-AS>
+      <C32-LD>
+        <property key="additional-options-use-response-files" value="false"/>
+        <property key="enable-check-sections" value="false"/>
+        <property key="exclude-floating-point-library" value="false"/>
+        <property key="exclude-standard-libraries" value="false"/>
+        <property key="extra-lib-directories" value=""/>
+        <property key="generate-16-bit-code" value="true"/>
+        <property key="generate-cross-reference-file" value="false"/>
+        <property key="generate-micro-compressed-code" value="false"/>
+        <property key="heap-size" value=""/>
+        <property key="input-libraries" value=""/>
+        <property key="linker-symbols" value=""/>
+        <property key="map-file" value="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map"/>
+        <property key="no-startup-files" value="false"/>
+        <property key="oXC32ld-extra-opts" value=""/>
+        <property key="optimization-level" value=""/>
+        <property key="preprocessor-macros" value=""/>
+        <property key="remove-unused-sections" value="false"/>
+        <property key="report-memory-usage" value="false"/>
+        <property key="stack-size" value=""/>
+        <property key="symbol-stripping" value=""/>
+        <property key="trace-symbols" value=""/>
+        <property key="warn-section-align" value="false"/>
+      </C32-LD>
+      <C32CPP>
+        <property key="additional-warnings" value="false"/>
+        <property key="check-new" value="false"/>
+        <property key="eh-specs" value="true"/>
+        <property key="enable-app-io" value="false"/>
+        <property key="enable-omit-frame-pointer" value="false"/>
+        <property key="enable-symbols" value="true"/>
+        <property key="enable-unroll-loops" value="false"/>
+        <property key="exceptions" value="true"/>
+        <property key="exclude-floating-point" value="false"/>
+        <property key="extra-include-directories" value=""/>
+        <property key="generate-16-bit-code" value="false"/>
+        <property key="generate-micro-compressed-code" value="false"/>
+        <property key="isolate-each-function" value="false"/>
+        <property key="make-warnings-into-errors" value="false"/>
+        <property key="optimization-level" value=""/>
+        <property key="place-data-into-section" value="false"/>
+        <property key="post-instruction-scheduling" value="default"/>
+        <property key="pre-instruction-scheduling" value="default"/>
+        <property key="preprocessor-macros" value=""/>
+        <property key="rtti" value="true"/>
+        <property key="strict-ansi" value="false"/>
+        <property key="use-cci" value="false"/>
+        <property key="use-iar" value="false"/>
+        <property key="use-indirect-calls" value="false"/>
+      </C32CPP>
+      <C32Global>
+        <property key="legacy-libc" value="false"/>
+        <property key="save-temps" value="false"/>
+        <property key="wpo-lto" value="false"/>
+      </C32Global>
+      <PICkit3PlatformTool>
+        <property key="ADC 1" value="true"/>
+        <property key="AutoSelectMemRanges" value="auto"/>
+        <property key="CHANGE NOTICE" value="true"/>
+        <property key="COMPARATOR" value="true"/>
+        <property key="DMA" value="true"/>
+        <property key="Freeze All Other Peripherals" value="true"/>
+        <property key="I2C1" value="true"/>
+        <property key="I2C2" value="true"/>
+        <property key="INPUT CAPTURE 1" value="true"/>
+        <property key="INPUT CAPTURE 2" value="true"/>
+        <property key="INPUT CAPTURE 3" value="true"/>
+        <property key="INPUT CAPTURE 4" value="true"/>
+        <property key="INPUT CAPTURE 5" value="true"/>
+        <property key="INTERRUPT CONTROL" value="true"/>
+        <property key="OUTPUT COMPARE 1" value="true"/>
+        <property key="OUTPUT COMPARE 2" value="true"/>
+        <property key="OUTPUT COMPARE 3" value="true"/>
+        <property key="OUTPUT COMPARE 4" value="true"/>
+        <property key="OUTPUT COMPARE 5" value="true"/>
+        <property key="PARALLEL MASTER/SLAVE PORT" value="true"/>
+        <property key="REAL TIME CLOCK" value="true"/>
+        <property key="SecureSegment.SegmentProgramming" value="FullChipProgramming"/>
+        <property key="TIMER1" value="true"/>
+        <property key="TIMER2" value="true"/>
+        <property key="TIMER3" value="true"/>
+        <property key="TIMER4" value="true"/>
+        <property key="TIMER5" value="true"/>
+        <property key="ToolFirmwareFilePath"
+                  value="Press to browse for a specific firmware version"/>
+        <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
+        <property key="UART1" value="true"/>
+        <property key="UART2" value="true"/>
+        <property key="firmware.download.all" value="false"/>
+        <property key="hwtoolclock.frcindebug" value="false"/>
+        <property key="memories.aux" value="false"/>
+        <property key="memories.bootflash" value="false"/>
+        <property key="memories.configurationmemory" value="false"/>
+        <property key="memories.eeprom" value="false"/>
+        <property key="memories.flashdata" value="true"/>
+        <property key="memories.id" value="false"/>
+        <property key="memories.programmemory" value="true"/>
+        <property key="memories.programmemory.end" value="0x1d07ffff"/>
+        <property key="memories.programmemory.start" value="0x1d000000"/>
+        <property key="poweroptions.powerenable" value="false"/>
+        <property key="programmertogo.imagename" value=""/>
+        <property key="programoptions.eraseb4program" value="true"/>
+        <property key="programoptions.pgmspeed" value="2"/>
+        <property key="programoptions.preserveeeprom" value="false"/>
+        <property key="programoptions.preserveprogramrange" value="false"/>
+        <property key="programoptions.preserveprogramrange.end" value="0x1d0001ff"/>
+        <property key="programoptions.preserveprogramrange.start" value="0x1d000000"/>
+        <property key="programoptions.preserveuserid" value="false"/>
+        <property key="programoptions.testmodeentrymethod" value="VPPFirst"/>
+        <property key="programoptions.usehighvoltageonmclr" value="false"/>
+        <property key="programoptions.uselvpprogramming" value="false"/>
+        <property key="voltagevalue" value="3.25"/>
+      </PICkit3PlatformTool>
+    </conf>
+  </confs>
+</configurationDescriptor>

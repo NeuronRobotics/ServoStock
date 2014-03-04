@@ -1,0 +1,115 @@
+Partlist exported from C:/PCB Eagle/chipKIT Max32/chipKIT Max32.sch at 3/15/2011 1:50:45 PM
+
+Part  Value                Device               Package                   Description                                                         
+BTN1  SW-P8008             SW-P8008             SW-P8008                  153-000: SPST, Push button, momentary                               
+C1    0.1uF                CAP-S0402S           C0402S                    Capacitor                                                           
+C2    0.1uF                CAP-S0402S           C0402S                    Capacitor                                                           
+C3    0.1uF                CAP-S0402S           C0402S                    Capacitor                                                           
+C4    0.1uF                CAP-S0402S           C0402S                    Capacitor                                                           
+C5    0.1uF                CAP-S0402S           C0402S                    Capacitor                                                           
+C6    0.1uF                CAP-S0402S           C0402S                    Capacitor                                                           
+C7    0.1uF                CAP-S0402S           C0402S                    Capacitor                                                           
+C8    1uF                  CAP-S0402S           C0402S                    Capacitor                                                           
+C9    0.1uF                CAP-S0402S           C0402S                    Capacitor                                                           
+C10   10uF                 CAP-S0603S           C0603S                    Capacitor                                                           
+C11   0.1uF                CAP-S0402S           C0402S                    Capacitor                                                           
+C12   0.1uF                CAP-S0402S           C0402S                    Capacitor                                                           
+C13   4.7uF                CAP-S0603S           C0603S                    Capacitor                                                           
+C14   1nF                  CAP-S0402S           C0402S                    Capacitor                                                           
+C15   10uF/25V             CAP-S0805S           C0805S                    Capacitor                                                           
+C16   10uF                 CAP-S0603S           C0603S                    Capacitor                                                           
+C17   10uF                 CPOL-SA              CPOL3216                  Capacitor                                                           
+C18   0.1uF                CAP-S0402S           C0402S                    Capacitor                                                           
+C20   0.1uF                CAP-S0402            C0402                     Capacitor                                                           
+C21   22uF                 CPOL-SA              CPOL3216                  Capacitor                                                           
+C22   30pF                 CAP-S0402S           C0402S                    Capacitor                                                           
+C23   30pF                 CAP-S0402S           C0402S                    Capacitor                                                           
+C24   NL                   CAP-S0603S           C0603S                    Capacitor                                                           
+C25   0.1uF                CAP-S0402S           C0402S                    Capacitor                                                           
+C26   10uF/25V             CPOL-SA              CPOL3216                  Capacitor                                                           
+D1    BAV99W               BAV99W               SOT-323                   BAV99W Dual Surface Mount Switching Diode                           
+D2    B220A                DIODESMA             SMA                       Diode                                                               
+D3    BAV70S               BAV70S               SOT-363                   High Speed Switching Diode Array                                    
+D4    BAV70S               BAV70S               SOT-363                   High Speed Switching Diode Array                                    
+D5    BAV70S               BAV70S               SOT-363                   High Speed Switching Diode Array                                    
+D6    BAV70S               BAV70S               SOT-363                   High Speed Switching Diode Array                                    
+D7    BAV70S               BAV70S               SOT-363                   High Speed Switching Diode Array                                    
+D8    NSQA6V8              NSQA6V8              SOT-323-5                 Low Capacitance Quad ESD Protection Array                           
+IC1   FT232RQ              FT232RQ              QFN32                     FTDI USB UART Serial Converter                                      
+IC2   PIC32MX7X5FL-PT      PIC32MX7X5FL-PT      TQ100-PT                  High Performance, USB, CAN and Ethernet 32-Bit Flash Microcontroller
+IC3   MCP1725-330F/MC      MCP1725MC            DFN8-MC                   500mA Low Voltage, Low Quiescent Current LDO Regulator              
+IC4   NCP1117DT50T3G       LM1117MP             SOT223                    LM1117 Adjustable voltage regulator,  1.2V dropout                  
+IC5   MCP6001-OT           MCP6001-OT           SOT23-5-OT                1 Mhz Low Power Op Amp                                              
+J1    USB-AB-MINI          USB-AB-MINI          USB-AB-MINI               Kycon KMAB-SMT-5S Mini USB AB type connector                        
+J2    CON-COAX-KLD0202-S   CON-COAX-KLD0202-S   KLD-0202S                 COAX Power Connector                                                
+J3    HDR-2X8              HDR-2X8              HDR-2X8                   100mil 2x8 header                                                   
+J4    HDR-1X8              HDR-1X8              HDR-1X8                                                                                       
+J5    HDR-1X8              HDR-1X8              HDR-1X8                                                                                       
+J6    HDR-1X2              HDR-1X2              HDR-1X2                                                                                       
+J7    HDR-1X8              HDR-1X8              HDR-1X8                                                                                       
+J8    HDR-2X8              HDR-2X8              HDR-2X8                   100mil 2x8 header                                                   
+J9    HDR-2X8              HDR-2X8              HDR-2X8                   100mil 2x8 header                                                   
+J10   HDR-1X6              HDR-1X6              HDR-1X6                                                                                       
+J11   No Load              HDR-1X6-OFFSET       HDR-1X6_OFFSET            42 mil hole pattern with 16mil offset for jtag connector            
+J12   HDR-1X4              HDR-1X4              HDR-1X4                                                                                       
+J13   HDR-2X3              HDR-2X3              HDR-2X3                                                                                       
+J14   HDR-2X8              HDR-2X8              HDR-2X8                   100mil 2x8 header                                                   
+J15   HDR-1X2              HDR-1X2              HDR-1X2                                                                                       
+JP1   JPR-1X3              JPR-1X3              JPR-1X3                                                                                       
+JP3   JPR-1X3              JPR-1X3              JPR-1X3                                                                                       
+JP4   JPR-1X3              JPR-1X3              JPR-1X3                                                                                       
+JP5   No Load              JPR-1X2              JPR-1X2                                                                                       
+LD1   LED-S0603-RED        LED-S0603            D0603                     Discrete LED                                                        
+LD2   LED-S0603-RED        LED-S0603            D0603                     Discrete LED                                                        
+LD3   LED-S0603-RED        LED-S0603            D0603                     Discrete LED                                                        
+LD4   LED-S0603-GRN        LED-S0603            D0603                     Discrete LED                                                        
+LOGO1 ROHS-CHINA-INV       ROHS-CHINA-INV       ROHS_CHINA_INV_LOGO       Chinese ROHS symbol logo                                            
+LOGO2 WEEE-L               WEEE-L               WEEE_LOGO2                WEEE Symbol                                                         
+LOGO4 MAX32_LOGO           MAX32_LOGO           MAX32_LOGO                Microchip chipKIT Max32 Logo                                        
+LOGO5 CHIPKIT              CHIPKIT              CHIPKIT_LOGO              Microchip chipKIT Logo                                              
+LOGO6 CE                   CE                   CE_LOGO                   European Union CE Logo                                              
+LOGO7 DIGILENT_INC-BT-1500 DIGILENT_INC-BT-1500 DIGILENT_BEYOND_1500_LOGO                                                                     
+Q1    FDN340P              FDN340P              SOT23                     Single P-channel, Logic Level, Power MOSFET                         
+Q2    MMBT3904WT1G         MMBT3904WT1G         SOT-323                   General Purpose NPN Transistor                                      
+R1    1K                   RES-S0402S           R0402S                    Resistor                                                            
+R2    1K                   RES-S0402S           R0402S                    Resistor                                                            
+R3    0                    RES-S0603            R0603                     Resistor                                                            
+R4    10K                  RES-S0402S           R0402S                    Resistor                                                            
+R5    200                  RES-S0402S           R0402S                    Resistor                                                            
+R6    200                  RES-S0402S           R0402S                    Resistor                                                            
+R7    4.7K                 RES-S0402S           R0402S                    Resistor                                                            
+R8    200                  RES-S0402S           R0402S                    Resistor                                                            
+R9    10K                  RES-S0402S           R0402S                    Resistor                                                            
+R10   470                  RES-S0402S           R0402S                    Resistor                                                            
+R11   470                  RES-S0402S           R0402S                    Resistor                                                            
+R12   470                  RES-S0402S           R0402S                    Resistor                                                            
+R13   10K                  RES-S0402S           R0402S                    Resistor                                                            
+R14   10K                  RES-S0402S           R0402S                    Resistor                                                            
+R15   200                  RES-S0402S           R0402S                    Resistor                                                            
+R16   200                  RES-S0402S           R0402S                    Resistor                                                            
+R17   200                  RES-S0402S           R0402S                    Resistor                                                            
+R18   200                  RES-S0402S           R0402S                    Resistor                                                            
+R19   200                  RES-S0402S           R0402S                    Resistor                                                            
+R20   200                  RES-S0402S           R0402S                    Resistor                                                            
+R21   200                  RES-S0402S           R0402S                    Resistor                                                            
+R22   200                  RES-S0402S           R0402S                    Resistor                                                            
+R23   200                  RES-S0402S           R0402S                    Resistor                                                            
+R24   200                  RES-S0402S           R0402S                    Resistor                                                            
+R25   200                  RES-S0402S           R0402S                    Resistor                                                            
+R26   200                  RES-S0402S           R0402S                    Resistor                                                            
+R27   200                  RES-S0402S           R0402S                    Resistor                                                            
+R28   200                  RES-S0402S           R0402S                    Resistor                                                            
+R29   200                  RES-S0402S           R0402S                    Resistor                                                            
+R30   200                  RES-S0402S           R0402S                    Resistor                                                            
+R31   200                  RES-S0402S           R0402S                    Resistor                                                            
+R32   0                    RES-S0402S           R0402S                    Resistor                                                            
+R33   200                  RES-S0402S           R0402S                    Resistor                                                            
+R34   470                  RES-S0402S           R0402S                    Resistor                                                            
+R35   4.7K                 RES-S0402S           R0402S                    Resistor                                                            
+R36   0                    RES-S0402S           R0402S                    Resistor                                                            
+R37   NL                   RES-S0402S           R0402S                    Resistor                                                            
+R38   100                  RES-S0402S           R0402S                    Resistor                                                            
+R39   50                   RES-S0402S           R0402S                    Resistor                                                            
+R40   50                   RES-S0402S           R0402S                    Resistor                                                            
+R41   50                   RES-S0402S           R0402S                    Resistor                                                            
+X1    FQ7050B-8.000        XTAL-FQ7050B         FQ7050B                   Quartz Crystal                                                      
