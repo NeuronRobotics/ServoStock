@@ -52,7 +52,7 @@ int main(void) {
 	float cartestian [4]={ 1,0,0,0};
 	//float joint [3] = {0,0,0};
 
-	float cartestianSet[4] ={ 0,99.9,0,0//random values
+	float cartestianSet[4] ={ 60,90,0,0//random values
 							};
 	float jointSet [3] = {0,0,0};
 
