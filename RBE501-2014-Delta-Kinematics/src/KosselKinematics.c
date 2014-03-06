@@ -36,7 +36,7 @@ typedef struct _DeltaConfig{
 }DeltaConfig;
 
 static DeltaConfig defaultConfig ={203.82,//RodLength
-                            150,//BaseRadius
+                            175,//BaseRadius
                             40.32,//EndEffectorRadius
                             300.0,//MaxZ
                             0.0};//MinZ
@@ -62,10 +62,10 @@ int servostock_calcInverse(float X, float Y, float Z, float *Alpha, float *Beta,
     float L = defaultConfig.RodLength;
     float R = defaultConfig.BaseRadius-defaultConfig.EndEffectorRadius;
     float Lsqr=L*L;
-    float maxRad=(R*2/3);
+    float maxRad=sqrt((X*X)+(Y*Y));
     
 //#warning "Z is not used yet"
-    if(abs(X)>maxRad || abs(Y)>maxRad || Z<defaultConfig.MinZ||Z>defaultConfig.MaxZ){
+    if(maxRad>(L/2)*.98 || Z<defaultConfig.MinZ||Z>defaultConfig.MaxZ){
         //println_E("Outside of workspace x=");p_fl_E(X);print_E(" y=");p_fl_E(Y);print_E(" z=");p_fl_E(Z);print_E(" Bound radius=");p_fl_E((maxRad));
     	printf("\r\nOutside of workspace x= %g y=%g z=%g Bound = %g",X,Y,Z,maxRad);
         return 1;//This is ourside the reachable work area
