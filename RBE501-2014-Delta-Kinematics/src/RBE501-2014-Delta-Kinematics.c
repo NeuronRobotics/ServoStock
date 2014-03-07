@@ -1,7 +1,7 @@
 /*
  ============================================================================
  Name        : RBE501-2014-Delta-Kinematics.c
- Author      : Kevin Harrington, Michael DiBlasi, Bill Calabro and Tigger too
+ Author      : Kevin Harrington, Michael DiBlasi, Bill Calabro, Jared Heiser and Tigger too
  Version     :
  Copyright   : BSD with attribution
  Description : The kinematics system for a Linear slide Delta
@@ -15,6 +15,8 @@
 
 #include <stdio.h>
 #include "Kinematics.h"
+
+//testing changes
 
 float positionMatrix[4][4] = {
 								{1,0,0,0},
