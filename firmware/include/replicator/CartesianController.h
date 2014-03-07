@@ -69,7 +69,11 @@ BYTE setInterpolateXYZ(float x, float y, float z,float ms);
 
 void interpolateZXY();
 
-BYTE setXYZ(float x, float y, float z);
+BYTE setXYZ(float x, float y, float z,float ms);
+
+float getLinkAngle(int index);
+
+float setLinkAngle(int index, float value, float ms);
 
 //int getCurrentPosition(float * x, float * y, float * z);
 

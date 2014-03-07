@@ -242,7 +242,8 @@ int main(){
     pid.MsTime=getMs();
     //startHomingLinks();
     disableSerialComs(TRUE);
-    setPrintLevelNoPrint();
+    setPrintLevelWarningPrint();
+    //setPrintLevelNoPrint();
     (_TRISB0)=1;
     SetColor(1,1,1);
     while(1){
