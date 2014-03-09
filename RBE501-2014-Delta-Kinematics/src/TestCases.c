@@ -8,9 +8,14 @@
  *		 ============================================================================
  */
 
+#include <stdio.h>
+#include <stdlib.h>
 #include "Kinematics.h"
 
-int invSquare ( int sideLength, float * initialPosition)
+/*
+ * Calculate inverse and forward kinematics for a 2-D square in 3-D space.
+ */
+int twoDSquare ( int sideLength, float * initialPosition)
 {
 	// Counter Variables
 	int i = 0;
@@ -36,6 +41,7 @@ int invSquare ( int sideLength, float * initialPosition)
 		};
 
 	// Calculate Inverse for Each Step
+	printf("\r\nInverse Calculations:");
 	for (i = 0; i < 5; i++)
 	{
 		// Handle offset for initial position
@@ -59,14 +65,37 @@ int invSquare ( int sideLength, float * initialPosition)
 		currentPosition[i][1] = Ydes;
 		currentPosition[i][2] = Zdes;
 
-		printf("\r\nStep #%d", i);
-		printf("\r\nPosition: X=%d, Y=%d, Z=%d",
+		// Print to Console
+		printf("\r\nStep %d", i);
+		printf("\rPosition: X=%d, Y=%d, Z=%d",
 				currentPosition[i][0], currentPosition[i][1], currentPosition[i][2]);
-		printf("\r\nJoints: A=%g, B=%g, C=%g \r\n",
+		printf("\rCalculated Joints: A=%g, B=%g, C=%g",
 				config[i][0], config[i][1], config[i][2]);
-
-		//TODO plot graphically?
 	}
+
+	// Setup CalculatedArm Position Array
+	float calculatedPosition[5][3] = {{0}};
+
+	// Calculate Forward for Each Step
+	printf("\r\nForward Calculations:");
+	for (i = 0; i < 5; i++)
+	{
+		// Calculate Forward
+		servostock_calcForward(config[i][0], config[i][1], config[i][2],
+							   &calculatedPosition[i][0], &calculatedPosition[i][1], &calculatedPosition[i][2]
+							   );
+
+		// Print to Console
+		printf("\r\nStep %d", i);
+		printf("\rCalculated Position: X=%g, Y=%g, Z=%g",
+				calculatedPosition[i][0], calculatedPosition[i][1], calculatedPosition[i][2]);
+		printf("\rJoints: A=%g, B=%g, C=%g",
+				config[i][0], config[i][1], config[i][2]);
+	}
+
+	//TODO plot graphically?
+
+	//TODO return values?
 
 	return 0;  //success
 }

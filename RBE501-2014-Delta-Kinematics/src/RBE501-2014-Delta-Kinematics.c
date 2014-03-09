@@ -54,7 +54,7 @@ int main(void) {
 	float cartestian [4]={ 1,0,0,0};
 	//float joint [3] = {0,0,0};
 
-	float cartestianSet[4] ={ 60,90,0,0//random values
+	float cartestianSet[4] ={ 0,0,0,0//random values
 							};
 	float jointSet [3] = {0,0,0};
 
@@ -74,8 +74,8 @@ int main(void) {
 	// Test Cases
 	printf("\r\n\r\n2D Square Test Case \r\n");
 	float initialPosition[3] = {0,0,0};
-	invSquare(10, initialPosition);
-
+	if (twoDSquare(10, initialPosition))
+		return 1;
 
 	return 0;
 }
