@@ -1,7 +1,7 @@
 /*
  ============================================================================
  Name        : RBE501-2014-Delta-Kinematics.c
- Author      : Kevin Harrington, Michael DiBlasi, Bill Calabro and Tigger too
+ Author      : Kevin Harrington, Michael DiBlasi, Bill Calabro, Jared Heiser and Tigger too
  Version     :
  Copyright   : BSD with attribution
  Description : The kinematics system for a Linear slide Delta
@@ -15,6 +15,8 @@
 
 #include <stdio.h>
 #include "Kinematics.h"
+
+//testing changes
 
 float positionMatrix[4][4] = {
 								{1,0,0,0},
@@ -52,7 +54,7 @@ int main(void) {
 	float cartestian [4]={ 1,0,0,0};
 	//float joint [3] = {0,0,0};
 
-	float cartestianSet[4] ={ 0,10,0,0//random values
+	float cartestianSet[4] ={ 60,90,0,0//random values
 							};
 	float jointSet [3] = {0,0,0};
 

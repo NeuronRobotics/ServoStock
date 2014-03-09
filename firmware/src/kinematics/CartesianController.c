@@ -18,13 +18,9 @@ INTERPOLATE_DATA intCartesian[3];
 //float scale = -1.0*mmPerTick;
 float extrusionScale = 1/(((float)ticksPerRev)/100.00);
 
-BYTE setXYZ(float x, float y, float z);
-void interpolateZXY();
-float getLinkAngle(int index);
-float setLinkAngle(int index, float value, float ms);
-
 float xCurrent,yCurrent,zCurrent,eCurrent;
 BOOL full = FALSE;
+BOOL configured=FALSE;
 
 
 int  lastPushedBufferSize =0;
@@ -56,14 +52,13 @@ HardwareMap hwMap ={
 
 
 BOOL isCartesianInterpolationDone(){
+    int setpointBound = 5;
     int i;
     for(i=0;i<4;i++){
-        if( isPIDInterpolating(linkToHWIndex(i)) == TRUE &&
-            isPIDArrivedAtSetpoint(i, 30) == FALSE
+        if( isPIDArrivedAtSetpoint(i, setpointBound) == FALSE
           ){
-            println_I("LINK not done moving index = ");p_int_I(linkToHWIndex(i));
-            print_I(" isInterpolating ");p_int_I(isPIDInterpolating(linkToHWIndex(i)));
-            print_I(" has arrived = ");p_int_I(isPIDArrivedAtSetpoint(i, 100));
+            //println_W("LINK not done moving index = ");p_int_W(linkToHWIndex(i));
+            //print_W(" has arrived = ");p_int_W(isPIDArrivedAtSetpoint(i, setpointBound));
             return FALSE;
         }
 
@@ -111,18 +106,24 @@ void loadCurrentPosition(BowlerPacket * Packet){
         Packet->use.head.DataLegnth=4+4+4;
 }
 
-void checkPositionChange(){
-    int i;
-    float tmp[4];
-    if(servostock_calcForward(
+void updateCurrentPositions(){
+        if(servostock_calcForward(
                                 getLinkAngle(0),
                                 getLinkAngle(1),
                                 getLinkAngle(2),
                                 &xCurrent,
                                 &yCurrent,
                                 &zCurrent)!=0){
+        println_E("Inverse Failed!!")  ;
         return;
     }
+}
+
+void checkPositionChange(){
+    int i;
+    float tmp[4];
+    updateCurrentPositions();
+
     tmp[0]=xCurrent;
     tmp[1]=yCurrent;
     tmp[2]=zCurrent;
@@ -186,12 +187,9 @@ void processLinearInterpPacket(BowlerPacket * Packet){
 
             tmpData[i] = ((float)get32bit(Packet,(i*4)+1))/1000;
         }
-        Print_Level l = getPrintLevel();
-        //setPrintLevelInfoPrint();
         setInterpolateXYZ(tmpData[1], tmpData[2], tmpData[3],tmpData[0]);
         float extr =tmpData[4]/extrusionScale;
-        //println_I("Current Extruder MM=");p_fl_W(tmpData[4]);print_I(", Ticks=");p_fl_W(extr);
-        setPrintLevel(l);
+        //println_I("Current Extruder MM=");p_fl_W(tmpData[4]);print_I(", Ticks=");p_fl_W(extr)
         SetPIDTimed(hwMap.Extruder0.index, extr,tmpData[0]);
      }
 }
@@ -285,15 +283,18 @@ BOOL onCartesianPacket(BowlerPacket *Packet){
 
 
 void interpolateZXY(){
+    if(!configured)
+        return;
     float x=0,y=0,z=0;
     float ms= getMs();
     x = interpolate((INTERPOLATE_DATA *)&intCartesian[0],ms);
     y = interpolate((INTERPOLATE_DATA *)&intCartesian[1],ms);
     z = interpolate((INTERPOLATE_DATA *)&intCartesian[2],ms);
-    if(!isCartesianInterpolationDone()){
-        setXYZ( x, y, z);
-    }else if(isCartesianInterpolationDone() && FifoGetPacketCount(&packetFifo)>0){
-        println_W("Loading new packet");
+    //println_W("Interp x=");p_fl_W(x);print_W(" y=");p_fl_W(y);print_W(" z=");p_fl_W(z);
+    if(isCartesianInterpolationDone() == FALSE){
+        setXYZ( x, y, z, 0);
+    }else if( FifoGetPacketCount(&packetFifo)>0){
+        println_W("Loading new packet ");
         if(FifoGetPacket(&packetFifo,&linTmpPack)){
             processLinearInterpPacket(&linTmpPack);
         }
@@ -310,42 +311,46 @@ BYTE setInterpolateXYZ(float x, float y, float z,float ms){
     intCartesian[0].set=x;
     intCartesian[1].set=y;
     intCartesian[2].set=z;
-
+    updateCurrentPositions();
     intCartesian[0].start=xCurrent;
     intCartesian[1].start=yCurrent;
     intCartesian[2].start=zCurrent;
 
 
 
-    println_I("\n\nSetting new position x=");p_fl_W(x);print_W(" y=");p_fl_W(y);print_W(" z=");p_fl_W(z);print_W(" Time MS=");p_fl_W(ms);
-    println_I("Current  position cx=");p_fl_W(xCurrent);
+    println_W("\n\nSetting new position x=");p_fl_W(x);print_W(" y=");p_fl_W(y);print_W(" z=");p_fl_W(z);print_W(" Time MS=");p_fl_W(ms);
+    println_W("Current  position cx=");p_fl_W(xCurrent);
     
     print_W(" cy=");p_fl_W(yCurrent);
     print_W(" cz=");p_fl_W(zCurrent);
-    //println_I("Current  angles t1=");p_fl_E(getLinkAngle(0));print_E(" t2=");p_fl_E(getLinkAngle(1));print_E(" t3=");p_fl_E(getLinkAngle(2));
+    println_W("Current  angles Alpha=");p_fl_W(getLinkAngle(0));print_W(" Beta=");p_fl_W(getLinkAngle(1));print_W(" Gamma=");p_fl_W(getLinkAngle(2));
 
     for(i=0;i<3;i++){
 	intCartesian[i].setTime=ms;
 	intCartesian[i].startTime=start;
     }
     if(ms==0){
-        setXYZ( x,  y,  z);
+        setXYZ( x,  y,  z,0);
+    }else{
+        float ms= getMs();
+        x = interpolate((INTERPOLATE_DATA *)&intCartesian[0],ms);
+        y = interpolate((INTERPOLATE_DATA *)&intCartesian[1],ms);
+        z = interpolate((INTERPOLATE_DATA *)&intCartesian[2],ms);
+        setXYZ( x,  y,  z,0);
     }
 
 }
 
-BYTE setXYZ(float x, float y, float z){
-    xCurrent=x;
-    yCurrent=y;
-    zCurrent=z;
+BYTE setXYZ(float x, float y, float z,float ms){
+    updateCurrentPositions();
     float t0=0,t1=0,t2=0;
     if(hwMap.iK_callback( x,  y, z,  &t0, &t1, &t2)==0){
         println_I("New target angles t1=");p_fl_I(t0);print_I(" t2=");p_fl_I(t1);print_I(" t3=");p_fl_I(t2);
-        setLinkAngle(0,t0,0);
-        setLinkAngle(1,t1,0);
-        setLinkAngle(2,t2,0);
+        setLinkAngle(0,t0,ms);
+        setLinkAngle(1,t1,ms);
+        setLinkAngle(2,t2,ms);
     }else{
-        println_W("Interpolate failed, can't reach: x=");p_fl_W(x);print_W(" y=");p_fl_W(y);print_W(" z=");p_fl_W(z);
+        println_E("Interpolate failed, can't reach: x=");p_fl_E(x);print_E(" y=");p_fl_E(y);print_E(" z=");p_fl_E(z);
     }
 }
 
@@ -475,6 +480,7 @@ void HomeLinks(){
             GetPIDCalibrateionState(linkToHWIndex(2))==CALIBRARTION_DONE
                ){
           homingAllLinks = FALSE;
+          configured = TRUE;
           println_W("All linkes reported in");
           pidReset(hwMap.Extruder0.index,0);
           int i;
