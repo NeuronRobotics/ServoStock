@@ -68,6 +68,13 @@ int main(void) {
 
 	printf("\r\nResult X=%g Y=%g Z=%g",cartestian[0],cartestian[1],cartestian[2]);
 
+
+	// Test Cases
+	printf("\r\n\r\n2D Square Test Case \r\n");
+	float initialPosition[3] = {0,0,0};
+	invSquare(10, initialPosition);
+
+
 	return 0;
 }
 
