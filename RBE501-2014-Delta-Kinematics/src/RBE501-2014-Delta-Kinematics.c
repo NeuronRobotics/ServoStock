@@ -48,7 +48,7 @@ typedef struct _DeltaConfig{
 //							400,//MaxZ
 //							0};//MinZ
 
-
+//Main Function - Issue#2
 int main(void) {
 	puts("Running basic kinematics test"); /* prints !!!Hello World!!! */
 	float cartestian [4]={ 1,0,0,0};
