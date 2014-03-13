@@ -77,6 +77,22 @@ int main(void) {
 	if (twoDSquare(10, initialPosition))
 		return 1;
 
+	printf("\r\n\r\nMaximum 2D Square Test Case \r\n");
+	if (twoDSquare(69, initialPosition))
+		return 1;
+
+	printf("\r\n\r\nToo Large 2D Square Test Case \r\n");
+	twoDSquare(70, initialPosition);
+
+	printf("\r\n\r\n2D Circle Test Case \r\n");
+	float origin[3] = {0,0,0};
+	float testPoints[4][3] = {{0}};
+	define2DCircle(10, 4, origin, &testPoints);
+	float testPositions[4][3] = {{0}};
+	float testJoints[4][3] = {{0}};
+	if (threeDTestCase(4, testPoints, &testPositions, &testJoints))
+		return 1;
+
 	return 0;
 }
 

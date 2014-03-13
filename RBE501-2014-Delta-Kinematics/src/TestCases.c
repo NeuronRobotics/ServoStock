@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include "Kinematics.h"
 
 /*
@@ -99,3 +100,94 @@ int twoDSquare ( int sideLength, float * initialPosition)
 
 	return 0;  //success
 }
+
+/*
+ * Calculate inverse and forward kinematics for a generic 3-D model by a set of discrete points.
+ * The 'positionCount' parameter must be of the same size as all three parameter arrays.
+ */
+int threeDTestCase (int positionCount, const float desiredPositions[][3], float calculatedJoints[][3], float calculatedPositions[][3])
+{
+	// Counter Variables
+	int i = 0;
+
+	// Calculate Inverse for Each Step
+	printf("\r\nInverse Calculations:");
+	for (i = 0; i < positionCount; i++)
+	{
+		// Calculate inverse
+		if (servostock_calcInverse(desiredPositions[i][0], desiredPositions[i][1], desiredPositions[i][2],
+				&calculatedJoints[i][0], &calculatedJoints[i][1], &calculatedJoints[i][2])
+			)
+			return 1;
+
+		// Print to Console
+		printf("\r\nStep %d", i);
+		printf("\rPosition: X=%g, Y=%g, Z=%g",
+				desiredPositions[i][0], desiredPositions[i][1], desiredPositions[i][2]);
+		printf("\rCalculated Joints: A=%g, B=%g, C=%g",
+				calculatedJoints[i][0], calculatedJoints[i][1], calculatedJoints[i][2]);
+	}
+
+	// Calculate Forward for Each Step
+	printf("\r\nForward Calculations:");
+	for (i = 0; i < positionCount; i++)
+	{
+		// Calculate Forward
+		if (servostock_calcForward(calculatedJoints[i][0], calculatedJoints[i][1], calculatedJoints[i][2],
+							   &calculatedPositions[i][0], &calculatedPositions[i][1], &calculatedPositions[i][2]
+							   ))
+			return 1;
+
+		// Print to Console
+		printf("\r\nStep %d", i);
+		printf("\rCalculated Position: X=%g, Y=%g, Z=%g",
+				calculatedPositions[i][0], calculatedPositions[i][1], calculatedPositions[i][2]);
+		printf("\rJoints: A=%g, B=%g, C=%g",
+				calculatedJoints[i][0], calculatedJoints[i][1], calculatedJoints[i][2]);
+	}
+
+	//TODO plot graphically?
+
+	return 0;  //success
+}
+
+/*
+ * Generate a set of data points to define a 2-D circle at a fixed height in the z-direction.
+ * The 'steCount' parameter must be of the same size as the 'dataPoints' parameter fist array.
+ */
+int define2DCircle (int radius, int stepCount, float * origin, float dataPoints[][3])
+{
+	// Setup Variables
+	float alphaStep = (2 * M_PI) / stepCount;
+	float alpha = 0;
+	float x = 0;
+	float y = 0;
+
+	// Define Zeroth Point
+	dataPoints[0][0] = radius + origin[0];
+	dataPoints[0][1] = origin[1];
+	dataPoints[0][2] = origin[2];
+
+	// Define Each Point
+	int i = 0;  //counter
+	for (i = 1; i < stepCount; i++)
+	{
+		alpha = alpha + alphaStep;
+		x = cos(alpha) * radius;
+		y = sin(alpha) * radius;
+
+		if (x < 0.01 && x > -0.01)
+			x = 0;
+		if (y < 0.01 && y > -0.01)
+			y = 0;
+
+		dataPoints[i][0] = x;
+		dataPoints[i][1] = y;
+		dataPoints[i][2] = origin[2];
+
+	}
+
+	return 0;  //success
+}
+
+
