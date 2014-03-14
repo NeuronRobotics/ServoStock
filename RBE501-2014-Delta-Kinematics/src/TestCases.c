@@ -155,7 +155,7 @@ int threeDTestCase (int positionCount, const float desiredPositions[][3], float 
  * Generate a set of data points to define a 2-D circle at a fixed height in the z-direction.
  * The 'steCount' parameter must be of the same size as the 'dataPoints' parameter fist array.
  */
-int define2DCircle (int radius, int stepCount, float * origin, float dataPoints[][3])
+void define2DCircle (int radius, int stepCount, float * origin, float dataPoints[][3])
 {
 	// Setup Variables
 	float alphaStep = (2 * M_PI) / stepCount;
@@ -184,10 +184,7 @@ int define2DCircle (int radius, int stepCount, float * origin, float dataPoints[
 		dataPoints[i][0] = x;
 		dataPoints[i][1] = y;
 		dataPoints[i][2] = origin[2];
-
 	}
-
-	return 0;  //success
 }
 
 

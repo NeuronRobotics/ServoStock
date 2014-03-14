@@ -77,11 +77,11 @@ int main(void) {
 	if (twoDSquare(10, initialPosition))
 		return 1;
 
-	printf("\r\n\r\nMaximum 2D Square Test Case \r\n");
+	printf("\r\n\r\n2D Square Maximum Workspace Test Case \r\n");
 	if (twoDSquare(69, initialPosition))
 		return 1;
 
-	printf("\r\n\r\nToo Large 2D Square Test Case \r\n");
+	printf("\r\n\r\n2D Square Outside Workspace Test Case \r\n");
 	twoDSquare(70, initialPosition);
 
 	printf("\r\n\r\n2D Circle Test Case \r\n");
@@ -93,6 +93,15 @@ int main(void) {
 	if (threeDTestCase(4, testPoints, &testPositions, &testJoints))
 		return 1;
 
+	printf("\r\n\r\n2D Circle Maximum Workspace Test Case \r\n");
+	float testPointsLarge[10][3] = {{0}};
+	define2DCircle(69, 10, origin, &testPointsLarge);
+	float testPositionsLarge[10][3] = {{0}};
+	float testJointsLarge[10][3] = {{0}};
+	if (threeDTestCase(10, testPointsLarge, &testPositionsLarge, &testJointsLarge))
+		return 1;
+
+	printf("\r\n\r\nDone");
 	return 0;
 }
 
