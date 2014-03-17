@@ -52,7 +52,7 @@ typedef struct _DeltaConfig{
 
 //Main Function - Issue#2
 int main(void) {
-	puts("Running basic kinematics test"); /* prints !!!Hello World!!! */
+	puts("Running basic kinematics test");
 	float cartestian [4]={ 1,0,0,0};
 	//float joint [3] = {0,0,0};
 

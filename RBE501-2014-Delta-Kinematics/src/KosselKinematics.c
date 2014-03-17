@@ -165,3 +165,77 @@ int servostock_calcForward(float Alpha, float Beta, float Gamma, float * X, floa
 
           return 0;//success
 }
+
+int servostock_velInverse(float A, float B, float C){
+
+//TODO Complete Inverse Velocity calculation section below.
+	/*
+		// Setup
+		float drad = defaultConfig.BaseRadius-defaultConfig.EndEffectorRadius;
+        float SIN_60 = 0.8660254037844386;
+        float COS_60 = 0.5;
+
+        // Establish initial conditions
+		float x2 = -SIN_60 * drad;
+		float x3 = SIN_60 * drad;
+
+		float y1 = drad;
+		float y2 = -COS_60 * drad;
+		float y3 = -COS_60 * drad;
+
+		float z1 = A;
+		float z2 = B;
+		float z3 = C;
+
+		float re = defaultConfig.RodLength;
+
+		float dnm = (x3 * (y2 - y1)) - (x2 * (y3 - y1));
+
+		float w1 = y1 * y1 + z1 * z1;
+		float w2 = x2 * x2 + y2 * y2 + z2 * z2;
+		float w3 = x3 * x3 + y3 * y3 + z3 * z3;
+
+		float a1 = ((z2 - z1) * (y3 - y1)) - ((z3 - z1) * (y2 - y1));
+		float a2 = (x3 * (z2 - z1) * -1) - (x2 * (z3 - z1));
+
+		float b1 = (((w2 - w1) * (y3 - y1)) - ((w3 - w1) * (y2 - y1))) * -.5;
+		float b2 = ((x3 * (w2 - w1) * -1) - (x2 * (w3 - w1))) * .5;
+
+		float a = a1 * a1 + a2 * a2 + dnm * dnm;
+		float b = ((a1 * b1) + (a2 * (b2 - (y1 * dnm))) - (z1 * dnm * dnm)) * 2;
+		float c = (b2 - (y1 * dnm)) * (b2 - (y1 * dnm)) + b1 * b1 + (dnm * dnm * (z1 * z1 - re * re));
+		float d = b * b - (4 * a * c);
+
+//TODO Take Square Root of d (substitute in for d) without using math.h in Z declaration.
+		float Z = ((b + d) / a) * -.5;
+		float X = ((a1 * Z) + b1) / dnm;
+		float Y = ((a2 * Z) + b2) / dnm;
+
+//TODO Determine derivative procedure for Jacobian section.  Convert from symbolic matlab procedure.
+		// Jacobian Calculations
+		float J11 = X; // Derivative of X with respect to A
+		float J12 = X; // Derivative of X with respect to B
+		float J13 = X; // Derivative of X with respect to C
+
+		float J21 = Y; // Derivative of Y with respect to A
+		float J22 = Y; // Derivative of Y with respect to B
+		float J23 = Y; // Derivative of Y with respect to C
+
+		float J31 = Z; // Derivative of Z with respect to A
+		float J32 = Z; // Derivative of Z with respect to B
+		float J33 = Z; // Derivative of Z with respect to C
+
+		int J = { { J11, J12, J13 }, { J21, J22, J23 }, { J31, J32, J33 } };
+
+		// Velocity Kinematics Outputs
+		int jointDot = {A, B, C};
+		int taskDot = {X, Y, Z};
+
+//TODO Generate matrix multiplication, inverse and transpose functions for below if math.h is not an option.
+		int taskDotF = J * jointDot;
+		//int jointDotI = (transpose J * inverse (J * transpose J) * taskDot;
+*/
+
+    return 0;//success
+}
+
