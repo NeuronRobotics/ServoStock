@@ -174,16 +174,35 @@ int servostock_calcForward(float Alpha, float Beta, float Gamma, float * X, floa
 int servostock_velInverse(float X, float Y, float Z, float Xd, float Yd, float Zd,
 		float Ad, float Bd, float Cd){
 
+
 	// Calculate Current Joint Positions from given Tool Positions
-	//TODO (X, Y, Z) -> (A, B, C)
+	float A = 0;
+	float B = 0;
+	float C = 0;
+	if (servostock_calcInverse(X, Y, Z, &A, &B, &C))
+		return 1;
+
 
 
 	// Calculate Jacobian matrix from calculated Joint Positions
-	//TODO form Jacobian equations as derivatives of Forward Position equations (example: dX(A, B, C, constants))
+	float drad = defaultConfig.BaseRadius-defaultConfig.EndEffectorRadius;
+	float SIN_60 = 0.8660254037844386;
+	float COS_60 = 0.5;
+
+	//TODO equations as derivatives of Forward Position equations in terms of A, B, C and constants
+	//	* use Matlab reference to form these equations
+
+	//TODO form Jacobian from previous equations
+	//	J = [pdX/dA pdX/dB pdX/dC;
+	//		 pdY/dA pdY/dB pdY/dC;
+	//		 pdZ/dA pdZ/dB pdZ/dC]
+
 
 
 	// Calculate Joint Velocities from Jacobian and desired Tool Velocities
-	//TODO (Ad, Bd, Cd) = Jinv * (Xd, Yd, Zd)
+	//TODO calculate joint velocities
+	//	(Ad, Bd, Cd) = (pseudo inverse of J) * (Xd, Yd, Zd)
+	//	pseudo inverse of J = (J' * inv(J * J'))
 
 
 	return 0; //success
