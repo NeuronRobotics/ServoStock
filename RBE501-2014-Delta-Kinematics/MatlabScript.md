@@ -19,9 +19,17 @@ clc
 
 format ('short');
 
-% Forward Kinematics
+% -- begin Inverse Velocity formulation --
+
+% Inverse Position
+% input: X, Y, Z (values)
+% output: A, B, C (values)
+% use existing C-code
+
+
+% Forward Position Equations for Jacobian
 % input: A, B, C
-% output: X, Y, Z
+% output: Xeq, Yeq, Zeq
 syms A B C;
 
 drad = 175.00 - 40.32;
@@ -56,44 +64,59 @@ b = ((a1 * b1) + (a2 * (b2 - (y1 * dnm))) - (z1 * dnm^2)) * 2;
 c = (b2 - (y1 * dnm))^2 + b1^2 + (dnm^2 * (z1^2 - re^2));
 d = b^2 - (4 * a * c);
 
-Z = ((b + sqrt(d)) / a) * -0.5;
-X = ((a1 * Z) + b1) / dnm;
-Y = ((a2 * Z) + b2) / dnm;
-
-
-% Position Example
-jointEx = [153 153 153];
-taskExZ = subs(Z, [A, B, C], jointEx);
-taskExX = subs(X, [A, B, C], jointEx);
-taskExY = subs(Y, [A, B, C], jointEx);
-taskEx = [taskExX; taskExY; taskExZ];
+Zeq = ((b + sqrt(d)) / a) * -0.5;
+Xeq = ((a1 * Z) + b1) / dnm;
+Yeq = ((a2 * Z) + b2) / dnm;
 
 
 % Jacobian
-J11 = diff(X, A);
-J12 = diff(X, B);
-J13 = diff(X, C);
+% input: A, B, C and Xeq, Yeq, Zeq
+% output: J
+J11 = diff(Xeq, A);
+J12 = diff(Xeq, B);
+J13 = diff(Xeq, C);
 
-J21 = diff(Y, A);
-J22 = diff(Y, B);
-J23 = diff(Y, C);
+J21 = diff(Yeq, A);
+J22 = diff(Yeq, B);
+J23 = diff(Yeq, C);
 
-J31 = diff(Z, A);
-J32 = diff(Z, B);
-J33 = diff(Z, C);
+J31 = diff(Zeq, A);
+J32 = diff(Zeq, B);
+J33 = diff(Zeq, C);
 
 J = [J11 J12 J13; J21 J22 J23; J31 J32 J33];
 
 
-% Velocity Kinematics
+% Inverse Velocity
+% input: J and Xd, Yd, Zd
+% output: Ad, Bd, Cd
+
 syms Xd Yd Zd;
 syms Ad Bd Cd;
 
 jointDot = [Ad; Bd; Cd];
 taskDot = [Xd; Yd; Zd];
 
-taskDotF = J * jointDot;
-jointDotI = (J' * inv(J * J')) * taskDot;
+jointDot = (J' * inv(J * J')) * taskDot;
+
+% -- end formulation --
+
+
+% Inverse Velocity Kinematics Useage in C-code
+
+% input: tool position (X, Y, Z), desired tool velocity (Xd, Yd, Zd)
+% calculate current joint position (A, B, C) through existing Inverse Position function
+% calculate Jacobian (J) using predefined formulas (?) of joint positions (A, B, C)
+% calculate joint velocities (Ad, Bd, Cd) using Jacobian (J) and desired tool velocities (Xd, Yd, Zd)
+% output: joint velocities (Ad, Bd, Cd)
+
+
+% Position Example (as check of Matlab code)
+jointEx = [153 153 153];
+taskExZ = subs(Z, [A, B, C], jointEx);
+taskExX = subs(X, [A, B, C], jointEx);
+taskExY = subs(Y, [A, B, C], jointEx);
+taskEx = [taskExX; taskExY; taskExZ];
 
 
 % Velocity Example
