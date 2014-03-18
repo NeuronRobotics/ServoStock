@@ -166,10 +166,31 @@ int servostock_calcForward(float Alpha, float Beta, float Gamma, float * X, floa
           return 0;//success
 }
 
-int servostock_velInverse(float A, float B, float C){
+/* Function: Inverse Velocity
+ * Inputs: current tool position (X, Y, Z) and desired tool velocities (Xd, Yd, Zd)
+ * Outputs: joint velocities (Ad, Bd, Cd)
+ */
 
+int servostock_velInverse(float X, float Y, float Z, float Xd, float Yd, float Zd,
+		float Ad, float Bd, float Cd){
+
+	// Calculate Current Joint Positions from given Tool Positions
+	//TODO (X, Y, Z) -> (A, B, C)
+
+
+	// Calculate Jacobian matrix from calculated Joint Positions
+	//TODO form Jacobian equations as derivatives of Forward Position equations (example: dX(A, B, C, constants))
+
+
+	// Calculate Joint Velocities from Jacobian and desired Tool Velocities
+	//TODO (Ad, Bd, Cd) = Jinv * (Xd, Yd, Zd)
+
+
+	return 0; //success
+
+/*
 //TODO Complete Inverse Velocity calculation section below.
-	/*
+
 		// Setup
 		float drad = defaultConfig.BaseRadius-defaultConfig.EndEffectorRadius;
         float SIN_60 = 0.8660254037844386;
@@ -235,7 +256,5 @@ int servostock_velInverse(float A, float B, float C){
 		int taskDotF = J * jointDot;
 		//int jointDotI = (transpose J * inverse (J * transpose J) * taskDot;
 */
-
-    return 0;//success
 }
 
