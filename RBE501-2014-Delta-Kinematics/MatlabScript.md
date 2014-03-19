@@ -32,7 +32,10 @@ format ('short');
 % output: Xeq, Yeq, Zeq
 syms A B C;
 
-drad = 175.00 - 40.32;
+
+% drad = 175.00 - 40.32;
+syms drad;
+
 
 x2 = -sin(pi/3) * drad;
 x3 = sin(pi/3) * drad;
@@ -43,9 +46,10 @@ y3 = -cos(pi/3) * drad;
 
 z1 = A;
 z2 = B;
-z3 = A;
+z3 = C;
 
-re = 203.82;
+% re = 203.82;
+syms re;
 
 dnm = (x3 * (y2 - y1)) - (x2 * (y3 - y1));
 
@@ -57,7 +61,7 @@ a1 = ((z2 - z1) * (y3 - y1)) - ((z3 - z1) * (y2 - y1));
 a2 = (x3 * (z2 - z1) * -1) - (x2 * (z3 - z1));
 
 b1 = (((w2 - w1) * (y3 - y1)) - ((w3 - w1) * (y2 - y1))) * -0.5;
-b2 = ((x3 * (w2 - w1) * -1) - (x2 * (w3 - w1))) * 0.5;
+b2 = ((x3 * (w2 - w1)) - (x2 * (w3 - w1))) * 0.5;
 
 a = a1^2 + a2^2 + dnm^2;
 b = ((a1 * b1) + (a2 * (b2 - (y1 * dnm))) - (z1 * dnm^2)) * 2;
