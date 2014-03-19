@@ -174,14 +174,12 @@ int servostock_calcForward(float Alpha, float Beta, float Gamma, float * X, floa
 int servostock_velInverse(float X, float Y, float Z, float Xd, float Yd, float Zd,
 		float Ad, float Bd, float Cd){
 
-
 	// Calculate Current Joint Positions from given Tool Positions
 	float A = 0;
 	float B = 0;
 	float C = 0;
 	if (servostock_calcInverse(X, Y, Z, &A, &B, &C))
 		return 1;
-
 
 
 	// Calculate Jacobian matrix from calculated Joint Positions
@@ -191,23 +189,29 @@ int servostock_velInverse(float X, float Y, float Z, float Xd, float Yd, float Z
 
 	//TODO equations as derivatives of Forward Position equations in terms of A, B, C and constants
 	//	* use Matlab reference to form these equations
+	float J11 = 0;  //= pdX/dA
+	float J12 = 0;  //= pdX/dB
+	float J13 = 0;  //= pdX/dC
 
-	//TODO form Jacobian from previous equations
-	//	J = [pdX/dA pdX/dB pdX/dC;
-	//		 pdY/dA pdY/dB pdY/dC;
-	//		 pdZ/dA pdZ/dB pdZ/dC]
+	float J21 = 0;  //= pdY/dA
+	float J22 = 0;  //= pdY/dB
+	float J23 = 0;  //= pdY/dC
 
+	float J31 = 0;  //= pdZ/dA
+	float J32 = 0;  //= pdZ/dB
+	float J33 = 0;  //= pdZ/dC
+
+	float J[3][3] = { {J11, J12, J13}, {J21, J22, J23}, {J31, J32, J33} };
 
 
 	// Calculate Joint Velocities from Jacobian and desired Tool Velocities
-	//TODO calculate joint velocities
-	//	(Ad, Bd, Cd) = (pseudo inverse of J) * (Xd, Yd, Zd)
-	//	pseudo inverse of J = (J' * inv(J * J'))
+	float pJ = {{0}};  //TODO pseudo-inverse of J matrix J = (J' * inv(J * J'))
 
+	//TODO	(Ad, Bd, Cd) = (pseudo inverse of J) * (Xd, Yd, Zd)
 
 	return 0; //success
 
-/*
+/* Mike's notes from MatlabScript.md
 //TODO Complete Inverse Velocity calculation section below.
 
 		// Setup
