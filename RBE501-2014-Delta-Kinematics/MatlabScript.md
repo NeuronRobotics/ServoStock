@@ -69,8 +69,8 @@ c = (b2 - (y1 * dnm))^2 + b1^2 + (dnm^2 * (z1^2 - re^2));
 d = b^2 - (4 * a * c);
 
 Zeq = ((b + sqrt(d)) / a) * -0.5;
-Xeq = ((a1 * Z) + b1) / dnm;
-Yeq = ((a2 * Z) + b2) / dnm;
+Xeq = ((a1 * Zeq) + b1) / dnm;
+Yeq = ((a2 * Zeq) + b2) / dnm;
 
 
 % Jacobian
@@ -89,6 +89,26 @@ J32 = diff(Zeq, B);
 J33 = diff(Zeq, C);
 
 J = [J11 J12 J13; J21 J22 J23; J31 J32 J33];
+
+% Print Jacobian Entries
+disp('J11');
+simplify(J11)
+disp('J12');
+simplify(J12)
+disp('J13');
+simplify(J13)
+disp('J21');
+simplify(J21)
+disp('J22');
+simplify(J22)
+disp('J23');
+simplify(J23)
+disp('J31');
+simplify(J31)
+disp('J32');
+simplify(J32)
+disp('J33');
+simplify(J33)
 
 
 % Inverse Velocity
@@ -124,8 +144,8 @@ taskEx = [taskExX; taskExY; taskExZ];
 
 
 % Velocity Example
-taskVelEx = [10; 0; 0]
+taskVelEx = [10; 0; 0];
 JeX = subs(J, [A, B, C], taskEx');
 JeXInv = (JeX' * inv(JeX * JeX'));
-jointVelEx = JeXInv * taskVelEx
+jointVelEx = JeXInv * taskVelEx;
 
