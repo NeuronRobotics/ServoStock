@@ -103,6 +103,10 @@ int main(void) {
 	if (threeDTestCase(10, testPointsLarge, &testPositionsLarge, &testJointsLarge))
 		return 1;
 
+	printf("\r\n\r\n2D Triangle Test Case \r\n");
+		if (twoDTriangle(10, initialPosition))
+			return 1;
+
 	printf("\r\n\r\nDone");
 	return 0;
 }
