@@ -23,22 +23,24 @@ format ('short');
 syms A B C;
 
 
-drad = 175.00 - 40.32;
+drad = 175.00 - 40.32; %mm
 % syms drad;
+sin60 = 0.866;
+cos60 = 0.5;
 
 
-x2 = -sin(pi/3) * drad;
-x3 = sin(pi/3) * drad;
+x2 = -1 * sin60 * drad;
+x3 = sin60 * drad;
 
 y1 = drad;
-y2 = -cos(pi/3) * drad;
-y3 = -cos(pi/3) * drad;
+y2 = -1 * cos60 * drad;
+y3 = -1 * cos60 * drad;
 
 z1 = A;
 z2 = B;
 z3 = C;
 
-re = 203.82; 
+re = 203.82; %mm
 % syms re;
 
 dnm = (x3 * (y2 - y1)) - (x2 * (y3 - y1));
@@ -50,7 +52,7 @@ w3 = x3^2 + y3^2 + z3^2;
 a1 = ((z2 - z1) * (y3 - y1)) - ((z3 - z1) * (y2 - y1));
 a2 = (x3 * (z2 - z1) * -1) + (x2 * (z3 - z1));
 
-b1 = (((w2 - w1) * (y3 - y1)) - ((w3 - w1) * (y2 - y1))) * -0.5;
+b1 = (((w2 - w1) * (y3 - y1)) - ((w3 - w1) * (y2 - y1))) * -1 * 0.5;
 b2 = ((x3 * (w2 - w1)) - (x2 * (w3 - w1))) * 0.5;
 
 a = a1^2 + a2^2 + dnm^2;
@@ -58,9 +60,9 @@ b = ((a1 * b1) + (a2 * (b2 - (y1 * dnm))) - (z1 * dnm^2)) * 2;
 c = (b2 - (y1 * dnm))^2 + b1^2 + (dnm^2 * (z1^2 - re^2));
 d = b^2 - (4 * a * c);
 
-Zeq = ((b + sqrt(d)) * a) * -0.5;
-Xeq = ((a1 * Zeq) + b1) * dnm;
-Yeq = ((a2 * Zeq) + b2) * dnm;
+Zeq = ((b + sqrt(d)) / a) * -1 * 0.5;
+Xeq = ((a1 * Zeq) + b1) / dnm;
+Yeq = ((a2 * Zeq) + b2) / dnm;
 
 
 % Jacobian
@@ -126,20 +128,20 @@ J = [J11 J12 J13; J21 J22 J23; J31 J32 J33];
 
 
 % Position Examples (as check of Matlab code)
-jointEx = [153 153 153]
+jointEx = [160 180 180] %mm
 taskExZ = subs(Zeq, [A, B, C], jointEx);
 taskExX = subs(Xeq, [A, B, C], jointEx);
 taskExY = subs(Yeq, [A, B, C], jointEx);
-taskEx = [taskExX; taskExY; taskExZ]
+taskEx = [taskExX; taskExY; taskExZ] %mm
 
 
 % Velocity Examples
-taskVelEx1 = [100; 0; 0]
+taskVelEx1 = [100; 0; 0] %mm/s
 JeX1 = subs(J, [A, B, C], [153, 153, 153]);
 JeXInv1 = (JeX1' * inv(JeX1 * JeX1'));
-jointVelEx1 = JeXInv1 * taskVelEx1
+jointVelEx1 = JeXInv1 * taskVelEx1 %mm/s
 
-taskVelEx2 = [0; 100; 0]
+taskVelEx2 = [0; 100; 0] %mm/s
 JeX2 = subs(J, [A, B, C], [153, 153, 153]);
 JeXInv2 = (JeX2' * inv(JeX2 * JeX2'));
-jointVelEx2 = JeXInv2 * taskVelEx2
+jointVelEx2 = JeXInv2 * taskVelEx2 %mm/s
