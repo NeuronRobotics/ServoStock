@@ -25,6 +25,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <inttypes.h>
+#include <math.h>
 //#include <Bowler/Debug.h>
 
 typedef struct _DeltaConfig{
@@ -68,7 +69,7 @@ int servostock_calcInverse(float X, float Y, float Z, float *Alpha, float *Beta,
     if(maxRad>(L/2)*.97 || Z<defaultConfig.MinZ||Z>defaultConfig.MaxZ){
         //println_E("Outside of workspace x=");p_fl_E(X);print_E(" y=");p_fl_E(Y);print_E(" z=");p_fl_E(Z);print_E(" Bound radius=");p_fl_E((maxRad));
     	printf("\r\nOutside of workspace x= %g y=%g z=%g Bound = %g",X,Y,Z,maxRad);
-        return 1;//This is ourside the reachable work area
+        return 1;//This is outside the reachable work area
     }
     
     float SIN_60 = 0.8660254037844386;
@@ -201,19 +202,20 @@ int servostock_velInverse(float X, float Y, float Z, float Xd, float Yd, float Z
 	float J32 = 0;  //= pdZ/dB
 	float J33 = 0;  //= pdZ/dC
 
-	float J[3][3] = { {J11, J12, J13}, {J21, J22, J23}, {J31, J32, J33} };
+	// float J[3][3] = { {J11, J12, J13}, {J21, J22, J23}, {J31, J32, J33} };
 
 
 	// Calculate Joint Velocities from Jacobian and desired Tool Velocities
-	float pJ = {{0}};  //TODO pseudo-inverse of J matrix J = (J' * inv(J * J'))
+	// float pJ = {{0}};  //TODO pseudo-inverse of J matrix J = (J' * inv(J * J'))
 
 	//TODO	(Ad, Bd, Cd) = (pseudo inverse of J) * (Xd, Yd, Zd)
 
 	return 0; //success
+}
 
-/* Mike's notes from MatlabScript.md
-//TODO Complete Inverse Velocity calculation section below.
-
+// Mike's notes from MatlabScript.md
+//TODO Complete Forward Velocity calculation section below.
+int servostock_velForward(float A, float B, float C){
 		// Setup
 		float drad = defaultConfig.BaseRadius-defaultConfig.EndEffectorRadius;
         float SIN_60 = 0.8660254037844386;
@@ -235,9 +237,9 @@ int servostock_velInverse(float X, float Y, float Z, float Xd, float Yd, float Z
 
 		float dnm = (x3 * (y2 - y1)) - (x2 * (y3 - y1));
 
-		float w1 = y1 * y1 + z1 * z1;
-		float w2 = x2 * x2 + y2 * y2 + z2 * z2;
-		float w3 = x3 * x3 + y3 * y3 + z3 * z3;
+		float w1 = pow(y1,2) + pow(z1,2);
+		float w2 = pow(x2,2) + pow(y2,2) + pow(z2,2);
+		float w3 = pow(x3,2) + pow(y3,2) + pow(z3,2);
 
 		float a1 = ((z2 - z1) * (y3 - y1)) - ((z3 - z1) * (y2 - y1));
 		float a2 = (x3 * (z2 - z1) * -1) - (x2 * (z3 - z1));
@@ -245,13 +247,12 @@ int servostock_velInverse(float X, float Y, float Z, float Xd, float Yd, float Z
 		float b1 = (((w2 - w1) * (y3 - y1)) - ((w3 - w1) * (y2 - y1))) * -.5;
 		float b2 = ((x3 * (w2 - w1) * -1) - (x2 * (w3 - w1))) * .5;
 
-		float a = a1 * a1 + a2 * a2 + dnm * dnm;
-		float b = ((a1 * b1) + (a2 * (b2 - (y1 * dnm))) - (z1 * dnm * dnm)) * 2;
-		float c = (b2 - (y1 * dnm)) * (b2 - (y1 * dnm)) + b1 * b1 + (dnm * dnm * (z1 * z1 - re * re));
-		float d = b * b - (4 * a * c);
+		float a = pow(a1,2) + pow(a2,2) + pow(dnm,2);
+		float b = ((a1 * b1) + (a2 * (b2 - (y1 * dnm))) - (z1 * pow(dnm,2))) * 2;
+		float c = pow((b2 - (y1 * dnm)),2) + pow(b1,2) + (pow(dnm,2) * (pow(z1,2) - pow(re,2)));
+		float d = pow(b,2) - (4 * a * c);
 
-//TODO Take Square Root of d (substitute in for d) without using math.h in Z declaration.
-		float Z = ((b + d) / a) * -.5;
+		float Z = ((b + sqrt(d)) / a) * -.5;
 		float X = ((a1 * Z) + b1) / dnm;
 		float Y = ((a2 * Z) + b2) / dnm;
 
@@ -276,8 +277,7 @@ int servostock_velInverse(float X, float Y, float Z, float Xd, float Yd, float Z
 		int taskDot = {X, Y, Z};
 
 //TODO Generate matrix multiplication, inverse and transpose functions for below if math.h is not an option.
-		int taskDotF = J * jointDot;
-		//int jointDotI = (transpose J * inverse (J * transpose J) * taskDot;
-*/
+		//int jointDot = (J' * inv(J * J') * jointDot;
+return 0;
 }
 
