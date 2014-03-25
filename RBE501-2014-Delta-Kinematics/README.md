@@ -1,5 +1,11 @@
 https://help.github.com/articles/github-flavored-markdown 
 
+Forward/Inverse Velocity Technique:
+1) Forward Velocity: Derived in the MatlabScript.md file. The technique used to derive the forward velocity for the Delta Robot was to
+take the Jacobian of the Position Kinematics in order to create a Jacobian matrix that aids in deriving the forward velocity of the end effector. More details of this technique can be found in the MatlabScript.md file.
+
+2) Inverse Velocity Technique: Derived in MatlabScript.md file. Since the Jacobian was used to determine the forward velocity of the Delta Robot, the Inverse Velocity was a straight forward technique known as the Derivation of the Pseudoinverse (Moore-Penrose Inverse). The reason this technique was used as opposed to simply taking the inverse of the Jacobian and multiplying by the velocity matrix of the end effector is because in our case we had a greater number of rows than columns (e.g. n>m) in our matrix. More details of this technique can be found in the MatlabScript.md file.
+
 
 Manual Test Procedures:
 Forward Position Kinematics Test Case:
