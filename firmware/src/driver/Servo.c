@@ -76,7 +76,7 @@ void setServoTimer(int value){
         value = 0xfffe;
     //PR2 = value;
     OpenTimer2(T2_ON | T2_SOURCE_INT | T2_PS_1_256, value);
-    ConfigIntTimer2(T2_INT_ON | T2_INT_PRIOR_5);
+    ConfigIntTimer2(T2_INT_ON | T2_INT_PRIOR_7);
 }
 
 void setTimerLowTime(){
@@ -174,7 +174,7 @@ void servoTimerEvent()
         //EndCritical();
 }
 
-void __ISR(_TIMER_2_VECTOR, ipl5) Timer2Handler(void){
+void __ISR(_TIMER_2_VECTOR, ipl7) Timer2Handler(void){
     servoTimerEvent();
 }
 

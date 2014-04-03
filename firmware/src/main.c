@@ -84,7 +84,7 @@ extern MAC_ADDR MyMAC __attribute__ ((section (".scs_global_var")));
 static BowlerPacket Packet;
 
 static BowlerPacket MyPacket;
-static RunEveryData pid ={0,200};
+static RunEveryData pid ={0,10};
 
 //static RunEveryData pos ={0,5};
 
@@ -133,23 +133,31 @@ BYTE Bowler_Server_Local(BowlerPacket * Packet){
 
 
 void hardwareInit(){
+
      // Configure the device for maximum performance but do not change the PBDIV
 	// Given the options, this function will change the flash wait states, RAM
 	// wait state and enable prefetch cache but will not change the PBDIV.
 	// The PBDIV value is already set via the pragma FPBDIV option above..
 	SYSTEMConfig(SYS_FREQ, SYS_CFG_WAIT_STATES | SYS_CFG_PCACHE);
         SYSTEMConfigPerformance(80000000);
-
+            (_TRISF5)=INPUT; // for the reset sw
         setPrintLevelInfoPrint();
         ATX_DISENABLE();
 
+
         Pic32_Bowler_HAL_Init();
+  
+
 
 	Bowler_Init();
         println_I("\n\n\nStarting PIC initialization");
+
+        FlashGetMac(MyMAC.v);
+
         DelayMs(2000);//This si to prevent runaway during programming
 	// enable driven to 3.3v on uart 1
 	mPORTDOpenDrainClose(BIT_3); mPORTFOpenDrainClose(BIT_5);
+
 	char macStr[13];
 
 	for (i=0;i<6;i++){
@@ -235,6 +243,9 @@ void SPItest(){
 BOOL printCalibrations = FALSE;
 int main(){
     hardwareInit();
+    //StartCritical();
+
+
     runPidHysterisisCalibration(0);
     runPidHysterisisCalibration(1);
     runPidHysterisisCalibration(2);
@@ -245,9 +256,20 @@ int main(){
     setPrintLevelWarningPrint();
     //setPrintLevelNoPrint();
     (_TRISB0)=1;
+
     SetColor(1,1,1);
+                HEATER_2_TRIS = OUTPUT;
+                //HEATER_1_TRIS = OUTPUT; // Causes one of the axies to crawl downward in bursts when enabled and on...
+                //HEATER_0_TRIS = OUTPUT; // causes device to twitc. These are touched by the USB stack somehow..... and as the reset button
+
     while(1){
-        if (_RB0==1){
+        //HEATER_0=1;
+        //HEATER_1=1;
+        //HEATER_2=1; // Works, can pull it high or low but it seems to go low briefly, something is touching it. but it works.
+        // 1 is off 0 is on.
+        // Sensor is on RB3
+
+        if (_RF5==1){
             setPrintLevelErrorPrint();
 		p_int_E(0);print_E(" Reset Button Pressed from loop");
 		SetColor(1,1,1);
@@ -270,9 +292,7 @@ int main(){
             }
             startHomingLinks();
         }
-        //
-        HomeLinks();
-        //}
+
         bowlerSystem();
     }
 }

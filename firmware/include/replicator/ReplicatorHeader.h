@@ -15,7 +15,7 @@ extern "C" {
     // ATX MAcros and defines
     #define     ATX_PWR_ON_TRIS    _TRISF0 // tris
     #define     ATX_PWR_ON         _RF0
-    #define     ATX_ENABLED        0
+    #define     ATX_ENABLED        1
 
     #define     SPI_CLK_TRIS        _TRISG6 // tris
     #define     SPI_MISO_TRIS       _TRISG8 // tris

@@ -5,7 +5,7 @@
     #define SIZE_OF_PACKET_BUFFER 60
 #endif
 
-
+void updateCurrentPositions();
 
 static int homingAllLinks = FALSE;
 
@@ -52,13 +52,22 @@ HardwareMap hwMap ={
 
 
 BOOL isCartesianInterpolationDone(){
-    int setpointBound = 5;
+    updateCurrentPositions();
+    float targets[3] = {xCurrent,yCurrent,zCurrent};
+    int setpointBound = 200;
+    float mmPositionResolution = 5.0;
     int i;
     for(i=0;i<4;i++){
-        if( isPIDArrivedAtSetpoint(i, setpointBound) == FALSE
-          ){
-            //println_W("LINK not done moving index = ");p_int_W(linkToHWIndex(i));
-            //print_W(" has arrived = ");p_int_W(isPIDArrivedAtSetpoint(i, setpointBound));
+        if(i<3){
+            if(!bound(intCartesian[i].set,targets[i],mmPositionResolution,mmPositionResolution)){
+                //println_W("Interpolation not done on to: ");p_fl_W(intCartesian[i].set);print_W(" is = ");p_fl_W(targets[i]);
+                return FALSE;
+            }
+        }
+        if( (isPIDArrivedAtSetpoint(linkToHWIndex(i), setpointBound) == FALSE) && (i==3) ){
+            println_W("LINK not done moving index = ");p_int_W(linkToHWIndex(i));
+            print_W(" currently is = ");    p_fl_W(getPidGroupDataTable()[linkToHWIndex(i)].CurrentState);
+            print_W(" heading towards = "); p_fl_W(getPidGroupDataTable()[linkToHWIndex(i)].SetPoint);
             return FALSE;
         }
 
@@ -283,15 +292,19 @@ BOOL onCartesianPacket(BowlerPacket *Packet){
 
 
 void interpolateZXY(){
-    if(!configured)
+    if(!configured){
+        HomeLinks();
         return;
+    }
+   
     float x=0,y=0,z=0;
     float ms= getMs();
+
     x = interpolate((INTERPOLATE_DATA *)&intCartesian[0],ms);
     y = interpolate((INTERPOLATE_DATA *)&intCartesian[1],ms);
     z = interpolate((INTERPOLATE_DATA *)&intCartesian[2],ms);
-    //println_W("Interp x=");p_fl_W(x);print_W(" y=");p_fl_W(y);print_W(" z=");p_fl_W(z);
     if(isCartesianInterpolationDone() == FALSE){
+        //println_W("Interp x=");p_fl_W(x);print_W(" y=");p_fl_W(y);print_W(" z=");p_fl_W(z);
         setXYZ( x, y, z, 0);
     }else if( FifoGetPacketCount(&packetFifo)>0){
         println_W("Loading new packet ");
@@ -416,65 +429,18 @@ float setLinkAngle(int index, float value, float ms){
 void startHomingLink(int group, PidCalibrationType type);
 
 void startHomingLinks(){
-    println_I("Homing links for kinematics");
+    println_W("Homing links for kinematics");
 
     homingAllLinks =TRUE;
 
     startHomingLink(linkToHWIndex(0), CALIBRARTION_home_down);
     startHomingLink(linkToHWIndex(1), CALIBRARTION_home_down);
     startHomingLink(linkToHWIndex(2), CALIBRARTION_home_down);
-    println_I("Started Homing...");
-}
-
-void startHomingLink(int group, PidCalibrationType type){
-    float speed=20.0;
-    if(type == CALIBRARTION_home_up)
-       speed*=1.0;
-    else if (type == CALIBRARTION_home_down)
-        speed*=-1.0;
-    else{
-        println_E("Invalid homing type");
-        return;
-    }
-    SetPIDCalibrateionState(group, type);
-    setOutput(group, speed);
-    getPidGroupDataTable()[group].timer.MsTime=getMs();
-    getPidGroupDataTable()[group].timer.setPoint = 1000;
-    getPidGroupDataTable()[group].homing.homingStallBound = 2;
-    getPidGroupDataTable()[group].homing.previousValue = GetPIDPosition(group);
-}
-
-void checkLinkHomingStatus(int group){
-    if(!(   GetPIDCalibrateionState(group)==CALIBRARTION_home_down ||
-            GetPIDCalibrateionState(group)==CALIBRARTION_home_up)
-            ){
-        return;//Calibration is not running
-    }
-    if(RunEvery(&getPidGroupDataTable()[group].timer)>0){
-            float boundVal = getPidGroupDataTable()[group].homing.homingStallBound;
-
-            if( bound(  getPidGroupDataTable()[group].homing.previousValue,
-                        GetPIDPosition(group),
-                        boundVal,
-                        boundVal
-                    )
-                ){
-                pidReset(group,0);
-                println_W("Homing Done for group ");p_int_W(group);
-                SetPIDCalibrateionState(group, CALIBRARTION_DONE);
-            }else{
-
-                getPidGroupDataTable()[group].homing.previousValue = GetPIDPosition(group);
-            }
-        }
+    println_W("Started Homing...");
 }
 
 void HomeLinks(){
     if(homingAllLinks){
-       checkLinkHomingStatus(linkToHWIndex(0));
-       checkLinkHomingStatus(linkToHWIndex(1));
-       checkLinkHomingStatus(linkToHWIndex(2));
-
        if ( GetPIDCalibrateionState(linkToHWIndex(0))==CALIBRARTION_DONE&&
             GetPIDCalibrateionState(linkToHWIndex(1))==CALIBRARTION_DONE&&
             GetPIDCalibrateionState(linkToHWIndex(2))==CALIBRARTION_DONE
