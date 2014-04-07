@@ -28,6 +28,8 @@ float lastXYZE[4];
 
 static RunEveryData pid ={0,100};
 
+static BOOL keepCartesianPosition =FALSE;
+
 
 //Default values for ServoStock
 HardwareMap hwMap ={
@@ -296,23 +298,25 @@ void interpolateZXY(){
         HomeLinks();
         return;
     }
-   
-    float x=0,y=0,z=0;
-    float ms= getMs();
+    if(keepCartesianPosition){
+        float x=0,y=0,z=0;
+        float ms= getMs();
 
-    x = interpolate((INTERPOLATE_DATA *)&intCartesian[0],ms);
-    y = interpolate((INTERPOLATE_DATA *)&intCartesian[1],ms);
-    z = interpolate((INTERPOLATE_DATA *)&intCartesian[2],ms);
-    if(isCartesianInterpolationDone() == FALSE){
-        //println_W("Interp x=");p_fl_W(x);print_W(" y=");p_fl_W(y);print_W(" z=");p_fl_W(z);
-        setXYZ( x, y, z, 0);
-    }else if( FifoGetPacketCount(&packetFifo)>0){
-        println_W("Loading new packet ");
-        if(FifoGetPacket(&packetFifo,&linTmpPack)){
-            processLinearInterpPacket(&linTmpPack);
+        x = interpolate((INTERPOLATE_DATA *)&intCartesian[0],ms);
+        y = interpolate((INTERPOLATE_DATA *)&intCartesian[1],ms);
+        z = interpolate((INTERPOLATE_DATA *)&intCartesian[2],ms);
+        if(isCartesianInterpolationDone() == FALSE){
+            //println_W("Interp x=");p_fl_W(x);print_W(" y=");p_fl_W(y);print_W(" z=");p_fl_W(z);
+            setXYZ( x, y, z, 0);
+        }else if( FifoGetPacketCount(&packetFifo)>0){
+            println_W("Loading new packet ");
+            if(FifoGetPacket(&packetFifo,&linTmpPack)){
+                processLinearInterpPacket(&linTmpPack);
+            }
+        }else{
+            keepCartesianPosition=FALSE;
         }
     }
-
 }
 
 BYTE setInterpolateXYZ(float x, float y, float z,float ms){
@@ -345,6 +349,7 @@ BYTE setInterpolateXYZ(float x, float y, float z,float ms){
     if(ms==0){
         setXYZ( x,  y,  z,0);
     }else{
+        keepCartesianPosition=TRUE;
         float ms= getMs();
         x = interpolate((INTERPOLATE_DATA *)&intCartesian[0],ms);
         y = interpolate((INTERPOLATE_DATA *)&intCartesian[1],ms);
