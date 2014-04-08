@@ -29,6 +29,7 @@ float lastXYZE[4];
 static RunEveryData pid ={0,100};
 
 static BOOL keepCartesianPosition =FALSE;
+int interpolationCounter=0;
 
 
 //Default values for ServoStock
@@ -57,7 +58,7 @@ BOOL isCartesianInterpolationDone(){
     updateCurrentPositions();
     float targets[3] = {xCurrent,yCurrent,zCurrent};
     int setpointBound = 200;
-    float mmPositionResolution = 5.0;
+    float mmPositionResolution = .5;
     int i;
     for(i=0;i<4;i++){
         if(i<3){
@@ -294,6 +295,11 @@ BOOL onCartesianPacket(BowlerPacket *Packet){
 
 
 void interpolateZXY(){
+    if(interpolationCounter<5){
+        interpolationCounter++;
+        return;
+    }
+    interpolationCounter=0;
     if(!configured){
         HomeLinks();
         return;

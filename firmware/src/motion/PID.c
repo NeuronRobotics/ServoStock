@@ -23,8 +23,8 @@ void initPIDLocal(){
             pidGroups[i].Enabled=TRUE;
             pidGroups[i].Async = FALSE;
             pidGroups[i].channel = i;
-            pidGroups[i].K.P=.1;
-            pidGroups[i].K.I=0;
+            pidGroups[i].K.P=.2;
+            pidGroups[i].K.I=.6;
             pidGroups[i].K.D=0;
             vel[i].K.P = .1;
             vel[i].K.D = 0;
@@ -141,7 +141,7 @@ void setOutputMine(int group, float v){
     if(group<numPidMotors){
         int val = (int)(v);
 
-        val+=128;// center for servos
+        val+=127;// center for servos
 
         if (val>255)
                 val=255;
