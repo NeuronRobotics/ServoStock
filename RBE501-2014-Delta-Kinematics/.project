@@ -23,4 +23,11 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>ThreeD_Shapes.m</name>
+			<type>1</type>
+			<location>/home/krishna/Downloads/ThreeD_Shapes.m</location>
+		</link>
+	</linkedResources>
 </projectDescription>
