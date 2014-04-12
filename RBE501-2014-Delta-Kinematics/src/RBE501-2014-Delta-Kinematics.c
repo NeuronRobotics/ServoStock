@@ -16,10 +16,19 @@
 #include <stdio.h>
 #include "Kinematics.h"
 
-//testing changes
+// Prototypes
+int forwardKinematics( float * currentJointPositions,
+					   float * outputTaskSpacePositionMatrix);
+int inverseKinematics( float * currentTaskSpacePosition,
+					   float *  outputJointSpacePositionVector);
+int calculateJointSpaceVelocities(	float * currentTaskSpacePosition,
+									float * desiredTaskSpaceVelocities,
+									float * outputJointSpaceVelocities);
+int calculateTaskSpaceVelocities(	float * currentJointSpacePosition,
+								float * desiredJointSpaceVelocities,
+								float * outputTaskSpaceVelocity);
 
-//testing new account for billcalabro@gmail.com
-
+// Definitions
 float positionMatrix[4][4] = {
 								{1,0,0,0},
 								{0,1,0,0},
@@ -53,27 +62,43 @@ typedef struct _DeltaConfig{
 //Main Function - Issue#2
 int main(void) {
 	puts("Running basic kinematics test");
+
+	// Stale Test Case
+	/*
 	float cartestian [4]={ 1,0,0,0};
-	//float joint [3] = {0,0,0};
-
-	float cartestianSet[4] ={ 0,0,0,0//random values
-							};
+	float joint [3] = {0,0,0};
+	float cartestianSet[4] ={ 0,0,0,0//random values };
 	float jointSet [3] = {0,0,0};
-
 	if(inverseKinematics(cartestianSet, jointSet)){
 		return 1;
 	}
-
 	printf("\r\nJoints A=%g B=%g C=%g",jointSet[0],jointSet[1],jointSet[2]);
-
 	forwardKinematics(jointSet,cartestian);
-
 	printf("\r\nSetting X=%g Y=%g Z=%g",cartestianSet[0],cartestianSet[1],cartestianSet[2]);
-
 	printf("\r\nResult X=%g Y=%g Z=%g",cartestian[0],cartestian[1],cartestian[2]);
+	*/
 
 
-	// Test Cases
+	// Inverse Velocity Test Case
+	printf("\r\n\r\nForward Velocity Test Case \r\n");
+	float taskEx1[3] = {0, -14.71, 21.35};
+	float taskVelEx1[3] = {100, 0, 0};
+	float jointVelEx1[3] = {0};
+	if (calculateJointSpaceVelocities(taskEx1, taskVelEx1, jointVelEx1))
+		return 1;
+
+
+	// Forward Velocity Test Case
+	printf("\r\n\r\nForward Velocity Test Case \r\n");
+	float jointEx2[3] = {160, 180, 180};
+	float jointVelEx2[3] = {0, -76.24, 76.24};
+	float taskVelEx2[3] = {0};
+	if (calculateTaskSpaceVelocities(jointEx2, jointVelEx2, taskVelEx2))
+		return 1;
+	//print?
+
+
+	// Position Test Cases
 	printf("\r\n\r\n2D Square Test Case \r\n");
 	float initialPosition[3] = {0,0,0};
 	if (twoDSquare(10, initialPosition))
@@ -153,30 +178,52 @@ int inverseKinematics( float * currentTaskSpacePosition,
 }
 
 /**
- * Take in the task space position and the current task space velocities
- * load the target joint velocities into the output vector
+ * Take in the Task-space position and the desired velocities
+ * load the target Joint-space velocities into the output vector
  * Return 0 for success
  * Return error code for failure
  */
 
-int calculateJointSpaceVelocities(	float ** currentTaskSpaceVelocities,
-									float ** currentTaskSpacePosition,
-									float *  outputJointSpaceVelocities
+int calculateJointSpaceVelocities(	float * currentTaskSpacePosition,
+									float * desiredTaskSpaceVelocities,
+									float * outputJointSpaceVelocities
 								){
+	float X = currentTaskSpacePosition[0];
+	float Y = currentTaskSpacePosition[1];
+	float Z = currentTaskSpacePosition[2];
+
+	return servostock_velInverse(	X, Y, Z,
+									desiredTaskSpaceVelocities[0],
+									desiredTaskSpaceVelocities[1],
+									desiredTaskSpaceVelocities[2],
+									&outputJointSpaceVelocities[0],
+									&outputJointSpaceVelocities[1],
+									&outputJointSpaceVelocities[2]);
 
 	return 0;
 }
 
 /**
- * Take in the current Joint space velocities and the task space position
- * load the target task space velocities into the output matrix
+ * Take in the current Joint-space position and desired velocities
+ * load the target Task-space velocities into the output matrix
  * Return 0 for success
  * Return error code for failure
  */
-int calculateTaskSpaceVelocity(	float *  currentJointSpaceVelocities,
-								float ** currentTaskSpacePosition,
-								float ** outputTaskSpaceVelocity
+int calculateTaskSpaceVelocities(	float * currentJointSpacePosition,
+								float * desiredJointSpaceVelocities,
+								float * outputTaskSpaceVelocity
 							){
+	float A = currentJointSpacePosition[0];
+	float B = currentJointSpacePosition[1];
+	float C = currentJointSpacePosition[2];
+
+	return servostock_velForward(	A, B, C,
+									desiredJointSpaceVelocities[0],
+									desiredJointSpaceVelocities[1],
+									desiredJointSpaceVelocities[2],
+									&outputTaskSpaceVelocity[0],
+									&outputTaskSpaceVelocity[1],
+									&outputTaskSpaceVelocity[2]);
 
 	return 0;
 }

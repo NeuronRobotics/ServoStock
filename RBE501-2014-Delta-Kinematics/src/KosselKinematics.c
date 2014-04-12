@@ -25,7 +25,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <inttypes.h>
-#include <math.h>
 //#include <Bowler/Debug.h>
 
 typedef struct _DeltaConfig{
@@ -41,6 +40,15 @@ static DeltaConfig defaultConfig ={203.82,//RodLength
                             40.32,//EndEffectorRadius
                             300.0,//MaxZ
                             0.0};//MinZ
+
+//Prototypes
+int formJacobian (float A, float B, float C, float Jex[3][3]);
+int mtxMlt_ThreeByThree (float A[3][3], float B[3][3], float result[3][3]);
+int mtxMlt_ThreeByOne (float A[3][3], float B[3], float result[3]);
+int mtxTrns_ThreebyThree (float A[3][3], float result[3][3]);
+int mtxInv_ThreebyThree(float A[3][3], float result[3][3]);
+
+
 float sq(float num) {
     return num*num; 
 }
@@ -167,13 +175,14 @@ int servostock_calcForward(float Alpha, float Beta, float Gamma, float * X, floa
           return 0;//success
 }
 
+
 /* Function: Inverse Velocity
- * Inputs: current tool position (X, Y, Z) and desired tool velocities (Xd, Yd, Zd)
- * Outputs: joint velocities (Ad, Bd, Cd)
+ * Inputs: current task position (X, Y, Z) and desired task velocities (Xd, Yd, Zd)
+ * Outputs: resulting joint velocities (Ad, Bd, Cd)
  */
 
 int servostock_velInverse(float X, float Y, float Z, float Xd, float Yd, float Zd,
-		float Ad, float Bd, float Cd){
+		float * Ad, float * Bd, float * Cd){
 
 	// Calculate Current Joint Positions from given Tool Positions
 	float A = 0;
@@ -183,101 +192,276 @@ int servostock_velInverse(float X, float Y, float Z, float Xd, float Yd, float Z
 		return 1;
 
 
-	// Calculate Jacobian matrix from calculated Joint Positions
-	float drad = defaultConfig.BaseRadius-defaultConfig.EndEffectorRadius;
-	float SIN_60 = 0.8660254037844386;
-	float COS_60 = 0.5;
-
-	//TODO equations as derivatives of Forward Position equations in terms of A, B, C and constants
-	//	* use Matlab reference to form these equations
-	float J11 = 0;  //= pdX/dA
-	float J12 = 0;  //= pdX/dB
-	float J13 = 0;  //= pdX/dC
-
-	float J21 = 0;  //= pdY/dA
-	float J22 = 0;  //= pdY/dB
-	float J23 = 0;  //= pdY/dC
-
-	float J31 = 0;  //= pdZ/dA
-	float J32 = 0;  //= pdZ/dB
-	float J33 = 0;  //= pdZ/dC
-
-	// float J[3][3] = { {J11, J12, J13}, {J21, J22, J23}, {J31, J32, J33} };
+	// Form Jacobian
+	float J[3][3] = {{0}};
+	if (formJacobian(A, B, C, J))
+		return 1;
 
 
-	// Calculate Joint Velocities from Jacobian and desired Tool Velocities
-	// float pJ = {{0}};  //TODO pseudo-inverse of J matrix J = (J' * inv(J * J'))
+	// Jacobian Pseudo-inverse
+	// Jinv = J' * inv(J * J')
+	float Jtrns[3][3] = {{0}};
+	if (mtxTrns_ThreebyThree(J, Jtrns))
+		return 1;
 
-	//TODO	(Ad, Bd, Cd) = (pseudo inverse of J) * (Xd, Yd, Zd)
+	float temp1[3][3] = {{0}};
+	if (mtxMlt_ThreeByThree(J, Jtrns, temp1))
+		return 1;
+
+	float temp2[3][3] = {{0}};
+	if (mtxInv_ThreebyThree(temp1, temp2))
+		return 1;
+
+	float Jinv[3][3] = {{0}};
+	if (mtxMlt_ThreeByThree(Jtrns, temp2, Jinv))
+		return 1;
+
+	//TODO: investigate incorrect results
+	// Inverse calculation: jointVel = Jinv * taskVel
+	float jointVel[3] = {0};
+	float taskVel[3] = {Xd, Yd, Zd};
+	if (mtxMlt_ThreeByOne(Jinv, taskVel, jointVel))
+		return 1;
+
+	// Return Values
+	Ad[0] = jointVel[0];
+	Bd[0] = jointVel[1];
+	Cd[0] = jointVel[2];
 
 	return 0; //success
 }
 
-// Mike's notes from MatlabScript.md
-//TODO Complete Forward Velocity calculation section below.
-int servostock_velForward(float A, float B, float C){
-		// Setup
-		float drad = defaultConfig.BaseRadius-defaultConfig.EndEffectorRadius;
-        float SIN_60 = 0.8660254037844386;
-        float COS_60 = 0.5;
 
-        // Establish initial conditions
-		float x2 = -SIN_60 * drad;
-		float x3 = SIN_60 * drad;
+/* Function: Forward Velocity
+ * Inputs: current joint position (A, B, C) and desired joint velocities (Ad, Bd, Cd)
+ * Outputs: resulting task velocities (Xd, Yd, Zd)
+ */
 
-		float y1 = drad;
-		float y2 = -COS_60 * drad;
-		float y3 = -COS_60 * drad;
+int servostock_velForward(float A, float B, float C, float Ad, float Bd, float Cd,
+		float * Xd, float * Yd, float * Zd)
+{
 
-		float z1 = A;
-		float z2 = B;
-		float z3 = C;
+	// Form Jacobian
+	float J[3][3] = {{0}};
+	if (formJacobian(A, B, C, J))
+		return 1;
 
-		float re = defaultConfig.RodLength;
+	// Forward Calculation: taskVel = J * joinVel
+	float taskVel[3] = {0};
+	float jointVel[3] = {Ad, Bd, Cd};
+	mtxMlt_ThreeByOne(J, jointVel, taskVel);
 
-		float dnm = (x3 * (y2 - y1)) - (x2 * (y3 - y1));
+	// Return Values
+	Xd[0] = taskVel[0];
+	Yd[0] = taskVel[1];
+	Zd[0] = taskVel[2];
 
-		float w1 = pow(y1,2) + pow(z1,2);
-		float w2 = pow(x2,2) + pow(y2,2) + pow(z2,2);
-		float w3 = pow(x3,2) + pow(y3,2) + pow(z3,2);
-
-		float a1 = ((z2 - z1) * (y3 - y1)) - ((z3 - z1) * (y2 - y1));
-		float a2 = (x3 * (z2 - z1) * -1) - (x2 * (z3 - z1));
-
-		float b1 = (((w2 - w1) * (y3 - y1)) - ((w3 - w1) * (y2 - y1))) * -.5;
-		float b2 = ((x3 * (w2 - w1) * -1) - (x2 * (w3 - w1))) * .5;
-
-		float a = pow(a1,2) + pow(a2,2) + pow(dnm,2);
-		float b = ((a1 * b1) + (a2 * (b2 - (y1 * dnm))) - (z1 * pow(dnm,2))) * 2;
-		float c = pow((b2 - (y1 * dnm)),2) + pow(b1,2) + (pow(dnm,2) * (pow(z1,2) - pow(re,2)));
-		float d = pow(b,2) - (4 * a * c);
-
-		float Z = ((b + sqrt(d)) / a) * -.5;
-		float X = ((a1 * Z) + b1) / dnm;
-		float Y = ((a2 * Z) + b2) / dnm;
-
-//TODO Determine derivative procedure for Jacobian section.  Convert from symbolic matlab procedure.
-		// Jacobian Calculations
-		float J11 = X; // Derivative of X with respect to A
-		float J12 = X; // Derivative of X with respect to B
-		float J13 = X; // Derivative of X with respect to C
-
-		float J21 = Y; // Derivative of Y with respect to A
-		float J22 = Y; // Derivative of Y with respect to B
-		float J23 = Y; // Derivative of Y with respect to C
-
-		float J31 = Z; // Derivative of Z with respect to A
-		float J32 = Z; // Derivative of Z with respect to B
-		float J33 = Z; // Derivative of Z with respect to C
-
-		int J = { { J11, J12, J13 }, { J21, J22, J23 }, { J31, J32, J33 } };
-
-		// Velocity Kinematics Outputs
-		int jointDot = {A, B, C};
-		int taskDot = {X, Y, Z};
-
-//TODO Generate matrix multiplication, inverse and transpose functions for below if math.h is not an option.
-		//int jointDot = (J' * inv(J * J') * jointDot;
-return 0;
+	return 0;
 }
 
+int formJacobian (float A, float B, float C, float Jex[3][3])
+{
+	//Output from MatlabScript.md 'Jsym'
+
+	float t2 = B*2.0202E2;
+	float t10 = C*2.0202E2;
+	float t3 = t2-t10;
+	float t5 = A*2.3326576E2;
+	float t6 = B*1.1663288E2;
+	float t7 = C*1.1663288E2;
+	float t4 = -t5+t6+t7;
+	float t8 = B*B;
+	float t9 = C*C;
+	float t14 = A*A;
+	float t15 = t14*1.1663288E2;
+	float t16 = t8*5.831644E1;
+	float t17 = t9*5.831644E1;
+	float t18 = -t15+t16+t17+6.34661421608432E6;
+	float t19 = t8*1.0101E2;
+	float t20 = t9*1.0101E2;
+	float t21 = t19-t20;
+	float t26 = A*4.441408506283233E9;
+	float t27 = t4*t18*2.0;
+	float t28 = t3*t21*2.0;
+	float t11 = t26+t27+t28;
+	float t12 = t3*t3;
+	float t13 = t4*t4;
+	float t22 = t18*t18;
+	float t23 = t14*2.220704253141616E9;
+	float t24 = t21*t21;
+	float t25 = t22+t23+t24-9.225381162920857E13;
+	float t29 = t12*4.0;
+	float t30 = t13*4.0;
+	float t31 = t29+t30+8.882817012566465E9;
+	float t32 = A*t4*4.6653152E2;
+	float t33 = t8*2.72064573941888E4;
+	float t34 = t9*2.72064573941888E4;
+	float t35 = t12+t13+2.220704253141616E9;
+	float t36 = t11*t11;
+	float t39 = t25*t31;
+	float t37 = t36-t39;
+	float t38 = 1.0/t35;
+	float t40 = sqrt(t37);
+	float t41 = t26+t27+t28-t40;
+	float t42 = 1.0/sqrt(t37);
+	float t43 = B*t3*4.0404E2;
+	float t44 = B*t4*2.3326576E2;
+	float t45 = t8*5.44153090970944E4;
+	float t46 = 1.0/(t35*t35);
+	float t47 = t38*t41*2.143477894055261E-3;
+	float t48 = A*2.176516591535104E5;
+	float t49 = C*t3*4.0404E2;
+	float t50 = t14*2.72064573941888E4;
+	float t51 = t8*2.72088517029056E4;
+	float t52 = t9*5.44153090970944E4;
+	float t53 = A*5.44129147883776E4;
+	float t54 = B*2.176516591535104E5;
+	float t55 = C*2.176516591535104E5;
+	float t80 = A*4.353033183070208E5;
+	float t56 = t54+t55-t80;
+	float t57 = t14*5.44129147883776E4;
+	float t83 = A*t18*4.6653152E2;
+	float t58 = t26-t83;
+	float t59 = t31*t58;
+	float t60 = B*5.44129147883776E4;
+	float t61 = C*5.44129147883776E4;
+	float t86 = A*1.088258295767552E5;
+	float t62 = t60+t61-t86;
+	float t63 = C*2.176708136232448E5;
+	float t89 = B*4.353224727767552E5;
+	float t64 = t48+t63-t89;
+	float t65 = t25*t64;
+	float t66 = B*t21*4.0404E2;
+	float t67 = B*t18*2.3326576E2;
+	float t68 = t66+t67;
+	float t69 = C*5.44177034058112E4;
+	float t92 = B*1.088306181941888E5;
+	float t70 = t53+t69-t92;
+	float t71 = t38*t41*1.237501237501237E-3;
+	float t72 = C*t4*2.3326576E2;
+	float t73 = B*2.176708136232448E5;
+	float t95 = C*4.353224727767552E5;
+	float t74 = t48+t73-t95;
+	float t75 = C*t18*2.3326576E2;
+	float t96 = C*t21*4.0404E2;
+	float t76 = t75-t96;
+	float t77 = t31*t76;
+	float t78 = B*5.44177034058112E4;
+	float t99 = C*1.088306181941888E5;
+	float t79 = t53+t78-t99;
+	float t81 = t32+t33+t34-t57-1.480512929199806E9;
+	float t82 = t11*t81*2.0;
+	float t84 = t59+t82-t25*t56;
+	float t85 = t32+t33+t34-t57-t42*t84*(1.0/2.0)-1.480512929199806E9;
+	float t91 = t9*2.72088517029056E4;
+	float t87 = t43+t44+t45-t50-t91+1.480447788541713E9;
+	float t88 = t11*t87*2.0;
+	float t90 = t65+t88-t31*t68;
+	float t93 = t49+t50+t51-t52-t72-1.480447788541713E9;
+	float t94 = t11*t93*2.0;
+	float t97 = t77+t94-t25*t74;
+	float t98 = t42*t97*(1.0/2.0);
+
+	Jex[0][0] = t3*t38*(t32+t33+t34-t57-t42*(t59-t25*t56+t11*(t14*(-5.44129147883776E4)+t32+t33+t34-1.480512929199806E9)*2.0)*(1.0/2.0)-1.480512929199806E9)*(-1.061022618579973E-5)+t3*t41*t46*t62*1.061022618579973E-5;
+	Jex[0][1] = B*(-4.286955788110522E-3)+t47+t3*t38*(t9*(-2.72088517029056E4)-t14*2.72064573941888E4+t43+t44+t45-t42*(t65-t31*t68+t11*(t9*(-2.72088517029056E4)-t14*2.72064573941888E4+t43+t44+t45+1.480447788541713E9)*2.0)*(1.0/2.0)+1.480447788541713E9)*1.061022618579973E-5+t3*t41*t46*t70*1.061022618579973E-5;
+	Jex[0][2] = C*4.286955788110522E-3-t47+t3*t38*(-t49-t50-t51+t52+t72+t42*(t77-t25*t74+t11*(t49+t50+t51-t52-C*t4*2.3326576E2-1.480447788541713E9)*2.0)*(1.0/2.0)+1.480447788541713E9)*1.061022618579973E-5+t3*t41*t46*t79*1.061022618579973E-5;
+	Jex[1][0] = A*4.950004950004949E-3-t38*t41*2.475002475002475E-3-t4*t38*t85*1.061022618579973E-5+t4*t41*t46*t62*1.061022618579973E-5;
+	Jex[1][1] = B*(-2.475002475002475E-3)+t71+t4*t38*(t9*(-2.72088517029056E4)+t43+t44+t45-t50-t42*t90*(1.0/2.0)+1.480447788541713E9)*1.061022618579973E-5+t4*t41*t46*t70*1.061022618579973E-5;
+	Jex[1][2] = C*(-2.475002475002475E-3)+t71+t4*t38*(-t49-t50-t51+t52+t72+t98+1.480447788541713E9)*1.061022618579973E-5+t4*t41*t46*t79*1.061022618579973E-5;
+	Jex[2][0] = t38*t85*(-1.0/2.0)+t41*t46*t62*(1.0/2.0);
+	Jex[2][1] = t38*(t43+t44+t45-t50-t91-t42*t90*(1.0/2.0)+1.480447788541713E9)*(1.0/2.0)+t41*t46*t70*(1.0/2.0);
+	Jex[2][2] = t38*(-t49-t50-t51+t52+t72+t98+1.480447788541713E9)*(1.0/2.0)+t41*t46*t79*(1.0/2.0);
+
+	return 0; //success
+}
+
+int mtxMlt_ThreeByThree (float A[3][3], float B[3][3], float result[3][3])
+{
+
+	result[0][0] = (A[0][0] * B[0][0]) + (A[0][1] * B[1][0]) + (A[0][2] * B[3][0]);
+	result[0][1] = (A[0][0] * B[0][1]) + (A[0][1] * B[1][1]) + (A[0][2] * B[3][1]);
+	result[0][2] = (A[0][0] * B[0][2]) + (A[0][1] * B[1][2]) + (A[0][2] * B[3][2]);
+
+	result[1][0] = (A[1][0] * B[0][0]) + (A[1][1] * B[1][0]) + (A[1][2] * B[3][0]);
+	result[1][1] = (A[1][0] * B[0][1]) + (A[1][1] * B[1][1]) + (A[1][2] * B[3][1]);
+	result[1][2] = (A[1][0] * B[0][2]) + (A[1][1] * B[1][2]) + (A[1][2] * B[3][2]);
+
+	result[2][0] = (A[2][0] * B[0][0]) + (A[2][1] * B[1][0]) + (A[3][2] * B[3][0]);
+	result[2][1] = (A[2][0] * B[0][1]) + (A[2][1] * B[1][1]) + (A[3][2] * B[3][1]);
+	result[2][2] = (A[2][0] * B[0][2]) + (A[2][1] * B[1][2]) + (A[3][2] * B[3][2]);
+
+	return 0; //success
+}
+
+int mtxMlt_ThreeByOne (float A[3][3], float B[3], float result[3])
+{
+
+	result[0] = (A[0][0] * B[0]) + (A[0][1] * B[1]) + (A[0][2] * B[2]);
+	result[1] = (A[1][0] * B[0]) + (A[1][1] * B[1]) + (A[1][2] * B[2]);
+	result[2] = (A[2][0] * B[0]) + (A[2][1] * B[1]) + (A[2][2] * B[2]);
+
+	return 0; //success
+}
+
+int mtxTrns_ThreebyThree (float A[3][3], float result[3][3])
+{
+
+	result[0][0] = A[0][0];
+	result[0][1] = A[1][0];
+	result[0][2] = A[2][0];
+
+	result[1][0] = A[0][1];
+	result[1][1] = A[1][1];
+	result[1][2] = A[2][1];
+
+	result[2][0] = A[0][2];
+	result[2][1] = A[1][2];
+	result[2][2] = A[2][2];
+
+	return 0; //success
+}
+
+int mtxInv_ThreebyThree(float A[3][3], float result[3][3])
+{
+	//TODO matrix inverse
+
+	// Determinant
+	float det1 = A[0][0] * ((A[1][1] * A[2][2]) - (A[2][1] * A[1][2]));
+	float det2 = A[0][1] * ((A[1][0] * A[2][2]) - (A[2][0] * A[1][2]));
+	float det3 = A[0][2] * ((A[1][0] * A[2][1]) - (A[2][0] * A[1][1]));
+	float det = det1 - det2 + det3;
+
+	// Transpose
+	float trans[3][3] = {{0}};
+	if (mtxTrns_ThreebyThree(A, trans))
+		return 1;
+
+	// Minors
+	float m00 = (trans[1][1] * trans[2][2]) - (trans[2][1] * trans[1][2]);
+	float m01 = (trans[1][0] * trans[2][2]) - (trans[2][0] * trans[1][2]);
+	float m02 = (trans[1][0] * trans[2][1]) - (trans[2][0] * trans[1][1]);
+
+	float m10 = (trans[0][1] * trans[2][2]) - (trans[2][1] * trans[0][2]);
+	float m11 = (trans[0][0] * trans[2][2]) - (trans[2][0] * trans[0][2]);
+	float m12 = (trans[0][0] * trans[2][1]) - (trans[2][0] * trans[0][1]);
+
+	float m20 = (trans[0][1] * trans[1][2]) - (trans[1][1] * trans[0][2]);
+	float m21 = (trans[0][0] * trans[1][2]) - (trans[1][0] * trans[0][2]);
+	float m22 = (trans[0][0] * trans[1][1]) - (trans[1][0] * trans[0][1]);
+
+	// Adjugate
+	float adj[3][3] = {{m00, -m01, m02}, {-m10, m11, -m12}, {m20, -m21, m22}};
+
+	// Inverse Solution
+	result[0][0] = adj[0][0] / det;
+	result[0][1] = adj[0][1] / det;
+	result[0][2] = adj[0][2] / det;
+	result[1][0] = adj[1][0] / det;
+	result[1][1] = adj[1][1] / det;
+	result[1][2] = adj[1][2] / det;
+	result[2][0] = adj[2][0] / det;
+	result[2][1] = adj[2][1] / det;
+	result[2][2] = adj[2][2] / det;
+
+	return 0; //success
+}
