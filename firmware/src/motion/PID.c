@@ -19,47 +19,9 @@ void initPIDLocal(){
    	BYTE i;
 	//WORD loop;
 	for (i=0;i<numPidTotal;i++){
-
-            pidGroups[i].config.Enabled=TRUE;
-            pidGroups[i].config.Async = FALSE;
-            pidGroups[i].channel = i;
-            pidGroups[i].config.K.P=.12;
-            pidGroups[i].config.K.I=.6;
-            pidGroups[i].config.K.D=0;
-            vel[i].K.P = .1;
-            vel[i].K.D = 0;
-            pidGroups[i].config.Polarity=1;
             vel[i].enabled=FALSE;
             limits[i].type=NO_LIMIT;
-            pidGroups[i].calibrationState=CALIBRARTION_Uncalibrated;
-//            if(i==LINK0_INDEX || i== LINK1_INDEX || i== LINK2_INDEX){
-//                pidGroups[i].Polarity=0;
-//                pidGroups[i].K.P=.07;
-//                pidGroups[i].K.I=0.0;
-//                pidGroups[i].K.D=0.00;
-//            }
-//            if(i==EXTRUDER0_INDEX){
-//                pidGroups[i].K.P=.4;
-//                pidGroups[i].K.I=0;
-//                pidGroups[i].K.D=0;
-//                pidGroups[i].Polarity=1;
-//            }
-            if(i>=numPidMotors){
-                //These are the PID gains for the tempreture system
-                pidGroups[i].config.K.P=10;
-                pidGroups[i].config.K.I=0;
-                pidGroups[i].config.K.D=0;
-                pidGroups[i].config.Polarity=1;
-            }
-//            if(i==HEATER0_INDEX){
-//                pidGroups[i].K.P=10;
-//                pidGroups[i].K.I=0;
-//                pidGroups[i].K.D=0;
-//                pidGroups[i].Polarity=1;
-//            }
-
 	}
-
 	InitilizePidController( pidGroups,
                                 vel,
                                 numPidTotal,
@@ -68,7 +30,10 @@ void initPIDLocal(){
                                 &resetPositionMine,
                                 //&asyncCallback,
                                 &onPidConfigureMine,
-                                &checkPIDLimitEventsMine); 
+                                &checkPIDLimitEventsMine);
+        while(!initFlashLocal());
+
+
        setPidIsr(TRUE);
 
 }
@@ -91,16 +56,7 @@ BOOL asyncCallback(BowlerPacket *Packet){
 }
 
 void onPidConfigureMine(int group){
-//    if(group==LINK0_INDEX || group== LINK1_INDEX || group== LINK2_INDEX){
-//        //Synchronized gains for all 3 links, needed for stability
-//        float p = pidGroups[group].K.P;
-//        float i = pidGroups[group].K.I;
-//        float d = pidGroups[group].K.D;
-//        setPIDConstants(LINK0_INDEX,p,i,d);
-//        setPIDConstants(LINK1_INDEX,p,i,d);
-//        setPIDConstants(LINK2_INDEX,p,i,d);
-//    }
-
+    writeFlashLocal();
 }
 
 void trigerPIDLimit(BYTE chan,PidLimitType type,INT32  tick){

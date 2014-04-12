@@ -83,6 +83,7 @@
         <itemPath>../../src/driver/SPIClient.c</itemPath>
         <itemPath>../../src/driver/ForgeHeater.c</itemPath>
         <itemPath>../../src/driver/AS5055.c</itemPath>
+        <itemPath>../../src/driver/FlashStorageLocal.c</itemPath>
       </logicalFolder>
       <logicalFolder name="kinematics" displayName="kinematics" projectFiles="true">
         <itemPath>../../src/kinematics/KosselKinematics.c</itemPath>

@@ -80,6 +80,16 @@ BOOL isCartesianInterpolationDone(){
 
 void initializeCartesianController(){
     InitPacketFifo(&packetFifo,buffer,SIZE_OF_PACKET_BUFFER);
+    int i=0;
+    for(i=0;i<3;i++){
+        if(getPidGroupDataTable()[linkToHWIndex(i)].config.Enabled!=TRUE){
+            getPidGroupDataTable()[linkToHWIndex(i)].config.Enabled=TRUE;
+            getPidGroupDataTable()[linkToHWIndex(i)].config.Polarity=TRUE;
+            getPidGroupDataTable()[linkToHWIndex(i)].config.K.P=.12;
+            getPidGroupDataTable()[linkToHWIndex(i)].config.K.I=.4;
+            OnPidConfigure(linkToHWIndex(i));
+        }
+    }
 }
 
 void pushBufferEmpty(){
@@ -313,11 +323,11 @@ void interpolateZXY(){
         y = interpolate((INTERPOLATE_DATA *)&intCartesian[1],ms);
         z = interpolate((INTERPOLATE_DATA *)&intCartesian[2],ms);
         if(isCartesianInterpolationDone() == FALSE){
-            println_W("Interp \r\n\tx=");p_fl_W(x);print_W(" \tc=");p_fl_W(xCurrent);
-            
-            print_W("\r\n\ty=");p_fl_W(y);print_W(" \tc=");p_fl_W(yCurrent);
-            
-            print_W("\r\n\tz=");p_fl_W(z);print_W(" \tc=");p_fl_W(zCurrent);
+//            println_W("Interp \r\n\tx=");p_fl_W(x);print_W(" \tc=");p_fl_W(xCurrent);
+//
+//            print_W("\r\n\ty=");p_fl_W(y);print_W(" \tc=");p_fl_W(yCurrent);
+//
+//            print_W("\r\n\tz=");p_fl_W(z);print_W(" \tc=");p_fl_W(zCurrent);
             setXYZ( x, y, z, 0);
         }else if( FifoGetPacketCount(&packetFifo)>0){
             println_W("Loading new packet ");
