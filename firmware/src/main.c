@@ -167,10 +167,10 @@ void hardwareInit(){
 	macStr[12]=0;
 	println_I("MAC address is =");
 	print_I(macStr);
-	char * dev = "DeltaDoodle";
+	char * dev = "BowlerDevice";
         println_I(dev);
 	//This Method calls INTEnableSystemMultiVectoredInt();
-	usb_CDC_Serial_Init(dev,macStr,0x04D8,0x3742);
+	usb_CDC_Serial_Init(dev,macStr,0x04D8,0x0002);
 
        
         addNamespaceToList((NAMESPACE_LIST *)getBcsCartesianNamespace());
@@ -287,8 +287,8 @@ int main(){
             int group=0;
             for(group=0;group<3;group++){
                 println_E("For Axis ");p_int_E(group);
-                print_E(" upper: ");p_int_E(getPidGroupDataTable()[group].calibration.stop+getPidGroupDataTable()[group].calibration.upperHistoresis);
-                print_E(" lower: ");p_int_E(getPidGroupDataTable()[group].calibration.stop+getPidGroupDataTable()[group].calibration.lowerHistoresis);
+                print_E(" upper: ");p_int_E(getPidGroupDataTable()[group].config.stop+getPidGroupDataTable()[group].config.upperHistoresis);
+                print_E(" lower: ");p_int_E(getPidGroupDataTable()[group].config.stop+getPidGroupDataTable()[group].config.lowerHistoresis);
             }
             startHomingLinks();
         }

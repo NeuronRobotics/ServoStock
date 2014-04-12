@@ -58,7 +58,7 @@ BOOL isCartesianInterpolationDone(){
     updateCurrentPositions();
     float targets[3] = {xCurrent,yCurrent,zCurrent};
     int setpointBound = 200;
-    float mmPositionResolution = .5;
+    float mmPositionResolution = .3;
     int i;
     for(i=0;i<4;i++){
         if(i<3){
@@ -295,15 +295,16 @@ BOOL onCartesianPacket(BowlerPacket *Packet){
 
 
 void interpolateZXY(){
-    if(interpolationCounter<5){
-        interpolationCounter++;
-        return;
-    }
+//    if(interpolationCounter<5){
+//        interpolationCounter++;
+//        return;
+//    }
     interpolationCounter=0;
     if(!configured){
         HomeLinks();
         return;
     }
+    keepCartesianPosition=TRUE;
     if(keepCartesianPosition){
         float x=0,y=0,z=0;
         float ms= getMs();
@@ -312,7 +313,11 @@ void interpolateZXY(){
         y = interpolate((INTERPOLATE_DATA *)&intCartesian[1],ms);
         z = interpolate((INTERPOLATE_DATA *)&intCartesian[2],ms);
         if(isCartesianInterpolationDone() == FALSE){
-            //println_W("Interp x=");p_fl_W(x);print_W(" y=");p_fl_W(y);print_W(" z=");p_fl_W(z);
+            println_W("Interp \r\n\tx=");p_fl_W(x);print_W(" \tc=");p_fl_W(xCurrent);
+            
+            print_W("\r\n\ty=");p_fl_W(y);print_W(" \tc=");p_fl_W(yCurrent);
+            
+            print_W("\r\n\tz=");p_fl_W(z);print_W(" \tc=");p_fl_W(zCurrent);
             setXYZ( x, y, z, 0);
         }else if( FifoGetPacketCount(&packetFifo)>0){
             println_W("Loading new packet ");

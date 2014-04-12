@@ -20,15 +20,15 @@ void initPIDLocal(){
 	//WORD loop;
 	for (i=0;i<numPidTotal;i++){
 
-            pidGroups[i].Enabled=TRUE;
-            pidGroups[i].Async = FALSE;
+            pidGroups[i].config.Enabled=TRUE;
+            pidGroups[i].config.Async = FALSE;
             pidGroups[i].channel = i;
-            pidGroups[i].K.P=.2;
-            pidGroups[i].K.I=.6;
-            pidGroups[i].K.D=0;
+            pidGroups[i].config.K.P=.12;
+            pidGroups[i].config.K.I=.6;
+            pidGroups[i].config.K.D=0;
             vel[i].K.P = .1;
             vel[i].K.D = 0;
-            pidGroups[i].Polarity=1;
+            pidGroups[i].config.Polarity=1;
             vel[i].enabled=FALSE;
             limits[i].type=NO_LIMIT;
             pidGroups[i].calibrationState=CALIBRARTION_Uncalibrated;
@@ -46,10 +46,10 @@ void initPIDLocal(){
 //            }
             if(i>=numPidMotors){
                 //These are the PID gains for the tempreture system
-                pidGroups[i].K.P=10;
-                pidGroups[i].K.I=0;
-                pidGroups[i].K.D=0;
-                pidGroups[i].Polarity=1;
+                pidGroups[i].config.K.P=10;
+                pidGroups[i].config.K.I=0;
+                pidGroups[i].config.K.D=0;
+                pidGroups[i].config.Polarity=1;
             }
 //            if(i==HEATER0_INDEX){
 //                pidGroups[i].K.P=10;
@@ -128,7 +128,7 @@ int resetPositionMine(int group, int current){
 float getPositionMine(int group){
     float val=0;
     if(group<numPidMotors){
-        if(pidGroups[group].Enabled || vel[group].enabled)
+        if(pidGroups[group].config.Enabled || vel[group].enabled)
             val = readEncoder(group);
     }else{
         val = getHeaterTempreture(group);
