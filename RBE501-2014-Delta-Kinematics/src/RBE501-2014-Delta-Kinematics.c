@@ -15,6 +15,7 @@
 
 #include <stdio.h>
 #include "Kinematics.h"
+#include "TestCases.h"
 
 // Prototypes
 int forwardKinematics( float * currentJointPositions,
@@ -59,6 +60,7 @@ typedef struct _DeltaConfig{
 //							400,//MaxZ
 //							0};//MinZ
 
+
 //Main Function - Issue#2
 int main(void) {
 	puts("Running basic kinematics test");
@@ -79,24 +81,30 @@ int main(void) {
 	*/
 
 
-	// Inverse Velocity Test Case
-	printf("\r\n\r\nForward Velocity Test Case \r\n");
-	float taskEx1[3] = {0, -14.71, 21.35};
-	float taskVelEx1[3] = {100, 0, 0};
-	float jointVelEx1[3] = {0};
-	if (calculateJointSpaceVelocities(taskEx1, taskVelEx1, jointVelEx1))
+	// Velocity Test Cases
+	printf("\r\rInverse Velocity Test Case\r");
+	float taskEx1[3] = {0, 0, 0};
+	float taskVelEx1[3] = {100, 100, 0};
+	if (inverseVelocity(taskEx1, taskVelEx1))
 		return 1;
-	//print?
 
-
-	// Forward Velocity Test Case
-	printf("\r\n\r\nForward Velocity Test Case \r\n");
-	float jointEx2[3] = {160, 180, 180};
-	float jointVelEx2[3] = {0, -76.24, 76.24};
-	float taskVelEx2[3] = {0};
-	if (calculateTaskSpaceVelocities(jointEx2, jointVelEx2, taskVelEx2))
+	printf("\r\rForward Velocity Test Case\r");
+	float jointEx1[3] = {160, 180, 180};
+	float jointVelEx1[3] = {50, 60, 20};
+	if (forwardVelocity(jointEx1, jointVelEx1))
 		return 1;
-	//print?
+
+	printf("\r\rInverse Velocity Wrap Test Case X\r");
+	float taskEx2[3] = {0, -14.71, 21.35}; //joints at (160, 180, 180)
+	float taskVelEx2[3] = {100, 0, 0};
+	if (wrapInverseVelocity(taskEx2, taskVelEx2))
+		return 1;
+
+	printf("\r\rInverse Velocity Wrap Test Case Y\r");
+	float taskEx3[3] = {0, -14.71, 21.35}; //joints at (160, 180, 180)
+	float taskVelEx3[3] = {0, 100, 0};
+	if (wrapInverseVelocity(taskEx3, taskVelEx3))
+		return 1;
 
 
 	// Position Test Cases

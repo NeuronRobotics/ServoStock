@@ -12,6 +12,19 @@
 #include <stdlib.h>
 #include <math.h>
 #include "Kinematics.h"
+#include "TestCases.h"
+
+#define M_PI 3.14159265358979323846
+
+// Prototypes
+int twoDSquare ( int sideLength, float * initialPosition);
+int threeDTestCase (int positionCount, const float desiredPositions[][3], float calculatedJoints[][3], float calculatedPositions[][3]);
+void define2DCircle (int radius, int stepCount, float * origin, float dataPoints[][3]);
+void twoDTriangle (int length, float * origin, float dataPoints[][3]);
+int inverseVelocity (float * taskPosition, float * desiredTaskVelocity);
+int forwardVelocity (float * jointPosition, float * desiredJointVelocity);
+int wrapInverseVelocity (float * taskPosition, float * desiredTaskVelocity);
+
 
 /*
  * Calculate inverse and forward kinematics for a 2-D square in 3-D space.
@@ -101,6 +114,7 @@ int twoDSquare ( int sideLength, float * initialPosition)
 	return 0;  //success
 }
 
+
 /*
  * Calculate inverse and forward kinematics for a generic 3-D model by a set of discrete points.
  * The 'positionCount' parameter must be of the same size as all three parameter arrays.
@@ -151,6 +165,7 @@ int threeDTestCase (int positionCount, const float desiredPositions[][3], float 
 	return 0;  //success
 }
 
+
 /*
  * Generate a set of data points to define a 2-D circle at a fixed height in the z-direction.
  * The 'steCount' parameter must be of the same size as the 'dataPoints' parameter fist array.
@@ -186,6 +201,7 @@ void define2DCircle (int radius, int stepCount, float * origin, float dataPoints
 		dataPoints[i][2] = origin[2];
 	}
 }
+
 
 /*
  * Calculate inverse and forward kinematics for a 2-D equilateral triangle in 3-D space.
@@ -229,3 +245,78 @@ void twoDTriangle (int length, float * origin, float dataPoints[][3])
 	dataPoints[3][2] = z;
 }
 
+
+int inverseVelocity (float * taskPosition, float * desiredTaskVelocity)
+{
+	// Calculate resulting joint position
+	float jointPosition[3] = {0};
+	if (inverseKinematics(taskPosition, jointPosition))
+		return 1;
+
+	// Calculate required joint velocities
+	float jointVelocity[3] = {0};
+	if (calculateJointSpaceVelocities(taskPosition, desiredTaskVelocity, jointVelocity))
+		return 1;
+
+	// Print results
+	printf("\rTask Position: X=%g, Y=%g, Z=%g", taskPosition[0], taskPosition[1], taskPosition[2]);
+	printf("\rDesired Task Velocity: Xv=%g, Yv=%g, Zv=%g", desiredTaskVelocity[0], desiredTaskVelocity[1], desiredTaskVelocity[2]);
+	printf("\rCalculated Joint Position: A=%g, B=%g, C=%g", jointPosition[0], jointPosition[1], jointPosition[2]);
+	printf("\rCalculated Joint Velocity: Av=%g, Bv=%g, Cv=%g", jointVelocity[0], jointVelocity[1], jointVelocity[2]);
+
+	return 0; //success
+}
+
+int forwardVelocity (float * jointPosition, float * desiredJointVelocity)
+{
+	// Calculate resulting task position
+	float taskPosition[3] = {0};
+	if (forwardKinematics(jointPosition, taskPosition))
+		return 1;
+
+	// Calculate required task velocities
+	float taskVelocity[3] = {0};
+	if (calculateTaskSpaceVelocities(jointPosition, desiredJointVelocity, taskVelocity))
+		return 1;
+
+	// Print results
+	printf("\rJoint Position: A=%g, B=%g, C=%g", jointPosition[0], jointPosition[1], jointPosition[2]);
+	printf("\rDesired Joint Velocity: Av=%g, Bv=%g, Cv=%g", desiredJointVelocity[0], desiredJointVelocity[1], desiredJointVelocity[2]);
+	printf("\rCalculated Task Position: X=%g, Y=%g, Z=%g", taskPosition[0], taskPosition[1], taskPosition[2]);
+	printf("\rCalculated Task Velocity: Xv=%g, Yv=%g, Zv=%g", taskVelocity[0], taskVelocity[1], taskVelocity[2]);
+
+	return 0; //success
+}
+
+int wrapInverseVelocity (float * taskPosition, float * desiredTaskVelocity)
+{
+	// Calculate resulting joint position
+	float jointPosition[3] = {0};
+	if (inverseKinematics(taskPosition, jointPosition))
+		return 1;
+
+	// Calculate required joint velocities
+	float jointVelocity[3] = {0};
+	if (calculateJointSpaceVelocities(taskPosition, desiredTaskVelocity, jointVelocity))
+		return 1;
+
+	// Back-Calculate task velocities
+	float calcTaskVelocity[3] = {0};
+	if (calculateTaskSpaceVelocities(jointPosition, jointVelocity, calcTaskVelocity))
+		return 1;
+
+	// Back-Calculate task position
+	float calcTaskPosition[3] = {0};
+	if (forwardKinematics(jointPosition, calcTaskPosition))
+		return 1;
+
+	// Print results
+	printf("\rTask Position: X=%g, Y=%g, Z=%g", taskPosition[0], taskPosition[1], taskPosition[2]);
+	printf("\rDesired Task Velocity: Xv=%g, Yv=%g, Zv=%g", desiredTaskVelocity[0], desiredTaskVelocity[1], desiredTaskVelocity[2]);
+	printf("\rCalculated Joint Position: A=%g, B=%g, C=%g", jointPosition[0], jointPosition[1], jointPosition[2]);
+	printf("\rCalculated Joint Velocity: Av=%g, Bv=%g, Cv=%g", jointVelocity[0], jointVelocity[1], jointVelocity[2]);
+	printf("\rBack-Calculated Task Velocity: Xv=%g, Yv=%g, Zv=%g", calcTaskVelocity[0], calcTaskVelocity[1], calcTaskVelocity[2]);
+	printf("\rBack-Calculated Task Position: X=%g, Y=%g, Z=%g", calcTaskPosition[0], calcTaskPosition[1], calcTaskPosition[2]);
+
+	return 0; //success
+}
