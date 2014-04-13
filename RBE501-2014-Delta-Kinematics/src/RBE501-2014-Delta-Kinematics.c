@@ -82,30 +82,32 @@ int main(void) {
 
 
 	// Velocity Test Cases
-	printf("\r\rInverse Velocity Test Case\r");
-	float taskEx1[3] = {0, 0, 0};
-	float taskVelEx1[3] = {100, 100, 0};
+	printf("\r\rInverse Velocity Wrap Test Case\r");
+	float taskEx0[3] = {0, 0, 0};
+	float taskVelEx0[3] = {100, 1000, 0};
+	if (wrapInverseVelocity(taskEx0, taskVelEx0))
+		return 1;
+
+	printf("\r\rInverse Velocity Test Case 1\r");
+	float taskEx1[3] = {0, -14.71, 21.35}; //joints at (160, 180, 180)
+	float taskVelEx1[3] = {100, 0, 0};
 	if (inverseVelocity(taskEx1, taskVelEx1))
 		return 1;
 
-	printf("\r\rForward Velocity Test Case\r");
-	float jointEx1[3] = {160, 180, 180};
-	float jointVelEx1[3] = {50, 60, 20};
-	if (forwardVelocity(jointEx1, jointVelEx1))
+	printf("\r\rInverse Velocity Test Case 2\r");
+	float taskVelEx2[3] = {0, 100, 0};
+	if (inverseVelocity(taskEx1, taskVelEx2))
 		return 1;
 
-	printf("\r\rInverse Velocity Wrap Test Case X\r");
-	float taskEx2[3] = {0, -14.71, 21.35}; //joints at (160, 180, 180)
-	float taskVelEx2[3] = {100, 0, 0};
-	if (wrapInverseVelocity(taskEx2, taskVelEx2))
+	printf("\r\rInverse Velocity Test Case 3\r");
+	float taskVelEx3[3] = {0, 0, 100};
+	if (inverseVelocity(taskEx1, taskVelEx3))
 		return 1;
 
-	printf("\r\rInverse Velocity Wrap Test Case Y\r");
-	float taskEx3[3] = {0, -14.71, 21.35}; //joints at (160, 180, 180)
-	float taskVelEx3[3] = {0, 100, 0};
-	if (wrapInverseVelocity(taskEx3, taskVelEx3))
+	printf("\r\rInverse Velocity Test Case 4\r");
+	float taskVelEx4[3] = {50, 100, 25};
+	if (inverseVelocity(taskEx1, taskVelEx4))
 		return 1;
-
 
 	// Position Test Cases
 	printf("\r\n\r\n2D Square Test Case \r\n");
