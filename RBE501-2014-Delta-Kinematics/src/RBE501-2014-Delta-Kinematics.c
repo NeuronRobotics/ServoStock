@@ -86,6 +86,7 @@ int main(void) {
 	float jointVelEx1[3] = {0};
 	if (calculateJointSpaceVelocities(taskEx1, taskVelEx1, jointVelEx1))
 		return 1;
+	//print?
 
 
 	// Forward Velocity Test Case
