@@ -18,6 +18,7 @@
 
 // Prototypes
 int twoDSquare ( int sideLength, float * initialPosition);
+int twoDEllipseWorkspace (int sideLength);
 int threeDTestCase (int positionCount, const float desiredPositions[][3], float calculatedJoints[][3], float calculatedPositions[][3]);
 void define2DCircle (int radius, int stepCount, float * origin, float dataPoints[][3]);
 void twoDTriangle (int length, float * origin, float dataPoints[][3]);
@@ -107,9 +108,68 @@ int twoDSquare ( int sideLength, float * initialPosition)
 				config[i][0], config[i][1], config[i][2]);
 	}
 
-	//TODO plot graphically?
+	return 0;  //success
+}
 
-	//TODO return values?
+
+/*
+ * Calculate inverse and forward kinematics for a 2-D diamond in 3-D space.
+ */
+int twoDEllipseWorkspace (int sideLength)
+{
+	// Counter Variables
+	int i = 0;
+
+	// Setup Arm Configuration Array
+	float config[11][3] = {{0}};
+
+	// Setup Arm Position Array
+	int currentPosition[11][3] = {{0}};
+
+	// Setup Desired Positions
+	float angle = sqrt(sideLength * sideLength / 2);
+	int desiredPosition[11][3] =
+		{
+			{0,0,0},
+			{sideLength,0,0},
+			{angle,angle,0},
+			{0,sideLength,0},
+			{-angle,angle,0},
+			{-sideLength,0,0},
+			{-angle,-angle,0},
+			{0,-sideLength,0},
+			{angle,-angle,0},
+			{sideLength,0,0},  //loop back
+			{0,0,0}
+		};
+
+	// Calculate Inverse for Each Step
+	printf("\r\nInverse Calculations:");
+	for (i = 0; i < 11; i++)
+	{
+		// Set next desired position
+		float Xdes = desiredPosition[i][0];
+		float Ydes = desiredPosition[i][1];
+		float Zdes = desiredPosition[i][2];
+
+		// Calculate inverse
+		if (servostock_calcInverse(Xdes, Ydes, Zdes,
+				&config[i][0], &config[i][1], &config[i][2])
+			)
+			return 1;
+
+		// Assign position values on valid inverse
+		currentPosition[i][0] = Xdes;
+		currentPosition[i][1] = Ydes;
+		currentPosition[i][2] = Zdes;
+
+		// Print to Console
+		printf("\r\nStep %d", i);
+		printf("\rPosition: X=%d, Y=%d, Z=%d",
+				currentPosition[i][0], currentPosition[i][1], currentPosition[i][2]);
+		printf("\rCalculated Joints: A=%g, B=%g, C=%g",
+				config[i][0], config[i][1], config[i][2]);
+	}
 
 	return 0;  //success
 }
@@ -159,8 +219,6 @@ int threeDTestCase (int positionCount, const float desiredPositions[][3], float 
 		printf("\rJoints: A=%g, B=%g, C=%g",
 				calculatedJoints[i][0], calculatedJoints[i][1], calculatedJoints[i][2]);
 	}
-
-	//TODO plot graphically?
 
 	return 0;  //success
 }

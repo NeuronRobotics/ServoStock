@@ -80,6 +80,11 @@ int main(void) {
 	printf("\r\nResult X=%g Y=%g Z=%g",cartestian[0],cartestian[1],cartestian[2]);
 	*/
 
+	// Workspace Test Case
+	printf("\r\n\r\n2D Diamond Maximum Workspace Test Case \r\n");
+	if (twoDEllipseWorkspace(98.85))
+		return 1;
+
 
 	// Velocity Test Cases
 	printf("\r\rInverse Velocity Wrap Test Case\r");

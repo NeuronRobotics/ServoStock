@@ -45,10 +45,7 @@ static DeltaConfig defaultConfig ={203.82,//RodLength
 //Prototypes
 int formJacobian (float A, float B, float C, float Jex[3][3]);
 int formInvJacobian (float A, float B, float C, float Jex[3][3], float Jinv[3][3]);
-//int mtxMlt_ThreeByThree (float A[3][3], float B[3][3], float result[3][3]);
 int mtxMlt_ThreeByOne (float A[3][3], float B[3], float result[3]);
-//int mtxTrns_ThreebyThree (float A[3][3], float result[3][3]);
-//int mtxInv_ThreebyThree(float A[3][3], float result[3][3]);
 
 
 float sq(float num) {
@@ -90,15 +87,15 @@ int servostock_calcInverse(float X, float Y, float Z, float *Alpha, float *Beta,
     float COS_60 = 0.5;
 
 // Values are in mm, Alpha, Beta, Gamma starts at 0 at the base platform.
-    Alpha[0] = sqrt(Lsqr - (0 - X)*(0 - X)                  - (R - Y)*(R - Y))+Z;
-    Beta[0]  = sqrt(Lsqr - (-SIN_60*R - X)*(-SIN_60*R - X)  - (-COS_60*R - Y)*(-COS_60*R - Y))+Z;
-    Gamma[0]  = sqrt(Lsqr - (SIN_60*R - X)*(SIN_60*R - X)   - (-COS_60*R - Y)*(-COS_60*R - Y))+Z;
+    Alpha[0] = sqrt(abs(Lsqr - (X - 0)*(X - 0) - (Y - R)*(Y - R))) + Z;
+    Beta[0]  = sqrt(abs(Lsqr - ((X - (COS_60*R))*(X - (COS_60*R))) - ((Y + (R*SIN_60))*(Y + (R*SIN_60))))) + Z;
+    Gamma[0] = sqrt(abs(Lsqr - ((X + (COS_60*R))*(X + (COS_60*R))) - ((Y + (R*SIN_60))*(Y + (R*SIN_60))))) + Z;
 
     return 0;//SUCCESS
 }
 
 
-/* Function: Inverse Position
+/* Function: Forward Position
  * Inputs: current joint position (A, B, C)
  * Outputs: resulting task position (X, Y, Z)
  */
@@ -210,7 +207,6 @@ int servostock_velInverse(float X, float Y, float Z, float Xd, float Yd, float Z
 	if (formInvJacobian(A, B, C, J, Jinv))
 		return 1;
 
-	//TODO: investigate incorrect results
 	// Inverse calculation: jointVel = Jinv * taskVel
 	float jointVel[3] = {0};
 	float taskVel[3] = {Xd, Yd, Zd};
@@ -375,7 +371,7 @@ int formJacobian (float A, float B, float C, float Jex[3][3])
 
 
 /* Function: Form Inverse Jacobian Matrix
- * Inputs: current joint position (A, B, C) and 3xe Jacobian matrix (Jex)
+ * Inputs: current joint position (A, B, C) and 3x3 Jacobian matrix (Jex)
  * Outputs: resulting 3x3 inverse Jacobian matrix (Jinv)
  */
 int formInvJacobian (float A, float B, float C, float Jex[3][3], float Jinv[3][3])
