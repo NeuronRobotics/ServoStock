@@ -8,7 +8,7 @@ import net.java.games.input.Controller;
 import net.java.games.input.ControllerEnvironment;
 
 import com.neuronrobotics.replicator.driver.DeltaForgeDevice;
-import com.neuronrobotics.replicator.driver.DeltaRobotPrinterPrototype;
+import com.neuronrobotics.replicator.driver.NRPrinter;
 import com.neuronrobotics.sdk.addons.kinematics.math.RotationNR;
 import com.neuronrobotics.sdk.addons.kinematics.math.TransformNR;
 import com.neuronrobotics.sdk.common.Log;
@@ -18,7 +18,7 @@ import com.neuronrobotics.sdk.serial.SerialConnection;
 import com.neuronrobotics.sdk.util.ThreadUtil;
 
 public class JoystickRecord {
-	DeltaRobotPrinterPrototype deltaRobot;
+	NRPrinter deltaRobot;
 	DeltaForgeDevice slave = null;
 	private int open = 20;
 	private int closed = 100;
@@ -162,7 +162,7 @@ public class JoystickRecord {
 			throw new RuntimeException("One or both devices were not found ");
 		}
 		//slave.setServoPowerSafeMode(false);
-		deltaRobot = new DeltaRobotPrinterPrototype(slave);
-		deltaRobot.setCurrentPoseTarget(new TransformNR());
+//		deltaRobot = new DeltaRobotPrinterPrototype(slave);
+//		deltaRobot.setCurrentPoseTarget(new TransformNR());
 	}
 }

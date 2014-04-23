@@ -10,7 +10,6 @@ import javax.swing.JTabbedPane;
 import net.miginfocom.swing.MigLayout;
 
 import com.neuronrobotics.replicator.driver.DeltaForgeDevice;
-import com.neuronrobotics.replicator.driver.DeltaRobotPrinterPrototype;
 import com.neuronrobotics.replicator.driver.NRPrinter;
 import com.neuronrobotics.sdk.addons.kinematics.AbstractKinematicsNR;
 import com.neuronrobotics.sdk.addons.kinematics.ITaskSpaceUpdateListenerNR;
@@ -122,12 +121,12 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 		
 		
 		DeltaForgeDevice delt = new DeltaForgeDevice();
-//		if(!ConnectionDialog.getBowlerDevice(delt)){
-//			System.exit(0);
-//		}
+		if(!ConnectionDialog.getBowlerDevice(delt)){
+			System.exit(0);
+		}
 //		delt.setConnection(deltaConnection);		
-		delt.setConnection(new SerialConnection("/dev/DeltaForge.74F726010101"));
-		delt.connect();
+		//delt.setConnection(new SerialConnection("/dev/ttyACM0"));
+		//delt.connect();
 		
 		//deltaRobot = new DeltaForgeDevice(delt);
 		//deltaRobot.setCurrentPoseTarget(new TransformNR());
@@ -194,7 +193,7 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 //					x=(int)current.getX();
 //					y=(int)current.getY();
 //					z=(int)current.getZ();
-					if(current.getZ()<400&&current.getZ()>0){
+					if(current.getZ()<400&&current.getZ()>-10){
 						delt.sendLinearSection(current, 0, 0,true);
 						//System.out.println("Setting x="+current.getX()+" y="+current.getY()+" z="+current.getZ());
 					}

@@ -35,13 +35,13 @@ public class PrinterHardwareTest {
 				
 				double z = 1*(i);
 				TransformNR target = new TransformNR(0, 0, z, new RotationNR());
-				printer.getDevice().setDesiredTaskSpaceTransform(target, .2);
+				printer.setDesiredTaskSpaceTransform(target, .2);
 				ThreadUtil.wait(100);
-				System.out.println("Target z = "+z+"\n"+printer.getDevice().getCurrentTaskSpaceTransform());
+				System.out.println("Target z = "+z+"\n"+printer.getCurrentTaskSpaceTransform());
 			}
 		}catch(Exception e){
 			TransformNR target = new TransformNR(0, 0, 272.08, new RotationNR());
-			printer.getDevice().setDesiredTaskSpaceTransform(target, .2);
+			printer.setDesiredTaskSpaceTransform(target, .2);
 			System.exit(0);
 		}
 		
