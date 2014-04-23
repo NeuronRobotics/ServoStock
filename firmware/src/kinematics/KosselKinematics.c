@@ -35,8 +35,8 @@ typedef struct _DeltaConfig{
 
 DeltaConfig defaultConfig ={203.82,//RodLength
                             175,//BaseRadius
-                            40.32,//EndEffectorRadius
-                            400.0,//MaxZ
+                            25,//EndEffectorRadius
+                            300.0,//MaxZ
                             -10};//MinZ
 float sq(float num) {
     return num*num; 

@@ -170,7 +170,7 @@ void hardwareInit(){
 	char * dev = "BowlerDevice";
         println_I(dev);
 	//This Method calls INTEnableSystemMultiVectoredInt();
-	usb_CDC_Serial_Init(dev,macStr,0x04D8,0x0002);
+	usb_CDC_Serial_Init(dev,macStr,0x04D8,0x0001);
 
        
         addNamespaceToList((NAMESPACE_LIST *)getBcsCartesianNamespace());
@@ -246,9 +246,13 @@ int main(){
     //StartCritical();
 
 
-    runPidHysterisisCalibration(0);
-    runPidHysterisisCalibration(1);
-    runPidHysterisisCalibration(2);
+    //runPidHysterisisCalibration(0);
+    //runPidHysterisisCalibration(1);
+    //runPidHysterisisCalibration(2);
+    SetPIDCalibrateionState(0, CALIBRARTION_DONE);
+    SetPIDCalibrateionState(1, CALIBRARTION_DONE);
+    SetPIDCalibrateionState(2, CALIBRARTION_DONE);
+
 
     pid.MsTime=getMs();
     //startHomingLinks();

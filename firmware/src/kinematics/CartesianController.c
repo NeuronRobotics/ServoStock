@@ -305,6 +305,7 @@ BOOL onCartesianPacket(BowlerPacket *Packet){
 
 
 void interpolateZXY(){
+    return;
 //    if(interpolationCounter<5){
 //        interpolationCounter++;
 //        return;
