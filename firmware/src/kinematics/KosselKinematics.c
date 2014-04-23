@@ -38,6 +38,10 @@ DeltaConfig defaultConfig ={203.82,//RodLength
                             25,//EndEffectorRadius
                             300.0,//MaxZ
                             -10};//MinZ
+
+
+
+
 float sq(float num) {
     return num*num; 
 }

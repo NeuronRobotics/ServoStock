@@ -246,12 +246,12 @@ int main(){
     //StartCritical();
 
 
-    //runPidHysterisisCalibration(0);
-    //runPidHysterisisCalibration(1);
-    //runPidHysterisisCalibration(2);
-    SetPIDCalibrateionState(0, CALIBRARTION_DONE);
-    SetPIDCalibrateionState(1, CALIBRARTION_DONE);
-    SetPIDCalibrateionState(2, CALIBRARTION_DONE);
+    runPidHysterisisCalibration(0);
+    runPidHysterisisCalibration(1);
+    runPidHysterisisCalibration(2);
+//    SetPIDCalibrateionState(0, CALIBRARTION_DONE);
+//    SetPIDCalibrateionState(1, CALIBRARTION_DONE);
+//    SetPIDCalibrateionState(2, CALIBRARTION_DONE);
 
 
     pid.MsTime=getMs();
@@ -294,7 +294,7 @@ int main(){
                 print_E(" upper: ");p_int_E(getPidGroupDataTable()[group].config.stop+getPidGroupDataTable()[group].config.upperHistoresis);
                 print_E(" lower: ");p_int_E(getPidGroupDataTable()[group].config.stop+getPidGroupDataTable()[group].config.lowerHistoresis);
             }
-            //startHomingLinks();
+            startHomingLinks();
         }
 
         bowlerSystem();

@@ -18,9 +18,12 @@
 typedef BOOL forwardKinematics(float Alpha, float Beta, float Gama, float * x0, float *y0, float * z0);
 typedef BOOL inverseKinematics(float x0, float y0, float z0, float *Alpha, float *Beta, float *Gama);
 
+BOOL onConfigurationGet(BowlerPacket *Packet);
+
 typedef struct  _IndexScale{
     int index;
     float scale;
+    char name[10];
 }IndexScale;
 
 typedef struct  _HardwareMap{

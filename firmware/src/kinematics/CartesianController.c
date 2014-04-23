@@ -6,6 +6,7 @@
 #endif
 
 void updateCurrentPositions();
+float getLinkScale(int index);
 
 static int homingAllLinks = FALSE;
 
@@ -34,25 +35,69 @@ int interpolationCounter=0;
 
 //Default values for ServoStock
 HardwareMap hwMap ={
-    {0,-1.0*mmPerTick },//axis 0
-    {1,-1.0*mmPerTick },//axis 1
-    {2,-1.0*mmPerTick },//axis 2
+    {0,-1.0*mmPerTick ,"Alpha"},//axis 0
+    {1,-1.0*mmPerTick ,"Beta"},//axis 1
+    {2,-1.0*mmPerTick ,"Gama"},//axis 2
     {
-        {3,1.0},// Motor
-        {11,1.0}// Heater
+        {3,1.0,"Extruder"},// Motor
+        {11,1.0,"Heater"}// Heater
     },//Extruder 0
     {
-        {AXIS_UNUSED,1.0},
-        {AXIS_UNUSED,1.0}
+        {AXIS_UNUSED,1.0,""},
+        {AXIS_UNUSED,1.0,""}
     },//Extruder 1
     {
-        {AXIS_UNUSED,1.0},
-        {AXIS_UNUSED,1.0}
+        {AXIS_UNUSED,1.0,""},
+        {AXIS_UNUSED,1.0,""}
     },//Extruder 2
 //    &servostock_calcForward,
     (inverseKinematics *)&servostock_calcInverse
 };
 
+char * getName(int index){
+    switch(index){
+        case 0:
+           return hwMap.Alpha.name;
+        case 1:
+            return hwMap.Beta.name;
+        case 2:
+            return hwMap.Gama.name;
+        case 3:
+            return hwMap.Extruder0.name;
+        case 4:
+            return hwMap.Heater0.name;
+    }
+}
+
+BOOL onConfigurationGet(BowlerPacket *Packet){
+    Packet->use.head.DataLegnth=4;
+    BYTE index=  Packet->use.data[0];// joint space requested index
+
+    Packet->use.data[0] = linkToHWIndex(index);
+    Packet->use.head.DataLegnth++;
+    Packet->use.data[1] = 5;// 5 active axis
+    Packet->use.head.DataLegnth++;
+    set32bit(Packet,getPidGroupDataTable()[Packet->use.data[0]].config.IndexLatchValue,2);
+    Packet->use.head.DataLegnth+=4;
+    set32bit(Packet,-100000,6);
+    Packet->use.head.DataLegnth+=4;
+    set32bit(Packet,100000,10);
+    Packet->use.head.DataLegnth+=4;
+    set32bit(Packet,getLinkScale(index)*1000,14);
+    Packet->use.head.DataLegnth+=4;
+
+    int i=0;
+    int offset=Packet->use.head.DataLegnth-4+1;
+    while(getName(index)[i]){
+       Packet->use.data[offset+i]=getName(index)[i];
+       i++;
+       Packet->use.head.DataLegnth++;
+    }
+    Packet->use.data[offset+i]=0;
+    Packet->use.head.DataLegnth++;
+
+
+}
 
 BOOL isCartesianInterpolationDone(){
     updateCurrentPositions();
@@ -216,6 +261,8 @@ void processLinearInterpPacket(BowlerPacket * Packet){
      }
 }
 
+
+
 BOOL onCartesianPost(BowlerPacket *Packet){
     Print_Level l = getPrintLevel();
     switch(Packet->use.head.RPC){
@@ -305,11 +352,7 @@ BOOL onCartesianPacket(BowlerPacket *Packet){
 
 
 void interpolateZXY(){
-    return;
-//    if(interpolationCounter<5){
-//        interpolationCounter++;
-//        return;
-//    }
+
     interpolationCounter=0;
     if(!configured){
         HomeLinks();
@@ -409,6 +452,9 @@ int linkToHWIndex(int index){
         case 3:
             localIndex = hwMap.Extruder0.index;
             break;
+        case 4:
+            localIndex = hwMap.Heater0.index;
+            break;
     }
     return localIndex;
 }
@@ -422,6 +468,8 @@ float getLinkScale(int index){
             return hwMap.Gama.scale;
         case 3:
             return hwMap.Extruder0.scale;
+        case 4:
+            return hwMap.Heater0.scale;
     }
 }
 
