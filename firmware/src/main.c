@@ -245,10 +245,15 @@ int main(){
     hardwareInit();
     //StartCritical();
 
+    if(     GetPIDCalibrateionState(0)!=CALIBRARTION_DONE&&
+            GetPIDCalibrateionState(1)!=CALIBRARTION_DONE&&
+            GetPIDCalibrateionState(2)!=CALIBRARTION_DONE
 
-    runPidHysterisisCalibration(0);
-    runPidHysterisisCalibration(1);
-    runPidHysterisisCalibration(2);
+                ){
+        runPidHysterisisCalibration(0);
+        runPidHysterisisCalibration(1);
+        runPidHysterisisCalibration(2);
+    }
 //    SetPIDCalibrateionState(0, CALIBRARTION_DONE);
 //    SetPIDCalibrateionState(1, CALIBRARTION_DONE);
 //    SetPIDCalibrateionState(2, CALIBRARTION_DONE);
@@ -257,8 +262,8 @@ int main(){
     pid.MsTime=getMs();
     //startHomingLinks();
     disableSerialComs(TRUE);
-    setPrintLevelInfoPrint();
-    //setPrintLevelNoPrint();
+    //setPrintLevelInfoPrint();
+    setPrintLevelNoPrint();
     (_TRISB0)=1;
 
     SetColor(1,1,1);
@@ -296,7 +301,7 @@ int main(){
             }
             startHomingLinks();
         }
-
+        cartesianAsync();
         bowlerSystem();
     }
 }

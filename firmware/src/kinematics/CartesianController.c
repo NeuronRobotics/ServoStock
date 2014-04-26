@@ -103,7 +103,7 @@ BOOL isCartesianInterpolationDone(){
     updateCurrentPositions();
     float targets[3] = {xCurrent,yCurrent,zCurrent};
     int setpointBound = 200;
-    float mmPositionResolution = .3;
+    float mmPositionResolution = 3;
     int i;
     for(i=0;i<4;i++){
         if(i<3){
@@ -229,6 +229,8 @@ void checkPositionChange(){
 	asyncCallback(& packetTemp);
     }
 }
+
+
 
 void cartesianAsync(){
     if(RunEvery(&pid)){
@@ -364,11 +366,14 @@ void interpolateZXY(){
         y = interpolate((INTERPOLATE_DATA *)&intCartesian[1],ms);
         z = interpolate((INTERPOLATE_DATA *)&intCartesian[2],ms);
         if(isCartesianInterpolationDone() == FALSE){
-//            println_W("Interp \r\n\tx=");p_fl_W(x);print_W(" \tc=");p_fl_W(xCurrent);
-//
-//            print_W("\r\n\ty=");p_fl_W(y);print_W(" \tc=");p_fl_W(yCurrent);
-//
-//            print_W("\r\n\tz=");p_fl_W(z);print_W(" \tc=");p_fl_W(zCurrent);
+            println_W("Start Time=");p_fl_W(ms);
+            println_W("Interp \r\n\tx=");p_fl_W(x);print_W(" \tc=");p_fl_W(xCurrent);   print_W(" \tT=");p_fl_W(intCartesian[0].setTime);print_W(" \tElapsed=");p_fl_W(ms-intCartesian[0].startTime);
+
+            print_W("\r\n\ty=");p_fl_W(y);print_W(" \tc=");p_fl_W(yCurrent);                print_W(" \tT=");p_fl_W(intCartesian[1].setTime);print_W(" \tElapsed=");p_fl_W(ms-intCartesian[1].startTime);
+
+            print_W("\r\n\tz=");p_fl_W(z);print_W(" \tc=");p_fl_W(zCurrent);                print_W(" \tT=");p_fl_W(intCartesian[2].setTime);print_W(" \tElapsed=");p_fl_W(ms-intCartesian[2].startTime);
+
+
             setXYZ( x, y, z, 0);
         }else if( FifoGetPacketCount(&packetFifo)>0){
             println_W("Loading new packet ");
@@ -412,10 +417,10 @@ BYTE setInterpolateXYZ(float x, float y, float z,float ms){
         setXYZ( x,  y,  z,0);
     }else{
         keepCartesianPosition=TRUE;
-        float ms= getMs();
-        x = interpolate((INTERPOLATE_DATA *)&intCartesian[0],ms);
-        y = interpolate((INTERPOLATE_DATA *)&intCartesian[1],ms);
-        z = interpolate((INTERPOLATE_DATA *)&intCartesian[2],ms);
+        start=getMs();
+        x = interpolate((INTERPOLATE_DATA *)&intCartesian[0],start);
+        y = interpolate((INTERPOLATE_DATA *)&intCartesian[1],start);
+        z = interpolate((INTERPOLATE_DATA *)&intCartesian[2],start);
         setXYZ( x,  y,  z,0);
     }
 
