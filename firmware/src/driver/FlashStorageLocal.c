@@ -30,7 +30,7 @@ BOOL initFlashLocal(){
     BOOL rawFlashDetect=FALSE;
 
     for(i=0;i<numPidTotal;i++){
-        index = i*sizeof(AbsPID_Config);
+        index = i*sizeof(AbsPID_Config)/4;
         for(j=0;j<sizeof(AbsPID_Config)/4;j++){
             getPidGroupDataTable()[i].raw[j]=localData.data[index+j];
         }
@@ -57,6 +57,7 @@ BOOL initFlashLocal(){
     }
     if(rawFlashDetect )
         writeFlashLocal();
+
     return !rawFlashDetect;
 }
 
@@ -69,7 +70,8 @@ void writeFlashLocal(){
     println_W("Writing values to Flash");
     int i=0,j=0, index;
     for(i=0;i<numPidTotal;i++){
-        index = i*sizeof(AbsPID_Config);
+        printPIDvals(i);
+        index = i*sizeof(AbsPID_Config)/4;
         for(j=0;j<sizeof(AbsPID_Config)/4;j++){
             localData.data[index+j]=getPidGroupDataTable()[i].raw[j];
         }

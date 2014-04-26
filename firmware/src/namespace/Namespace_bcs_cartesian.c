@@ -46,7 +46,7 @@ static RPC_LIST cartesian_GCFG={	BOWLER_GET,// Method
 
 static RPC_LIST cartesian_PRCL={	BOWLER_POST,// Method
                                 "pclr",//RPC as string
-                                &onCartesianPost,//function pointer to a packet parsinf function
+                                &onClearPrinter,//function pointer to a packet parsinf function
                                 NULL,// Calling arguments
                                 BOWLER_POST,// response method
                                 NULL,// Response arguments

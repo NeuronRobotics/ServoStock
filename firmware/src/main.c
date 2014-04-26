@@ -257,7 +257,7 @@ int main(){
     pid.MsTime=getMs();
     //startHomingLinks();
     disableSerialComs(TRUE);
-    setPrintLevelWarningPrint();
+    setPrintLevelInfoPrint();
     //setPrintLevelNoPrint();
     (_TRISB0)=1;
 

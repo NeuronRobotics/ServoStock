@@ -249,7 +249,7 @@
       </C32Global>
       <PICkit3PlatformTool>
         <property key="ADC 1" value="true"/>
-        <property key="AutoSelectMemRanges" value="auto"/>
+        <property key="AutoSelectMemRanges" value="manual"/>
         <property key="CHANGE NOTICE" value="true"/>
         <property key="COMPARATOR" value="true"/>
         <property key="DMA" value="true"/>
@@ -280,16 +280,15 @@
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
         <property key="UART1" value="true"/>
         <property key="UART2" value="true"/>
-        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
-        <property key="memories.bootflash" value="false"/>
-        <property key="memories.configurationmemory" value="false"/>
+        <property key="memories.bootflash" value="true"/>
+        <property key="memories.configurationmemory" value="true"/>
         <property key="memories.eeprom" value="false"/>
         <property key="memories.flashdata" value="true"/>
         <property key="memories.id" value="false"/>
         <property key="memories.programmemory" value="true"/>
-        <property key="memories.programmemory.end" value="0x1d07ffff"/>
+        <property key="memories.programmemory.end" value="0x1d01f000"/>
         <property key="memories.programmemory.start" value="0x1d000000"/>
         <property key="poweroptions.powerenable" value="false"/>
         <property key="programmertogo.imagename" value=""/>

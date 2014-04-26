@@ -73,7 +73,7 @@ BOOL onConfigurationGet(BowlerPacket *Packet){
     Packet->use.head.DataLegnth=4;
     BYTE index=  Packet->use.data[0];// joint space requested index
 
-    Packet->use.data[0] = linkToHWIndex(index);
+    Packet->use.data[0] = linkToHWIndex(index);// the PID link maped
     Packet->use.head.DataLegnth++;
     Packet->use.data[1] = 5;// 5 active axis
     Packet->use.head.DataLegnth++;
@@ -87,7 +87,7 @@ BOOL onConfigurationGet(BowlerPacket *Packet){
     Packet->use.head.DataLegnth+=4;
 
     int i=0;
-    int offset=Packet->use.head.DataLegnth-4+1;
+    int offset=Packet->use.head.DataLegnth-4;
     while(getName(index)[i]){
        Packet->use.data[offset+i]=getName(index)[i];
        i++;
@@ -261,12 +261,17 @@ void processLinearInterpPacket(BowlerPacket * Packet){
      }
 }
 
-
+BOOL onClearPrinter(BowlerPacket *Packet){
+    Print_Level l =getPrintLevel();
+    setPrintLevelInfoPrint();
+    cancelPrint();
+    READY(Packet,35,35);
+    setPrintLevel(l);
+    return TRUE;
+}
 
 BOOL onCartesianPost(BowlerPacket *Packet){
-    Print_Level l = getPrintLevel();
-    switch(Packet->use.head.RPC){
-        case _SLI:
+
             if(FifoGetPacketSpaceAvailible(&packetFifo)>0){
                 if(Packet->use.data[0]==1){
                     processLinearInterpPacket(Packet);
@@ -293,26 +298,18 @@ BOOL onCartesianPost(BowlerPacket *Packet){
                     full=TRUE;
                 }
 
-                setPrintLevel(l);
             }else{
                 println_I("###ERROR BUFFER FULL!!");p_int_I(FifoGetPacketSpaceAvailible(&packetFifo));
-                setPrintLevel(l);
+
                 ERR(Packet,33,33);
             }
             return TRUE;
-        case PRCL:
-            cancelPrint();
-            READY(Packet,35,35);
-            return TRUE;
-
-    }
-    return FALSE;
 }
 
 void cancelPrint(){
     Print_Level l = getPrintLevel();
 
-    println_I("Cancel Print");
+    println_W("Cancel Print");
     setPrintLevel(l);
     while(FifoGetPacketCount(&packetFifo)>0){
         FifoGetPacket(&packetFifo,&linTmpPack);
@@ -428,7 +425,7 @@ BYTE setXYZ(float x, float y, float z,float ms){
     updateCurrentPositions();
     float t0=0,t1=0,t2=0;
     if(hwMap.iK_callback( x,  y, z,  &t0, &t1, &t2)==0){
-        println_I("New target angles t1=");p_fl_I(t0);print_I(" t2=");p_fl_I(t1);print_I(" t3=");p_fl_I(t2);
+        //println_I("New target angles t1=");p_fl_I(t0);print_I(" t2=");p_fl_I(t1);print_I(" t3=");p_fl_I(t2);
         setLinkAngle(0,t0,ms);
         setLinkAngle(1,t1,ms);
         setLinkAngle(2,t2,ms);
@@ -495,7 +492,7 @@ float setLinkAngle(int index, float value, float ms){
 //            println_E("Lower Capped link ");p_int_E(index);print_E(", attempted: ");p_fl_E(value);
 //        }
     }
-    println_I("Setting position from cartesian controller ");p_int_I(index);print_I(" to ");p_fl_I(v);
+    //println_I("Setting position from cartesian controller ");p_int_I(index);print_I(" to ");p_fl_I(v);
     return SetPIDTimed(localIndex,v,ms);
 }
 
