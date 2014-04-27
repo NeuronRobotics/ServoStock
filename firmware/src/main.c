@@ -263,7 +263,8 @@ int main(){
     //startHomingLinks();
     disableSerialComs(TRUE);
     //setPrintLevelInfoPrint();
-    setPrintLevelNoPrint();
+    setPrintLevelErrorPrint();
+    //setPrintLevelNoPrint();
     (_TRISB0)=1;
 
     SetColor(1,1,1);

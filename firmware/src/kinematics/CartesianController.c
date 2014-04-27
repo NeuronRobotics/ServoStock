@@ -50,7 +50,7 @@ HardwareMap hwMap ={
         {AXIS_UNUSED,1.0,""},
         {AXIS_UNUSED,1.0,""}
     },//Extruder 2
-//    &servostock_calcForward,
+    (forwardKinematics *)&servostock_calcForward,
     (inverseKinematics *)&servostock_calcInverse
 };
 
@@ -174,7 +174,7 @@ void loadCurrentPosition(BowlerPacket * Packet){
 }
 
 void updateCurrentPositions(){
-        if(servostock_calcForward(
+        if(hwMap.fK_callback(
                                 getLinkAngle(0),
                                 getLinkAngle(1),
                                 getLinkAngle(2),

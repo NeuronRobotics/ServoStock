@@ -42,7 +42,7 @@ typedef struct  _HardwareMap{
         IndexScale Heater2;
         IndexScale Extruder2;
     };
-    //forwardKinematics * fK_callback;
+    forwardKinematics * fK_callback;
     inverseKinematics * iK_callback;
 }HardwareMap;
 
