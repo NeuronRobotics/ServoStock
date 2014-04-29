@@ -9,7 +9,7 @@
 #define TESTCASES_H_
 
 int twoDSquare ( int sideLength, float * initialPosition);
-int twoDDiamondWorkspace (int sideLength);
+int twoDEllipseWorkspace (int sideLength, int angleLength);
 int threeDTestCase (int positionCount, const float desiredPositions[][3], float calculatedJoints[][3], float calculatedPositions[][3]);
 void define2DCircle (int radius, int stepCount, float * origin, float dataPoints[][3]);
 void twoDTriangle (int length, float * origin, float dataPoints[][3]);

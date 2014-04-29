@@ -18,7 +18,7 @@
 
 // Prototypes
 int twoDSquare ( int sideLength, float * initialPosition);
-int twoDEllipseWorkspace (int sideLength);
+int twoDEllipseWorkspace (int sideLength, int angleLength);
 int threeDTestCase (int positionCount, const float desiredPositions[][3], float calculatedJoints[][3], float calculatedPositions[][3]);
 void define2DCircle (int radius, int stepCount, float * origin, float dataPoints[][3]);
 void twoDTriangle (int length, float * origin, float dataPoints[][3]);
@@ -115,7 +115,7 @@ int twoDSquare ( int sideLength, float * initialPosition)
 /*
  * Calculate inverse and forward kinematics for a 2-D diamond in 3-D space.
  */
-int twoDEllipseWorkspace (int sideLength)
+int twoDEllipseWorkspace (int sideLength, int angleLength)
 {
 	// Counter Variables
 	int i = 0;
@@ -127,18 +127,17 @@ int twoDEllipseWorkspace (int sideLength)
 	int currentPosition[11][3] = {{0}};
 
 	// Setup Desired Positions
-	float angle = sqrt(sideLength * sideLength / 2);
 	int desiredPosition[11][3] =
 		{
 			{0,0,0},
 			{sideLength,0,0},
-			{angle,angle,0},
+			{angleLength,angleLength,0},
 			{0,sideLength,0},
-			{-angle,angle,0},
+			{-angleLength,angleLength,0},
 			{-sideLength,0,0},
-			{-angle,-angle,0},
+			{-angleLength,-angleLength,0},
 			{0,-sideLength,0},
-			{angle,-angle,0},
+			{angleLength,-angleLength,0},
 			{sideLength,0,0},  //loop back
 			{0,0,0}
 		};
@@ -169,6 +168,13 @@ int twoDEllipseWorkspace (int sideLength)
 				currentPosition[i][0], currentPosition[i][1], currentPosition[i][2]);
 		printf("\rCalculated Joints: A=%g, B=%g, C=%g",
 				config[i][0], config[i][1], config[i][2]);
+	}
+
+	// Print for Use in Controller
+	printf("\r\nJoint Outputs:");
+	for (i = 0; i < 11; i++)
+	{
+		printf("\r%g, %g, %g", config[i][0], config[i][1], config[i][2]);
 	}
 
 	return 0;  //success
