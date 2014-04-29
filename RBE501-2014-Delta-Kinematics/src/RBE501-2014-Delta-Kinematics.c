@@ -82,7 +82,7 @@ int main(void) {
 
 	// Workspace Test Case
 	printf("\r\n\r\n2D Diamond Maximum Workspace Test Case \r\n");
-	if (twoDEllipseWorkspace(98.85))
+	if (twoDEllipseWorkspace(63, 41))  //where angle length should be sqrt(sideLength * sideLength / 2)
 		return 1;
 
 
