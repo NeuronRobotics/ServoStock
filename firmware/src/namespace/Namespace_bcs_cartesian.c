@@ -14,10 +14,18 @@ BOOL cartesianAsyncEventCallback(BowlerPacket * Packet,BOOL (*pidAsyncCallbackPt
     setPrintLevel(l);
     //printPIDvals(6);
     // uses its own async callback
-    //cartesianAsync();
+    cartesianAsync();
     return FALSE;
 }
-
+static RPC_LIST cartesian_runk={	BOWLER_POST,// Method
+                                "runk",//RPC as string
+                                &onRunKinematicsSet,//function pointer to a packet parsinf function
+                               ((const char [2]){  BOWLER_I08,//Run or not boolean
+                                        0}),// Response arguments
+                                BOWLER_POST,// response method
+                                NULL,// Response arguments
+                                NULL //Termination
+};
 static RPC_LIST cartesian__SLI={	BOWLER_POST,// Method
                                 "_sli",//RPC as string
                                 &onCartesianPost,//function pointer to a packet parsinf function
@@ -65,6 +73,7 @@ NAMESPACE_LIST * getBcsCartesianNamespace(){
 	if(!namespcaedAdded){
                 //POST
                 //Add the RPC structs to the namespace
+                addRpcToNamespace(&bcsCartesian,& cartesian_runk);
                 addRpcToNamespace(&bcsCartesian,& cartesian__SLI);
                 addRpcToNamespace(&bcsCartesian,& cartesian_PRCL);
                 addRpcToNamespace(&bcsCartesian,& cartesian_GCFG);

@@ -81,6 +81,20 @@ int servostock_calcInverse(float X, float Y, float Z, float *Alpha, float *Beta,
     Beta[0]  = sqrt(Lsqr - (-SIN_60*R - X)*(-SIN_60*R - X)  - (-COS_60*R - Y)*(-COS_60*R - Y))+Z;
     Gamma[0]  = sqrt(Lsqr - (SIN_60*R - X)*(SIN_60*R - X)   - (-COS_60*R - Y)*(-COS_60*R - Y))+Z;
 
+    if( abs(Alpha[0]-Beta[0])>L||
+            abs(Alpha[0]-Gamma[0])>L||
+            abs(Beta[0]-Alpha[0])>L||
+            abs(Beta[0]-Gamma[0])>L||
+            abs(Gamma[0]-Alpha[0])>L||
+            abs(Gamma[0]-Beta[0])>L){
+        println_E("Outside of workspace x=");p_fl_E(X);print_E(" y=");p_fl_E(Y);print_E(" z=");p_fl_E(Z);print_E(" Bound radius=");p_fl_E((maxRad));
+        println_E("Alpha=");p_fl_E(Alpha[0]);
+        print_E(" Beta=");p_fl_E(Beta[0]);
+        print_E(" Gama=");p_fl_E(Gamma[0]);
+
+        return 1;//This is ourside the reachable work area
+    }
+
     return 0;//SUCCESS
 }
 

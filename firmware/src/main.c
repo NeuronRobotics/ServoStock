@@ -302,7 +302,7 @@ int main(){
             }
             startHomingLinks();
         }
-        cartesianAsync();
+        
         bowlerSystem();
     }
 }

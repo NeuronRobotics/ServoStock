@@ -27,10 +27,11 @@ BOOL configured=FALSE;
 int  lastPushedBufferSize =0;
 float lastXYZE[4];
 
-static RunEveryData pid ={0,100};
+static RunEveryData pid ={0,500};
 
 static BOOL keepCartesianPosition =FALSE;
 int interpolationCounter=0;
+BOOL runKinematics=TRUE;
 
 
 //Default values for ServoStock
@@ -69,6 +70,11 @@ char * getName(int index){
     }
 }
 
+BOOL onRunKinematicsSet(BowlerPacket *Packet){
+    runKinematics=Packet->use.data[0];// Boolean to run the kinematics or not
+}
+
+
 BOOL onConfigurationGet(BowlerPacket *Packet){
     Packet->use.head.DataLegnth=4;
     BYTE index=  Packet->use.data[0];// joint space requested index
@@ -95,7 +101,7 @@ BOOL onConfigurationGet(BowlerPacket *Packet){
     }
     Packet->use.data[offset+i]=0;
     Packet->use.head.DataLegnth++;
-
+    return TRUE;
 
 }
 
@@ -130,8 +136,9 @@ void initializeCartesianController(){
         if(getPidGroupDataTable()[linkToHWIndex(i)].config.Enabled!=TRUE){
             getPidGroupDataTable()[linkToHWIndex(i)].config.Enabled=TRUE;
             getPidGroupDataTable()[linkToHWIndex(i)].config.Polarity=TRUE;
-            getPidGroupDataTable()[linkToHWIndex(i)].config.K.P=.12;
-            getPidGroupDataTable()[linkToHWIndex(i)].config.K.I=.4;
+            getPidGroupDataTable()[linkToHWIndex(i)].config.Async=FALSE;
+            //getPidGroupDataTable()[linkToHWIndex(i)].config.K.P=.12;
+            //getPidGroupDataTable()[linkToHWIndex(i)].config.K.I=.4;
             OnPidConfigure(linkToHWIndex(i));
         }
     }
@@ -240,7 +247,9 @@ void cartesianAsync(){
             pushBufferEmpty();
             full = FALSE;
         }
-        checkPositionChange();
+        if(runKinematics){
+            //checkPositionChange();
+        }
 
     }
 }
@@ -357,7 +366,10 @@ void interpolateZXY(){
         HomeLinks();
         return;
     }
-    keepCartesianPosition=TRUE;
+    if(!runKinematics){
+        return;
+    }
+    //keepCartesianPosition=TRUE;
     if(keepCartesianPosition){
         float x=0,y=0,z=0;
         float ms= getMs();
@@ -531,6 +543,7 @@ void HomeLinks(){
           servostock_calcInverse(0, 0, getmaxZ(), &Alpha, &Beta, &Gama);
           for(i=0;i<3;i++){
              pidReset(linkToHWIndex(i), (Alpha+getRodLength()/3)/getLinkScale(i));
+              //pidReset(linkToHWIndex(i), 0);
           }
           initializeCartesianController();
           cancelPrint();
