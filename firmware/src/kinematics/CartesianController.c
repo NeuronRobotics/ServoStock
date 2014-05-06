@@ -387,13 +387,15 @@ void interpolateZXY(){
 
 
             setXYZ( x, y, z, 0);
-        }else if( FifoGetPacketCount(&packetFifo)>0){
-            println_W("Loading new packet ");
-            if(FifoGetPacket(&packetFifo,&linTmpPack)){
-                processLinearInterpPacket(&linTmpPack);
-            }
         }else{
-            keepCartesianPosition=FALSE;
+            if( FifoGetPacketCount(&packetFifo)>0){
+                println_W("Loading new packet ");
+                if(FifoGetPacket(&packetFifo,&linTmpPack)){
+                    processLinearInterpPacket(&linTmpPack);
+                }
+            }else{
+                keepCartesianPosition=FALSE;
+            }
         }
     }
 }
@@ -513,9 +515,6 @@ float setLinkAngle(int index, float value, float ms){
     return SetPIDTimed(localIndex,v,ms);
 }
 
-
-
-void startHomingLink(int group, PidCalibrationType type);
 
 void startHomingLinks(){
     println_W("Homing links for kinematics");

@@ -143,7 +143,7 @@ void hardwareInit(){
             (_TRISF5)=INPUT; // for the reset sw
         setPrintLevelInfoPrint();
         ATX_DISENABLE();
-
+        CloseTimer2();
 
         Pic32_Bowler_HAL_Init();
   
@@ -250,9 +250,15 @@ int main(){
             GetPIDCalibrateionState(2)!=CALIBRARTION_DONE
 
                 ){
+        for(i=0;i<3;i++){
+            SetPIDEnabled(i,TRUE);
+        }
         runPidHysterisisCalibration(0);
         runPidHysterisisCalibration(1);
         runPidHysterisisCalibration(2);
+        println_W("Axis need calibration");
+    }else{
+        println_W("Axis are already calibrated");
     }
 //    SetPIDCalibrateionState(0, CALIBRARTION_DONE);
 //    SetPIDCalibrateionState(1, CALIBRARTION_DONE);
@@ -297,8 +303,9 @@ int main(){
             int group=0;
             for(group=0;group<3;group++){
                 println_E("For Axis ");p_int_E(group);
-                print_E(" upper: ");p_int_E(getPidGroupDataTable()[group].config.stop+getPidGroupDataTable()[group].config.upperHistoresis);
-                print_E(" lower: ");p_int_E(getPidGroupDataTable()[group].config.stop+getPidGroupDataTable()[group].config.lowerHistoresis);
+                print_E(" upper: ");p_int_E(getPidGroupDataTable()[group].config.upperHistoresis);
+                print_E(" lower: ");p_int_E(getPidGroupDataTable()[group].config.lowerHistoresis);
+                print_E(" stop: ");p_int_E(getPidGroupDataTable()[group].config.stop);
             }
             startHomingLinks();
         }

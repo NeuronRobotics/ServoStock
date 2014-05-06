@@ -139,9 +139,9 @@
       <C32>
         <property key="additional-warnings" value="false"/>
         <property key="enable-app-io" value="false"/>
-        <property key="enable-omit-frame-pointer" value="false"/>
+        <property key="enable-omit-frame-pointer" value="true"/>
         <property key="enable-symbols" value="true"/>
-        <property key="enable-unroll-loops" value="false"/>
+        <property key="enable-unroll-loops" value="true"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
                   value="../../include/replicator;../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include;../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32;../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include"/>

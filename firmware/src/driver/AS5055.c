@@ -15,6 +15,7 @@ UINT16 AS5055send(BYTE index, UINT16 data);
 void initializeEncoders(){
     DelayMs(200);
     int i;
+    println_I("Starting SPI");
     encoderSPIInit();
     // AC: Do we still need this?
     mJTAGPortEnable(0); // Disable JTAG and free up channels 0 and 1
