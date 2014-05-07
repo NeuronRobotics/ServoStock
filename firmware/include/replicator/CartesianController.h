@@ -100,6 +100,11 @@ float getminZ();
 int servostock_calcInverse(float x0, float y0, float z0, float *theta1, float *theta2, float *theta3);
 
 int servostock_calcForward(float theta1, float theta2, float theta3, float * x0, float *y0, float * z0);
+
+int frog_calcForward(float Alpha, float Beta, float Gamma, float * X, float *Y, float * Z);
+int frog_calcInverse(float X, float Y, float Z, float *Alpha, float *Beta, float *Gamma);
+
+
 #ifdef	__cplusplus
 }
 #endif

@@ -21,14 +21,19 @@ void initializeEncoders(){
     mJTAGPortEnable(0); // Disable JTAG and free up channels 0 and 1
     ENC_CSN_INIT(); // Set pin modes for CS pins
     for(i=0;i<numPidTotal;i++){
+        println_I("Encoder ");p_int_I(i);
         AS5055reset(i);
+        print_I(" | reset ");
         overflow[i]=0;
         offset[i]=0;
         int j;
-        for(j=0;j<2;j++){
+        for(j=0;j<1;j++){
             //Read a bunch of times to get the system flushed after startup
+            print_I(" | error flag clear ");
             AS5055ResetErrorFlag(i);
+            print_I(" | read ");
             raw[i]=AS5055readAngle(i);
+            print_I(" | done ");
         }
     }
 }
@@ -185,7 +190,8 @@ UINT16 AS5055readAngle(BYTE index){
 //                AS5055ResetErrorFlag(index);
             }
             AS5055send(index, 0xffff);
-            SetPIDEnabled(index,FALSE);
+            if(getPidGroupDataTable() != NULL)
+                SetPIDEnabled(index,FALSE);
         }
         loop++;
     }while(read.regs.EF && loop<1);
