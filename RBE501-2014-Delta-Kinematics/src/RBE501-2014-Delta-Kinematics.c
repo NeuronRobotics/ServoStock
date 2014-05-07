@@ -17,6 +17,7 @@
 #include "Kinematics.h"
 #include "TestCases.h"
 
+
 // Prototypes
 int forwardKinematics( float * currentJointPositions,
 					   float * outputTaskSpacePositionMatrix);
@@ -63,15 +64,17 @@ typedef struct _DeltaConfig{
 void runFrogLegTest(){
 	float cartestian [4]={ 0,0,0,0};
 	float joint [3] = {0,0,0};
-	float cartestianSet[4] ={ 3,9,0,0};
+	float cartestianSet[4] ={ 9,3,0,0};
 	float jointSet [3] = {0,0,0};
+	printf("\r\nSetting X=%g Y=%g Z=%g",cartestianSet[0],cartestianSet[1],cartestianSet[2]);
 
 	if(inverseKinematics(cartestianSet, jointSet)){
+		printf("Failed Kinematics");
 		return;
 	}
 	printf("\r\nJoints A=%g B=%g C=%g",jointSet[0],jointSet[1],jointSet[2]);
 	forwardKinematics(jointSet,cartestian);
-	printf("\r\nSetting X=%g Y=%g Z=%g",cartestianSet[0],cartestianSet[1],cartestianSet[2]);
+
 	printf("\r\nResult X=%g Y=%g Z=%g",cartestian[0],cartestian[1],cartestian[2]);
 }
 
