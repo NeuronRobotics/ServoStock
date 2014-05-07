@@ -60,11 +60,27 @@ typedef struct _DeltaConfig{
 //							400,//MaxZ
 //							0};//MinZ
 
+void runFrogLegTest(){
+	float cartestian [4]={ 1,0,0,0};
+	float joint [3] = {0,0,0};
+	float cartestianSet[4] ={ 0,0,0,0};
+	float jointSet [3] = {0,0,0};
+
+	if(inverseKinematics(cartestianSet, jointSet)){
+		return;
+	}
+	printf("\r\nJoints A=%g B=%g C=%g",jointSet[0],jointSet[1],jointSet[2]);
+	forwardKinematics(jointSet,cartestian);
+	printf("\r\nSetting X=%g Y=%g Z=%g",cartestianSet[0],cartestianSet[1],cartestianSet[2]);
+	printf("\r\nResult X=%g Y=%g Z=%g",cartestian[0],cartestian[1],cartestian[2]);
+}
 
 //Main Function - Issue#2
 int main(void) {
 	puts("Running basic kinematics test");
 
+	runFrogLegTest();
+	return 0;
 	// Stale Test Case
 	/*
 	float cartestian [4]={ 1,0,0,0};
@@ -166,7 +182,7 @@ int forwardKinematics( float * currentJointPositions,
 					   float * outputTaskSpacePositionMatrix
 					){
 
-	return servostock_calcForward(	currentJointPositions[0],
+	return frog_calcForward(	currentJointPositions[0],
 									currentJointPositions[1],
 									currentJointPositions[2],
 									&outputTaskSpacePositionMatrix[0],
@@ -187,7 +203,7 @@ int inverseKinematics( float * currentTaskSpacePosition,
 	float Y = currentTaskSpacePosition[1];
 	float Z = currentTaskSpacePosition[2];
 
-	return servostock_calcInverse(	X, Y, Z,
+	return frog_calcInverse(	X, Y, Z,
 									&outputJointSpacePositionVector[0],
 									&outputJointSpacePositionVector[1],
 									&outputJointSpacePositionVector[2]);

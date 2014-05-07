@@ -41,7 +41,6 @@ DeltaConfig defaultConfig ={203.82,//RodLength
 
 
 
-
 float sq(float num) {
     return num*num; 
 }

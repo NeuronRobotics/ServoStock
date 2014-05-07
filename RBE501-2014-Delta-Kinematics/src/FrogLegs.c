@@ -3,10 +3,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <inttypes.h>
-#include <Bowler/Debug.h>
+//#include <Bowler/Debug.h>
 
 
 int frog_calcInverse(float X, float Y, float Z, float *Alpha, float *Beta, float *Gamma){
+
+
 
     return 0;//SUCCESS
 }
