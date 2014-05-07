@@ -64,7 +64,7 @@ typedef struct _DeltaConfig{
 void runFrogLegTest(){
 	float cartestian [4]={ 0,0,0,0};
 	float joint [3] = {0,0,0};
-	float cartestianSet[4] ={ 9,3,0,0};
+	float cartestianSet[4] ={ 15,5,0,0};
 	float jointSet [3] = {0,0,0};
 	printf("\r\nSetting X=%g Y=%g Z=%g",cartestianSet[0],cartestianSet[1],cartestianSet[2]);
 
