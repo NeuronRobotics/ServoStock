@@ -15,6 +15,7 @@
 
 #include <stdio.h>
 #include "Kinematics.h"
+#include "TestCases.h"
 
 // Prototypes
 int forwardKinematics( float * currentJointPositions,
@@ -59,6 +60,7 @@ typedef struct _DeltaConfig{
 //							400,//MaxZ
 //							0};//MinZ
 
+
 //Main Function - Issue#2
 int main(void) {
 	puts("Running basic kinematics test");
@@ -78,25 +80,39 @@ int main(void) {
 	printf("\r\nResult X=%g Y=%g Z=%g",cartestian[0],cartestian[1],cartestian[2]);
 	*/
 
+	// Workspace Test Case
+	printf("\r\n\r\n2D Diamond Maximum Workspace Test Case \r\n");
+	if (twoDEllipseWorkspace(63, 41))  //where angle length should be sqrt(sideLength * sideLength / 2)
+		return 1;
 
-	// Inverse Velocity Test Case
-	printf("\r\n\r\nForward Velocity Test Case \r\n");
-	float taskEx1[3] = {0, -14.71, 21.35};
+
+	// Velocity Test Cases
+	printf("\r\rInverse Velocity Wrap Test Case\r");
+	float taskEx0[3] = {0, 0, 0};
+	float taskVelEx0[3] = {100, 1000, 0};
+	if (wrapInverseVelocity(taskEx0, taskVelEx0))
+		return 1;
+
+	printf("\r\rInverse Velocity Test Case 1\r");
+	float taskEx1[3] = {0, -14.71, 21.35}; //joints at (160, 180, 180)
 	float taskVelEx1[3] = {100, 0, 0};
-	float jointVelEx1[3] = {0};
-	if (calculateJointSpaceVelocities(taskEx1, taskVelEx1, jointVelEx1))
+	if (inverseVelocity(taskEx1, taskVelEx1))
 		return 1;
 
-
-	// Forward Velocity Test Case
-	printf("\r\n\r\nForward Velocity Test Case \r\n");
-	float jointEx2[3] = {160, 180, 180};
-	float jointVelEx2[3] = {0, -76.24, 76.24};
-	float taskVelEx2[3] = {0};
-	if (calculateTaskSpaceVelocities(jointEx2, jointVelEx2, taskVelEx2))
+	printf("\r\rInverse Velocity Test Case 2\r");
+	float taskVelEx2[3] = {0, 100, 0};
+	if (inverseVelocity(taskEx1, taskVelEx2))
 		return 1;
-	//print?
 
+	printf("\r\rInverse Velocity Test Case 3\r");
+	float taskVelEx3[3] = {0, 0, 100};
+	if (inverseVelocity(taskEx1, taskVelEx3))
+		return 1;
+
+	printf("\r\rInverse Velocity Test Case 4\r");
+	float taskVelEx4[3] = {50, 100, 25};
+	if (inverseVelocity(taskEx1, taskVelEx4))
+		return 1;
 
 	// Position Test Cases
 	printf("\r\n\r\n2D Square Test Case \r\n");

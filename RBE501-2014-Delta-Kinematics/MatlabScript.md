@@ -103,6 +103,10 @@ J = [J11 J12 J13; J21 J22 J23; J31 J32 J33];
 % simplify(J33)
 
 
+$ Output Jacobian to C Code
+ccode(J, 'file', 'jacobianOutput');
+
+
 % Inverse Velocity
 % input J and Xd, Yd, Zd
 % output Ad, Bd, Cd

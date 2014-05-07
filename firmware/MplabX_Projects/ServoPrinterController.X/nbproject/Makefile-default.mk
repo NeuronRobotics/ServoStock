@@ -121,6 +121,12 @@ ${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o: ../../src/driver/FlashStorageLo
 	@${RM} ${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o 
 	@${FIXDEPS} "${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -funroll-loops -fomit-frame-pointer -fschedule-insns -fschedule-insns2 -I"../../include/replicator" -I"../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include" -Werror -MMD -MF "${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o.d" -o ${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o ../../src/driver/FlashStorageLocal.c   
 	
+${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o: ../../src/driver/FlashStorageLocal.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/263962707 
+	@${RM} ${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o.d 
+	@${RM} ${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -fschedule-insns -fschedule-insns2 -I"../../include/replicator" -I"../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include" -Werror -MMD -MF "${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o.d" -o ${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o ../../src/driver/FlashStorageLocal.c   
+	
 ${OBJECTDIR}/_ext/1494288313/KosselKinematics.o: ../../src/kinematics/KosselKinematics.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1494288313 
 	@${RM} ${OBJECTDIR}/_ext/1494288313/KosselKinematics.o.d 
@@ -173,13 +179,21 @@ ${OBJECTDIR}/_ext/2048476848/Callbacks.o: ../../src/namespace/Callbacks.c  nbpro
 	@${MKDIR} ${OBJECTDIR}/_ext/2048476848 
 	@${RM} ${OBJECTDIR}/_ext/2048476848/Callbacks.o.d 
 	@${RM} ${OBJECTDIR}/_ext/2048476848/Callbacks.o 
+<<<<<<< HEAD
 	@${FIXDEPS} "${OBJECTDIR}/_ext/2048476848/Callbacks.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -funroll-loops -fomit-frame-pointer -fschedule-insns -fschedule-insns2 -I"../../include/replicator" -I"../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include" -Werror -MMD -MF "${OBJECTDIR}/_ext/2048476848/Callbacks.o.d" -o ${OBJECTDIR}/_ext/2048476848/Callbacks.o ../../src/namespace/Callbacks.c   
+=======
+	@${FIXDEPS} "${OBJECTDIR}/_ext/2048476848/Callbacks.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -fschedule-insns -fschedule-insns2 -I"../../include/replicator" -I"../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include" -Werror -MMD -MF "${OBJECTDIR}/_ext/2048476848/Callbacks.o.d" -o ${OBJECTDIR}/_ext/2048476848/Callbacks.o ../../src/namespace/Callbacks.c   
+>>>>>>> 7c4b7c4c4aeb986247efb308d0b9a94d6107fd5c
 	
 ${OBJECTDIR}/_ext/1445274692/main.o: ../../src/main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1445274692 
 	@${RM} ${OBJECTDIR}/_ext/1445274692/main.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1445274692/main.o 
+<<<<<<< HEAD
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1445274692/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -funroll-loops -fomit-frame-pointer -fschedule-insns -fschedule-insns2 -I"../../include/replicator" -I"../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include" -Werror -MMD -MF "${OBJECTDIR}/_ext/1445274692/main.o.d" -o ${OBJECTDIR}/_ext/1445274692/main.o ../../src/main.c   
+=======
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1445274692/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -fschedule-insns -fschedule-insns2 -I"../../include/replicator" -I"../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include" -Werror -MMD -MF "${OBJECTDIR}/_ext/1445274692/main.o.d" -o ${OBJECTDIR}/_ext/1445274692/main.o ../../src/main.c   
+>>>>>>> 7c4b7c4c4aeb986247efb308d0b9a94d6107fd5c
 	
 else
 ${OBJECTDIR}/_ext/263962707/Servo.o: ../../src/driver/Servo.c  nbproject/Makefile-${CND_CONF}.mk
@@ -211,6 +225,12 @@ ${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o: ../../src/driver/FlashStorageLo
 	@${RM} ${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o.d 
 	@${RM} ${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o 
 	@${FIXDEPS} "${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -funroll-loops -fomit-frame-pointer -fschedule-insns -fschedule-insns2 -I"../../include/replicator" -I"../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include" -Werror -MMD -MF "${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o.d" -o ${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o ../../src/driver/FlashStorageLocal.c   
+	
+${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o: ../../src/driver/FlashStorageLocal.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/263962707 
+	@${RM} ${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o.d 
+	@${RM} ${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -fschedule-insns -fschedule-insns2 -I"../../include/replicator" -I"../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include" -Werror -MMD -MF "${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o.d" -o ${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o ../../src/driver/FlashStorageLocal.c   
 	
 ${OBJECTDIR}/_ext/1494288313/KosselKinematics.o: ../../src/kinematics/KosselKinematics.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1494288313 
@@ -264,13 +284,21 @@ ${OBJECTDIR}/_ext/2048476848/Callbacks.o: ../../src/namespace/Callbacks.c  nbpro
 	@${MKDIR} ${OBJECTDIR}/_ext/2048476848 
 	@${RM} ${OBJECTDIR}/_ext/2048476848/Callbacks.o.d 
 	@${RM} ${OBJECTDIR}/_ext/2048476848/Callbacks.o 
+<<<<<<< HEAD
 	@${FIXDEPS} "${OBJECTDIR}/_ext/2048476848/Callbacks.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -funroll-loops -fomit-frame-pointer -fschedule-insns -fschedule-insns2 -I"../../include/replicator" -I"../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include" -Werror -MMD -MF "${OBJECTDIR}/_ext/2048476848/Callbacks.o.d" -o ${OBJECTDIR}/_ext/2048476848/Callbacks.o ../../src/namespace/Callbacks.c   
+=======
+	@${FIXDEPS} "${OBJECTDIR}/_ext/2048476848/Callbacks.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -fschedule-insns -fschedule-insns2 -I"../../include/replicator" -I"../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include" -Werror -MMD -MF "${OBJECTDIR}/_ext/2048476848/Callbacks.o.d" -o ${OBJECTDIR}/_ext/2048476848/Callbacks.o ../../src/namespace/Callbacks.c   
+>>>>>>> 7c4b7c4c4aeb986247efb308d0b9a94d6107fd5c
 	
 ${OBJECTDIR}/_ext/1445274692/main.o: ../../src/main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1445274692 
 	@${RM} ${OBJECTDIR}/_ext/1445274692/main.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1445274692/main.o 
+<<<<<<< HEAD
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1445274692/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -funroll-loops -fomit-frame-pointer -fschedule-insns -fschedule-insns2 -I"../../include/replicator" -I"../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include" -Werror -MMD -MF "${OBJECTDIR}/_ext/1445274692/main.o.d" -o ${OBJECTDIR}/_ext/1445274692/main.o ../../src/main.c   
+=======
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1445274692/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -fschedule-insns -fschedule-insns2 -I"../../include/replicator" -I"../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include" -Werror -MMD -MF "${OBJECTDIR}/_ext/1445274692/main.o.d" -o ${OBJECTDIR}/_ext/1445274692/main.o ../../src/main.c   
+>>>>>>> 7c4b7c4c4aeb986247efb308d0b9a94d6107fd5c
 	
 endif
 
