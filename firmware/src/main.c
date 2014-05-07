@@ -307,7 +307,7 @@ int main(){
                 print_E(" lower: ");p_int_E(getPidGroupDataTable()[group].config.lowerHistoresis);
                 print_E(" stop: ");p_int_E(getPidGroupDataTable()[group].config.stop);
             }
-            startHomingLinks();
+            //startHomingLinks();
         }
         
         bowlerSystem();

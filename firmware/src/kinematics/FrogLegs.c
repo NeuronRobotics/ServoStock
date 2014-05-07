@@ -12,8 +12,8 @@ float toRadian(float degree){
 	return (degree/180)*3.14159;
 }
 
-float firstLink = 12.0;
-float secondLink=13.45;
+float firstLink = 12.0*25.4;
+float secondLink= 13.45*25.4;
 
 int frog_calcInverse(float X, float Y, float Z, float *Alpha, float *Beta, float *Gamma){
 	if(X<1){

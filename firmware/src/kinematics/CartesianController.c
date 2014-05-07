@@ -35,10 +35,31 @@ BOOL runKinematics=TRUE;
 
 
 //Default values for ServoStock
+//HardwareMap hwMap ={
+//    {0,-1.0*mmPerTick ,"Alpha"},//axis 0
+//    {1,-1.0*mmPerTick ,"Beta"},//axis 1
+//    {2,-1.0*mmPerTick ,"Gama"},//axis 2
+//    {
+//        {3,1.0,"Extruder"},// Motor
+//        {11,1.0,"Heater"}// Heater
+//    },//Extruder 0
+//    {
+//        {AXIS_UNUSED,1.0,""},
+//        {AXIS_UNUSED,1.0,""}
+//    },//Extruder 1
+//    {
+//        {AXIS_UNUSED,1.0,""},
+//        {AXIS_UNUSED,1.0,""}
+//    },//Extruder 2
+//    (forwardKinematics *)&servostock_calcForward,
+//    (inverseKinematics *)&servostock_calcInverse
+//};
+
+//Default values for ServoStock
 HardwareMap hwMap ={
-    {0,-1.0*mmPerTick ,"Alpha"},//axis 0
-    {1,-1.0*mmPerTick ,"Beta"},//axis 1
-    {2,-1.0*mmPerTick ,"Gama"},//axis 2
+    {0,-1.0*mmPerTick ,"left"},//axis 0
+    {1,-1.0*mmPerTick ,"right"},//axis 1
+    {2,-1.0*mmPerTick ,"tilt"},//axis 2
     {
         {3,1.0,"Extruder"},// Motor
         {11,1.0,"Heater"}// Heater
@@ -51,8 +72,8 @@ HardwareMap hwMap ={
         {AXIS_UNUSED,1.0,""},
         {AXIS_UNUSED,1.0,""}
     },//Extruder 2
-    (forwardKinematics *)&servostock_calcForward,
-    (inverseKinematics *)&servostock_calcInverse
+    (forwardKinematics *)&frog_calcForward,
+    (inverseKinematics *)&frog_calcInverse
 };
 
 char * getName(int index){
