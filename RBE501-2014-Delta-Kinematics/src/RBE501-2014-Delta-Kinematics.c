@@ -61,9 +61,9 @@ typedef struct _DeltaConfig{
 //							0};//MinZ
 
 void runFrogLegTest(){
-	float cartestian [4]={ 1,0,0,0};
+	float cartestian [4]={ 0,0,0,0};
 	float joint [3] = {0,0,0};
-	float cartestianSet[4] ={ 0,0,0,0};
+	float cartestianSet[4] ={ 3,9,0,0};
 	float jointSet [3] = {0,0,0};
 
 	if(inverseKinematics(cartestianSet, jointSet)){
