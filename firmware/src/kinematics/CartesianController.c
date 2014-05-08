@@ -31,7 +31,7 @@ static RunEveryData pid ={0,500};
 
 static BOOL keepCartesianPosition =FALSE;
 int interpolationCounter=0;
-BOOL runKinematics=TRUE;
+BOOL runKinematics=FALSE;
 
 
 //Default values for ServoStock

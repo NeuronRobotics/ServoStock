@@ -10,6 +10,7 @@ BYTE busy =0;
 #define jump 3000
 void encoderSPIInit();
 void AS5055ResetErrorFlag(BYTE index);
+void printSystemConfig(BYTE index);
 UINT16 AS5055send(BYTE index, UINT16 data);
 
 void initializeEncoders(){
@@ -34,6 +35,7 @@ void initializeEncoders(){
             print_I(" | read ");
             raw[i]=AS5055readAngle(i);
             print_I(" | done ");
+            printSystemConfig(i);
         }
     }
 }
@@ -133,7 +135,7 @@ void AS5055ResetErrorFlag(BYTE index){
     //println_I("[AS5055send] Clear Error Flags");
     AS5055CommandPacket cmd;
 
-    cmd.regs.Address=AS5055REG_ClearErrorFlagReset;
+    cmd.regs.Address=AS5055REG_MasterReset;
     cmd.regs.RWn=AS5055_READ;
     cmd.regs.PAR=AS5055CalculateParity(cmd.uint0_15);
 
@@ -182,16 +184,15 @@ UINT16 AS5055readAngle(BYTE index){
                 read.regs.EF=0;
             }
             if(read.regs.AlarmHI == 1 && read.regs.AlarmLO == 1){
-                println_E("**Error flag on data read! Index: ");p_int_E(index);
-                print_E(" 0x");prHEX16(read.uint0_15,ERROR_PRINT); print_E("\n");
+                println_E("**Error flag on data read! Index: ");p_int_E(index);print_E(" 0x");prHEX16(read.uint0_15,ERROR_PRINT); print_E("\n");
 //
-//                //printSystemConfig(index);
-//                AS5055reset(index);
-//                AS5055ResetErrorFlag(index);
+                //printSystemConfig(index);
+                AS5055reset(index);
+                AS5055ResetErrorFlag(index);
             }
-            AS5055send(index, 0xffff);
-            if(getPidGroupDataTable() != NULL)
-                SetPIDEnabled(index,FALSE);
+//            AS5055send(index, 0xffff);
+//            if(getPidGroupDataTable() != NULL)
+//                SetPIDEnabled(index,FALSE);
         }
         loop++;
     }while(read.regs.EF && loop<1);

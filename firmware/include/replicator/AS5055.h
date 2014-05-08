@@ -89,6 +89,7 @@ typedef union __attribute__((__packed__)) _AS5055WritePacket
         #define     AS5055_READ                         1
         #define     AS5055_WRITE                        0
 
+        #define     AS5055REG_MasterReset              0x33A5
         #define     AS5055REG_PowerOnReset              0x3f22
         #define     AS5055REG_SoftwareReset             0x3c00
         #define     AS5055REG_ClearErrorFlagReset       0x3380
