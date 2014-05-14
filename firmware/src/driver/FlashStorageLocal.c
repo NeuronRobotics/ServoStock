@@ -38,7 +38,7 @@ BOOL initFlashLocal(){
             getPidGroupDataTable()[i].config.Enabled != 0)  ){
             rawFlashDetect = TRUE;
             println_E("Detected raw flash, setting defaults : ");p_int_E(i);
-            printPIDvals(i);
+            //printPIDvals(i);
             getPidGroupDataTable()[i].config.Enabled = FALSE;
             getPidGroupDataTable()[i].config.Async=0;
             getPidGroupDataTable()[i].config.IndexLatchValue=0;
@@ -71,7 +71,7 @@ void writeFlashLocal(){
     println_W("Writing values to Flash");
     int i=0,j=0, index;
     for(i=0;i<numPidTotal;i++){
-        printPIDvals(i);
+        //printPIDvals(i);
         index = i*sizeof(AbsPID_Config)/4;
         for(j=0;j<sizeof(AbsPID_Config)/4;j++){
             localData.data[index+j]=getPidGroupDataTable()[i].raw[j];
@@ -80,7 +80,7 @@ void writeFlashLocal(){
     FlashSync();
     FlashLoad();
     for(i=0;i<numPidTotal;i++){
-        printPIDvals(i);
+        //printPIDvals(i);
     }
 
 }

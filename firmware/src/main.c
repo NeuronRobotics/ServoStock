@@ -267,9 +267,10 @@ int main(){
 
     pid.MsTime=getMs();
     //startHomingLinks();
+
     disableSerialComs(TRUE);
     //setPrintLevelInfoPrint();
-    setPrintLevelErrorPrint();
+    setPrintLevelWarningPrint();
     //setPrintLevelNoPrint();
     (_TRISB0)=1;
 
@@ -277,7 +278,10 @@ int main(){
                 HEATER_2_TRIS = OUTPUT;
                 //HEATER_1_TRIS = OUTPUT; // Causes one of the axies to crawl downward in bursts when enabled and on...
                 //HEATER_0_TRIS = OUTPUT; // causes device to twitc. These are touched by the USB stack somehow..... and as the reset button
-
+//    while(1){
+//        p_int_W(AS5055readAngle(0));
+//        print_W("\r\n");
+//    }
     while(1){
         //HEATER_0=1;
         //HEATER_1=1;

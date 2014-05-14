@@ -22,6 +22,25 @@ typedef union __attribute__((__packed__)) _AS5055ReadPacket
                             UINT8   ubyte0_7;
                             UINT8   ubyte8_15;
                         } bytes;
+                        struct
+			{
+                            unsigned zero:1;
+                            unsigned one:1;
+                            unsigned two:1;
+                            unsigned three:1;
+                            unsigned four:1;
+                            unsigned five:1;
+                            unsigned six:1;
+                            unsigned seven:1;
+                            unsigned eight:1;
+                            unsigned nine:1;
+                            unsigned ten:1;
+                            unsigned elevin:1;
+                            unsigned twelve:1;
+                            unsigned thirteen:1;
+                            unsigned fourteen:1;
+                            unsigned fifteen:1;
+                        } bits;
 			struct
 			{
 				unsigned PAR:1;
@@ -38,6 +57,25 @@ typedef union __attribute__((__packed__)) _AS5055AngularDataPacket
                             UINT8   ubyte0_7;
                             UINT8   ubyte8_15;
                         } bytes;
+                        struct
+			{
+                            unsigned zero:1;
+                            unsigned one:1;
+                            unsigned two:1;
+                            unsigned three:1;
+                            unsigned four:1;
+                            unsigned five:1;
+                            unsigned six:1;
+                            unsigned seven:1;
+                            unsigned eight:1;
+                            unsigned nine:1;
+                            unsigned ten:1;
+                            unsigned elevin:1;
+                            unsigned twelve:1;
+                            unsigned thirteen:1;
+                            unsigned fourteen:1;
+                            unsigned fifteen:1;
+                        } bits;
 			struct
 			{
 				unsigned PAR:1;
@@ -55,6 +93,25 @@ typedef union __attribute__((__packed__)) _AS5055SystemConfigPacket
                             UINT8   ubyte0_7;
                             UINT8   ubyte8_15;
                         } bytes;
+                                                struct
+			{
+                            unsigned zero:1;
+                            unsigned one:1;
+                            unsigned two:1;
+                            unsigned three:1;
+                            unsigned four:1;
+                            unsigned five:1;
+                            unsigned six:1;
+                            unsigned seven:1;
+                            unsigned eight:1;
+                            unsigned nine:1;
+                            unsigned ten:1;
+                            unsigned elevin:1;
+                            unsigned twelve:1;
+                            unsigned thirteen:1;
+                            unsigned fourteen:1;
+                            unsigned fifteen:1;
+                        } bits;
 			struct
 			{
 				unsigned PAR:1;
@@ -77,6 +134,25 @@ typedef union __attribute__((__packed__)) _AS5055WritePacket
                             UINT8   ubyte0_7;
                             UINT8   ubyte8_15;
                         } bytes;
+                                                struct
+			{
+                            unsigned zero:1;
+                            unsigned one:1;
+                            unsigned two:1;
+                            unsigned three:1;
+                            unsigned four:1;
+                            unsigned five:1;
+                            unsigned six:1;
+                            unsigned seven:1;
+                            unsigned eight:1;
+                            unsigned nine:1;
+                            unsigned ten:1;
+                            unsigned elevin:1;
+                            unsigned twelve:1;
+                            unsigned thirteen:1;
+                            unsigned fourteen:1;
+                            unsigned fifteen:1;
+                        } bits;
 			struct
 			{
 				unsigned PAR:1;
@@ -89,7 +165,7 @@ typedef union __attribute__((__packed__)) _AS5055WritePacket
         #define     AS5055_READ                         1
         #define     AS5055_WRITE                        0
 
-        #define     AS5055REG_MasterReset              0x33A5
+        #define     AS5055REG_MasterReset               0x33A5
         #define     AS5055REG_PowerOnReset              0x3f22
         #define     AS5055REG_SoftwareReset             0x3c00
         #define     AS5055REG_ClearErrorFlagReset       0x3380

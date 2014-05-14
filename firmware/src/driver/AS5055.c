@@ -7,7 +7,7 @@ int raw[numPidTotal];
 float recent[numPidTotal];
 BYTE initialized = FALSE;
 BYTE busy =0;
-#define jump 3000
+#define jump 3500
 void encoderSPIInit();
 void AS5055ResetErrorFlag(BYTE index);
 void printSystemConfig(BYTE index);
@@ -73,7 +73,7 @@ int getRecentEncoderReading(int index){
 }
 
 float readEncoder(BYTE index){
-    float size=5.0;
+    float size=6.0;
     float ret=0;
     int i;
     for(i=0;i<size;i++)
@@ -150,8 +150,7 @@ void printSystemConfig(BYTE index){
     cmd.regs.RWn=AS5055_READ;
     cmd.regs.PAR=AS5055CalculateParity(cmd.uint0_15);
 
-    AS5055send(index, cmd.uint0_15);
-    read.uint0_15 = AS5055send(index, 0xffff);
+    read.uint0_15 = AS5055send(index, cmd.uint0_15);
     Print_Level l = getPrintLevel();
     if(l!=NO_PRINT){
         println_I("System config: ");       prHEX16(read.uint0_15,INFO_PRINT);
@@ -167,13 +166,18 @@ void printSystemConfig(BYTE index){
 
 UINT16 AS5055readAngle(BYTE index){
     Print_Level l = getPrintLevel();
-    
+    if (index!=0)
+        return 0;
     AS5055AngularDataPacket read;
     int loop=0;
     do{
-        
-        read.uint0_15 = AS5055send(index, 0xffff);
-        
+
+        int tmp =  AS5055send(index, 0xffff);
+        read.uint0_15 = tmp;
+        if(AS5055CalculateParity(tmp) != read.regs.PAR){
+            setPrintLevelErrorPrint();
+            println_E("Parity Failed");
+        }
         if(read.regs.EF){
             setPrintLevelErrorPrint();
             if(read.regs.AlarmHI == 1 && read.regs.AlarmLO == 0){
@@ -184,7 +188,7 @@ UINT16 AS5055readAngle(BYTE index){
                 read.regs.EF=0;
             }
             if(read.regs.AlarmHI == 1 && read.regs.AlarmLO == 1){
-                println_E("**Error flag on data read! Index: ");p_int_E(index);print_E(" 0x");prHEX16(read.uint0_15,ERROR_PRINT); print_E("\n");
+                //println_E("**Error flag on data read! Index: ");p_int_E(index);print_E(" 0x");prHEX16(read.uint0_15,ERROR_PRINT); print_E("\n");
 //
                 //printSystemConfig(index);
                 AS5055reset(index);
@@ -213,15 +217,17 @@ UINT16 AS5055send(BYTE index, UINT16 data){
     tmp.Val=data;
     EncoderSS(index,CSN_Enabled);
     //println_I("[AS5055send] Sending data: ");prHEX8(tmp.byte.SB,INFO_PRINT);prHEX8(tmp.byte.LB,INFO_PRINT);println_I("");
-    //back.byte.SB = SPITransceve(0xAA);
-    //back.byte.LB = SPITransceve(0x88);
-    // AC: This gives you the response from the previous command. You need to send outa nop to get the response for this command
-    back.byte.SB = SPITransceve(tmp.byte.SB);
-    back.byte.LB = SPITransceve(tmp.byte.LB);
-     //println_I("[AS5055send] Got data: ");prHEX8(back.byte.SB,INFO_PRINT);prHEX8(back.byte.LB,INFO_PRINT);println_I("");
-
+    SPITransceve(tmp.byte.SB);
+    SPITransceve(tmp.byte.LB);
     EncoderSS(index,CSN_Disabled);
-
+    Delay10us(50);
+    EncoderSS(index,CSN_Enabled);
+   // AC: This gives you the response from the previous command. You need to send outa nop to get the response for this command
+    back.byte.SB = SPITransceve(0);
+    back.byte.LB = SPITransceve(0);
+    EncoderSS(index,CSN_Disabled);
+    //println_I("[AS5055send] Got data: ");prHEX8(back.byte.SB,INFO_PRINT);prHEX8(back.byte.LB,INFO_PRINT);println_I("");
+  
     lock = FALSE;
     //print_I("`");
     return back.Val;

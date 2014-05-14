@@ -57,7 +57,7 @@ BOOL runKinematics=FALSE;
 
 //Default values for ServoStock
 HardwareMap hwMap ={
-    {0,-1.0*mmPerTick ,"left"},//axis 0
+    {0, 1.0*mmPerTick ,"left"},//axis 0
     {1,-1.0*mmPerTick ,"right"},//axis 1
     {2,-1.0*mmPerTick ,"tilt"},//axis 2
     {
@@ -130,7 +130,7 @@ BOOL isCartesianInterpolationDone(){
     updateCurrentPositions();
     float targets[3] = {xCurrent,yCurrent,zCurrent};
     int setpointBound = 200;
-    float mmPositionResolution = 3;
+    float mmPositionResolution = .1;
     int i;
     for(i=0;i<4;i++){
         if(i<3){
@@ -443,7 +443,7 @@ BYTE setInterpolateXYZ(float x, float y, float z,float ms){
     print_W(" cy=");p_fl_W(yCurrent);
     print_W(" cz=");p_fl_W(zCurrent);
     println_W("Current  angles Alpha=");p_fl_W(getLinkAngle(0));print_W(" Beta=");p_fl_W(getLinkAngle(1));print_W(" Gamma=");p_fl_W(getLinkAngle(2));
-
+    runKinematics=TRUE;
     for(i=0;i<3;i++){
 	intCartesian[i].setTime=ms;
 	intCartesian[i].startTime=start;
