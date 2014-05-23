@@ -13,6 +13,12 @@ void AS5055ResetErrorFlag(BYTE index);
 void printSystemConfig(BYTE index);
 UINT16 AS5055send(BYTE index, UINT16 data);
 
+BOOL enableWrapping=TRUE;
+
+void disableWrapping(){
+    enableWrapping=FALSE;
+}
+
 void initializeEncoders(){
     DelayMs(200);
     int i;
@@ -52,14 +58,18 @@ float readEncoderWithoutOffset(BYTE index){
     }else{
         diff=0;
     }
-    
-    if(diff > jump || diff < (-1*jump)){
-        if(diff>0)
-            overflow[index]++;
-        else
-             overflow[index]--;
+    float oflw=0;
+    if(enableWrapping){
+        if(diff > jump || diff < (-1*jump)){
+            if(diff>0)
+                overflow[index]++;
+            else
+                 overflow[index]--;
+        }
+       oflw= (4096*overflow[index]);
     }
-    float ret = ((tmp+(4096*overflow[index])));
+
+    float ret = ((tmp+oflw));
     return ret;
 }
 
@@ -126,7 +136,6 @@ UINT16 AS5055reset(BYTE index){
     cmd.regs.PAR=AS5055CalculateParity(cmd.uint0_15);
 
     AS5055send(index, cmd.uint0_15);
-    AS5055send(index, 0xffff);
     
     return read.uint0_15;
 }
@@ -166,8 +175,7 @@ void printSystemConfig(BYTE index){
 
 UINT16 AS5055readAngle(BYTE index){
     Print_Level l = getPrintLevel();
-    if (index!=0)
-        return 0;
+
     AS5055AngularDataPacket read;
     int loop=0;
     do{
@@ -181,10 +189,10 @@ UINT16 AS5055readAngle(BYTE index){
         if(read.regs.EF){
             setPrintLevelErrorPrint();
             if(read.regs.AlarmHI == 1 && read.regs.AlarmLO == 0){
-                //println_E("Alarm bit indicating a too high magnetic field");
+                println_E("Alarm bit indicating a too high magnetic field");
                 read.regs.EF=0;
             }if(read.regs.AlarmHI == 0 && read.regs.AlarmLO == 1){
-                //println_E("Alarm bit indicating a too low magnetic field");
+                println_E("Alarm bit indicating a too low magnetic field");
                 read.regs.EF=0;
             }
             if(read.regs.AlarmHI == 1 && read.regs.AlarmLO == 1){
@@ -194,7 +202,7 @@ UINT16 AS5055readAngle(BYTE index){
                 AS5055reset(index);
                 AS5055ResetErrorFlag(index);
             }
-//            AS5055send(index, 0xffff);
+            read.uint0_15 = AS5055send(index, 0xffff);
 //            if(getPidGroupDataTable() != NULL)
 //                SetPIDEnabled(index,FALSE);
         }

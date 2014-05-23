@@ -76,6 +76,7 @@ void interpolateZXY();
 BYTE setXYZ(float x, float y, float z,float ms);
 
 float getLinkAngle(int index);
+float getLinkAngleNoScale(int index);
 
 float setLinkAngle(int index, float value, float ms);
 

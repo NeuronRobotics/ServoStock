@@ -57,9 +57,9 @@ BOOL runKinematics=FALSE;
 
 //Default values for ServoStock
 HardwareMap hwMap ={
-    {0, 1.0*mmPerTick ,"left"},//axis 0
-    {1,-1.0*mmPerTick ,"right"},//axis 1
-    {2,-1.0*mmPerTick ,"tilt"},//axis 2
+    {0,-1.0/ticksPerDegree ,"left"},//axis 0
+    {1,-1.0/ticksPerDegree ,"right"},//axis 1
+    {2,-1.0/ticksPerDegree ,"tilt"},//axis 2
     {
         {3,1.0,"Extruder"},// Motor
         {11,1.0,"Heater"}// Heater
@@ -130,7 +130,7 @@ BOOL isCartesianInterpolationDone(){
     updateCurrentPositions();
     float targets[3] = {xCurrent,yCurrent,zCurrent};
     int setpointBound = 200;
-    float mmPositionResolution = .1;
+    float mmPositionResolution = 10;
     int i;
     for(i=0;i<4;i++){
         if(i<3){
@@ -152,17 +152,6 @@ BOOL isCartesianInterpolationDone(){
 
 void initializeCartesianController(){
     InitPacketFifo(&packetFifo,buffer,SIZE_OF_PACKET_BUFFER);
-    int i=0;
-    for(i=0;i<3;i++){
-        if(getPidGroupDataTable()[linkToHWIndex(i)].config.Enabled!=TRUE){
-            getPidGroupDataTable()[linkToHWIndex(i)].config.Enabled=TRUE;
-            getPidGroupDataTable()[linkToHWIndex(i)].config.Polarity=TRUE;
-            getPidGroupDataTable()[linkToHWIndex(i)].config.Async=FALSE;
-            //getPidGroupDataTable()[linkToHWIndex(i)].config.K.P=.12;
-            //getPidGroupDataTable()[linkToHWIndex(i)].config.K.I=.4;
-            OnPidConfigure(linkToHWIndex(i));
-        }
-    }
 }
 
 void pushBufferEmpty(){
@@ -343,11 +332,8 @@ void cancelPrint(){
 
     println_W("Cancel Print");
     setPrintLevel(l);
-    while(FifoGetPacketCount(&packetFifo)>0){
-        FifoGetPacket(&packetFifo,&linTmpPack);
-    }
-
-    setInterpolateXYZ(0, 0, getmaxZ(), 0);
+    InitPacketFifo(&packetFifo,buffer,SIZE_OF_PACKET_BUFFER);
+    //setInterpolateXYZ(0, 0, getmaxZ(), 0);
     ZeroPID(hwMap.Extruder0.index);
     SetPIDTimed(hwMap.Heater0.index,0,0);
 }
@@ -379,6 +365,21 @@ BOOL onCartesianPacket(BowlerPacket *Packet){
     return ret;
 }
 
+void printCartesianData(){
+updateCurrentPositions();
+   println_W("Current  position cx=");p_fl_W(xCurrent);
+
+    print_W(" cy=");p_fl_W(yCurrent);
+    print_W(" cz=");p_fl_W(zCurrent);
+    println_W("Current  angles Alpha=");p_fl_W(getLinkAngle(0));
+    print_W(" Beta=");p_fl_W(getLinkAngle(1));
+    print_W(" Gamma=");p_fl_W(getLinkAngle(2));
+
+    println_W("Raw  angles Alpha=");p_fl_W(getLinkAngleNoScale(0));
+    print_W(" Beta=");p_fl_W(getLinkAngleNoScale(1));
+    print_W(" Gamma=");p_fl_W(getLinkAngleNoScale(2));
+
+}
 
 void interpolateZXY(){
 
@@ -390,7 +391,7 @@ void interpolateZXY(){
     if(!runKinematics){
         return;
     }
-    //keepCartesianPosition=TRUE;
+    keepCartesianPosition=TRUE;
     if(keepCartesianPosition){
         float x=0,y=0,z=0;
         float ms= getMs();
@@ -465,7 +466,7 @@ BYTE setXYZ(float x, float y, float z,float ms){
     updateCurrentPositions();
     float t0=0,t1=0,t2=0;
     if(hwMap.iK_callback( x,  y, z,  &t0, &t1, &t2)==0){
-        //println_I("New target angles t1=");p_fl_I(t0);print_I(" t2=");p_fl_I(t1);print_I(" t3=");p_fl_I(t2);
+        println_I("New target angles t1=");p_fl_I(t0);print_I(" t2=");p_fl_I(t1);print_I(" t3=");p_fl_I(t2);
         setLinkAngle(0,t0,ms);
         setLinkAngle(1,t1,ms);
         setLinkAngle(2,t2,ms);
@@ -509,11 +510,14 @@ float getLinkScale(int index){
             return hwMap.Heater0.scale;
     }
 }
-
+float getLinkAngleNoScale(int index){
+    int localIndex=linkToHWIndex(index);
+    return GetPIDPosition(localIndex);
+}
 
 float getLinkAngle(int index){
-    int localIndex=linkToHWIndex(index);
-    return GetPIDPosition(localIndex)*getLinkScale(index);
+
+    return getLinkAngleNoScale(index)*getLinkScale(index);
 }
 
 float setLinkAngle(int index, float value, float ms){
@@ -532,7 +536,7 @@ float setLinkAngle(int index, float value, float ms){
 //            println_E("Lower Capped link ");p_int_E(index);print_E(", attempted: ");p_fl_E(value);
 //        }
     }
-    //println_I("Setting position from cartesian controller ");p_int_I(index);print_I(" to ");p_fl_I(v);
+    println_I("Setting position from cartesian controller ");p_int_I(index);print_I(" to ");p_fl_I(v);
     return SetPIDTimed(localIndex,v,ms);
 }
 

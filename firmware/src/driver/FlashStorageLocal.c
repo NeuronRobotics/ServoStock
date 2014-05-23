@@ -49,7 +49,7 @@ BOOL initFlashLocal(){
             getPidGroupDataTable()[i].config.K.D=0;
             getPidGroupDataTable()[i].config.V.P=.1;
             getPidGroupDataTable()[i].config.V.D=0;
-            getPidGroupDataTable()[i].config.Polarity=1;
+            getPidGroupDataTable()[i].config.Polarity=0;
             getPidGroupDataTable()[i].config.stop=0;
             getPidGroupDataTable()[i].config.upperHistoresis=0;
             getPidGroupDataTable()[i].config.lowerHistoresis=0;
