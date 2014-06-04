@@ -271,12 +271,14 @@ int main(){
 
         pidReset(1, 1024);
         SetPID(1,1024);
+        getPidGroupDataTable()[1].config.Polarity=0;
         getPidGroupDataTable()[1].config.upperHistoresis=-5;
         getPidGroupDataTable()[1].config.lowerHistoresis=-7;
         getPidGroupDataTable()[1].config.stop=-6;
 
         pidReset(2, 0);
         SetPID(2,0);
+        getPidGroupDataTable()[2].config.Polarity=0;
         getPidGroupDataTable()[2].config.upperHistoresis=5;
         getPidGroupDataTable()[2].config.lowerHistoresis=3;
         getPidGroupDataTable()[2].config.stop=4;

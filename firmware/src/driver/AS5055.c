@@ -2,7 +2,7 @@
 #include <math.h>
 
 int overflow[numPidTotal];
-int offset[numPidTotal];
+//int offset[numPidTotal];
 int raw[numPidTotal];
 float recent[numPidTotal];
 BYTE initialized = FALSE;
@@ -32,7 +32,7 @@ void initializeEncoders(){
         AS5055reset(i);
         print_I(" | reset ");
         overflow[i]=0;
-        offset[i]=0;
+        //offset[i]=0;
         int j;
         for(j=0;j<1;j++){
             //Read a bunch of times to get the system flushed after startup
@@ -73,21 +73,30 @@ float readEncoderWithoutOffset(BYTE index){
     return ret;
 }
 
-int setCurrentValue(BYTE index,int value){
-    offset[index] = (readEncoderWithoutOffset( index) - value);
-}
-
 
 int getRecentEncoderReading(int index){
     return recent[index];
 }
 
+void updateAllEncoders(){
+    int i;
+    for (i=0;i<numPidMotors;i++){
+        // Set the read command to the chip
+        readEncoderWithoutOffset(i);
+    }
+    Delay10us(50);// Delay for the encoders to perform read
+    for (i=0;i<numPidMotors;i++){
+        // Take a reading after waiting
+        recent[i] = readEncoderWithoutOffset(i);
+    }
+}
+
 float readEncoder(BYTE index){
-    float size=6.0;
+    float size=1;
     float ret=0;
     int i;
     for(i=0;i<size;i++)
-        ret += (readEncoderWithoutOffset(index)-offset[index]);
+        ret += (readEncoderWithoutOffset(index));
     recent[index]=ret/size;
     return getRecentEncoderReading(index);
 }
@@ -178,36 +187,36 @@ UINT16 AS5055readAngle(BYTE index){
 
     AS5055AngularDataPacket read;
     int loop=0;
-    do{
+ //   do{
 
         int tmp =  AS5055send(index, 0xffff);
         read.uint0_15 = tmp;
-        if(AS5055CalculateParity(tmp) != read.regs.PAR){
-            setPrintLevelErrorPrint();
-            println_E("Parity Failed");
-        }
-        if(read.regs.EF){
-            setPrintLevelErrorPrint();
-            if(read.regs.AlarmHI == 1 && read.regs.AlarmLO == 0){
-                println_E("Alarm bit indicating a too high magnetic field");
-                read.regs.EF=0;
-            }if(read.regs.AlarmHI == 0 && read.regs.AlarmLO == 1){
-                println_E("Alarm bit indicating a too low magnetic field");
-                read.regs.EF=0;
-            }
-            if(read.regs.AlarmHI == 1 && read.regs.AlarmLO == 1){
-                //println_E("**Error flag on data read! Index: ");p_int_E(index);print_E(" 0x");prHEX16(read.uint0_15,ERROR_PRINT); print_E("\n");
-//
-                //printSystemConfig(index);
-                AS5055reset(index);
-                AS5055ResetErrorFlag(index);
-            }
-            read.uint0_15 = AS5055send(index, 0xffff);
-//            if(getPidGroupDataTable() != NULL)
-//                SetPIDEnabled(index,FALSE);
-        }
-        loop++;
-    }while(read.regs.EF && loop<1);
+//        if(AS5055CalculateParity(tmp) != read.regs.PAR){
+//            setPrintLevelErrorPrint();
+//            println_E("Parity Failed");
+//        }
+//        if(read.regs.EF){
+//            setPrintLevelErrorPrint();
+//            if(read.regs.AlarmHI == 1 && read.regs.AlarmLO == 0){
+//                println_E("Alarm bit indicating a too high magnetic field");
+//                read.regs.EF=0;
+//            }if(read.regs.AlarmHI == 0 && read.regs.AlarmLO == 1){
+//                println_E("Alarm bit indicating a too low magnetic field");
+//                read.regs.EF=0;
+//            }
+//            if(read.regs.AlarmHI == 1 && read.regs.AlarmLO == 1){
+//                //println_E("**Error flag on data read! Index: ");p_int_E(index);print_E(" 0x");prHEX16(read.uint0_15,ERROR_PRINT); print_E("\n");
+////
+//                //printSystemConfig(index);
+//                AS5055reset(index);
+//                AS5055ResetErrorFlag(index);
+//            }
+//            read.uint0_15 = AS5055send(index, 0xffff);
+////            if(getPidGroupDataTable() != NULL)
+////                SetPIDEnabled(index,FALSE);
+//        }
+//        loop++;
+//    }while(read.regs.EF && loop<1);
 
     setPrintLevel(l);
     return read.regs.Data;
@@ -228,12 +237,12 @@ UINT16 AS5055send(BYTE index, UINT16 data){
     SPITransceve(tmp.byte.SB);
     SPITransceve(tmp.byte.LB);
     EncoderSS(index,CSN_Disabled);
-    Delay10us(50);
-    EncoderSS(index,CSN_Enabled);
-   // AC: This gives you the response from the previous command. You need to send outa nop to get the response for this command
-    back.byte.SB = SPITransceve(0);
-    back.byte.LB = SPITransceve(0);
-    EncoderSS(index,CSN_Disabled);
+//    Delay10us(50);
+//    EncoderSS(index,CSN_Enabled);
+//   // AC: This gives you the response from the previous command. You need to send outa nop to get the response for this command
+//    back.byte.SB = SPITransceve(0);
+//    back.byte.LB = SPITransceve(0);
+//    EncoderSS(index,CSN_Disabled);
     //println_I("[AS5055send] Got data: ");prHEX8(back.byte.SB,INFO_PRINT);prHEX8(back.byte.LB,INFO_PRINT);println_I("");
   
     lock = FALSE;

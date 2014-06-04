@@ -174,6 +174,7 @@ typedef union __attribute__((__packed__)) _AS5055WritePacket
         #define     AS5055REG_AngularData               0x3fff
         #define     AS5055REG_SystemConfig1             0x3f20
 
+void updateAllEncoders();
 float readEncoder(BYTE index);
 
 UINT8   AS5055CalculateParity(UINT16 data);

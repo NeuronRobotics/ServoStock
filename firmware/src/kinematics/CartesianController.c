@@ -57,7 +57,7 @@ BOOL runKinematics=FALSE;
 
 //Default values for ServoStock
 HardwareMap hwMap ={
-    {0,-1.0/ticksPerDegree ,"left"},//axis 0
+    {0,1.0/ticksPerDegree ,"left"},//axis 0
     {1,-1.0/ticksPerDegree ,"right"},//axis 1
     {2,-1.0/ticksPerDegree ,"tilt"},//axis 2
     {

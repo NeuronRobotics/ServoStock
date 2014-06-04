@@ -74,9 +74,9 @@ PidLimitEvent * checkPIDLimitEventsMine(BYTE group){
 int resetPositionMine(int group, int current){
     println_I("Resetting PID Local ");p_int_I(group);print_I(" to ");p_int_I(current);print_I(" from ");p_fl_I(getPositionMine(group));
     if(group<numPidMotors){
-        setCurrentValue(group, current);
+        //setCurrentValue(group, current);
     }else{
-        resetHeater(group, current);
+        //resetHeater(group, current);
     }
     return getPositionMine(group);
 }
@@ -85,7 +85,7 @@ float getPositionMine(int group){
     float val=0;
     if(group<numPidMotors){
         if(pidGroups[group].config.Enabled || vel[group].enabled)
-            val = readEncoder(group);
+            val = getRecentEncoderReading(group);
     }else{
         val = getHeaterTempreture(group);
     }
