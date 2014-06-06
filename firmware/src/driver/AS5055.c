@@ -7,7 +7,7 @@ int raw[numPidTotal];
 float recent[numPidTotal];
 BYTE initialized = FALSE;
 BYTE busy =0;
-#define jump 3500
+#define jump 3000
 void encoderSPIInit();
 void AS5055ResetErrorFlag(BYTE index);
 void printSystemConfig(BYTE index);
@@ -33,16 +33,7 @@ void initializeEncoders(){
         print_I(" | reset ");
         overflow[i]=0;
         //offset[i]=0;
-        int j;
-        for(j=0;j<1;j++){
-            //Read a bunch of times to get the system flushed after startup
-            print_I(" | error flag clear ");
-            AS5055ResetErrorFlag(i);
-            print_I(" | read ");
-            raw[i]=AS5055readAngle(i);
-            print_I(" | done ");
-            printSystemConfig(i);
-        }
+        recent[i]=0;
     }
 }
 
@@ -74,8 +65,9 @@ float readEncoderWithoutOffset(BYTE index){
 }
 
 
-int getRecentEncoderReading(int index){
-    return recent[index];
+float getRecentEncoderReading(int index){
+    float value= recent[index];
+    return value;
 }
 
 void updateAllEncoders(){
@@ -88,18 +80,20 @@ void updateAllEncoders(){
     for (i=0;i<numPidMotors;i++){
         // Take a reading after waiting
         recent[i] = readEncoderWithoutOffset(i);
+        //AS5055reset(i);
+        AS5055ResetErrorFlag(i);
     }
 }
 
-float readEncoder(BYTE index){
-    float size=1;
-    float ret=0;
-    int i;
-    for(i=0;i<size;i++)
-        ret += (readEncoderWithoutOffset(index));
-    recent[index]=ret/size;
-    return getRecentEncoderReading(index);
-}
+//float readEncoder(BYTE index){
+//    float size=1;
+//    float ret=0;
+//    int i;
+//    for(i=0;i<size;i++)
+//        ret += (readEncoderWithoutOffset(index));
+//    recent[index]=ret/size;
+//    return getRecentEncoderReading(index);
+//}
 
 void encoderSPIInit(){
     SPI_CLK_TRIS=OUTPUT;
@@ -186,37 +180,10 @@ UINT16 AS5055readAngle(BYTE index){
     Print_Level l = getPrintLevel();
 
     AS5055AngularDataPacket read;
-    int loop=0;
- //   do{
 
-        int tmp =  AS5055send(index, 0xffff);
-        read.uint0_15 = tmp;
-//        if(AS5055CalculateParity(tmp) != read.regs.PAR){
-//            setPrintLevelErrorPrint();
-//            println_E("Parity Failed");
-//        }
-//        if(read.regs.EF){
-//            setPrintLevelErrorPrint();
-//            if(read.regs.AlarmHI == 1 && read.regs.AlarmLO == 0){
-//                println_E("Alarm bit indicating a too high magnetic field");
-//                read.regs.EF=0;
-//            }if(read.regs.AlarmHI == 0 && read.regs.AlarmLO == 1){
-//                println_E("Alarm bit indicating a too low magnetic field");
-//                read.regs.EF=0;
-//            }
-//            if(read.regs.AlarmHI == 1 && read.regs.AlarmLO == 1){
-//                //println_E("**Error flag on data read! Index: ");p_int_E(index);print_E(" 0x");prHEX16(read.uint0_15,ERROR_PRINT); print_E("\n");
-////
-//                //printSystemConfig(index);
-//                AS5055reset(index);
-//                AS5055ResetErrorFlag(index);
-//            }
-//            read.uint0_15 = AS5055send(index, 0xffff);
-////            if(getPidGroupDataTable() != NULL)
-////                SetPIDEnabled(index,FALSE);
-//        }
-//        loop++;
-//    }while(read.regs.EF && loop<1);
+    int tmp =  AS5055send(index, 0xffff);
+    read.uint0_15 = tmp;
+
 
     setPrintLevel(l);
     return read.regs.Data;
@@ -234,8 +201,8 @@ UINT16 AS5055send(BYTE index, UINT16 data){
     tmp.Val=data;
     EncoderSS(index,CSN_Enabled);
     //println_I("[AS5055send] Sending data: ");prHEX8(tmp.byte.SB,INFO_PRINT);prHEX8(tmp.byte.LB,INFO_PRINT);println_I("");
-    SPITransceve(tmp.byte.SB);
-    SPITransceve(tmp.byte.LB);
+    back.byte.SB = SPITransceve(tmp.byte.SB);
+    back.byte.LB = SPITransceve(tmp.byte.LB);
     EncoderSS(index,CSN_Disabled);
 //    Delay10us(50);
 //    EncoderSS(index,CSN_Enabled);

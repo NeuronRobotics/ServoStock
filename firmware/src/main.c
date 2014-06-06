@@ -217,7 +217,7 @@ void bowlerSystem(){
     }
 
 }
-RunEveryData loop = {0,1000};
+RunEveryData loop = {0,2000};
 void SPItest(){
     
     BOOL val = TRUE;
@@ -246,21 +246,25 @@ int main(){
     hardwareInit();
     //StartCritical();
     initializeCartesianController();
-    disableWrapping();
+    //disableWrapping();
     DelayMs(100);
     if(     GetPIDCalibrateionState(0)!=CALIBRARTION_DONE&&
             GetPIDCalibrateionState(1)!=CALIBRARTION_DONE&&
             GetPIDCalibrateionState(2)!=CALIBRARTION_DONE
 
                 ){
-        for(i=0;i<3;i++){
+        for(i=0;i<numPidMotors;i++){
             SetPIDEnabled(i,TRUE);
-            SetPIDCalibrateionState(i,CALIBRARTION_DONE);
         }
 //        runPidHysterisisCalibration(0);
 //        runPidHysterisisCalibration(1);
 //        runPidHysterisisCalibration(2);
         DelayMs(100);//wait for ISR to fire and update all values
+        for(i=0;i<numPidMotors;i++){
+            SetPIDCalibrateionState(i,CALIBRARTION_DONE);
+            pidReset(i, 0);
+            setPIDConstants(i,.1,0,0);
+        }
         println_W("Axis need calibration");
         pidReset(0, -1024);
         SetPID(0,-1024);
@@ -282,6 +286,8 @@ int main(){
         getPidGroupDataTable()[2].config.upperHistoresis=5;
         getPidGroupDataTable()[2].config.lowerHistoresis=3;
         getPidGroupDataTable()[2].config.stop=4;
+
+        
         OnPidConfigure(0);
     }else{
         println_W("Axis are already calibrated");
@@ -317,6 +323,19 @@ int main(){
 //        print_W(" : 2\r\n\r\n");
 //
 //    }
+    Print_Level l= getPrintLevel();
+    setPrintLevelInfoPrint();
+    printCartesianData();
+    int i;
+    for(i=0;i<numPidMotors;i++){
+        printPIDvals(i);
+
+    }
+    for(i=0;i<numPidMotors;i++){
+        println_I(" Axis ");p_int_I(i);
+        print_I(" Val: ");p_fl_I(getRecentEncoderReading(i));
+    }
+    setPrintLevel(l);
     while(1){
         //HEATER_0=1;
         //HEATER_1=1;
@@ -333,7 +352,19 @@ int main(){
 		Reset();
 	}
         if(RunEvery(&loop)>0){
-         printCartesianData();
+            Print_Level l= getPrintLevel();
+            setPrintLevelInfoPrint();
+//            printCartesianData();
+//            int i;
+//            for(i=0;i<numPidMotors;i++){
+//                printPIDvals(i);
+//            }
+//            
+            for(i=0;i<numPidMotors;i++){
+                println_I(" Axis ");p_int_I(i);
+                print_I(" Val: ");p_fl_I(getRecentEncoderReading(i));
+            }
+            setPrintLevel(l);
         }
         if(     printCalibrations == FALSE&&
                 GetPIDCalibrateionState(0)==CALIBRARTION_DONE&&

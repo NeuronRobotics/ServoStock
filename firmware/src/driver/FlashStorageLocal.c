@@ -54,6 +54,7 @@ BOOL initFlashLocal(){
             getPidGroupDataTable()[i].config.upperHistoresis=0;
             getPidGroupDataTable()[i].config.lowerHistoresis=0;
             getPidGroupDataTable()[i].config.offset=0;
+
         }
     }
     if(rawFlashDetect )

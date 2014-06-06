@@ -84,7 +84,7 @@ int resetPositionMine(int group, int current){
 float getPositionMine(int group){
     float val=0;
     if(group<numPidMotors){
-        if(pidGroups[group].config.Enabled || vel[group].enabled)
+        //if(pidGroups[group].config.Enabled || vel[group].enabled)
             val = getRecentEncoderReading(group);
     }else{
         val = getHeaterTempreture(group);

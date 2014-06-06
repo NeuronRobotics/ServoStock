@@ -61,7 +61,7 @@ HardwareMap hwMap ={
     {1,-1.0/ticksPerDegree ,"right"},//axis 1
     {2,-1.0/ticksPerDegree ,"tilt"},//axis 2
     {
-        {3,1.0,"Extruder"},// Motor
+        {7,1.0,"Extruder"},// Motor
         {11,1.0,"Heater"}// Heater
     },//Extruder 0
     {
