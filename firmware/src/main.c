@@ -306,8 +306,8 @@ int main(){
 
     disableSerialComs(TRUE);
     //setPrintLevelInfoPrint();
-    setPrintLevelWarningPrint();
-    //setPrintLevelNoPrint();
+    //setPrintLevelWarningPrint();
+    setPrintLevelNoPrint();
     (_TRISB0)=1;
 
     SetColor(1,1,1);
@@ -352,14 +352,16 @@ int main(){
 		Reset();
 	}
         if(RunEvery(&loop)>0){
+            checkDataTable();
             Print_Level l= getPrintLevel();
             setPrintLevelInfoPrint();
-//            printCartesianData();
-//            int i;
-//            for(i=0;i<numPidMotors;i++){
-//                printPIDvals(i);
-//            }
-//            
+            //printCartesianData();
+            updateAllEncoders();
+            int i;
+            for(i=0;i<numPidMotors;i++){
+                printPIDvals(i);
+            }
+            
             for(i=0;i<numPidMotors;i++){
                 println_I(" Axis ");p_int_I(i);
                 print_I(" Val: ");p_fl_I(getRecentEncoderReading(i));

@@ -134,7 +134,7 @@ void servoTimerEvent()
         switch(servoStateMachineCurrentState){
             case LOW:
                 if(getRunPidIsr()){
-                    updateAllEncoders();
+                    //updateAllEncoders();
                     Print_Level l = getPrintLevel();
                     interpolateZXY();
                     setPrintLevelNoPrint();

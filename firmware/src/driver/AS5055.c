@@ -34,16 +34,21 @@ void initializeEncoders(){
         overflow[i]=0;
         //offset[i]=0;
         recent[i]=0;
+        raw[i]=AS5055readAngle(i);
+        Delay10us(50);// Delay for the encoders to perform read
+        raw[i]=AS5055readAngle(i);
     }
 }
 
 float readEncoderWithoutOffset(BYTE index){
-    int tmp;
-    int diff;
+    int tmp=0;
+    int diff=0;
     if(!busy){
         busy = 1;
         tmp = AS5055readAngle(index);
         diff = raw[index]-tmp;
+        print_E(" diff : ");
+        p_int_E(diff);
         raw[index]=tmp;
         busy = 0;
     }else{
@@ -59,8 +64,15 @@ float readEncoderWithoutOffset(BYTE index){
         }
        oflw= (4096*overflow[index]);
     }
+    print_W(" overflow Index : ");
+    p_int_W(overflow[index]);
+    print_E(" overflow adjustment  : ");
+    p_fl_E(oflw);
 
-    float ret = ((tmp+oflw));
+
+    float ret = ((((float)tmp)+oflw));
+    print_W(" Return value : ");
+    p_fl_W(ret);
     return ret;
 }
 
@@ -79,7 +91,11 @@ void updateAllEncoders(){
     Delay10us(50);// Delay for the encoders to perform read
     for (i=0;i<numPidMotors;i++){
         // Take a reading after waiting
+        println_I("RAW Data:  ");p_int_I(i);
         recent[i] = readEncoderWithoutOffset(i);
+        print_I(" raw : ");p_int_I( raw[i]);
+        print_I(" val: ");p_int_I( recent[i]);
+        print_I(" Done\r\n");
         //AS5055reset(i);
         AS5055ResetErrorFlag(i);
     }

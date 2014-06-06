@@ -2,7 +2,7 @@
 
 
 
-static AbsPID 			pidGroups[numPidTotal];
+
 static PD_VEL 			vel[numPidTotal];
 static PidLimitEvent            limits[numPidTotal];
 
@@ -16,13 +16,14 @@ void onPidConfigureMine(int);
 PidLimitEvent * checkPIDLimitEventsMine(BYTE group);
 
 void initPIDLocal(){
+    setPidIsr(FALSE);
    	BYTE i;
 	//WORD loop;
 	for (i=0;i<numPidTotal;i++){
             vel[i].enabled=FALSE;
             limits[i].type=NO_LIMIT;
 	}
-	InitilizePidController( pidGroups,
+	InitilizePidController( (AbsPID *)getFlashPidGroupDataTable(),
                                 vel,
                                 numPidTotal,
                                 &getPositionMine,
