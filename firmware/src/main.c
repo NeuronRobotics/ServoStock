@@ -143,7 +143,7 @@ void hardwareInit(){
             (_TRISF5)=INPUT; // for the reset sw
         setPrintLevelInfoPrint();
         ATX_DISENABLE();
-
+        CloseTimer2();
 
         Pic32_Bowler_HAL_Init();
   
@@ -170,7 +170,7 @@ void hardwareInit(){
 	char * dev = "BowlerDevice";
         println_I(dev);
 	//This Method calls INTEnableSystemMultiVectoredInt();
-	usb_CDC_Serial_Init(dev,macStr,0x04D8,0x0002);
+	usb_CDC_Serial_Init(dev,macStr,0x04D8,0x0001);
 
        
         addNamespaceToList((NAMESPACE_LIST *)getBcsCartesianNamespace());
@@ -217,9 +217,9 @@ void bowlerSystem(){
     }
 
 }
-
+RunEveryData loop = {0,2000};
 void SPItest(){
-    RunEveryData loop = {0,100};
+    
     BOOL val = TRUE;
     CloseSPI2();
     SPI_MISO_TRIS   =OUTPUT;
@@ -241,27 +241,101 @@ void SPItest(){
     }*/
 }
 BOOL printCalibrations = FALSE;
+
 int main(){
     hardwareInit();
     //StartCritical();
+    initializeCartesianController();
+    //disableWrapping();
+    DelayMs(100);
+    if(     GetPIDCalibrateionState(0)!=CALIBRARTION_DONE&&
+            GetPIDCalibrateionState(1)!=CALIBRARTION_DONE&&
+            GetPIDCalibrateionState(2)!=CALIBRARTION_DONE
+
+                ){
+        for(i=0;i<numPidMotors;i++){
+            SetPIDEnabled(i,TRUE);
+        }
+//        runPidHysterisisCalibration(0);
+//        runPidHysterisisCalibration(1);
+//        runPidHysterisisCalibration(2);
+        DelayMs(100);//wait for ISR to fire and update all values
+        for(i=0;i<numPidMotors;i++){
+            SetPIDCalibrateionState(i,CALIBRARTION_DONE);
+            pidReset(i, 0);
+            setPIDConstants(i,.1,0,0);
+        }
+        println_W("Axis need calibration");
+        pidReset(0, -1024);
+        SetPID(0,-1024);
+        getPidGroupDataTable()[0].config.Polarity=1;
+        getPidGroupDataTable()[0].config.upperHistoresis=-5;
+        getPidGroupDataTable()[0].config.lowerHistoresis=-7;
+        getPidGroupDataTable()[0].config.stop=-6;
+
+        pidReset(1, 1024);
+        SetPID(1,1024);
+        getPidGroupDataTable()[1].config.Polarity=0;
+        getPidGroupDataTable()[1].config.upperHistoresis=-5;
+        getPidGroupDataTable()[1].config.lowerHistoresis=-7;
+        getPidGroupDataTable()[1].config.stop=-6;
+
+        pidReset(2, 0);
+        SetPID(2,0);
+        getPidGroupDataTable()[2].config.Polarity=0;
+        getPidGroupDataTable()[2].config.upperHistoresis=5;
+        getPidGroupDataTable()[2].config.lowerHistoresis=3;
+        getPidGroupDataTable()[2].config.stop=4;
+
+        
+        OnPidConfigure(0);
+    }else{
+        println_W("Axis are already calibrated");
+    }
+    
 
 
-    runPidHysterisisCalibration(0);
-    runPidHysterisisCalibration(1);
-    runPidHysterisisCalibration(2);
+
+//    SetPIDCalibrateionState(0, CALIBRARTION_DONE);
+//    SetPIDCalibrateionState(1, CALIBRARTION_DONE);
+//    SetPIDCalibrateionState(2, CALIBRARTION_DONE);
+
 
     pid.MsTime=getMs();
     //startHomingLinks();
+
     disableSerialComs(TRUE);
-    setPrintLevelWarningPrint();
-    //setPrintLevelNoPrint();
+    //setPrintLevelInfoPrint();
+    //setPrintLevelWarningPrint();
+    setPrintLevelNoPrint();
     (_TRISB0)=1;
 
     SetColor(1,1,1);
                 HEATER_2_TRIS = OUTPUT;
                 //HEATER_1_TRIS = OUTPUT; // Causes one of the axies to crawl downward in bursts when enabled and on...
                 //HEATER_0_TRIS = OUTPUT; // causes device to twitc. These are touched by the USB stack somehow..... and as the reset button
+//    while(1){
+//        p_int_W(AS5055readAngle(0));
+//        print_W(" : 0\r\n");
+//        p_int_W(AS5055readAngle(1));
+//        print_W(" : 1\r\n");
+//        p_int_W(AS5055readAngle(2));
+//        print_W(" : 2\r\n\r\n");
+//
+//    }
+    Print_Level l= getPrintLevel();
+    setPrintLevelInfoPrint();
+    printCartesianData();
+    int i;
+    for(i=0;i<numPidMotors;i++){
+        printPIDvals(i);
 
+    }
+    for(i=0;i<numPidMotors;i++){
+        println_I(" Axis ");p_int_I(i);
+        print_I(" Val: ");p_fl_I(getRecentEncoderReading(i));
+    }
+    setPrintLevel(l);
     while(1){
         //HEATER_0=1;
         //HEATER_1=1;
@@ -277,6 +351,23 @@ int main(){
 		DelayMs(100);
 		Reset();
 	}
+        if(RunEvery(&loop)>0){
+            checkDataTable();
+            Print_Level l= getPrintLevel();
+            setPrintLevelInfoPrint();
+            //printCartesianData();
+            updateAllEncoders();
+            int i;
+            for(i=0;i<numPidMotors;i++){
+                printPIDvals(i);
+            }
+            
+            for(i=0;i<numPidMotors;i++){
+                println_I(" Axis ");p_int_I(i);
+                print_I(" Val: ");p_fl_I(getRecentEncoderReading(i));
+            }
+            setPrintLevel(l);
+        }
         if(     printCalibrations == FALSE&&
                 GetPIDCalibrateionState(0)==CALIBRARTION_DONE&&
                 GetPIDCalibrateionState(1)==CALIBRARTION_DONE&&
@@ -287,12 +378,13 @@ int main(){
             int group=0;
             for(group=0;group<3;group++){
                 println_E("For Axis ");p_int_E(group);
-                print_E(" upper: ");p_int_E(getPidGroupDataTable()[group].config.stop+getPidGroupDataTable()[group].config.upperHistoresis);
-                print_E(" lower: ");p_int_E(getPidGroupDataTable()[group].config.stop+getPidGroupDataTable()[group].config.lowerHistoresis);
+                print_E(" upper: ");p_int_E(getPidGroupDataTable()[group].config.upperHistoresis);
+                print_E(" lower: ");p_int_E(getPidGroupDataTable()[group].config.lowerHistoresis);
+                print_E(" stop: ");p_int_E(getPidGroupDataTable()[group].config.stop);
             }
             //startHomingLinks();
         }
-
+        
         bowlerSystem();
     }
 }

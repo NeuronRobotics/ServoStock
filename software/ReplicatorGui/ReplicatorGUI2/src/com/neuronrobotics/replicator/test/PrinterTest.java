@@ -19,8 +19,9 @@ public class PrinterTest implements PrinterStatusListener {
 	private PrinterTest(String filename) {
 		DeltaForgeDevice delt = new DeltaForgeDevice();
 
-		delt.setConnection(new SerialConnection("/dev/DeltaDoodle0"));
-		delt.connect();
+		if(!ConnectionDialog.getBowlerDevice(delt)){
+			System.exit(0);
+		}
 		NRPrinter printer = new NRPrinter(delt);
 //	NRPrinter printer = new NRPrinter(null);
 		printer.addPrinterStatusListener(this);

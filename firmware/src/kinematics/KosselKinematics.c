@@ -34,10 +34,13 @@ typedef struct _DeltaConfig{
 }DeltaConfig;
 
 DeltaConfig defaultConfig ={203.82,//RodLength
-                            175,//BaseRadius
-                            40.32,//EndEffectorRadius
-                            400.0,//MaxZ
+                            165,//BaseRadius
+                            25,//EndEffectorRadius
+                            300.0,//MaxZ
                             -10};//MinZ
+
+
+
 float sq(float num) {
     return num*num; 
 }
@@ -63,7 +66,7 @@ int servostock_calcInverse(float X, float Y, float Z, float *Alpha, float *Beta,
     float maxRad=sqrt((X*X)+(Y*Y));
 
 //#warning "Z is not used yet"
-    if((maxRad>(L/2)*.97) || (Z<defaultConfig.MinZ)||(Z>defaultConfig.MaxZ)){
+    if((maxRad>(L-R))|| (Z<defaultConfig.MinZ)||(Z>defaultConfig.MaxZ)){
         println_E("Outside of workspace x=");p_fl_E(X);print_E(" y=");p_fl_E(Y);print_E(" z=");p_fl_E(Z);print_E(" Bound radius=");p_fl_E((maxRad));
     	//printf("\r\nOutside of workspace x= %g y=%g z=%g Bound = %g",X,Y,Z,maxRad);
         return 1;//This is ourside the reachable work area
@@ -76,6 +79,20 @@ int servostock_calcInverse(float X, float Y, float Z, float *Alpha, float *Beta,
     Alpha[0] = sqrt(Lsqr - (0 - X)*(0 - X)                  - (R - Y)*(R - Y))+Z;
     Beta[0]  = sqrt(Lsqr - (-SIN_60*R - X)*(-SIN_60*R - X)  - (-COS_60*R - Y)*(-COS_60*R - Y))+Z;
     Gamma[0]  = sqrt(Lsqr - (SIN_60*R - X)*(SIN_60*R - X)   - (-COS_60*R - Y)*(-COS_60*R - Y))+Z;
+
+    if( abs(Alpha[0]-Beta[0])>L||
+            abs(Alpha[0]-Gamma[0])>L||
+            abs(Beta[0]-Alpha[0])>L||
+            abs(Beta[0]-Gamma[0])>L||
+            abs(Gamma[0]-Alpha[0])>L||
+            abs(Gamma[0]-Beta[0])>L){
+        println_E("Outside of workspace x=");p_fl_E(X);print_E(" y=");p_fl_E(Y);print_E(" z=");p_fl_E(Z);print_E(" Bound radius=");p_fl_E((maxRad));
+        println_E("Alpha=");p_fl_E(Alpha[0]);
+        print_E(" Beta=");p_fl_E(Beta[0]);
+        print_E(" Gama=");p_fl_E(Gamma[0]);
+
+        return 1;//This is ourside the reachable work area
+    }
 
     return 0;//SUCCESS
 }
@@ -161,6 +178,6 @@ int servostock_calcForward(float Alpha, float Beta, float Gamma, float * X, floa
     X[0] = (a1*Z[0] + b1)/dnm;
     Y[0] = (a2*Z[0] + b2)/dnm;
 
-      return 0;//success
+    return 0;//success
 }
 

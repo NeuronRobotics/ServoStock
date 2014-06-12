@@ -22,8 +22,8 @@ public class DeltaPrinterHardwareTester implements PrinterStatusListener {
 			for(int i=0;i<5;i++) {
 				double angle = i*14-20;
 				double [] joints = new double[] {angle,angle,angle,0,130};
-				printer.getDevice().setDesiredJointSpaceVector(joints, 0);
-				TransformNR pose = printer.getDevice().getCurrentPoseTarget();
+				printer.setDesiredJointSpaceVector(joints, 0);
+				TransformNR pose = printer.getCurrentPoseTarget();
 				System.out.println(pose);
 				Thread.sleep(1000);
 			}

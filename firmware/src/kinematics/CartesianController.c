@@ -6,6 +6,7 @@
 #endif
 
 void updateCurrentPositions();
+float getLinkScale(int index);
 
 static int homingAllLinks = FALSE;
 
@@ -26,39 +27,110 @@ BOOL configured=FALSE;
 int  lastPushedBufferSize =0;
 float lastXYZE[4];
 
-static RunEveryData pid ={0,100};
+static RunEveryData pid ={0,500};
 
 static BOOL keepCartesianPosition =FALSE;
 int interpolationCounter=0;
+BOOL runKinematics=FALSE;
 
 
 //Default values for ServoStock
+//HardwareMap hwMap ={
+//    {0,-1.0*mmPerTick ,"Alpha"},//axis 0
+//    {1,-1.0*mmPerTick ,"Beta"},//axis 1
+//    {2,-1.0*mmPerTick ,"Gama"},//axis 2
+//    {
+//        {3,1.0,"Extruder"},// Motor
+//        {11,1.0,"Heater"}// Heater
+//    },//Extruder 0
+//    {
+//        {AXIS_UNUSED,1.0,""},
+//        {AXIS_UNUSED,1.0,""}
+//    },//Extruder 1
+//    {
+//        {AXIS_UNUSED,1.0,""},
+//        {AXIS_UNUSED,1.0,""}
+//    },//Extruder 2
+//    (forwardKinematics *)&servostock_calcForward,
+//    (inverseKinematics *)&servostock_calcInverse
+//};
+
+//Default values for ServoStock
 HardwareMap hwMap ={
-    {0,-1.0*mmPerTick },//axis 0
-    {1,-1.0*mmPerTick },//axis 1
-    {2,-1.0*mmPerTick },//axis 2
+    {0,1.0/ticksPerDegree ,"left"},//axis 0
+    {1,-1.0/ticksPerDegree ,"right"},//axis 1
+    {2,-1.0/ticksPerDegree ,"tilt"},//axis 2
     {
-        {3,1.0},// Motor
-        {11,1.0}// Heater
+        {7,1.0,"Extruder"},// Motor
+        {11,1.0,"Heater"}// Heater
     },//Extruder 0
     {
-        {AXIS_UNUSED,1.0},
-        {AXIS_UNUSED,1.0}
+        {AXIS_UNUSED,1.0,""},
+        {AXIS_UNUSED,1.0,""}
     },//Extruder 1
     {
-        {AXIS_UNUSED,1.0},
-        {AXIS_UNUSED,1.0}
+        {AXIS_UNUSED,1.0,""},
+        {AXIS_UNUSED,1.0,""}
     },//Extruder 2
-//    &servostock_calcForward,
-    (inverseKinematics *)&servostock_calcInverse
+    (forwardKinematics *)&frog_calcForward,
+    (inverseKinematics *)&frog_calcInverse
 };
 
+char * getName(int index){
+    switch(index){
+        case 0:
+           return hwMap.Alpha.name;
+        case 1:
+            return hwMap.Beta.name;
+        case 2:
+            return hwMap.Gama.name;
+        case 3:
+            return hwMap.Extruder0.name;
+        case 4:
+            return hwMap.Heater0.name;
+    }
+}
+
+BOOL onRunKinematicsSet(BowlerPacket *Packet){
+    runKinematics=Packet->use.data[0];// Boolean to run the kinematics or not
+}
+
+
+BOOL onConfigurationGet(BowlerPacket *Packet){
+    Packet->use.head.DataLegnth=4;
+    BYTE index=  Packet->use.data[0];// joint space requested index
+
+    Packet->use.data[0] = linkToHWIndex(index);// the PID link maped
+    Packet->use.head.DataLegnth++;
+    Packet->use.data[1] = 5;// 5 active axis
+    Packet->use.head.DataLegnth++;
+    set32bit(Packet,getPidGroupDataTable()[Packet->use.data[0]].config.IndexLatchValue,2);
+    Packet->use.head.DataLegnth+=4;
+    set32bit(Packet,-100000,6);
+    Packet->use.head.DataLegnth+=4;
+    set32bit(Packet,100000,10);
+    Packet->use.head.DataLegnth+=4;
+    set32bit(Packet,getLinkScale(index)*1000,14);
+    Packet->use.head.DataLegnth+=4;
+
+    int i=0;
+    int offset=Packet->use.head.DataLegnth-4;
+    while(getName(index)[i]){
+       Packet->use.data[offset+i]=getName(index)[i];
+       i++;
+       Packet->use.head.DataLegnth++;
+    }
+    Packet->use.data[offset+i]=0;
+    Packet->use.head.DataLegnth++;
+    return TRUE;
+
+}
 
 BOOL isCartesianInterpolationDone(){
     updateCurrentPositions();
     float targets[3] = {xCurrent,yCurrent,zCurrent};
     int setpointBound = 200;
-    float mmPositionResolution = .3;
+    float mmPositionResolution = 10;
     int i;
     for(i=0;i<4;i++){
         if(i<3){
@@ -80,16 +152,6 @@ BOOL isCartesianInterpolationDone(){
 
 void initializeCartesianController(){
     InitPacketFifo(&packetFifo,buffer,SIZE_OF_PACKET_BUFFER);
-    int i=0;
-    for(i=0;i<3;i++){
-        if(getPidGroupDataTable()[linkToHWIndex(i)].config.Enabled!=TRUE){
-            getPidGroupDataTable()[linkToHWIndex(i)].config.Enabled=TRUE;
-            getPidGroupDataTable()[linkToHWIndex(i)].config.Polarity=TRUE;
-            getPidGroupDataTable()[linkToHWIndex(i)].config.K.P=.12;
-            getPidGroupDataTable()[linkToHWIndex(i)].config.K.I=.4;
-            OnPidConfigure(linkToHWIndex(i));
-        }
-    }
 }
 
 void pushBufferEmpty(){
@@ -129,7 +191,7 @@ void loadCurrentPosition(BowlerPacket * Packet){
 }
 
 void updateCurrentPositions(){
-        if(servostock_calcForward(
+        if(hwMap.fK_callback(
                                 getLinkAngle(0),
                                 getLinkAngle(1),
                                 getLinkAngle(2),
@@ -185,6 +247,8 @@ void checkPositionChange(){
     }
 }
 
+
+
 void cartesianAsync(){
     if(RunEvery(&pid)){
         int tmp =FifoGetPacketSpaceAvailible(&packetFifo);
@@ -193,7 +257,9 @@ void cartesianAsync(){
             pushBufferEmpty();
             full = FALSE;
         }
-        checkPositionChange();
+        if(runKinematics){
+            //checkPositionChange();
+        }
 
     }
 }
@@ -216,10 +282,17 @@ void processLinearInterpPacket(BowlerPacket * Packet){
      }
 }
 
+BOOL onClearPrinter(BowlerPacket *Packet){
+    Print_Level l =getPrintLevel();
+    setPrintLevelInfoPrint();
+    cancelPrint();
+    READY(Packet,35,35);
+    setPrintLevel(l);
+    return TRUE;
+}
+
 BOOL onCartesianPost(BowlerPacket *Packet){
-    Print_Level l = getPrintLevel();
-    switch(Packet->use.head.RPC){
-        case _SLI:
+
             if(FifoGetPacketSpaceAvailible(&packetFifo)>0){
                 if(Packet->use.data[0]==1){
                     processLinearInterpPacket(Packet);
@@ -246,32 +319,21 @@ BOOL onCartesianPost(BowlerPacket *Packet){
                     full=TRUE;
                 }
 
-                setPrintLevel(l);
             }else{
                 println_I("###ERROR BUFFER FULL!!");p_int_I(FifoGetPacketSpaceAvailible(&packetFifo));
-                setPrintLevel(l);
+
                 ERR(Packet,33,33);
             }
             return TRUE;
-        case PRCL:
-            cancelPrint();
-            READY(Packet,35,35);
-            return TRUE;
-
-    }
-    return FALSE;
 }
 
 void cancelPrint(){
     Print_Level l = getPrintLevel();
 
-    println_I("Cancel Print");
+    println_W("Cancel Print");
     setPrintLevel(l);
-    while(FifoGetPacketCount(&packetFifo)>0){
-        FifoGetPacket(&packetFifo,&linTmpPack);
-    }
-
-    setInterpolateXYZ(0, 0, getmaxZ(), 0);
+    InitPacketFifo(&packetFifo,buffer,SIZE_OF_PACKET_BUFFER);
+    //setInterpolateXYZ(0, 0, getmaxZ(), 0);
     ZeroPID(hwMap.Extruder0.index);
     SetPIDTimed(hwMap.Heater0.index,0,0);
 }
@@ -303,15 +365,30 @@ BOOL onCartesianPacket(BowlerPacket *Packet){
     return ret;
 }
 
+void printCartesianData(){
+updateCurrentPositions();
+   println_W("Current  position cx=");p_fl_W(xCurrent);
+
+    print_W(" cy=");p_fl_W(yCurrent);
+    print_W(" cz=");p_fl_W(zCurrent);
+    println_W("Current  angles Alpha=");p_fl_W(getLinkAngle(0));
+    print_W(" Beta=");p_fl_W(getLinkAngle(1));
+    print_W(" Gamma=");p_fl_W(getLinkAngle(2));
+
+    println_W("Raw  angles Alpha=");p_fl_W(getLinkAngleNoScale(0));
+    print_W(" Beta=");p_fl_W(getLinkAngleNoScale(1));
+    print_W(" Gamma=");p_fl_W(getLinkAngleNoScale(2));
+
+}
 
 void interpolateZXY(){
-//    if(interpolationCounter<5){
-//        interpolationCounter++;
-//        return;
-//    }
+
     interpolationCounter=0;
     if(!configured){
         HomeLinks();
+        return;
+    }
+    if(!runKinematics){
         return;
     }
     keepCartesianPosition=TRUE;
@@ -323,19 +400,24 @@ void interpolateZXY(){
         y = interpolate((INTERPOLATE_DATA *)&intCartesian[1],ms);
         z = interpolate((INTERPOLATE_DATA *)&intCartesian[2],ms);
         if(isCartesianInterpolationDone() == FALSE){
-//            println_W("Interp \r\n\tx=");p_fl_W(x);print_W(" \tc=");p_fl_W(xCurrent);
-//
-//            print_W("\r\n\ty=");p_fl_W(y);print_W(" \tc=");p_fl_W(yCurrent);
-//
-//            print_W("\r\n\tz=");p_fl_W(z);print_W(" \tc=");p_fl_W(zCurrent);
+            println_W("Start Time=");p_fl_W(ms);
+            println_W("Interp \r\n\tx=");p_fl_W(x);print_W(" \tc=");p_fl_W(xCurrent);   print_W(" \tT=");p_fl_W(intCartesian[0].setTime);print_W(" \tElapsed=");p_fl_W(ms-intCartesian[0].startTime);
+
+            print_W("\r\n\ty=");p_fl_W(y);print_W(" \tc=");p_fl_W(yCurrent);                print_W(" \tT=");p_fl_W(intCartesian[1].setTime);print_W(" \tElapsed=");p_fl_W(ms-intCartesian[1].startTime);
+
+            print_W("\r\n\tz=");p_fl_W(z);print_W(" \tc=");p_fl_W(zCurrent);                print_W(" \tT=");p_fl_W(intCartesian[2].setTime);print_W(" \tElapsed=");p_fl_W(ms-intCartesian[2].startTime);
+
+
             setXYZ( x, y, z, 0);
-        }else if( FifoGetPacketCount(&packetFifo)>0){
-            println_W("Loading new packet ");
-            if(FifoGetPacket(&packetFifo,&linTmpPack)){
-                processLinearInterpPacket(&linTmpPack);
-            }
         }else{
-            keepCartesianPosition=FALSE;
+            if( FifoGetPacketCount(&packetFifo)>0){
+                println_W("Loading new packet ");
+                if(FifoGetPacket(&packetFifo,&linTmpPack)){
+                    processLinearInterpPacket(&linTmpPack);
+                }
+            }else{
+                keepCartesianPosition=FALSE;
+            }
         }
     }
 }
@@ -362,7 +444,7 @@ BYTE setInterpolateXYZ(float x, float y, float z,float ms){
     print_W(" cy=");p_fl_W(yCurrent);
     print_W(" cz=");p_fl_W(zCurrent);
     println_W("Current  angles Alpha=");p_fl_W(getLinkAngle(0));print_W(" Beta=");p_fl_W(getLinkAngle(1));print_W(" Gamma=");p_fl_W(getLinkAngle(2));
-
+    runKinematics=TRUE;
     for(i=0;i<3;i++){
 	intCartesian[i].setTime=ms;
 	intCartesian[i].startTime=start;
@@ -371,10 +453,10 @@ BYTE setInterpolateXYZ(float x, float y, float z,float ms){
         setXYZ( x,  y,  z,0);
     }else{
         keepCartesianPosition=TRUE;
-        float ms= getMs();
-        x = interpolate((INTERPOLATE_DATA *)&intCartesian[0],ms);
-        y = interpolate((INTERPOLATE_DATA *)&intCartesian[1],ms);
-        z = interpolate((INTERPOLATE_DATA *)&intCartesian[2],ms);
+        start=getMs();
+        x = interpolate((INTERPOLATE_DATA *)&intCartesian[0],start);
+        y = interpolate((INTERPOLATE_DATA *)&intCartesian[1],start);
+        z = interpolate((INTERPOLATE_DATA *)&intCartesian[2],start);
         setXYZ( x,  y,  z,0);
     }
 
@@ -408,6 +490,9 @@ int linkToHWIndex(int index){
         case 3:
             localIndex = hwMap.Extruder0.index;
             break;
+        case 4:
+            localIndex = hwMap.Heater0.index;
+            break;
     }
     return localIndex;
 }
@@ -421,13 +506,18 @@ float getLinkScale(int index){
             return hwMap.Gama.scale;
         case 3:
             return hwMap.Extruder0.scale;
+        case 4:
+            return hwMap.Heater0.scale;
     }
 }
-
+float getLinkAngleNoScale(int index){
+    int localIndex=linkToHWIndex(index);
+    return GetPIDPosition(localIndex);
+}
 
 float getLinkAngle(int index){
-    int localIndex=linkToHWIndex(index);
-    return GetPIDPosition(localIndex)*getLinkScale(index);
+
+    return getLinkAngleNoScale(index)*getLinkScale(index);
 }
 
 float setLinkAngle(int index, float value, float ms){
@@ -450,9 +540,6 @@ float setLinkAngle(int index, float value, float ms){
     return SetPIDTimed(localIndex,v,ms);
 }
 
-
-
-void startHomingLink(int group, PidCalibrationType type);
 
 void startHomingLinks(){
     println_W("Homing links for kinematics");
@@ -480,6 +567,7 @@ void HomeLinks(){
           servostock_calcInverse(0, 0, getmaxZ(), &Alpha, &Beta, &Gama);
           for(i=0;i<3;i++){
              pidReset(linkToHWIndex(i), (Alpha+getRodLength()/3)/getLinkScale(i));
+              //pidReset(linkToHWIndex(i), 0);
           }
           initializeCartesianController();
           cancelPrint();

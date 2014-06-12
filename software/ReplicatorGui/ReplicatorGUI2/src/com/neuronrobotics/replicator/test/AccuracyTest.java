@@ -1,7 +1,7 @@
 package com.neuronrobotics.replicator.test;
 
 import com.neuronrobotics.replicator.driver.DeltaForgeDevice;
-import com.neuronrobotics.replicator.driver.DeltaRobotPrinterPrototype;
+import com.neuronrobotics.replicator.driver.NRPrinter;
 import com.neuronrobotics.sdk.addons.kinematics.math.RotationNR;
 import com.neuronrobotics.sdk.addons.kinematics.math.TransformNR;
 import com.neuronrobotics.sdk.common.Log;
@@ -10,7 +10,7 @@ import com.neuronrobotics.sdk.serial.SerialConnection;
 import com.neuronrobotics.sdk.util.ThreadUtil;
 
 public class AccuracyTest {
-	DeltaRobotPrinterPrototype deltaRobot;
+	NRPrinter deltaRobot;
 	double x = 20;
 	double y =20;
 	double z = -85;
@@ -24,7 +24,7 @@ public class AccuracyTest {
 		DeltaForgeDevice delt = new DeltaForgeDevice();
 		delt.setConnection(new SerialConnection("/dev/DeltaDoodle0"));
 		delt.connect();
-		deltaRobot = new DeltaRobotPrinterPrototype(delt);
+		deltaRobot = new NRPrinter(delt);
 		Log.enableDebugPrint();
 		deltaRobot.setCurrentPoseTarget(new TransformNR());
 		while (delt.isAvailable() ) {

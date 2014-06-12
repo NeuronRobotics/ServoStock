@@ -60,8 +60,8 @@
       <logicalFolder name="kinematics" displayName="kinematics" projectFiles="true">
         <itemPath>../../src/kinematics/KosselKinematics.c</itemPath>
         <itemPath>../../src/kinematics/CartesianController.c</itemPath>
-        <itemPath>../../src/kinematics/DeltaKinematics.c</itemPath>
         <itemPath>../../src/kinematics/delta.c</itemPath>
+        <itemPath>../../src/kinematics/FrogLegs.c</itemPath>
       </logicalFolder>
       <logicalFolder name="motion" displayName="motion" projectFiles="true">
         <itemPath>../../src/motion/StepperSim.c</itemPath>
@@ -139,9 +139,9 @@
       <C32>
         <property key="additional-warnings" value="false"/>
         <property key="enable-app-io" value="false"/>
-        <property key="enable-omit-frame-pointer" value="false"/>
+        <property key="enable-omit-frame-pointer" value="true"/>
         <property key="enable-symbols" value="true"/>
-        <property key="enable-unroll-loops" value="false"/>
+        <property key="enable-unroll-loops" value="true"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
                   value="../../include/replicator;../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include;../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32;../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include"/>
@@ -219,7 +219,7 @@
       </C32Global>
       <PICkit3PlatformTool>
         <property key="ADC 1" value="true"/>
-        <property key="AutoSelectMemRanges" value="auto"/>
+        <property key="AutoSelectMemRanges" value="manual"/>
         <property key="CHANGE NOTICE" value="true"/>
         <property key="COMPARATOR" value="true"/>
         <property key="DMA" value="true"/>
@@ -252,13 +252,13 @@
         <property key="UART2" value="true"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
-        <property key="memories.bootflash" value="false"/>
-        <property key="memories.configurationmemory" value="false"/>
+        <property key="memories.bootflash" value="true"/>
+        <property key="memories.configurationmemory" value="true"/>
         <property key="memories.eeprom" value="false"/>
         <property key="memories.flashdata" value="true"/>
         <property key="memories.id" value="false"/>
         <property key="memories.programmemory" value="true"/>
-        <property key="memories.programmemory.end" value="0x1d07ffff"/>
+        <property key="memories.programmemory.end" value="0x1d01f000"/>
         <property key="memories.programmemory.start" value="0x1d000000"/>
         <property key="poweroptions.powerenable" value="false"/>
         <property key="programmertogo.imagename" value=""/>
