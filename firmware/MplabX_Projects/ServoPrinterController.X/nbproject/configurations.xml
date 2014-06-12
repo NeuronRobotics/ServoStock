@@ -60,7 +60,6 @@
       <logicalFolder name="kinematics" displayName="kinematics" projectFiles="true">
         <itemPath>../../src/kinematics/KosselKinematics.c</itemPath>
         <itemPath>../../src/kinematics/CartesianController.c</itemPath>
-        <itemPath>../../src/kinematics/DeltaKinematics.c</itemPath>
         <itemPath>../../src/kinematics/delta.c</itemPath>
       </logicalFolder>
       <logicalFolder name="motion" displayName="motion" projectFiles="true">
@@ -124,6 +123,7 @@
         </linkerTool>
         <loading>
           <useAlternateLoadableFile>false</useAlternateLoadableFile>
+          <parseOnProdLoad>false</parseOnProdLoad>
           <alternateLoadableFile></alternateLoadableFile>
         </loading>
       </compileType>
@@ -160,6 +160,8 @@
         <property key="use-iar" value="false"/>
         <property key="use-indirect-calls" value="false"/>
       </C32>
+      <C32-AR>
+      </C32-AR>
       <C32-AS>
       </C32-AS>
       <C32-LD>
