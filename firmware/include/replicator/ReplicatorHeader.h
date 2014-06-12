@@ -143,7 +143,7 @@ void startHomingLinks();
 #define ticksPerRev         (4096.0)
 #define ticksPerDegree      (ticksPerRev/360.0)
 #define pulleyDiameter      (34)
-#define mmPerTick           (pulleyDiameter *3.14159/ticksPerRev)
+//#define mmPerTick           (pulleyDiameter *3.14159/ticksPerRev)
 #define servoHomeValue      0
 
 #if !defined(NUM_PID_GROUPS)

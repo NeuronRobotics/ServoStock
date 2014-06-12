@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=../../src/driver/Servo.c ../../src/driver/SPIClient.c ../../src/driver/ForgeHeater.c ../../src/driver/AS5055.c ../../src/driver/FlashStorageLocal.c ../../src/kinematics/KosselKinematics.c ../../src/kinematics/CartesianController.c ../../src/kinematics/DeltaKinematics.c ../../src/kinematics/delta.c ../../src/motion/StepperSim.c ../../src/motion/PID.c ../../src/namespace/UpstreamPackets.c ../../src/namespace/Namespace_bcs_cartesian.c ../../src/namespace/Callbacks.c ../../src/main.c
+SOURCEFILES_QUOTED_IF_SPACED=../../src/driver/Servo.c ../../src/driver/SPIClient.c ../../src/driver/ForgeHeater.c ../../src/driver/AS5055.c ../../src/driver/FlashStorageLocal.c ../../src/kinematics/KosselKinematics.c ../../src/kinematics/CartesianController.c ../../src/kinematics/delta.c ../../src/kinematics/FrogLegs.c ../../src/motion/StepperSim.c ../../src/motion/PID.c ../../src/namespace/UpstreamPackets.c ../../src/namespace/Namespace_bcs_cartesian.c ../../src/namespace/Callbacks.c ../../src/main.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/263962707/Servo.o ${OBJECTDIR}/_ext/263962707/SPIClient.o ${OBJECTDIR}/_ext/263962707/ForgeHeater.o ${OBJECTDIR}/_ext/263962707/AS5055.o ${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o ${OBJECTDIR}/_ext/1494288313/KosselKinematics.o ${OBJECTDIR}/_ext/1494288313/CartesianController.o ${OBJECTDIR}/_ext/1494288313/DeltaKinematics.o ${OBJECTDIR}/_ext/1494288313/delta.o ${OBJECTDIR}/_ext/519170017/StepperSim.o ${OBJECTDIR}/_ext/519170017/PID.o ${OBJECTDIR}/_ext/2048476848/UpstreamPackets.o ${OBJECTDIR}/_ext/2048476848/Namespace_bcs_cartesian.o ${OBJECTDIR}/_ext/2048476848/Callbacks.o ${OBJECTDIR}/_ext/1445274692/main.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/263962707/Servo.o.d ${OBJECTDIR}/_ext/263962707/SPIClient.o.d ${OBJECTDIR}/_ext/263962707/ForgeHeater.o.d ${OBJECTDIR}/_ext/263962707/AS5055.o.d ${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o.d ${OBJECTDIR}/_ext/1494288313/KosselKinematics.o.d ${OBJECTDIR}/_ext/1494288313/CartesianController.o.d ${OBJECTDIR}/_ext/1494288313/DeltaKinematics.o.d ${OBJECTDIR}/_ext/1494288313/delta.o.d ${OBJECTDIR}/_ext/519170017/StepperSim.o.d ${OBJECTDIR}/_ext/519170017/PID.o.d ${OBJECTDIR}/_ext/2048476848/UpstreamPackets.o.d ${OBJECTDIR}/_ext/2048476848/Namespace_bcs_cartesian.o.d ${OBJECTDIR}/_ext/2048476848/Callbacks.o.d ${OBJECTDIR}/_ext/1445274692/main.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/263962707/Servo.o ${OBJECTDIR}/_ext/263962707/SPIClient.o ${OBJECTDIR}/_ext/263962707/ForgeHeater.o ${OBJECTDIR}/_ext/263962707/AS5055.o ${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o ${OBJECTDIR}/_ext/1494288313/KosselKinematics.o ${OBJECTDIR}/_ext/1494288313/CartesianController.o ${OBJECTDIR}/_ext/1494288313/delta.o ${OBJECTDIR}/_ext/1494288313/FrogLegs.o ${OBJECTDIR}/_ext/519170017/StepperSim.o ${OBJECTDIR}/_ext/519170017/PID.o ${OBJECTDIR}/_ext/2048476848/UpstreamPackets.o ${OBJECTDIR}/_ext/2048476848/Namespace_bcs_cartesian.o ${OBJECTDIR}/_ext/2048476848/Callbacks.o ${OBJECTDIR}/_ext/1445274692/main.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/263962707/Servo.o.d ${OBJECTDIR}/_ext/263962707/SPIClient.o.d ${OBJECTDIR}/_ext/263962707/ForgeHeater.o.d ${OBJECTDIR}/_ext/263962707/AS5055.o.d ${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o.d ${OBJECTDIR}/_ext/1494288313/KosselKinematics.o.d ${OBJECTDIR}/_ext/1494288313/CartesianController.o.d ${OBJECTDIR}/_ext/1494288313/delta.o.d ${OBJECTDIR}/_ext/1494288313/FrogLegs.o.d ${OBJECTDIR}/_ext/519170017/StepperSim.o.d ${OBJECTDIR}/_ext/519170017/PID.o.d ${OBJECTDIR}/_ext/2048476848/UpstreamPackets.o.d ${OBJECTDIR}/_ext/2048476848/Namespace_bcs_cartesian.o.d ${OBJECTDIR}/_ext/2048476848/Callbacks.o.d ${OBJECTDIR}/_ext/1445274692/main.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/_ext/263962707/Servo.o ${OBJECTDIR}/_ext/263962707/SPIClient.o ${OBJECTDIR}/_ext/263962707/ForgeHeater.o ${OBJECTDIR}/_ext/263962707/AS5055.o ${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o ${OBJECTDIR}/_ext/1494288313/KosselKinematics.o ${OBJECTDIR}/_ext/1494288313/CartesianController.o ${OBJECTDIR}/_ext/1494288313/DeltaKinematics.o ${OBJECTDIR}/_ext/1494288313/delta.o ${OBJECTDIR}/_ext/519170017/StepperSim.o ${OBJECTDIR}/_ext/519170017/PID.o ${OBJECTDIR}/_ext/2048476848/UpstreamPackets.o ${OBJECTDIR}/_ext/2048476848/Namespace_bcs_cartesian.o ${OBJECTDIR}/_ext/2048476848/Callbacks.o ${OBJECTDIR}/_ext/1445274692/main.o
+OBJECTFILES=${OBJECTDIR}/_ext/263962707/Servo.o ${OBJECTDIR}/_ext/263962707/SPIClient.o ${OBJECTDIR}/_ext/263962707/ForgeHeater.o ${OBJECTDIR}/_ext/263962707/AS5055.o ${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o ${OBJECTDIR}/_ext/1494288313/KosselKinematics.o ${OBJECTDIR}/_ext/1494288313/CartesianController.o ${OBJECTDIR}/_ext/1494288313/delta.o ${OBJECTDIR}/_ext/1494288313/FrogLegs.o ${OBJECTDIR}/_ext/519170017/StepperSim.o ${OBJECTDIR}/_ext/519170017/PID.o ${OBJECTDIR}/_ext/2048476848/UpstreamPackets.o ${OBJECTDIR}/_ext/2048476848/Namespace_bcs_cartesian.o ${OBJECTDIR}/_ext/2048476848/Callbacks.o ${OBJECTDIR}/_ext/1445274692/main.o
 
 # Source Files
-SOURCEFILES=../../src/driver/Servo.c ../../src/driver/SPIClient.c ../../src/driver/ForgeHeater.c ../../src/driver/AS5055.c ../../src/driver/FlashStorageLocal.c ../../src/kinematics/KosselKinematics.c ../../src/kinematics/CartesianController.c ../../src/kinematics/DeltaKinematics.c ../../src/kinematics/delta.c ../../src/motion/StepperSim.c ../../src/motion/PID.c ../../src/namespace/UpstreamPackets.c ../../src/namespace/Namespace_bcs_cartesian.c ../../src/namespace/Callbacks.c ../../src/main.c
+SOURCEFILES=../../src/driver/Servo.c ../../src/driver/SPIClient.c ../../src/driver/ForgeHeater.c ../../src/driver/AS5055.c ../../src/driver/FlashStorageLocal.c ../../src/kinematics/KosselKinematics.c ../../src/kinematics/CartesianController.c ../../src/kinematics/delta.c ../../src/kinematics/FrogLegs.c ../../src/motion/StepperSim.c ../../src/motion/PID.c ../../src/namespace/UpstreamPackets.c ../../src/namespace/Namespace_bcs_cartesian.c ../../src/namespace/Callbacks.c ../../src/main.c
 
 
 CFLAGS=
@@ -121,12 +121,6 @@ ${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o: ../../src/driver/FlashStorageLo
 	@${RM} ${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o 
 	@${FIXDEPS} "${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -funroll-loops -fomit-frame-pointer -fschedule-insns -fschedule-insns2 -I"../../include/replicator" -I"../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include" -Werror -MMD -MF "${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o.d" -o ${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o ../../src/driver/FlashStorageLocal.c   
 	
-${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o: ../../src/driver/FlashStorageLocal.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/263962707 
-	@${RM} ${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o.d 
-	@${RM} ${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -fschedule-insns -fschedule-insns2 -I"../../include/replicator" -I"../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include" -Werror -MMD -MF "${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o.d" -o ${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o ../../src/driver/FlashStorageLocal.c   
-	
 ${OBJECTDIR}/_ext/1494288313/KosselKinematics.o: ../../src/kinematics/KosselKinematics.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1494288313 
 	@${RM} ${OBJECTDIR}/_ext/1494288313/KosselKinematics.o.d 
@@ -139,17 +133,17 @@ ${OBJECTDIR}/_ext/1494288313/CartesianController.o: ../../src/kinematics/Cartesi
 	@${RM} ${OBJECTDIR}/_ext/1494288313/CartesianController.o 
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1494288313/CartesianController.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -funroll-loops -fomit-frame-pointer -fschedule-insns -fschedule-insns2 -I"../../include/replicator" -I"../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include" -Werror -MMD -MF "${OBJECTDIR}/_ext/1494288313/CartesianController.o.d" -o ${OBJECTDIR}/_ext/1494288313/CartesianController.o ../../src/kinematics/CartesianController.c   
 	
-${OBJECTDIR}/_ext/1494288313/DeltaKinematics.o: ../../src/kinematics/DeltaKinematics.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1494288313 
-	@${RM} ${OBJECTDIR}/_ext/1494288313/DeltaKinematics.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1494288313/DeltaKinematics.o 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1494288313/DeltaKinematics.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -funroll-loops -fomit-frame-pointer -fschedule-insns -fschedule-insns2 -I"../../include/replicator" -I"../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include" -Werror -MMD -MF "${OBJECTDIR}/_ext/1494288313/DeltaKinematics.o.d" -o ${OBJECTDIR}/_ext/1494288313/DeltaKinematics.o ../../src/kinematics/DeltaKinematics.c   
-	
 ${OBJECTDIR}/_ext/1494288313/delta.o: ../../src/kinematics/delta.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1494288313 
 	@${RM} ${OBJECTDIR}/_ext/1494288313/delta.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1494288313/delta.o 
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1494288313/delta.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -funroll-loops -fomit-frame-pointer -fschedule-insns -fschedule-insns2 -I"../../include/replicator" -I"../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include" -Werror -MMD -MF "${OBJECTDIR}/_ext/1494288313/delta.o.d" -o ${OBJECTDIR}/_ext/1494288313/delta.o ../../src/kinematics/delta.c   
+	
+${OBJECTDIR}/_ext/1494288313/FrogLegs.o: ../../src/kinematics/FrogLegs.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1494288313 
+	@${RM} ${OBJECTDIR}/_ext/1494288313/FrogLegs.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1494288313/FrogLegs.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1494288313/FrogLegs.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -funroll-loops -fomit-frame-pointer -fschedule-insns -fschedule-insns2 -I"../../include/replicator" -I"../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include" -Werror -MMD -MF "${OBJECTDIR}/_ext/1494288313/FrogLegs.o.d" -o ${OBJECTDIR}/_ext/1494288313/FrogLegs.o ../../src/kinematics/FrogLegs.c   
 	
 ${OBJECTDIR}/_ext/519170017/StepperSim.o: ../../src/motion/StepperSim.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/519170017 
@@ -179,13 +173,13 @@ ${OBJECTDIR}/_ext/2048476848/Callbacks.o: ../../src/namespace/Callbacks.c  nbpro
 	@${MKDIR} ${OBJECTDIR}/_ext/2048476848 
 	@${RM} ${OBJECTDIR}/_ext/2048476848/Callbacks.o.d 
 	@${RM} ${OBJECTDIR}/_ext/2048476848/Callbacks.o 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/2048476848/Callbacks.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -fschedule-insns -fschedule-insns2 -I"../../include/replicator" -I"../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include" -Werror -MMD -MF "${OBJECTDIR}/_ext/2048476848/Callbacks.o.d" -o ${OBJECTDIR}/_ext/2048476848/Callbacks.o ../../src/namespace/Callbacks.c   
+	@${FIXDEPS} "${OBJECTDIR}/_ext/2048476848/Callbacks.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -funroll-loops -fomit-frame-pointer -fschedule-insns -fschedule-insns2 -I"../../include/replicator" -I"../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include" -Werror -MMD -MF "${OBJECTDIR}/_ext/2048476848/Callbacks.o.d" -o ${OBJECTDIR}/_ext/2048476848/Callbacks.o ../../src/namespace/Callbacks.c   
 	
 ${OBJECTDIR}/_ext/1445274692/main.o: ../../src/main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1445274692 
 	@${RM} ${OBJECTDIR}/_ext/1445274692/main.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1445274692/main.o 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1445274692/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -fschedule-insns -fschedule-insns2 -I"../../include/replicator" -I"../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include" -Werror -MMD -MF "${OBJECTDIR}/_ext/1445274692/main.o.d" -o ${OBJECTDIR}/_ext/1445274692/main.o ../../src/main.c   
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1445274692/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -funroll-loops -fomit-frame-pointer -fschedule-insns -fschedule-insns2 -I"../../include/replicator" -I"../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include" -Werror -MMD -MF "${OBJECTDIR}/_ext/1445274692/main.o.d" -o ${OBJECTDIR}/_ext/1445274692/main.o ../../src/main.c   
 	
 else
 ${OBJECTDIR}/_ext/263962707/Servo.o: ../../src/driver/Servo.c  nbproject/Makefile-${CND_CONF}.mk
@@ -218,12 +212,6 @@ ${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o: ../../src/driver/FlashStorageLo
 	@${RM} ${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o 
 	@${FIXDEPS} "${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -funroll-loops -fomit-frame-pointer -fschedule-insns -fschedule-insns2 -I"../../include/replicator" -I"../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include" -Werror -MMD -MF "${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o.d" -o ${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o ../../src/driver/FlashStorageLocal.c   
 	
-${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o: ../../src/driver/FlashStorageLocal.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/263962707 
-	@${RM} ${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o.d 
-	@${RM} ${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -fschedule-insns -fschedule-insns2 -I"../../include/replicator" -I"../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include" -Werror -MMD -MF "${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o.d" -o ${OBJECTDIR}/_ext/263962707/FlashStorageLocal.o ../../src/driver/FlashStorageLocal.c   
-	
 ${OBJECTDIR}/_ext/1494288313/KosselKinematics.o: ../../src/kinematics/KosselKinematics.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1494288313 
 	@${RM} ${OBJECTDIR}/_ext/1494288313/KosselKinematics.o.d 
@@ -236,17 +224,17 @@ ${OBJECTDIR}/_ext/1494288313/CartesianController.o: ../../src/kinematics/Cartesi
 	@${RM} ${OBJECTDIR}/_ext/1494288313/CartesianController.o 
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1494288313/CartesianController.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -funroll-loops -fomit-frame-pointer -fschedule-insns -fschedule-insns2 -I"../../include/replicator" -I"../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include" -Werror -MMD -MF "${OBJECTDIR}/_ext/1494288313/CartesianController.o.d" -o ${OBJECTDIR}/_ext/1494288313/CartesianController.o ../../src/kinematics/CartesianController.c   
 	
-${OBJECTDIR}/_ext/1494288313/DeltaKinematics.o: ../../src/kinematics/DeltaKinematics.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1494288313 
-	@${RM} ${OBJECTDIR}/_ext/1494288313/DeltaKinematics.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1494288313/DeltaKinematics.o 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1494288313/DeltaKinematics.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -funroll-loops -fomit-frame-pointer -fschedule-insns -fschedule-insns2 -I"../../include/replicator" -I"../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include" -Werror -MMD -MF "${OBJECTDIR}/_ext/1494288313/DeltaKinematics.o.d" -o ${OBJECTDIR}/_ext/1494288313/DeltaKinematics.o ../../src/kinematics/DeltaKinematics.c   
-	
 ${OBJECTDIR}/_ext/1494288313/delta.o: ../../src/kinematics/delta.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1494288313 
 	@${RM} ${OBJECTDIR}/_ext/1494288313/delta.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1494288313/delta.o 
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1494288313/delta.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -funroll-loops -fomit-frame-pointer -fschedule-insns -fschedule-insns2 -I"../../include/replicator" -I"../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include" -Werror -MMD -MF "${OBJECTDIR}/_ext/1494288313/delta.o.d" -o ${OBJECTDIR}/_ext/1494288313/delta.o ../../src/kinematics/delta.c   
+	
+${OBJECTDIR}/_ext/1494288313/FrogLegs.o: ../../src/kinematics/FrogLegs.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1494288313 
+	@${RM} ${OBJECTDIR}/_ext/1494288313/FrogLegs.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1494288313/FrogLegs.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1494288313/FrogLegs.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -funroll-loops -fomit-frame-pointer -fschedule-insns -fschedule-insns2 -I"../../include/replicator" -I"../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include" -Werror -MMD -MF "${OBJECTDIR}/_ext/1494288313/FrogLegs.o.d" -o ${OBJECTDIR}/_ext/1494288313/FrogLegs.o ../../src/kinematics/FrogLegs.c   
 	
 ${OBJECTDIR}/_ext/519170017/StepperSim.o: ../../src/motion/StepperSim.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/519170017 
@@ -276,14 +264,13 @@ ${OBJECTDIR}/_ext/2048476848/Callbacks.o: ../../src/namespace/Callbacks.c  nbpro
 	@${MKDIR} ${OBJECTDIR}/_ext/2048476848 
 	@${RM} ${OBJECTDIR}/_ext/2048476848/Callbacks.o.d 
 	@${RM} ${OBJECTDIR}/_ext/2048476848/Callbacks.o 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/2048476848/Callbacks.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -fschedule-insns -fschedule-insns2 -I"../../include/replicator" -I"../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include" -Werror -MMD -MF "${OBJECTDIR}/_ext/2048476848/Callbacks.o.d" -o ${OBJECTDIR}/_ext/2048476848/Callbacks.o ../../src/namespace/Callbacks.c   
+	@${FIXDEPS} "${OBJECTDIR}/_ext/2048476848/Callbacks.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -funroll-loops -fomit-frame-pointer -fschedule-insns -fschedule-insns2 -I"../../include/replicator" -I"../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include" -Werror -MMD -MF "${OBJECTDIR}/_ext/2048476848/Callbacks.o.d" -o ${OBJECTDIR}/_ext/2048476848/Callbacks.o ../../src/namespace/Callbacks.c   
 	
 ${OBJECTDIR}/_ext/1445274692/main.o: ../../src/main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1445274692 
 	@${RM} ${OBJECTDIR}/_ext/1445274692/main.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1445274692/main.o 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1445274692/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -fschedule-insns -fschedule-insns2 -I"../../include/replicator" -I"../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include" -Werror -MMD -MF "${OBJECTDIR}/_ext/1445274692/main.o.d" -o ${OBJECTDIR}/_ext/1445274692/main.o ../../src/main.c   
-
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1445274692/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -funroll-loops -fomit-frame-pointer -fschedule-insns -fschedule-insns2 -I"../../include/replicator" -I"../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32" -I"../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include" -Werror -MMD -MF "${OBJECTDIR}/_ext/1445274692/main.o.d" -o ${OBJECTDIR}/_ext/1445274692/main.o ../../src/main.c   
 	
 endif
 
