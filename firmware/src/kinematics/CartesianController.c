@@ -36,9 +36,9 @@ BOOL runKinematics=FALSE;
 
 //Default values for ServoStock
 HardwareMap hwMap ={
-    {7,1.0*mmPerTick ,"Alpha"},//axis 0
-    {5,1.0*mmPerTick ,"Beta"},//axis 1
-    {2,1.0*mmPerTick ,"Gama"},//axis 2
+    {7,-1.0*mmPerTick ,"Alpha"},//axis 0
+    {5,-1.0*mmPerTick ,"Beta"},//axis 1
+    {2,-1.0*mmPerTick ,"Gama"},//axis 2
     {
         {0,1.0,"Extruder"},// Motor
         {11,1.0,"Heater"}// Heater
