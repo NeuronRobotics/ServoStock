@@ -61,6 +61,7 @@
         <itemPath>../../src/kinematics/KosselKinematics.c</itemPath>
         <itemPath>../../src/kinematics/CartesianController.c</itemPath>
         <itemPath>../../src/kinematics/delta.c</itemPath>
+        <itemPath>../../src/kinematics/FrogLegs.c</itemPath>
       </logicalFolder>
       <logicalFolder name="motion" displayName="motion" projectFiles="true">
         <itemPath>../../src/motion/StepperSim.c</itemPath>
@@ -252,6 +253,7 @@
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
         <property key="UART1" value="true"/>
         <property key="UART2" value="true"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>

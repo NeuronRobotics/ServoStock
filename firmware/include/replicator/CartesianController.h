@@ -69,6 +69,8 @@ unsigned char ProcessCartesianPacket(BowlerPacket * Packet);
 
 void initializeCartesianController();
 
+int linkToHWIndex(int index);
+
 BYTE setInterpolateXYZ(float x, float y, float z,float ms);
 
 void interpolateZXY();

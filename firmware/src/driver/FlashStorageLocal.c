@@ -76,12 +76,12 @@ BOOL initFlashLocal(){
             pidGroups[i].config.K.D=0;
             pidGroups[i].config.V.P=.1;
             pidGroups[i].config.V.D=0;
-            pidGroups[i].config.Polarity=0;
+            pidGroups[i].config.Polarity=1;
             pidGroups[i].config.stop=0;
             pidGroups[i].config.upperHistoresis=0;
             pidGroups[i].config.lowerHistoresis=0;
             pidGroups[i].config.offset=0.0;
-            pidGroups[i].config.calibrationState=CALIBRARTION_DONE;
+            pidGroups[i].config.calibrationState=CALIBRARTION_Uncalibrated;
             printPIDvals(i);
         }
     }
@@ -100,7 +100,7 @@ void writeFlashLocal(){
     println_W("Writing values to Flash");
     int i=0,j=0, index;
     for(i=0;i<numPidTotal;i++){
-        printPIDvals(i);
+        //printPIDvals(i);
         //index = i*sizeof(AbsPID_Config)/4;
         unsigned int * raw = (  unsigned int *)&pidGroups[i].config;
         unsigned int * data =(  unsigned int *) &localPid[i];
@@ -111,7 +111,7 @@ void writeFlashLocal(){
     FlashSync();
     FlashLoad();
     for(i=0;i<numPidTotal;i++){
-        printPIDvals(i);
+        //printPIDvals(i);
     }
 
 }

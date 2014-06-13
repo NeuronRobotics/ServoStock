@@ -66,7 +66,7 @@ int servostock_calcInverse(float X, float Y, float Z, float *Alpha, float *Beta,
     float maxRad=sqrt((X*X)+(Y*Y));
 
 //#warning "Z is not used yet"
-    if((maxRad>(L-R))|| (Z<defaultConfig.MinZ)||(Z>defaultConfig.MaxZ)){
+    if((maxRad>(L-R))|| (Z<defaultConfig.MinZ)||(Z>(defaultConfig.MaxZ+L))){
         println_E("Outside of workspace x=");p_fl_E(X);print_E(" y=");p_fl_E(Y);print_E(" z=");p_fl_E(Z);print_E(" Bound radius=");p_fl_E((maxRad));
     	//printf("\r\nOutside of workspace x= %g y=%g z=%g Bound = %g",X,Y,Z,maxRad);
         return 1;//This is ourside the reachable work area
