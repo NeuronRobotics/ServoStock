@@ -81,8 +81,6 @@ extern MAC_ADDR MyMAC __attribute__ ((section (".scs_global_var")));
 //static const unsigned char deltaNSName[] = "bcs.delta.*;0.3;;";
 //static const unsigned char printNSName[]  = "bcs.printer.*;0.3;;";
 
-static BowlerPacket Packet;
-
 static BowlerPacket MyPacket;
 static RunEveryData pid ={0,10};
 
@@ -147,8 +145,6 @@ void hardwareInit(){
 
         Pic32_Bowler_HAL_Init();
   
-
-
 	Bowler_Init();
         println_I("\n\n\nStarting PIC initialization");
 
@@ -282,7 +278,10 @@ int main(){
     //setPrintLevelWarningPrint();
     //setPrintLevelNoPrint();
     hardwareInit();
-    RunEveryData loop = {0.0,2000.0};
+    //RunEveryData loop = {0.0,2000.0};
+    //setPrintLevelInfoPrint();
+    //setPrintLevelWarningPrint();
+    //setPrintLevelNoPrint();
     while(1){
         if (_RF5==1){
             setPrintLevelErrorPrint();
@@ -292,21 +291,21 @@ int main(){
 		DelayMs(100);
 		Reset();
 	}
-        if(RunEvery(&loop)>0){
-            Print_Level l= getPrintLevel();
-            setPrintLevelInfoPrint();
-            printCartesianData();
-            int i;
-            for(i=0;i<numPidMotors;i++){
-                printPIDvals(i);
-            }
-
-            for(i=0;i<numPidMotors;i++){
-                println_I(" Axis ");p_int_I(i);
-                print_I(" Val: ");p_fl_I(getRecentEncoderReading(i));
-            }
-            setPrintLevel(l);
-        }
+//        if(RunEvery(&loop)>0){
+//            Print_Level l= getPrintLevel();
+//            setPrintLevelInfoPrint();
+//            printCartesianData();
+//            int i;
+//            for(i=0;i<numPidMotors;i++){
+//                printPIDvals(i);
+//            }
+//
+//            for(i=0;i<numPidMotors;i++){
+//                println_I(" Axis ");p_int_I(i);
+//                print_I(" Val: ");p_fl_I(getRecentEncoderReading(i));
+//            }
+//            setPrintLevel(l);
+//        }
         if(     printCalibrations == FALSE&&
                 GetPIDCalibrateionState(linkToHWIndex(0))==CALIBRARTION_DONE&&
                 GetPIDCalibrateionState(linkToHWIndex(1))==CALIBRARTION_DONE&&

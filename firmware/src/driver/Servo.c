@@ -139,7 +139,7 @@ void servoTimerEvent()
                     interpolateZXY();
                     setPrintLevelNoPrint();
                     RunPIDControl();
-                    RunVel();
+                    //RunVel();
                     setPrintLevel(l);
                 }
                 //runLinearInterpolationServo(start,stop);

@@ -14,10 +14,14 @@
 #include "delta.h"
 #include "servoCalibration.h"
 
+BYTE SPITransceve(BYTE b);
+
 BOOL asyncCallback(BowlerPacket *Packet);
 
 NAMESPACE_LIST * getBcsCartesianNamespace();
-
+AbsPID * getFlashPidGroupDataTable();
+BOOL initFlashLocal();
+void writeFlashLocal();
 
 void bowlerSystem();
 

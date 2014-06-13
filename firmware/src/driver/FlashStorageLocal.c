@@ -37,10 +37,10 @@ BOOL initFlashLocal(){
     
     println_W("Size of Flash data = ");p_int_W(bytesOfRaw);
 
-    SetFlashData( (unsigned int*)localPid ,bytesOfRaw/4);
+    SetFlashData( (UINT32 *)localPid ,bytesOfRaw/4);
     FlashLoad();
 
-    int i=0,j=0, index;
+    int i=0,j=0;// index;
 
     BOOL rawFlashDetect=FALSE;
 
@@ -98,7 +98,7 @@ void writeFlashLocal(){
         SoftReset();
     }
     println_W("Writing values to Flash");
-    int i=0,j=0, index;
+    int i=0,j=0;//, index;
     for(i=0;i<numPidTotal;i++){
         //printPIDvals(i);
         //index = i*sizeof(AbsPID_Config)/4;

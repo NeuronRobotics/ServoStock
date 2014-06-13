@@ -20,6 +20,7 @@ typedef BOOL inverseKinematics(float x0, float y0, float z0, float *Alpha, float
 
 BOOL onConfigurationGet(BowlerPacket *Packet);
 BOOL onRunKinematicsSet(BowlerPacket *Packet);
+BOOL onCartesianPacket(BowlerPacket *Packet);
 
 typedef struct  _IndexScale{
     int index;

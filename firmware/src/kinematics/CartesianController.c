@@ -89,10 +89,12 @@ char * getName(int index){
         case 4:
             return hwMap.Heater0.name;
     }
+    return NULL;
 }
 
 BOOL onRunKinematicsSet(BowlerPacket *Packet){
     runKinematics=Packet->use.data[0];// Boolean to run the kinematics or not
+    return TRUE;
 }
 
 
@@ -458,7 +460,7 @@ BYTE setInterpolateXYZ(float x, float y, float z,float ms){
         z = interpolate((INTERPOLATE_DATA *)&intCartesian[2],start);
         setXYZ( x,  y,  z,0);
     }
-
+    return 0;
 }
 
 BYTE setXYZ(float x, float y, float z,float ms){
@@ -472,6 +474,7 @@ BYTE setXYZ(float x, float y, float z,float ms){
     }else{
         println_E("Interpolate failed, can't reach: x=");p_fl_E(x);print_E(" y=");p_fl_E(y);print_E(" z=");p_fl_E(z);
     }
+    return 0;
 }
 
 int linkToHWIndex(int index){
@@ -508,6 +511,7 @@ float getLinkScale(int index){
         case 4:
             return hwMap.Heater0.scale;
     }
+    return 0.0;
 }
 float getLinkAngleNoScale(int index){
     int localIndex=linkToHWIndex(index);
@@ -569,9 +573,7 @@ void HomeLinks(){
              pidReset(linkToHWIndex(i), (Alpha+getRodLength()/3)/getLinkScale(i));
           }
           cancelPrint();
-          setInterpolateXYZ(0, 0, getmaxZ(), 0);
+          setInterpolateXYZ(0, 0, getmaxZ(), 2000);
        }
-
-
     }
 }

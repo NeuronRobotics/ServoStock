@@ -12,6 +12,8 @@
 extern "C" {
 #endif
 
+    BOOL getRunPidIsr();
+    
 typedef enum _ServoState{
     LOW=0,
     PRETIME=1,

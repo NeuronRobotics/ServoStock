@@ -138,22 +138,22 @@
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
       <C32>
-        <property key="additional-warnings" value="false"/>
+        <property key="additional-warnings" value="true"/>
         <property key="enable-app-io" value="false"/>
-        <property key="enable-omit-frame-pointer" value="true"/>
+        <property key="enable-omit-frame-pointer" value="false"/>
         <property key="enable-symbols" value="true"/>
-        <property key="enable-unroll-loops" value="true"/>
+        <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../../include/replicator;../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include;../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32;../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include"/>
+                  value="../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include;../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include;../../include/replicator"/>
         <property key="generate-16-bit-code" value="true"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="false"/>
         <property key="make-warnings-into-errors" value="true"/>
         <property key="optimization-level" value="-O1"/>
         <property key="place-data-into-section" value="false"/>
-        <property key="post-instruction-scheduling" value="schedule-insns2"/>
-        <property key="pre-instruction-scheduling" value="schedule-insns"/>
+        <property key="post-instruction-scheduling" value="default"/>
+        <property key="pre-instruction-scheduling" value="default"/>
         <property key="preprocessor-macros" value=""/>
         <property key="strict-ansi" value="false"/>
         <property key="support-ansi" value="false"/>
@@ -162,6 +162,7 @@
         <property key="use-indirect-calls" value="false"/>
       </C32>
       <C32-AR>
+        <property key="additional-options-chop-files" value="false"/>
       </C32-AR>
       <C32-AS>
       </C32-AS>
@@ -171,6 +172,13 @@
         <property key="exclude-floating-point-library" value="false"/>
         <property key="exclude-standard-libraries" value="false"/>
         <property key="extra-lib-directories" value=""/>
+        <property key="fill-flash-options-addr" value=""/>
+        <property key="fill-flash-options-const" value=""/>
+        <property key="fill-flash-options-how" value="0"/>
+        <property key="fill-flash-options-inc-const" value="1"/>
+        <property key="fill-flash-options-increment" value=""/>
+        <property key="fill-flash-options-seq" value=""/>
+        <property key="fill-flash-options-what" value="0"/>
         <property key="generate-16-bit-code" value="true"/>
         <property key="generate-cross-reference-file" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
@@ -216,6 +224,7 @@
         <property key="use-indirect-calls" value="false"/>
       </C32CPP>
       <C32Global>
+        <property key="gp-relative-option" value=""/>
         <property key="legacy-libc" value="false"/>
         <property key="save-temps" value="false"/>
         <property key="wpo-lto" value="false"/>
@@ -242,6 +251,7 @@
         <property key="OUTPUT COMPARE 5" value="true"/>
         <property key="PARALLEL MASTER/SLAVE PORT" value="true"/>
         <property key="REAL TIME CLOCK" value="true"/>
+        <property key="SPI 2" value="true"/>
         <property key="SecureSegment.SegmentProgramming" value="FullChipProgramming"/>
         <property key="TIMER1" value="true"/>
         <property key="TIMER2" value="true"/>
@@ -253,7 +263,6 @@
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
         <property key="UART1" value="true"/>
         <property key="UART2" value="true"/>
-        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>
@@ -266,6 +275,7 @@
         <property key="memories.programmemory.start" value="0x1d000000"/>
         <property key="poweroptions.powerenable" value="false"/>
         <property key="programmertogo.imagename" value=""/>
+        <property key="programoptions.donoteraseauxmem" value="false"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.pgmspeed" value="2"/>
         <property key="programoptions.preserveeeprom" value="false"/>

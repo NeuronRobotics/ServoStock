@@ -1,8 +1,8 @@
 #include "Bowler/Bowler.h"
 #include "CartesianController.h"
-#include "ReplicatorHeader.h"
+#include "main.h"
 
-static const unsigned char cartNSName[]  = "bcs.cartesian.*;0.3;;";
+static const char cartNSName[]  = "bcs.cartesian.*;0.3;;";
 
 BOOL cartesianAsyncEventCallback(BowlerPacket * Packet,BOOL (*pidAsyncCallbackPtr)(BowlerPacket *Packet)){
 

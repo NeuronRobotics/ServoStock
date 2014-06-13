@@ -9,9 +9,9 @@
 #if !defined(NUM_PID_GROUPS )
 #define NUM_PID_GROUPS 8
 #endif
-static INT32_UNION PID_Temp;
-static float time;
-static int val;
+//static INT32_UNION PID_Temp;
+//static float time;
+//static int val;
 BowlerPacket tmpData;
 
 BYTE UserGetRPCs(BowlerPacket *Packet){
