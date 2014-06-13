@@ -188,5 +188,5 @@ UINT16 AS5055readAngle(BYTE index);
 UINT16 AS5055reset(BYTE index);
 
 void initializeEncoders();
-
+void disableWrapping();
 void EncoderSS(BYTE index, BYTE state);

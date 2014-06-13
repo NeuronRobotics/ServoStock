@@ -86,7 +86,7 @@ void updateAllEncoders(){
     int i;
     for (i=0;i<numPidMotors;i++){
         // Set the read command to the chip
-        readEncoderWithoutOffset(i);
+       AS5055readAngle(i);
     }
     Delay10us(50);// Delay for the encoders to perform read
     for (i=0;i<numPidMotors;i++){
