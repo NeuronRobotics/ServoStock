@@ -200,16 +200,16 @@ void hardwareInit(){
             SetPIDEnabled(i,TRUE);
         }
         println_I("Running calibration for kinematics axis");
-        runPidHysterisisCalibration(linkToHWIndex(0));
-        runPidHysterisisCalibration(linkToHWIndex(1));
-        runPidHysterisisCalibration(linkToHWIndex(2));
+//        runPidHysterisisCalibration(linkToHWIndex(0));
+//        runPidHysterisisCalibration(linkToHWIndex(1));
+//        runPidHysterisisCalibration(linkToHWIndex(2));
         
 //        DelayMs(100);//wait for ISR to fire and update all values
-//        for(i=0;i<numPidMotors;i++){
-//            SetPIDCalibrateionState(i,CALIBRARTION_DONE);
-//            pidReset(i, 0);
-//            setPIDConstants(i,.1,0,0);
-//        }
+        for(i=0;i<numPidMotors;i++){
+            SetPIDCalibrateionState(i,CALIBRARTION_DONE);
+            pidReset(i, 0);
+            setPIDConstants(i,.1,0,0);
+        }
 //        println_W("Axis need calibration");
 //        pidReset(0, -1024);
 //        SetPID(0,-1024);
