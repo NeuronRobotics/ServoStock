@@ -23,7 +23,7 @@ void initPIDLocal(){
             vel[i].enabled=FALSE;
             limits[i].type=NO_LIMIT;
 	}
-	InitilizePidController( (AbsPID *)getFlashPidGroupDataTable(),
+	InitilizePidController( getFlashPidGroupDataTable(),
                                 vel,
                                 numPidTotal,
                                 &getPositionMine,

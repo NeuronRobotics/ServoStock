@@ -144,11 +144,13 @@ void hardwareInit(){
         CloseTimer2();
 
         Pic32_Bowler_HAL_Init();
-  
+
 	Bowler_Init();
+
         println_I("\n\n\nStarting PIC initialization");
 
         FlashGetMac(MyMAC.v);
+
 
         DelayMs(2000);//This si to prevent runaway during programming
 	// enable driven to 3.3v on uart 1
@@ -175,86 +177,88 @@ void hardwareInit(){
 
         ATX_ENABLE(); // Turn on ATX Supply, Must be called before talking to the Encoders!!
 
-        Print_Level l = getPrintLevel();
+
         println_I("Starting Encoders");
         initializeEncoders();// Power supply must be turned on first
-        setPrintLevel(l);
+
         println_I("Starting Heater");
         initializeHeater();
+
         println_I("Starting Servos");
         initServos();
+
 #if !defined(NO_PID)
         println_I("Starting PID");
         initPIDLocal();
-
 #endif
-    initializeCartesianController();
+        initializeCartesianController();
+        DelayMs(100);
+        if(     GetPIDCalibrateionState(linkToHWIndex(0))!=CALIBRARTION_DONE&&
+                GetPIDCalibrateionState(linkToHWIndex(1))!=CALIBRARTION_DONE&&
+                GetPIDCalibrateionState(linkToHWIndex(2))!=CALIBRARTION_DONE
 
-    DelayMs(100);
-    if(     GetPIDCalibrateionState(linkToHWIndex(0))!=CALIBRARTION_DONE&&
-            GetPIDCalibrateionState(linkToHWIndex(1))!=CALIBRARTION_DONE&&
-            GetPIDCalibrateionState(linkToHWIndex(2))!=CALIBRARTION_DONE
+                    ){
+            for(i=0;i<numPidMotors;i++){
+                SetPIDEnabled(i,TRUE);
+            }
 
-                ){
-        for(i=0;i<numPidMotors;i++){
-            SetPIDEnabled(i,TRUE);
+            println_I("Running calibration for kinematics axis");
+    //        runPidHysterisisCalibration(linkToHWIndex(0));
+    //        runPidHysterisisCalibration(linkToHWIndex(1));
+    //        runPidHysterisisCalibration(linkToHWIndex(2));
+
+    //        DelayMs(100);//wait for ISR to fire and update all values
+            for(i=0;i<numPidMotors;i++){
+                SetPIDCalibrateionState(i,CALIBRARTION_DONE);
+                pidReset(i, 0);
+                setPIDConstants(i,.1,0,0);
+            }
+
+    //        println_W("Axis need calibration");
+    //        pidReset(0, -1024);
+    //        SetPID(0,-1024);
+    //        getPidGroupDataTable()[0].config.Polarity=1;
+    //        getPidGroupDataTable()[0].config.upperHistoresis=-5;
+    //        getPidGroupDataTable()[0].config.lowerHistoresis=-7;
+    //        getPidGroupDataTable()[0].config.stop=-6;
+    //
+    //        pidReset(1, 1024);
+    //        SetPID(1,1024);
+    //        getPidGroupDataTable()[1].config.Polarity=0;
+    //        getPidGroupDataTable()[1].config.upperHistoresis=-5;
+    //        getPidGroupDataTable()[1].config.lowerHistoresis=-7;
+    //        getPidGroupDataTable()[1].config.stop=-6;
+    //
+    //        pidReset(2, 0);
+    //        SetPID(2,0);
+    //        getPidGroupDataTable()[2].config.Polarity=0;
+    //        getPidGroupDataTable()[2].config.upperHistoresis=5;
+    //        getPidGroupDataTable()[2].config.lowerHistoresis=3;
+    //        getPidGroupDataTable()[2].config.stop=4;
+    //
+    //
+    //        OnPidConfigure(0);
+        }else{
+            println_W("Axis are already calibrated");
         }
-        println_I("Running calibration for kinematics axis");
-//        runPidHysterisisCalibration(linkToHWIndex(0));
-//        runPidHysterisisCalibration(linkToHWIndex(1));
-//        runPidHysterisisCalibration(linkToHWIndex(2));
-        
-//        DelayMs(100);//wait for ISR to fire and update all values
-        for(i=0;i<numPidMotors;i++){
-            SetPIDCalibrateionState(i,CALIBRARTION_DONE);
-            pidReset(i, 0);
-            setPIDConstants(i,.1,0,0);
-        }
-//        println_W("Axis need calibration");
-//        pidReset(0, -1024);
-//        SetPID(0,-1024);
-//        getPidGroupDataTable()[0].config.Polarity=1;
-//        getPidGroupDataTable()[0].config.upperHistoresis=-5;
-//        getPidGroupDataTable()[0].config.lowerHistoresis=-7;
-//        getPidGroupDataTable()[0].config.stop=-6;
-//
-//        pidReset(1, 1024);
-//        SetPID(1,1024);
-//        getPidGroupDataTable()[1].config.Polarity=0;
-//        getPidGroupDataTable()[1].config.upperHistoresis=-5;
-//        getPidGroupDataTable()[1].config.lowerHistoresis=-7;
-//        getPidGroupDataTable()[1].config.stop=-6;
-//
-//        pidReset(2, 0);
-//        SetPID(2,0);
-//        getPidGroupDataTable()[2].config.Polarity=0;
-//        getPidGroupDataTable()[2].config.upperHistoresis=5;
-//        getPidGroupDataTable()[2].config.lowerHistoresis=3;
-//        getPidGroupDataTable()[2].config.stop=4;
-//
-//
-//        OnPidConfigure(0);
-    }else{
-        println_W("Axis are already calibrated");
-    }
 
-    pid.MsTime=getMs();
-    //startHomingLinks();
+        pid.MsTime=getMs();
+        //startHomingLinks();
 
-    disableSerialComs(TRUE);
+        disableSerialComs(TRUE);
 
-    (_TRISB0)=1;
+        (_TRISB0)=1;
 
-    SetColor(1,1,1);
-    HEATER_2_TRIS = OUTPUT;
-    //HEATER_1_TRIS = OUTPUT; // Causes one of the axies to crawl downward in bursts when enabled and on...
-    //HEATER_0_TRIS = OUTPUT; // causes device to twitc. These are touched by the USB stack somehow..... and as the reset button
+        SetColor(1,1,1);
+        HEATER_2_TRIS = OUTPUT;
+        //HEATER_1_TRIS = OUTPUT; // Causes one of the axies to crawl downward in bursts when enabled and on...
+        //HEATER_0_TRIS = OUTPUT; // causes device to twitc. These are touched by the USB stack somehow..... and as the reset button
 
 }
 BOOL serVal =TRUE;
 
 void bowlerSystem(){
-    
+
     Bowler_Server_Local(&MyPacket);
 
     float diff = RunEvery(&pid);
@@ -266,7 +270,7 @@ void bowlerSystem(){
             pid.MsTime=getMs();
         }
         //checkPositionChange();
- 
+
     }
 
 }

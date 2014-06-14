@@ -10,28 +10,28 @@ float getLinkScale(int index);
 
 static int homingAllLinks = FALSE;
 
-PACKET_FIFO_STORAGE  packetFifo;
-BowlerPacket buffer[SIZE_OF_PACKET_BUFFER];
-BowlerPacket linTmpPack;
-BowlerPacket packetTemp;
-INTERPOLATE_DATA intCartesian[3];
+static PACKET_FIFO_STORAGE  packetFifo;
+static BowlerPacket buffer[SIZE_OF_PACKET_BUFFER];
+static BowlerPacket linTmpPack;
+static BowlerPacket packetTemp;
+static INTERPOLATE_DATA intCartesian[3];
 
 //float scale = -1.0*mmPerTick;
-float extrusionScale = 1/(((float)ticksPerRev)/100.00);
+//static float extrusionScale = 1/(((float)ticksPerRev)/100.00);
 
-float xCurrent,yCurrent,zCurrent,eCurrent;
-BOOL full = FALSE;
-BOOL configured=FALSE;
+static float xCurrent,yCurrent,zCurrent;
+static BOOL full = FALSE;
+static BOOL configured=FALSE;
 
 
-int  lastPushedBufferSize =0;
-float lastXYZE[4];
+static int  lastPushedBufferSize =0;
+static float lastXYZE[4];
 
 static RunEveryData pid ={0,500};
 
 static BOOL keepCartesianPosition =FALSE;
-int interpolationCounter=0;
-BOOL runKinematics=FALSE;
+static int interpolationCounter=0;
+static BOOL runKinematics=FALSE;
 
 
 //Default values for ServoStock
@@ -277,9 +277,9 @@ void processLinearInterpPacket(BowlerPacket * Packet){
             tmpData[i] = ((float)get32bit(Packet,(i*4)+1))/1000;
         }
         setInterpolateXYZ(tmpData[1], tmpData[2], tmpData[3],tmpData[0]);
-        float extr =tmpData[4]/extrusionScale;
+        //float extr =tmpData[4]/extrusionScale;
         //println_I("Current Extruder MM=");p_fl_W(tmpData[4]);print_I(", Ticks=");p_fl_W(extr)
-        SetPIDTimed(hwMap.Extruder0.index, extr,tmpData[0]);
+        //SetPIDTimed(hwMap.Extruder0.index, extr,tmpData[0]);
      }
 }
 
@@ -335,8 +335,8 @@ void cancelPrint(){
     setPrintLevel(l);
     InitPacketFifo(&packetFifo,buffer,SIZE_OF_PACKET_BUFFER);
     
-    ZeroPID(hwMap.Extruder0.index);
-    SetPIDTimed(hwMap.Heater0.index,0,0);
+    //ZeroPID(hwMap.Extruder0.index);
+    //SetPIDTimed(hwMap.Heater0.index,0,0);
 }
 
 BOOL onCartesianGet(BowlerPacket *Packet){
@@ -565,7 +565,13 @@ void HomeLinks(){
           homingAllLinks = FALSE;
           configured = TRUE;
           println_W("All linkes reported in");
-          pidReset(hwMap.Extruder0.index,0);
+          BYTE_FIFO_STORAGE * data = GetPICUSBFifo();
+          AbsPID * pid  = getPidGroupDataTable();
+          println_E("\tPID state 0x");prHEX32((int)pid,ERROR_PRINT);
+          println_E("\tTo  0x");prHEX32(((int)pid+(sizeof(AbsPID)*numPidTotal)),ERROR_PRINT);
+          printBufferState(data);
+
+          //pidReset(hwMap.Extruder0.index,0);
           int i;
           float Alpha,Beta,Gama;
           hwMap.iK_callback(0, 0, getmaxZ(), &Alpha, &Beta, &Gama);
@@ -574,6 +580,7 @@ void HomeLinks(){
           }
           cancelPrint();
           setInterpolateXYZ(0, 0, getmaxZ(), 2000);
+          printBufferState(data);
        }
     }
 }

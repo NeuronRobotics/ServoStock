@@ -6,15 +6,15 @@ void writeFlashLocal();
 #define bytesOfRaw (numPidTotal*sizeof(AbsPID_Config))
 
 
-static AbsPID 			pidGroups[numPidTotal];
+static AbsPID 			pidGroupsLocal[numPidTotal];
 
 AbsPID * getFlashPidGroupDataTable(){
-	if(pidGroups == NULL){
+	if(pidGroupsLocal == NULL){
 		println_E("PID data table is null");
 		return NULL;
 	}
 
-	return pidGroups;
+	return pidGroupsLocal;
 }
 union LocalFlashData{
     unsigned long int data[bytesOfRaw/4];
@@ -46,14 +46,14 @@ BOOL initFlashLocal(){
 
     for(i=0;i<numPidTotal;i++){
         //index = i*sizeof(AbsPID_Config)/4;
-        unsigned int * raw = (  unsigned int *)&pidGroups[i].config;
+        unsigned int * raw = (  unsigned int *)&pidGroupsLocal[i].config;
         unsigned int * data = (  unsigned int *) &localPid[i];
         for(j=0;j<sizeof(AbsPID_Config)/4;j++){
             raw[j]=data[j];
         }
-        if( ((pidGroups[i].config.Enabled != 1 &&
-              pidGroups[i].config.Enabled != 0))||
-              pidGroups[i].config.offset != getPidGroupDataTable()[i].config.offset
+        if( ((pidGroupsLocal[i].config.Enabled != 1 &&
+              pidGroupsLocal[i].config.Enabled != 0))||
+              pidGroupsLocal[i].config.offset != getPidGroupDataTable()[i].config.offset
                 ){
             rawFlashDetect = TRUE;
         }
@@ -66,22 +66,22 @@ BOOL initFlashLocal(){
             }
             println_E("Detected raw flash, setting defaults : ");p_int_E(i);
             printPIDvals(i);
-            pidGroups[i].config.Enabled = FALSE;
-            pidGroups[i].config.Async=0;
-            pidGroups[i].config.IndexLatchValue=0;
-            pidGroups[i].config.stopOnIndex=0;
-            pidGroups[i].config.useIndexLatch=0;
-            pidGroups[i].config.K.P=.1;
-            pidGroups[i].config.K.I=0;
-            pidGroups[i].config.K.D=0;
-            pidGroups[i].config.V.P=.1;
-            pidGroups[i].config.V.D=0;
-            pidGroups[i].config.Polarity=1;
-            pidGroups[i].config.stop=0;
-            pidGroups[i].config.upperHistoresis=0;
-            pidGroups[i].config.lowerHistoresis=0;
-            pidGroups[i].config.offset=0.0;
-            pidGroups[i].config.calibrationState=CALIBRARTION_Uncalibrated;
+            pidGroupsLocal[i].config.Enabled = FALSE;
+            pidGroupsLocal[i].config.Async=0;
+            pidGroupsLocal[i].config.IndexLatchValue=0;
+            pidGroupsLocal[i].config.stopOnIndex=0;
+            pidGroupsLocal[i].config.useIndexLatch=0;
+            pidGroupsLocal[i].config.K.P=.1;
+            pidGroupsLocal[i].config.K.I=0;
+            pidGroupsLocal[i].config.K.D=0;
+            pidGroupsLocal[i].config.V.P=.1;
+            pidGroupsLocal[i].config.V.D=0;
+            pidGroupsLocal[i].config.Polarity=1;
+            pidGroupsLocal[i].config.stop=0;
+            pidGroupsLocal[i].config.upperHistoresis=0;
+            pidGroupsLocal[i].config.lowerHistoresis=0;
+            pidGroupsLocal[i].config.offset=0.0;
+            pidGroupsLocal[i].config.calibrationState=CALIBRARTION_Uncalibrated;
             printPIDvals(i);
         }
     }
@@ -102,7 +102,7 @@ void writeFlashLocal(){
     for(i=0;i<numPidTotal;i++){
         //printPIDvals(i);
         //index = i*sizeof(AbsPID_Config)/4;
-        unsigned int * raw = (  unsigned int *)&pidGroups[i].config;
+        unsigned int * raw = (  unsigned int *)&pidGroupsLocal[i].config;
         unsigned int * data =(  unsigned int *) &localPid[i];
         for(j=0;j<sizeof(AbsPID_Config)/4;j++){
             data[j]=raw[j];
