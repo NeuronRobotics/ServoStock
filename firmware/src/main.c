@@ -321,9 +321,9 @@ int main(){
             for(index=0;index<3;index++){
                 int group = linkToHWIndex(index);
                 println_E("For Axis ");p_int_E(group);
-                print_E(" upper: ");p_int_E(getPidGroupDataTable()[group].config.upperHistoresis);
-                print_E(" lower: ");p_int_E(getPidGroupDataTable()[group].config.lowerHistoresis);
-                print_E(" stop: ");p_int_E(getPidGroupDataTable()[group].config.stop);
+                print_E(" upper: ");p_int_E(getPidGroupDataTable(group)->config.upperHistoresis);
+                print_E(" lower: ");p_int_E(getPidGroupDataTable(group)->config.lowerHistoresis);
+                print_E(" stop: ");p_int_E(getPidGroupDataTable(group)->config.stop);
             }
             startHomingLinks();
         }

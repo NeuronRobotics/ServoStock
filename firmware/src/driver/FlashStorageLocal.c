@@ -53,7 +53,7 @@ BOOL initFlashLocal(){
         }
         if( ((pidGroupsLocal[i].config.Enabled != 1 &&
               pidGroupsLocal[i].config.Enabled != 0))||
-              pidGroupsLocal[i].config.offset != getPidGroupDataTable()[i].config.offset
+              pidGroupsLocal[i].config.offset != getPidGroupDataTable(i)->config.offset
                 ){
             rawFlashDetect = TRUE;
         }
