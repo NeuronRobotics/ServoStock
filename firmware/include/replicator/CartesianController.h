@@ -91,6 +91,7 @@ void cancelPrint();
 
 BOOL onCartesianPost(BowlerPacket *Packet);
 BOOL onClearPrinter(BowlerPacket *Packet);
+void printCartesianData();
 
 //void InitializeCartesianController( BOOL (*asyncCallbackPtr)(BowlerPacket *Packet),
 //                                    BOOL (*forwardKinematicsCallbackPtr)(float * currentLinkPositions, Transform * result),

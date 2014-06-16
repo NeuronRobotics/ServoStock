@@ -139,7 +139,6 @@ void hardwareInit(){
 	SYSTEMConfig(SYS_FREQ, SYS_CFG_WAIT_STATES | SYS_CFG_PCACHE);
         SYSTEMConfigPerformance(80000000);
             (_TRISF5)=INPUT; // for the reset sw
-        setPrintLevelInfoPrint();
         ATX_DISENABLE();
         CloseTimer2();
 
@@ -282,7 +281,7 @@ int main(){
     //setPrintLevelWarningPrint();
     setPrintLevelNoPrint();
     hardwareInit();
-    //RunEveryData loop = {0.0,2000.0};
+    RunEveryData loop = {0.0,2000.0};
     //setPrintLevelInfoPrint();
     //setPrintLevelWarningPrint();
     //setPrintLevelNoPrint();
@@ -295,7 +294,7 @@ int main(){
 		DelayMs(100);
 		Reset();
 	}
-//        if(RunEvery(&loop)>0){
+        if(RunEvery(&loop)>0){
 //            Print_Level l= getPrintLevel();
 //            setPrintLevelInfoPrint();
 //            printCartesianData();
@@ -304,12 +303,8 @@ int main(){
 //                printPIDvals(i);
 //            }
 //
-//            for(i=0;i<numPidMotors;i++){
-//                println_I(" Axis ");p_int_I(i);
-//                print_I(" Val: ");p_fl_I(getRecentEncoderReading(i));
-//            }
 //            setPrintLevel(l);
-//        }
+        }
         if(     printCalibrations == FALSE&&
                 GetPIDCalibrateionState(linkToHWIndex(0))==CALIBRARTION_DONE&&
                 GetPIDCalibrateionState(linkToHWIndex(1))==CALIBRARTION_DONE&&
@@ -326,6 +321,14 @@ int main(){
                 print_E(" stop: ");p_int_E(getPidGroupDataTable(group)->config.stop);
             }
             startHomingLinks();
+            Print_Level l= getPrintLevel();
+            setPrintLevelInfoPrint();
+            printCartesianData();
+            int i;
+            for(i=0;i<numPidMotors;i++){
+                printPIDvals(i);
+            }
+            setPrintLevel(l);
         }
         
         bowlerSystem();
