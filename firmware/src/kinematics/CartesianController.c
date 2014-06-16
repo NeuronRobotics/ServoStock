@@ -106,7 +106,7 @@ BOOL onConfigurationGet(BowlerPacket *Packet){
     Packet->use.head.DataLegnth++;
     Packet->use.data[1] = 5;// 5 active axis
     Packet->use.head.DataLegnth++;
-    set32bit(Packet,getPidGroupDataTable()[Packet->use.data[0]].config.IndexLatchValue,2);
+    set32bit(Packet,getPidGroupDataTable(Packet->use.data[0])->config.IndexLatchValue,2);
     Packet->use.head.DataLegnth+=4;
     set32bit(Packet,-100000,6);
     Packet->use.head.DataLegnth+=4;
@@ -143,8 +143,8 @@ BOOL isCartesianInterpolationDone(){
         }
         if( (isPIDArrivedAtSetpoint(linkToHWIndex(i), setpointBound) == FALSE) && (i==3) ){
             println_W("LINK not done moving index = ");p_int_W(linkToHWIndex(i));
-            print_W(" currently is = ");    p_fl_W(getPidGroupDataTable()[linkToHWIndex(i)].CurrentState);
-            print_W(" heading towards = "); p_fl_W(getPidGroupDataTable()[linkToHWIndex(i)].SetPoint);
+            print_W(" currently is = ");    p_fl_W(getPidGroupDataTable(linkToHWIndex(i))->CurrentState);
+            print_W(" heading towards = "); p_fl_W(getPidGroupDataTable(linkToHWIndex(i))->SetPoint);
             return FALSE;
         }
 
@@ -566,9 +566,8 @@ void HomeLinks(){
           configured = TRUE;
           println_W("All linkes reported in");
           BYTE_FIFO_STORAGE * data = GetPICUSBFifo();
-          AbsPID * pid  = getPidGroupDataTable();
-          println_E("\tPID state 0x");prHEX32((int)pid,ERROR_PRINT);
-          println_E("\tTo  0x");prHEX32(((int)pid+(sizeof(AbsPID)*numPidTotal)),ERROR_PRINT);
+//          println_E("\tPID state 0x");prHEX32((int)pid,ERROR_PRINT);
+//          println_E("\tTo  0x");prHEX32(((int)pid+(sizeof(AbsPID)*numPidTotal)),ERROR_PRINT);
           printBufferState(data);
 
           //pidReset(hwMap.Extruder0.index,0);
