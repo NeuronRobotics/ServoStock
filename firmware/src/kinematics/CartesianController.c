@@ -144,7 +144,7 @@ BOOL getCurrentTaskSpaceTransform(BowlerPacket *Packet){
     return TRUE;
 }
 BOOL setDesiredJointSpaceVector(BowlerPacket *Packet){
-    println_E("setDesiredJointSpaceVector");
+    
     int numJoints = Packet->use.data[0];
     float j0 = get32bit(Packet,1)/1000;
     float j1 = get32bit(Packet,5)/1000;
@@ -154,6 +154,7 @@ BOOL setDesiredJointSpaceVector(BowlerPacket *Packet){
     float tempreture = get32bit(Packet,17)/1000;
     
     float ms = get32bit(Packet,1+numJoints*4);
+    println_E("setDesiredJointSpaceVector ");p_int_E(numJoints);printPacket(Packet,ERROR_PRINT);
 
     float x=0,y=0,z=0;
     if(hwMap.fK_callback(j0,j1,j2, &x,  &y, &z)==0){

@@ -31,9 +31,9 @@ static RPC_LIST cartesian_SDSJ={	BOWLER_POST,// Method
                                 "sdsj",//RPC as string
                                 &setDesiredJointAxisValue,//function pointer to a packet parsinf function
                                ((const char [4]){  BOWLER_I08,//axis
-                                       BOWLER_FIXED1K,//value
-                                       BOWLER_I32,//ms
-                                        0}),// Response arguments
+                                                   BOWLER_FIXED1K,//value
+                                                   BOWLER_I32,//ms
+                                                    0}),// Response arguments
                                 BOWLER_POST,// response method
                                 NULL,// Response arguments
                                 NULL //Termination
@@ -41,8 +41,9 @@ static RPC_LIST cartesian_SDSJ={	BOWLER_POST,// Method
 static RPC_LIST cartesian_SDJV={	BOWLER_POST,// Method
                                 "sdjv",//RPC as string
                                 &setDesiredJointSpaceVector,//function pointer to a packet parsinf function
-                               ((const char [2]){  BOWLER_FIXED1K_STR,//Run or not boolean
-                                        0}),// Response arguments
+                               ((const char [3]){  BOWLER_FIXED1K_STR,//Run or not boolean
+                                                   BOWLER_I32,//ms
+                                                   0}),// Response arguments
                                 BOWLER_POST,// response method
                                 ((const char [8]){  BOWLER_FIXED1K,//x
                                                     BOWLER_FIXED1K,//y
@@ -79,7 +80,7 @@ static RPC_LIST cartesian_SDTT={	BOWLER_POST,// Method
                                                     BOWLER_FIXED1K,//ry
                                                     BOWLER_FIXED1K,//rz
                                                     BOWLER_FIXED1K,//w
-                                                    BOWLER_FIXED1K,//ms
+                                                    BOWLER_I32,//ms
                                         0}),// Response arguments
                                 BOWLER_POST,// response method
                                 ((const char [2]){  BOWLER_FIXED1K_STR,//current joint values
