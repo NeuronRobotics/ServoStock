@@ -109,14 +109,16 @@ BOOL setDesiredTaskSpaceTransform(BowlerPacket *Packet){
 //    float w = get32bit(Packet,24)/1000;
     float ms = get32bit(Packet,28);
 
-    Packet->use.data[0] = 3;
+    Packet->use.data[0] = 5;
     float t0=0,t1=0,t2=0;
     if(hwMap.iK_callback( x,  y, z,  &t0, &t1, &t2)==0){
         setInterpolateXYZ(x, y,  z, ms);
         set32bit(Packet,t0,1);
         set32bit(Packet,t1,5);
         set32bit(Packet,t2,9);
-        
+
+        set32bit(Packet,getLinkAngle(3),13);
+        set32bit(Packet,getLinkAngle(4),17);
     }else{
         println_E("Ignoring: Can't reach: x=");p_fl_E(x);print_E(" y=");p_fl_E(y);print_E(" z=");p_fl_E(z);
     }
@@ -147,6 +149,9 @@ BOOL setDesiredJointSpaceVector(BowlerPacket *Packet){
     float j0 = get32bit(Packet,1)/1000;
     float j1 = get32bit(Packet,5)/1000;
     float j2 = get32bit(Packet,9)/1000;
+
+    float extrusion = get32bit(Packet,13)/1000;
+    float tempreture = get32bit(Packet,17)/1000;
     
     float ms = get32bit(Packet,1+numJoints*4);
 
@@ -154,7 +159,9 @@ BOOL setDesiredJointSpaceVector(BowlerPacket *Packet){
     if(hwMap.fK_callback(j0,j1,j2, &x,  &y, &z)==0){
         if(hwMap.iK_callback( x,  y, z,  &j0, &j1, &j2)==0){
             setInterpolateXYZ(x, y,  z, ms);
-
+            setLinkAngle(3,extrusion,ms);
+            setLinkAngle(4,tempreture,ms);
+            // load data into packet
             set32bit(Packet,x,0);
             set32bit(Packet,y,4);
             set32bit(Packet,z,8);
