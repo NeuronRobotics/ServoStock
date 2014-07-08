@@ -202,16 +202,16 @@ void hardwareInit(){
             }
 
             println_I("Running calibration for kinematics axis");
-            runPidHysterisisCalibration(linkToHWIndex(0));
-            runPidHysterisisCalibration(linkToHWIndex(1));
-            runPidHysterisisCalibration(linkToHWIndex(2));
+//            runPidHysterisisCalibration(linkToHWIndex(0));
+//            runPidHysterisisCalibration(linkToHWIndex(1));
+//            runPidHysterisisCalibration(linkToHWIndex(2));
 
-    //        DelayMs(100);//wait for ISR to fire and update all values
-//            for(i=0;i<numPidMotors;i++){
-//                SetPIDCalibrateionState(i,CALIBRARTION_DONE);
-//                pidReset(i, 0);
-//                setPIDConstants(i,.1,0,0);
-//            }
+            DelayMs(100);//wait for ISR to fire and update all values
+            for(i=0;i<numPidMotors;i++){
+                SetPIDCalibrateionState(i,CALIBRARTION_DONE);
+                pidReset(i, 0);
+                setPIDConstants(i,.1,0,0);
+            }
 
     //        println_W("Axis need calibration");
     //        pidReset(0, -1024);
@@ -236,7 +236,7 @@ void hardwareInit(){
     //        getPidGroupDataTable()[2].config.stop=4;
     //
     //
-    //        OnPidConfigure(0);
+            OnPidConfigure(0);
         }else{
             println_W("Axis are already calibrated");
         }

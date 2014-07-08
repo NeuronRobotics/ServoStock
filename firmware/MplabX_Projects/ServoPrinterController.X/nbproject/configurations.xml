@@ -162,6 +162,7 @@
         <property key="use-indirect-calls" value="false"/>
       </C32>
       <C32-AR>
+        <property key="additional-options-chop-files" value="false"/>
       </C32-AR>
       <C32-AS>
         <property key="assembler-symbols" value=""/>
@@ -278,7 +279,6 @@
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
         <property key="UART1" value="false"/>
         <property key="UART2" value="false"/>
-        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>

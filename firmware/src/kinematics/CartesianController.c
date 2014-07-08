@@ -97,20 +97,21 @@ BOOL onRunKinematicsSet(BowlerPacket *Packet){
     return TRUE;
 }
 
+
 BOOL setDesiredTaskSpaceTransform(BowlerPacket *Packet){
-    
+    println_E("setDesiredTaskSpaceTransform");
     return TRUE;
 }
 BOOL getCurrentTaskSpaceTransform(BowlerPacket *Packet){
-    
+    println_E("getCurrentTaskSpaceTransform");
     return TRUE;
 }
 BOOL setDesiredJointSpaceVector(BowlerPacket *Packet){
-    
+    println_E("setDesiredJointSpaceVector");
     return TRUE;
 }
 BOOL setDesiredJointAxisValue(BowlerPacket *Packet){
-    
+    println_E("setDesiredJointAxisValue");
     return TRUE;
 }
 
