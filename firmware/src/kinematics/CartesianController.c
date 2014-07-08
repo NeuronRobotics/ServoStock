@@ -97,6 +97,25 @@ BOOL onRunKinematicsSet(BowlerPacket *Packet){
     return TRUE;
 }
 
+BOOL setDesiredTaskSpaceTransform(BowlerPacket *Packet){
+    
+    return TRUE;
+}
+BOOL getCurrentTaskSpaceTransform(BowlerPacket *Packet){
+    
+    return TRUE;
+}
+BOOL setDesiredJointSpaceVector(BowlerPacket *Packet){
+    
+    return TRUE;
+}
+BOOL setDesiredJointAxisValue(BowlerPacket *Packet){
+    
+    return TRUE;
+}
+
+
+
 
 BOOL onConfigurationGet(BowlerPacket *Packet){
     Packet->use.head.DataLegnth=4;

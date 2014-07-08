@@ -278,13 +278,11 @@ BOOL printCalibrations = FALSE;
 
 int main(){
     //setPrintLevelInfoPrint();
-    //setPrintLevelWarningPrint();
-    setPrintLevelNoPrint();
+    setPrintLevelWarningPrint();
+    //setPrintLevelNoPrint();
     hardwareInit();
     RunEveryData loop = {0.0,2000.0};
-    //setPrintLevelInfoPrint();
-    //setPrintLevelWarningPrint();
-    //setPrintLevelNoPrint();
+
     while(1){
         if (_RF5==1){
             setPrintLevelErrorPrint();
@@ -322,6 +320,7 @@ int main(){
             }
             startHomingLinks();
             Print_Level l= getPrintLevel();
+
             setPrintLevelInfoPrint();
             printCartesianData();
             int i;

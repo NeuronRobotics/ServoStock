@@ -20,12 +20,75 @@ BOOL cartesianAsyncEventCallback(BowlerPacket * Packet,BOOL (*pidAsyncCallbackPt
 static RPC_LIST cartesian_runk={	BOWLER_POST,// Method
                                 "runk",//RPC as string
                                 &onRunKinematicsSet,//function pointer to a packet parsinf function
-                               ((const char [2]){  BOWLER_I08,//Run or not boolean
+                               ((const char [2]){  BOWLER_BOOL,//Run or not boolean
                                         0}),// Response arguments
                                 BOWLER_POST,// response method
                                 NULL,// Response arguments
                                 NULL //Termination
 };
+
+static RPC_LIST cartesian_runk={	BOWLER_POST,// Method
+                                "sdsj",//RPC as string
+                                &setDesiredJointAxisValue,//function pointer to a packet parsinf function
+                               ((const char [4]){  BOWLER_I08,//axis
+                                       BOWLER_FIXED1K,//value
+                                       BOWLER_I32,//ms
+                                        0}),// Response arguments
+                                BOWLER_POST,// response method
+                                NULL,// Response arguments
+                                NULL //Termination
+};
+static RPC_LIST cartesian_runk={	BOWLER_POST,// Method
+                                "sdjv",//RPC as string
+                                &setDesiredJointSpaceVector,//function pointer to a packet parsinf function
+                               ((const char [2]){  BOWLER_FIXED1K_STR,//Run or not boolean
+                                        0}),// Response arguments
+                                BOWLER_POST,// response method
+                                ((const char [8]){  BOWLER_FIXED1K,//x
+                                                    BOWLER_FIXED1K,//y
+                                                    BOWLER_FIXED1K,//z
+                                                    BOWLER_FIXED1K,//rx
+                                                    BOWLER_FIXED1K,//ry
+                                                    BOWLER_FIXED1K,//rz
+                                                    BOWLER_FIXED1K,//w
+                                        0}),// Response arguments
+                                NULL //Termination
+};
+static RPC_LIST cartesian_runk={	BOWLER_POST,// Method
+                                "gctt",//RPC as string
+                                &getCurrentTaskSpaceTransform,//function pointer to a packet parsinf function
+                                NULL,//  arguments
+                                BOWLER_POST,// response method
+                                ((const char [8]){  BOWLER_FIXED1K,//x
+                                                    BOWLER_FIXED1K,//y
+                                                    BOWLER_FIXED1K,//z
+                                                    BOWLER_FIXED1K,//rx
+                                                    BOWLER_FIXED1K,//ry
+                                                    BOWLER_FIXED1K,//rz
+                                                    BOWLER_FIXED1K,//w
+                                        0}),// Response arguments
+                                NULL //Termination
+};
+static RPC_LIST cartesian_runk={	BOWLER_POST,// Method
+                                "sdtt",//RPC as string
+                                &setDesiredTaskSpaceTransform,//function pointer to a packet parsinf function
+                               ((const char [8]){  BOWLER_FIXED1K,//x
+                                                    BOWLER_FIXED1K,//y
+                                                    BOWLER_FIXED1K,//z
+                                                    BOWLER_FIXED1K,//rx
+                                                    BOWLER_FIXED1K,//ry
+                                                    BOWLER_FIXED1K,//rz
+                                                    BOWLER_FIXED1K,//w
+                                                    BOWLER_FIXED1K,//ms
+                                        0}),// Response arguments
+                                BOWLER_POST,// response method
+                                ((const char [4]){  BOWLER_I08,//axis
+                                       BOWLER_FIXED1K,//value
+                                       BOWLER_I32,//ms
+                                        0}),// Response arguments
+                                NULL //Termination
+};
+
 static RPC_LIST cartesian__SLI={	BOWLER_POST,// Method
                                 "_sli",//RPC as string
                                 &onCartesianPost,//function pointer to a packet parsinf function
@@ -60,6 +123,8 @@ static RPC_LIST cartesian_PRCL={	BOWLER_POST,// Method
                                 NULL,// Response arguments
                                 NULL //Termination
 };
+
+
 
 
 static NAMESPACE_LIST bcsCartesian ={	cartNSName,// The string defining the namespace
