@@ -100,18 +100,80 @@ BOOL onRunKinematicsSet(BowlerPacket *Packet){
 
 BOOL setDesiredTaskSpaceTransform(BowlerPacket *Packet){
     println_E("setDesiredTaskSpaceTransform");
+    float x = get32bit(Packet,0)/1000;
+    float y = get32bit(Packet,4)/1000;
+    float z = get32bit(Packet,8)/1000;
+//    float rx = get32bit(Packet,12)/1000;
+//    float ry = get32bit(Packet,16)/1000;
+//    float rz = get32bit(Packet,20)/1000;
+//    float w = get32bit(Packet,24)/1000;
+    float ms = get32bit(Packet,28);
+
+    Packet->use.data[0] = 3;
+    float t0=0,t1=0,t2=0;
+    if(hwMap.iK_callback( x,  y, z,  &t0, &t1, &t2)==0){
+        setInterpolateXYZ(x, y,  z, ms);
+        set32bit(Packet,t0,1);
+        set32bit(Packet,t1,5);
+        set32bit(Packet,t2,9);
+        
+    }else{
+        println_E("Ignoring: Can't reach: x=");p_fl_E(x);print_E(" y=");p_fl_E(y);print_E(" z=");p_fl_E(z);
+    }
     return TRUE;
 }
 BOOL getCurrentTaskSpaceTransform(BowlerPacket *Packet){
     println_E("getCurrentTaskSpaceTransform");
+
+    float x=0,y=0,z=0;
+    if(hwMap.fK_callback(getLinkAngle(0),getLinkAngle(1),getLinkAngle(2), &x,  &y, &z)==0){
+
+        set32bit(Packet,x,0);
+        set32bit(Packet,y,4);
+        set32bit(Packet,z,8);
+        //rotation 0
+        set32bit(Packet,0,12);
+        set32bit(Packet,0,16);
+        set32bit(Packet,0,20);
+        set32bit(Packet,1,24);
+    }else{
+        println_E("Ignoring: Can't reach: x=");p_fl_E(x);print_E(" y=");p_fl_E(y);print_E(" z=");p_fl_E(z);
+    }
     return TRUE;
 }
 BOOL setDesiredJointSpaceVector(BowlerPacket *Packet){
     println_E("setDesiredJointSpaceVector");
+    int numJoints = Packet->use.data[0];
+    float j0 = get32bit(Packet,1)/1000;
+    float j1 = get32bit(Packet,5)/1000;
+    float j2 = get32bit(Packet,9)/1000;
+    
+    float ms = get32bit(Packet,1+numJoints*4);
+
+    float x=0,y=0,z=0;
+    if(hwMap.fK_callback(j0,j1,j2, &x,  &y, &z)==0){
+        if(hwMap.iK_callback( x,  y, z,  &j0, &j1, &j2)==0){
+            setInterpolateXYZ(x, y,  z, ms);
+
+            set32bit(Packet,x,0);
+            set32bit(Packet,y,4);
+            set32bit(Packet,z,8);
+            //rotation 0
+            set32bit(Packet,0,12);
+            set32bit(Packet,0,16);
+            set32bit(Packet,0,20);
+            set32bit(Packet,1,24);
+        }
+    }else{
+        println_E("Ignoring: Can't reach x=");p_fl_E(x);print_E(" y=");p_fl_E(y);print_E(" z=");p_fl_E(z);
+    }
     return TRUE;
 }
 BOOL setDesiredJointAxisValue(BowlerPacket *Packet){
     println_E("setDesiredJointAxisValue");
+
+    setLinkAngle(Packet->use.data[0], get32bit(Packet,1)/1000, get32bit(Packet,5));
+    
     return TRUE;
 }
 
