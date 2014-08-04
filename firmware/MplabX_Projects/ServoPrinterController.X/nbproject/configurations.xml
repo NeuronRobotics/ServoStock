@@ -86,6 +86,7 @@
     <Elem>../../../../c-bowler/firmware/library/NR-Clib/development/Platform/src/pic32</Elem>
     <Elem>../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32</Elem>
     <Elem>../../../../microcontroller-bowler/DyIO/development/pic</Elem>
+    <Elem>../../include/replicator</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>

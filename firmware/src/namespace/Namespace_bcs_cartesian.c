@@ -91,9 +91,16 @@ static RPC_LIST cartesian_SDTT={	BOWLER_POST,// Method
 static RPC_LIST cartesian__SLI={	BOWLER_POST,// Method
                                 "_sli",//RPC as string
                                 &onCartesianPost,//function pointer to a packet parsinf function
-                                NULL,// Calling arguments
+                                ((const char [6]){  BOWLER_I32,//ms
+                                                    BOWLER_FIXED1K,//x
+                                                    BOWLER_FIXED1K,//y
+                                                    BOWLER_FIXED1K,//z
+                                                    BOWLER_FIXED1K,//E
+                                        0}),// Response arguments
                                 BOWLER_POST,// response method
-                                NULL,// Response arguments
+                                ((const char [3]){  BOWLER_I32,//Space in FIFo
+                                                    BOWLER_I32,//Size of FIFO
+                                        0}),// Response arguments
                                 NULL //Termination
 };
 

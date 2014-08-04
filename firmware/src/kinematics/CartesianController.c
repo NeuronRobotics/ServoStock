@@ -36,11 +36,11 @@ static BOOL runKinematics=FALSE;
 
 //Default values for ServoStock
 HardwareMap hwMap ={
-    {7,-1.0*mmPerTick ,"Alpha"},//axis 0
-    {5,-1.0*mmPerTick ,"Beta"},//axis 1
-    {2,-1.0*mmPerTick ,"Gama"},//axis 2
+    {0,-1.0*mmPerTick ,"Alpha"},//axis 0
+    {2,-1.0*mmPerTick ,"Beta"},//axis 1
+    {4,-1.0*mmPerTick ,"Gama"},//axis 2
     {
-        {0,1.0,"Extruder"},// Motor
+        {1,1.0,"Extruder"},// Motor
         {11,1.0,"Heater"}// Heater
     },//Extruder 0
     {
@@ -222,7 +222,7 @@ BOOL isCartesianInterpolationDone(){
     updateCurrentPositions();
     float targets[3] = {xCurrent,yCurrent,zCurrent};
     int setpointBound = 200;
-    float mmPositionResolution = 10;
+    float mmPositionResolution = .3;
     int i;
     for(i=0;i<4;i++){
         if(i<3){
