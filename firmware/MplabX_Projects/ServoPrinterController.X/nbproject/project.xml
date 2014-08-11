@@ -10,7 +10,7 @@
             <sourceEncoding>ISO-8859-1</sourceEncoding>
             <asminc-extensions/>
             <make-dep-projects>
-                <make-dep-project>../../../../c-bowler/firmware/library/NR-Clib/development/c-bowler.X</make-dep-project>
+                <make-dep-project>../../../../c-bowler/c-bowler.X</make-dep-project>
             </make-dep-projects>
         </data>
     </configuration>

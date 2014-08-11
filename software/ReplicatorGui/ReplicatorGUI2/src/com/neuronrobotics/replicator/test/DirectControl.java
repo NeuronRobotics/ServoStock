@@ -9,7 +9,7 @@ import javax.swing.JTabbedPane;
 
 import net.miginfocom.swing.MigLayout;
 
-import com.neuronrobotics.replicator.driver.DeltaForgeDevice;
+import com.neuronrobotics.replicator.driver.BowlerBoardDevice;
 import com.neuronrobotics.replicator.driver.NRPrinter;
 import com.neuronrobotics.sdk.addons.kinematics.AbstractKinematicsNR;
 import com.neuronrobotics.sdk.addons.kinematics.ITaskSpaceUpdateListenerNR;
@@ -120,7 +120,7 @@ public class DirectControl implements ITaskSpaceUpdateListenerNR, IDigitalInputL
 		model = new DHParameterKinematics(master,"TrobotMaster.xml");
 		
 		
-		DeltaForgeDevice delt = new DeltaForgeDevice();
+		BowlerBoardDevice delt = new BowlerBoardDevice();
 		if(!ConnectionDialog.getBowlerDevice(delt)){
 			System.exit(0);
 		}

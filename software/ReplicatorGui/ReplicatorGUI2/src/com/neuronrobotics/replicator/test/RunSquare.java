@@ -1,6 +1,6 @@
 package com.neuronrobotics.replicator.test;
 
-import com.neuronrobotics.replicator.driver.DeltaForgeDevice;
+import com.neuronrobotics.replicator.driver.BowlerBoardDevice;
 import com.neuronrobotics.sdk.addons.kinematics.math.RotationNR;
 import com.neuronrobotics.sdk.addons.kinematics.math.TransformNR;
 import com.neuronrobotics.sdk.serial.SerialConnection;
@@ -14,7 +14,7 @@ public class RunSquare {
 	 */
 	public static void main(String[] args) {
 		TransformNR current = new TransformNR();
-		DeltaForgeDevice delt = new DeltaForgeDevice();
+		BowlerBoardDevice delt = new BowlerBoardDevice();
 		ConnectionDialog.getBowlerDevice(delt);
 		int delay = 1000;
 		int rad = 50;

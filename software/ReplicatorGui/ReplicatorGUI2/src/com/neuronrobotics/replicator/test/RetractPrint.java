@@ -2,7 +2,7 @@ package com.neuronrobotics.replicator.test;
 
 import java.util.List;
 
-import com.neuronrobotics.replicator.driver.DeltaForgeDevice;
+import com.neuronrobotics.replicator.driver.BowlerBoardDevice;
 import com.neuronrobotics.sdk.addons.kinematics.math.RotationNR;
 import com.neuronrobotics.sdk.addons.kinematics.math.TransformNR;
 import com.neuronrobotics.sdk.serial.SerialConnection;
@@ -15,7 +15,7 @@ public class RetractPrint {
 	 */
 	public static void main(String[] args) {
 		boolean done=true;
-		DeltaForgeDevice delt=null;
+		BowlerBoardDevice delt=null;
 		while(done) {
 			try {
 				List<String> s =SerialConnection.getAvailableSerialPorts();
@@ -26,7 +26,7 @@ public class RetractPrint {
 					}
 				}
 				if(exists) {
-					delt = new DeltaForgeDevice();
+					delt = new BowlerBoardDevice();
 					delt.setConnection(new SerialConnection("/dev/DeltaDoodle0"));
 					delt.connect();
 					done=false;

@@ -1,6 +1,6 @@
 package com.neuronrobotics.replicator.test;
 
-import com.neuronrobotics.replicator.driver.DeltaForgeDevice;
+import com.neuronrobotics.replicator.driver.BowlerBoardDevice;
 import com.neuronrobotics.replicator.driver.NRPrinter;
 import com.neuronrobotics.sdk.addons.kinematics.math.RotationNR;
 import com.neuronrobotics.sdk.addons.kinematics.math.TransformNR;
@@ -21,7 +21,7 @@ public class AccuracyTest {
 			new TransformNR(-x,-y,z,new RotationNR()),
 	};
 	public AccuracyTest(){
-		DeltaForgeDevice delt = new DeltaForgeDevice();
+		BowlerBoardDevice delt = new BowlerBoardDevice();
 		delt.setConnection(new SerialConnection("/dev/DeltaDoodle0"));
 		delt.connect();
 		deltaRobot = new NRPrinter(delt);
