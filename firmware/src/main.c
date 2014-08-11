@@ -208,7 +208,7 @@ void hardwareInit(){
 
             DelayMs(100);//wait for ISR to fire and update all values
             for(i=0;i<3;i++){
-                setPIDConstants(linkToHWIndex(i),.5,.3,0);
+                setPIDConstants(linkToHWIndex(i),.2,.1,0);
             }
 
             OnPidConfigure(0);
