@@ -14,6 +14,14 @@
 #include "delta.h"
 #include "servoCalibration.h"
 
+typedef struct _DeltaConfig{
+	float RodLength;
+	float BaseRadius;
+	float EndEffectorRadius;
+	float MaxZ;
+	float MinZ;
+}DeltaConfig;
+
 BYTE SPITransceve(BYTE b);
 
 BOOL asyncCallback(BowlerPacket *Packet);

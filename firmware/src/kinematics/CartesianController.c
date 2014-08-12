@@ -20,7 +20,7 @@ static INTERPOLATE_DATA intCartesian[3];
 //float scale = -1.0*mmPerTick;
 //static float extrusionScale = 1/(((float)ticksPerRev)/100.00);
 
-static float xCurrent, yCurrent, zCurrent;
+static float  current[3];
 static BOOL full = FALSE;
 static BOOL configured = FALSE;
 
@@ -52,30 +52,13 @@ HardwareMap hwMap = {
         {AXIS_UNUSED, 1.0, ""},
         {AXIS_UNUSED, 1.0, ""}
     }, //Extruder 2
-    (forwardKinematics *)&servostock_calcForward,
-    (inverseKinematics *) & servostock_calcInverse
+    (forwardKinematics *)& servostock_calcForward,
+    (inverseKinematics *) & servostock_calcInverse,
+    (velInverse *)  &   servostock_velInverse,
+    (velForward *)  &   servostock_velForward,
+    TRUE
 };
-//
-////Default values for ServoStock
-//HardwareMap hwMap ={
-//    {0,1.0/ticksPerDegree ,"left"},//axis 0
-//    {1,-1.0/ticksPerDegree ,"right"},//axis 1
-//    {2,-1.0/ticksPerDegree ,"tilt"},//axis 2
-//    {
-//        {7,1.0,"Extruder"},// Motor
-//        {11,1.0,"Heater"}// Heater
-//    },//Extruder 0
-//    {
-//        {AXIS_UNUSED,1.0,""},
-//        {AXIS_UNUSED,1.0,""}
-//    },//Extruder 1
-//    {
-//        {AXIS_UNUSED,1.0,""},
-//        {AXIS_UNUSED,1.0,""}
-//    },//Extruder 2
-//    (forwardKinematics *)&frog_calcForward,
-//    (inverseKinematics *)&frog_calcInverse
-//};
+
 
 char * getName(int index) {
     switch (index) {
@@ -237,13 +220,13 @@ BOOL onConfigurationGet(BowlerPacket *Packet) {
 
 BOOL isCartesianInterpolationDone() {
     updateCurrentPositions();
-    float targets[3] = {xCurrent, yCurrent, zCurrent};
+   
     int setpointBound = 200;
 
     int i;
     for (i = 0; i < 4; i++) {
         if (i < 3) {
-            if (!bound(intCartesian[i].set, targets[i], mmPositionResolution, mmPositionResolution)) {
+            if (!bound(intCartesian[i].set, current[i], mmPositionResolution, mmPositionResolution)) {
                 //println_W("Interpolation not done on to: ");p_fl_W(intCartesian[i].set);print_W(" is = ");p_fl_W(targets[i]);
                 return FALSE;
             }
@@ -306,9 +289,9 @@ void updateCurrentPositions() {
     if (hwMap.fK_callback(getLinkAngle(0),
             getLinkAngle(1),
             getLinkAngle(2),
-            &xCurrent,
-            &yCurrent,
-            &zCurrent) != 0) {
+            &current[0],
+            &current[1],
+            &current[2]) != 0) {
         println_E("Forward Kinematics Failed!!");
         return;
     }
@@ -319,9 +302,9 @@ void checkPositionChange() {
     float tmp[4];
     updateCurrentPositions();
 
-    tmp[0] = xCurrent;
-    tmp[1] = yCurrent;
-    tmp[2] = zCurrent;
+    tmp[0] = current[0];
+    tmp[1] = current[1];
+    tmp[2] = current[2];
     tmp[3] = getLinkAngle(3);
     if (tmp[0] != lastXYZE[0] ||
             tmp[1] != lastXYZE[1] ||
@@ -486,12 +469,12 @@ BOOL onCartesianPacket(BowlerPacket *Packet) {
 void printCartesianData() {
     updateCurrentPositions();
     println_W("Current  position cx=");
-    p_fl_W(xCurrent);
+    p_fl_W(current[0]);
 
     print_W(" cy=");
-    p_fl_W(yCurrent);
+    p_fl_W(current[1]);
     print_W(" cz=");
-    p_fl_W(zCurrent);
+    p_fl_W(current[2]);
     println_W("Current  angles Alpha=");
     p_fl_W(getLinkAngle(0));
     print_W(" Beta=");
@@ -508,8 +491,56 @@ void printCartesianData() {
 
 }
 
-void interpolateZXY() {
+void runInterpolatedPositions(){
+        float x = 0, y = 0, z = 0;
+        float ms = getMs();
 
+        x = interpolate((INTERPOLATE_DATA *) & intCartesian[0], ms);
+        y = interpolate((INTERPOLATE_DATA *) & intCartesian[1], ms);
+        z = interpolate((INTERPOLATE_DATA *) & intCartesian[2], ms);
+        if (isCartesianInterpolationDone() == FALSE) {
+            setXYZ(x, y, z, 0);
+        } 
+}
+
+void setVelocity(int index, float jointSpace){
+    setOutput(linkToHWIndex(index),jointSpace * getPidGroupDataTable(linkToHWIndex(index))->config.V.P / getLinkScale(index));
+}
+
+float calculateTaskSpaceVelocityValue(int xyz){
+    float vel =0;
+    float err = intCartesian[xyz].set - current[xyz];
+    float timeRemaining = intCartesian[xyz].setTime - (getMs()-intCartesian[xyz].startTime);
+    vel = err/timeRemaining;
+    return vel;
+}
+
+void runStateBasedController(){
+    float Xd,  Yd,  Zd;
+    float Ad,  Bd,  Cd;
+
+    Xd = calculateTaskSpaceVelocityValue(0);
+    Yd = calculateTaskSpaceVelocityValue(1);
+    Zd = calculateTaskSpaceVelocityValue(2);
+
+    if(hwMap.iVel_callback(current[0], current[1], current[2],  Xd,  Yd,  Zd,
+		& Ad, & Bd, & Cd)==0){
+        int i=0;
+        for(i=0;i<3;i++){
+            SetPIDEnabled(linkToHWIndex(i),FALSE);
+        }
+        setVelocity(0,Ad);
+        setVelocity(1,Bd);
+        setVelocity(2,Cd);
+
+    }else{
+        println_E("Inverse velocity kinematics failed");
+    }
+
+}
+
+void interpolateZXY() {
+    updateCurrentPositions();
     interpolationCounter = 0;
     if (!configured) {
         HomeLinks();
@@ -520,23 +551,12 @@ void interpolateZXY() {
     }
     keepCartesianPosition = TRUE;
     if (keepCartesianPosition) {
-        float x = 0, y = 0, z = 0;
-        float ms = getMs();
-
-        x = interpolate((INTERPOLATE_DATA *) & intCartesian[0], ms);
-        y = interpolate((INTERPOLATE_DATA *) & intCartesian[1], ms);
-        z = interpolate((INTERPOLATE_DATA *) & intCartesian[2], ms);
-        if (isCartesianInterpolationDone() == FALSE) {
-            //            println_W("Start Time=");p_fl_W(ms);
-            //            println_W("Interp \r\n\tx=");p_fl_W(x);print_W(" \tc=");p_fl_W(xCurrent);   print_W(" \tT=");p_fl_W(intCartesian[0].setTime);print_W(" \tElapsed=");p_fl_W(ms-intCartesian[0].startTime);
-            //
-            //            print_W("\r\n\ty=");p_fl_W(y);print_W(" \tc=");p_fl_W(yCurrent);                print_W(" \tT=");p_fl_W(intCartesian[1].setTime);print_W(" \tElapsed=");p_fl_W(ms-intCartesian[1].startTime);
-            //
-            //            print_W("\r\n\tz=");p_fl_W(z);print_W(" \tc=");p_fl_W(zCurrent);                print_W(" \tT=");p_fl_W(intCartesian[2].setTime);print_W(" \tElapsed=");p_fl_W(ms-intCartesian[2].startTime);
-
-
-            setXYZ(x, y, z, 0);
-        } else {
+        if(hwMap.useStateBasedVelocity){
+            runStateBasedController();
+        }else{
+            runInterpolatedPositions();
+        }
+        if (isCartesianInterpolationDone()) {
             if (FifoGetPacketCount(&packetFifo) > 0) {
                 println_W("Loading new packet ");
                 if (FifoGetPacket(&packetFifo, &linTmpPack)) {
@@ -559,9 +579,9 @@ BYTE setInterpolateXYZ(float x, float y, float z, float ms) {
     intCartesian[1].set = y;
     intCartesian[2].set = z;
     updateCurrentPositions();
-    intCartesian[0].start = xCurrent;
-    intCartesian[1].start = yCurrent;
-    intCartesian[2].start = zCurrent;
+    intCartesian[0].start = current[0];
+    intCartesian[1].start = current[1];
+    intCartesian[2].start = current[2];
 
 
 
@@ -574,12 +594,12 @@ BYTE setInterpolateXYZ(float x, float y, float z, float ms) {
     print_W(" Time MS=");
     p_fl_W(ms);
     println_W("Current  position cx=");
-    p_fl_W(xCurrent);
+    p_fl_W(current[0]);
 
     print_W(" cy=");
-    p_fl_W(yCurrent);
+    p_fl_W(current[1]);
     print_W(" cz=");
-    p_fl_W(zCurrent);
+    p_fl_W(current[2]);
     println_W("Current  angles Alpha=");
     p_fl_W(getLinkAngle(0));
     print_W(" Beta=");
@@ -595,11 +615,13 @@ BYTE setInterpolateXYZ(float x, float y, float z, float ms) {
         setXYZ(x, y, z, 0);
     } else {
         keepCartesianPosition = TRUE;
-        start = getMs();
-        x = interpolate((INTERPOLATE_DATA *) & intCartesian[0], start);
-        y = interpolate((INTERPOLATE_DATA *) & intCartesian[1], start);
-        z = interpolate((INTERPOLATE_DATA *) & intCartesian[2], start);
-        setXYZ(x, y, z, 0);
+        if(!hwMap.useStateBasedVelocity){
+            start = getMs();
+            x = interpolate((INTERPOLATE_DATA *) & intCartesian[0], start);
+            y = interpolate((INTERPOLATE_DATA *) & intCartesian[1], start);
+            z = interpolate((INTERPOLATE_DATA *) & intCartesian[2], start);
+            setXYZ(x, y, z, 0);
+        }
     }
     return 0;
 }
@@ -608,7 +630,7 @@ BYTE setXYZ(float x, float y, float z, float ms) {
     updateCurrentPositions();
     float t0 = 0, t1 = 0, t2 = 0;
     if (hwMap.iK_callback(x, y, z, &t0, &t1, &t2) == 0) {
-        //println_I("New target angles t1=");p_fl_I(t0);print_I(" t2=");p_fl_I(t1);print_I(" t3=");p_fl_I(t2);
+        println_I("New target angles t1=");p_fl_I(t0);print_I(" t2=");p_fl_I(t1);print_I(" t3=");p_fl_I(t2);
         setLinkAngle(0, t0, ms);
         setLinkAngle(1, t1, ms);
         setLinkAngle(2, t2, ms);

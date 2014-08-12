@@ -24,16 +24,8 @@
 #include <string.h>
 #include <inttypes.h>
 
-#include <Bowler/Bowler.h>
+#include <main.h>
 //#include <complex.h>
-
-typedef struct _DeltaConfig{
-	float RodLength;
-	float BaseRadius;
-	float EndEffectorRadius;
-	float MaxZ;
-	float MinZ;
-}DeltaConfig;
 
 DeltaConfig defaultConfig ={203.82,//RodLength
                             140,//BaseRadius
@@ -205,16 +197,16 @@ int servostock_velInverse(float X, float Y, float Z, float Xd, float Yd, float Z
 	// Form Inverse Jacobian
 	float J[3][3] = {{0}};
 	if (formJacobian(A, B, C, J, defaultConfig.BaseRadius, defaultConfig.EndEffectorRadius, defaultConfig.RodLength))
-		return 1;
+		return 2;
 	float Jinv[3][3] = {{0}};
 	if (formInvJacobian(A, B, C, J, Jinv))
-		return 1;
+		return 3;
 
 	// Inverse calculation: jointVel = Jinv * taskVel
 	float jointVel[3] = {0};
 	float taskVel[3] = {Xd, Yd, Zd};
 	if (mtxMlt_ThreeByOne(Jinv, taskVel, jointVel))
-		return 1;
+		return 4;
 
 	// Return Values
 	Ad[0] = jointVel[0];
@@ -386,6 +378,7 @@ int formJacobian (float A, float B, float C, float Jex[3][3], float baseRad, flo
 
 	return 0; //success
 }
+
 
 
 /* Function: Form Inverse Jacobian Matrix

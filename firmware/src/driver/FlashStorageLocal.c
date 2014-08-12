@@ -1,6 +1,8 @@
 #include "main.h"
 
 
+
+
 void writeFlashLocal();
 
 #define bytesOfRaw (numPidTotal*sizeof(AbsPID_Config))
@@ -19,6 +21,7 @@ AbsPID * getFlashPidGroupDataTable(){
 union LocalFlashData{
     unsigned long int data[bytesOfRaw/4];
     AbsPID_Config pid[numPidTotal];
+
 };
 
 AbsPID_Config localPid[numPidTotal];

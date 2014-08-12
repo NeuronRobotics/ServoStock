@@ -18,6 +18,17 @@
 typedef BOOL forwardKinematics(float Alpha, float Beta, float Gama, float * x0, float *y0, float * z0);
 typedef BOOL inverseKinematics(float x0, float y0, float z0, float *Alpha, float *Beta, float *Gama);
 
+/* Function: Inverse Velocity
+ * Inputs: current task position (X, Y, Z) and desired task velocities (Xd, Yd, Zd)
+ * Outputs: resulting joint velocities (Ad, Bd, Cd)
+ */
+typedef int velInverse(float X, float Y, float Z, float Xd, float Yd, float Zd,float * Ad, float * Bd, float * Cd);
+/* Function: Forward Velocity
+ * Inputs: current joint position (A, B, C) and desired joint velocities (Ad, Bd, Cd)
+ * Outputs: resulting task velocities (Xd, Yd, Zd)
+ */
+typedef int velForward(float A, float B, float C, float Ad, float Bd, float Cd,float * Xd, float * Yd, float * Zd);
+
 BOOL onConfigurationGet(BowlerPacket *Packet);
 BOOL onRunKinematicsSet(BowlerPacket *Packet);
 BOOL onCartesianPacket(BowlerPacket *Packet);
@@ -50,6 +61,9 @@ typedef struct  _HardwareMap{
     };
     forwardKinematics * fK_callback;
     inverseKinematics * iK_callback;
+    velInverse * iVel_callback;
+    velForward * fVel_callback;
+    unsigned char useStateBasedVelocity;
 }HardwareMap;
 
 
@@ -109,6 +123,19 @@ float getminZ();
 int servostock_calcInverse(float x0, float y0, float z0, float *theta1, float *theta2, float *theta3);
 
 int servostock_calcForward(float theta1, float theta2, float theta3, float * x0, float *y0, float * z0);
+
+/* Function: Inverse Velocity
+ * Inputs: current task position (X, Y, Z) and desired task velocities (Xd, Yd, Zd)
+ * Outputs: resulting joint velocities (Ad, Bd, Cd)
+ */
+int servostock_velInverse(float X, float Y, float Z, float Xd, float Yd, float Zd,
+		float * Ad, float * Bd, float * Cd);
+/* Function: Forward Velocity
+ * Inputs: current joint position (A, B, C) and desired joint velocities (Ad, Bd, Cd)
+ * Outputs: resulting task velocities (Xd, Yd, Zd)
+ */
+int servostock_velForward(float A, float B, float C, float Ad, float Bd, float Cd,
+		float * Xd, float * Yd, float * Zd);
 
 int frog_calcForward(float Alpha, float Beta, float Gamma, float * X, float *Y, float * Z);
 int frog_calcInverse(float X, float Y, float Z, float *Alpha, float *Beta, float *Gamma);
