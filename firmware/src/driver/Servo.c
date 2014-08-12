@@ -133,14 +133,12 @@ void servoTimerEvent()
         int j;
         switch(servoStateMachineCurrentState){
             case LOW:
+                updateAllEncoders();
                 if(getRunPidIsr()){
-                    updateAllEncoders();
-                    Print_Level l = getPrintLevel();
+                    //Print_Level l = getPrintLevel();
                     interpolateZXY();
-                    setPrintLevelNoPrint();
+                    //setPrintLevelNoPrint();
                     RunPIDControl();
-
-                    setPrintLevel(l);
                 }
                 //runLinearInterpolationServo(start,stop);
                 runSort();

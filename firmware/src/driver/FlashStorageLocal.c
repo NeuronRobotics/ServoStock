@@ -1,120 +1,121 @@
 #include "main.h"
 
-
-
-
 void writeFlashLocal();
 
-#define bytesOfRaw (numPidTotal*sizeof(AbsPID_Config))
+typedef struct _flashStorageData {
+    AbsPID_Config localPid[numPidTotal];
+    unsigned char buffer[1];
+} flashStorageData;
 
+flashStorageData localData;
 
-static AbsPID 			pidGroupsLocal[numPidTotal];
+#define bytesOfRaw (sizeof(localData))
 
-AbsPID * getFlashPidGroupDataTable(){
-	if(pidGroupsLocal == NULL){
-		println_E("PID data table is null");
-		return NULL;
-	}
-
-	return pidGroupsLocal;
-}
-union LocalFlashData{
-    unsigned long int data[bytesOfRaw/4];
-    AbsPID_Config pid[numPidTotal];
-
-};
-
-AbsPID_Config localPid[numPidTotal];
-//union LocalFlashData localData;
-
-void checkDataTable(){
+void checkDataTable() {
     Nop();
 }
 
-BOOL initFlashLocal(){
+BOOL initFlashLocal() {
 
-    if(bytesOfRaw > 0x1000-FLASHSTORE){
+    if (bytesOfRaw > 0x1000 - FLASHSTORE) {
         println_E("Too much data to store");
         SoftReset();
     }
-    
-    println_W("Size of Flash data = ");p_int_W(bytesOfRaw);
+    if (bytesOfRaw % 4) {
+        println_E("BAD FLASH size = ");
+        p_int_W(bytesOfRaw % 4);
+        while (1);
+    }
+    println_W("Size of Flash page data = ");
+    p_int_W(bytesOfRaw / 4);
+    print_W(" ");
+    p_int_W(bytesOfRaw);
 
-    SetFlashData( (UINT32 *)localPid ,bytesOfRaw/4);
+    SetFlashData((UINT32 *) & localData, bytesOfRaw / 4);
     FlashLoad();
+    println_W("Flash loaded");
 
-    int i=0,j=0;// index;
+    int i = 0, j = 0; // index;
 
-    BOOL rawFlashDetect=FALSE;
+    BOOL rawFlashDetect = FALSE;
 
-    for(i=0;i<numPidTotal;i++){
-        //index = i*sizeof(AbsPID_Config)/4;
-        unsigned int * raw = (  unsigned int *)&pidGroupsLocal[i].config;
-        unsigned int * data = (  unsigned int *) &localPid[i];
-        for(j=0;j<sizeof(AbsPID_Config)/4;j++){
-            raw[j]=data[j];
+    for (i = 0; i < numPidTotal; i++) {
+        println_W("Setting PID #");
+        p_int_W(i);
+        unsigned char * raw = (unsigned char *) & getPidGroupDataTable(i)->config;
+        unsigned char * data = (unsigned char *) & localData.localPid[i];
+        for (j = 0; j<sizeof (AbsPID_Config); j++) {
+            raw[j] = data[j];
         }
-        if( ((pidGroupsLocal[i].config.Enabled != 1 &&
-              pidGroupsLocal[i].config.Enabled != 0))||
-              pidGroupsLocal[i].config.offset != getPidGroupDataTable(i)->config.offset
-                ){
+    }
+
+    println_W("Checking for bare flash");
+    for (i = 0; i < numPidTotal; i++) {
+        if (((getPidGroupDataTable(i)->config.Enabled > 1 ||
+                getPidGroupDataTable(i)->config.Enabled < 0))
+                ) {
             rawFlashDetect = TRUE;
         }
     }
 
-    if( rawFlashDetect ){
-        for(i=0;i<numPidTotal;i++){
-            if(i==1){
-                Nop();
-            }
-            println_E("Detected raw flash, setting defaults : ");p_int_E(i);
+
+    if (rawFlashDetect) {
+        println_W("Writing default values");
+        for (i = 0; i < numPidTotal; i++) {
+
+            println_E("Detected raw flash, setting defaults : ");
+            p_int_E(i);
             printPIDvals(i);
-            pidGroupsLocal[i].config.Enabled = FALSE;
-            pidGroupsLocal[i].config.Async=0;
-            pidGroupsLocal[i].config.IndexLatchValue=0;
-            pidGroupsLocal[i].config.stopOnIndex=0;
-            pidGroupsLocal[i].config.useIndexLatch=0;
-            pidGroupsLocal[i].config.K.P=.1;
-            pidGroupsLocal[i].config.K.I=0;
-            pidGroupsLocal[i].config.K.D=0;
-            pidGroupsLocal[i].config.V.P=.1;
-            pidGroupsLocal[i].config.V.D=0;
-            pidGroupsLocal[i].config.Polarity=1;
-            pidGroupsLocal[i].config.stop=0;
-            pidGroupsLocal[i].config.upperHistoresis=0;
-            pidGroupsLocal[i].config.lowerHistoresis=0;
-            pidGroupsLocal[i].config.offset=0.0;
-            pidGroupsLocal[i].config.calibrationState=CALIBRARTION_Uncalibrated;
+            getPidGroupDataTable(i)->config.Enabled = FALSE;
+            getPidGroupDataTable(i)->config.Async = 0;
+            getPidGroupDataTable(i)->config.IndexLatchValue = 0;
+            getPidGroupDataTable(i)->config.stopOnIndex = 0;
+            getPidGroupDataTable(i)->config.useIndexLatch = 0;
+            getPidGroupDataTable(i)->config.K.P = .1;
+            getPidGroupDataTable(i)->config.K.I = 0;
+            getPidGroupDataTable(i)->config.K.D = 0;
+            getPidGroupDataTable(i)->config.V.P = .1;
+            getPidGroupDataTable(i)->config.V.D = 0;
+            getPidGroupDataTable(i)->config.Polarity = 1;
+            getPidGroupDataTable(i)->config.stop = 0;
+            getPidGroupDataTable(i)->config.upperHistoresis = 0;
+            getPidGroupDataTable(i)->config.lowerHistoresis = 0;
+            getPidGroupDataTable(i)->config.offset = 0.0;
+            getPidGroupDataTable(i)->config.calibrationState = CALIBRARTION_Uncalibrated;
             printPIDvals(i);
         }
+    } else {
+        println_W("Flash image ok");
+//        for (i = 0; i < numPidTotal; i++) {
+//            printPIDvals(i);
+//        }
     }
-    if(rawFlashDetect )
+    if (rawFlashDetect)
         writeFlashLocal();
 
-    return !rawFlashDetect;
+    return rawFlashDetect == FALSE;
 }
 
-void writeFlashLocal(){
+void writeFlashLocal() {
 
-    if(bytesOfRaw > 0x1000-FLASHSTORE){
+    if (bytesOfRaw > 0x1000 - FLASHSTORE) {
         println_E("Too much data to store");
         SoftReset();
     }
     println_W("Writing values to Flash");
-    int i=0,j=0;//, index;
-    for(i=0;i<numPidTotal;i++){
-        //printPIDvals(i);
-        //index = i*sizeof(AbsPID_Config)/4;
-        unsigned int * raw = (  unsigned int *)&pidGroupsLocal[i].config;
-        unsigned int * data =(  unsigned int *) &localPid[i];
-        for(j=0;j<sizeof(AbsPID_Config)/4;j++){
-            data[j]=raw[j];
+    int i = 0, j = 0; //, index;
+    for (i = 0; i < numPidTotal; i++) {
+
+        unsigned char * raw = (unsigned char *) &getPidGroupDataTable(i)->config;
+        unsigned char * data = (unsigned char *) &localData.localPid[i];
+        for (j = 0; j<sizeof (AbsPID_Config); j++) {
+            data[j] = raw[j];
         }
     }
     FlashSync();
     FlashLoad();
-    for(i=0;i<numPidTotal;i++){
-        //printPIDvals(i);
+    for (i = 0; i < numPidTotal; i++) {
+        printPIDvals(i);
     }
 
 }
