@@ -60,7 +60,7 @@ HardwareMap hwMap = {
     (inverseKinematics *) & servostock_calcInverse,
     (velInverse *) & servostock_velInverse,
     (velForward *) & servostock_velForward,
-    TRUE
+    true
 };
 
 char * getName(int index) {

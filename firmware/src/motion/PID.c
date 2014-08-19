@@ -13,27 +13,50 @@ void onPidConfigureMine(int);
 PidLimitEvent * checkPIDLimitEventsMine(uint8_t group);
 
 void initPIDLocal() {
-    setPidIsr(false) ;
+    setPidIsr(false);
     uint8_t i;
     //uint16_t loop;
     for (i = 0; i < numPidTotal; i++) {
-        vel[i].enabled = false; 
+        println_I("Loading PID ");p_int_I(i);
+        vel[i].enabled = false;
         limits[i].type = NO_LIMIT;
+        pidGroupsLocal[i].config.Enabled = false;
+        pidGroupsLocal[i].config.Async = 0;
+        pidGroupsLocal[i].config.IndexLatchValue = 0;
+        pidGroupsLocal[i].config.stopOnIndex = 0;
+        pidGroupsLocal[i].config.useIndexLatch = 0;
+        pidGroupsLocal[i].config.K.P = .1;
+        pidGroupsLocal[i].config.K.I = 0;
+        pidGroupsLocal[i].config.K.D = 0;
+        pidGroupsLocal[i].config.V.P = .1;
+        pidGroupsLocal[i].config.V.D = 0;
+        pidGroupsLocal[i].config.Polarity = 1;
+        pidGroupsLocal[i].config.stop = 0;
+        pidGroupsLocal[i].config.upperHistoresis = 0;
+        pidGroupsLocal[i].config.lowerHistoresis = 0;
+        pidGroupsLocal[i].config.offset = 0.0;
+        pidGroupsLocal[i].config.calibrationState = CALIBRARTION_Uncalibrated;
+        pidGroupsLocal[i].interpolate.set=0;
+        pidGroupsLocal[i].interpolate.setTime=0;
+        pidGroupsLocal[i].interpolate.start=0;
+        pidGroupsLocal[i].interpolate.startTime=0;
+        println_I("Interpolation check ");
+        interpolate(&pidGroupsLocal[i].interpolate,getMs());
     }
+
     InitilizePidController(pidGroupsLocal,
             vel,
             numPidTotal,
             &getPositionMine,
             &setOutputMine,
             &resetPositionMine,
-            //&asyncCallback,
             &onPidConfigureMine,
             &checkPIDLimitEventsMine);
     while (!initFlashLocal());
-    setPidIsr(true) ;
+    setPidIsr(true);
 }
 
-boolean runPidIsr = false; 
+boolean runPidIsr = false;
 
 boolean getRunPidIsr() {
     return runPidIsr;
@@ -115,7 +138,7 @@ void setOutputMine(int group, float v) {
 }
 
 boolean isUpToTempreture() {
-    return true; 
+    return true;
     //   return bound(pidGroups[HEATER0_INDEX].SetPoint,
     //           getHeaterTempreture(HEATER0_INDEX),
     //           25,
