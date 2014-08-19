@@ -59,6 +59,18 @@
           <itemPath>../../c-bowler/BowlerStack/include/Bowler/Scheduler.h</itemPath>
         </logicalFolder>
         <logicalFolder name="replicator" displayName="replicator" projectFiles="true">
+          <logicalFolder name="replicator" displayName="replicator" projectFiles="true">
+            <itemPath>include/replicator/delta.h</itemPath>
+            <itemPath>include/replicator/Servo.h</itemPath>
+            <itemPath>include/replicator/StepperSim.h</itemPath>
+            <itemPath>include/replicator/CartesianController.h</itemPath>
+            <itemPath>include/replicator/ReplicatorHeader.h</itemPath>
+            <itemPath>include/replicator/servoCalibration.h</itemPath>
+            <itemPath>include/replicator/AS5055.h</itemPath>
+            <itemPath>include/replicator/ForgeHeater.h</itemPath>
+            <itemPath>include/replicator/main.h</itemPath>
+            <itemPath>include/replicator/AuxUartServer.h</itemPath>
+          </logicalFolder>
         </logicalFolder>
       </logicalFolder>
     </logicalFolder>

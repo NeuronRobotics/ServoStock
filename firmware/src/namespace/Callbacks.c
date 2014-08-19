@@ -16,24 +16,24 @@ BowlerPacket tmpData;
 
 uint8_t UserGetRPCs(BowlerPacket *Packet){
     if(processPIDGet(Packet))
-        return TRUE;
+        return true; 
     if(onCartesianPacket(Packet))
-        return TRUE;
-    return FALSE;
+        return true; 
+    return false; 
 }
 uint8_t UserPostRPCs(BowlerPacket *Packet){
     if(processPIDPost(Packet))
-        return TRUE;
+        return true; 
     if(onCartesianPacket(Packet))
-        return TRUE;
-    return FALSE;
+        return true; 
+    return false; 
 }
 uint8_t UserCriticalRPCs(BowlerPacket *Packet){
     if(processPIDCrit(Packet))
-        return TRUE;
+        return true; 
     if(onCartesianPacket(Packet))
-        return TRUE;
-    return FALSE;
+        return true; 
+    return false; 
 }
 
 

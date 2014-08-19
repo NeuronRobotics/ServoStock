@@ -13,11 +13,11 @@ void onPidConfigureMine(int);
 PidLimitEvent * checkPIDLimitEventsMine(uint8_t group);
 
 void initPIDLocal() {
-    setPidIsr(FALSE);
+    setPidIsr(false) ;
     uint8_t i;
     //uint16_t loop;
     for (i = 0; i < numPidTotal; i++) {
-        vel[i].enabled = FALSE;
+        vel[i].enabled = false; 
         limits[i].type = NO_LIMIT;
     }
     InitilizePidController(pidGroupsLocal,
@@ -30,10 +30,10 @@ void initPIDLocal() {
             &onPidConfigureMine,
             &checkPIDLimitEventsMine);
     while (!initFlashLocal());
-    setPidIsr(TRUE);
+    setPidIsr(true) ;
 }
 
-boolean runPidIsr = FALSE;
+boolean runPidIsr = false; 
 
 boolean getRunPidIsr() {
     return runPidIsr;
@@ -115,7 +115,7 @@ void setOutputMine(int group, float v) {
 }
 
 boolean isUpToTempreture() {
-    return TRUE;
+    return true; 
     //   return bound(pidGroups[HEATER0_INDEX].SetPoint,
     //           getHeaterTempreture(HEATER0_INDEX),
     //           25,

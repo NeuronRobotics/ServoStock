@@ -13,7 +13,7 @@ boolean cartesianAsyncEventCallback(BowlerPacket * Packet,boolean (*pidAsyncCall
     //printPIDvals(6);
     // uses its own async callback
     cartesianAsync();
-    return FALSE;
+    return false; 
 }
 static RPC_LIST cartesian_runk={	BOWLER_POST,// Method
                                 "runk",//RPC as string
@@ -137,7 +137,7 @@ static NAMESPACE_LIST bcsCartesian ={	cartNSName,// The string defining the name
                                 NULL// no initial elements to the other namesapce field.
 };
 
-static boolean namespcaedAdded = FALSE;
+static boolean namespcaedAdded = false; 
 NAMESPACE_LIST * getBcsCartesianNamespace(){
 	if(!namespcaedAdded){
                 //POST
@@ -152,7 +152,7 @@ NAMESPACE_LIST * getBcsCartesianNamespace(){
                 addRpcToNamespace(&bcsCartesian,& cartesian_SDJV);
                 addRpcToNamespace(&bcsCartesian,& cartesian_SDSJ);
 
-                namespcaedAdded =TRUE;
+                namespcaedAdded =true; 
 	}
 
 	return &bcsCartesian;//Return pointer to the struct

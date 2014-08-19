@@ -5,7 +5,7 @@ int overflow[numPidTotal];
 //int offset[numPidTotal];
 int raw[numPidTotal];
 float recent[numPidTotal];
-uint8_t initialized = FALSE;
+uint8_t initialized = false; 
 uint8_t busy =0;
 #define jump 3000
 void encoderSPIInit();
@@ -13,10 +13,10 @@ void AS5055ResetErrorFlag(uint8_t index);
 void printSystemConfig(uint8_t index);
 uint16_t AS5055send(uint8_t index, uint16_t data);
 
-boolean enableWrapping=TRUE;
+boolean enableWrapping=true; 
 
 void disableWrapping(){
-    enableWrapping=FALSE;
+    enableWrapping=false; 
 }
 
 void initializeEncoders(){
@@ -117,7 +117,7 @@ void encoderSPIInit(){
     SPI_MOSI_TRIS=OUTPUT;
     if(initialized )
         return;
-    initialized=TRUE;  
+    initialized=true;   
 #if defined(__32MX795F512L__)
     OpenSPI1(CLK_POL_ACTIVE_HIGH\
             |SPI_MODE8_ON|ENABLE_SDO_PIN|SLAVE_ENABLE_OFF|SPI_CKE_OFF\
@@ -205,11 +205,11 @@ uint16_t AS5055readAngle(uint8_t index){
     return read.regs.Data;
 }
 
-uint8_t lock = FALSE;
+uint8_t lock = false; 
 uint16_t AS5055send(uint8_t index, uint16_t data){
     if(lock)
         return 0xffff;
-    lock = TRUE;
+    lock = true; 
     UINT16_UNION tmp;
     UINT16_UNION back;
     if(data ==0)
@@ -228,7 +228,7 @@ uint16_t AS5055send(uint8_t index, uint16_t data){
 //    EncoderSS(index,CSN_Disabled);
     //println_I("[AS5055send] Got data: ");prHEX8(back.byte.SB,INFO_PRINT);prHEX8(back.byte.LB,INFO_PRINT);println_I("");
   
-    lock = FALSE;
+    lock = false; 
     //print_I("`");
     return back.Val;
 }

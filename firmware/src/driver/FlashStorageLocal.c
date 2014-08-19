@@ -37,7 +37,7 @@ boolean initFlashLocal() {
 
     int i = 0, j = 0; // index;
 
-    boolean rawFlashDetect = FALSE;
+    boolean rawFlashDetect = false;
 
     for (i = 0; i < numPidTotal; i++) {
         println_W("Setting PID #");
@@ -54,7 +54,7 @@ boolean initFlashLocal() {
         if (((getPidGroupDataTable(i)->config.Enabled > 1 ||
                 getPidGroupDataTable(i)->config.Enabled < 0))
                 ) {
-            rawFlashDetect = TRUE;
+            rawFlashDetect = true;
         }
     }
 
@@ -66,7 +66,7 @@ boolean initFlashLocal() {
             println_E("Detected raw flash, setting defaults : ");
             p_int_E(i);
             printPIDvals(i);
-            getPidGroupDataTable(i)->config.Enabled = FALSE;
+            getPidGroupDataTable(i)->config.Enabled = false;
             getPidGroupDataTable(i)->config.Async = 0;
             getPidGroupDataTable(i)->config.IndexLatchValue = 0;
             getPidGroupDataTable(i)->config.stopOnIndex = 0;
@@ -93,7 +93,7 @@ boolean initFlashLocal() {
     if (rawFlashDetect)
         writeFlashLocal();
 
-    return rawFlashDetect == FALSE;
+    return rawFlashDetect == false;
 }
 
 void writeFlashLocal() {

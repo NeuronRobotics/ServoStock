@@ -29,10 +29,10 @@ void runSort(){
     for(x=0;x<dataTableSize;x++){
         current = 256;
         for(i=0;i<dataTableSize;i++){
-            int used= FALSE;
+            int used= false; 
             for(k=0;k<dataTableSize;k++){
                 if(sort[k]==i){
-                    used=TRUE;
+                    used=true; 
                 }
             }
             if(positionTemp[i]<current && !used){
@@ -109,11 +109,11 @@ boolean setUpNextServo(){
 
     if(diff>MIN_SERVO){
         setTimerServoTicks(diff);
-        return TRUE;
+        return true; 
     }
     //Fall through for pin shut off
     servoStateMachineCurrentState = TIME;
-    return FALSE;
+    return false; 
 }
 
 void stopCurrentServo(){
@@ -157,7 +157,7 @@ void servoTimerEvent()
             case TIME:
                 stopCurrentServo();
                 if(servoStateMachineCurrentState == TIME){
-                    if(setUpNextServo() == FALSE){
+                    if(setUpNextServo() == false) {
                         //fast stop for channels with the same value
                         servoTimerEvent();
                     }

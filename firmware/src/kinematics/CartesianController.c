@@ -9,7 +9,7 @@ void updateCurrentPositions();
 float getLinkScale(int index);
 
 float mmPositionResolution = .1;
-static int homingAllLinks = FALSE;
+static int homingAllLinks = false; 
 
 static PACKET_FIFO_STORAGE packetFifo;
 static BowlerPacket buffer[SIZE_OF_PACKET_BUFFER];
@@ -22,8 +22,8 @@ static PD_VEL velCartesian[3];
 //static float extrusionScale = 1/(((float)ticksPerRev)/100.00);
 
 static float current[3];
-static boolean full = FALSE;
-static boolean configured = FALSE;
+static boolean full = false; 
+static boolean configured = false; 
 
 
 static int lastPushedBufferSize = 0;
@@ -31,9 +31,9 @@ static float lastXYZE[4];
 
 static RunEveryData pid = {0, 500};
 
-static boolean keepCartesianPosition = FALSE;
+static boolean keepCartesianPosition = false; 
 static int interpolationCounter = 0;
-static boolean runKinematics = FALSE;
+static boolean runKinematics = false; 
 
 float KP = .01;
 float KD = 0;
@@ -81,7 +81,7 @@ char * getName(int index) {
 
 boolean onRunKinematicsSet(BowlerPacket *Packet) {
     runKinematics = Packet->use.data[0]; // Boolean to run the kinematics or not
-    return TRUE;
+    return true; 
 }
 
 boolean setDesiredTaskSpaceTransform(BowlerPacket *Packet) {
@@ -113,7 +113,7 @@ boolean setDesiredTaskSpaceTransform(BowlerPacket *Packet) {
         print_E(" z=");
         p_fl_E(z);
     }
-    return TRUE;
+    return true; 
 }
 
 boolean getCurrentTaskSpaceTransform(BowlerPacket *Packet) {
@@ -138,7 +138,7 @@ boolean getCurrentTaskSpaceTransform(BowlerPacket *Packet) {
         print_E(" z=");
         p_fl_E(z);
     }
-    return TRUE;
+    return true; 
 }
 
 boolean setDesiredJointSpaceVector(BowlerPacket *Packet) {
@@ -180,7 +180,7 @@ boolean setDesiredJointSpaceVector(BowlerPacket *Packet) {
         print_E(" z=");
         p_fl_E(z);
     }
-    return TRUE;
+    return true; 
 }
 
 boolean setDesiredJointAxisValue(BowlerPacket *Packet) {
@@ -188,7 +188,7 @@ boolean setDesiredJointAxisValue(BowlerPacket *Packet) {
 
     setLinkAngle(Packet->use.data[0], get32bit(Packet, 1) / 1000, get32bit(Packet, 5));
 
-    return TRUE;
+    return true; 
 }
 
 boolean onConfigurationGet(BowlerPacket *Packet) {
@@ -217,7 +217,7 @@ boolean onConfigurationGet(BowlerPacket *Packet) {
     }
     Packet->use.data[offset + i] = 0;
     Packet->use.head.DataLegnth++;
-    return TRUE;
+    return true; 
 
 }
 
@@ -231,21 +231,21 @@ boolean isCartesianInterpolationDone() {
         if (i < 3) {
             if (!bound(intCartesian[i].set, current[i], mmPositionResolution, mmPositionResolution)) {
                 //println_W("Interpolation not done on to: ");p_fl_W(intCartesian[i].set);print_W(" is = ");p_fl_W(targets[i]);
-                return FALSE;
+                return false; 
             }
         }
-        if ((isPIDArrivedAtSetpoint(linkToHWIndex(i), setpointBound) == FALSE) && (i == 3)) {
+        if ((isPIDArrivedAtSetpoint(linkToHWIndex(i), setpointBound) == false)  && (i == 3)) {
             println_W("LINK not done moving index = ");
             p_int_W(linkToHWIndex(i));
             print_W(" currently is = ");
             p_fl_W(getPidGroupDataTable(linkToHWIndex(i))->CurrentState);
             print_W(" heading towards = ");
             p_fl_W(getPidGroupDataTable(linkToHWIndex(i))->SetPoint);
-            return FALSE;
+            return false; 
         }
 
     }
-    return TRUE;
+    return true; 
 }
 
 void initializeCartesianController() {
@@ -350,7 +350,7 @@ void cartesianAsync() {
         if (tmp != lastPushedBufferSize) {
             lastPushedBufferSize = tmp;
             pushBufferEmpty();
-            full = FALSE;
+            full = false; 
         }
         if (runKinematics) {
             //checkPositionChange();
@@ -389,7 +389,7 @@ boolean onClearPrinter(BowlerPacket *Packet) {
     cancelPrint();
     READY(Packet, 35, 35);
     setPrintLevel(l);
-    return TRUE;
+    return true; 
 }
 
 boolean onCartesianPost(BowlerPacket *Packet) {
@@ -418,7 +418,7 @@ boolean onCartesianPost(BowlerPacket *Packet) {
 
         Packet->use.head.DataLegnth = 4 + 4 + 4;
         if (tmp.Val == 0) {
-            full = TRUE;
+            full = true; 
         }
 
     } else {
@@ -427,7 +427,7 @@ boolean onCartesianPost(BowlerPacket *Packet) {
 
         ERR(Packet, 33, 33);
     }
-    return TRUE;
+    return true; 
 }
 
 void cancelPrint() {
@@ -442,18 +442,18 @@ void cancelPrint() {
 }
 
 boolean onCartesianGet(BowlerPacket *Packet) {
-    return FALSE;
+    return false; 
 }
 
 boolean onCartesianCrit(BowlerPacket *Packet) {
-    return FALSE;
+    return false; 
 }
 
 boolean onCartesianPacket(BowlerPacket *Packet) {
     Print_Level l = getPrintLevel();
 
     println_I("Packet Checked by Cartesian Controller");
-    boolean ret = FALSE;
+    boolean ret = false; 
     switch (Packet->use.head.Method) {
         case BOWLER_POST:
             ret = onCartesianPost(Packet);
@@ -515,7 +515,7 @@ void runInterpolatedPositions() {
     x = interpolate(& intCartesian[0], ms);
     y = interpolate(& intCartesian[1], ms);
     z = interpolate(& intCartesian[2], ms);
-    if (isCartesianInterpolationDone() == FALSE) {
+    if (isCartesianInterpolationDone() == false)  {
         setXYZ(x, y, z, 0);
     }
 }
@@ -578,7 +578,7 @@ void runStateBasedController() {
             & Ad, & Bd, & Cd) == 0) {
         int i = 0;
         for (i = 0; i < 3; i++) {
-            SetPIDEnabled(linkToHWIndex(i), FALSE);
+            SetPIDEnabled(linkToHWIndex(i), false) ;
         }
         setVelocity(0, Ad );
         setVelocity(1, Bd );
@@ -602,7 +602,7 @@ void interpolateZXY() {
     if (!runKinematics) {
         return;
     }
-    keepCartesianPosition = TRUE;
+    keepCartesianPosition = true; 
     if (keepCartesianPosition) {
         if (hwMap.useStateBasedVelocity) {
             runStateBasedController();
@@ -616,7 +616,7 @@ void interpolateZXY() {
                     processLinearInterpPacket(&linTmpPack);
                 }
             } else {
-                keepCartesianPosition = FALSE;
+                keepCartesianPosition = false; 
             }
         }
     }
@@ -674,14 +674,14 @@ uint8_t setInterpolateXYZ(float x, float y, float z, float ms) {
         velCartesian[i].lastPosition =current[i];
     }
 
-    runKinematics = TRUE;
+    runKinematics = true; 
  
     if (ms == 0) {
         println_I("Setting values directly");
         setXYZ(x, y, z, 0);
     } else {
-        keepCartesianPosition = TRUE;
-        if (hwMap.useStateBasedVelocity == FALSE) {
+        keepCartesianPosition = true; 
+        if (hwMap.useStateBasedVelocity == false)  {
             println_I("Setting values with linear interpolation");
             start = getMs();
             x = interpolate((INTERPOLATE_DATA *) & intCartesian[0], start);
@@ -786,7 +786,7 @@ float setLinkAngle(int index, float value, float ms) {
     //    println_I("Setting position from cartesian controller ");p_int_I(localIndex);print_I(" to ");p_fl_I(v);
     //    print_I(" in ");p_fl_I(ms); print_I("ms ");
 
-    SetPIDEnabled(localIndex, TRUE);
+    SetPIDEnabled(localIndex, true) ;
 
     return SetPIDTimed(localIndex, v, ms);
 }
@@ -794,7 +794,7 @@ float setLinkAngle(int index, float value, float ms) {
 void startHomingLinks() {
     println_W("Homing links for kinematics");
 
-    homingAllLinks = TRUE;
+    homingAllLinks = true; 
 
     startHomingLink(linkToHWIndex(0), CALIBRARTION_home_down);
     startHomingLink(linkToHWIndex(1), CALIBRARTION_home_down);
@@ -808,8 +808,8 @@ void HomeLinks() {
                 GetPIDCalibrateionState(linkToHWIndex(1)) == CALIBRARTION_DONE &&
                 GetPIDCalibrateionState(linkToHWIndex(2)) == CALIBRARTION_DONE
                 ) {
-            homingAllLinks = FALSE;
-            configured = TRUE;
+            homingAllLinks = false; 
+            configured = true; 
             println_W("All linkes reported in");
             BYTE_FIFO_STORAGE * data = GetPICUSBFifo();
 

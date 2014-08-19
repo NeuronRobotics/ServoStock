@@ -98,7 +98,7 @@ uint8_t Bowler_Server_Local(BowlerPacket * Packet){
                 if(Packet->use.head.RPC != _PNG){
                     println_I("Got:");printPacket(Packet,INFO_PRINT);
                 }
-		if ( (CheckAddress(MyMAC.v,Packet->use.head.MAC.v) == TRUE) || ((CheckAddress((uint8_t *)Broadcast.v,(uint8_t *)Packet->use.head.MAC.v) == TRUE) )) {
+		if ( (CheckAddress(MyMAC.v,Packet->use.head.MAC.v) == true)  || ((CheckAddress((uint8_t *)Broadcast.v,(uint8_t *)Packet->use.head.MAC.v) == true)  )) {
                         float start=getMs();
                         Process_Self_Packet(Packet);
                         if(getMs()-start>5){
@@ -121,10 +121,10 @@ uint8_t Bowler_Server_Local(BowlerPacket * Packet){
 		}
 		//setLed(0,0,1);
                 setPrintLevel(l);
-		return TRUE;
+		return true; 
 	}//Have a packet
         setPrintLevel(l);
-	return FALSE;
+	return false; 
 }
 
 
@@ -196,7 +196,7 @@ void hardwareInit(){
 
                     ){
             for(i=0;i<numPidMotors;i++){
-                SetPIDEnabled(i,TRUE);
+                SetPIDEnabled(i,true) ;
             }
 
             println_I("Running calibration for kinematics axis");
@@ -217,7 +217,7 @@ void hardwareInit(){
         pid.MsTime=getMs();
         //startHomingLinks();
 
-        disableSerialComs(TRUE);
+        disableSerialComs(true) ;
 
         (_TRISB0)=1;
 
@@ -227,7 +227,7 @@ void hardwareInit(){
         //HEATER_0_TRIS = OUTPUT; // causes device to twitc. These are touched by the USB stack somehow..... and as the reset button
 
 }
-boolean serVal =TRUE;
+boolean serVal =true; 
 
 void bowlerSystem(){
 
@@ -247,7 +247,7 @@ void bowlerSystem(){
 
 }
 
-boolean printCalibrations = FALSE;
+boolean printCalibrations = false; 
 
 int main(){
     setPrintLevelInfoPrint();
@@ -276,13 +276,13 @@ int main(){
 //
 //            setPrintLevel(l);
         }
-        if(     printCalibrations == FALSE&&
+        if(     printCalibrations == false &&
                 GetPIDCalibrateionState(linkToHWIndex(0))==CALIBRARTION_DONE&&
                 GetPIDCalibrateionState(linkToHWIndex(1))==CALIBRARTION_DONE&&
                 GetPIDCalibrateionState(linkToHWIndex(2))==CALIBRARTION_DONE
 
                 ){
-            printCalibrations = TRUE;
+            printCalibrations = true; 
             int index=0;
             for(index=0;index<3;index++){
                 int group = linkToHWIndex(index);
