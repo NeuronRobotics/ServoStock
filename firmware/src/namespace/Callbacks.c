@@ -14,21 +14,21 @@
 //static int val;
 BowlerPacket tmpData;
 
-BYTE UserGetRPCs(BowlerPacket *Packet){
+uint8_t UserGetRPCs(BowlerPacket *Packet){
     if(processPIDGet(Packet))
         return TRUE;
     if(onCartesianPacket(Packet))
         return TRUE;
     return FALSE;
 }
-BYTE UserPostRPCs(BowlerPacket *Packet){
+uint8_t UserPostRPCs(BowlerPacket *Packet){
     if(processPIDPost(Packet))
         return TRUE;
     if(onCartesianPacket(Packet))
         return TRUE;
     return FALSE;
 }
-BYTE UserCriticalRPCs(BowlerPacket *Packet){
+uint8_t UserCriticalRPCs(BowlerPacket *Packet){
     if(processPIDCrit(Packet))
         return TRUE;
     if(onCartesianPacket(Packet))

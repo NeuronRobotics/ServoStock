@@ -62,14 +62,14 @@ extern "C"
 /* get compiler defined type definitions (NULL, size_t, etc) */
 #include <stddef.h>
 
-typedef enum _BOOL { FALSE = 0, TRUE } BOOL;    /* Undefined size */
+typedef enum _boolean { false = 0, true } BOOL;    /* Undefined size */
 typedef enum _BIT { CLEAR = 0, SET } BIT;
 
 #define PUBLIC                                  /* Function attributes */
 #define PROTECTED
 #define PRIVATE   static
 
-/* INT is processor specific in length may vary in size */
+/* int32_t is processor specific in length may vary in size */
 typedef signed int          INT;
 typedef signed char         INT8;
 typedef signed short int    INT16;
@@ -80,7 +80,7 @@ typedef signed long int     INT32;
 __EXTENSION typedef signed long long    INT64;
 #endif
 
-/* UINT is processor specific in length may vary in size */
+/* uint32_t is processor specific in length may vary in size */
 typedef unsigned int        UINT;
 typedef unsigned char       UINT8;
 typedef unsigned short int  UINT16;
@@ -96,47 +96,47 @@ __EXTENSION typedef unsigned long long  UINT64;
 
 typedef union
 {
-    UINT8 Val;
+    uint8_t Val;
     struct
     {
-        __EXTENSION UINT8 b0:1;
-        __EXTENSION UINT8 b1:1;
-        __EXTENSION UINT8 b2:1;
-        __EXTENSION UINT8 b3:1;
-        __EXTENSION UINT8 b4:1;
-        __EXTENSION UINT8 b5:1;
-        __EXTENSION UINT8 b6:1;
-        __EXTENSION UINT8 b7:1;
+        __EXTENSION uint8_t b0:1;
+        __EXTENSION uint8_t b1:1;
+        __EXTENSION uint8_t b2:1;
+        __EXTENSION uint8_t b3:1;
+        __EXTENSION uint8_t b4:1;
+        __EXTENSION uint8_t b5:1;
+        __EXTENSION uint8_t b6:1;
+        __EXTENSION uint8_t b7:1;
     } bits;
 } UINT8_VAL, UINT8_BITS;
 
 typedef union
 {
-    UINT16 Val;
-    UINT8 v[2];
+    uint16_t Val;
+    uint8_t v[2];
     struct
     {
-        UINT8 LB;
-        UINT8 HB;
+        uint8_t LB;
+        uint8_t HB;
     } byte;
     struct
     {
-        __EXTENSION UINT8 b0:1;
-        __EXTENSION UINT8 b1:1;
-        __EXTENSION UINT8 b2:1;
-        __EXTENSION UINT8 b3:1;
-        __EXTENSION UINT8 b4:1;
-        __EXTENSION UINT8 b5:1;
-        __EXTENSION UINT8 b6:1;
-        __EXTENSION UINT8 b7:1;
-        __EXTENSION UINT8 b8:1;
-        __EXTENSION UINT8 b9:1;
-        __EXTENSION UINT8 b10:1;
-        __EXTENSION UINT8 b11:1;
-        __EXTENSION UINT8 b12:1;
-        __EXTENSION UINT8 b13:1;
-        __EXTENSION UINT8 b14:1;
-        __EXTENSION UINT8 b15:1;
+        __EXTENSION uint8_t b0:1;
+        __EXTENSION uint8_t b1:1;
+        __EXTENSION uint8_t b2:1;
+        __EXTENSION uint8_t b3:1;
+        __EXTENSION uint8_t b4:1;
+        __EXTENSION uint8_t b5:1;
+        __EXTENSION uint8_t b6:1;
+        __EXTENSION uint8_t b7:1;
+        __EXTENSION uint8_t b8:1;
+        __EXTENSION uint8_t b9:1;
+        __EXTENSION uint8_t b10:1;
+        __EXTENSION uint8_t b11:1;
+        __EXTENSION uint8_t b12:1;
+        __EXTENSION uint8_t b13:1;
+        __EXTENSION uint8_t b14:1;
+        __EXTENSION uint8_t b15:1;
     } bits;
 } UINT16_VAL, UINT16_BITS;
 
@@ -145,59 +145,59 @@ typedef union
 typedef union
 {
     UINT24 Val;
-    UINT8 v[3];
+    uint8_t v[3];
     struct
     {
-        UINT8 LB;
-        UINT8 HB;
-        UINT8 UB;
+        uint8_t LB;
+        uint8_t HB;
+        uint8_t UB;
     } byte;
     struct
     {
-        __EXTENSION UINT8 b0:1;
-        __EXTENSION UINT8 b1:1;
-        __EXTENSION UINT8 b2:1;
-        __EXTENSION UINT8 b3:1;
-        __EXTENSION UINT8 b4:1;
-        __EXTENSION UINT8 b5:1;
-        __EXTENSION UINT8 b6:1;
-        __EXTENSION UINT8 b7:1;
-        __EXTENSION UINT8 b8:1;
-        __EXTENSION UINT8 b9:1;
-        __EXTENSION UINT8 b10:1;
-        __EXTENSION UINT8 b11:1;
-        __EXTENSION UINT8 b12:1;
-        __EXTENSION UINT8 b13:1;
-        __EXTENSION UINT8 b14:1;
-        __EXTENSION UINT8 b15:1;
-        __EXTENSION UINT8 b16:1;
-        __EXTENSION UINT8 b17:1;
-        __EXTENSION UINT8 b18:1;
-        __EXTENSION UINT8 b19:1;
-        __EXTENSION UINT8 b20:1;
-        __EXTENSION UINT8 b21:1;
-        __EXTENSION UINT8 b22:1;
-        __EXTENSION UINT8 b23:1;
+        __EXTENSION uint8_t b0:1;
+        __EXTENSION uint8_t b1:1;
+        __EXTENSION uint8_t b2:1;
+        __EXTENSION uint8_t b3:1;
+        __EXTENSION uint8_t b4:1;
+        __EXTENSION uint8_t b5:1;
+        __EXTENSION uint8_t b6:1;
+        __EXTENSION uint8_t b7:1;
+        __EXTENSION uint8_t b8:1;
+        __EXTENSION uint8_t b9:1;
+        __EXTENSION uint8_t b10:1;
+        __EXTENSION uint8_t b11:1;
+        __EXTENSION uint8_t b12:1;
+        __EXTENSION uint8_t b13:1;
+        __EXTENSION uint8_t b14:1;
+        __EXTENSION uint8_t b15:1;
+        __EXTENSION uint8_t b16:1;
+        __EXTENSION uint8_t b17:1;
+        __EXTENSION uint8_t b18:1;
+        __EXTENSION uint8_t b19:1;
+        __EXTENSION uint8_t b20:1;
+        __EXTENSION uint8_t b21:1;
+        __EXTENSION uint8_t b22:1;
+        __EXTENSION uint8_t b23:1;
     } bits;
 } UINT24_VAL, UINT24_BITS;
 #endif
 
 typedef union
 {
-    UINT32 Val;
-    UINT16 w[2];
-    UINT8  v[4];
+    uint32_t Val;
+    uint16_t w[2];
+    uint8_t  v[4];
     struct
     {
-        UINT16 LW;
-        UINT16 HW;
+        uint16_t LW;
+        uint16_t HW;
     } word;
     struct
     {
-        UINT8 LB;
-        UINT8 HB;
-        UINT8 UB;
-        UINT8 MB;
+        uint8_t LB;
+        uint8_t HB;
+        uint8_t UB;
+        uint8_t MB;
     } byte;
     struct
     {
@@ -206,38 +206,38 @@ typedef union
     }wordUnion;
     struct
     {
-        __EXTENSION UINT8 b0:1;
-        __EXTENSION UINT8 b1:1;
-        __EXTENSION UINT8 b2:1;
-        __EXTENSION UINT8 b3:1;
-        __EXTENSION UINT8 b4:1;
-        __EXTENSION UINT8 b5:1;
-        __EXTENSION UINT8 b6:1;
-        __EXTENSION UINT8 b7:1;
-        __EXTENSION UINT8 b8:1;
-        __EXTENSION UINT8 b9:1;
-        __EXTENSION UINT8 b10:1;
-        __EXTENSION UINT8 b11:1;
-        __EXTENSION UINT8 b12:1;
-        __EXTENSION UINT8 b13:1;
-        __EXTENSION UINT8 b14:1;
-        __EXTENSION UINT8 b15:1;
-        __EXTENSION UINT8 b16:1;
-        __EXTENSION UINT8 b17:1;
-        __EXTENSION UINT8 b18:1;
-        __EXTENSION UINT8 b19:1;
-        __EXTENSION UINT8 b20:1;
-        __EXTENSION UINT8 b21:1;
-        __EXTENSION UINT8 b22:1;
-        __EXTENSION UINT8 b23:1;
-        __EXTENSION UINT8 b24:1;
-        __EXTENSION UINT8 b25:1;
-        __EXTENSION UINT8 b26:1;
-        __EXTENSION UINT8 b27:1;
-        __EXTENSION UINT8 b28:1;
-        __EXTENSION UINT8 b29:1;
-        __EXTENSION UINT8 b30:1;
-        __EXTENSION UINT8 b31:1;
+        __EXTENSION uint8_t b0:1;
+        __EXTENSION uint8_t b1:1;
+        __EXTENSION uint8_t b2:1;
+        __EXTENSION uint8_t b3:1;
+        __EXTENSION uint8_t b4:1;
+        __EXTENSION uint8_t b5:1;
+        __EXTENSION uint8_t b6:1;
+        __EXTENSION uint8_t b7:1;
+        __EXTENSION uint8_t b8:1;
+        __EXTENSION uint8_t b9:1;
+        __EXTENSION uint8_t b10:1;
+        __EXTENSION uint8_t b11:1;
+        __EXTENSION uint8_t b12:1;
+        __EXTENSION uint8_t b13:1;
+        __EXTENSION uint8_t b14:1;
+        __EXTENSION uint8_t b15:1;
+        __EXTENSION uint8_t b16:1;
+        __EXTENSION uint8_t b17:1;
+        __EXTENSION uint8_t b18:1;
+        __EXTENSION uint8_t b19:1;
+        __EXTENSION uint8_t b20:1;
+        __EXTENSION uint8_t b21:1;
+        __EXTENSION uint8_t b22:1;
+        __EXTENSION uint8_t b23:1;
+        __EXTENSION uint8_t b24:1;
+        __EXTENSION uint8_t b25:1;
+        __EXTENSION uint8_t b26:1;
+        __EXTENSION uint8_t b27:1;
+        __EXTENSION uint8_t b28:1;
+        __EXTENSION uint8_t b29:1;
+        __EXTENSION uint8_t b30:1;
+        __EXTENSION uint8_t b31:1;
     } bits;
 } UINT32_VAL;
 
@@ -245,88 +245,88 @@ typedef union
 #if !defined(__18CXX)
 typedef union
 {
-    UINT64 Val;
-    UINT32 d[2];
-    UINT16 w[4];
-    UINT8 v[8];
+    uint64_t Val;
+    uint32_t d[2];
+    uint16_t w[4];
+    uint8_t v[8];
     struct
     {
-        UINT32 LD;
-        UINT32 HD;
+        uint32_t LD;
+        uint32_t HD;
     } dword;
     struct
     {
-        UINT16 LW;
-        UINT16 HW;
-        UINT16 UW;
-        UINT16 MW;
+        uint16_t LW;
+        uint16_t HW;
+        uint16_t UW;
+        uint16_t MW;
     } word;
     struct
     {
-        __EXTENSION UINT8 b0:1;
-        __EXTENSION UINT8 b1:1;
-        __EXTENSION UINT8 b2:1;
-        __EXTENSION UINT8 b3:1;
-        __EXTENSION UINT8 b4:1;
-        __EXTENSION UINT8 b5:1;
-        __EXTENSION UINT8 b6:1;
-        __EXTENSION UINT8 b7:1;
-        __EXTENSION UINT8 b8:1;
-        __EXTENSION UINT8 b9:1;
-        __EXTENSION UINT8 b10:1;
-        __EXTENSION UINT8 b11:1;
-        __EXTENSION UINT8 b12:1;
-        __EXTENSION UINT8 b13:1;
-        __EXTENSION UINT8 b14:1;
-        __EXTENSION UINT8 b15:1;
-        __EXTENSION UINT8 b16:1;
-        __EXTENSION UINT8 b17:1;
-        __EXTENSION UINT8 b18:1;
-        __EXTENSION UINT8 b19:1;
-        __EXTENSION UINT8 b20:1;
-        __EXTENSION UINT8 b21:1;
-        __EXTENSION UINT8 b22:1;
-        __EXTENSION UINT8 b23:1;
-        __EXTENSION UINT8 b24:1;
-        __EXTENSION UINT8 b25:1;
-        __EXTENSION UINT8 b26:1;
-        __EXTENSION UINT8 b27:1;
-        __EXTENSION UINT8 b28:1;
-        __EXTENSION UINT8 b29:1;
-        __EXTENSION UINT8 b30:1;
-        __EXTENSION UINT8 b31:1;
-        __EXTENSION UINT8 b32:1;
-        __EXTENSION UINT8 b33:1;
-        __EXTENSION UINT8 b34:1;
-        __EXTENSION UINT8 b35:1;
-        __EXTENSION UINT8 b36:1;
-        __EXTENSION UINT8 b37:1;
-        __EXTENSION UINT8 b38:1;
-        __EXTENSION UINT8 b39:1;
-        __EXTENSION UINT8 b40:1;
-        __EXTENSION UINT8 b41:1;
-        __EXTENSION UINT8 b42:1;
-        __EXTENSION UINT8 b43:1;
-        __EXTENSION UINT8 b44:1;
-        __EXTENSION UINT8 b45:1;
-        __EXTENSION UINT8 b46:1;
-        __EXTENSION UINT8 b47:1;
-        __EXTENSION UINT8 b48:1;
-        __EXTENSION UINT8 b49:1;
-        __EXTENSION UINT8 b50:1;
-        __EXTENSION UINT8 b51:1;
-        __EXTENSION UINT8 b52:1;
-        __EXTENSION UINT8 b53:1;
-        __EXTENSION UINT8 b54:1;
-        __EXTENSION UINT8 b55:1;
-        __EXTENSION UINT8 b56:1;
-        __EXTENSION UINT8 b57:1;
-        __EXTENSION UINT8 b58:1;
-        __EXTENSION UINT8 b59:1;
-        __EXTENSION UINT8 b60:1;
-        __EXTENSION UINT8 b61:1;
-        __EXTENSION UINT8 b62:1;
-        __EXTENSION UINT8 b63:1;
+        __EXTENSION uint8_t b0:1;
+        __EXTENSION uint8_t b1:1;
+        __EXTENSION uint8_t b2:1;
+        __EXTENSION uint8_t b3:1;
+        __EXTENSION uint8_t b4:1;
+        __EXTENSION uint8_t b5:1;
+        __EXTENSION uint8_t b6:1;
+        __EXTENSION uint8_t b7:1;
+        __EXTENSION uint8_t b8:1;
+        __EXTENSION uint8_t b9:1;
+        __EXTENSION uint8_t b10:1;
+        __EXTENSION uint8_t b11:1;
+        __EXTENSION uint8_t b12:1;
+        __EXTENSION uint8_t b13:1;
+        __EXTENSION uint8_t b14:1;
+        __EXTENSION uint8_t b15:1;
+        __EXTENSION uint8_t b16:1;
+        __EXTENSION uint8_t b17:1;
+        __EXTENSION uint8_t b18:1;
+        __EXTENSION uint8_t b19:1;
+        __EXTENSION uint8_t b20:1;
+        __EXTENSION uint8_t b21:1;
+        __EXTENSION uint8_t b22:1;
+        __EXTENSION uint8_t b23:1;
+        __EXTENSION uint8_t b24:1;
+        __EXTENSION uint8_t b25:1;
+        __EXTENSION uint8_t b26:1;
+        __EXTENSION uint8_t b27:1;
+        __EXTENSION uint8_t b28:1;
+        __EXTENSION uint8_t b29:1;
+        __EXTENSION uint8_t b30:1;
+        __EXTENSION uint8_t b31:1;
+        __EXTENSION uint8_t b32:1;
+        __EXTENSION uint8_t b33:1;
+        __EXTENSION uint8_t b34:1;
+        __EXTENSION uint8_t b35:1;
+        __EXTENSION uint8_t b36:1;
+        __EXTENSION uint8_t b37:1;
+        __EXTENSION uint8_t b38:1;
+        __EXTENSION uint8_t b39:1;
+        __EXTENSION uint8_t b40:1;
+        __EXTENSION uint8_t b41:1;
+        __EXTENSION uint8_t b42:1;
+        __EXTENSION uint8_t b43:1;
+        __EXTENSION uint8_t b44:1;
+        __EXTENSION uint8_t b45:1;
+        __EXTENSION uint8_t b46:1;
+        __EXTENSION uint8_t b47:1;
+        __EXTENSION uint8_t b48:1;
+        __EXTENSION uint8_t b49:1;
+        __EXTENSION uint8_t b50:1;
+        __EXTENSION uint8_t b51:1;
+        __EXTENSION uint8_t b52:1;
+        __EXTENSION uint8_t b53:1;
+        __EXTENSION uint8_t b54:1;
+        __EXTENSION uint8_t b55:1;
+        __EXTENSION uint8_t b56:1;
+        __EXTENSION uint8_t b57:1;
+        __EXTENSION uint8_t b58:1;
+        __EXTENSION uint8_t b59:1;
+        __EXTENSION uint8_t b60:1;
+        __EXTENSION uint8_t b61:1;
+        __EXTENSION uint8_t b62:1;
+        __EXTENSION uint8_t b63:1;
     } bits;
 } UINT64_VAL;
 #endif /* __18CXX */
@@ -357,66 +357,66 @@ typedef signed long long        LONGLONG;                       /* 64-bit signed
 #endif /* __18CXX */
 typedef union
 {
-    BYTE Val;
+    uint8_t Val;
     struct
     {
-        __EXTENSION BYTE b0:1;
-        __EXTENSION BYTE b1:1;
-        __EXTENSION BYTE b2:1;
-        __EXTENSION BYTE b3:1;
-        __EXTENSION BYTE b4:1;
-        __EXTENSION BYTE b5:1;
-        __EXTENSION BYTE b6:1;
-        __EXTENSION BYTE b7:1;
+        __EXTENSION uint8_t b0:1;
+        __EXTENSION uint8_t b1:1;
+        __EXTENSION uint8_t b2:1;
+        __EXTENSION uint8_t b3:1;
+        __EXTENSION uint8_t b4:1;
+        __EXTENSION uint8_t b5:1;
+        __EXTENSION uint8_t b6:1;
+        __EXTENSION uint8_t b7:1;
     } bits;
 } BYTE_VAL, BYTE_BITS;
 
 typedef union
 {
-    WORD Val;
-    BYTE v[2];
+    uint16_t Val;
+    uint8_t v[2];
     struct
     {
-        BYTE LB;
-        BYTE HB;
+        uint8_t LB;
+        uint8_t HB;
     } byte;
     struct
     {
-        __EXTENSION BYTE b0:1;
-        __EXTENSION BYTE b1:1;
-        __EXTENSION BYTE b2:1;
-        __EXTENSION BYTE b3:1;
-        __EXTENSION BYTE b4:1;
-        __EXTENSION BYTE b5:1;
-        __EXTENSION BYTE b6:1;
-        __EXTENSION BYTE b7:1;
-        __EXTENSION BYTE b8:1;
-        __EXTENSION BYTE b9:1;
-        __EXTENSION BYTE b10:1;
-        __EXTENSION BYTE b11:1;
-        __EXTENSION BYTE b12:1;
-        __EXTENSION BYTE b13:1;
-        __EXTENSION BYTE b14:1;
-        __EXTENSION BYTE b15:1;
+        __EXTENSION uint8_t b0:1;
+        __EXTENSION uint8_t b1:1;
+        __EXTENSION uint8_t b2:1;
+        __EXTENSION uint8_t b3:1;
+        __EXTENSION uint8_t b4:1;
+        __EXTENSION uint8_t b5:1;
+        __EXTENSION uint8_t b6:1;
+        __EXTENSION uint8_t b7:1;
+        __EXTENSION uint8_t b8:1;
+        __EXTENSION uint8_t b9:1;
+        __EXTENSION uint8_t b10:1;
+        __EXTENSION uint8_t b11:1;
+        __EXTENSION uint8_t b12:1;
+        __EXTENSION uint8_t b13:1;
+        __EXTENSION uint8_t b14:1;
+        __EXTENSION uint8_t b15:1;
     } bits;
 } WORD_VAL, WORD_BITS;
 
 typedef union
 {
-    DWORD Val;
-    WORD w[2];
-    BYTE v[4];
+    uint32_t Val;
+    uint16_t w[2];
+    uint8_t v[4];
     struct
     {
-        WORD LW;
-        WORD HW;
+        uint16_t LW;
+        uint16_t HW;
     } word;
     struct
     {
-        BYTE LB;
-        BYTE HB;
-        BYTE UB;
-        BYTE MB;
+        uint8_t LB;
+        uint8_t HB;
+        uint8_t UB;
+        uint8_t MB;
     } byte;
     struct
     {
@@ -425,38 +425,38 @@ typedef union
     }wordUnion;
     struct
     {
-        __EXTENSION BYTE b0:1;
-        __EXTENSION BYTE b1:1;
-        __EXTENSION BYTE b2:1;
-        __EXTENSION BYTE b3:1;
-        __EXTENSION BYTE b4:1;
-        __EXTENSION BYTE b5:1;
-        __EXTENSION BYTE b6:1;
-        __EXTENSION BYTE b7:1;
-        __EXTENSION BYTE b8:1;
-        __EXTENSION BYTE b9:1;
-        __EXTENSION BYTE b10:1;
-        __EXTENSION BYTE b11:1;
-        __EXTENSION BYTE b12:1;
-        __EXTENSION BYTE b13:1;
-        __EXTENSION BYTE b14:1;
-        __EXTENSION BYTE b15:1;
-        __EXTENSION BYTE b16:1;
-        __EXTENSION BYTE b17:1;
-        __EXTENSION BYTE b18:1;
-        __EXTENSION BYTE b19:1;
-        __EXTENSION BYTE b20:1;
-        __EXTENSION BYTE b21:1;
-        __EXTENSION BYTE b22:1;
-        __EXTENSION BYTE b23:1;
-        __EXTENSION BYTE b24:1;
-        __EXTENSION BYTE b25:1;
-        __EXTENSION BYTE b26:1;
-        __EXTENSION BYTE b27:1;
-        __EXTENSION BYTE b28:1;
-        __EXTENSION BYTE b29:1;
-        __EXTENSION BYTE b30:1;
-        __EXTENSION BYTE b31:1;
+        __EXTENSION uint8_t b0:1;
+        __EXTENSION uint8_t b1:1;
+        __EXTENSION uint8_t b2:1;
+        __EXTENSION uint8_t b3:1;
+        __EXTENSION uint8_t b4:1;
+        __EXTENSION uint8_t b5:1;
+        __EXTENSION uint8_t b6:1;
+        __EXTENSION uint8_t b7:1;
+        __EXTENSION uint8_t b8:1;
+        __EXTENSION uint8_t b9:1;
+        __EXTENSION uint8_t b10:1;
+        __EXTENSION uint8_t b11:1;
+        __EXTENSION uint8_t b12:1;
+        __EXTENSION uint8_t b13:1;
+        __EXTENSION uint8_t b14:1;
+        __EXTENSION uint8_t b15:1;
+        __EXTENSION uint8_t b16:1;
+        __EXTENSION uint8_t b17:1;
+        __EXTENSION uint8_t b18:1;
+        __EXTENSION uint8_t b19:1;
+        __EXTENSION uint8_t b20:1;
+        __EXTENSION uint8_t b21:1;
+        __EXTENSION uint8_t b22:1;
+        __EXTENSION uint8_t b23:1;
+        __EXTENSION uint8_t b24:1;
+        __EXTENSION uint8_t b25:1;
+        __EXTENSION uint8_t b26:1;
+        __EXTENSION uint8_t b27:1;
+        __EXTENSION uint8_t b28:1;
+        __EXTENSION uint8_t b29:1;
+        __EXTENSION uint8_t b30:1;
+        __EXTENSION uint8_t b31:1;
     } bits;
 } DWORD_VAL;
 
@@ -464,88 +464,88 @@ typedef union
 #if !defined(__18CXX)
 typedef union
 {
-    QWORD Val;
-    DWORD d[2];
-    WORD w[4];
-    BYTE v[8];
+    uint64_t Val;
+    uint32_t d[2];
+    uint16_t w[4];
+    uint8_t v[8];
     struct
     {
-        DWORD LD;
-        DWORD HD;
+        uint32_t LD;
+        uint32_t HD;
     } dword;
     struct
     {
-        WORD LW;
-        WORD HW;
-        WORD UW;
-        WORD MW;
+        uint16_t LW;
+        uint16_t HW;
+        uint16_t UW;
+        uint16_t MW;
     } word;
     struct
     {
-        __EXTENSION BYTE b0:1;
-        __EXTENSION BYTE b1:1;
-        __EXTENSION BYTE b2:1;
-        __EXTENSION BYTE b3:1;
-        __EXTENSION BYTE b4:1;
-        __EXTENSION BYTE b5:1;
-        __EXTENSION BYTE b6:1;
-        __EXTENSION BYTE b7:1;
-        __EXTENSION BYTE b8:1;
-        __EXTENSION BYTE b9:1;
-        __EXTENSION BYTE b10:1;
-        __EXTENSION BYTE b11:1;
-        __EXTENSION BYTE b12:1;
-        __EXTENSION BYTE b13:1;
-        __EXTENSION BYTE b14:1;
-        __EXTENSION BYTE b15:1;
-        __EXTENSION BYTE b16:1;
-        __EXTENSION BYTE b17:1;
-        __EXTENSION BYTE b18:1;
-        __EXTENSION BYTE b19:1;
-        __EXTENSION BYTE b20:1;
-        __EXTENSION BYTE b21:1;
-        __EXTENSION BYTE b22:1;
-        __EXTENSION BYTE b23:1;
-        __EXTENSION BYTE b24:1;
-        __EXTENSION BYTE b25:1;
-        __EXTENSION BYTE b26:1;
-        __EXTENSION BYTE b27:1;
-        __EXTENSION BYTE b28:1;
-        __EXTENSION BYTE b29:1;
-        __EXTENSION BYTE b30:1;
-        __EXTENSION BYTE b31:1;
-        __EXTENSION BYTE b32:1;
-        __EXTENSION BYTE b33:1;
-        __EXTENSION BYTE b34:1;
-        __EXTENSION BYTE b35:1;
-        __EXTENSION BYTE b36:1;
-        __EXTENSION BYTE b37:1;
-        __EXTENSION BYTE b38:1;
-        __EXTENSION BYTE b39:1;
-        __EXTENSION BYTE b40:1;
-        __EXTENSION BYTE b41:1;
-        __EXTENSION BYTE b42:1;
-        __EXTENSION BYTE b43:1;
-        __EXTENSION BYTE b44:1;
-        __EXTENSION BYTE b45:1;
-        __EXTENSION BYTE b46:1;
-        __EXTENSION BYTE b47:1;
-        __EXTENSION BYTE b48:1;
-        __EXTENSION BYTE b49:1;
-        __EXTENSION BYTE b50:1;
-        __EXTENSION BYTE b51:1;
-        __EXTENSION BYTE b52:1;
-        __EXTENSION BYTE b53:1;
-        __EXTENSION BYTE b54:1;
-        __EXTENSION BYTE b55:1;
-        __EXTENSION BYTE b56:1;
-        __EXTENSION BYTE b57:1;
-        __EXTENSION BYTE b58:1;
-        __EXTENSION BYTE b59:1;
-        __EXTENSION BYTE b60:1;
-        __EXTENSION BYTE b61:1;
-        __EXTENSION BYTE b62:1;
-        __EXTENSION BYTE b63:1;
+        __EXTENSION uint8_t b0:1;
+        __EXTENSION uint8_t b1:1;
+        __EXTENSION uint8_t b2:1;
+        __EXTENSION uint8_t b3:1;
+        __EXTENSION uint8_t b4:1;
+        __EXTENSION uint8_t b5:1;
+        __EXTENSION uint8_t b6:1;
+        __EXTENSION uint8_t b7:1;
+        __EXTENSION uint8_t b8:1;
+        __EXTENSION uint8_t b9:1;
+        __EXTENSION uint8_t b10:1;
+        __EXTENSION uint8_t b11:1;
+        __EXTENSION uint8_t b12:1;
+        __EXTENSION uint8_t b13:1;
+        __EXTENSION uint8_t b14:1;
+        __EXTENSION uint8_t b15:1;
+        __EXTENSION uint8_t b16:1;
+        __EXTENSION uint8_t b17:1;
+        __EXTENSION uint8_t b18:1;
+        __EXTENSION uint8_t b19:1;
+        __EXTENSION uint8_t b20:1;
+        __EXTENSION uint8_t b21:1;
+        __EXTENSION uint8_t b22:1;
+        __EXTENSION uint8_t b23:1;
+        __EXTENSION uint8_t b24:1;
+        __EXTENSION uint8_t b25:1;
+        __EXTENSION uint8_t b26:1;
+        __EXTENSION uint8_t b27:1;
+        __EXTENSION uint8_t b28:1;
+        __EXTENSION uint8_t b29:1;
+        __EXTENSION uint8_t b30:1;
+        __EXTENSION uint8_t b31:1;
+        __EXTENSION uint8_t b32:1;
+        __EXTENSION uint8_t b33:1;
+        __EXTENSION uint8_t b34:1;
+        __EXTENSION uint8_t b35:1;
+        __EXTENSION uint8_t b36:1;
+        __EXTENSION uint8_t b37:1;
+        __EXTENSION uint8_t b38:1;
+        __EXTENSION uint8_t b39:1;
+        __EXTENSION uint8_t b40:1;
+        __EXTENSION uint8_t b41:1;
+        __EXTENSION uint8_t b42:1;
+        __EXTENSION uint8_t b43:1;
+        __EXTENSION uint8_t b44:1;
+        __EXTENSION uint8_t b45:1;
+        __EXTENSION uint8_t b46:1;
+        __EXTENSION uint8_t b47:1;
+        __EXTENSION uint8_t b48:1;
+        __EXTENSION uint8_t b49:1;
+        __EXTENSION uint8_t b50:1;
+        __EXTENSION uint8_t b51:1;
+        __EXTENSION uint8_t b52:1;
+        __EXTENSION uint8_t b53:1;
+        __EXTENSION uint8_t b54:1;
+        __EXTENSION uint8_t b55:1;
+        __EXTENSION uint8_t b56:1;
+        __EXTENSION uint8_t b57:1;
+        __EXTENSION uint8_t b58:1;
+        __EXTENSION uint8_t b59:1;
+        __EXTENSION uint8_t b60:1;
+        __EXTENSION uint8_t b61:1;
+        __EXTENSION uint8_t b62:1;
+        __EXTENSION uint8_t b63:1;
     } bits;
 } QWORD_VAL;
 #endif /* __18CXX */

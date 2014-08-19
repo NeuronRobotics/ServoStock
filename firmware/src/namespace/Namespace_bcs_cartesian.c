@@ -1,10 +1,8 @@
-#include "Bowler/Bowler.h"
-#include "CartesianController.h"
 #include "main.h"
 
 static const char cartNSName[]  = "bcs.cartesian.*;0.3;;";
 
-BOOL cartesianAsyncEventCallback(BowlerPacket * Packet,BOOL (*pidAsyncCallbackPtr)(BowlerPacket *Packet)){
+boolean cartesianAsyncEventCallback(BowlerPacket * Packet,boolean (*pidAsyncCallbackPtr)(BowlerPacket *Packet)){
 
     Print_Level l = getPrintLevel();
     //setPrintLevelNoPrint();
@@ -139,7 +137,7 @@ static NAMESPACE_LIST bcsCartesian ={	cartNSName,// The string defining the name
                                 NULL// no initial elements to the other namesapce field.
 };
 
-static BOOL namespcaedAdded = FALSE;
+static boolean namespcaedAdded = FALSE;
 NAMESPACE_LIST * getBcsCartesianNamespace(){
 	if(!namespcaedAdded){
                 //POST

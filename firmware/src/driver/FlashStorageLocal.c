@@ -15,7 +15,7 @@ void checkDataTable() {
     Nop();
 }
 
-BOOL initFlashLocal() {
+boolean initFlashLocal() {
 
     if (bytesOfRaw > 0x1000 - FLASHSTORE) {
         println_E("Too much data to store");
@@ -31,13 +31,13 @@ BOOL initFlashLocal() {
     print_W(" ");
     p_int_W(bytesOfRaw);
 
-    SetFlashData((UINT32 *) & localData, bytesOfRaw / 4);
+    SetFlashData((uint32_t *) & localData, bytesOfRaw / 4);
     FlashLoad();
     println_W("Flash loaded");
 
     int i = 0, j = 0; // index;
 
-    BOOL rawFlashDetect = FALSE;
+    boolean rawFlashDetect = FALSE;
 
     for (i = 0; i < numPidTotal; i++) {
         println_W("Setting PID #");
@@ -115,7 +115,7 @@ void writeFlashLocal() {
     FlashSync();
     FlashLoad();
     for (i = 0; i < numPidTotal; i++) {
-        printPIDvals(i);
+        //printPIDvals(i);
     }
 
 }

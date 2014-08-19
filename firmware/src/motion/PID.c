@@ -10,12 +10,12 @@ void setOutputMine(int group, float val);
 int resetPositionMine(int group, int target);
 
 void onPidConfigureMine(int);
-PidLimitEvent * checkPIDLimitEventsMine(BYTE group);
+PidLimitEvent * checkPIDLimitEventsMine(uint8_t group);
 
 void initPIDLocal() {
     setPidIsr(FALSE);
-    BYTE i;
-    //WORD loop;
+    uint8_t i;
+    //uint16_t loop;
     for (i = 0; i < numPidTotal; i++) {
         vel[i].enabled = FALSE;
         limits[i].type = NO_LIMIT;
@@ -33,17 +33,17 @@ void initPIDLocal() {
     setPidIsr(TRUE);
 }
 
-BOOL runPidIsr = FALSE;
+boolean runPidIsr = FALSE;
 
-BOOL getRunPidIsr() {
+boolean getRunPidIsr() {
     return runPidIsr;
 }
 
-void setPidIsr(BOOL v) {
+void setPidIsr(boolean v) {
     runPidIsr = v;
 }
 
-BOOL asyncCallback(BowlerPacket *Packet) {
+boolean asyncCallback(BowlerPacket *Packet) {
     //println_I("Async>>");printPacket(Packet,INFO_PRINT);
     PutBowlerPacket(Packet); // This only works with USB and UART
     return isUSBActave();
@@ -53,14 +53,14 @@ void onPidConfigureMine(int group) {
     writeFlashLocal();
 }
 
-void trigerPIDLimit(BYTE chan, PidLimitType type, INT32 tick) {
+void trigerPIDLimit(uint8_t chan, PidLimitType type, int32_t tick) {
     limits[chan].group = chan;
     limits[chan].type = type;
     limits[chan].value = tick;
     limits[chan].time = getMs();
 }
 
-PidLimitEvent * checkPIDLimitEventsMine(BYTE group) {
+PidLimitEvent * checkPIDLimitEventsMine(uint8_t group) {
     return & limits[group];
 }
 
@@ -114,7 +114,7 @@ void setOutputMine(int group, float v) {
     }
 }
 
-BOOL isUpToTempreture() {
+boolean isUpToTempreture() {
     return TRUE;
     //   return bound(pidGroups[HEATER0_INDEX].SetPoint,
     //           getHeaterTempreture(HEATER0_INDEX),

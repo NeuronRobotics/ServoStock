@@ -15,8 +15,8 @@
 //#define LINK1_INDEX 7
 //#define LINK2_INDEX 4
 #define AXIS_UNUSED 0xFF
-typedef BOOL forwardKinematics(float Alpha, float Beta, float Gama, float * x0, float *y0, float * z0);
-typedef BOOL inverseKinematics(float x0, float y0, float z0, float *Alpha, float *Beta, float *Gama);
+typedef boolean forwardKinematics(float Alpha, float Beta, float Gama, float * x0, float *y0, float * z0);
+typedef boolean inverseKinematics(float x0, float y0, float z0, float *Alpha, float *Beta, float *Gama);
 
 /* Function: Inverse Velocity
  * Inputs: current task position (X, Y, Z) and desired task velocities (Xd, Yd, Zd)
@@ -29,13 +29,13 @@ typedef int velInverse(float X, float Y, float Z, float Xd, float Yd, float Zd,f
  */
 typedef int velForward(float A, float B, float C, float Ad, float Bd, float Cd,float * Xd, float * Yd, float * Zd);
 
-BOOL onConfigurationGet(BowlerPacket *Packet);
-BOOL onRunKinematicsSet(BowlerPacket *Packet);
-BOOL onCartesianPacket(BowlerPacket *Packet);
-BOOL setDesiredTaskSpaceTransform(BowlerPacket *Packet);
-BOOL getCurrentTaskSpaceTransform(BowlerPacket *Packet);
-BOOL setDesiredJointSpaceVector(BowlerPacket *Packet);
-BOOL setDesiredJointAxisValue(BowlerPacket *Packet);
+boolean onConfigurationGet(BowlerPacket *Packet);
+boolean onRunKinematicsSet(BowlerPacket *Packet);
+boolean onCartesianPacket(BowlerPacket *Packet);
+boolean setDesiredTaskSpaceTransform(BowlerPacket *Packet);
+boolean getCurrentTaskSpaceTransform(BowlerPacket *Packet);
+boolean setDesiredJointSpaceVector(BowlerPacket *Packet);
+boolean setDesiredJointAxisValue(BowlerPacket *Packet);
 
 typedef struct  _IndexScale{
     int index;
@@ -90,11 +90,11 @@ void initializeCartesianController();
 
 int linkToHWIndex(int index);
 
-BYTE setInterpolateXYZ(float x, float y, float z,float ms);
+uint8_t setInterpolateXYZ(float x, float y, float z,float ms);
 
 void interpolateZXY();
 
-BYTE setXYZ(float x, float y, float z,float ms);
+uint8_t setXYZ(float x, float y, float z,float ms);
 
 float getLinkAngle(int index);
 float getLinkAngleNoScale(int index);
@@ -107,15 +107,15 @@ void cartesianAsync();
 
 void cancelPrint();
 
-BOOL onCartesianPost(BowlerPacket *Packet);
-BOOL onClearPrinter(BowlerPacket *Packet);
+boolean onCartesianPost(BowlerPacket *Packet);
+boolean onClearPrinter(BowlerPacket *Packet);
 void printCartesianData();
 
-//void InitializeCartesianController( BOOL (*asyncCallbackPtr)(BowlerPacket *Packet),
-//                                    BOOL (*forwardKinematicsCallbackPtr)(float * currentLinkPositions, Transform * result),
-//                                    BOOL (*inverseKinematicsCallbackPtr)(Transform * currentTransform, float * result ),
-//                                    BOOL (*setPositionCallbackPtr)(int linkIndex,float degrees,float ms),
-//                                    BOOL (*getAllPositionsCallbackPtr)(float * currentLinkPositions)
+//void InitializeCartesianController( boolean (*asyncCallbackPtr)(BowlerPacket *Packet),
+//                                    boolean (*forwardKinematicsCallbackPtr)(float * currentLinkPositions, Transform * result),
+//                                    boolean (*inverseKinematicsCallbackPtr)(Transform * currentTransform, float * result ),
+//                                    boolean (*setPositionCallbackPtr)(int linkIndex,float degrees,float ms),
+//                                    boolean (*getAllPositionsCallbackPtr)(float * currentLinkPositions)
 //                                  );
 float getmaxZ();
 float getRodLength();

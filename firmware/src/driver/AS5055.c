@@ -1,19 +1,19 @@
 #include "main.h"
-#include <math.h>
+
 
 int overflow[numPidTotal];
 //int offset[numPidTotal];
 int raw[numPidTotal];
 float recent[numPidTotal];
-BYTE initialized = FALSE;
-BYTE busy =0;
+uint8_t initialized = FALSE;
+uint8_t busy =0;
 #define jump 3000
 void encoderSPIInit();
-void AS5055ResetErrorFlag(BYTE index);
-void printSystemConfig(BYTE index);
-UINT16 AS5055send(BYTE index, UINT16 data);
+void AS5055ResetErrorFlag(uint8_t index);
+void printSystemConfig(uint8_t index);
+uint16_t AS5055send(uint8_t index, uint16_t data);
 
-BOOL enableWrapping=TRUE;
+boolean enableWrapping=TRUE;
 
 void disableWrapping(){
     enableWrapping=FALSE;
@@ -40,7 +40,7 @@ void initializeEncoders(){
     }
 }
 
-float readEncoderWithoutOffset(BYTE index){
+float readEncoderWithoutOffset(uint8_t index){
     int tmp=0;
     int diff=0;
     if(!busy){
@@ -101,7 +101,7 @@ void updateAllEncoders(){
     }
 }
 
-//float readEncoder(BYTE index){
+//float readEncoder(uint8_t index){
 //    float size=1;
 //    float ret=0;
 //    int i;
@@ -131,9 +131,9 @@ void encoderSPIInit(){
 #endif
 }
 
-UINT8   AS5055CalculateParity(UINT16 data){
-    UINT8 bits=0;
-    UINT8 shift=0;
+uint8_t   AS5055CalculateParity(uint16_t data){
+    uint8_t bits=0;
+    uint8_t shift=0;
     for (shift=1; shift<16; shift++){
         if ((data >>  shift)&0x0001)
             bits++;
@@ -145,7 +145,7 @@ UINT8   AS5055CalculateParity(UINT16 data){
 
 
 
-UINT16 AS5055reset(BYTE index){
+uint16_t AS5055reset(uint8_t index){
     //println_I("[AS5055] Resetting ");p_int_I(index);
     AS5055CommandPacket cmd;
     AS5055ReadPacket read;
@@ -159,7 +159,7 @@ UINT16 AS5055reset(BYTE index){
     return read.uint0_15;
 }
 
-void AS5055ResetErrorFlag(BYTE index){
+void AS5055ResetErrorFlag(uint8_t index){
     //println_I("[AS5055send] Clear Error Flags");
     AS5055CommandPacket cmd;
 
@@ -171,7 +171,7 @@ void AS5055ResetErrorFlag(BYTE index){
     
 }
 
-void printSystemConfig(BYTE index){
+void printSystemConfig(uint8_t index){
     AS5055CommandPacket cmd;
     AS5055SystemConfigPacket read;
     cmd.regs.Address=AS5055REG_SystemConfig1;
@@ -192,7 +192,7 @@ void printSystemConfig(BYTE index){
     setPrintLevel(l);
 }
 
-UINT16 AS5055readAngle(BYTE index){
+uint16_t AS5055readAngle(uint8_t index){
     Print_Level l = getPrintLevel();
 
     AS5055AngularDataPacket read;
@@ -205,8 +205,8 @@ UINT16 AS5055readAngle(BYTE index){
     return read.regs.Data;
 }
 
-BYTE lock = FALSE;
-UINT16 AS5055send(BYTE index, UINT16 data){
+uint8_t lock = FALSE;
+uint16_t AS5055send(uint8_t index, uint16_t data){
     if(lock)
         return 0xffff;
     lock = TRUE;
@@ -234,7 +234,7 @@ UINT16 AS5055send(BYTE index, UINT16 data){
 }
 
 
-void EncoderSS(BYTE index, BYTE state){
+void EncoderSS(uint8_t index, uint8_t state){
     if(state == CSN_Enabled){
         encoderSPIInit();
     }else{

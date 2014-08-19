@@ -9,6 +9,6 @@
 #define AUXUARTSERVER_H_
 
 void InitAuxUARTBowlerServer();
-BYTE AuxUARTBowlerServer(BowlerPacket * Packet);
+uint8_t AuxUARTBowlerServer(BowlerPacket * Packet);
 
 #endif /* SPISERVER_H_ */

@@ -1,6 +1,6 @@
 #include "main.h"
 static float lastPacketTime[NUM_PID_GROUPS];
-static INT32 lastPacketVal[NUM_PID_GROUPS];
+static int32_t lastPacketVal[NUM_PID_GROUPS];
 static BowlerPacket packetTemp;
 
 
@@ -9,7 +9,7 @@ void push(BowlerPacket * Packet){
     putStream(Packet->stream,GetPacketLegnth(Packet));
 }
 /*
-void pushPIDLimitMine(BYTE chan,BYTE index,INT32  tick){
+void pushPIDLimitMine(uint8_t chan,uint8_t index,int32_t  tick){
 	//SetColor(0,1,0);
 	LoadCorePacket(& packetTemp);
 	packetTemp.use.head.MessageID = 4;
@@ -37,7 +37,7 @@ void pushPIDLimitMine(BYTE chan,BYTE index,INT32  tick){
 }
 */
 
-void pushPIDMine(BYTE chan, INT32 value){
+void pushPIDMine(uint8_t chan, int32_t value){
 	println_I("Pushing async for board: ");p_int_I(chan);print_I(" value: ");p_int_I(value);
 	//SetColor(0,1,0);
 	//LoadCorePacket(& packetTemp);

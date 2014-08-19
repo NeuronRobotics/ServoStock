@@ -123,7 +123,7 @@ extern "C" {
 #define     bDelay()    i=2; while (i>1) i++;
 
 void initPIDLocal();
-void setPidIsr(BOOL v);
+void setPidIsr(boolean v);
 
 #define numPidMotors 8
 
@@ -133,7 +133,7 @@ void setPidIsr(BOOL v);
 
 
 
-BOOL isUpToTempreture();
+boolean isUpToTempreture();
 void HomeLinks();
 void startHomingLinks();
 
@@ -150,7 +150,7 @@ void startHomingLinks();
 	#define NUM_PID_GROUPS (numPidMotors)
 #endif
 void LoadCorePacket(BowlerPacket * Packet);
-void setDebug(BOOL d);
+void setDebug(boolean d);
 
 #ifdef	__cplusplus
 }

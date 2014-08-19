@@ -1,8 +1,5 @@
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <inttypes.h>
+#include "main.h"
+
 //#include <Bowler/Debug.h>
 
 float toDegrees(float radian){

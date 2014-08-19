@@ -28,8 +28,6 @@
  *
  *
  ********************************************************************/
-
-#include "Bowler/Bowler_Struct_Def.h"
 #include "main.h"
 
 #ifdef USB_A0_SILICON_WORK_AROUND
@@ -73,7 +71,7 @@
 //#define EXTRUDER_TEST
 
 ///////////////////////////////////////////////////////
-const BYTE MY_MAC_ADDRESS[]={0x74,0xf7,0x26,0x01,0x01,0x01};
+const uint8_t MY_MAC_ADDRESS[]={0x74,0xf7,0x26,0x01,0x01,0x01};
 extern const MAC_ADDR Broadcast __attribute__ ((section (".scs_global_var")));
 extern MAC_ADDR MyMAC __attribute__ ((section (".scs_global_var")));
 
@@ -91,7 +89,7 @@ float height = 0;
 int j=0,i=0;
 
 
-BYTE Bowler_Server_Local(BowlerPacket * Packet){
+uint8_t Bowler_Server_Local(BowlerPacket * Packet){
   
         Print_Level l = getPrintLevel();
         //setPrintLevelNoPrint();
@@ -100,7 +98,7 @@ BYTE Bowler_Server_Local(BowlerPacket * Packet){
                 if(Packet->use.head.RPC != _PNG){
                     println_I("Got:");printPacket(Packet,INFO_PRINT);
                 }
-		if ( (CheckAddress(MyMAC.v,Packet->use.head.MAC.v) == TRUE) || ((CheckAddress((BYTE *)Broadcast.v,(BYTE *)Packet->use.head.MAC.v) == TRUE) )) {
+		if ( (CheckAddress(MyMAC.v,Packet->use.head.MAC.v) == TRUE) || ((CheckAddress((uint8_t *)Broadcast.v,(uint8_t *)Packet->use.head.MAC.v) == TRUE) )) {
                         float start=getMs();
                         Process_Self_Packet(Packet);
                         if(getMs()-start>5){
@@ -145,7 +143,7 @@ void hardwareInit(){
         Pic32_Bowler_HAL_Init();
 
 	Bowler_Init();
-
+        clearPrint();
         println_I("\n\n\nStarting PIC initialization");
 
         FlashGetMac(MyMAC.v);
@@ -229,7 +227,7 @@ void hardwareInit(){
         //HEATER_0_TRIS = OUTPUT; // causes device to twitc. These are touched by the USB stack somehow..... and as the reset button
 
 }
-BOOL serVal =TRUE;
+boolean serVal =TRUE;
 
 void bowlerSystem(){
 
@@ -249,11 +247,11 @@ void bowlerSystem(){
 
 }
 
-BOOL printCalibrations = FALSE;
+boolean printCalibrations = FALSE;
 
 int main(){
-    //setPrintLevelInfoPrint();
-    setPrintLevelWarningPrint();
+    setPrintLevelInfoPrint();
+    //setPrintLevelWarningPrint();
     //setPrintLevelNoPrint();
     hardwareInit();
     RunEveryData loop = {0.0,2000.0};
@@ -294,15 +292,15 @@ int main(){
                 print_E(" stop: ");p_int_E(getPidGroupDataTable(group)->config.stop);
             }
             startHomingLinks();
-            Print_Level l= getPrintLevel();
+            //Print_Level l= getPrintLevel();
 
-            setPrintLevelInfoPrint();
+            //setPrintLevelInfoPrint();
             printCartesianData();
             int i;
             for(i=0;i<numPidMotors;i++){
                 printPIDvals(i);
             }
-            setPrintLevel(l);
+            //setPrintLevel(l);
         }
         
         bowlerSystem();

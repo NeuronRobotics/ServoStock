@@ -3,8 +3,8 @@ typedef union __attribute__((__packed__)) _AS5055CommandPacket
 			UINT16	uint0_15;
                         struct
 			{
-                            UINT8   ubyte0_7;
-                            UINT8   ubyte8_15;
+                            uint8_t   ubyte0_7;
+                            uint8_t   ubyte8_15;
                         } bytes;
 			struct
 			{
@@ -19,8 +19,8 @@ typedef union __attribute__((__packed__)) _AS5055ReadPacket
 			UINT16	uint0_15;
                         struct
 			{
-                            UINT8   ubyte0_7;
-                            UINT8   ubyte8_15;
+                            uint8_t   ubyte0_7;
+                            uint8_t   ubyte8_15;
                         } bytes;
                         struct
 			{
@@ -54,8 +54,8 @@ typedef union __attribute__((__packed__)) _AS5055AngularDataPacket
 			UINT16	uint0_15;
                         struct
 			{
-                            UINT8   ubyte0_7;
-                            UINT8   ubyte8_15;
+                            uint8_t   ubyte0_7;
+                            uint8_t   ubyte8_15;
                         } bytes;
                         struct
 			{
@@ -90,8 +90,8 @@ typedef union __attribute__((__packed__)) _AS5055SystemConfigPacket
 			UINT16	uint0_15;
                         struct
 			{
-                            UINT8   ubyte0_7;
-                            UINT8   ubyte8_15;
+                            uint8_t   ubyte0_7;
+                            uint8_t   ubyte8_15;
                         } bytes;
                                                 struct
 			{
@@ -131,8 +131,8 @@ typedef union __attribute__((__packed__)) _AS5055WritePacket
 			UINT16	uint0_15;
                         struct
 			{
-                            UINT8   ubyte0_7;
-                            UINT8   ubyte8_15;
+                            uint8_t   ubyte0_7;
+                            uint8_t   ubyte8_15;
                         } bytes;
                                                 struct
 			{
@@ -179,14 +179,14 @@ void updateAllEncoders();
 //Returns the latest encoder reading
 float getRecentEncoderReading(int index);
 
-float readEncoder(BYTE index);
+float readEncoder(uint8_t index);
 
-UINT8   AS5055CalculateParity(UINT16 data);
+uint8_t   AS5055CalculateParity(uint16_t data);
 
-UINT16 AS5055readAngle(BYTE index);
+uint16_t AS5055readAngle(uint8_t index);
 
-UINT16 AS5055reset(BYTE index);
+uint16_t AS5055reset(uint8_t index);
 
 void initializeEncoders();
 void disableWrapping();
-void EncoderSS(BYTE index, BYTE state);
+void EncoderSS(uint8_t index, uint8_t state);

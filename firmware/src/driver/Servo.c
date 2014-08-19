@@ -97,7 +97,7 @@ void setTimerServoTicks(int value){
 #define MIN_SERVO 1
 
 
-BOOL setUpNextServo(){
+boolean setUpNextServo(){
 
     int diff = positionTemp[sort[sortedIndex]] - lastValue;
     lastValue = positionTemp[sort[sortedIndex]];
@@ -135,10 +135,11 @@ void servoTimerEvent()
             case LOW:
                 updateAllEncoders();
                 if(getRunPidIsr()){
+                    RunPIDControl();
                     //Print_Level l = getPrintLevel();
                     interpolateZXY();
                     //setPrintLevelNoPrint();
-                    RunPIDControl();
+                    
                 }
                 //runLinearInterpolationServo(start,stop);
                 runSort();
@@ -211,7 +212,7 @@ void initServos(){
 /**
  * Set a setpoint for a servo with an intrerpolated time
  */
-void setServo(BYTE PIN, BYTE val,float time){
+void setServo(uint8_t PIN, uint8_t val,float time){
     if(time<30)
             time=0;
 //    velocity[PIN].setTime=time;
@@ -224,19 +225,19 @@ void setServo(BYTE PIN, BYTE val,float time){
     position[PIN]=val;
     Print_Level l = getPrintLevel();
 
-    println_I("\tSrv ");p_int_I(PIN); print_I(" v=");p_int_I(val);
+    //println_I("\tSrv ");p_int_I(PIN); print_I(" v=");p_int_I(val);
     setPrintLevel(l);
 }
 
 /**
  * get the current position of the servo
  */
-BYTE getServoPosition(BYTE PIN){
+uint8_t getServoPosition(uint8_t PIN){
     return position[PIN];
 }
 
-//void runLinearInterpolationServo(BYTE blockStart,BYTE blockEnd){
-//	BYTE i;
+//void runLinearInterpolationServo(uint8_t blockStart,uint8_t blockEnd){
+//	uint8_t i;
 //	for (i=blockStart;i<blockEnd;i++){
 //		//float ip = interpolate(&velocity[i],getMs());
 //                float ip = position[i];
@@ -254,7 +255,7 @@ BYTE getServoPosition(BYTE PIN){
 //
 //}
 
-void SetDIO(BYTE PIN, BOOL state){
+void SetDIO(uint8_t PIN, boolean state){
     switch(PIN){
     case 0:
             ENC0_SERVO = state;
@@ -287,12 +288,12 @@ void SetDIO(BYTE PIN, BOOL state){
     }
 }
 
-BYTE pinOn(BYTE pin){
+uint8_t pinOn(uint8_t pin){
     SetDIO(pin,1);
     return 1;
 }
 
-void pinOff(BYTE pin){
+void pinOff(uint8_t pin){
     SetDIO(pin,0);
 }
 

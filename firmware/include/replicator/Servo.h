@@ -12,7 +12,7 @@
 extern "C" {
 #endif
 
-    BOOL getRunPidIsr();
+    boolean getRunPidIsr();
     
 typedef enum _ServoState{
     LOW=0,
@@ -38,18 +38,18 @@ typedef enum _ServoState{
     /**
      * Set a setpoint for a servo with an intrerpolated time
      */
-    void setServo(BYTE PIN, BYTE val,float time);
+    void setServo(uint8_t PIN, uint8_t val,float time);
 
     /**
      * get the current position of the servo
      */
-    BYTE getServoPosition(BYTE PIN);
+    uint8_t getServoPosition(uint8_t PIN);
    /**
     * private
     */
-void runLinearInterpolationServo(BYTE blockStart,BYTE blockEnd);
-BYTE pinOn(BYTE pin);
-void pinOff(BYTE pin);
+void runLinearInterpolationServo(uint8_t blockStart,uint8_t blockEnd);
+uint8_t pinOn(uint8_t pin);
+void pinOff(uint8_t pin);
 void DelayPreServoPulse(void);
 
 

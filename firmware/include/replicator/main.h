@@ -13,6 +13,11 @@
 #include "CartesianController.h"
 #include "delta.h"
 #include "servoCalibration.h"
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <inttypes.h>
 
 typedef struct _DeltaConfig{
 	float RodLength;
@@ -22,13 +27,13 @@ typedef struct _DeltaConfig{
 	float MinZ;
 }DeltaConfig;
 
-BYTE SPITransceve(BYTE b);
+uint8_t SPITransceve(uint8_t b);
 
-BOOL asyncCallback(BowlerPacket *Packet);
+boolean asyncCallback(BowlerPacket *Packet);
 
 NAMESPACE_LIST * getBcsCartesianNamespace();
 AbsPID * getFlashPidGroupDataTable();
-BOOL initFlashLocal();
+boolean initFlashLocal();
 void writeFlashLocal();
 
 void bowlerSystem();

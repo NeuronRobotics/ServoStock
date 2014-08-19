@@ -18,13 +18,8 @@
   You should have received a copy of the GNU General Public License
   along with Grbl.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <inttypes.h>
 
-#include <main.h>
+#include "main.h"
 //#include <complex.h>
 
 DeltaConfig defaultConfig ={203.82,//RodLength

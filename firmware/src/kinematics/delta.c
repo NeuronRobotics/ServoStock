@@ -1,6 +1,4 @@
 #include "main.h"
-#include <math.h>
-
 
  // robot geometry
  // (look at pics above for explanation)
