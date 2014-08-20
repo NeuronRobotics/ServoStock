@@ -250,8 +250,8 @@ void bowlerSystem(){
 boolean printCalibrations = false; 
 
 int main(){
-    setPrintLevelInfoPrint();
-    //setPrintLevelWarningPrint();
+    //setPrintLevelInfoPrint();
+    setPrintLevelWarningPrint();
     //setPrintLevelNoPrint();
     hardwareInit();
     RunEveryData loop = {0.0,2000.0};

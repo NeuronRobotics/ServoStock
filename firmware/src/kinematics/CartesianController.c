@@ -253,6 +253,11 @@ boolean isCartesianInterpolationDone() {
 
 void initializeCartesianController() {
     InitPacketFifo(&packetFifo, buffer, SIZE_OF_PACKET_BUFFER);
+    int i=0;
+    for (i=0;i<3;i++){
+        taskPID[i].config.Enabled=true;
+        InitAbsPIDWithPosition(&taskPID[i], KP, KI, KD, getMs(),0);
+    }
 }
 
 void pushBufferEmpty() {
@@ -541,23 +546,24 @@ float calculateTaskSpaceVelocityValue(int xyz) {
     printXYZ(xyz);
     print_W(" Data: ");
     float ms = getMs();
+    taskPID[xyz].CurrentState = current[xyz];
+    taskPID[xyz].SetPoint = interpolate(&taskPID[xyz].interpolate,getMs());
+    RunAbstractPIDCalc(&taskPID[xyz],ms);
 
-    float currentTarget = interpolate(& taskPID[xyz].interpolate, ms);
+    float currentTarget =taskPID[xyz].SetPoint;
     float currentError = currentTarget - current[xyz];
 
-
-
-    runPdVelocityFromPointer(&velCartesian[xyz], current[xyz], VKP, VKD);
+    //runPdVelocityFromPointer(&velCartesian[xyz], current[xyz], VKP, VKD);
 
 
     if (currentError > mmPositionResolution || currentError < -mmPositionResolution) {
         println_E("\terror=   ");
         p_fl_E(currentError);
         if (getMs()>(taskPID[xyz].interpolate.setTime + taskPID[xyz].interpolate.startTime)) {
-            return currentError * VKP * 10;
+            return taskPID[xyz].Output;
         } else {
             print_W(" TIMED ");
-            return velCartesian[xyz].currentOutputVel;
+            return taskPID[xyz].Output;
         }
     } else {
         println_W("\terror=   ");
@@ -637,7 +643,7 @@ uint8_t setInterpolateXYZ(float x, float y, float z, float ms) {
     float valocity_calculated;
     updateCurrentPositions();
     float tmp[3] = {x, y, z};
-    
+
     println_W("Setting new position x=");
     p_fl_W(x);
     print_W(" y=");
@@ -662,7 +668,7 @@ uint8_t setInterpolateXYZ(float x, float y, float z, float ms) {
 
     for (i = 0; i < 3; i++) {
         SetPIDTimedPointer(&taskPID[i], tmp[i], current[i], ms);
-
+        printPIDvalsPointer(&taskPID[i]);
         valocity_calculated = ((taskPID[i].interpolate.set - taskPID[i].interpolate.start) / (taskPID[i].interpolate.setTime / 1000));
         println_W("Setting new position FEED RATE=");
         p_fl_W(valocity_calculated);
@@ -672,7 +678,6 @@ uint8_t setInterpolateXYZ(float x, float y, float z, float ms) {
         velCartesian[i].lastTime = getMs();
         velCartesian[i].lastVelocity = 0;
         velCartesian[i].lastPosition = current[i];
-
 
     }
 
@@ -692,8 +697,10 @@ uint8_t setInterpolateXYZ(float x, float y, float z, float ms) {
             setXYZ(x, y, z, 0);
         } else {
             println_I("Using the State-based velocity controller");
+
         }
     }
+    //setPrintLevelNoPrint();
     return 0;
 }
 
