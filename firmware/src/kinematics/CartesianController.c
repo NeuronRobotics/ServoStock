@@ -35,7 +35,7 @@ static boolean keepCartesianPosition = false;
 static int interpolationCounter = 0;
 static boolean runKinematics = false;
 
-float KP = 1;
+float KP = .1;
 float KI = 0;
 float KD = 0;
 
@@ -256,7 +256,9 @@ void initializeCartesianController() {
     int i=0;
     for (i=0;i<3;i++){
         taskPID[i].config.Enabled=true;
+        taskPID[i].config.Polarity=true;
         InitAbsPIDWithPosition(&taskPID[i], KP, KI, KD, getMs(),0);
+
     }
 }
 
