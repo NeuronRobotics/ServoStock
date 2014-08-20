@@ -36,8 +36,8 @@ static int interpolationCounter = 0;
 static boolean runKinematics = false;
 
 float KP = .1;
-float KI = 0;
-float KD = 0;
+float KI = .1;
+float KD = .1;
 
 float VKP = .01;
 float VKD = 0;
@@ -544,9 +544,9 @@ void setVelocity(int index, float jointSpace) {
 }
 
 float calculateTaskSpaceVelocityValue(int xyz) {
-    println_W(" ");
-    printXYZ(xyz);
-    print_W(" Data: ");
+    //println_W(" ");
+    //printXYZ(xyz);
+    //print_W(" Data: ");
     float ms = getMs();
     taskPID[xyz].CurrentState = current[xyz];
     taskPID[xyz].SetPoint = interpolate(&taskPID[xyz].interpolate,getMs());
@@ -559,17 +559,17 @@ float calculateTaskSpaceVelocityValue(int xyz) {
 
 
     if (currentError > mmPositionResolution || currentError < -mmPositionResolution) {
-        println_E("\terror=   ");
-        p_fl_E(currentError);
+       // println_E("\terror=   ");
+       // p_fl_E(currentError);
         if (getMs()>(taskPID[xyz].interpolate.setTime + taskPID[xyz].interpolate.startTime)) {
             return taskPID[xyz].Output;
         } else {
-            print_W(" TIMED ");
+            //print_W(" TIMED ");
             return taskPID[xyz].Output;
         }
     } else {
-        println_W("\terror=   ");
-        p_fl_W(currentError);
+        //println_W("\terror=   ");
+        //p_fl_W(currentError);
         return 0;
     }
 
@@ -582,8 +582,8 @@ void runStateBasedController() {
     float Ad, Bd, Cd;
 
     if (RunEvery(&velPrinter)) {
-        setPrintLevelInfoPrint();
-        clearPrint();
+//        setPrintLevelInfoPrint();
+//        clearPrint();
     }
     Xd = calculateTaskSpaceVelocityValue(0);
     Yd = calculateTaskSpaceVelocityValue(1);
@@ -602,7 +602,7 @@ void runStateBasedController() {
     } else {
         println_E("Inverse velocity kinematics failed");
     }
-    setPrintLevelNoPrint();
+//    setPrintLevelNoPrint();
 
 
 }
