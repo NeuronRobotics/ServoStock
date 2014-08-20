@@ -8,7 +8,7 @@
 void updateCurrentPositions();
 float getLinkScale(int index);
 
-float mmPositionResolution = .1;
+
 static int homingAllLinks = false;
 
 static PACKET_FIFO_STORAGE packetFifo;
@@ -35,9 +35,11 @@ static boolean keepCartesianPosition = false;
 static int interpolationCounter = 0;
 static boolean runKinematics = false;
 
+float mmPositionResolution = .3;
+
 float KP = .1;
-float KI = .1;
-float KD = .1;
+float KI = .3;
+float KD = 0;
 
 float VKP = .01;
 float VKD = 0;
@@ -238,13 +240,13 @@ boolean isCartesianInterpolationDone() {
             }
         }
         if ((isPIDArrivedAtSetpoint(linkToHWIndex(i), setpointBound) == false) && (i == 3)) {
-            println_W("LINK not done moving index = ");
-            p_int_W(linkToHWIndex(i));
-            print_W(" currently is = ");
-            p_fl_W(getPidGroupDataTable(linkToHWIndex(i))->CurrentState);
-            print_W(" heading towards = ");
-            p_fl_W(getPidGroupDataTable(linkToHWIndex(i))->SetPoint);
-            return false;
+            //            println_W("LINK not done moving index = ");
+            //            p_int_W(linkToHWIndex(i));
+            //            print_W(" currently is = ");
+            //            p_fl_W(getPidGroupDataTable(linkToHWIndex(i))->CurrentState);
+            //            print_W(" heading towards = ");
+            //            p_fl_W(getPidGroupDataTable(linkToHWIndex(i))->SetPoint);
+            //            return false;
         }
 
     }
@@ -253,11 +255,11 @@ boolean isCartesianInterpolationDone() {
 
 void initializeCartesianController() {
     InitPacketFifo(&packetFifo, buffer, SIZE_OF_PACKET_BUFFER);
-    int i=0;
-    for (i=0;i<3;i++){
-        taskPID[i].config.Enabled=true;
-        taskPID[i].config.Polarity=true;
-        InitAbsPIDWithPosition(&taskPID[i], KP, KI, KD, getMs(),0);
+    int i = 0;
+    for (i = 0; i < 3; i++) {
+        taskPID[i].config.Enabled = true;
+        taskPID[i].config.Polarity = true;
+        InitAbsPIDWithPosition(&taskPID[i], KP, KI, KD, getMs(), 0);
 
     }
 }
@@ -479,45 +481,6 @@ boolean onCartesianPacket(BowlerPacket *Packet) {
     return ret;
 }
 
-void printXYZ(int xyz) {
-    switch (xyz) {
-        case 0:
-            print_W("X");
-            break;
-        case 1:
-            print_W("Y");
-            break;
-        case 2:
-            print_W("Z");
-            break;
-    }
-}
-
-void printCartesianData() {
-    updateCurrentPositions();
-    println_W("Current  position cx=");
-    p_fl_W(current[0]);
-
-    print_W(" cy=");
-    p_fl_W(current[1]);
-    print_W(" cz=");
-    p_fl_W(current[2]);
-    println_W("Current  angles Alpha=");
-    p_fl_W(getLinkAngle(0));
-    print_W(" Beta=");
-    p_fl_W(getLinkAngle(1));
-    print_W(" Gamma=");
-    p_fl_W(getLinkAngle(2));
-
-    println_W("Raw  angles Alpha=");
-    p_fl_W(getLinkAngleNoScale(0));
-    print_W(" Beta=");
-    p_fl_W(getLinkAngleNoScale(1));
-    print_W(" Gamma=");
-    p_fl_W(getLinkAngleNoScale(2));
-
-}
-
 void runInterpolatedPositions() {
     float x = 0, y = 0, z = 0;
     float ms = getMs();
@@ -549,18 +512,18 @@ float calculateTaskSpaceVelocityValue(int xyz) {
     //print_W(" Data: ");
     float ms = getMs();
     taskPID[xyz].CurrentState = current[xyz];
-    taskPID[xyz].SetPoint = interpolate(&taskPID[xyz].interpolate,getMs());
-    RunAbstractPIDCalc(&taskPID[xyz],ms);
+    taskPID[xyz].SetPoint = interpolate(&taskPID[xyz].interpolate, getMs());
+    RunAbstractPIDCalc(&taskPID[xyz], ms);
 
-    float currentTarget =taskPID[xyz].SetPoint;
+    float currentTarget = taskPID[xyz].SetPoint;
     float currentError = currentTarget - current[xyz];
 
     //runPdVelocityFromPointer(&velCartesian[xyz], current[xyz], VKP, VKD);
 
 
     if (currentError > mmPositionResolution || currentError < -mmPositionResolution) {
-       // println_E("\terror=   ");
-       // p_fl_E(currentError);
+        // println_E("\terror=   ");
+        // p_fl_E(currentError);
         if (getMs()>(taskPID[xyz].interpolate.setTime + taskPID[xyz].interpolate.startTime)) {
             return taskPID[xyz].Output;
         } else {
@@ -582,8 +545,8 @@ void runStateBasedController() {
     float Ad, Bd, Cd;
 
     if (RunEvery(&velPrinter)) {
-//        setPrintLevelInfoPrint();
-//        clearPrint();
+        //        setPrintLevelInfoPrint();
+        //        clearPrint();
     }
     Xd = calculateTaskSpaceVelocityValue(0);
     Yd = calculateTaskSpaceVelocityValue(1);
@@ -602,7 +565,7 @@ void runStateBasedController() {
     } else {
         println_E("Inverse velocity kinematics failed");
     }
-//    setPrintLevelNoPrint();
+    //    setPrintLevelNoPrint();
 
 
 }
@@ -834,4 +797,61 @@ void HomeLinks() {
             setInterpolateXYZ(0, 0, getmaxZ(), 5000);
         }
     }
+}
+
+void printXYZ(int xyz) {
+    switch (xyz) {
+        case 0:
+            print_W("X");
+            break;
+        case 1:
+            print_W("Y");
+            break;
+        case 2:
+            print_W("Z");
+            break;
+    }
+}
+
+void printCartesianData() {
+    int i;
+    updateCurrentPositions();
+    println_W("Current  position cx=");
+    p_fl_W(current[0]);
+    float error=0;
+    for (i = 0; i < 3; i++) {
+        println_W(" ");
+        printXYZ(i);
+        print_W(" Data: ");
+        println_W("\tCurrent");
+        p_fl_W(current[i]);
+        println_W("\tTarget");
+        p_fl_W(taskPID[i].interpolate.set);
+        error = taskPID[i].interpolate.set - current[i];
+        if(bound(0,error,mmPositionResolution,mmPositionResolution)){
+            println_W("\tERROR=");
+            p_fl_W(error);
+        }else{
+           println_E("\tERROR=");
+           p_fl_E(error);
+        }
+    }
+//    print_W(" cy=");
+//    p_fl_W(current[1]);
+//    print_W(" cz=");
+//    p_fl_W(current[2]);
+//    println_W("Current  angles Alpha=");
+//    p_fl_W(getLinkAngle(0));
+//    print_W(" Beta=");
+//    p_fl_W(getLinkAngle(1));
+//    print_W(" Gamma=");
+//    p_fl_W(getLinkAngle(2));
+
+    //    println_W("Raw  angles Alpha=");
+    //    p_fl_W(getLinkAngleNoScale(0));
+    //    print_W(" Beta=");
+    //    p_fl_W(getLinkAngleNoScale(1));
+    //    print_W(" Gamma=");
+    //    p_fl_W(getLinkAngleNoScale(2));
+
 }

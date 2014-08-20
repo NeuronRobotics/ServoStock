@@ -266,15 +266,9 @@ int main(){
 		Reset();
 	}
         if(RunEvery(&loop)>0){
-//            Print_Level l= getPrintLevel();
-//            setPrintLevelInfoPrint();
-//            printCartesianData();
-//            int i;
-//            for(i=0;i<numPidMotors;i++){
-//                printPIDvals(i);
-//            }
-//
-//            setPrintLevel(l);
+            clearPrint();
+            printCartesianData();
+
         }
         if(     printCalibrations == false &&
                 GetPIDCalibrateionState(linkToHWIndex(0))==CALIBRARTION_DONE&&
