@@ -27,9 +27,9 @@ static boolean configured = false;
 
 
 static int lastPushedBufferSize = 0;
-static float lastXYZE[4];
+static float lastXYZE[6];
 
-static RunEveryData pid = {0, 500};
+static RunEveryData pid = {0, 100};
 
 static boolean keepCartesianPosition = false;
 static int interpolationCounter = 0;
@@ -37,8 +37,8 @@ static boolean runKinematics = false;
 
 float mmPositionResolution = .3;
 
-float KP = .1;
-float KI = .3;
+float KP = .085;
+float KI = .15;
 float KD = 0;
 
 float VKP = .01;
@@ -104,12 +104,12 @@ boolean setDesiredTaskSpaceTransform(BowlerPacket *Packet) {
     float t0 = 0, t1 = 0, t2 = 0;
     if (hwMap.iK_callback(x, y, z, &t0, &t1, &t2) == 0) {
         setInterpolateXYZ(x, y, z, ms);
-        set32bit(Packet, t0, 1);
-        set32bit(Packet, t1, 5);
-        set32bit(Packet, t2, 9);
+        set32bit(Packet, t0*1000, 1);
+        set32bit(Packet, t1*1000, 5);
+        set32bit(Packet, t2*1000, 9);
 
-        set32bit(Packet, getLinkAngle(3), 13);
-        set32bit(Packet, getLinkAngle(4), 17);
+        set32bit(Packet, getLinkAngle(3)*1000, 13);
+        set32bit(Packet, getLinkAngle(4)*1000, 17);
     } else {
         println_E("Ignoring: Can't reach: x=");
         p_fl_E(x);
@@ -127,14 +127,14 @@ boolean getCurrentTaskSpaceTransform(BowlerPacket *Packet) {
     float x = 0, y = 0, z = 0;
     if (hwMap.fK_callback(getLinkAngle(0), getLinkAngle(1), getLinkAngle(2), &x, &y, &z) == 0) {
 
-        set32bit(Packet, x, 0);
-        set32bit(Packet, y, 4);
-        set32bit(Packet, z, 8);
+        set32bit(Packet, x*1000, 0);
+        set32bit(Packet, y*1000, 4);
+        set32bit(Packet, z*1000, 8);
         //rotation 0
-        set32bit(Packet, 0, 12);
-        set32bit(Packet, 0, 16);
-        set32bit(Packet, 0, 20);
-        set32bit(Packet, 1, 24);
+        set32bit(Packet, 0*1000, 12);
+        set32bit(Packet, 0*1000, 16);
+        set32bit(Packet, 0*1000, 20);
+        set32bit(Packet, 1*1000, 24);
     } else {
         println_E("Ignoring: Can't reach: x=");
         p_fl_E(x);
@@ -168,14 +168,14 @@ boolean setDesiredJointSpaceVector(BowlerPacket *Packet) {
             setLinkAngle(3, extrusion, ms);
             setLinkAngle(4, tempreture, ms);
             // load data into packet
-            set32bit(Packet, x, 0);
-            set32bit(Packet, y, 4);
-            set32bit(Packet, z, 8);
+            set32bit(Packet, x *1000, 0);
+            set32bit(Packet, y *1000, 4);
+            set32bit(Packet, z *1000, 8);
             //rotation 0
-            set32bit(Packet, 0, 12);
-            set32bit(Packet, 0, 16);
-            set32bit(Packet, 0, 20);
-            set32bit(Packet, 1, 24);
+            set32bit(Packet, 0*1000, 12);
+            set32bit(Packet, 0*1000, 16);
+            set32bit(Packet, 0*1000, 20);
+            set32bit(Packet, 1*1000, 24);
         }
     } else {
         println_E("Ignoring: Can't reach x=");
@@ -314,18 +314,20 @@ void updateCurrentPositions() {
 
 void checkPositionChange() {
     int i;
-    float tmp[4];
+    float tmp[5];
     updateCurrentPositions();
 
     tmp[0] = current[0];
     tmp[1] = current[1];
     tmp[2] = current[2];
     tmp[3] = getLinkAngle(3);
+    tmp[4] = getLinkAngle(4);
     if (tmp[0] != lastXYZE[0] ||
             tmp[1] != lastXYZE[1] ||
             tmp[2] != lastXYZE[2] ||
-            tmp[3] != lastXYZE[3]) {
-        for (i = 0; i < 4; i++) {
+            tmp[3] != lastXYZE[3]||
+            tmp[4] != lastXYZE[4]||) {
+        for (i = 0; i < 5; i++) {
             lastXYZE[i] = tmp[i];
         }
 
@@ -342,8 +344,8 @@ void checkPositionChange() {
         packetTemp.use.head.DataLegnth = 4;
         packetTemp.use.head.RPC = GetRPCValue("cpos");
         int i;
-        for (i = 0; i < 4; i++) {
-            PID_Temp.Val = lastXYZE[i];
+        for (i = 0; i < 5; i++) {
+            PID_Temp.Val = lastXYZE[i] *1000;
             packetTemp.use.data[0 + (i * 4)] = PID_Temp.byte.FB;
             packetTemp.use.data[1 + (i * 4)] = PID_Temp.byte.TB;
             packetTemp.use.data[2 + (i * 4)] = PID_Temp.byte.SB;
@@ -364,9 +366,9 @@ void cartesianAsync() {
             pushBufferEmpty();
             full = false;
         }
-        if (runKinematics) {
-            //checkPositionChange();
-        }
+        
+        checkPositionChange();
+        
 
     }
 }
@@ -816,8 +818,7 @@ void printXYZ(int xyz) {
 void printCartesianData() {
     int i;
     updateCurrentPositions();
-    println_W("Current  position cx=");
-    p_fl_W(current[0]);
+
     float error=0;
     for (i = 0; i < 3; i++) {
         println_W(" ");
