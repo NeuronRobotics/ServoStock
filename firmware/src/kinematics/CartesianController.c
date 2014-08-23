@@ -322,12 +322,13 @@ void checkPositionChange() {
     tmp[2] = current[2];
     tmp[3] = getLinkAngle(3);
     tmp[4] = getLinkAngle(4);
+    tmp[5] = FifoGetPacketSpaceAvailible(&packetFifo);
     if (tmp[0] != lastXYZE[0] ||
             tmp[1] != lastXYZE[1] ||
             tmp[2] != lastXYZE[2] ||
             tmp[3] != lastXYZE[3]||
-            tmp[4] != lastXYZE[4]||) {
-        for (i = 0; i < 5; i++) {
+            tmp[4] != lastXYZE[4]) {
+        for (i = 0; i < 6; i++) {
             lastXYZE[i] = tmp[i];
         }
 
@@ -344,7 +345,7 @@ void checkPositionChange() {
         packetTemp.use.head.DataLegnth = 4;
         packetTemp.use.head.RPC = GetRPCValue("cpos");
         int i;
-        for (i = 0; i < 5; i++) {
+        for (i = 0; i < 6; i++) {
             PID_Temp.Val = lastXYZE[i] *1000;
             packetTemp.use.data[0 + (i * 4)] = PID_Temp.byte.FB;
             packetTemp.use.data[1 + (i * 4)] = PID_Temp.byte.TB;
