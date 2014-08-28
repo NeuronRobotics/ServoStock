@@ -265,8 +265,8 @@ int main(){
 		Reset();
 	}
         if(RunEvery(&loop)>0){
-//            clearPrint();
-//            printCartesianData();
+            clearPrint();
+            printCartesianData();
 
         }
         if(     printCalibrations == false &&

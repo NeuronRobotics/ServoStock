@@ -2,14 +2,185 @@
 
 void writeFlashLocal();
 
+typedef struct _Slic3rData {
+    float nozzle_diameter;
+    float printCenter [2];
+    float filimentDiameter;
+    float extrusionMultiplier;
+    int tempreture;
+    int bedTempreture;
+    float layerHeight;
+    int wallThickness;
+    boolean useSupportMaterial;
+    float retractLength;
+    int travilSpeed;
+    int perimeterSpeed;
+    int bridgeSpeed;
+    int gapFillSpeed;
+    int infillSpeed;
+    int supportMaterialSpeed;
+
+    int smallPerimeterSpeedPercent;
+    int externalPerimeterSpeedPercent;
+    int solidInfillSpeedPercent;
+    int topSolidInfillSpeedPercent;
+    int supportMaterialInterfaceSpeedPercent;
+    int firstLayerSpeedPercent;
+} Slic3rData;
+
 typedef struct _flashStorageData {
     AbsPID_Config localPid[numPidTotal];
+    float mmPositionResolution;
+    float KP;
+    float KI;
+    float KD;
+
+    float VKP;
+    float VKD;
+    Slic3rData slic3r;
+    HardwareMap hwMap;
     unsigned char buffer[1];
 } flashStorageData;
 
+
+
 flashStorageData localData;
 
+//Default values for ServoStock
+HardwareMap hwMap = {
+    {0, -1.0 * mmPerTick, "Alpha"}, //axis 0
+    {2, -1.0 * mmPerTick, "Beta"}, //axis 1
+    {4, -1.0 * mmPerTick, "Gama"}, //axis 2
+    {
+        {1, 1.0, "Extruder"}, // Motor
+        {11, 1.0, "Heater"}// Heater
+    }, //Extruder 0
+    {
+        {AXIS_UNUSED, 1.0, ""},
+        {AXIS_UNUSED, 1.0, ""}
+    }, //Extruder 1
+    {
+        {AXIS_UNUSED, 1.0, ""},
+        {AXIS_UNUSED, 1.0, ""}
+    }, //Extruder 2
+    (forwardKinematics *)& servostock_calcForward,
+    (inverseKinematics *) & servostock_calcInverse,
+    (velInverse *) & servostock_velInverse,
+    (velForward *) & servostock_velForward,
+    true
+};
+
+
+int linkToHWIndex(int index) {
+    int localIndex = 0;
+    switch (index) {
+        case 0:
+            localIndex = hwMap.Alpha.index;
+            break;
+        case 1:
+            localIndex = hwMap.Beta.index;
+            break;
+        case 2:
+            localIndex = hwMap.Gama.index;
+            break;
+        case 3:
+            localIndex = hwMap.Extruder0.index;
+            break;
+        case 4:
+            localIndex = hwMap.Heater0.index;
+            break;
+    }
+    return localIndex;
+}
+
+float getLinkScale(int index) {
+    switch (index) {
+        case 0:
+            return hwMap.Alpha.scale;
+        case 1:
+            return hwMap.Beta.scale;
+        case 2:
+            return hwMap.Gama.scale;
+        case 3:
+            return hwMap.Extruder0.scale;
+        case 4:
+            return hwMap.Heater0.scale;
+    }
+    return 0.0;
+}
+
+char * getName(int index) {
+    switch (index) {
+        case 0:
+            return hwMap.Alpha.name;
+        case 1:
+            return hwMap.Beta.name;
+        case 2:
+            return hwMap.Gama.name;
+        case 3:
+            return hwMap.Extruder0.name;
+        case 4:
+            return hwMap.Heater0.name;
+    }
+    return NULL;
+}
+
+HardwareMap * getHardwareMap(){
+    return &hwMap;
+}
+
 #define bytesOfRaw (sizeof(localData))
+
+
+float getmmPositionResolution() {
+    return localData.mmPositionResolution;
+}
+
+float getKP() {
+    return localData.KP;
+}
+
+float getKI() {
+    return localData.KI;
+}
+
+float getKD() {
+    return localData.KD;
+}
+
+float getVKP() {
+    return localData.VKP;
+}
+
+float getVKD() {
+    return localData.VKD;
+}
+
+
+void setmmPositionResolution(float value) {
+     localData.mmPositionResolution=value;
+}
+
+void setKP(float value) {
+     localData.KP=value;
+}
+
+void setKI(float value) {
+     localData.KI=value;
+}
+
+void setKD(float value) {
+     localData.KD=value;
+}
+
+void setVKP(float value) {
+     localData.VKP=value;
+}
+
+void setVKD(float value) {
+     localData.VKD=value;
+}
+
 
 void checkDataTable() {
     Nop();
@@ -49,6 +220,8 @@ boolean initFlashLocal() {
         }
     }
 
+
+
     println_W("Checking for bare flash");
     for (i = 0; i < numPidTotal; i++) {
         if (((getPidGroupDataTable(i)->config.Enabled > 1 ||
@@ -82,13 +255,20 @@ boolean initFlashLocal() {
             getPidGroupDataTable(i)->config.lowerHistoresis = 0;
             getPidGroupDataTable(i)->config.offset = 0.0;
             getPidGroupDataTable(i)->config.calibrationState = CALIBRARTION_Uncalibrated;
+            getPidGroupDataTable(i)->config.tipsScale = 1;
             printPIDvals(i);
         }
+        localData.KP = .85;
+        localData.KI=1.5;
+        localData.KD=.5;
+        localData.VKP=1;
+        localData.VKD=0;
+        localData.mmPositionResolution=.3;
     } else {
         println_W("Flash image ok");
-//        for (i = 0; i < numPidTotal; i++) {
-//            printPIDvals(i);
-//        }
+        //        for (i = 0; i < numPidTotal; i++) {
+        //            printPIDvals(i);
+        //        }
     }
     if (rawFlashDetect)
         writeFlashLocal();

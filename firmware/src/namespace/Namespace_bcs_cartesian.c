@@ -154,7 +154,41 @@ static RPC_LIST cartesian_PRCL = {BOWLER_POST, // Method
     NULL //Termination
 };
 
+static RPC_LIST cartesian_SBCG = {BOWLER_GET, // Method
+    "sbcc", //RPC as string
+    &onClearPrinter, //function pointer to a packet parsinf function
+    NULL, // Calling arguments
+    BOWLER_POST, // response method
+    NULL, // Response arguments
+    NULL //Termination
+};
 
+static RPC_LIST cartesian_SBCP = {BOWLER_POST, // Method
+    "sbcc", //RPC as string
+    &onClearPrinter, //function pointer to a packet parsinf function
+    NULL, // Calling arguments
+    BOWLER_POST, // response method
+    NULL, // Response arguments
+    NULL //Termination
+};
+
+static RPC_LIST cartesian_SLCR_g = {BOWLER_GET, // Method
+    "slcr", //RPC as string
+    &onClearPrinter, //function pointer to a packet parsinf function
+    NULL, // Calling arguments
+    BOWLER_POST, // response method
+    NULL, // Response arguments
+    NULL //Termination
+};
+
+static RPC_LIST cartesian_LSCR_p = {BOWLER_POST, // Method
+    "slcr", //RPC as string
+    &onClearPrinter, //function pointer to a packet parsinf function
+    NULL, // Calling arguments
+    BOWLER_STATUS, // response method
+    NULL, // Response arguments
+    NULL //Termination
+};
 
 
 static NAMESPACE_LIST bcsCartesian = {cartNSName, // The string defining the namespace
@@ -162,6 +196,8 @@ static NAMESPACE_LIST bcsCartesian = {cartNSName, // The string defining the nam
     &cartesianAsyncEventCallback, // async for this namespace
     NULL// no initial elements to the other namesapce field.
 };
+
+
 
 static boolean namespcaedAdded = false;
 
@@ -178,6 +214,10 @@ NAMESPACE_LIST * getBcsCartesianNamespace() {
         addRpcToNamespace(&bcsCartesian, & cartesian_GCTT);
         addRpcToNamespace(&bcsCartesian, & cartesian_SDJV);
         addRpcToNamespace(&bcsCartesian, & cartesian_SDSJ);
+        addRpcToNamespace(&bcsCartesian, &  cartesian_SBCG);
+        addRpcToNamespace(&bcsCartesian, &  cartesian_SBCP);
+        addRpcToNamespace(&bcsCartesian, &  cartesian_SLCR_g);
+        addRpcToNamespace(&bcsCartesian, &  cartesian_LSCR_p);
 
         namespcaedAdded = true;
     }

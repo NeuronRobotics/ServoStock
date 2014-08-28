@@ -35,54 +35,11 @@ static boolean keepCartesianPosition = false;
 static int interpolationCounter = 0;
 static boolean runKinematics = false;
 
-float mmPositionResolution = .3;
 
-float KP = .085;
-float KI = .15;
-float KD = 0;
 
-float VKP = .01;
-float VKD = 0;
 
-//Default values for ServoStock
-HardwareMap hwMap = {
-    {0, -1.0 * mmPerTick, "Alpha"}, //axis 0
-    {2, -1.0 * mmPerTick, "Beta"}, //axis 1
-    {4, -1.0 * mmPerTick, "Gama"}, //axis 2
-    {
-        {1, 1.0, "Extruder"}, // Motor
-        {11, 1.0, "Heater"}// Heater
-    }, //Extruder 0
-    {
-        {AXIS_UNUSED, 1.0, ""},
-        {AXIS_UNUSED, 1.0, ""}
-    }, //Extruder 1
-    {
-        {AXIS_UNUSED, 1.0, ""},
-        {AXIS_UNUSED, 1.0, ""}
-    }, //Extruder 2
-    (forwardKinematics *)& servostock_calcForward,
-    (inverseKinematics *) & servostock_calcInverse,
-    (velInverse *) & servostock_velInverse,
-    (velForward *) & servostock_velForward,
-    true
-};
 
-char * getName(int index) {
-    switch (index) {
-        case 0:
-            return hwMap.Alpha.name;
-        case 1:
-            return hwMap.Beta.name;
-        case 2:
-            return hwMap.Gama.name;
-        case 3:
-            return hwMap.Extruder0.name;
-        case 4:
-            return hwMap.Heater0.name;
-    }
-    return NULL;
-}
+
 
 boolean onRunKinematicsSet(BowlerPacket *Packet) {
     runKinematics = Packet->use.data[0]; // Boolean to run the kinematics or not
@@ -102,7 +59,7 @@ boolean setDesiredTaskSpaceTransform(BowlerPacket *Packet) {
 
     Packet->use.data[0] = 5;
     float t0 = 0, t1 = 0, t2 = 0;
-    if (hwMap.iK_callback(x, y, z, &t0, &t1, &t2) == 0) {
+    if (getHardwareMap()->iK_callback(x, y, z, &t0, &t1, &t2) == 0) {
         setInterpolateXYZ(x, y, z, ms);
         set32bit(Packet, t0*1000, 1);
         set32bit(Packet, t1*1000, 5);
@@ -125,7 +82,7 @@ boolean getCurrentTaskSpaceTransform(BowlerPacket *Packet) {
     println_E("getCurrentTaskSpaceTransform");
 
     float x = 0, y = 0, z = 0;
-    if (hwMap.fK_callback(getLinkAngle(0), getLinkAngle(1), getLinkAngle(2), &x, &y, &z) == 0) {
+    if (getHardwareMap()->fK_callback(getLinkAngle(0), getLinkAngle(1), getLinkAngle(2), &x, &y, &z) == 0) {
 
         set32bit(Packet, x*1000, 0);
         set32bit(Packet, y*1000, 4);
@@ -162,8 +119,8 @@ boolean setDesiredJointSpaceVector(BowlerPacket *Packet) {
     printPacket(Packet, ERROR_PRINT);
 
     float x = 0, y = 0, z = 0;
-    if (hwMap.fK_callback(j0, j1, j2, &x, &y, &z) == 0) {
-        if (hwMap.iK_callback(x, y, z, &j0, &j1, &j2) == 0) {
+    if (getHardwareMap()->fK_callback(j0, j1, j2, &x, &y, &z) == 0) {
+        if (getHardwareMap()->iK_callback(x, y, z, &j0, &j1, &j2) == 0) {
             setInterpolateXYZ(x, y, z, ms);
             setLinkAngle(3, extrusion, ms);
             setLinkAngle(4, tempreture, ms);
@@ -234,7 +191,7 @@ boolean isCartesianInterpolationDone() {
     int i;
     for (i = 0; i < 4; i++) {
         if (i < 3) {
-            if (!bound(taskPID[i].interpolate.set, current[i], mmPositionResolution, mmPositionResolution)) {
+            if (!bound(taskPID[i].interpolate.set, current[i], getmmPositionResolution(), getmmPositionResolution())) {
                 //println_W("Interpolation not done on to: ");p_fl_W(taskPID[i].interpolate.set);print_W(" is = ");p_fl_W(targets[i]);
                 return false;
             }
@@ -259,7 +216,7 @@ void initializeCartesianController() {
     for (i = 0; i < 3; i++) {
         taskPID[i].config.Enabled = true;
         taskPID[i].config.Polarity = true;
-        InitAbsPIDWithPosition(&taskPID[i], KP, KI, KD, getMs(), 0);
+        InitAbsPIDWithPosition(&taskPID[i], getKP(), getKI(), getKD(), getMs(), 0);
 
     }
 }
@@ -301,7 +258,7 @@ void loadCurrentPosition(BowlerPacket * Packet) {
 }
 
 void updateCurrentPositions() {
-    if (hwMap.fK_callback(getLinkAngle(0),
+    if (getHardwareMap()->fK_callback(getLinkAngle(0),
             getLinkAngle(1),
             getLinkAngle(2),
             &current[0],
@@ -387,7 +344,7 @@ void processLinearInterpPacket(BowlerPacket * Packet) {
         }
         float t0, t1, t2;
 
-        if (hwMap.iK_callback(tmpData[1], tmpData[2], tmpData[3], &t0, &t1, &t2) == 0) {
+        if (getHardwareMap()->iK_callback(tmpData[1], tmpData[2], tmpData[3], &t0, &t1, &t2) == 0) {
             setInterpolateXYZ(tmpData[1], tmpData[2], tmpData[3], tmpData[0]);
         } else {
             ERR(Packet, 33, 34);
@@ -452,8 +409,8 @@ void cancelPrint() {
     setPrintLevel(l);
     InitPacketFifo(&packetFifo, buffer, SIZE_OF_PACKET_BUFFER);
 
-    //ZeroPID(hwMap.Extruder0.index);
-    //SetPIDTimed(hwMap.Heater0.index,0,0);
+    //ZeroPID(getHardwareMap()->Extruder0.index);
+    //SetPIDTimed(getHardwareMap()->Heater0.index,0,0);
 }
 
 boolean onCartesianGet(BowlerPacket *Packet) {
@@ -521,10 +478,10 @@ float calculateTaskSpaceVelocityValue(int xyz) {
     float currentTarget = taskPID[xyz].SetPoint;
     float currentError = currentTarget - current[xyz];
 
-    //runPdVelocityFromPointer(&velCartesian[xyz], current[xyz], VKP, VKD);
+    //runPdVelocityFromPointer(&velCartesian[xyz], current[xyz], getVKP(), getVKD());
 
 
-    if (currentError > mmPositionResolution || currentError < -mmPositionResolution) {
+    if (currentError > getmmPositionResolution() || currentError < -getmmPositionResolution()) {
         // println_E("\terror=   ");
         // p_fl_E(currentError);
         if (getMs()>(taskPID[xyz].interpolate.setTime + taskPID[xyz].interpolate.startTime)) {
@@ -555,15 +512,15 @@ void runStateBasedController() {
     Yd = calculateTaskSpaceVelocityValue(1);
     Zd = calculateTaskSpaceVelocityValue(2);
 
-    if (hwMap.iVel_callback(current[0], current[1], current[2], Xd, Yd, Zd,
+    if (getHardwareMap()->iVel_callback(current[0], current[1], current[2], Xd, Yd, Zd,
             & Ad, & Bd, & Cd) == 0) {
         int i = 0;
         for (i = 0; i < 3; i++) {
             SetPIDEnabled(linkToHWIndex(i), false);
         }
-        setVelocity(0, Ad);
-        setVelocity(1, Bd);
-        setVelocity(2, Cd);
+        setVelocity(0, Ad * getVKP());
+        setVelocity(1, Bd * getVKP());
+        setVelocity(2, Cd * getVKP());
 
     } else {
         println_E("Inverse velocity kinematics failed");
@@ -585,7 +542,7 @@ void interpolateZXY() {
     }
     keepCartesianPosition = true;
     if (keepCartesianPosition) {
-        if (hwMap.useStateBasedVelocity) {
+        if (getHardwareMap()->useStateBasedVelocity) {
             runStateBasedController();
         } else {
             runInterpolatedPositions();
@@ -656,7 +613,7 @@ uint8_t setInterpolateXYZ(float x, float y, float z, float ms) {
         setXYZ(x, y, z, 0);
     } else {
         keepCartesianPosition = true;
-        if (hwMap.useStateBasedVelocity == false) {
+        if (getHardwareMap()->useStateBasedVelocity == false) {
             println_I("Setting values with linear interpolation");
             start = getMs();
             x = interpolate(& taskPID[0].interpolate, start);
@@ -675,7 +632,7 @@ uint8_t setInterpolateXYZ(float x, float y, float z, float ms) {
 uint8_t setXYZ(float x, float y, float z, float ms) {
     updateCurrentPositions();
     float t0 = 0, t1 = 0, t2 = 0;
-    if (hwMap.iK_callback(x, y, z, &t0, &t1, &t2) == 0) {
+    if (getHardwareMap()->iK_callback(x, y, z, &t0, &t1, &t2) == 0) {
         println_I("New target angles t1=");
         p_fl_I(t0);
         print_I(" t2=");
@@ -696,43 +653,7 @@ uint8_t setXYZ(float x, float y, float z, float ms) {
     return 0;
 }
 
-int linkToHWIndex(int index) {
-    int localIndex = 0;
-    switch (index) {
-        case 0:
-            localIndex = hwMap.Alpha.index;
-            break;
-        case 1:
-            localIndex = hwMap.Beta.index;
-            break;
-        case 2:
-            localIndex = hwMap.Gama.index;
-            break;
-        case 3:
-            localIndex = hwMap.Extruder0.index;
-            break;
-        case 4:
-            localIndex = hwMap.Heater0.index;
-            break;
-    }
-    return localIndex;
-}
 
-float getLinkScale(int index) {
-    switch (index) {
-        case 0:
-            return hwMap.Alpha.scale;
-        case 1:
-            return hwMap.Beta.scale;
-        case 2:
-            return hwMap.Gama.scale;
-        case 3:
-            return hwMap.Extruder0.scale;
-        case 4:
-            return hwMap.Heater0.scale;
-    }
-    return 0.0;
-}
 
 float getLinkAngleNoScale(int index) {
     int localIndex = linkToHWIndex(index);
@@ -792,7 +713,7 @@ void HomeLinks() {
 
             int i;
             float Alpha, Beta, Gama;
-            hwMap.iK_callback(0, 0, getmaxZ(), &Alpha, &Beta, &Gama);
+            getHardwareMap()->iK_callback(0, 0, getmaxZ(), &Alpha, &Beta, &Gama);
             for (i = 0; i < 3; i++) {
                 pidReset(linkToHWIndex(i), (Alpha + getRodLength() / 3) / getLinkScale(i));
             }
@@ -830,7 +751,7 @@ void printCartesianData() {
         println_W("\tTarget");
         p_fl_W(taskPID[i].interpolate.set);
         error = taskPID[i].interpolate.set - current[i];
-        if(bound(0,error,mmPositionResolution,mmPositionResolution)){
+        if(bound(0,error,getmmPositionResolution(),getmmPositionResolution())){
             println_W("\tERROR=");
             p_fl_W(error);
         }else{
