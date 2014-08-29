@@ -230,7 +230,6 @@ static RPC_LIST cartesian_SBCG = {BOWLER_GET, // Method
 static RPC_LIST cartesian_SBCP = {BOWLER_POST, // Method
     "sbcc", //RPC as string
     &onControllerConfigurationSet, //function pointer to a packet parsinf function
-    BOWLER_POST, // response method
     ((const char [8]) {
         BOWLER_FIXED1K, //KP
         BOWLER_FIXED1K, //KI
