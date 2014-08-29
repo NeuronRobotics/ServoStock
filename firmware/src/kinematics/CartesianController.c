@@ -34,6 +34,8 @@ static RunEveryData pid = {0, 100};
 static boolean keepCartesianPosition = false;
 static int interpolationCounter = 0;
 static boolean runKinematics = false;
+static boolean pausePrint = false;
+
 
 boolean onRunKinematicsSet(BowlerPacket *Packet) {
     runKinematics = Packet->use.data[0]; // Boolean to run the kinematics or not
@@ -355,7 +357,14 @@ void processLinearInterpPacket(BowlerPacket * Packet) {
         printPacket(Packet, ERROR_PRINT);
     }
 }
-
+boolean onPausePrinter(BowlerPacket *Packet) {
+    Print_Level l = getPrintLevel();
+    setPrintLevelInfoPrint();
+    
+    READY(Packet, 35, 35);
+    setPrintLevel(l);
+    return true;
+}
 boolean onClearPrinter(BowlerPacket *Packet) {
     Print_Level l = getPrintLevel();
     setPrintLevelInfoPrint();
@@ -550,9 +559,11 @@ void interpolateZXY() {
         }
         if (isCartesianInterpolationDone()) {
             if (FifoGetPacketCount(&packetFifo) > 0) {
-                println_W("Loading new packet ");
-                if (FifoGetPacket(&packetFifo, &linTmpPack)) {
-                    processLinearInterpPacket(&linTmpPack);
+                if(pausePrint == false){
+                    println_W("Loading new packet ");
+                    if (FifoGetPacket(&packetFifo, &linTmpPack)) {
+                        processLinearInterpPacket(&linTmpPack);
+                    }
                 }
             } else {
                 keepCartesianPosition = false;

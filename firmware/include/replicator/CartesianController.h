@@ -107,6 +107,8 @@ typedef struct _Transform {
 
     boolean onCartesianPost(BowlerPacket *Packet);
     boolean onClearPrinter(BowlerPacket *Packet);
+    boolean onPausePrinter(BowlerPacket *Packet);
+    
     void printCartesianData();
 
     //void InitializeCartesianController( boolean (*asyncCallbackPtr)(BowlerPacket *Packet),
@@ -140,6 +142,12 @@ typedef struct _Transform {
 
 boolean onConfigurationGet(BowlerPacket *Packet);
 boolean onConfigurationSet(BowlerPacket *Packet);
+
+boolean onControllerConfigurationGet(BowlerPacket *Packet);
+boolean onControllerConfigurationSet(BowlerPacket *Packet);
+
+boolean onSlic3rConfigurationGet(BowlerPacket *Packet);
+boolean onSlic3rConfigurationSet(BowlerPacket *Packet);
 
 boolean onRunKinematicsSet(BowlerPacket *Packet);
 boolean onCartesianPacket(BowlerPacket *Packet);
