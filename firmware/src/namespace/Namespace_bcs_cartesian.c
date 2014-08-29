@@ -186,7 +186,7 @@ static RPC_LIST cartesian_PRCL = {BOWLER_POST, // Method
 
 static RPC_LIST cartesian_PAUS = {BOWLER_POST, // Method
     "paus", //RPC as string
-    &onClearPrinter, //function pointer to a packet parsinf function
+    &onPausePrinter, //function pointer to a packet parsinf function
     ((const char [2]) {
         BOWLER_I08, // pause state
         0
@@ -200,7 +200,7 @@ static RPC_LIST cartesian_PAUS = {BOWLER_POST, // Method
 // Home printer
 static RPC_LIST cartesian_HOME = {BOWLER_POST, // Method
     "home", //RPC as string
-    &onClearPrinter, //function pointer to a packet parsinf function
+    &onHomePrinter, //function pointer to a packet parsinf function
     NULL,
     BOWLER_STATUS, // response method
     NULL, // Response arguments

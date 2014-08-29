@@ -108,6 +108,7 @@ typedef struct _Transform {
     boolean onCartesianPost(BowlerPacket *Packet);
     boolean onClearPrinter(BowlerPacket *Packet);
     boolean onPausePrinter(BowlerPacket *Packet);
+    boolean onHomePrinter(BowlerPacket *Packet) ;
     
     void printCartesianData();
 

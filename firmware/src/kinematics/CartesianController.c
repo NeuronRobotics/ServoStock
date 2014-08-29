@@ -358,11 +358,10 @@ void processLinearInterpPacket(BowlerPacket * Packet) {
 }
 
 boolean onPausePrinter(BowlerPacket *Packet) {
-    Print_Level l = getPrintLevel();
-    setPrintLevelInfoPrint();
     pausePrint = Packet->use.data[0];
+    println_W("Pausing print ");p_int_W(pausePrint);
     READY(Packet, 35, 35);
-    setPrintLevel(l);
+
     return true;
 }
 
@@ -551,7 +550,7 @@ void runStateBasedController() {
 void interpolateZXY() {
     updateCurrentPositions();
     interpolationCounter = 0;
-    if (!configured) {
+    if (homingAllLinks == true) {
         HomeLinks();
         return;
     }
