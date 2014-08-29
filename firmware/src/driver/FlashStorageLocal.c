@@ -72,7 +72,6 @@ HardwareMap hwMap = {
     true
 };
 
-
 int linkToHWIndex(int index) {
     int localIndex = 0;
     switch (index) {
@@ -127,24 +126,41 @@ char * getName(int index) {
     return NULL;
 }
 
-HardwareMap * getHardwareMap(){
+HardwareMap * getHardwareMap() {
     return &hwMap;
 }
 
-boolean onControllerConfigurationGet(BowlerPacket *Packet){
+boolean onControllerConfigurationGet(BowlerPacket *Packet) {
+
+    set32bit(Packet, localData.KP * 1000.0, 0); //KP
+    set32bit(Packet, localData.KI * 1000.0, 4); //KI
+    set32bit(Packet, localData.KD * 1000.0, 8); //KD
+    set32bit(Packet, localData.VKP * 1000.0, 12); //VKP
+    set32bit(Packet, localData.VKD * 1000.0, 16); //VKD
+    set32bit(Packet, localData.mmPositionResolution * 1000.0, 20); //mmPositionResolution
+    set32bit(Packet, localData.maximumMMperSec * 1000.0, 24); // maximumMMperSec
+
+
 
 }
-boolean onControllerConfigurationSet(BowlerPacket *Packet){
-    
+
+boolean onControllerConfigurationSet(BowlerPacket *Packet) {
+    localData.KP = get32bit(Packet, 0) / 1000.0;
+    localData.KI = get32bit(Packet, 4) / 1000.0;
+    localData.KD = get32bit(Packet, 8) / 1000.0;
+    localData.VKP = get32bit(Packet, 12) / 1000.0;
+    localData.VKD = get32bit(Packet, 16) / 1000.0;
+    localData.mmPositionResolution = get32bit(Packet, 20) / 1000.0;
+    localData.maximumMMperSec = get32bit(Packet, 24) / 1000.0;
 }
 
-boolean onSlic3rConfigurationGet(BowlerPacket *Packet){
+boolean onSlic3rConfigurationGet(BowlerPacket *Packet) {
 
 }
-boolean onSlic3rConfigurationSet(BowlerPacket *Packet){
-    
-}
 
+boolean onSlic3rConfigurationSet(BowlerPacket *Packet) {
+
+}
 
 float getmmaximumMMperSec() {
     return localData.maximumMMperSec;
@@ -174,31 +190,29 @@ float getVKD() {
     return localData.VKD;
 }
 
-
 void setmmPositionResolution(float value) {
-     localData.mmPositionResolution=value;
+    localData.mmPositionResolution = value;
 }
 
 void setKP(float value) {
-     localData.KP=value;
+    localData.KP = value;
 }
 
 void setKI(float value) {
-     localData.KI=value;
+    localData.KI = value;
 }
 
 void setKD(float value) {
-     localData.KD=value;
+    localData.KD = value;
 }
 
 void setVKP(float value) {
-     localData.VKP=value;
+    localData.VKP = value;
 }
 
 void setVKD(float value) {
-     localData.VKD=value;
+    localData.VKD = value;
 }
-
 
 void checkDataTable() {
     Nop();
@@ -277,12 +291,12 @@ boolean initFlashLocal() {
             printPIDvals(i);
         }
         localData.KP = .85;
-        localData.KI=0;
-        localData.KD=0;
-        localData.VKP=1;
-        localData.VKD=0;
-        localData.mmPositionResolution=1;
-        localData.maximumMMperSec=30;
+        localData.KI = 0;
+        localData.KD = 0;
+        localData.VKP = 1;
+        localData.VKD = 0;
+        localData.mmPositionResolution = 1;
+        localData.maximumMMperSec = 30;
     } else {
         println_W("Flash image ok");
         //        for (i = 0; i < numPidTotal; i++) {
