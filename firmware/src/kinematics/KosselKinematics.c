@@ -25,7 +25,7 @@
 DeltaConfig defaultConfig ={203.82,//RodLength
                             140,//BaseRadius
                             25,//EndEffectorRadius
-                            150.0,//MaxZ
+                            100.0,//MaxZ
                             -10};//MinZ
 
 //Prototypes
