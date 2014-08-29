@@ -101,7 +101,6 @@
           <itemPath>src/motion/PID.c</itemPath>
         </logicalFolder>
         <logicalFolder name="namespace" displayName="namespace" projectFiles="true">
-          <itemPath>src/namespace/Callbacks.c</itemPath>
           <itemPath>src/namespace/Namespace_bcs_cartesian.c</itemPath>
           <itemPath>src/namespace/UpstreamPackets.c</itemPath>
         </logicalFolder>
@@ -157,7 +156,6 @@
         </linkerTool>
         <loading>
           <useAlternateLoadableFile>false</useAlternateLoadableFile>
-          <parseOnProdLoad>false</parseOnProdLoad>
           <alternateLoadableFile></alternateLoadableFile>
         </loading>
       </compileType>
@@ -194,8 +192,6 @@
         <property key="use-iar" value="false"/>
         <property key="use-indirect-calls" value="false"/>
       </C32>
-      <C32-AR>
-      </C32-AR>
       <C32-AS>
       </C32-AS>
       <C32-LD>
@@ -286,6 +282,7 @@
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
         <property key="UART1" value="true"/>
         <property key="UART2" value="true"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>
