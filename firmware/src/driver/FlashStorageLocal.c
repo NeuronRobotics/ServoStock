@@ -46,6 +46,7 @@ typedef struct _flashStorageData {
 
 
 flashStorageData localData;
+#define bytesOfRaw (sizeof(localData))
 
 //Default values for ServoStock
 HardwareMap hwMap = {
@@ -130,7 +131,7 @@ HardwareMap * getHardwareMap(){
     return &hwMap;
 }
 
-#define bytesOfRaw (sizeof(localData))
+
 float getmmaximumMMperSec() {
     return localData.maximumMMperSec;
 }
@@ -193,7 +194,7 @@ boolean initFlashLocal() {
 
     if (bytesOfRaw > 0x1000 - FLASHSTORE) {
         println_E("Too much data to store");
-        SoftReset();
+        Reset();
     }
     if (bytesOfRaw % 4) {
         println_E("BAD FLASH size = ");
@@ -284,7 +285,7 @@ void writeFlashLocal() {
 
     if (bytesOfRaw > 0x1000 - FLASHSTORE) {
         println_E("Too much data to store");
-        SoftReset();
+        Reset();
     }
     println_W("Writing values to Flash");
     int i = 0, j = 0; //, index;
