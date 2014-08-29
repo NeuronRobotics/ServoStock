@@ -149,6 +149,7 @@ boolean setDesiredJointAxisValue(BowlerPacket *Packet);
 HardwareMap * getHardwareMap();
 
 float getmmPositionResolution();
+float getmmaximumMMperSec() ;
 float getKP();
 float getKI();
 float getKD();

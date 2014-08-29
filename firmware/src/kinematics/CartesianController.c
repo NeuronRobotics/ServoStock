@@ -35,12 +35,6 @@ static boolean keepCartesianPosition = false;
 static int interpolationCounter = 0;
 static boolean runKinematics = false;
 
-
-
-
-
-
-
 boolean onRunKinematicsSet(BowlerPacket *Packet) {
     runKinematics = Packet->use.data[0]; // Boolean to run the kinematics or not
     return true;
@@ -61,9 +55,9 @@ boolean setDesiredTaskSpaceTransform(BowlerPacket *Packet) {
     float t0 = 0, t1 = 0, t2 = 0;
     if (getHardwareMap()->iK_callback(x, y, z, &t0, &t1, &t2) == 0) {
         setInterpolateXYZ(x, y, z, ms);
-        set32bit(Packet, t0*1000, 1);
-        set32bit(Packet, t1*1000, 5);
-        set32bit(Packet, t2*1000, 9);
+        set32bit(Packet, t0 * 1000, 1);
+        set32bit(Packet, t1 * 1000, 5);
+        set32bit(Packet, t2 * 1000, 9);
 
         set32bit(Packet, getLinkAngle(3)*1000, 13);
         set32bit(Packet, getLinkAngle(4)*1000, 17);
@@ -84,14 +78,14 @@ boolean getCurrentTaskSpaceTransform(BowlerPacket *Packet) {
     float x = 0, y = 0, z = 0;
     if (getHardwareMap()->fK_callback(getLinkAngle(0), getLinkAngle(1), getLinkAngle(2), &x, &y, &z) == 0) {
 
-        set32bit(Packet, x*1000, 0);
-        set32bit(Packet, y*1000, 4);
-        set32bit(Packet, z*1000, 8);
+        set32bit(Packet, x * 1000, 0);
+        set32bit(Packet, y * 1000, 4);
+        set32bit(Packet, z * 1000, 8);
         //rotation 0
-        set32bit(Packet, 0*1000, 12);
-        set32bit(Packet, 0*1000, 16);
-        set32bit(Packet, 0*1000, 20);
-        set32bit(Packet, 1*1000, 24);
+        set32bit(Packet, 0 * 1000, 12);
+        set32bit(Packet, 0 * 1000, 16);
+        set32bit(Packet, 0 * 1000, 20);
+        set32bit(Packet, 1 * 1000, 24);
     } else {
         println_E("Ignoring: Can't reach: x=");
         p_fl_E(x);
@@ -125,14 +119,14 @@ boolean setDesiredJointSpaceVector(BowlerPacket *Packet) {
             setLinkAngle(3, extrusion, ms);
             setLinkAngle(4, tempreture, ms);
             // load data into packet
-            set32bit(Packet, x *1000, 0);
-            set32bit(Packet, y *1000, 4);
-            set32bit(Packet, z *1000, 8);
+            set32bit(Packet, x * 1000, 0);
+            set32bit(Packet, y * 1000, 4);
+            set32bit(Packet, z * 1000, 8);
             //rotation 0
-            set32bit(Packet, 0*1000, 12);
-            set32bit(Packet, 0*1000, 16);
-            set32bit(Packet, 0*1000, 20);
-            set32bit(Packet, 1*1000, 24);
+            set32bit(Packet, 0 * 1000, 12);
+            set32bit(Packet, 0 * 1000, 16);
+            set32bit(Packet, 0 * 1000, 20);
+            set32bit(Packet, 1 * 1000, 24);
         }
     } else {
         println_E("Ignoring: Can't reach x=");
@@ -283,7 +277,7 @@ void checkPositionChange() {
     if (tmp[0] != lastXYZE[0] ||
             tmp[1] != lastXYZE[1] ||
             tmp[2] != lastXYZE[2] ||
-            tmp[3] != lastXYZE[3]||
+            tmp[3] != lastXYZE[3] ||
             tmp[4] != lastXYZE[4]) {
         for (i = 0; i < 6; i++) {
             lastXYZE[i] = tmp[i];
@@ -324,9 +318,9 @@ void cartesianAsync() {
             pushBufferEmpty();
             full = false;
         }
-        
+
         checkPositionChange();
-        
+
 
     }
 }
@@ -343,7 +337,8 @@ void processLinearInterpPacket(BowlerPacket * Packet) {
             tmpData[i] = ((float) get32bit(Packet, (i * 4) + 1)) / 1000;
         }
         float t0, t1, t2;
-
+        //set extruder
+        setLinkAngle(3, tmpData[4], tmpData[0]);
         if (getHardwareMap()->iK_callback(tmpData[1], tmpData[2], tmpData[3], &t0, &t1, &t2) == 0) {
             setInterpolateXYZ(tmpData[1], tmpData[2], tmpData[3], tmpData[0]);
         } else {
@@ -562,13 +557,11 @@ void interpolateZXY() {
 
 uint8_t setInterpolateXYZ(float x, float y, float z, float ms) {
     int i = 0;
-    if (ms < .01)
-        ms = 0;
     float start = getMs();
     float valocity_calculated;
     updateCurrentPositions();
     float tmp[3] = {x, y, z};
-
+    float mmToGo = 0;
     println_W("Setting new position x=");
     p_fl_W(x);
     print_W(" y=");
@@ -579,24 +572,45 @@ uint8_t setInterpolateXYZ(float x, float y, float z, float ms) {
     p_fl_W(ms);
     println_W("Current  position cx=");
     p_fl_W(current[0]);
-
     print_W(" cy=");
     p_fl_W(current[1]);
     print_W(" cz=");
     p_fl_W(current[2]);
-    println_W("Current  angles Alpha=");
-    p_fl_W(getLinkAngle(0));
-    print_W(" Beta=");
-    p_fl_W(getLinkAngle(1));
-    print_W(" Gamma=");
-    p_fl_W(getLinkAngle(2));
 
     for (i = 0; i < 3; i++) {
+        mmToGo = (tmp[i] - current[i]);
+        if(mmToGo<0)
+            mmToGo*=-1;
+        if (ms <= 0.0 ) {
+            ms = (mmToGo / getmmaximumMMperSec())*1000.0;
+            println_W("Degenerate Capped to ");
+            p_fl_W(ms);
+            print_W(" mm=");
+            p_fl_W(mmToGo);
+            print_W(" max=");
+            p_fl_W(getmmaximumMMperSec());
+        } else {
+            valocity_calculated = (mmToGo /
+                    (ms / 1000.0));
+            println_W("Setting new position FEED RATE = ");
+            p_fl_W(valocity_calculated);
+            print_W(" mm=");
+            p_fl_W(mmToGo);
+            if (valocity_calculated > getmmaximumMMperSec()) {
+               
+                ms = (mmToGo / getmmaximumMMperSec()) * 1000.0;
+                print_W("Capped to ");
+                p_fl_W(ms);
+                print_W(" max=");
+                p_fl_W(getmmaximumMMperSec());
+                
+            }
+        }
+    }
+    for (i = 0; i < 3; i++) {
+
         SetPIDTimedPointer(&taskPID[i], tmp[i], current[i], ms);
         printPIDvalsPointer(&taskPID[i]);
-        valocity_calculated = ((taskPID[i].interpolate.set - taskPID[i].interpolate.start) / (taskPID[i].interpolate.setTime / 1000));
-        println_W("Setting new position FEED RATE=");
-        p_fl_W(valocity_calculated);
 
         velCartesian[i].unitsPerSeCond = valocity_calculated;
         velCartesian[i].currentOutputVel = valocity_calculated;
@@ -625,6 +639,10 @@ uint8_t setInterpolateXYZ(float x, float y, float z, float ms) {
 
         }
     }
+
+    printCartesianData();
+
+
     //setPrintLevelNoPrint();
     return 0;
 }
@@ -652,8 +670,6 @@ uint8_t setXYZ(float x, float y, float z, float ms) {
     }
     return 0;
 }
-
-
 
 float getLinkAngleNoScale(int index) {
     int localIndex = linkToHWIndex(index);
@@ -718,7 +734,7 @@ void HomeLinks() {
                 pidReset(linkToHWIndex(i), (Alpha + getRodLength() / 3) / getLinkScale(i));
             }
             cancelPrint();
-            setInterpolateXYZ(0, 0, getmaxZ(), 5000);
+            setInterpolateXYZ(0, 0, getmaxZ(), 0);
         }
     }
 }
@@ -741,7 +757,7 @@ void printCartesianData() {
     int i;
     updateCurrentPositions();
 
-    float error=0;
+    float error = 0;
     for (i = 0; i < 3; i++) {
         println_W(" ");
         printXYZ(i);
@@ -751,24 +767,24 @@ void printCartesianData() {
         println_W("\tTarget");
         p_fl_W(taskPID[i].interpolate.set);
         error = taskPID[i].interpolate.set - current[i];
-        if(bound(0,error,getmmPositionResolution(),getmmPositionResolution())){
+        if (bound(0, error, getmmPositionResolution(), getmmPositionResolution())) {
             println_W("\tERROR=");
             p_fl_W(error);
-        }else{
-           println_E("\tERROR=");
-           p_fl_E(error);
+        } else {
+            println_E("\tERROR=");
+            p_fl_E(error);
         }
     }
-//    print_W(" cy=");
-//    p_fl_W(current[1]);
-//    print_W(" cz=");
-//    p_fl_W(current[2]);
-//    println_W("Current  angles Alpha=");
-//    p_fl_W(getLinkAngle(0));
-//    print_W(" Beta=");
-//    p_fl_W(getLinkAngle(1));
-//    print_W(" Gamma=");
-//    p_fl_W(getLinkAngle(2));
+    //    print_W(" cy=");
+    //    p_fl_W(current[1]);
+    //    print_W(" cz=");
+    //    p_fl_W(current[2]);
+    //    println_W("Current  angles Alpha=");
+    //    p_fl_W(getLinkAngle(0));
+    //    print_W(" Beta=");
+    //    p_fl_W(getLinkAngle(1));
+    //    print_W(" Gamma=");
+    //    p_fl_W(getLinkAngle(2));
 
     //    println_W("Raw  angles Alpha=");
     //    p_fl_W(getLinkAngleNoScale(0));

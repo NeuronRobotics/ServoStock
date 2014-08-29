@@ -37,6 +37,7 @@ typedef struct _flashStorageData {
 
     float VKP;
     float VKD;
+    float maximumMMperSec;
     Slic3rData slic3r;
     HardwareMap hwMap;
     unsigned char buffer[1];
@@ -130,7 +131,9 @@ HardwareMap * getHardwareMap(){
 }
 
 #define bytesOfRaw (sizeof(localData))
-
+float getmmaximumMMperSec() {
+    return localData.maximumMMperSec;
+}
 
 float getmmPositionResolution() {
     return localData.mmPositionResolution;
@@ -263,7 +266,8 @@ boolean initFlashLocal() {
         localData.KD=.5;
         localData.VKP=1;
         localData.VKD=0;
-        localData.mmPositionResolution=.3;
+        localData.mmPositionResolution=1;
+        localData.maximumMMperSec=1000.0;
     } else {
         println_W("Flash image ok");
         //        for (i = 0; i < numPidTotal; i++) {
