@@ -195,6 +195,18 @@ static RPC_LIST cartesian_PAUS = {BOWLER_POST, // Method
     NULL, // Response arguments
     NULL //Termination
 };
+
+
+// Home printer
+static RPC_LIST cartesian_HOME = {BOWLER_POST, // Method
+    "home", //RPC as string
+    &onClearPrinter, //function pointer to a packet parsinf function
+    NULL,
+    BOWLER_STATUS, // response method
+    NULL, // Response arguments
+    NULL //Termination
+};
+
 //State Based Controller configuration
 
 static RPC_LIST cartesian_SBCG = {BOWLER_GET, // Method
@@ -283,6 +295,7 @@ NAMESPACE_LIST * getBcsCartesianNamespace() {
         addRpcToNamespace(&bcsCartesian, & cartesian_SLCR_g);
         addRpcToNamespace(&bcsCartesian, & cartesian_LSCR_p);
         addRpcToNamespace(&bcsCartesian, & cartesian_PAUS);
+        addRpcToNamespace(&bcsCartesian, & cartesian_HOME);
 
         namespcaedAdded = true;
     }

@@ -36,7 +36,6 @@ static int interpolationCounter = 0;
 static boolean runKinematics = false;
 static boolean pausePrint = false;
 
-
 boolean onRunKinematicsSet(BowlerPacket *Packet) {
     runKinematics = Packet->use.data[0]; // Boolean to run the kinematics or not
     return true;
@@ -357,19 +356,28 @@ void processLinearInterpPacket(BowlerPacket * Packet) {
         printPacket(Packet, ERROR_PRINT);
     }
 }
+
 boolean onPausePrinter(BowlerPacket *Packet) {
     Print_Level l = getPrintLevel();
     setPrintLevelInfoPrint();
-    
+    pausePrint = Packet->use.data[0];
     READY(Packet, 35, 35);
     setPrintLevel(l);
     return true;
 }
+
+boolean onHomePrinter(BowlerPacket *Packet) {
+
+    startHomingLinks();
+    READY(Packet, 35, 36);
+    return true;
+}
+
 boolean onClearPrinter(BowlerPacket *Packet) {
     Print_Level l = getPrintLevel();
     setPrintLevelInfoPrint();
     cancelPrint();
-    READY(Packet, 35, 35);
+    READY(Packet, 35, 37);
     setPrintLevel(l);
     return true;
 }
@@ -559,7 +567,7 @@ void interpolateZXY() {
         }
         if (isCartesianInterpolationDone()) {
             if (FifoGetPacketCount(&packetFifo) > 0) {
-                if(pausePrint == false){
+                if (pausePrint == false) {
                     println_W("Loading new packet ");
                     if (FifoGetPacket(&packetFifo, &linTmpPack)) {
                         processLinearInterpPacket(&linTmpPack);
@@ -596,9 +604,9 @@ uint8_t setInterpolateXYZ(float x, float y, float z, float ms) {
 
     for (i = 0; i < 3; i++) {
         mmToGo = (tmp[i] - current[i]);
-        if(mmToGo<0)
-            mmToGo*=-1;
-        if (ms <= 0.0 ) {
+        if (mmToGo < 0)
+            mmToGo *= -1;
+        if (ms <= 0.0) {
             ms = (mmToGo / getmmaximumMMperSec())*1000.0;
             println_W("Degenerate Capped to ");
             p_fl_W(ms);
@@ -614,13 +622,13 @@ uint8_t setInterpolateXYZ(float x, float y, float z, float ms) {
             print_W(" mm=");
             p_fl_W(mmToGo);
             if (valocity_calculated > getmmaximumMMperSec()) {
-               
+
                 ms = (mmToGo / getmmaximumMMperSec()) * 1000.0;
                 print_W("Capped to ");
                 p_fl_W(ms);
                 print_W(" max=");
                 p_fl_W(getmmaximumMMperSec());
-                
+
             }
         }
     }
