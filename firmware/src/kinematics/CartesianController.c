@@ -147,6 +147,12 @@ boolean setDesiredJointAxisValue(BowlerPacket *Packet) {
     return true;
 }
 
+boolean onConfigurationSet(BowlerPacket *Packet) {
+    //TODO fill in configuration set
+    return true;
+
+}
+
 boolean onConfigurationGet(BowlerPacket *Packet) {
     Packet->use.head.DataLegnth = 4;
     uint8_t index = Packet->use.data[0]; // joint space requested index

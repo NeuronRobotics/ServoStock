@@ -28,6 +28,8 @@ static RPC_LIST cartesian_runk = {BOWLER_POST, // Method
     NULL //Termination
 };
 
+
+// Abstract Kinematics commnds
 static RPC_LIST cartesian_SDSJ = {BOWLER_POST, // Method
     "sdsj", //RPC as string
     &setDesiredJointAxisValue, //function pointer to a packet parsinf function
@@ -104,6 +106,8 @@ static RPC_LIST cartesian_SDTT = {BOWLER_POST, // Method
     NULL //Termination
 };
 
+
+// Send a print line
 static RPC_LIST cartesian__SLI = {BOWLER_POST, // Method
     "_sli", //RPC as string
     &onCartesianPost, //function pointer to a packet parsinf function
@@ -124,6 +128,7 @@ static RPC_LIST cartesian__SLI = {BOWLER_POST, // Method
     NULL //Termination
 };
 
+// Get axis cartesian configuration
 static RPC_LIST cartesian_GCFG = {BOWLER_GET, // Method
     "gcfg", //RPC as string
     &onConfigurationGet, //function pointer to a packet parsinf function
@@ -145,6 +150,26 @@ static RPC_LIST cartesian_GCFG = {BOWLER_GET, // Method
     NULL //Termination
 };
 
+// Set axis cartesian configuration
+static RPC_LIST cartesian_SCFG = {BOWLER_GET, // Method
+    "scfg", //RPC as string
+    &onConfigurationSet, //function pointer to a packet parsinf function
+    ((const char [8]) {
+        BOWLER_I08, //index
+        BOWLER_I08, //total links
+        BOWLER_I32, //latch
+        BOWLER_I32, //lower limit
+        BOWLER_I32, //upper limit
+        BOWLER_FIXED1K, //scale
+        BOWLER_ASCII, // name
+        0
+    }), // Response arguments
+    BOWLER_STATUS, // response method
+    NULL,
+    NULL //Termination
+};
+
+// Clear the running print
 static RPC_LIST cartesian_PRCL = {BOWLER_POST, // Method
     "pclr", //RPC as string
     &onClearPrinter, //function pointer to a packet parsinf function
@@ -154,6 +179,7 @@ static RPC_LIST cartesian_PRCL = {BOWLER_POST, // Method
     NULL //Termination
 };
 
+//State Based Controller configuration
 static RPC_LIST cartesian_SBCG = {BOWLER_GET, // Method
     "sbcc", //RPC as string
     &onClearPrinter, //function pointer to a packet parsinf function
@@ -172,6 +198,8 @@ static RPC_LIST cartesian_SBCP = {BOWLER_POST, // Method
     NULL //Termination
 };
 
+
+//Slic3r commands
 static RPC_LIST cartesian_SLCR_g = {BOWLER_GET, // Method
     "slcr", //RPC as string
     &onClearPrinter, //function pointer to a packet parsinf function

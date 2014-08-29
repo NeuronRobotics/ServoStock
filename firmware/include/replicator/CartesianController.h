@@ -139,6 +139,8 @@ typedef struct _Transform {
     int frog_calcInverse(float X, float Y, float Z, float *Alpha, float *Beta, float *Gamma);
 
 boolean onConfigurationGet(BowlerPacket *Packet);
+boolean onConfigurationSet(BowlerPacket *Packet);
+
 boolean onRunKinematicsSet(BowlerPacket *Packet);
 boolean onCartesianPacket(BowlerPacket *Packet);
 boolean setDesiredTaskSpaceTransform(BowlerPacket *Packet);

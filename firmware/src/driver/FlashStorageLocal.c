@@ -131,6 +131,20 @@ HardwareMap * getHardwareMap(){
     return &hwMap;
 }
 
+boolean onControllerConfigurationGet(BowlerPacket *Packet){
+
+}
+boolean onControllerConfigurationSet(BowlerPacket *Packet){
+    
+}
+
+boolean onSlic3rConfigurationGet(BowlerPacket *Packet){
+
+}
+boolean onSlic3rConfigurationSet(BowlerPacket *Packet){
+    
+}
+
 
 float getmmaximumMMperSec() {
     return localData.maximumMMperSec;
