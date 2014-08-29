@@ -359,7 +359,8 @@ void processLinearInterpPacket(BowlerPacket * Packet) {
 
 boolean onPausePrinter(BowlerPacket *Packet) {
     pausePrint = Packet->use.data[0];
-    println_W("Pausing print ");p_int_W(pausePrint);
+    println_W("Pausing print ");
+    p_int_W(pausePrint);
     READY(Packet, 35, 35);
 
     return true;
@@ -550,7 +551,7 @@ void runStateBasedController() {
 void interpolateZXY() {
     updateCurrentPositions();
     interpolationCounter = 0;
-    if (homingAllLinks == true) {
+    if (homingAllLinks == true || configured == false) {
         HomeLinks();
         return;
     }
@@ -733,15 +734,22 @@ void startHomingLinks() {
     println_W("Homing links for kinematics");
 
     homingAllLinks = true;
-
-    startHomingLink(linkToHWIndex(0), CALIBRARTION_home_down);
-    startHomingLink(linkToHWIndex(1), CALIBRARTION_home_down);
-    startHomingLink(linkToHWIndex(2), CALIBRARTION_home_down);
-    println_W("Started Homing...");
+    int i;
+    float data[3];
+    getHardwareMap()->iK_callback(0, 0, getmaxZ(), &data[0], &data[1], &data[2]);
+    for (i = 0; i < 3; i++) {
+        startHomingLink(linkToHWIndex(i),
+                        CALIBRARTION_home_down,
+                        (data[i] + getRodLength() -100 ) / getLinkScale(i));
+    }
+  println_W("Started Homing...");
 }
 
 void HomeLinks() {
+    int i;
+
     if (homingAllLinks) {
+
         if (GetPIDCalibrateionState(linkToHWIndex(0)) == CALIBRARTION_DONE &&
                 GetPIDCalibrateionState(linkToHWIndex(1)) == CALIBRARTION_DONE &&
                 GetPIDCalibrateionState(linkToHWIndex(2)) == CALIBRARTION_DONE
@@ -749,14 +757,7 @@ void HomeLinks() {
             homingAllLinks = false;
             configured = true;
             println_W("All linkes reported in");
-            BYTE_FIFO_STORAGE * data = GetPICUSBFifo();
 
-            int i;
-            float Alpha, Beta, Gama;
-            getHardwareMap()->iK_callback(0, 0, getmaxZ(), &Alpha, &Beta, &Gama);
-            for (i = 0; i < 3; i++) {
-                pidReset(linkToHWIndex(i), (Alpha + getRodLength() / 3) / getLinkScale(i));
-            }
             cancelPrint();
             setInterpolateXYZ(0, 0, getmaxZ(), 0);
         }

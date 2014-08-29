@@ -152,14 +152,16 @@ boolean onControllerConfigurationSet(BowlerPacket *Packet) {
     localData.VKD = get32bit(Packet, 16) / 1000.0;
     localData.mmPositionResolution = get32bit(Packet, 20) / 1000.0;
     localData.maximumMMperSec = get32bit(Packet, 24) / 1000.0;
+    writeFlashLocal();
 }
 
 boolean onSlic3rConfigurationGet(BowlerPacket *Packet) {
-
+//TODO load slicer configs
 }
 
 boolean onSlic3rConfigurationSet(BowlerPacket *Packet) {
-
+//TODO set slicer configs
+    
 }
 
 float getmmaximumMMperSec() {
@@ -290,7 +292,7 @@ boolean initFlashLocal() {
             getPidGroupDataTable(i)->config.tipsScale = 1;
             printPIDvals(i);
         }
-        localData.KP = .85;
+        localData.KP = .085;
         localData.KI = 0;
         localData.KD = 0;
         localData.VKP = 1;
