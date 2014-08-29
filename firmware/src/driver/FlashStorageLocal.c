@@ -262,12 +262,12 @@ boolean initFlashLocal() {
             printPIDvals(i);
         }
         localData.KP = .85;
-        localData.KI=1.5;
-        localData.KD=.5;
+        localData.KI=0;
+        localData.KD=0;
         localData.VKP=1;
         localData.VKD=0;
         localData.mmPositionResolution=1;
-        localData.maximumMMperSec=1000.0;
+        localData.maximumMMperSec=30;
     } else {
         println_W("Flash image ok");
         //        for (i = 0; i < numPidTotal; i++) {
