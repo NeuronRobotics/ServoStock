@@ -188,7 +188,7 @@ static RPC_LIST cartesian_PAUS = {BOWLER_POST, // Method
     "paus", //RPC as string
     &onPausePrinter, //function pointer to a packet parsinf function
     ((const char [2]) {
-        BOWLER_I08, // pause state
+        BOWLER_BOOL, // pause state
         0
     }), // Calling arguments
     BOWLER_STATUS, // response method
