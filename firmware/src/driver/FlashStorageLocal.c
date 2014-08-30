@@ -328,18 +328,13 @@ boolean initFlashLocal() {
             getPidGroupDataTable(i)->config.tipsScale = 1;
             printPIDvals(i);
         }
-        localData.KP = .085;
+        localData.KP = .85;
         localData.KI = 0;
         localData.KD = 0;
         localData.VKP = 1;
         localData.VKD = 0;
         localData.mmPositionResolution = 1;
         localData.maximumMMperSec = 30;
-        //        {203.82,//RodLength
-        //                            140,//BaseRadius
-        //                            25,//EndEffectorRadius
-        //                            100.0,//MaxZ
-        //                            -10};//MinZ
         localData.defaultConfig.BaseRadius = 140;
         localData.defaultConfig.EndEffectorRadius = 25;
         localData.defaultConfig.MaxZ = 100;
