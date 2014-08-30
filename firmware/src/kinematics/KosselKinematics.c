@@ -22,11 +22,7 @@
 #include "main.h"
 //#include <complex.h>
 
-DeltaConfig defaultConfig ={203.82,//RodLength
-                            140,//BaseRadius
-                            25,//EndEffectorRadius
-                            100.0,//MaxZ
-                            -10};//MinZ
+
 
 //Prototypes
 int formJacobian (float A, float B, float C, float Jex[3][3], float baseRad, float endEfRad, float rodLen);
@@ -36,15 +32,7 @@ int mtxMlt_ThreeByOne (float A[3][3], float B[3], float result[3]);
 float sq(float num) {
     return num*num; 
 }
-float getRodLength(){
-    return defaultConfig.RodLength;
-}
-float getmaxZ(){
-    return defaultConfig.MaxZ;
-}
-float getminZ(){
-    return defaultConfig.MinZ;
-}
+
 //TODO hack!
 //#define E_AXIS 0
 #define N_ARC_CORRECTION 0
@@ -52,13 +40,13 @@ float getminZ(){
 //TODO end hack!
 
 int servostock_calcInverse(float X, float Y, float Z, float *Alpha, float *Beta, float *Gamma){
-    float L = defaultConfig.RodLength;
-    float R = defaultConfig.BaseRadius-defaultConfig.EndEffectorRadius;
+    float L = getRodLength();
+    float R = getBaseRadius()-getEndEffectorRadius();
     float Lsqr=L*L;
     float maxRad=sqrt((X*X)+(Y*Y));
 
 //#warning "Z is not used yet"
-    if((maxRad>(L-R))|| (Z<defaultConfig.MinZ)||(Z>(defaultConfig.MaxZ+L))){
+    if((maxRad>(L-R))|| (Z<getminZ())||(Z>(getmaxZ()+L))){
         println_E("Outside of workspace x=");p_fl_E(X);print_E(" y=");p_fl_E(Y);print_E(" z=");p_fl_E(Z);print_E(" Bound radius=");p_fl_E((maxRad));
     	//printf("\r\nOutside of workspace x= %g y=%g z=%g Bound = %g",X,Y,Z,maxRad);
         return 1;//This is ourside the reachable work area
@@ -95,10 +83,10 @@ int servostock_calcForward(float Alpha, float Beta, float Gamma, float * X, floa
 	//http://www.cutting.lv/fileadmin/user_upload/lindeltakins.c
 	//http://blog.machinekit.io/2013/07/linear-delta-kinematics.html
 
-    float DELTA_DIAGONAL_ROD = defaultConfig.RodLength;
+    float DELTA_DIAGONAL_ROD = getRodLength();
 
     // Horizontal offset from middle of printer to smooth rod center.
-    float DELTA_SMOOTH_ROD_OFFSET = defaultConfig.BaseRadius; // mm
+    float DELTA_SMOOTH_ROD_OFFSET = getBaseRadius(); // mm
 
     // Horizontal offset of the universal joints on the end effector.
     // DELTA_EFFECTOR_OFFSET = 32.0 // mm
@@ -106,7 +94,7 @@ int servostock_calcForward(float Alpha, float Beta, float Gamma, float * X, floa
 
     // Horizontal offset of the universal joints on the carriages.
     // DELTA_CARRIAGE_OFFSET = 26.0 // mm
-   float  DELTA_CARRIAGE_OFFSET = defaultConfig.EndEffectorRadius; // mm
+   float  DELTA_CARRIAGE_OFFSET = getEndEffectorRadius(); // mm
 
     // In order to correct low-center, DELTA_RADIUS must be increased.
     // In order to correct high-center, DELTA_RADIUS must be decreased.
@@ -191,7 +179,7 @@ int servostock_velInverse(float X, float Y, float Z, float Xd, float Yd, float Z
 
 	// Form Inverse Jacobian
 	float J[3][3] = {{0}};
-	if (formJacobian(A, B, C, J, defaultConfig.BaseRadius, defaultConfig.EndEffectorRadius, defaultConfig.RodLength))
+	if (formJacobian(A, B, C, J, getBaseRadius(), getEndEffectorRadius(), getRodLength()))
 		return 2;
 	float Jinv[3][3] = {{0}};
 	if (formInvJacobian(A, B, C, J, Jinv))
@@ -222,7 +210,7 @@ int servostock_velForward(float A, float B, float C, float Ad, float Bd, float C
 
 	// Form Jacobian
 	float J[3][3] = {{0}};
-	if (formJacobian(A, B, C, J, defaultConfig.BaseRadius, defaultConfig.EndEffectorRadius, defaultConfig.RodLength))
+	if (formJacobian(A, B, C, J, getBaseRadius(), getEndEffectorRadius(), getRodLength()))
 		return 1;
 
 	// Forward Calculation: taskVel = J * joinVel

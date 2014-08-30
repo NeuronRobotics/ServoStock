@@ -214,7 +214,7 @@ static RPC_LIST cartesian_SBCG = {BOWLER_GET, // Method
     &onControllerConfigurationGet, //function pointer to a packet parsinf function
     NULL, // Calling arguments
     BOWLER_POST, // response method
-    ((const char [8]) {
+    ((const char [13]) {
         BOWLER_FIXED1K, //KP
         BOWLER_FIXED1K, //KI
         BOWLER_FIXED1K, //KD
@@ -222,6 +222,11 @@ static RPC_LIST cartesian_SBCG = {BOWLER_GET, // Method
         BOWLER_FIXED1K, //VKD
         BOWLER_FIXED1K, //mmPositionResolution
         BOWLER_FIXED1K, // maximumMMperSec
+        BOWLER_FIXED1K, // float RodLength;
+	BOWLER_FIXED1K, // float BaseRadius;
+	BOWLER_FIXED1K, // float EndEffectorRadius;
+	BOWLER_FIXED1K, // float MaxZ;
+	BOWLER_FIXED1K, // float MinZ;
         0
     }), // Response arguments
     NULL //Termination
@@ -230,7 +235,7 @@ static RPC_LIST cartesian_SBCG = {BOWLER_GET, // Method
 static RPC_LIST cartesian_SBCP = {BOWLER_POST, // Method
     "sbcc", //RPC as string
     &onControllerConfigurationSet, //function pointer to a packet parsinf function
-    ((const char [8]) {
+    ((const char [13]) {
         BOWLER_FIXED1K, //KP
         BOWLER_FIXED1K, //KI
         BOWLER_FIXED1K, //KD
@@ -238,6 +243,11 @@ static RPC_LIST cartesian_SBCP = {BOWLER_POST, // Method
         BOWLER_FIXED1K, //VKD
         BOWLER_FIXED1K, //mmPositionResolution
         BOWLER_FIXED1K, // maximumMMperSec
+        BOWLER_FIXED1K, // float RodLength;
+	BOWLER_FIXED1K, // float BaseRadius;
+	BOWLER_FIXED1K, // float EndEffectorRadius;
+	BOWLER_FIXED1K, // float MaxZ;
+	BOWLER_FIXED1K, // float MinZ;
         0
     }), // Response arguments
     BOWLER_STATUS, // response method

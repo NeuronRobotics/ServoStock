@@ -40,6 +40,7 @@ typedef struct _flashStorageData {
     float maximumMMperSec;
     Slic3rData slic3r;
     HardwareMap hwMap;
+    DeltaConfig defaultConfig;
     unsigned char buffer[1];
 } flashStorageData;
 
@@ -140,7 +141,13 @@ boolean onControllerConfigurationGet(BowlerPacket *Packet) {
     set32bit(Packet, localData.mmPositionResolution * 1000.0, 20); //mmPositionResolution
     set32bit(Packet, localData.maximumMMperSec * 1000.0, 24); // maximumMMperSec
 
+    set32bit(Packet, localData.defaultConfig.BaseRadius * 1000.0, 28); //
+    set32bit(Packet, localData.defaultConfig.EndEffectorRadius * 1000.0, 32); //
 
+    set32bit(Packet, localData.defaultConfig.MaxZ * 1000.0, 36); //
+
+    set32bit(Packet, localData.defaultConfig.MinZ * 1000.0, 40); //
+    set32bit(Packet, localData.defaultConfig.RodLength * 1000.0, 44); //
 
 }
 
@@ -152,16 +159,45 @@ boolean onControllerConfigurationSet(BowlerPacket *Packet) {
     localData.VKD = get32bit(Packet, 16) / 1000.0;
     localData.mmPositionResolution = get32bit(Packet, 20) / 1000.0;
     localData.maximumMMperSec = get32bit(Packet, 24) / 1000.0;
+
+    localData.defaultConfig.BaseRadius = get32bit(Packet, 28) / 1000.0; //
+    localData.defaultConfig.EndEffectorRadius = get32bit(Packet, 32) / 1000.0; //
+
+    localData.defaultConfig.MaxZ = get32bit(Packet, 36) / 1000.0; //
+
+    localData.defaultConfig.MinZ = get32bit(Packet, 40) / 1000.0; //
+    localData.defaultConfig.RodLength = get32bit(Packet, 44) / 1000.0; //
+
     writeFlashLocal();
 }
 
 boolean onSlic3rConfigurationGet(BowlerPacket *Packet) {
-//TODO load slicer configs
+    //TODO load slicer configs
 }
 
 boolean onSlic3rConfigurationSet(BowlerPacket *Packet) {
-//TODO set slicer configs
-    
+    //TODO set slicer configs
+
+}
+
+float getEndEffectorRadius() {
+    return localData.defaultConfig.EndEffectorRadius;
+}
+
+float getBaseRadius() {
+    return localData.defaultConfig.BaseRadius;
+}
+
+float getRodLength() {
+    return localData.defaultConfig.RodLength;
+}
+
+float getmaxZ() {
+    return localData.defaultConfig.MaxZ;
+}
+
+float getminZ() {
+    return localData.defaultConfig.MinZ;
 }
 
 float getmmaximumMMperSec() {
@@ -299,6 +335,16 @@ boolean initFlashLocal() {
         localData.VKD = 0;
         localData.mmPositionResolution = 1;
         localData.maximumMMperSec = 30;
+        //        {203.82,//RodLength
+        //                            140,//BaseRadius
+        //                            25,//EndEffectorRadius
+        //                            100.0,//MaxZ
+        //                            -10};//MinZ
+        localData.defaultConfig.BaseRadius = 140;
+        localData.defaultConfig.EndEffectorRadius = 25;
+        localData.defaultConfig.MaxZ = 100;
+        localData.defaultConfig.MinZ = -10;
+        localData.defaultConfig.RodLength = 203.82;
     } else {
         println_W("Flash image ok");
         //        for (i = 0; i < numPidTotal; i++) {

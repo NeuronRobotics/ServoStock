@@ -265,7 +265,7 @@ void updateCurrentPositions() {
             &current[0],
             &current[1],
             &current[2]) != 0) {
-        println_E("Forward Kinematics Failed!!");
+        //println_E("Forward Kinematics Failed!!");
         return;
     }
 }
@@ -617,14 +617,14 @@ uint8_t setInterpolateXYZ(float x, float y, float z, float ms) {
         } else {
             valocity_calculated = (mmToGo /
                     (ms / 1000.0));
-            println_W("Setting new position FEED RATE = ");
+            println_W("Setting new position FEED RATE =");
             p_fl_W(valocity_calculated);
             print_W(" mm=");
             p_fl_W(mmToGo);
             if (valocity_calculated > getmmaximumMMperSec()) {
 
                 ms = (mmToGo / getmmaximumMMperSec()) * 1000.0;
-                print_W("Capped to ");
+                print_W(" Capped to=");
                 p_fl_W(ms);
                 print_W(" max=");
                 p_fl_W(getmmaximumMMperSec());
