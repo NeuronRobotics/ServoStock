@@ -28,8 +28,6 @@
  *
  *
  ********************************************************************/
-
-#include "Bowler/Bowler_Struct_Def.h"
 #include "main.h"
 
 #ifdef USB_A0_SILICON_WORK_AROUND
@@ -73,15 +71,13 @@
 //#define EXTRUDER_TEST
 
 ///////////////////////////////////////////////////////
-const BYTE MY_MAC_ADDRESS[]={0x74,0xf7,0x26,0x01,0x01,0x01};
+const uint8_t MY_MAC_ADDRESS[]={0x74,0xf7,0x26,0x01,0x01,0x01};
 extern const MAC_ADDR Broadcast __attribute__ ((section (".scs_global_var")));
 extern MAC_ADDR MyMAC __attribute__ ((section (".scs_global_var")));
 
 
 //static const unsigned char deltaNSName[] = "bcs.delta.*;0.3;;";
 //static const unsigned char printNSName[]  = "bcs.printer.*;0.3;;";
-
-static BowlerPacket Packet;
 
 static BowlerPacket MyPacket;
 static RunEveryData pid ={0,10};
@@ -93,7 +89,7 @@ float height = 0;
 int j=0,i=0;
 
 
-BYTE Bowler_Server_Local(BowlerPacket * Packet){
+uint8_t Bowler_Server_Local(BowlerPacket * Packet){
   
         Print_Level l = getPrintLevel();
         //setPrintLevelNoPrint();
@@ -102,7 +98,7 @@ BYTE Bowler_Server_Local(BowlerPacket * Packet){
                 if(Packet->use.head.RPC != _PNG){
                     println_I("Got:");printPacket(Packet,INFO_PRINT);
                 }
-		if ( (CheckAddress(MyMAC.v,Packet->use.head.MAC.v) == TRUE) || ((CheckAddress((BYTE *)Broadcast.v,(BYTE *)Packet->use.head.MAC.v) == TRUE) )) {
+		if ( (CheckAddress(MyMAC.v,Packet->use.head.MAC.v) == true)  || ((CheckAddress((uint8_t *)Broadcast.v,(uint8_t *)Packet->use.head.MAC.v) == true)  )) {
                         float start=getMs();
                         Process_Self_Packet(Packet);
                         if(getMs()-start>5){
@@ -125,10 +121,10 @@ BYTE Bowler_Server_Local(BowlerPacket * Packet){
 		}
 		//setLed(0,0,1);
                 setPrintLevel(l);
-		return TRUE;
+		return true; 
 	}//Have a packet
         setPrintLevel(l);
-	return FALSE;
+	return false; 
 }
 
 
@@ -141,18 +137,17 @@ void hardwareInit(){
 	SYSTEMConfig(SYS_FREQ, SYS_CFG_WAIT_STATES | SYS_CFG_PCACHE);
         SYSTEMConfigPerformance(80000000);
             (_TRISF5)=INPUT; // for the reset sw
-        setPrintLevelInfoPrint();
         ATX_DISENABLE();
         CloseTimer2();
 
         Pic32_Bowler_HAL_Init();
-  
-
 
 	Bowler_Init();
+        clearPrint();
         println_I("\n\n\nStarting PIC initialization");
 
         FlashGetMac(MyMAC.v);
+
 
         DelayMs(2000);//This si to prevent runaway during programming
 	// enable driven to 3.3v on uart 1
@@ -179,29 +174,63 @@ void hardwareInit(){
 
         ATX_ENABLE(); // Turn on ATX Supply, Must be called before talking to the Encoders!!
 
-        Print_Level l = getPrintLevel();
+
         println_I("Starting Encoders");
         initializeEncoders();// Power supply must be turned on first
-        setPrintLevel(l);
+
         println_I("Starting Heater");
         initializeHeater();
+
         println_I("Starting Servos");
         initServos();
+
 #if !defined(NO_PID)
         println_I("Starting PID");
         initPIDLocal();
-        int i;
-        for(i=3;i<numPidTotal;i++){
-            SetPIDEnabled(i,FALSE);
-        }
 #endif
-    
+        initializeCartesianController();
+        DelayMs(100);
+        if(     GetPIDCalibrateionState(linkToHWIndex(0))!=CALIBRARTION_DONE&&
+                GetPIDCalibrateionState(linkToHWIndex(1))!=CALIBRARTION_DONE&&
+                GetPIDCalibrateionState(linkToHWIndex(2))!=CALIBRARTION_DONE
+
+                    ){
+            for(i=0;i<numPidMotors;i++){
+                SetPIDEnabled(i,true) ;
+            }
+
+            println_I("Running calibration for kinematics axis");
+            runPidHysterisisCalibration(linkToHWIndex(0));
+            runPidHysterisisCalibration(linkToHWIndex(1));
+            runPidHysterisisCalibration(linkToHWIndex(2));
+
+            DelayMs(100);//wait for ISR to fire and update all values
+            for(i=0;i<3;i++){
+                setPIDConstants(linkToHWIndex(i),.2,.1,0);
+            }
+
+            OnPidConfigure(0);
+        }else{
+            println_W("Axis are already calibrated");
+        }
+
+        pid.MsTime=getMs();
+        //startHomingLinks();
+
+        disableSerialComs(true) ;
+
+        (_TRISB0)=1;
+
+        SetColor(1,1,1);
+        HEATER_2_TRIS = OUTPUT;
+        //HEATER_1_TRIS = OUTPUT; // Causes one of the axies to crawl downward in bursts when enabled and on...
+        //HEATER_0_TRIS = OUTPUT; // causes device to twitc. These are touched by the USB stack somehow..... and as the reset button
 
 }
-BOOL serVal =TRUE;
+boolean serVal =true; 
 
 void bowlerSystem(){
-    
+
     Bowler_Server_Local(&MyPacket);
 
     float diff = RunEvery(&pid);
@@ -212,137 +241,21 @@ void bowlerSystem(){
             println_E("Time diff ran over! ");p_fl_E(diff);
             pid.MsTime=getMs();
         }
-        //checkPositionChange();
- 
+         cartesianAsync();
     }
 
 }
-RunEveryData loop = {0,2000};
-void SPItest(){
-    
-    BOOL val = TRUE;
-    CloseSPI2();
-    SPI_MISO_TRIS   =OUTPUT;
-    SPI_MOSI_TRIS   =OUTPUT;
-    SPI_CLK_TRIS    =OUTPUT;
-    
-    
-    /*while (1){
-      if(RunEvery(&loop)>0){
-           //_RG7 = val;
-           //_RG6 = val;
-           if(val==TRUE)
-               val=FALSE;
-           else
-               val=TRUE;
-           _RG8 = val;
-           println_E("Toggle pins");
-        }
-    }*/
-}
-BOOL printCalibrations = FALSE;
+
+boolean printCalibrations = false; 
 
 int main(){
-    hardwareInit();
-    //StartCritical();
-    initializeCartesianController();
-    //disableWrapping();
-    DelayMs(100);
-    if(     GetPIDCalibrateionState(0)!=CALIBRARTION_DONE&&
-            GetPIDCalibrateionState(1)!=CALIBRARTION_DONE&&
-            GetPIDCalibrateionState(2)!=CALIBRARTION_DONE
-
-                ){
-        for(i=0;i<numPidMotors;i++){
-            SetPIDEnabled(i,TRUE);
-        }
-//        runPidHysterisisCalibration(0);
-//        runPidHysterisisCalibration(1);
-//        runPidHysterisisCalibration(2);
-        DelayMs(100);//wait for ISR to fire and update all values
-        for(i=0;i<numPidMotors;i++){
-            SetPIDCalibrateionState(i,CALIBRARTION_DONE);
-            pidReset(i, 0);
-            setPIDConstants(i,.1,0,0);
-        }
-        println_W("Axis need calibration");
-        pidReset(0, -1024);
-        SetPID(0,-1024);
-        getPidGroupDataTable()[0].config.Polarity=1;
-        getPidGroupDataTable()[0].config.upperHistoresis=-5;
-        getPidGroupDataTable()[0].config.lowerHistoresis=-7;
-        getPidGroupDataTable()[0].config.stop=-6;
-
-        pidReset(1, 1024);
-        SetPID(1,1024);
-        getPidGroupDataTable()[1].config.Polarity=0;
-        getPidGroupDataTable()[1].config.upperHistoresis=-5;
-        getPidGroupDataTable()[1].config.lowerHistoresis=-7;
-        getPidGroupDataTable()[1].config.stop=-6;
-
-        pidReset(2, 0);
-        SetPID(2,0);
-        getPidGroupDataTable()[2].config.Polarity=0;
-        getPidGroupDataTable()[2].config.upperHistoresis=5;
-        getPidGroupDataTable()[2].config.lowerHistoresis=3;
-        getPidGroupDataTable()[2].config.stop=4;
-
-        
-        OnPidConfigure(0);
-    }else{
-        println_W("Axis are already calibrated");
-    }
-    
-
-
-
-//    SetPIDCalibrateionState(0, CALIBRARTION_DONE);
-//    SetPIDCalibrateionState(1, CALIBRARTION_DONE);
-//    SetPIDCalibrateionState(2, CALIBRARTION_DONE);
-
-
-    pid.MsTime=getMs();
-    //startHomingLinks();
-
-    disableSerialComs(TRUE);
     //setPrintLevelInfoPrint();
-    //setPrintLevelWarningPrint();
-    setPrintLevelNoPrint();
-    (_TRISB0)=1;
+    setPrintLevelWarningPrint();
+    //setPrintLevelNoPrint();
+    hardwareInit();
+    RunEveryData loop = {0.0,2000.0};
 
-    SetColor(1,1,1);
-                HEATER_2_TRIS = OUTPUT;
-                //HEATER_1_TRIS = OUTPUT; // Causes one of the axies to crawl downward in bursts when enabled and on...
-                //HEATER_0_TRIS = OUTPUT; // causes device to twitc. These are touched by the USB stack somehow..... and as the reset button
-//    while(1){
-//        p_int_W(AS5055readAngle(0));
-//        print_W(" : 0\r\n");
-//        p_int_W(AS5055readAngle(1));
-//        print_W(" : 1\r\n");
-//        p_int_W(AS5055readAngle(2));
-//        print_W(" : 2\r\n\r\n");
-//
-//    }
-    Print_Level l= getPrintLevel();
-    setPrintLevelInfoPrint();
-    printCartesianData();
-    int i;
-    for(i=0;i<numPidMotors;i++){
-        printPIDvals(i);
-
-    }
-    for(i=0;i<numPidMotors;i++){
-        println_I(" Axis ");p_int_I(i);
-        print_I(" Val: ");p_fl_I(getRecentEncoderReading(i));
-    }
-    setPrintLevel(l);
     while(1){
-        //HEATER_0=1;
-        //HEATER_1=1;
-        //HEATER_2=1; // Works, can pull it high or low but it seems to go low briefly, something is touching it. but it works.
-        // 1 is off 0 is on.
-        // Sensor is on RB3
-
         if (_RF5==1){
             setPrintLevelErrorPrint();
 		p_int_E(0);print_E(" Reset Button Pressed from loop");
@@ -352,37 +265,35 @@ int main(){
 		Reset();
 	}
         if(RunEvery(&loop)>0){
-            checkDataTable();
-            Print_Level l= getPrintLevel();
-            setPrintLevelInfoPrint();
-            //printCartesianData();
-            updateAllEncoders();
+//            clearPrint();
+//            printCartesianData();
+
+        }
+        if(     printCalibrations == false &&
+                GetPIDCalibrateionState(linkToHWIndex(0))==CALIBRARTION_DONE&&
+                GetPIDCalibrateionState(linkToHWIndex(1))==CALIBRARTION_DONE&&
+                GetPIDCalibrateionState(linkToHWIndex(2))==CALIBRARTION_DONE
+
+                ){
+            printCalibrations = true; 
+            int index=0;
+            for(index=0;index<3;index++){
+                int group = linkToHWIndex(index);
+                println_E("For Axis ");p_int_E(group);
+                print_E(" upper: ");p_int_E(getPidGroupDataTable(group)->config.upperHistoresis);
+                print_E(" lower: ");p_int_E(getPidGroupDataTable(group)->config.lowerHistoresis);
+                print_E(" stop: ");p_int_E(getPidGroupDataTable(group)->config.stop);
+            }
+            startHomingLinks();
+            //Print_Level l= getPrintLevel();
+
+            //setPrintLevelInfoPrint();
+            printCartesianData();
             int i;
             for(i=0;i<numPidMotors;i++){
                 printPIDvals(i);
             }
-            
-            for(i=0;i<numPidMotors;i++){
-                println_I(" Axis ");p_int_I(i);
-                print_I(" Val: ");p_fl_I(getRecentEncoderReading(i));
-            }
-            setPrintLevel(l);
-        }
-        if(     printCalibrations == FALSE&&
-                GetPIDCalibrateionState(0)==CALIBRARTION_DONE&&
-                GetPIDCalibrateionState(1)==CALIBRARTION_DONE&&
-                GetPIDCalibrateionState(2)==CALIBRARTION_DONE
-
-                ){
-            printCalibrations = TRUE;
-            int group=0;
-            for(group=0;group<3;group++){
-                println_E("For Axis ");p_int_E(group);
-                print_E(" upper: ");p_int_E(getPidGroupDataTable()[group].config.upperHistoresis);
-                print_E(" lower: ");p_int_E(getPidGroupDataTable()[group].config.lowerHistoresis);
-                print_E(" stop: ");p_int_E(getPidGroupDataTable()[group].config.stop);
-            }
-            //startHomingLinks();
+            //setPrintLevel(l);
         }
         
         bowlerSystem();

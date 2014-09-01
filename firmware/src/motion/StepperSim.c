@@ -15,7 +15,7 @@ void StartStepperSim(){
 #if defined(__32MX795F512L__)
     _TRISA15 = INPUT;
     _TRISE0 = INPUT;
-    ConfigINT4(EXT_INT_ENABLE | RISING_EDGE_INT | EXT_INT_PRI_1);
+    ConfigINT4(EXT_INT_ENABLE | RISING_EDGE_int32_t | EXT_INT_PRI_1);
 #elif defined(__32MX440F128H__)
 
 #endif

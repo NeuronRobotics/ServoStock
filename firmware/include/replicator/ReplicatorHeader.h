@@ -123,7 +123,7 @@ extern "C" {
 #define     bDelay()    i=2; while (i>1) i++;
 
 void initPIDLocal();
-void setPidIsr(BOOL v);
+void setPidIsr(boolean v);
 
 #define numPidMotors 8
 
@@ -133,7 +133,7 @@ void setPidIsr(BOOL v);
 
 
 
-BOOL isUpToTempreture();
+boolean isUpToTempreture();
 void HomeLinks();
 void startHomingLinks();
 
@@ -142,15 +142,15 @@ void startHomingLinks();
 
 #define ticksPerRev         (4096.0)
 #define ticksPerDegree      (ticksPerRev/360.0)
-#define pulleyDiameter      (34)
-//#define mmPerTick           (pulleyDiameter *3.14159/ticksPerRev)
+#define pulleyDiameter      (20.4414) //(34)
+#define mmPerTick           (pulleyDiameter *3.14159/ticksPerRev)
 #define servoHomeValue      0
 
 #if !defined(NUM_PID_GROUPS)
 	#define NUM_PID_GROUPS (numPidMotors)
 #endif
 void LoadCorePacket(BowlerPacket * Packet);
-void setDebug(BOOL d);
+void setDebug(boolean d);
 
 #ifdef	__cplusplus
 }

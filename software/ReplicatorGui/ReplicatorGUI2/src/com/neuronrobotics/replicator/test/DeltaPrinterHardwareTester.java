@@ -1,6 +1,6 @@
 package com.neuronrobotics.replicator.test;
 
-import com.neuronrobotics.replicator.driver.DeltaForgeDevice;
+import com.neuronrobotics.replicator.driver.BowlerBoardDevice;
 import com.neuronrobotics.replicator.driver.NRPrinter;
 import com.neuronrobotics.replicator.driver.PrinterStatus;
 import com.neuronrobotics.replicator.driver.PrinterStatusListener;
@@ -11,7 +11,7 @@ import com.neuronrobotics.sdk.serial.SerialConnection;
 
 public class DeltaPrinterHardwareTester implements PrinterStatusListener {
 	public DeltaPrinterHardwareTester() {
-		DeltaForgeDevice delt = new DeltaForgeDevice();
+		BowlerBoardDevice delt = new BowlerBoardDevice();
 		delt.setConnection(new SerialConnection("/dev/DeltaDoodle0"));
 		delt.connect();
 		NRPrinter printer = new NRPrinter(delt);

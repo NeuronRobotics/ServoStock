@@ -9,7 +9,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.LinkedList;
 
-import com.neuronrobotics.replicator.driver.DeltaForgeDevice;
+import com.neuronrobotics.replicator.driver.BowlerBoardDevice;
 import com.neuronrobotics.replicator.driver.NRPrinter;
 import com.neuronrobotics.replicator.driver.PrinterStatus;
 import com.neuronrobotics.replicator.driver.PrinterStatusListener;
@@ -73,7 +73,7 @@ public class GUIDriver implements PrinterStatusListener, GUIBackendInterface {
 	}
 
 	public boolean connectPrinter() {
-		DeltaForgeDevice delt = new DeltaForgeDevice();
+		BowlerBoardDevice delt = new BowlerBoardDevice();
 		if (!ConnectionDialog.getBowlerDevice(delt)) {
 			System.out.println("Fail");
 			return connectVirtualPrinter(); //TODO remove eventually

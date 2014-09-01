@@ -5,7 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-import com.neuronrobotics.replicator.driver.DeltaForgeDevice;
+import com.neuronrobotics.replicator.driver.BowlerBoardDevice;
 import com.neuronrobotics.replicator.driver.NRPrinter;
 import com.neuronrobotics.replicator.driver.PrinterStatus;
 import com.neuronrobotics.replicator.driver.PrinterStatusListener;
@@ -17,7 +17,7 @@ import com.neuronrobotics.sdk.ui.ConnectionDialog;
 
 public class PrinterTest implements PrinterStatusListener {
 	private PrinterTest(String filename) {
-		DeltaForgeDevice delt = new DeltaForgeDevice();
+		BowlerBoardDevice delt = new BowlerBoardDevice();
 
 		if(!ConnectionDialog.getBowlerDevice(delt)){
 			System.exit(0);

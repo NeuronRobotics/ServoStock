@@ -32,6 +32,7 @@ int mapHeaterIndex(int group){
             return 3;
 
     }
+    return 0;
 }
 
 void initializeHeater(){
@@ -70,7 +71,7 @@ void initializeHeater(){
 }
 
 int resetHeater(int group, int current){
-
+    return 0;
 }
 
 

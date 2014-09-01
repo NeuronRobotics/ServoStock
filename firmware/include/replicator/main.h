@@ -1,7 +1,7 @@
 
 #ifndef MAIN_H
 #define MAIN_H
-#include <plib.h>
+
 #include "Bowler/Bowler.h"
 #include "AuxUartServer.h"
 
@@ -13,11 +13,28 @@
 #include "CartesianController.h"
 #include "delta.h"
 #include "servoCalibration.h"
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <inttypes.h>
 
-BOOL asyncCallback(BowlerPacket *Packet);
+typedef struct _DeltaConfig{
+	float RodLength;
+	float BaseRadius;
+	float EndEffectorRadius;
+	float MaxZ;
+	float MinZ;
+}DeltaConfig;
+
+uint8_t SPITransceve(uint8_t b);
+
+boolean asyncCallback(BowlerPacket *Packet);
 
 NAMESPACE_LIST * getBcsCartesianNamespace();
-
+AbsPID * getFlashPidGroupDataTable();
+boolean initFlashLocal();
+void writeFlashLocal();
 
 void bowlerSystem();
 

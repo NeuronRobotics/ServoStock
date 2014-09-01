@@ -15,96 +15,174 @@
 //#define LINK1_INDEX 7
 //#define LINK2_INDEX 4
 #define AXIS_UNUSED 0xFF
-typedef BOOL forwardKinematics(float Alpha, float Beta, float Gama, float * x0, float *y0, float * z0);
-typedef BOOL inverseKinematics(float x0, float y0, float z0, float *Alpha, float *Beta, float *Gama);
 
-BOOL onConfigurationGet(BowlerPacket *Packet);
-BOOL onRunKinematicsSet(BowlerPacket *Packet);
+    typedef boolean forwardKinematics(float Alpha, float Beta, float Gama, float * x0, float *y0, float * z0);
+typedef boolean inverseKinematics(float x0, float y0, float z0, float *Alpha, float *Beta, float *Gama);
 
-typedef struct  _IndexScale{
+/* Function: Inverse Velocity
+ * Inputs: current task position (X, Y, Z) and desired task velocities (Xd, Yd, Zd)
+ * Outputs: resulting joint velocities (Ad, Bd, Cd)
+ */
+typedef int velInverse(float X, float Y, float Z, float Xd, float Yd, float Zd, float * Ad, float * Bd, float * Cd);
+/* Function: Forward Velocity
+ * Inputs: current joint position (A, B, C) and desired joint velocities (Ad, Bd, Cd)
+ * Outputs: resulting task velocities (Xd, Yd, Zd)
+ */
+typedef int velForward(float A, float B, float C, float Ad, float Bd, float Cd, float * Xd, float * Yd, float * Zd);
+
+
+typedef struct _IndexScale {
     int index;
     float scale;
     char name[10];
-}IndexScale;
+} IndexScale;
 
-typedef struct  _HardwareMap{
+typedef struct _HardwareMap {
     IndexScale Alpha;
     IndexScale Beta;
     IndexScale Gama;
+
     struct {
         IndexScale Heater0;
         IndexScale Extruder0;
     };
-    struct{
+
+    struct {
         IndexScale Heater1;
         IndexScale Extruder1;
     };
-    struct{
+
+    struct {
         IndexScale Heater2;
         IndexScale Extruder2;
     };
     forwardKinematics * fK_callback;
     inverseKinematics * iK_callback;
-}HardwareMap;
+    velInverse * iVel_callback;
+    velForward * fVel_callback;
+    unsigned char useStateBasedVelocity;
+} HardwareMap;
 
 
 #ifdef	__cplusplus
 extern "C" {
 #endif
-typedef struct  _Transform{
-    float x;
-    float y;
-    float z;
-    float rotation[3][3];
-}Transform;
+
+typedef struct _Transform {
+        float x;
+        float y;
+        float z;
+        float rotation[3][3];
+    } Transform;
 
 #define _SLI			0x696c735f // '_sli'  Set Linear Interpolation
 #define PRCL			0x6c637270 // 'prcl'  Cancle print
 
-/**
- * Handle a Cartesian packet.
- * @return True if the packet was processed, False if it was not  Cartesian packet
- */
-unsigned char ProcessCartesianPacket(BowlerPacket * Packet);
+    /**
+     * Handle a Cartesian packet.
+     * @return True if the packet was processed, False if it was not  Cartesian packet
+     */
+    unsigned char ProcessCartesianPacket(BowlerPacket * Packet);
 
-void initializeCartesianController();
+    void initializeCartesianController();
 
-BYTE setInterpolateXYZ(float x, float y, float z,float ms);
+    int linkToHWIndex(int index);
 
-void interpolateZXY();
+    uint8_t setInterpolateXYZ(float x, float y, float z, float ms);
 
-BYTE setXYZ(float x, float y, float z,float ms);
+    void interpolateZXY();
 
-float getLinkAngle(int index);
-float getLinkAngleNoScale(int index);
+    uint8_t setXYZ(float x, float y, float z, float ms);
 
-float setLinkAngle(int index, float value, float ms);
+    float getLinkAngle(int index);
+    float getLinkAngleNoScale(int index);
 
-//int getCurrentPosition(float * x, float * y, float * z);
+    float setLinkAngle(int index, float value, float ms);
 
-void cartesianAsync();
+    //int getCurrentPosition(float * x, float * y, float * z);
 
-void cancelPrint();
+    void cartesianAsync();
 
-BOOL onCartesianPost(BowlerPacket *Packet);
-BOOL onClearPrinter(BowlerPacket *Packet);
+    void cancelPrint();
 
-//void InitializeCartesianController( BOOL (*asyncCallbackPtr)(BowlerPacket *Packet),
-//                                    BOOL (*forwardKinematicsCallbackPtr)(float * currentLinkPositions, Transform * result),
-//                                    BOOL (*inverseKinematicsCallbackPtr)(Transform * currentTransform, float * result ),
-//                                    BOOL (*setPositionCallbackPtr)(int linkIndex,float degrees,float ms),
-//                                    BOOL (*getAllPositionsCallbackPtr)(float * currentLinkPositions)
-//                                  );
-float getmaxZ();
+    boolean onCartesianPost(BowlerPacket *Packet);
+    boolean onClearPrinter(BowlerPacket *Packet);
+    boolean onPausePrinter(BowlerPacket *Packet);
+    boolean onHomePrinter(BowlerPacket *Packet) ;
+    
+    void printCartesianData();
+
+    //void InitializeCartesianController( boolean (*asyncCallbackPtr)(BowlerPacket *Packet),
+    //                                    boolean (*forwardKinematicsCallbackPtr)(float * currentLinkPositions, Transform * result),
+    //                                    boolean (*inverseKinematicsCallbackPtr)(Transform * currentTransform, float * result ),
+    //                                    boolean (*setPositionCallbackPtr)(int linkIndex,float degrees,float ms),
+    //                                    boolean (*getAllPositionsCallbackPtr)(float * currentLinkPositions)
+    //                                  );
+    float getmaxZ();
+    float getRodLength();
+    float getminZ();
+    int servostock_calcInverse(float x0, float y0, float z0, float *theta1, float *theta2, float *theta3);
+
+    int servostock_calcForward(float theta1, float theta2, float theta3, float * x0, float *y0, float * z0);
+
+    /* Function: Inverse Velocity
+     * Inputs: current task position (X, Y, Z) and desired task velocities (Xd, Yd, Zd)
+     * Outputs: resulting joint velocities (Ad, Bd, Cd)
+     */
+    int servostock_velInverse(float X, float Y, float Z, float Xd, float Yd, float Zd,
+            float * Ad, float * Bd, float * Cd);
+    /* Function: Forward Velocity
+     * Inputs: current joint position (A, B, C) and desired joint velocities (Ad, Bd, Cd)
+     * Outputs: resulting task velocities (Xd, Yd, Zd)
+     */
+    int servostock_velForward(float A, float B, float C, float Ad, float Bd, float Cd,
+            float * Xd, float * Yd, float * Zd);
+
+    int frog_calcForward(float Alpha, float Beta, float Gamma, float * X, float *Y, float * Z);
+    int frog_calcInverse(float X, float Y, float Z, float *Alpha, float *Beta, float *Gamma);
+
+boolean onConfigurationGet(BowlerPacket *Packet);
+boolean onConfigurationSet(BowlerPacket *Packet);
+
+boolean onControllerConfigurationGet(BowlerPacket *Packet);
+boolean onControllerConfigurationSet(BowlerPacket *Packet);
+
+boolean onSlic3rConfigurationGet(BowlerPacket *Packet);
+boolean onSlic3rConfigurationSet(BowlerPacket *Packet);
+
+boolean onRunKinematicsSet(BowlerPacket *Packet);
+boolean onCartesianPacket(BowlerPacket *Packet);
+boolean setDesiredTaskSpaceTransform(BowlerPacket *Packet);
+boolean getCurrentTaskSpaceTransform(BowlerPacket *Packet);
+boolean setDesiredJointSpaceVector(BowlerPacket *Packet);
+boolean setDesiredJointAxisValue(BowlerPacket *Packet);
+
+HardwareMap * getHardwareMap();
+
+
+float getEndEffectorRadius();
+float getBaseRadius();
 float getRodLength();
+float getmaxZ();
 float getminZ();
-int servostock_calcInverse(float x0, float y0, float z0, float *theta1, float *theta2, float *theta3);
 
-int servostock_calcForward(float theta1, float theta2, float theta3, float * x0, float *y0, float * z0);
+float getmmPositionResolution();
+float getmmaximumMMperSec() ;
+float getKP();
+float getKI();
+float getKD();
 
-int frog_calcForward(float Alpha, float Beta, float Gamma, float * X, float *Y, float * Z);
-int frog_calcInverse(float X, float Y, float Z, float *Alpha, float *Beta, float *Gamma);
+float getVKP();
+float getVKD();
+void setmmPositionResolution(float value);
+void setKP(float value);
+void setKI(float value);
+void setKD(float value);
+void setVKP(float value);
 
+void setVKD(float value);
+
+char * getName(int index);
 
 #ifdef	__cplusplus
 }

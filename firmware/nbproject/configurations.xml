@@ -5,74 +5,107 @@
                    displayName="Header Files"
                    projectFiles="true">
       <logicalFolder name="include" displayName="include" projectFiles="true">
+        <logicalFolder name="arch" displayName="arch" projectFiles="true">
+          <logicalFolder name="AVR" displayName="AVR" projectFiles="true">
+            <itemPath>../../c-bowler/Platform/include/arch/AVR/BowlerConfig.h</itemPath>
+            <itemPath>../../c-bowler/Platform/include/arch/AVR/reg_structs.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="native" displayName="native" projectFiles="true">
+            <itemPath>../../c-bowler/Platform/include/arch/native/BowlerConfig.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="NXP" displayName="NXP" projectFiles="true">
+            <itemPath>../../c-bowler/Platform/include/arch/NXP/BowlerConfig.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="pic32" displayName="pic32" projectFiles="true">
+            <logicalFolder name="USB" displayName="USB" projectFiles="true">
+              <itemPath>../../c-bowler/Platform/include/arch/pic32/USB/usb_fifo.h</itemPath>
+              <itemPath>../../c-bowler/Platform/include/arch/pic32/USB/usb_common.h</itemPath>
+              <itemPath>../../c-bowler/Platform/include/arch/pic32/USB/usb.h</itemPath>
+              <itemPath>../../c-bowler/Platform/include/arch/pic32/USB/usb_hal.h</itemPath>
+              <itemPath>../../c-bowler/Platform/include/arch/pic32/USB/usb_hal_pic32.h</itemPath>
+              <itemPath>../../c-bowler/Platform/include/arch/pic32/USB/usb_device.h</itemPath>
+              <itemPath>../../c-bowler/Platform/include/arch/pic32/USB/usb_ch9.h</itemPath>
+              <itemPath>../../c-bowler/Platform/include/arch/pic32/USB/usb_function_cdc.h</itemPath>
+            </logicalFolder>
+            <itemPath>../../c-bowler/Platform/include/arch/pic32/UART.h</itemPath>
+            <itemPath>../../c-bowler/Platform/include/arch/pic32/LED.h</itemPath>
+            <itemPath>../../c-bowler/Platform/include/arch/pic32/EthHardware.h</itemPath>
+            <itemPath>../../c-bowler/Platform/include/arch/pic32/BowlerConfig.h</itemPath>
+            <itemPath>../../c-bowler/Platform/include/arch/pic32/FlashStorage.h</itemPath>
+            <itemPath>../../c-bowler/Platform/include/arch/pic32/Pizo.h</itemPath>
+            <itemPath>../../c-bowler/Platform/include/arch/pic32/usb_config.h</itemPath>
+            <itemPath>../../c-bowler/Platform/include/arch/pic32/Compiler.h</itemPath>
+            <itemPath>../../c-bowler/Platform/include/arch/pic32/Tick.h</itemPath>
+            <itemPath>../../c-bowler/Platform/include/arch/pic32/HardwareProfile.h</itemPath>
+            <itemPath>../../c-bowler/Platform/include/arch/pic32/GenericTypeDefs.h</itemPath>
+            <itemPath>../../c-bowler/Platform/include/arch/pic32/Delay.h</itemPath>
+          </logicalFolder>
+        </logicalFolder>
         <logicalFolder name="Bowler" displayName="Bowler" projectFiles="true">
-          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include/Bowler/Namespace_bcs_core.h</itemPath>
-          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include/Bowler/RPC_Process.h</itemPath>
-          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include/Bowler/BowlerServerHardwareAbstraction.h</itemPath>
-          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include/Bowler/Scheduler.h</itemPath>
-          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include/Bowler/BowlerRPCRegestration.h</itemPath>
-          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include/Bowler/Defines.h</itemPath>
-          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include/Bowler/Bowler_Struct_Def.h</itemPath>
-          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include/Bowler/Bowler.h</itemPath>
-          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include/Bowler/Debug.h</itemPath>
-          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include/Bowler/AbstractPID.h</itemPath>
-          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include/Bowler/Bowler_Server.h</itemPath>
-          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include/Bowler/FIFO.h</itemPath>
-          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include/Bowler/Bowler_Helper.h</itemPath>
-          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include/Bowler/namespace.h</itemPath>
-          <itemPath>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include/Bowler/BowlerTransport.h</itemPath>
+          <itemPath>../../c-bowler/BowlerStack/include/Bowler/RPC_Process.h</itemPath>
+          <itemPath>../../c-bowler/BowlerStack/include/Bowler/BowlerServerHardwareAbstraction.h</itemPath>
+          <itemPath>../../c-bowler/BowlerStack/include/Bowler/Bowler_Helper.h</itemPath>
+          <itemPath>../../c-bowler/BowlerStack/include/Bowler/AbstractPID.h</itemPath>
+          <itemPath>../../c-bowler/BowlerStack/include/Bowler/Defines.h</itemPath>
+          <itemPath>../../c-bowler/BowlerStack/include/Bowler/BowlerRPCRegestration.h</itemPath>
+          <itemPath>../../c-bowler/BowlerStack/include/Bowler/namespace.h</itemPath>
+          <itemPath>../../c-bowler/BowlerStack/include/Bowler/Namespace_bcs_core.h</itemPath>
+          <itemPath>../../c-bowler/BowlerStack/include/Bowler/Bowler_Struct_Def.h</itemPath>
+          <itemPath>../../c-bowler/BowlerStack/include/Bowler/FIFO.h</itemPath>
+          <itemPath>../../c-bowler/BowlerStack/include/Bowler/Bowler_Server.h</itemPath>
+          <itemPath>../../c-bowler/BowlerStack/include/Bowler/Bowler.h</itemPath>
+          <itemPath>../../c-bowler/BowlerStack/include/Bowler/BowlerTransport.h</itemPath>
+          <itemPath>../../c-bowler/BowlerStack/include/Bowler/Debug.h</itemPath>
+          <itemPath>../../c-bowler/BowlerStack/include/Bowler/Scheduler.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="replicator" displayName="replicator" projectFiles="true">
+          <logicalFolder name="replicator" displayName="replicator" projectFiles="true">
+            <itemPath>include/replicator/delta.h</itemPath>
+            <itemPath>include/replicator/Servo.h</itemPath>
+            <itemPath>include/replicator/StepperSim.h</itemPath>
+            <itemPath>include/replicator/CartesianController.h</itemPath>
+            <itemPath>include/replicator/ReplicatorHeader.h</itemPath>
+            <itemPath>include/replicator/servoCalibration.h</itemPath>
+            <itemPath>include/replicator/AS5055.h</itemPath>
+            <itemPath>include/replicator/ForgeHeater.h</itemPath>
+            <itemPath>include/replicator/main.h</itemPath>
+            <itemPath>include/replicator/AuxUartServer.h</itemPath>
+          </logicalFolder>
         </logicalFolder>
       </logicalFolder>
-      <logicalFolder name="replicator" displayName="replicator" projectFiles="true">
-        <itemPath>../../include/replicator/GenericTypeDefs.h</itemPath>
-        <itemPath>../../include/replicator/ReplicatorHeader.h</itemPath>
-        <itemPath>../../include/replicator/AS5055.h</itemPath>
-        <itemPath>../../include/replicator/AuxUartServer.h</itemPath>
-        <itemPath>../../include/replicator/main.h</itemPath>
-        <itemPath>../../include/replicator/StepperSim.h</itemPath>
-        <itemPath>../../include/replicator/CartesianController.h</itemPath>
-        <itemPath>../../include/replicator/delta.h</itemPath>
-        <itemPath>../../include/replicator/servoCalibration.h</itemPath>
-      </logicalFolder>
-    </logicalFolder>
-    <logicalFolder name="LibraryFiles"
-                   displayName="Library Files"
-                   projectFiles="true">
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
                    projectFiles="true">
     </logicalFolder>
-    <logicalFolder name="ObjectFiles"
-                   displayName="Object Files"
-                   projectFiles="true">
-    </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <logicalFolder name="driver" displayName="driver" projectFiles="true">
-        <itemPath>../../src/driver/Servo.c</itemPath>
-        <itemPath>../../src/driver/SPIClient.c</itemPath>
-        <itemPath>../../src/driver/ForgeHeater.c</itemPath>
-        <itemPath>../../src/driver/AS5055.c</itemPath>
-        <itemPath>../../src/driver/FlashStorageLocal.c</itemPath>
+      <logicalFolder name="src" displayName="src" projectFiles="true">
+        <logicalFolder name="driver" displayName="driver" projectFiles="true">
+          <itemPath>src/driver/AS5055.c</itemPath>
+          <itemPath>src/driver/ForgeHeater.c</itemPath>
+          <itemPath>src/driver/SPIClient.c</itemPath>
+          <itemPath>src/driver/FlashStorageLocal.c</itemPath>
+          <itemPath>src/driver/Servo.c</itemPath>
+        </logicalFolder>
+        <logicalFolder name="kinematics" displayName="kinematics" projectFiles="true">
+          <itemPath>src/kinematics/KosselKinematics.c</itemPath>
+          <itemPath>src/kinematics/delta.c</itemPath>
+          <itemPath>src/kinematics/FrogLegs.c</itemPath>
+          <itemPath>src/kinematics/CartesianController.c</itemPath>
+        </logicalFolder>
+        <logicalFolder name="motion" displayName="motion" projectFiles="true">
+          <itemPath>src/motion/Calibration.c</itemPath>
+          <itemPath>src/motion/StepperSim.c</itemPath>
+          <itemPath>src/motion/PID.c</itemPath>
+        </logicalFolder>
+        <logicalFolder name="namespace" displayName="namespace" projectFiles="true">
+          <itemPath>src/namespace/Namespace_bcs_cartesian.c</itemPath>
+          <itemPath>src/namespace/UpstreamPackets.c</itemPath>
+        </logicalFolder>
+        <itemPath>src/main.c</itemPath>
       </logicalFolder>
-      <logicalFolder name="kinematics" displayName="kinematics" projectFiles="true">
-        <itemPath>../../src/kinematics/KosselKinematics.c</itemPath>
-        <itemPath>../../src/kinematics/CartesianController.c</itemPath>
-        <itemPath>../../src/kinematics/delta.c</itemPath>
-        <itemPath>../../src/kinematics/FrogLegs.c</itemPath>
-      </logicalFolder>
-      <logicalFolder name="motion" displayName="motion" projectFiles="true">
-        <itemPath>../../src/motion/StepperSim.c</itemPath>
-        <itemPath>../../src/motion/PID.c</itemPath>
-      </logicalFolder>
-      <logicalFolder name="namespace" displayName="namespace" projectFiles="true">
-        <itemPath>../../src/namespace/UpstreamPackets.c</itemPath>
-        <itemPath>../../src/namespace/Namespace_bcs_cartesian.c</itemPath>
-        <itemPath>../../src/namespace/Callbacks.c</itemPath>
-      </logicalFolder>
-      <itemPath>../../src/main.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -81,11 +114,10 @@
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
-    <Elem>../../src</Elem>
-    <Elem>../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack</Elem>
-    <Elem>../../../../c-bowler/firmware/library/NR-Clib/development/Platform/src/pic32</Elem>
-    <Elem>../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32</Elem>
-    <Elem>../../../../microcontroller-bowler/DyIO/development/pic</Elem>
+    <Elem>src</Elem>
+    <Elem>include</Elem>
+    <Elem>../../c-bowler/BowlerStack/include</Elem>
+    <Elem>../../c-bowler/Platform/include</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -104,12 +136,12 @@
         <linkerTool>
           <linkerLibItems>
             <linkerLibProjectItem>
-              <makeArtifact PL="../../../../c-bowler/firmware/library/NR-Clib/development/c-bowler.X"
+              <makeArtifact PL="../../c-bowler/c-bowler.X"
                             CT="3"
                             CN="default"
                             AC="true"
                             BL="true"
-                            WD="../../../../c-bowler/firmware/library/NR-Clib/development/c-bowler.X"
+                            WD="../../c-bowler/c-bowler.X"
                             BC="${MAKE}  -f Makefile CONF=default"
                             DBC="${MAKE}  -f Makefile CONF=default TYPE_IMAGE=DEBUG_RUN"
                             CC="rm -rf &quot;build/default&quot; &quot;dist/default&quot;"
@@ -139,20 +171,20 @@
       <C32>
         <property key="additional-warnings" value="false"/>
         <property key="enable-app-io" value="false"/>
-        <property key="enable-omit-frame-pointer" value="true"/>
+        <property key="enable-omit-frame-pointer" value="false"/>
         <property key="enable-symbols" value="true"/>
-        <property key="enable-unroll-loops" value="true"/>
+        <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../../include/replicator;../../../../c-bowler/firmware/library/NR-Clib/development/BowlerStack/include;../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include/arch/pic32;../../../../c-bowler/firmware/library/NR-Clib/development/Platform/include"/>
+                  value="include/replicator;../../c-bowler/Platform/include;../../c-bowler/BowlerStack/include"/>
         <property key="generate-16-bit-code" value="true"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="false"/>
-        <property key="make-warnings-into-errors" value="true"/>
+        <property key="make-warnings-into-errors" value="false"/>
         <property key="optimization-level" value="-O1"/>
         <property key="place-data-into-section" value="false"/>
-        <property key="post-instruction-scheduling" value="schedule-insns2"/>
-        <property key="pre-instruction-scheduling" value="schedule-insns"/>
+        <property key="post-instruction-scheduling" value="default"/>
+        <property key="pre-instruction-scheduling" value="default"/>
         <property key="preprocessor-macros" value=""/>
         <property key="strict-ansi" value="false"/>
         <property key="support-ansi" value="false"/>
@@ -168,7 +200,7 @@
         <property key="exclude-floating-point-library" value="false"/>
         <property key="exclude-standard-libraries" value="false"/>
         <property key="extra-lib-directories" value=""/>
-        <property key="generate-16-bit-code" value="true"/>
+        <property key="generate-16-bit-code" value="false"/>
         <property key="generate-cross-reference-file" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="heap-size" value=""/>
@@ -219,7 +251,7 @@
       </C32Global>
       <PICkit3PlatformTool>
         <property key="ADC 1" value="true"/>
-        <property key="AutoSelectMemRanges" value="manual"/>
+        <property key="AutoSelectMemRanges" value="auto"/>
         <property key="CHANGE NOTICE" value="true"/>
         <property key="COMPARATOR" value="true"/>
         <property key="DMA" value="true"/>
@@ -250,15 +282,16 @@
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
         <property key="UART1" value="true"/>
         <property key="UART2" value="true"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>
         <property key="memories.configurationmemory" value="true"/>
-        <property key="memories.eeprom" value="false"/>
+        <property key="memories.eeprom" value="true"/>
         <property key="memories.flashdata" value="true"/>
-        <property key="memories.id" value="false"/>
+        <property key="memories.id" value="true"/>
         <property key="memories.programmemory" value="true"/>
-        <property key="memories.programmemory.end" value="0x1d01f000"/>
+        <property key="memories.programmemory.end" value="0x1d01ffff"/>
         <property key="memories.programmemory.start" value="0x1d000000"/>
         <property key="poweroptions.powerenable" value="false"/>
         <property key="programmertogo.imagename" value=""/>
@@ -266,7 +299,7 @@
         <property key="programoptions.pgmspeed" value="2"/>
         <property key="programoptions.preserveeeprom" value="false"/>
         <property key="programoptions.preserveprogramrange" value="false"/>
-        <property key="programoptions.preserveprogramrange.end" value="0x1d0001ff"/>
+        <property key="programoptions.preserveprogramrange.end" value="0x1d01ffff"/>
         <property key="programoptions.preserveprogramrange.start" value="0x1d000000"/>
         <property key="programoptions.preserveuserid" value="false"/>
         <property key="programoptions.testmodeentrymethod" value="VPPFirst"/>

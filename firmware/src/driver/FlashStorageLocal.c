@@ -1,117 +1,377 @@
 #include "main.h"
 
-
 void writeFlashLocal();
 
-#define bytesOfRaw (numPidTotal*sizeof(AbsPID_Config))
+typedef struct _Slic3rData {
+    float nozzle_diameter;
+    float printCenter [2];
+    float filimentDiameter;
+    float extrusionMultiplier;
+    int tempreture;
+    int bedTempreture;
+    float layerHeight;
+    int wallThickness;
+    boolean useSupportMaterial;
+    float retractLength;
+    int travilSpeed;
+    int perimeterSpeed;
+    int bridgeSpeed;
+    int gapFillSpeed;
+    int infillSpeed;
+    int supportMaterialSpeed;
+
+    int smallPerimeterSpeedPercent;
+    int externalPerimeterSpeedPercent;
+    int solidInfillSpeedPercent;
+    int topSolidInfillSpeedPercent;
+    int supportMaterialInterfaceSpeedPercent;
+    int firstLayerSpeedPercent;
+} Slic3rData;
+
+typedef struct _flashStorageData {
+    AbsPID_Config localPid[numPidTotal];
+    float mmPositionResolution;
+    float KP;
+    float KI;
+    float KD;
+
+    float VKP;
+    float VKD;
+    float maximumMMperSec;
+    Slic3rData slic3r;
+    HardwareMap hwMap;
+    DeltaConfig defaultConfig;
+    unsigned char buffer[1];
+} flashStorageData;
 
 
-static AbsPID 			pidGroups[numPidTotal];
 
-AbsPID * getFlashPidGroupDataTable(){
-	if(pidGroups == NULL){
-		println_E("PID data table is null");
-		return NULL;
-	}
+flashStorageData localData;
+#define bytesOfRaw (sizeof(localData))
 
-	return pidGroups;
-}
-union LocalFlashData{
-    unsigned long int data[bytesOfRaw/4];
-    AbsPID_Config pid[numPidTotal];
+//Default values for ServoStock
+HardwareMap hwMap = {
+    {0, -1.0 * mmPerTick, "Alpha"}, //axis 0
+    {2, -1.0 * mmPerTick, "Beta"}, //axis 1
+    {4, -1.0 * mmPerTick, "Gama"}, //axis 2
+    {
+        {1, 1.0, "Extruder"}, // Motor
+        {11, 1.0, "Heater"}// Heater
+    }, //Extruder 0
+    {
+        {AXIS_UNUSED, 1.0, ""},
+        {AXIS_UNUSED, 1.0, ""}
+    }, //Extruder 1
+    {
+        {AXIS_UNUSED, 1.0, ""},
+        {AXIS_UNUSED, 1.0, ""}
+    }, //Extruder 2
+    (forwardKinematics *)& servostock_calcForward,
+    (inverseKinematics *) & servostock_calcInverse,
+    (velInverse *) & servostock_velInverse,
+    (velForward *) & servostock_velForward,
+    true
 };
 
-AbsPID_Config localPid[numPidTotal];
-//union LocalFlashData localData;
+int linkToHWIndex(int index) {
+    int localIndex = 0;
+    switch (index) {
+        case 0:
+            localIndex = hwMap.Alpha.index;
+            break;
+        case 1:
+            localIndex = hwMap.Beta.index;
+            break;
+        case 2:
+            localIndex = hwMap.Gama.index;
+            break;
+        case 3:
+            localIndex = hwMap.Extruder0.index;
+            break;
+        case 4:
+            localIndex = hwMap.Heater0.index;
+            break;
+    }
+    return localIndex;
+}
 
-void checkDataTable(){
+float getLinkScale(int index) {
+    switch (index) {
+        case 0:
+            return hwMap.Alpha.scale;
+        case 1:
+            return hwMap.Beta.scale;
+        case 2:
+            return hwMap.Gama.scale;
+        case 3:
+            return hwMap.Extruder0.scale;
+        case 4:
+            return hwMap.Heater0.scale;
+    }
+    return 0.0;
+}
+
+char * getName(int index) {
+    switch (index) {
+        case 0:
+            return hwMap.Alpha.name;
+        case 1:
+            return hwMap.Beta.name;
+        case 2:
+            return hwMap.Gama.name;
+        case 3:
+            return hwMap.Extruder0.name;
+        case 4:
+            return hwMap.Heater0.name;
+    }
+    return NULL;
+}
+
+HardwareMap * getHardwareMap() {
+    return &hwMap;
+}
+
+boolean onControllerConfigurationGet(BowlerPacket *Packet) {
+
+    set32bit(Packet, localData.KP * 1000.0, 0); //KP
+    set32bit(Packet, localData.KI * 1000.0, 4); //KI
+    set32bit(Packet, localData.KD * 1000.0, 8); //KD
+    set32bit(Packet, localData.VKP * 1000.0, 12); //VKP
+    set32bit(Packet, localData.VKD * 1000.0, 16); //VKD
+    set32bit(Packet, localData.mmPositionResolution * 1000.0, 20); //mmPositionResolution
+    set32bit(Packet, localData.maximumMMperSec * 1000.0, 24); // maximumMMperSec
+
+    set32bit(Packet, localData.defaultConfig.BaseRadius * 1000.0, 28); //
+    set32bit(Packet, localData.defaultConfig.EndEffectorRadius * 1000.0, 32); //
+
+    set32bit(Packet, localData.defaultConfig.MaxZ * 1000.0, 36); //
+
+    set32bit(Packet, localData.defaultConfig.MinZ * 1000.0, 40); //
+    set32bit(Packet, localData.defaultConfig.RodLength * 1000.0, 44); //
+
+}
+
+boolean onControllerConfigurationSet(BowlerPacket *Packet) {
+    localData.KP = get32bit(Packet, 0) / 1000.0;
+    localData.KI = get32bit(Packet, 4) / 1000.0;
+    localData.KD = get32bit(Packet, 8) / 1000.0;
+    localData.VKP = get32bit(Packet, 12) / 1000.0;
+    localData.VKD = get32bit(Packet, 16) / 1000.0;
+    localData.mmPositionResolution = get32bit(Packet, 20) / 1000.0;
+    localData.maximumMMperSec = get32bit(Packet, 24) / 1000.0;
+
+    localData.defaultConfig.BaseRadius = get32bit(Packet, 28) / 1000.0; //
+    localData.defaultConfig.EndEffectorRadius = get32bit(Packet, 32) / 1000.0; //
+
+    localData.defaultConfig.MaxZ = get32bit(Packet, 36) / 1000.0; //
+
+    localData.defaultConfig.MinZ = get32bit(Packet, 40) / 1000.0; //
+    localData.defaultConfig.RodLength = get32bit(Packet, 44) / 1000.0; //
+
+    writeFlashLocal();
+}
+
+boolean onSlic3rConfigurationGet(BowlerPacket *Packet) {
+    //TODO load slicer configs
+}
+
+boolean onSlic3rConfigurationSet(BowlerPacket *Packet) {
+    //TODO set slicer configs
+
+}
+
+float getEndEffectorRadius() {
+    return localData.defaultConfig.EndEffectorRadius;
+}
+
+float getBaseRadius() {
+    return localData.defaultConfig.BaseRadius;
+}
+
+float getRodLength() {
+    return localData.defaultConfig.RodLength;
+}
+
+float getmaxZ() {
+    return localData.defaultConfig.MaxZ;
+}
+
+float getminZ() {
+    return localData.defaultConfig.MinZ;
+}
+
+float getmmaximumMMperSec() {
+    return localData.maximumMMperSec;
+}
+
+float getmmPositionResolution() {
+    return localData.mmPositionResolution;
+}
+
+float getKP() {
+    return localData.KP;
+}
+
+float getKI() {
+    return localData.KI;
+}
+
+float getKD() {
+    return localData.KD;
+}
+
+float getVKP() {
+    return localData.VKP;
+}
+
+float getVKD() {
+    return localData.VKD;
+}
+
+void setmmPositionResolution(float value) {
+    localData.mmPositionResolution = value;
+}
+
+void setKP(float value) {
+    localData.KP = value;
+}
+
+void setKI(float value) {
+    localData.KI = value;
+}
+
+void setKD(float value) {
+    localData.KD = value;
+}
+
+void setVKP(float value) {
+    localData.VKP = value;
+}
+
+void setVKD(float value) {
+    localData.VKD = value;
+}
+
+void checkDataTable() {
     Nop();
 }
 
-BOOL initFlashLocal(){
+boolean initFlashLocal() {
 
-    if(bytesOfRaw > 0x1000-FLASHSTORE){
+    if (bytesOfRaw > 0x1000 - FLASHSTORE) {
         println_E("Too much data to store");
-        SoftReset();
+        Reset();
     }
-    
-    println_W("Size of Flash data = ");p_int_W(bytesOfRaw);
+    if (bytesOfRaw % 4) {
+        println_E("BAD FLASH size = ");
+        p_int_W(bytesOfRaw % 4);
+        while (1);
+    }
+    println_W("Size of Flash page data = ");
+    p_int_W(bytesOfRaw / 4);
+    print_W(" ");
+    p_int_W(bytesOfRaw);
 
-    SetFlashData( (unsigned int*)localPid ,bytesOfRaw/4);
+    SetFlashData((uint32_t *) & localData, bytesOfRaw / 4);
     FlashLoad();
+    println_W("Flash loaded");
 
-    int i=0,j=0, index;
+    int i = 0, j = 0; // index;
 
-    BOOL rawFlashDetect=FALSE;
+    boolean rawFlashDetect = false;
 
-    for(i=0;i<numPidTotal;i++){
-        //index = i*sizeof(AbsPID_Config)/4;
-        unsigned int * raw = (  unsigned int *)&pidGroups[i].config;
-        unsigned int * data = (  unsigned int *) &localPid[i];
-        for(j=0;j<sizeof(AbsPID_Config)/4;j++){
-            raw[j]=data[j];
-        }
-        if( ((pidGroups[i].config.Enabled != 1 &&
-              pidGroups[i].config.Enabled != 0))||
-              pidGroups[i].config.offset != getPidGroupDataTable()[i].config.offset
-                ){
-            rawFlashDetect = TRUE;
+    for (i = 0; i < numPidTotal; i++) {
+        println_W("Setting PID #");
+        p_int_W(i);
+        unsigned char * raw = (unsigned char *) & getPidGroupDataTable(i)->config;
+        unsigned char * data = (unsigned char *) & localData.localPid[i];
+        for (j = 0; j<sizeof (AbsPID_Config); j++) {
+            raw[j] = data[j];
         }
     }
 
-    if( rawFlashDetect ){
-        for(i=0;i<numPidTotal;i++){
-            if(i==1){
-                Nop();
-            }
-            println_E("Detected raw flash, setting defaults : ");p_int_E(i);
-            printPIDvals(i);
-            pidGroups[i].config.Enabled = FALSE;
-            pidGroups[i].config.Async=0;
-            pidGroups[i].config.IndexLatchValue=0;
-            pidGroups[i].config.stopOnIndex=0;
-            pidGroups[i].config.useIndexLatch=0;
-            pidGroups[i].config.K.P=.1;
-            pidGroups[i].config.K.I=0;
-            pidGroups[i].config.K.D=0;
-            pidGroups[i].config.V.P=.1;
-            pidGroups[i].config.V.D=0;
-            pidGroups[i].config.Polarity=0;
-            pidGroups[i].config.stop=0;
-            pidGroups[i].config.upperHistoresis=0;
-            pidGroups[i].config.lowerHistoresis=0;
-            pidGroups[i].config.offset=0.0;
-            pidGroups[i].config.calibrationState=CALIBRARTION_DONE;
-            printPIDvals(i);
+
+
+    println_W("Checking for bare flash");
+    for (i = 0; i < numPidTotal; i++) {
+        if (((getPidGroupDataTable(i)->config.Enabled > 1 ||
+                getPidGroupDataTable(i)->config.Enabled < 0))
+                ) {
+            rawFlashDetect = true;
         }
     }
-    if(rawFlashDetect )
+
+
+    if (rawFlashDetect) {
+        println_W("Writing default values");
+        for (i = 0; i < numPidTotal; i++) {
+
+            println_E("Detected raw flash, setting defaults : ");
+            p_int_E(i);
+            printPIDvals(i);
+            getPidGroupDataTable(i)->config.Enabled = false;
+            getPidGroupDataTable(i)->config.Async = 0;
+            getPidGroupDataTable(i)->config.IndexLatchValue = 0;
+            getPidGroupDataTable(i)->config.stopOnIndex = 0;
+            getPidGroupDataTable(i)->config.useIndexLatch = 0;
+            getPidGroupDataTable(i)->config.K.P = .1;
+            getPidGroupDataTable(i)->config.K.I = 0;
+            getPidGroupDataTable(i)->config.K.D = 0;
+            getPidGroupDataTable(i)->config.V.P = .1;
+            getPidGroupDataTable(i)->config.V.D = 0;
+            getPidGroupDataTable(i)->config.Polarity = 1;
+            getPidGroupDataTable(i)->config.stop = 0;
+            getPidGroupDataTable(i)->config.upperHistoresis = 0;
+            getPidGroupDataTable(i)->config.lowerHistoresis = 0;
+            getPidGroupDataTable(i)->config.offset = 0.0;
+            getPidGroupDataTable(i)->config.calibrationState = CALIBRARTION_Uncalibrated;
+            getPidGroupDataTable(i)->config.tipsScale = 1;
+            printPIDvals(i);
+        }
+        localData.KP = .85;
+        localData.KI = 0;
+        localData.KD = 0;
+        localData.VKP = 1;
+        localData.VKD = 0;
+        localData.mmPositionResolution = 1;
+        localData.maximumMMperSec = 30;
+        localData.defaultConfig.BaseRadius = 140;
+        localData.defaultConfig.EndEffectorRadius = 25;
+        localData.defaultConfig.MaxZ = 100;
+        localData.defaultConfig.MinZ = -10;
+        localData.defaultConfig.RodLength = 203.82;
+    } else {
+        println_W("Flash image ok");
+        //        for (i = 0; i < numPidTotal; i++) {
+        //            printPIDvals(i);
+        //        }
+    }
+    if (rawFlashDetect)
         writeFlashLocal();
 
-    return !rawFlashDetect;
+    return rawFlashDetect == false;
 }
 
-void writeFlashLocal(){
+void writeFlashLocal() {
 
-    if(bytesOfRaw > 0x1000-FLASHSTORE){
+    if (bytesOfRaw > 0x1000 - FLASHSTORE) {
         println_E("Too much data to store");
-        SoftReset();
+        Reset();
     }
     println_W("Writing values to Flash");
-    int i=0,j=0, index;
-    for(i=0;i<numPidTotal;i++){
-        printPIDvals(i);
-        //index = i*sizeof(AbsPID_Config)/4;
-        unsigned int * raw = (  unsigned int *)&pidGroups[i].config;
-        unsigned int * data =(  unsigned int *) &localPid[i];
-        for(j=0;j<sizeof(AbsPID_Config)/4;j++){
-            data[j]=raw[j];
+    int i = 0, j = 0; //, index;
+    for (i = 0; i < numPidTotal; i++) {
+
+        unsigned char * raw = (unsigned char *) &getPidGroupDataTable(i)->config;
+        unsigned char * data = (unsigned char *) &localData.localPid[i];
+        for (j = 0; j<sizeof (AbsPID_Config); j++) {
+            data[j] = raw[j];
         }
     }
     FlashSync();
     FlashLoad();
-    for(i=0;i<numPidTotal;i++){
-        printPIDvals(i);
+    for (i = 0; i < numPidTotal; i++) {
+        //printPIDvals(i);
     }
 
 }

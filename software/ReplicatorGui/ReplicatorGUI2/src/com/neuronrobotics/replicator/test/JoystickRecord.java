@@ -7,7 +7,7 @@ import net.java.games.input.Component;
 import net.java.games.input.Controller;
 import net.java.games.input.ControllerEnvironment;
 
-import com.neuronrobotics.replicator.driver.DeltaForgeDevice;
+import com.neuronrobotics.replicator.driver.BowlerBoardDevice;
 import com.neuronrobotics.replicator.driver.NRPrinter;
 import com.neuronrobotics.sdk.addons.kinematics.math.RotationNR;
 import com.neuronrobotics.sdk.addons.kinematics.math.TransformNR;
@@ -19,7 +19,7 @@ import com.neuronrobotics.sdk.util.ThreadUtil;
 
 public class JoystickRecord {
 	NRPrinter deltaRobot;
-	DeltaForgeDevice slave = null;
+	BowlerBoardDevice slave = null;
 	private int open = 20;
 	private int closed = 100;
 	private boolean button=false;
@@ -124,13 +124,13 @@ public class JoystickRecord {
 		}
 	}
 	private void connectDelta(){
-		ArrayList<DeltaForgeDevice> temp= new ArrayList<DeltaForgeDevice>();
+		ArrayList<BowlerBoardDevice> temp= new ArrayList<BowlerBoardDevice>();
 		List <String> ports = SerialConnection.getAvailableSerialPorts();
 		//Start by searching through all available serial connections for DyIOs connected to the system
 		for(String s: ports){
 			if(s.toLowerCase().contains("delta") ){//Change this to match the OS you are using and any known serial port filter
 				try{
-					DeltaForgeDevice d = new DeltaForgeDevice();
+					BowlerBoardDevice d = new BowlerBoardDevice();
 					d.setConnection(new SerialConnection(s));
 					d.connect();
 					if(d.isAvailable()){
@@ -144,7 +144,7 @@ public class JoystickRecord {
 		}
 		
 		//Now that all connected DyIOs are connected, search for the correct MAC addresses 
-		for(DeltaForgeDevice d : temp){
+		for(BowlerBoardDevice d : temp){
 			String addr = d.getAddress().toString();
 			if(addr.equalsIgnoreCase("74:f7:26:01:01:01") ){
 				slave = d;
@@ -152,7 +152,7 @@ public class JoystickRecord {
 		}
 		//If both are not found then the system can not run
 		if(slave == null){
-			for(DeltaForgeDevice d:temp){
+			for(BowlerBoardDevice d:temp){
 				System.out.println(d);
 				if(d!= null){
 					if(d.isAvailable())
