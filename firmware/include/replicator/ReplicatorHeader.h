@@ -23,6 +23,60 @@ extern "C" {
     #define     CloseSPIOpenCollector() mPORTGOpenDrainClose(BIT_6);\
                                         mPORTGOpenDrainClose(BIT_7);
 
+#define Rev4
+#ifdef Rev4
+ // eNCODER Connector macros and defines
+	//PORT 0
+    #define     ENC0_CSN           _RD7
+    #define     ENC0_CSN_TRIS      _TRISD7
+    #define     ENC0_SERVO_TRIS    _TRISB15
+    #define     ENC0_SERVO         _RB15
+	//PORT 1
+    #define     ENC1_CSN           _RD6
+    #define     ENC1_CSN_TRIS      _TRISD6
+    #define     ENC1_SERVO_TRIS    _TRISB14
+    #define     ENC1_SERVO         _RB14
+	// Port 2
+    #define     ENC2_CSN           _RD5
+    #define     ENC2_CSN_TRIS      _TRISD5
+    #define     ENC2_SERVO_TRIS    _TRISB13
+    #define     ENC2_SERVO         _RB13
+	// PORT 3
+    #define     ENC3_CSN           _RD4
+    #define     ENC3_CSN_TRIS      _TRISD4
+    #define     ENC3_SERVO_TRIS    _TRISB12
+    #define     ENC3_SERVO         _RB12
+	// PORT 4
+    #define     ENC4_CSN           _RE5
+    #define     ENC4_CSN_TRIS      _TRISE5
+    #define     ENC4_SERVO_TRIS    _TRISB11
+    #define     ENC4_SERVO         _RB11
+	// PORT 5
+    #define     ENC5_CSN           _RE6
+    #define     ENC5_CSN_TRIS      _TRISE6
+    #define     ENC5_SERVO_TRIS    _TRISB10
+    #define     ENC5_SERVO         _RB10
+	//PORT 6
+    #define     ENC6_CSN           _RE7
+    #define     ENC6_CSN_TRIS      _TRISE7
+    #define     ENC6_SERVO_TRIS    _TRISB8
+    #define     ENC6_SERVO         _RB8
+	//PORT 7
+    #define     ENC7_CSN           _RG9
+    #define     ENC7_CSN_TRIS      _TRISG9
+    #define     ENC7_SERVO_TRIS    _TRISB9
+    #define     ENC7_SERVO         _RB9
+
+    #define    HEATER_0            _RB5
+    #define    HEATER_0_TRIS       _TRISB5
+
+    #define    HEATER_1            _RB0
+    #define    HEATER_1_TRIS       _TRISB0
+
+    #define    HEATER_2            _RB2
+    #define    HEATER_2_TRIS       _TRISB2
+
+#else
     // eNCODER Connector macros and defines
 	//PORT 0
     #define     ENC0_CSN           _RE7
@@ -74,7 +128,7 @@ extern "C" {
     #define    HEATER_2            _RB2
     #define    HEATER_2_TRIS       _TRISB2
 
-
+#endif
     #define     CloseServoOpenCollector() 	mPORTBOpenDrainClose(BIT_12);\
                                                 mPORTBOpenDrainClose(BIT_15);\
                                                 mPORTBOpenDrainClose(BIT_11);\
