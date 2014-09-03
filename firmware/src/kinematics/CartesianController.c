@@ -31,7 +31,7 @@ static float lastXYZE[6];
 
 static RunEveryData pid = {0, 100};
 
-static boolean keepCartesianPosition = false;
+//static boolean keepCartesianPosition = false;
 static int interpolationCounter = 0;
 static boolean runKinematics = false;
 static boolean pausePrint = false;
@@ -192,9 +192,19 @@ boolean isCartesianInterpolationDone() {
     int i;
     for (i = 0; i < 4; i++) {
         if (i < 3) {
-            if (!bound(taskPID[i].interpolate.set, current[i], getmmPositionResolution(), getmmPositionResolution())) {
-                //println_W("Interpolation not done on to: ");p_fl_W(taskPID[i].interpolate.set);print_W(" is = ");p_fl_W(targets[i]);
-                return false;
+            //check to see if it timed out
+            if (getMs()<(taskPID[i].interpolate.startTime + taskPID[i].interpolate.setTime) ) {
+                //check to see if it has arrived
+                if (!bound(taskPID[i].interpolate.set,
+                        current[i],
+                        getmmPositionResolution(),
+                        getmmPositionResolution())
+                        ) {
+                    //println_W("Interpolation not done on to: ");p_fl_W(taskPID[i].interpolate.set);print_W(" is = ");p_fl_W(targets[i]);
+                    return false;
+                }
+            }else{
+                return true;
             }
         }
         if ((isPIDArrivedAtSetpoint(linkToHWIndex(i), setpointBound) == false) && (i == 3)) {
@@ -558,14 +568,13 @@ void interpolateZXY() {
     if (!runKinematics) {
         return;
     }
-    keepCartesianPosition = true;
-    if (keepCartesianPosition) {
+ 
         if (getHardwareMap()->useStateBasedVelocity) {
             runStateBasedController();
         } else {
             runInterpolatedPositions();
         }
-        if (isCartesianInterpolationDone()) {
+        if (isCartesianInterpolationDone() == true) {
             if (FifoGetPacketCount(&packetFifo) > 0) {
                 if (pausePrint == false) {
                     println_W("Loading new packet ");
@@ -573,11 +582,9 @@ void interpolateZXY() {
                         processLinearInterpPacket(&linTmpPack);
                     }
                 }
-            } else {
-                keepCartesianPosition = false;
-            }
+            } 
         }
-    }
+    
 }
 
 uint8_t setInterpolateXYZ(float x, float y, float z, float ms) {
@@ -651,7 +658,6 @@ uint8_t setInterpolateXYZ(float x, float y, float z, float ms) {
         println_I("Setting values directly");
         setXYZ(x, y, z, 0);
     } else {
-        keepCartesianPosition = true;
         if (getHardwareMap()->useStateBasedVelocity == false) {
             println_I("Setting values with linear interpolation");
             start = getMs();
@@ -739,10 +745,10 @@ void startHomingLinks() {
     getHardwareMap()->iK_callback(0, 0, getmaxZ(), &data[0], &data[1], &data[2]);
     for (i = 0; i < 3; i++) {
         startHomingLink(linkToHWIndex(i),
-                        CALIBRARTION_home_down,
-                        (data[i] + getRodLength() -100 ) / getLinkScale(i));
+                CALIBRARTION_home_down,
+                (data[i] + getRodLength() - 100) / getLinkScale(i));
     }
-  println_W("Started Homing...");
+    println_W("Started Homing...");
 }
 
 void HomeLinks() {

@@ -16,7 +16,7 @@
 //#define LINK2_INDEX 4
 #define AXIS_UNUSED 0xFF
 
-    typedef boolean forwardKinematics(float Alpha, float Beta, float Gama, float * x0, float *y0, float * z0);
+typedef boolean forwardKinematics(float Alpha, float Beta, float Gama, float * x0, float *y0, float * z0);
 typedef boolean inverseKinematics(float x0, float y0, float z0, float *Alpha, float *Beta, float *Gama);
 
 /* Function: Inverse Velocity
@@ -34,7 +34,7 @@ typedef int velForward(float A, float B, float C, float Ad, float Bd, float Cd, 
 typedef struct _IndexScale {
     int index;
     float scale;
-    char name[10];
+    char * name;
 } IndexScale;
 
 typedef struct _HardwareMap {
