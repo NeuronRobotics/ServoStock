@@ -22,7 +22,15 @@ extern "C" {
     #define     SPI_MOSI_TRIS       _TRISG7 // tris
     #define     CloseSPIOpenCollector() mPORTGOpenDrainClose(BIT_6);\
                                         mPORTGOpenDrainClose(BIT_7);
+    #define     LED_RED_TRIS    _TRISD10
+    #define     LED_RED_PIN     _RD10
+    #define     LED_GRN_TRIS    _TRISD11
+    #define     LED_GRN_PIN     _RD11
+    #define     LED_BLU_TRIS    _TRISD0
+    #define     LED_BLU_PIN     _RD0
 
+    #define     initLEDs()      LED_RED_TRIS=0;LED_GRN_TRIS=0;LED_BLU_TRIS=0;
+    #define     setLED(r,g,b)   LED_RED_PIN=~r;LED_GRN_PIN=~g;LED_BLU_PIN=~b;
 #define Rev4
 #ifdef Rev4
  // eNCODER Connector macros and defines

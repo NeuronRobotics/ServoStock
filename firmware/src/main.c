@@ -140,6 +140,8 @@ void hardwareInit(){
             (_TRISF5)=INPUT; // for the reset sw
         ATX_DISENABLE();
         CloseTimer2();
+        initLEDs();
+        setLED(1,1,1);
 
         Pic32_Bowler_HAL_Init();
 
