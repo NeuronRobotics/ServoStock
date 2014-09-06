@@ -175,6 +175,6 @@ boolean setSensorCoefs(BowlerPacket *Packet){
 }
 
 boolean PidRTDAsyncEventCallback(BowlerPacket * Packet, boolean(*pidAsyncCallbackPtr)(BowlerPacket *Packet)) {
-    println_E("PidRTDAsyncEventCallback");
+    //println_E("PidRTDAsyncEventCallback");
     return false;
 }
