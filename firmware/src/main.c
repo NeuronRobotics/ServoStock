@@ -141,12 +141,12 @@ void hardwareInit(){
         ATX_DISENABLE();
         CloseTimer2();
         initLEDs();
-        setLED(1,1,1);
+        setLED(0,0,0);
 
         Pic32_Bowler_HAL_Init();
 
 	Bowler_Init();
-        clearPrint();
+        //clearPrint();
         println_I("\n\n\nStarting PIC initialization");
 
         FlashGetMac(MyMAC.v);

@@ -75,14 +75,18 @@ extern "C" {
     #define     ENC7_SERVO_TRIS    _TRISB9
     #define     ENC7_SERVO         _RB9
 
-    #define    HEATER_0            _RB5
-    #define    HEATER_0_TRIS       _TRISB5
+    #define    HEATER_0            _RB0
+    #define    HEATER_0_TRIS       _TRISB0
 
-    #define    HEATER_1            _RB0
-    #define    HEATER_1_TRIS       _TRISB0
+    #define    HEATER_1            _RB2
+    #define    HEATER_1_TRIS       _TRISB2
 
-    #define    HEATER_2            _RB2
-    #define    HEATER_2_TRIS       _TRISB2
+    #define    HEATER_2            _RB5
+    #define    HEATER_2_TRIS       _TRISB5
+
+    #define    HEATER_0_ADC         1
+    #define    HEATER_1_ADC         3
+    #define    HEATER_2_ADC         4
 
 #else
     // eNCODER Connector macros and defines
@@ -135,6 +139,10 @@ extern "C" {
 
     #define    HEATER_2            _RB2
     #define    HEATER_2_TRIS       _TRISB2
+
+    #define    HEATER_0_ADC         4
+    #define    HEATER_1_ADC         1
+    #define    HEATER_2_ADC         3
 
 #endif
     #define     CloseServoOpenCollector() 	mPORTBOpenDrainClose(BIT_12);\
