@@ -172,6 +172,7 @@ void hardwareInit(){
 
        
         addNamespaceToList((NAMESPACE_LIST *)getBcsCartesianNamespace());
+        addNamespaceToList((NAMESPACE_LIST *)getNeuronroboticsPidRTD());
         addNamespaceToList((NAMESPACE_LIST *)getBcsPidNamespace());
 
 

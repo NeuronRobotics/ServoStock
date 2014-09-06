@@ -82,16 +82,16 @@ double SH_A=0.0007229943855,SH_B=0.00021619777,SH_C=0.000000093022549; //celcius
 // Resistance (ohms) to temperature (kelvin)
 float steinhart_RtoK(float r,double a,double b,double c){
 
-    Print_Level l = getPrintLevel();
-            setPrintLevelInfoPrint();
+    //Print_Level l = getPrintLevel();
+            //setPrintLevelInfoPrint();
     double k = 1.0/(a + (b*log(r)) + (c*pow(3.0,log(r)))  );
     //int i=0;
     //for(i=0; i<600; i++)print_I("\b");
 
-    println_I("steinhart_RtoK:");
-    print_I("\tohms=");p_fl_I(r);print_I("\tk=");p_fl_I((float)k);println_I("");
-    print_I("\ta=");p_fl_I((float)a);print_I("\tb=");p_fl_I((float)b);print_I("\tc=");p_fl_I((float)c);println_I("");
-    setPrintLevel(l);
+    //println_I("steinhart_RtoK:");
+    //print_I("\tohms=");p_fl_I(r);print_I("\tk=");p_fl_I((float)k);println_I("");
+    //print_I("\ta=");p_fl_I((float)a);print_I("\tb=");p_fl_I((float)b);print_I("\tc=");p_fl_I((float)c);println_I("");
+    //setPrintLevel(l);
     return k;
 }
 
@@ -153,4 +153,28 @@ void __ISR(_TIMER_3_VECTOR, ipl4) Timer3Handler(void){
 }
 
 
+shh_coef coefs[]={
+    {0.0007229943855,0.00021619777,0.000000093022549},
+    {0.0007229943855,0.00021619777,0.000000093022549},
+    {0.0007229943855,0.00021619777,0.000000093022549}
+};
 
+boolean setSensorCoefs(BowlerPacket *Packet){
+    uint8_t chan= Packet->use.data[0];   // heater channel
+    float a=get32bit(Packet, 1);            // desired a
+    float b=get32bit(Packet, 5);            // desired b
+    float c=get32bit(Packet, 9);            // desired c
+    if (chan<sizeof(coefs)){
+        coefs[chan].a=a;
+        coefs[chan].b=b;
+        coefs[chan].c=c;
+    } else {
+        return false;
+    }
+    return true;
+}
+
+boolean PidRTDAsyncEventCallback(BowlerPacket * Packet, boolean(*pidAsyncCallbackPtr)(BowlerPacket *Packet)) {
+    println_E("PidRTDAsyncEventCallback");
+    return false;
+}
