@@ -46,32 +46,32 @@ extern "C" {
 #define     ENC1_CSN(s)          setPicIOPin(s, 'D',6)
 #define     ENC1_CSN_TRIS      setPicIOTristateOutput('D',6)
 #define     ENC1_SERVO_TRIS    setPicIOTristateOutput('B',14)
-#define     ENC1_SERVO         setPicIOPin(s, 'B',14)
+#define     ENC1_SERVO(s)        setPicIOPin(s, 'B',14)
     // Port 2
 #define     ENC2_CSN(s)          setPicIOPin(s, 'D',5)
 #define     ENC2_CSN_TRIS      setPicIOTristateOutput('D',5)
 #define     ENC2_SERVO_TRIS    setPicIOTristateOutput('B',13)
-#define     ENC2_SERVO         setPicIOPin(s, 'B',13)
+#define     ENC2_SERVO(s)         setPicIOPin(s, 'B',13)
     // PORT 3
 #define     ENC3_CSN(s)          setPicIOPin(s, 'D',4)
 #define     ENC3_CSN_TRIS      setPicIOTristateOutput('D',4)
 #define     ENC3_SERVO_TRIS    setPicIOTristateOutput('B',12)
-#define     ENC3_SERVO         setPicIOPin(s, 'B',12)
+#define     ENC3_SERVO(s)        setPicIOPin(s, 'B',12)
     // PORT 4
 #define     ENC4_CSN(s)          setPicIOPin(s, 'E',5)
 #define     ENC4_CSN_TRIS      setPicIOTristateOutput('E',5)
 #define     ENC4_SERVO_TRIS    setPicIOTristateOutput('B',11)
-#define     ENC4_SERVO         setPicIOPin(s, 'B',11)
+#define     ENC4_SERVO(s)         setPicIOPin(s, 'B',11)
     // PORT 5
 #define     ENC5_CSN(s)           setPicIOPin(s, 'E',6)
 #define     ENC5_CSN_TRIS      setPicIOTristateOutput('E',6)
 #define     ENC5_SERVO_TRIS    setPicIOTristateOutput('B',10)
-#define     ENC5_SERVO         setPicIOPin(s, 'B',10)
+#define     ENC5_SERVO(s)         setPicIOPin(s, 'B',10)
     //PORT 6
 #define     ENC6_CSN(s)           setPicIOPin(s, 'E',7)
 #define     ENC6_CSN_TRIS      setPicIOTristateOutput('E',7)
 #define     ENC6_SERVO_TRIS    setPicIOTristateOutput('B',8)
-#define     ENC6_SERVO         setPicIOPin(s, 'B',8)
+#define     ENC6_SERVO(s)         setPicIOPin(s, 'B',8)
     //PORT 7
 #define     ENC7_CSN(s)           setPicIOPin(s, 'G',9)
 #define     ENC7_CSN_TRIS      setPicIOTristateOutput('G',9)
