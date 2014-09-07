@@ -141,7 +141,7 @@ void hardwareInit(){
         ATX_DISENABLE();
         CloseTimer2();
         initLEDs();
-        setLED(0,0,0);
+        setLED(0,1,0);
 
         Pic32_Bowler_HAL_Init();
 
@@ -183,7 +183,7 @@ void hardwareInit(){
         initializeEncoders();// Power supply must be turned on first
 
         println_I("Starting Heater");
-        //initializeHeater();
+        initializeHeater();
 
         println_I("Starting Servos");
         initServos();
@@ -208,11 +208,7 @@ void hardwareInit(){
             runPidHysterisisCalibration(linkToHWIndex(1));
             runPidHysterisisCalibration(linkToHWIndex(2));
 
-            DelayMs(100);//wait for ISR to fire and update all values
-            for(i=0;i<3;i++){
-                setPIDConstants(linkToHWIndex(i),.2,.1,0);
-            }
-
+            DelayMs(100);//wait for ISR to fire and update all value
             OnPidConfigure(0);
         }else{
             println_W("Axis are already calibrated");
@@ -223,12 +219,6 @@ void hardwareInit(){
 
         disableSerialComs(true) ;
 
-        (_TRISB0)=1;
-
-        SetColor(1,1,1);
-        //HEATER_2_TRIS = OUTPUT;
-        //HEATER_1_TRIS = OUTPUT; // Causes one of the axies to crawl downward in bursts when enabled and on...
-        //HEATER_0_TRIS = OUTPUT; // causes device to twitc. These are touched by the USB stack somehow..... and as the reset button
 
 }
 boolean serVal =true; 
