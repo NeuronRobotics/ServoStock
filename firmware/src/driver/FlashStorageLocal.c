@@ -331,7 +331,7 @@ boolean initFlashLocal() {
         localData.KP = 10;
         localData.KI = 0;
         localData.KD = 0;
-        localData.VKP = 14;
+        localData.VKP = 1;
         localData.VKD = 0;
         localData.mmPositionResolution =.5;
         localData.maximumMMperSec = 30;
