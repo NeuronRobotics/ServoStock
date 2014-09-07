@@ -11,13 +11,13 @@ int heaterIndex = 0;
 void heaterPin(int index, int value){
     switch(index){
         case 0:
-            HEATER_0 = value?1:0;
+            if (value) HEATER_0_SET(); else HEATER_0_CLEAR();
             break;
         case 1:
-            HEATER_1 = value?1:0;
+            if (value) HEATER_1_SET(); else HEATER_1_CLEAR();
             break;
         case 2:
-            HEATER_2 = value?1:0;
+            if (value) HEATER_2_SET(); else HEATER_2_CLEAR();
             break;
     }
 }
@@ -51,9 +51,9 @@ void initializeHeater(){
     HEATER_1_TRIS=OUTPUT;
     HEATER_2_TRIS=OUTPUT;
     mPORTBSetPinsDigitalOut(BIT_4|BIT_5);
-    HEATER_0=0;
-    HEATER_1=0;
-    HEATER_2=0;
+    HEATER_0_CLEAR();
+    HEATER_1_CLEAR();
+    HEATER_2_CLEAR();
 
     // init lowpass
   

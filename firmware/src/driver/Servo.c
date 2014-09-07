@@ -258,30 +258,38 @@ uint8_t getServoPosition(uint8_t PIN){
 void SetDIO(uint8_t PIN, boolean state){
     switch(PIN){
     case 0:
-            ENC0_SERVO = state;
+            if (state)  ENC0_SERVO_SET();
+            else        ENC0_SERVO_CLEAR();
             break;
     case 1:
-            ENC1_SERVO = state;
+            if (state)  ENC1_SERVO_SET();
+            else        ENC1_SERVO_CLEAR();
             break;
     case 2:
         //if(getPrintLevel() == NO_PRINT)
-            ENC2_SERVO = state;
+            if (state)  ENC2_SERVO_SET();
+            else        ENC2_SERVO_CLEAR();
             break;
     case 3:
         //if(getPrintLevel() == NO_PRINT)
-            ENC3_SERVO = state;
+            if (state)  ENC3_SERVO_SET();
+            else        ENC3_SERVO_CLEAR();
             break;
     case 4:
-            ENC4_SERVO = state;
+            if (state)  ENC4_SERVO_SET();
+            else        ENC4_SERVO_CLEAR();
             break;
     case 5:
-            ENC5_SERVO = state;
+            if (state)  ENC5_SERVO_SET();
+            else        ENC5_SERVO_CLEAR();
             break;
     case 6:
-            ENC6_SERVO = state;
+            if (state)  ENC6_SERVO_SET();
+            else        ENC6_SERVO_CLEAR();
             break;
     case 7:
-            ENC7_SERVO = state;
+            if (state)  ENC7_SERVO_SET();
+            else        ENC7_SERVO_CLEAR();
             break;
     default:
             break;

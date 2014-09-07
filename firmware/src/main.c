@@ -141,8 +141,7 @@ void hardwareInit(){
         ATX_DISENABLE();
         CloseTimer2();
         initLEDs();
-        setLED(0,0,0);
-
+        setLED(1,0,1);
         Pic32_Bowler_HAL_Init();
 
 	Bowler_Init();

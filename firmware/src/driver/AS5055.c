@@ -257,28 +257,36 @@ void EncoderSS(uint8_t index, uint8_t state) {
     }
     switch (index) {
         case 0:
-            ENC0_CSN = state;
+            if (state)  ENC0_CSN_SET();
+            else        ENC0_CSN_CLEAR();
             break;
         case 1:
-            ENC1_CSN = state;
+            if (state)  ENC1_CSN_SET();
+            else        ENC1_CSN_CLEAR();
             break;
         case 2:
-            ENC2_CSN = state;
+            if (state)  ENC2_CSN_SET();
+            else        ENC2_CSN_CLEAR();
             break;
         case 3:
-            ENC3_CSN = state;
+            if (state)  ENC3_CSN_SET();
+            else        ENC3_CSN_CLEAR();
             break;
         case 4:
-            ENC4_CSN = state;
+            if (state)  ENC4_CSN_SET();
+            else        ENC4_CSN_CLEAR();
             break;
         case 5:
-            ENC5_CSN = state;
+            if (state)  ENC5_CSN_SET();
+            else        ENC5_CSN_CLEAR();
             break;
         case 6:
-            ENC6_CSN = state;
+            if (state)  ENC6_CSN_SET();
+            else        ENC6_CSN_CLEAR();
             break;
         case 7:
-            ENC7_CSN = state;
+            if (state)  ENC7_CSN_SET();
+            else        ENC7_CSN_CLEAR();
             break;
     }
     if (state == CSN_Enabled)

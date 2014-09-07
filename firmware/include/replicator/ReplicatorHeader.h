@@ -24,64 +24,114 @@ extern "C" {
                                         mPORTGOpenDrainClose(BIT_7);
     #define     LED_RED_TRIS    _TRISD10
     #define     LED_RED_PIN     _RD10
+    #define     LED_RED_SET()     PORTDSET=(1<<10)
+    #define     LED_RED_CLEAR()   PORTDCLR=(1<<10)
+    #define     LED_RED(s)        if (s) LED_RED_CLEAR(); else LED_RED_SET();
+
     #define     LED_GRN_TRIS    _TRISD11
     #define     LED_GRN_PIN     _RD11
+    #define     LED_GRN_SET()     PORTDSET=(1<<11)
+    #define     LED_GRN_CLEAR()   PORTDCLR=(1<<11)
+    #define     LED_GRN(s)        if (s) LED_GRN_CLEAR(); else LED_GRN_SET();
+
     #define     LED_BLU_TRIS    _TRISD0
+    #define     LED_BLU_SET()     PORTDSET=(1<<0)
+    #define     LED_BLU_CLEAR()   PORTDCLR=(1<<0)
     #define     LED_BLU_PIN     _RD0
+    #define     LED_BLU(s)        if (s) LED_BLU_CLEAR(); else LED_BLU_SET();
 
     #define     initLEDs()      LED_RED_TRIS=0;LED_GRN_TRIS=0;LED_BLU_TRIS=0;
-    #define     setLED(r,g,b)   LED_RED_PIN=~r;LED_GRN_PIN=~g;LED_BLU_PIN=~b;
+    #define     setLED(r,g,b)   LED_RED(r);LED_GRN(g);LED_BLU(b);
 #define Rev4
 #ifdef Rev4
  // eNCODER Connector macros and defines
 	//PORT 0
     #define     ENC0_CSN           _RD7
+    #define     ENC0_CSN_SET()     PORTDSET=(1<<7)
+    #define     ENC0_CSN_CLEAR()   PORTDCLR=(1<<7)
     #define     ENC0_CSN_TRIS      _TRISD7
     #define     ENC0_SERVO_TRIS    _TRISB15
     #define     ENC0_SERVO         _RB15
+    #define     ENC0_SERVO_SET()   PORTBSET=(1<<15)
+    #define     ENC0_SERVO_CLEAR() PORTBSET=(1<<15)
 	//PORT 1
     #define     ENC1_CSN           _RD6
+    #define     ENC1_CSN_SET()     PORTDSET=(1<<6)
+    #define     ENC1_CSN_CLEAR()   PORTDCLR=(1<<6)
     #define     ENC1_CSN_TRIS      _TRISD6
     #define     ENC1_SERVO_TRIS    _TRISB14
     #define     ENC1_SERVO         _RB14
+    #define     ENC1_SERVO_SET()   PORTBSET=(1<<4)
+    #define     ENC1_SERVO_CLEAR() PORTBSET=(1<<4)
 	// Port 2
     #define     ENC2_CSN           _RD5
+    #define     ENC2_CSN_SET()     PORTDSET=(1<<5)
+    #define     ENC2_CSN_CLEAR()   PORTDCLR=(1<<5)
     #define     ENC2_CSN_TRIS      _TRISD5
     #define     ENC2_SERVO_TRIS    _TRISB13
     #define     ENC2_SERVO         _RB13
+    #define     ENC2_SERVO_SET()   PORTBSET=(1<<13)
+    #define     ENC2_SERVO_CLEAR() PORTBSET=(1<<13)
 	// PORT 3
     #define     ENC3_CSN           _RD4
+    #define     ENC3_CSN_SET()     PORTDSET=(1<<4)
+    #define     ENC3_CSN_CLEAR()   PORTDCLR=(1<<4)
     #define     ENC3_CSN_TRIS      _TRISD4
     #define     ENC3_SERVO_TRIS    _TRISB12
     #define     ENC3_SERVO         _RB12
+    #define     ENC3_SERVO_SET()   PORTBSET=(1<<12)
+    #define     ENC3_SERVO_CLEAR() PORTBSET=(1<<12)
 	// PORT 4
     #define     ENC4_CSN           _RE5
+    #define     ENC4_CSN_SET()     PORTESET=(1<<5)
+    #define     ENC4_CSN_CLEAR()   PORTECLR=(1<<5)
     #define     ENC4_CSN_TRIS      _TRISE5
     #define     ENC4_SERVO_TRIS    _TRISB11
     #define     ENC4_SERVO         _RB11
+    #define     ENC4_SERVO_SET()   PORTBSET=(1<<11)
+    #define     ENC4_SERVO_CLEAR() PORTBSET=(1<<11)
 	// PORT 5
     #define     ENC5_CSN           _RE6
+    #define     ENC5_CSN_SET()     PORTESET=(1<<6)
+    #define     ENC5_CSN_CLEAR()   PORTECLR=(1<<6)
     #define     ENC5_CSN_TRIS      _TRISE6
     #define     ENC5_SERVO_TRIS    _TRISB10
     #define     ENC5_SERVO         _RB10
+    #define     ENC5_SERVO_SET()   PORTBSET=(1<<10)
+    #define     ENC5_SERVO_CLEAR() PORTBSET=(1<<10)
 	//PORT 6
     #define     ENC6_CSN           _RE7
+    #define     ENC6_CSN_SET()     PORTESET=(1<<7)
+    #define     ENC6_CSN_CLEAR()   PORTECLR=(1<<7)
     #define     ENC6_CSN_TRIS      _TRISE7
     #define     ENC6_SERVO_TRIS    _TRISB8
     #define     ENC6_SERVO         _RB8
+    #define     ENC6_SERVO_SET()   PORTBSET=(1<<8)
+    #define     ENC6_SERVO_CLEAR() PORTBSET=(1<<8)
 	//PORT 7
     #define     ENC7_CSN           _RG9
+    #define     ENC7_CSN_SET()     PORTGSET=(1<<9)
+    #define     ENC7_CSN_CLEAR()   PORTGCLR=(1<<9)
     #define     ENC7_CSN_TRIS      _TRISG9
     #define     ENC7_SERVO_TRIS    _TRISB9
     #define     ENC7_SERVO         _RB9
+    #define     ENC7_SERVO_SET()   PORTBSET=(1<<9)
+    #define     ENC7_SERVO_CLEAR() PORTBSET=(1<<9)
 
     #define    HEATER_0            _RB0
+    #define    HEATER_0_SET()      PORTBSET=(1<<0)
+    #define    HEATER_0_CLEAR()    PORTBCLR=(1<<0)
     #define    HEATER_0_TRIS       _TRISB0
 
+
     #define    HEATER_1            _RB2
+    #define    HEATER_1_SET()      PORTBSET=(1<<2)
+    #define    HEATER_1_CLEAR()    PORTBCLR=(1<<2)
     #define    HEATER_1_TRIS       _TRISB2
 
     #define    HEATER_2            _RB5
+    #define    HEATER_2_SET()      PORTBSET=(1<<5)
+    #define    HEATER_2_CLEAR()    PORTBCLR=(1<<5)
     #define    HEATER_2_TRIS       _TRISB5
 
     #define    HEATER_0_ADC         1
@@ -93,52 +143,90 @@ extern "C" {
 	//PORT 0
     #define     ENC0_CSN           _RE7
     #define     ENC0_CSN_TRIS      _TRISE7
+    #define     ENC0_CSN_SET()     PORTDSET=(1<<7)
+    #define     ENC0_CSN_CLEAR()   PORTDCLR=(1<<7)
     #define     ENC0_SERVO_TRIS    _TRISB12
     #define     ENC0_SERVO         _RB12
+    #define     ENC0_SERVO_SET()   PORTBSET=(1<<12)
+    #define     ENC0_SERVO_CLEAR() PORTBSET=(1<<12)
 	//PORT 1
     #define     ENC1_CSN           _RD7
+    #define     ENC1_CSN_SET()     PORTDSET=(1<<7)
+    #define     ENC1_CSN_CLEAR()   PORTDCLR=(1<<7)
     #define     ENC1_CSN_TRIS      _TRISD7
     #define     ENC1_SERVO_TRIS    _TRISB10
     #define     ENC1_SERVO         _RB10
+    #define     ENC1_SERVO_SET()   PORTDSET=(1<<7)
+    #define     ENC1_SERVO_CLEAR() PORTDSET=(1<<7)
 	// Port 2
     #define     ENC2_CSN           _RG9
+    #define     ENC2_CSN_SET()     PORTGSET=(1<<9)
+    #define     ENC2_CSN_CLEAR()   PORTGCLR=(1<<9)
     #define     ENC2_CSN_TRIS      _TRISG9
     #define     ENC2_SERVO_TRIS    _TRISB15
     #define     ENC2_SERVO         _RB15
+    #define     ENC2_SERVO_SET()   PORTBSET=(1<<15)
+    #define     ENC2_SERVO_CLEAR() PORTBSET=(1<<15)
 	// PORT 3
     #define     ENC3_CSN           _RD6
+    #define     ENC3_CSN_SET()     PORTDSET=(1<<6)
+    #define     ENC3_CSN_CLEAR()   PORTDCLR=(1<<6)
     #define     ENC3_CSN_TRIS      _TRISD6
     #define     ENC3_SERVO_TRIS    _TRISB11
     #define     ENC3_SERVO         _RB11
+    #define     ENC3_SERVO_SET()   PORTBSET=(1<<11)
+    #define     ENC3_SERVO_CLEAR() PORTBSET=(1<<11)
 	// PORT 4
     #define     ENC4_CSN           _RE5
+    #define     ENC4_CSN_SET()     PORTESET=(1<<5)
+    #define     ENC4_CSN_CLEAR()   PORTECLR=(1<<5)
     #define     ENC4_CSN_TRIS      _TRISE5
     #define     ENC4_SERVO_TRIS    _TRISB14
     #define     ENC4_SERVO         _RB14
+    #define     ENC4_SERVO_SET()   PORTBSET=(1<<14)
+    #define     ENC4_SERVO_CLEAR() PORTBSET=(1<<14)
 	// PORT 5
     #define     ENC5_CSN           _RD5
+    #define     ENC5_CSN_SET()     PORTDSET=(1<<5)
+    #define     ENC5_CSN_CLEAR()   PORTDCLR=(1<<5)
     #define     ENC5_CSN_TRIS      _TRISD5
     #define     ENC5_SERVO_TRIS    _TRISB9
     #define     ENC5_SERVO         _RB9
+    #define     ENC5_SERVO_SET()   PORTBSET=(1<<9)
+    #define     ENC5_SERVO_CLEAR() PORTBSET=(1<<9)
 	//PORT 6
     #define     ENC6_CSN           _RE6
+    #define     ENC6_CSN_SET()     PORTESET=(1<<6)
+    #define     ENC6_CSN_CLEAR()   PORTECLR=(1<<6)
     #define     ENC6_CSN_TRIS      _TRISE6
     #define     ENC6_SERVO_TRIS    _TRISB13
     #define     ENC6_SERVO         _RB13
+    #define     ENC6_SERVO_SET()   PORTESET=(1<<6)
+    #define     ENC6_SERVO_CLEAR() PORTESET=(1<<6)
 	//PORT 7
     #define     ENC7_CSN           _RD4
+    #define     ENC7_CSN_SET()     PORTDSET=(1<<4)
+    #define     ENC7_CSN_CLEAR()   PORTDCLR=(1<<4)
     #define     ENC7_CSN_TRIS      _TRISD4
     #define     ENC7_SERVO_TRIS    _TRISB8
     #define     ENC7_SERVO         _RB8
+    #define     ENC7_SERVO_SET()   PORTBSET=(1<<8)
+    #define     ENC7_SERVO_CLEAR() PORTBSET=(1<<8)
 
     #define    HEATER_0            _RB5
     #define    HEATER_0_TRIS       _TRISB5
+    #define    HEATER_0_SET()      PORTBSET=(1<<5)
+    #define    HEATER_0_CLEAR()    PORTBCLR=(1<<5)
 
     #define    HEATER_1            _RB0
     #define    HEATER_1_TRIS       _TRISB0
+    #define    HEATER_1_SET()      PORTBSET=(1<<0)
+    #define    HEATER_1_CLEAR()    PORTBCLR=(1<<0)
 
     #define    HEATER_2            _RB2
     #define    HEATER_2_TRIS       _TRISB2
+    #define    HEATER_2_SET()      PORTBSET=(1<<2)
+    #define    HEATER_2_CLEAR()    PORTBCLR=(1<<2)
 
     #define    HEATER_0_ADC         4
     #define    HEATER_1_ADC         1
