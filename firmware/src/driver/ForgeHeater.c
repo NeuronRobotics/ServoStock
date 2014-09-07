@@ -53,10 +53,10 @@ void initializeHeater(){
     HEATER_0_TRIS=OUTPUT;
     HEATER_1_TRIS=OUTPUT;
     HEATER_2_TRIS=OUTPUT;
-    mPORTBSetPinsDigitalOut(BIT_4|BIT_5);
-    HEATER_0=0;
-    HEATER_1=0;
-    HEATER_2=0;
+    
+    clearHeater0();
+    clearHeater1();
+    clearHeater2();
 
     // init lowpass
   

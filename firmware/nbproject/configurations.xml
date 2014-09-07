@@ -64,7 +64,6 @@
             <itemPath>include/replicator/Servo.h</itemPath>
             <itemPath>include/replicator/StepperSim.h</itemPath>
             <itemPath>include/replicator/CartesianController.h</itemPath>
-            <itemPath>include/replicator/ReplicatorHeader.h</itemPath>
             <itemPath>include/replicator/servoCalibration.h</itemPath>
             <itemPath>include/replicator/AS5055.h</itemPath>
             <itemPath>include/replicator/ForgeHeater.h</itemPath>

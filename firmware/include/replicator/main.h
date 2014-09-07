@@ -9,7 +9,7 @@
 #include "AuxUartServer.h"
 
 #include "AS5055.h"
-#include "ReplicatorHeader.h"
+#include "ServoStock.h"
 #include "Servo.h"
 #include "StepperSim.h"
 #include "ForgeHeater.h"

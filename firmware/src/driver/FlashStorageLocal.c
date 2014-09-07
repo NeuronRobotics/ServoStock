@@ -56,7 +56,7 @@ HardwareMap hwMap = {
     {4, -1.0 * mmPerTick, "Gama"}, //axis 2
     {
         {1, 1.0, "Extruder"}, // Motor
-        {11, 1.0, "Heater"}// Heater
+        {10, 1.0, "Heater"}// Heater
     }, //Extruder 0
     {
         {AXIS_UNUSED, 1.0, ""},
