@@ -8,6 +8,7 @@
 #ifndef REPLICATORHEADER_H
 #define	REPLICATORHEADER_H
 #include "arch/pic32/Compiler.h"
+#include "main.h"
 #ifdef	__cplusplus
 extern "C" {
 #endif
@@ -31,7 +32,7 @@ extern "C" {
 
     #define     initLEDs()      LED_RED_TRIS=0;LED_GRN_TRIS=0;LED_BLU_TRIS=0;
     #define     setLED(r,g,b)   LED_RED_PIN=~r;LED_GRN_PIN=~g;LED_BLU_PIN=~b;
-#define Rev4
+
 #ifdef Rev4
  // eNCODER Connector macros and defines
 	//PORT 0
@@ -88,7 +89,7 @@ extern "C" {
     #define    HEATER_1_ADC         3
     #define    HEATER_2_ADC         4
 
-#else
+#elif defined( Rev3)
     // eNCODER Connector macros and defines
 	//PORT 0
     #define     ENC0_CSN           _RE7
@@ -143,7 +144,8 @@ extern "C" {
     #define    HEATER_0_ADC         4
     #define    HEATER_1_ADC         1
     #define    HEATER_2_ADC         3
-
+#else
+#error No bowlerboard reveision defined
 #endif
     #define     CloseServoOpenCollector() 	mPORTBOpenDrainClose(BIT_12);\
                                                 mPORTBOpenDrainClose(BIT_15);\

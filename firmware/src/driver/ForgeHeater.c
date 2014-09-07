@@ -9,17 +9,20 @@ int heaterLowpassIndex;
 int heaterIndex = 0;
 
 void heaterPin(int index, int value){
-    switch(index){
-        case 0:
-            HEATER_0 = value?1:0;
-            break;
-        case 1:
-            HEATER_1 = value?1:0;
-            break;
-        case 2:
-            HEATER_2 = value?1:0;
-            break;
-    }
+
+    // THis needs to be toggel pins only
+    
+//    switch(index){
+//        case 0:
+//            HEATER_0 = value?1:0;
+//            break;
+//        case 1:
+//            HEATER_1 = value?1:0;
+//            break;
+//        case 2:
+//            HEATER_2 = value?1:0;
+//            break;
+//    }
 }
 
 int mapHeaterIndex(int group){

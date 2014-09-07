@@ -183,7 +183,7 @@ void hardwareInit(){
         initializeEncoders();// Power supply must be turned on first
 
         println_I("Starting Heater");
-        initializeHeater();
+        //initializeHeater();
 
         println_I("Starting Servos");
         initServos();
@@ -226,7 +226,7 @@ void hardwareInit(){
         (_TRISB0)=1;
 
         SetColor(1,1,1);
-        HEATER_2_TRIS = OUTPUT;
+        //HEATER_2_TRIS = OUTPUT;
         //HEATER_1_TRIS = OUTPUT; // Causes one of the axies to crawl downward in bursts when enabled and on...
         //HEATER_0_TRIS = OUTPUT; // causes device to twitc. These are touched by the USB stack somehow..... and as the reset button
 
@@ -269,8 +269,8 @@ int main(){
 		Reset();
 	}
         if(RunEvery(&loop)>0){
-//            clearPrint();
-//            printCartesianData();
+            //clearPrint();
+            printCartesianData();
 
         }
         if(     printCalibrations == false &&

@@ -2,6 +2,9 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+//#define Rev4
+#define Rev3
+
 #include "Bowler/Bowler.h"
 #include "AuxUartServer.h"
 
@@ -18,6 +21,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <inttypes.h>
+
+
 
 typedef struct _DeltaConfig{
 	float RodLength;
