@@ -84,12 +84,12 @@ float getRecentEncoderReading(int index) {
 
 void updateAllEncoders() {
     int i,j;
-//    int integralSize=5;
-//    for (i = 0; i < numPidMotors; i++) {
-//
-//        recent[i] = 0;
-//    }
-//    for (j=0;i<integralSize;j++){
+    float integralSize=5;
+    for (i = 0; i < numPidMotors; i++) {
+
+        recent[i] = 0;
+    }
+    for (j=0;j<integralSize;j++){
         for (i = 0; i < numPidMotors; i++) {
             // Set the read command to the chip
             AS5055readAngle(i);
@@ -98,17 +98,15 @@ void updateAllEncoders() {
         for (i = 0; i < numPidMotors; i++) {
             // Take a reading after waiting
             //        println_I("RAW Data:  ");p_int_I(i);
-            recent[i] = readEncoderWithoutOffset(i);
+            recent[i] += readEncoderWithoutOffset(i)/ integralSize;
             //        print_I(" raw : ");p_int_I( raw[i]);
             //        print_I(" val: ");p_int_I( recent[i]);
             //        print_I(" Done\r\n");
             //AS5055reset(i);
             AS5055ResetErrorFlag(i);
         }
-//    }
-//    for (i = 0; i < numPidMotors; i++) {
-//        recent[i] /= integralSize;
-//    }
+    }
+ 
 }
 
 //float readEncoder(uint8_t index){
@@ -122,7 +120,6 @@ void updateAllEncoders() {
 //}
 
 void encoderSPIInit() {
-
     SPI_CLK_TRIS();
     SPI_MISO_TRIS();
     SPI_MOSI_TRIS();
