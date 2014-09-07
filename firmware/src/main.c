@@ -137,7 +137,9 @@ void hardwareInit(){
 	// The PBDIV value is already set via the pragma FPBDIV option above..
 	SYSTEMConfig(SYS_FREQ, SYS_CFG_WAIT_STATES | SYS_CFG_PCACHE);
         SYSTEMConfigPerformance(80000000);
-            (_TRISF5)=INPUT; // for the reset sw
+        
+        resetButtionInit();
+
         ATX_DISENABLE();
         CloseTimer2();
         initLEDs();
@@ -250,7 +252,7 @@ int main(){
     RunEveryData loop = {0.0,2000.0};
 
     while(1){
-        if (_RF5==1){
+        if (getResetButton()==1){
             setPrintLevelErrorPrint();
 		p_int_E(0);print_E(" Reset Button Pressed from loop");
 		SetColor(1,1,1);

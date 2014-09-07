@@ -2,8 +2,8 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-//#define Rev4
-#define Rev3
+#define Rev4
+//#define Rev3
 
 #include "Bowler/Bowler.h"
 #include "AuxUartServer.h"

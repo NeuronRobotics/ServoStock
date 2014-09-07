@@ -18,9 +18,12 @@ extern "C" {
 #define     ATX_PWR_ON(s)      setPicIOPin(s, 'F',0)
 #define     ATX_ENABLED        1
 
-#define     SPI_CLK_TRIS        _TRISG6 // tris
-#define     SPI_MISO_TRIS       _TRISG8 // tris
-#define     SPI_MOSI_TRIS       _TRISG7 // tris
+//#define     SPI_CLK_TRIS        _TRISG6 // tris
+//#define     SPI_MISO_TRIS       _TRISG8 // tris
+//#define     SPI_MOSI_TRIS       _TRISG7 // tris
+#define     SPI_CLK_TRIS()        setPicIOTristateOutput('G',6) //_TRISG6 // tris
+#define     SPI_MISO_TRIS()        setPicIOTristateInput('G',8)  //_TRISG8 // tris
+#define     SPI_MOSI_TRIS()       setPicIOTristateOutput('G',7) //_TRISG7 // tris
 #define     CloseSPIOpenCollector() mPORTGOpenDrainClose(BIT_6);\
                                         mPORTGOpenDrainClose(BIT_7);
 #define     LED_RED_TRIS    setPicIOTristateOutput('D',10)
@@ -32,8 +35,8 @@ extern "C" {
 #define     setLED(r,g,b)   ioPortD(~r,10);ioPortD(~g,11);ioPortD(~b,0);
 
 
-
-
+#define     resetButtionInit()      setPicIOTristateInput('F',5)//(_TRISF5)=INPUT; // for the reset sw
+#define     getResetButton()        getPicIOPin('F',5)
 
 #ifdef Rev4
     // eNCODER Connector macros and defines

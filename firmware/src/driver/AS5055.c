@@ -122,9 +122,10 @@ void updateAllEncoders() {
 //}
 
 void encoderSPIInit() {
-    SPI_CLK_TRIS = OUTPUT;
-    SPI_MISO_TRIS = INPUT;
-    SPI_MOSI_TRIS = OUTPUT;
+
+    SPI_CLK_TRIS();
+    SPI_MISO_TRIS();
+    SPI_MOSI_TRIS();
     if (initialized)
         return;
     initialized = true;
