@@ -50,9 +50,9 @@ void initializeHeater(){
     setPrintLevelInfoPrint();
     println_I("Starting PID ISR");
     setPrintLevel(l);
-    HEATER_0_TRIS=OUTPUT;
-    HEATER_1_TRIS=OUTPUT;
-    HEATER_2_TRIS=OUTPUT;
+    HEATER_0_TRIS;
+    HEATER_1_TRIS;
+    HEATER_2_TRIS;
     
     setHeater0(0);
     setHeater1(0);
