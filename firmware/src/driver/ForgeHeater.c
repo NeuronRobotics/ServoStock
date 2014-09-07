@@ -14,13 +14,13 @@ void heaterPin(int index, int value){
     
 //    switch(index){
 //        case 0:
-//            HEATER_0 = value?1:0;
+//             setHeater0(1);
 //            break;
 //        case 1:
-//            HEATER_1 = value?1:0;
+//            setHeater1(1);
 //            break;
 //        case 2:
-//            HEATER_2 = value?1:0;
+//            setHeater2(1);
 //            break;
 //    }
 }
@@ -54,9 +54,9 @@ void initializeHeater(){
     HEATER_1_TRIS=OUTPUT;
     HEATER_2_TRIS=OUTPUT;
     
-    clearHeater0();
-    clearHeater1();
-    clearHeater2();
+    setHeater0(0);
+    setHeater1(0);
+    setHeater2(0);
 
     // init lowpass
   
