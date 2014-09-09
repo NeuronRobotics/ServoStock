@@ -41,6 +41,7 @@ typedef struct _flashStorageData {
     Slic3rData slic3r;
     HardwareMap hwMap;
     DeltaConfig defaultConfig;
+    // this should be changed to garuntee that the struct is exactly a multiple of 4 bytes
     unsigned char buffer[1];
 } flashStorageData;
 
