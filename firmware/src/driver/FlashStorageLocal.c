@@ -41,6 +41,7 @@ typedef struct _flashStorageData {
     Slic3rData slic3r;
     HardwareMap hwMap;
     DeltaConfig defaultConfig;
+    int32_t kinematicsIndex;
     // this should be changed to garuntee that the struct is exactly a multiple of 4 bytes
     unsigned char buffer[1];
 } flashStorageData;
@@ -378,26 +379,26 @@ boolean initFlashLocal() {
         localData.hwMap.Extruder0.index=1;
         localData.hwMap.Extruder0.scale= 1.0 ;
         localData.hwMap.Extruder0.name="Extruder";
+
+        localData.hwMap.Heater0.index=10;
+        localData.hwMap.Heater0.scale= 1.0 ;
+        localData.hwMap.Heater0.name="Heater";
         
         localData.hwMap.Extruder1.index=AXIS_UNUSED;
         localData.hwMap.Extruder1.scale= -1.0 ;
-        localData.hwMap.Extruder1.name="Alpha";
+        localData.hwMap.Extruder1.name="AXIS_UNUSED";
         
         localData.hwMap.Extruder2.index=AXIS_UNUSED;
         localData.hwMap.Extruder2.scale= -1.0 ;
-        localData.hwMap.Extruder2.name="Alpha";
-
-        localData.hwMap.Heater0.index=11;
-        localData.hwMap.Heater0.scale= 1.0 ;
-        localData.hwMap.Heater0.name="Heater";
+        localData.hwMap.Extruder2.name="AXIS_UNUSED";
 
         localData.hwMap.Heater1.index=AXIS_UNUSED;
         localData.hwMap.Heater1.scale= -1.0 ;
-        localData.hwMap.Heater1.name="Alpha";
+        localData.hwMap.Heater1.name="AXIS_UNUSED";
 
         localData.hwMap.Heater2.index=AXIS_UNUSED;
         localData.hwMap.Heater2.scale= -1.0 ;
-        localData.hwMap.Heater2.name="Alpha";
+        localData.hwMap.Heater2.name="AXIS_UNUSED";
 
 
     } else {
