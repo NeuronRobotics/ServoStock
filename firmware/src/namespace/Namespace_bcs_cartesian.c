@@ -136,12 +136,12 @@ static RPC_LIST cartesian_GCFG = {BOWLER_GET, // Method
     "gcfg", //RPC as string
     &onConfigurationGet, //function pointer to a packet parsing function
     ((const char [2]) {
-        BOWLER_I08,
+        BOWLER_I08,//Joint space Index
         0
     }), // Calling arguments
     BOWLER_POST, // response method
     ((const char [8]) {
-        BOWLER_I08, //index
+        BOWLER_I08, //HW index
         BOWLER_I08, //total links
         BOWLER_I32, //latch
         BOWLER_I32, //lower limit
@@ -157,14 +157,13 @@ static RPC_LIST cartesian_GCFG = {BOWLER_GET, // Method
 static RPC_LIST cartesian_SCFG = {BOWLER_POST, // Method
     "scfg", //RPC as string
     &onConfigurationSet, //function pointer to a packet parsing function
-    ((const char [8]) {
-        BOWLER_I08, //index
-        BOWLER_I08, //total links
+    ((const char [7]) {
+        BOWLER_I08, //Joint space Index
+        BOWLER_I08, //HW index
+        BOWLER_FIXED1K, //scale
         BOWLER_I32, //latch
         BOWLER_I32, //lower limit
         BOWLER_I32, //upper limit
-        BOWLER_FIXED1K, //scale
-        BOWLER_ASCII, // name
         0
     }), // Response arguments
     BOWLER_STATUS, // response method
