@@ -744,22 +744,4 @@ void printCartesianData() {
             p_fl_E(error);
         }
     }
-    //    print_W(" cy=");
-    //    p_fl_W(current[1]);
-    //    print_W(" cz=");
-    //    p_fl_W(current[2]);
-    //    println_W("Current  angles Alpha=");
-    //    p_fl_W(getLinkAngle(0));
-    //    print_W(" Beta=");
-    //    p_fl_W(getLinkAngle(1));
-    //    print_W(" Gamma=");
-    //    p_fl_W(getLinkAngle(2));
-
-    //    println_W("Raw  angles Alpha=");
-    //    p_fl_W(getLinkAngleNoScale(0));
-    //    print_W(" Beta=");
-    //    p_fl_W(getLinkAngleNoScale(1));
-    //    print_W(" Gamma=");
-    //    p_fl_W(getLinkAngleNoScale(2));
-
 }

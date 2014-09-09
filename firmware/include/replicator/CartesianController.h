@@ -153,6 +153,9 @@ boolean onControllerConfigurationSet(BowlerPacket *Packet);
 boolean onSlic3rConfigurationGet(BowlerPacket *Packet);
 boolean onSlic3rConfigurationSet(BowlerPacket *Packet);
 
+boolean onKinematicsModelGet(BowlerPacket *Packet);
+boolean onKinematicsModelSet(BowlerPacket *Packet) ;
+
 boolean onRunKinematicsSet(BowlerPacket *Packet);
 boolean onCartesianPacket(BowlerPacket *Packet);
 boolean setDesiredTaskSpaceTransform(BowlerPacket *Packet);

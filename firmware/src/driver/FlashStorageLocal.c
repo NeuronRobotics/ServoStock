@@ -230,7 +230,16 @@ boolean onConfigurationSet(BowlerPacket *Packet) {
     return true;
 
 }
+boolean onKinematicsModelGet(BowlerPacket *Packet) {
+    Packet->use.data[0] = localData.kinematicsIndex;
+    return true;
+}
 
+boolean onKinematicsModelSet(BowlerPacket *Packet) {
+    localData.kinematicsIndex = Packet->use.data[0];
+    setKinematicsMath();
+    return true;
+}
 boolean onSlic3rConfigurationGet(BowlerPacket *Packet) {
     //TODO load slicer configs
 }
@@ -394,34 +403,14 @@ boolean initFlashLocal() {
         localData.VKP = 1;
         localData.VKD = 0;
         localData.mmPositionResolution =.5;
-        localData.maximumMMperSec = 30;
+        localData.maximumMMperSec = 60;
         localData.defaultConfig.BaseRadius = 140;
         localData.defaultConfig.EndEffectorRadius = 25;
         localData.defaultConfig.MaxZ = 100;
         localData.defaultConfig.MinZ = -10;
         localData.defaultConfig.RodLength = 203.82;
-//        HardwareMap hwMap = {
-//    {0, -1.0 * mmPerTick, "Alpha"}, //axis 0
-//    {2, -1.0 * mmPerTick, "Beta"}, //axis 1
-//    {4, -1.0 * mmPerTick, "Gama"}, //axis 2
-//    {
-//        {1, 1.0, "Extruder"}, // Motor
-//        {11, 1.0, "Heater"}// Heater
-//    }, //Extruder 0
-//    {
-//        {AXIS_UNUSED, 1.0, ""},
-//        {AXIS_UNUSED, 1.0, ""}
-//    }, //Extruder 1
-//    {
-//        {AXIS_UNUSED, 1.0, ""},
-//        {AXIS_UNUSED, 1.0, ""}
-//    }, //Extruder 2
-//    (forwardKinematics *)& servostock_calcForward,
-//    (inverseKinematics *) & servostock_calcInverse,
-//    (velInverse *) & servostock_velInverse,
-//    (velForward *) & servostock_velForward,
-//    true
-//};
+
+        //Default hardware map
         localData.hwMap.Alpha.index=0;
         localData.hwMap.Alpha.scale= -1.0 * mmPerTick;
         localData.hwMap.Alpha.name="Alpha";
@@ -460,6 +449,34 @@ boolean initFlashLocal() {
 
         localData.kinematicsIndex=0;
         setKinematicsMath();
+
+        //Default Slic3r configurations
+        localData.slic3r.nozzle_diameter                = .4;
+        localData.slic3r.printCenter [0]                = 0;
+        localData.slic3r.printCenter [1]                = 0;
+        localData.slic3r.filimentDiameter               = 1.75;
+        localData.slic3r.extrusionMultiplier            = 1;
+        localData.slic3r.tempreture                     = 200;
+        localData.slic3r.bedTempreture                  = 0;
+        localData.slic3r.layerHeight                    = .3;
+        localData.slic3r.wallThickness                  = 3;
+        localData.slic3r.useSupportMaterial             = true;
+        localData.slic3r.retractLength                  = 1.1;
+        localData.slic3r.travilSpeed                    = localData.maximumMMperSec;
+        localData.slic3r.perimeterSpeed                 = 20;
+        localData.slic3r.bridgeSpeed                    = 40;
+        localData.slic3r.gapFillSpeed                   = 20;
+        localData.slic3r.infillSpeed                    = 60;
+        localData.slic3r.supportMaterialSpeed           = 60;
+        localData.slic3r.smallPerimeterSpeedPercent     = 100;
+        localData.slic3r.externalPerimeterSpeedPercent  = 70;
+        localData.slic3r.solidInfillSpeedPercent        = 100;
+        localData.slic3r.topSolidInfillSpeedPercent     = 80;
+        localData.slic3r.supportMaterialInterfaceSpeedPercent   = 100;
+        localData.slic3r.firstLayerSpeedPercent         = 30;
+
+
+
     } else {
         println_W("Flash image ok");
         setKinematicsMath();
