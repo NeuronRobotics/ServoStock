@@ -28,6 +28,7 @@
  *
  *
  ********************************************************************/
+
 #include "main.h"
 
 #ifdef USB_A0_SILICON_WORK_AROUND
@@ -136,14 +137,18 @@ void hardwareInit(){
 	// The PBDIV value is already set via the pragma FPBDIV option above..
 	SYSTEMConfig(SYS_FREQ, SYS_CFG_WAIT_STATES | SYS_CFG_PCACHE);
         SYSTEMConfigPerformance(80000000);
-            (_TRISF5)=INPUT; // for the reset sw
+        
+        resetButtionInit();
+
         ATX_DISENABLE();
         CloseTimer2();
+        initLEDs();
+        setLED(0,1,0);
 
         Pic32_Bowler_HAL_Init();
 
 	Bowler_Init();
-        clearPrint();
+        //clearPrint();
         println_I("\n\n\nStarting PIC initialization");
 
         FlashGetMac(MyMAC.v);
@@ -169,6 +174,7 @@ void hardwareInit(){
 
        
         addNamespaceToList((NAMESPACE_LIST *)getBcsCartesianNamespace());
+        addNamespaceToList((NAMESPACE_LIST *)getNeuronroboticsPidRTD());
         addNamespaceToList((NAMESPACE_LIST *)getBcsPidNamespace());
 
 
@@ -204,11 +210,7 @@ void hardwareInit(){
             runPidHysterisisCalibration(linkToHWIndex(1));
             runPidHysterisisCalibration(linkToHWIndex(2));
 
-            DelayMs(100);//wait for ISR to fire and update all values
-            for(i=0;i<3;i++){
-                setPIDConstants(linkToHWIndex(i),.2,.1,0);
-            }
-
+            DelayMs(100);//wait for ISR to fire and update all value
             OnPidConfigure(0);
         }else{
             println_W("Axis are already calibrated");
@@ -219,12 +221,6 @@ void hardwareInit(){
 
         disableSerialComs(true) ;
 
-        (_TRISB0)=1;
-
-        SetColor(1,1,1);
-        HEATER_2_TRIS = OUTPUT;
-        //HEATER_1_TRIS = OUTPUT; // Causes one of the axies to crawl downward in bursts when enabled and on...
-        //HEATER_0_TRIS = OUTPUT; // causes device to twitc. These are touched by the USB stack somehow..... and as the reset button
 
 }
 boolean serVal =true; 
@@ -256,7 +252,7 @@ int main(){
     RunEveryData loop = {0.0,2000.0};
 
     while(1){
-        if (_RF5==1){
+        if (getResetButton()==1){
             setPrintLevelErrorPrint();
 		p_int_E(0);print_E(" Reset Button Pressed from loop");
 		SetColor(1,1,1);
@@ -265,8 +261,8 @@ int main(){
 		Reset();
 	}
         if(RunEvery(&loop)>0){
-//            clearPrint();
-//            printCartesianData();
+            //clearPrint();
+            printCartesianData();
 
         }
         if(     printCalibrations == false &&

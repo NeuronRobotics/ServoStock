@@ -2,11 +2,14 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+#define Rev4
+//#define Rev3
+
 #include "Bowler/Bowler.h"
 #include "AuxUartServer.h"
 
 #include "AS5055.h"
-#include "ReplicatorHeader.h"
+#include "ServoStock.h"
 #include "Servo.h"
 #include "StepperSim.h"
 #include "ForgeHeater.h"
@@ -18,6 +21,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <inttypes.h>
+
+
 
 typedef struct _DeltaConfig{
 	float RodLength;

@@ -57,7 +57,7 @@ HardwareMap hwMap = {
     {4, -1.0 * mmPerTick, "Gama"}, //axis 2
     {
         {1, 1.0, "Extruder"}, // Motor
-        {11, 1.0, "Heater"}// Heater
+        {10, 1.0, "Heater"}// Heater
     }, //Extruder 0
     {
         {AXIS_UNUSED, 1.0, ""},
@@ -311,7 +311,7 @@ boolean initFlashLocal() {
             p_int_E(i);
             printPIDvals(i);
             getPidGroupDataTable(i)->config.Enabled = false;
-            getPidGroupDataTable(i)->config.Async = 0;
+            getPidGroupDataTable(i)->config.Async = true;
             getPidGroupDataTable(i)->config.IndexLatchValue = 0;
             getPidGroupDataTable(i)->config.stopOnIndex = 0;
             getPidGroupDataTable(i)->config.useIndexLatch = 0;
@@ -329,18 +329,77 @@ boolean initFlashLocal() {
             getPidGroupDataTable(i)->config.tipsScale = 1;
             printPIDvals(i);
         }
-        localData.KP = .85;
+        localData.KP = 10;
         localData.KI = 0;
         localData.KD = 0;
         localData.VKP = 1;
         localData.VKD = 0;
-        localData.mmPositionResolution = 1;
+        localData.mmPositionResolution =.5;
         localData.maximumMMperSec = 30;
         localData.defaultConfig.BaseRadius = 140;
         localData.defaultConfig.EndEffectorRadius = 25;
         localData.defaultConfig.MaxZ = 100;
         localData.defaultConfig.MinZ = -10;
         localData.defaultConfig.RodLength = 203.82;
+//        HardwareMap hwMap = {
+//    {0, -1.0 * mmPerTick, "Alpha"}, //axis 0
+//    {2, -1.0 * mmPerTick, "Beta"}, //axis 1
+//    {4, -1.0 * mmPerTick, "Gama"}, //axis 2
+//    {
+//        {1, 1.0, "Extruder"}, // Motor
+//        {11, 1.0, "Heater"}// Heater
+//    }, //Extruder 0
+//    {
+//        {AXIS_UNUSED, 1.0, ""},
+//        {AXIS_UNUSED, 1.0, ""}
+//    }, //Extruder 1
+//    {
+//        {AXIS_UNUSED, 1.0, ""},
+//        {AXIS_UNUSED, 1.0, ""}
+//    }, //Extruder 2
+//    (forwardKinematics *)& servostock_calcForward,
+//    (inverseKinematics *) & servostock_calcInverse,
+//    (velInverse *) & servostock_velInverse,
+//    (velForward *) & servostock_velForward,
+//    true
+//};
+        localData.hwMap.Alpha.index=0;
+        localData.hwMap.Alpha.scale= -1.0 * mmPerTick;
+        localData.hwMap.Alpha.name="Alpha";
+
+        localData.hwMap.Beta.index=2;
+        localData.hwMap.Beta.scale= -1.0 * mmPerTick;
+        localData.hwMap.Beta.name="Beta";
+
+        localData.hwMap.Gama.index=4;
+        localData.hwMap.Gama.scale= -1.0 * mmPerTick;
+        localData.hwMap.Gama.name="Gama";
+        
+        localData.hwMap.Extruder0.index=1;
+        localData.hwMap.Extruder0.scale= 1.0 ;
+        localData.hwMap.Extruder0.name="Extruder";
+        
+        localData.hwMap.Extruder1.index=AXIS_UNUSED;
+        localData.hwMap.Extruder1.scale= -1.0 ;
+        localData.hwMap.Extruder1.name="Alpha";
+        
+        localData.hwMap.Extruder2.index=AXIS_UNUSED;
+        localData.hwMap.Extruder2.scale= -1.0 ;
+        localData.hwMap.Extruder2.name="Alpha";
+
+        localData.hwMap.Heater0.index=11;
+        localData.hwMap.Heater0.scale= 1.0 ;
+        localData.hwMap.Heater0.name="Heater";
+
+        localData.hwMap.Heater1.index=AXIS_UNUSED;
+        localData.hwMap.Heater1.scale= -1.0 ;
+        localData.hwMap.Heater1.name="Alpha";
+
+        localData.hwMap.Heater2.index=AXIS_UNUSED;
+        localData.hwMap.Heater2.scale= -1.0 ;
+        localData.hwMap.Heater2.name="Alpha";
+
+
     } else {
         println_W("Flash image ok");
         //        for (i = 0; i < numPidTotal; i++) {

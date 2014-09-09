@@ -12,6 +12,12 @@
 extern "C" {
 #endif
 
+   typedef struct {
+        double a;
+        double b;
+        double c;
+    } shh_coef;
+
     void initializeHeater();
 
     int resetHeater(int group, int current);
@@ -20,7 +26,8 @@ extern "C" {
 
     void setHeater(int group, float v);
 
-
+    boolean setSensorCoefs(BowlerPacket *Packet);
+boolean PidRTDAsyncEventCallback(BowlerPacket * Packet, boolean(*pidAsyncCallbackPtr)(BowlerPacket *Packet));
 
 #ifdef	__cplusplus
 }
