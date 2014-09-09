@@ -75,6 +75,28 @@ HardwareMap hwMap = {
     true
 };
 
+void setKinematicsMath(){
+    switch(localData.kinematicsIndex){
+        case 0:
+            localData.hwMap.fK_callback = (forwardKinematics *)& servostock_calcForward;
+            localData.hwMap.iK_callback=(inverseKinematics *) & servostock_calcInverse;
+            localData.hwMap.iVel_callback = (velInverse *) & servostock_velInverse;
+            localData.hwMap.fVel_callback = (velForward *) & servostock_velForward;
+            localData.hwMap.useStateBasedVelocity=true;
+            break;
+        case 1:
+            localData.hwMap.fK_callback = (forwardKinematics *)& box_calcForward;
+            localData.hwMap.iK_callback=(inverseKinematics *) & box_calcInverse;
+            localData.hwMap.useStateBasedVelocity=false;
+            break;
+        case 2:
+            localData.hwMap.fK_callback = (forwardKinematics *)& frog_calcForward;
+            localData.hwMap.iK_callback=(inverseKinematics *) & frog_calcInverse;
+            localData.hwMap.useStateBasedVelocity=false;
+            break;
+    }
+}
+
 int linkToHWIndex(int index) {
     int localIndex = 0;
     switch (index) {
@@ -171,6 +193,42 @@ boolean onControllerConfigurationSet(BowlerPacket *Packet) {
     localData.defaultConfig.RodLength = get32bit(Packet, 44) / 1000.0; //
 
     writeFlashLocal();
+}
+
+boolean onConfigurationGet(BowlerPacket *Packet) {
+    Packet->use.head.DataLegnth = 4;
+    uint8_t index = Packet->use.data[0]; // joint space requested index
+
+    Packet->use.data[0] = linkToHWIndex(index); // the PID link maped
+    Packet->use.head.DataLegnth++;
+    Packet->use.data[1] = 5; // 5 active axis
+    Packet->use.head.DataLegnth++;
+    set32bit(Packet, getPidGroupDataTable(Packet->use.data[0])->config.IndexLatchValue, 2);
+    Packet->use.head.DataLegnth += 4;
+    set32bit(Packet, -100000, 6);
+    Packet->use.head.DataLegnth += 4;
+    set32bit(Packet, 100000, 10);
+    Packet->use.head.DataLegnth += 4;
+    set32bit(Packet, getLinkScale(index)*1000, 14);
+    Packet->use.head.DataLegnth += 4;
+
+    int i = 0;
+    int offset = Packet->use.head.DataLegnth - 4;
+    while (getName(index)[i]) {
+        Packet->use.data[offset + i] = getName(index)[i];
+        i++;
+        Packet->use.head.DataLegnth++;
+    }
+    Packet->use.data[offset + i] = 0;
+    Packet->use.head.DataLegnth++;
+    return true;
+
+}
+
+boolean onConfigurationSet(BowlerPacket *Packet) {
+    //TODO fill in configuration set
+    return true;
+
 }
 
 boolean onSlic3rConfigurationGet(BowlerPacket *Packet) {
@@ -400,12 +458,11 @@ boolean initFlashLocal() {
         localData.hwMap.Heater2.scale= -1.0 ;
         localData.hwMap.Heater2.name="AXIS_UNUSED";
 
-
+        localData.kinematicsIndex=0;
+        setKinematicsMath();
     } else {
         println_W("Flash image ok");
-        //        for (i = 0; i < numPidTotal; i++) {
-        //            printPIDvals(i);
-        //        }
+        setKinematicsMath();
     }
     if (rawFlashDetect)
         writeFlashLocal();

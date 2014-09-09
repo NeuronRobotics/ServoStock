@@ -152,10 +152,9 @@ static RPC_LIST cartesian_GCFG = {BOWLER_GET, // Method
     }), // Response arguments
     NULL //Termination
 };
-
 // Set axis cartesian configuration
 
-static RPC_LIST cartesian_SCFG = {BOWLER_GET, // Method
+static RPC_LIST cartesian_SCFG = {BOWLER_POST, // Method
     "scfg", //RPC as string
     &onConfigurationSet, //function pointer to a packet parsinf function
     ((const char [8]) {
@@ -294,7 +293,7 @@ NAMESPACE_LIST * getBcsCartesianNamespace() {
         addRpcToNamespace(&bcsCartesian, & cartesian__SLI);
         addRpcToNamespace(&bcsCartesian, & cartesian_PRCL);
         addRpcToNamespace(&bcsCartesian, & cartesian_GCFG);
-
+        addRpcToNamespace(&bcsCartesian, & cartesian_SCFG);
         addRpcToNamespace(&bcsCartesian, & cartesian_SDTT);
         addRpcToNamespace(&bcsCartesian, & cartesian_GCTT);
         addRpcToNamespace(&bcsCartesian, & cartesian_SDJV);
