@@ -51,29 +51,6 @@ typedef struct _flashStorageData {
 flashStorageData localData;
 #define bytesOfRaw (sizeof(localData))
 
-//Default values for ServoStock
-HardwareMap hwMap = {
-    {0, -1.0 * mmPerTick, "Alpha"}, //axis 0
-    {2, -1.0 * mmPerTick, "Beta"}, //axis 1
-    {4, -1.0 * mmPerTick, "Gama"}, //axis 2
-    {
-        {1, 1.0, "Extruder"}, // Motor
-        {10, 1.0, "Heater"}// Heater
-    }, //Extruder 0
-    {
-        {AXIS_UNUSED, 1.0, ""},
-        {AXIS_UNUSED, 1.0, ""}
-    }, //Extruder 1
-    {
-        {AXIS_UNUSED, 1.0, ""},
-        {AXIS_UNUSED, 1.0, ""}
-    }, //Extruder 2
-    (forwardKinematics *)& servostock_calcForward,
-    (inverseKinematics *) & servostock_calcInverse,
-    (velInverse *) & servostock_velInverse,
-    (velForward *) & servostock_velForward,
-    true
-};
 
 static char Alpha [] = "Alpha";
 static char Beta [] = "Beta";
@@ -107,19 +84,19 @@ int linkToHWIndex(int index) {
     int localIndex = 0;
     switch (index) {
         case 0:
-            localIndex = hwMap.Alpha.index;
+            localIndex = localData.hwMap.Alpha.index;
             break;
         case 1:
-            localIndex = hwMap.Beta.index;
+            localIndex = localData.hwMap.Beta.index;
             break;
         case 2:
-            localIndex = hwMap.Gama.index;
+            localIndex = localData.hwMap.Gama.index;
             break;
         case 3:
-            localIndex = hwMap.Extruder0.index;
+            localIndex = localData.hwMap.Extruder0.index;
             break;
         case 4:
-            localIndex = hwMap.Heater0.index;
+            localIndex = localData.hwMap.Heater0.index;
             break;
     }
     return localIndex;
@@ -128,15 +105,15 @@ int linkToHWIndex(int index) {
 float getLinkScale(int index) {
     switch (index) {
         case 0:
-            return hwMap.Alpha.scale;
+            return localData.hwMap.Alpha.scale;
         case 1:
-            return hwMap.Beta.scale;
+            return localData.hwMap.Beta.scale;
         case 2:
-            return hwMap.Gama.scale;
+            return localData.hwMap.Gama.scale;
         case 3:
-            return hwMap.Extruder0.scale;
+            return localData.hwMap.Extruder0.scale;
         case 4:
-            return hwMap.Heater0.scale;
+            return localData.hwMap.Heater0.scale;
     }
     return 0.0;
 }
@@ -144,21 +121,21 @@ float getLinkScale(int index) {
 char * getName(int index) {
     switch (index) {
         case 0:
-            return hwMap.Alpha.name;
+            return localData.hwMap.Alpha.name;
         case 1:
-            return hwMap.Beta.name;
+            return localData.hwMap.Beta.name;
         case 2:
-            return hwMap.Gama.name;
+            return localData.hwMap.Gama.name;
         case 3:
-            return hwMap.Extruder0.name;
+            return localData.hwMap.Extruder0.name;
         case 4:
-            return hwMap.Heater0.name;
+            return localData.hwMap.Heater0.name;
     }
     return NULL;
 }
 
 HardwareMap * getHardwareMap() {
-    return &hwMap;
+    return &localData.hwMap;
 }
 
 boolean onControllerConfigurationGet(BowlerPacket *Packet) {
@@ -204,19 +181,12 @@ boolean onControllerConfigurationSet(BowlerPacket *Packet) {
 boolean onConfigurationGet(BowlerPacket *Packet) {
     Packet->use.head.DataLegnth = 4;
     uint8_t index = Packet->use.data[0]; // joint space requested index
-
     Packet->use.data[0] = linkToHWIndex(index); // the PID link maped
-    Packet->use.head.DataLegnth++;
     Packet->use.data[1] = 5; // 5 active axis
-    Packet->use.head.DataLegnth++;
     set32bit(Packet, getPidGroupDataTable(Packet->use.data[0])->config.IndexLatchValue, 2);
-    Packet->use.head.DataLegnth += 4;
     set32bit(Packet, -100000, 6);
-    Packet->use.head.DataLegnth += 4;
     set32bit(Packet, 100000, 10);
-    Packet->use.head.DataLegnth += 4;
     set32bit(Packet, getLinkScale(index)*1000, 14);
-    Packet->use.head.DataLegnth += 4;
 
     int i = 0;
     int offset = Packet->use.head.DataLegnth - 4;
@@ -236,19 +206,24 @@ boolean onConfigurationSet(BowlerPacket *Packet) {
     
     switch (index) {
         case 0:
-            hwMap.Alpha.index = Packet->use.data[1];
+            localData.hwMap.Alpha.index = Packet->use.data[1];
+            localData.hwMap.Alpha.scale = get32bit(Packet,2);
             break;
         case 1:
-            hwMap.Beta.index = Packet->use.data[1];
+            localData.hwMap.Beta.index = Packet->use.data[1];
+            localData.hwMap.Beta.scale = get32bit(Packet,2);
             break;
         case 2:
-            hwMap.Gama.index = Packet->use.data[1];
+            localData.hwMap.Gama.index = Packet->use.data[1];
+            localData.hwMap.Gama.scale = get32bit(Packet,2);
             break;
         case 3:
-            hwMap.Extruder0.index = Packet->use.data[1];
+            localData.hwMap.Extruder0.index = Packet->use.data[1];
+            localData.hwMap.Extruder0.scale = get32bit(Packet,2);
             break;
         case 4:
-            hwMap.Heater0.index = Packet->use.data[1];
+            localData.hwMap.Heater0.index = Packet->use.data[1];
+            localData.hwMap.Heater0.scale = get32bit(Packet,2);
             break;
     }
 
@@ -412,9 +387,9 @@ boolean initFlashLocal() {
         p_int_W(bytesOfRaw % 4);
         while (1);
     }
-    println_W("Size of Flash page data = ");
+    println_W("Size of Flash page pages = ");
     p_int_W(bytesOfRaw / 4);
-    print_W(" ");
+    print_W(", bytes = ");
     p_int_W(bytesOfRaw);
 
     SetFlashData((uint32_t *) & localData, bytesOfRaw / 4);
