@@ -61,6 +61,7 @@ static char Heater [] = "Heater";
 void setKinematicsMath(){
     switch(localData.kinematicsIndex){
         case 0:
+        default:
             localData.hwMap.fK_callback = (forwardKinematics *)& servostock_calcForward;
             localData.hwMap.iK_callback=(inverseKinematics *) & servostock_calcInverse;
             localData.hwMap.iVel_callback = (velInverse *) & servostock_velInverse;
