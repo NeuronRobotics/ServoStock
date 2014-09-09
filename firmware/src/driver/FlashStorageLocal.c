@@ -245,8 +245,31 @@ boolean onSlic3rConfigurationGet(BowlerPacket *Packet) {
 }
 
 boolean onSlic3rConfigurationSet(BowlerPacket *Packet) {
-    //TODO set slicer configs
 
+        int i=1;
+        localData.slic3r.nozzle_diameter                = get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.printCenter [0]                =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.printCenter [1]                =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.filimentDiameter               =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.extrusionMultiplier            =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.tempreture                     =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.bedTempreture                  =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.layerHeight                    =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.wallThickness                  =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.useSupportMaterial             =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.retractLength                  =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.travilSpeed                    =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.perimeterSpeed                 =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.bridgeSpeed                    =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.gapFillSpeed                   =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.infillSpeed                    =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.supportMaterialSpeed           =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.smallPerimeterSpeedPercent     =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.externalPerimeterSpeedPercent  =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.solidInfillSpeedPercent        =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.topSolidInfillSpeedPercent     =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.supportMaterialInterfaceSpeedPercent   =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.firstLayerSpeedPercent         =  get32bit(Packet,i)/1000.0;i+=4;
 }
 
 float getEndEffectorRadius() {
