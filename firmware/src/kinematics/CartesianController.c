@@ -148,41 +148,6 @@ boolean setDesiredJointAxisValue(BowlerPacket *Packet) {
     return true;
 }
 
-boolean onConfigurationSet(BowlerPacket *Packet) {
-    //TODO fill in configuration set
-    return true;
-
-}
-
-boolean onConfigurationGet(BowlerPacket *Packet) {
-    Packet->use.head.DataLegnth = 4;
-    uint8_t index = Packet->use.data[0]; // joint space requested index
-
-    Packet->use.data[0] = linkToHWIndex(index); // the PID link maped
-    Packet->use.head.DataLegnth++;
-    Packet->use.data[1] = 5; // 5 active axis
-    Packet->use.head.DataLegnth++;
-    set32bit(Packet, getPidGroupDataTable(Packet->use.data[0])->config.IndexLatchValue, 2);
-    Packet->use.head.DataLegnth += 4;
-    set32bit(Packet, -100000, 6);
-    Packet->use.head.DataLegnth += 4;
-    set32bit(Packet, 100000, 10);
-    Packet->use.head.DataLegnth += 4;
-    set32bit(Packet, getLinkScale(index)*1000, 14);
-    Packet->use.head.DataLegnth += 4;
-
-    int i = 0;
-    int offset = Packet->use.head.DataLegnth - 4;
-    while (getName(index)[i]) {
-        Packet->use.data[offset + i] = getName(index)[i];
-        i++;
-        Packet->use.head.DataLegnth++;
-    }
-    Packet->use.data[offset + i] = 0;
-    Packet->use.head.DataLegnth++;
-    return true;
-
-}
 
 boolean isCartesianInterpolationDone() {
     updateCurrentPositions();
@@ -441,33 +406,6 @@ void cancelPrint() {
     //SetPIDTimed(getHardwareMap()->Heater0.index,0,0);
 }
 
-boolean onCartesianGet(BowlerPacket *Packet) {
-    return false;
-}
-
-boolean onCartesianCrit(BowlerPacket *Packet) {
-    return false;
-}
-
-boolean onCartesianPacket(BowlerPacket *Packet) {
-    Print_Level l = getPrintLevel();
-
-    println_I("Packet Checked by Cartesian Controller");
-    boolean ret = false;
-    switch (Packet->use.head.Method) {
-        case BOWLER_POST:
-            ret = onCartesianPost(Packet);
-            break;
-        case BOWLER_GET:
-            ret = onCartesianGet(Packet);
-            break;
-        case BOWLER_CRIT:
-            ret = onCartesianCrit(Packet);
-            break;
-    }
-    setPrintLevel(l);
-    return ret;
-}
 
 void runInterpolatedPositions() {
     float x = 0, y = 0, z = 0;
@@ -806,22 +744,4 @@ void printCartesianData() {
             p_fl_E(error);
         }
     }
-    //    print_W(" cy=");
-    //    p_fl_W(current[1]);
-    //    print_W(" cz=");
-    //    p_fl_W(current[2]);
-    //    println_W("Current  angles Alpha=");
-    //    p_fl_W(getLinkAngle(0));
-    //    print_W(" Beta=");
-    //    p_fl_W(getLinkAngle(1));
-    //    print_W(" Gamma=");
-    //    p_fl_W(getLinkAngle(2));
-
-    //    println_W("Raw  angles Alpha=");
-    //    p_fl_W(getLinkAngleNoScale(0));
-    //    print_W(" Beta=");
-    //    p_fl_W(getLinkAngleNoScale(1));
-    //    print_W(" Gamma=");
-    //    p_fl_W(getLinkAngleNoScale(2));
-
 }

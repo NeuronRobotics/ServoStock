@@ -18,7 +18,7 @@ boolean cartesianAsyncEventCallback(BowlerPacket * Packet, boolean(*pidAsyncCall
 
 static RPC_LIST cartesian_runk = {BOWLER_POST, // Method
     "runk", //RPC as string
-    &onRunKinematicsSet, //function pointer to a packet parsinf function
+    &onRunKinematicsSet, //function pointer to a packet parsing function
     ((const char [2]) {
         BOWLER_BOOL, //Run or not boolean
         0
@@ -33,7 +33,7 @@ static RPC_LIST cartesian_runk = {BOWLER_POST, // Method
 
 static RPC_LIST cartesian_SDSJ = {BOWLER_POST, // Method
     "sdsj", //RPC as string
-    &setDesiredJointAxisValue, //function pointer to a packet parsinf function
+    &setDesiredJointAxisValue, //function pointer to a packet parsing function
     ((const char [4]) {
         BOWLER_I08, //axis
         BOWLER_FIXED1K, //value
@@ -47,7 +47,7 @@ static RPC_LIST cartesian_SDSJ = {BOWLER_POST, // Method
 
 static RPC_LIST cartesian_SDJV = {BOWLER_POST, // Method
     "sdjv", //RPC as string
-    &setDesiredJointSpaceVector, //function pointer to a packet parsinf function
+    &setDesiredJointSpaceVector, //function pointer to a packet parsing function
     ((const char [3]) {
         BOWLER_FIXED1K_STR, //Run or not boolean
         BOWLER_I32, //ms
@@ -69,7 +69,7 @@ static RPC_LIST cartesian_SDJV = {BOWLER_POST, // Method
 
 static RPC_LIST cartesian_GCTT = {BOWLER_GET, // Method
     "gctt", //RPC as string
-    &getCurrentTaskSpaceTransform, //function pointer to a packet parsinf function
+    &getCurrentTaskSpaceTransform, //function pointer to a packet parsing function
     NULL, //  arguments
     BOWLER_POST, // response method
     ((const char [8]) {
@@ -87,7 +87,7 @@ static RPC_LIST cartesian_GCTT = {BOWLER_GET, // Method
 
 static RPC_LIST cartesian_SDTT = {BOWLER_POST, // Method
     "sdtt", //RPC as string
-    &setDesiredTaskSpaceTransform, //function pointer to a packet parsinf function
+    &setDesiredTaskSpaceTransform, //function pointer to a packet parsing function
     ((const char [9]) {
         BOWLER_FIXED1K, //x
         BOWLER_FIXED1K, //y
@@ -112,7 +112,7 @@ static RPC_LIST cartesian_SDTT = {BOWLER_POST, // Method
 
 static RPC_LIST cartesian__SLI = {BOWLER_POST, // Method
     "_sli", //RPC as string
-    &onCartesianPost, //function pointer to a packet parsinf function
+    &onCartesianPost, //function pointer to a packet parsing function
     ((const char [6]) {
         BOWLER_I32, //ms
         BOWLER_FIXED1K, //x
@@ -134,14 +134,14 @@ static RPC_LIST cartesian__SLI = {BOWLER_POST, // Method
 
 static RPC_LIST cartesian_GCFG = {BOWLER_GET, // Method
     "gcfg", //RPC as string
-    &onConfigurationGet, //function pointer to a packet parsinf function
+    &onConfigurationGet, //function pointer to a packet parsing function
     ((const char [2]) {
-        BOWLER_I08,
+        BOWLER_I08,//Joint space Index
         0
     }), // Calling arguments
     BOWLER_POST, // response method
     ((const char [8]) {
-        BOWLER_I08, //index
+        BOWLER_I08, //HW index
         BOWLER_I08, //total links
         BOWLER_I32, //latch
         BOWLER_I32, //lower limit
@@ -152,20 +152,18 @@ static RPC_LIST cartesian_GCFG = {BOWLER_GET, // Method
     }), // Response arguments
     NULL //Termination
 };
-
 // Set axis cartesian configuration
 
-static RPC_LIST cartesian_SCFG = {BOWLER_GET, // Method
+static RPC_LIST cartesian_SCFG = {BOWLER_POST, // Method
     "scfg", //RPC as string
-    &onConfigurationSet, //function pointer to a packet parsinf function
-    ((const char [8]) {
-        BOWLER_I08, //index
-        BOWLER_I08, //total links
+    &onConfigurationSet, //function pointer to a packet parsing function
+    ((const char [7]) {
+        BOWLER_I08, //Joint space Index
+        BOWLER_I08, //HW index
+        BOWLER_FIXED1K, //scale
         BOWLER_I32, //latch
         BOWLER_I32, //lower limit
         BOWLER_I32, //upper limit
-        BOWLER_FIXED1K, //scale
-        BOWLER_ASCII, // name
         0
     }), // Response arguments
     BOWLER_STATUS, // response method
@@ -176,17 +174,16 @@ static RPC_LIST cartesian_SCFG = {BOWLER_GET, // Method
 // Clear the running print
 static RPC_LIST cartesian_PRCL = {BOWLER_POST, // Method
     "pclr", //RPC as string
-    &onClearPrinter, //function pointer to a packet parsinf function
+    &onClearPrinter, //function pointer to a packet parsing function
     NULL, // Calling arguments
     BOWLER_POST, // response method
     NULL, // Response arguments
     NULL //Termination
 };
 // Pause the running print
-
 static RPC_LIST cartesian_PAUS = {BOWLER_POST, // Method
     "paus", //RPC as string
-    &onPausePrinter, //function pointer to a packet parsinf function
+    &onPausePrinter, //function pointer to a packet parsing function
     ((const char [2]) {
         BOWLER_BOOL, // pause state
         0
@@ -196,11 +193,36 @@ static RPC_LIST cartesian_PAUS = {BOWLER_POST, // Method
     NULL //Termination
 };
 
+// set the kinematics model
+static RPC_LIST cartesian_KMOD_p = {BOWLER_POST, // Method
+    "kmod", //RPC as string
+    &onKinematicsModelSet, //function pointer to a packet parsing function
+    ((const char [2]) {
+        BOWLER_I08, // index of the kinematics model to use
+        0
+    }), // Calling arguments
+    BOWLER_STATUS, // response method
+    NULL, // Response arguments
+    NULL //Termination
+};
+
+// set the kinematics model
+static RPC_LIST cartesian_KMOD_g = {BOWLER_GET, // Method
+    "kmod", //RPC as string
+    &onKinematicsModelGet, //function pointer to a packet parsing function
+    NULL, // Response arguments
+    BOWLER_POST, // response method
+    ((const char [2]) {
+        BOWLER_I08, // index of the kinematics model to use
+        0
+    }), // Calling arguments
+    NULL //Termination
+};
 
 // Home printer
 static RPC_LIST cartesian_HOME = {BOWLER_POST, // Method
     "home", //RPC as string
-    &onHomePrinter, //function pointer to a packet parsinf function
+    &onHomePrinter, //function pointer to a packet parsing function
     NULL,
     BOWLER_STATUS, // response method
     NULL, // Response arguments
@@ -211,7 +233,7 @@ static RPC_LIST cartesian_HOME = {BOWLER_POST, // Method
 
 static RPC_LIST cartesian_SBCG = {BOWLER_GET, // Method
     "sbcc", //RPC as string
-    &onControllerConfigurationGet, //function pointer to a packet parsinf function
+    &onControllerConfigurationGet, //function pointer to a packet parsing function
     NULL, // Calling arguments
     BOWLER_POST, // response method
     ((const char [13]) {
@@ -234,7 +256,7 @@ static RPC_LIST cartesian_SBCG = {BOWLER_GET, // Method
 
 static RPC_LIST cartesian_SBCP = {BOWLER_POST, // Method
     "sbcc", //RPC as string
-    &onControllerConfigurationSet, //function pointer to a packet parsinf function
+    &onControllerConfigurationSet, //function pointer to a packet parsing function
     ((const char [13]) {
         BOWLER_FIXED1K, //KP
         BOWLER_FIXED1K, //KI
@@ -259,17 +281,23 @@ static RPC_LIST cartesian_SBCP = {BOWLER_POST, // Method
 //Slic3r commands
 static RPC_LIST cartesian_SLCR_g = {BOWLER_GET, // Method
     "slcr", //RPC as string
-    &onSlic3rConfigurationGet, //function pointer to a packet parsinf function
+    &onSlic3rConfigurationGet, //function pointer to a packet parsing function
     NULL, // Calling arguments
     BOWLER_POST, // response method
-    NULL, // Response arguments
+    ((const char [2]) {
+        BOWLER_FIXED1K_STR, //Slicer configurations
+        0
+    }), // Response arguments
     NULL //Termination
 };
 
 static RPC_LIST cartesian_LSCR_p = {BOWLER_POST, // Method
     "slcr", //RPC as string
-    &onSlic3rConfigurationSet, //function pointer to a packet parsinf function
-    NULL, // Calling arguments
+    &onSlic3rConfigurationSet, //function pointer to a packet parsing function
+    ((const char [2]) {
+        BOWLER_FIXED1K_STR, //Slicer configurations
+        0
+    }), // Response arguments
     BOWLER_STATUS, // response method
     NULL, // Response arguments
     NULL //Termination
@@ -294,7 +322,7 @@ NAMESPACE_LIST * getBcsCartesianNamespace() {
         addRpcToNamespace(&bcsCartesian, & cartesian__SLI);
         addRpcToNamespace(&bcsCartesian, & cartesian_PRCL);
         addRpcToNamespace(&bcsCartesian, & cartesian_GCFG);
-
+        addRpcToNamespace(&bcsCartesian, & cartesian_SCFG);
         addRpcToNamespace(&bcsCartesian, & cartesian_SDTT);
         addRpcToNamespace(&bcsCartesian, & cartesian_GCTT);
         addRpcToNamespace(&bcsCartesian, & cartesian_SDJV);
@@ -305,6 +333,8 @@ NAMESPACE_LIST * getBcsCartesianNamespace() {
         addRpcToNamespace(&bcsCartesian, & cartesian_LSCR_p);
         addRpcToNamespace(&bcsCartesian, & cartesian_PAUS);
         addRpcToNamespace(&bcsCartesian, & cartesian_HOME);
+        addRpcToNamespace(&bcsCartesian, & cartesian_KMOD_p);
+        addRpcToNamespace(&bcsCartesian, & cartesian_KMOD_g);
 
         namespcaedAdded = true;
     }

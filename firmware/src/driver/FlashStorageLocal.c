@@ -41,6 +41,8 @@ typedef struct _flashStorageData {
     Slic3rData slic3r;
     HardwareMap hwMap;
     DeltaConfig defaultConfig;
+    int32_t kinematicsIndex;
+    // this should be changed to garuntee that the struct is exactly a multiple of 4 bytes
     unsigned char buffer[1];
 } flashStorageData;
 
@@ -49,47 +51,53 @@ typedef struct _flashStorageData {
 flashStorageData localData;
 #define bytesOfRaw (sizeof(localData))
 
-//Default values for ServoStock
-HardwareMap hwMap = {
-    {0, -1.0 * mmPerTick, "Alpha"}, //axis 0
-    {2, -1.0 * mmPerTick, "Beta"}, //axis 1
-    {4, -1.0 * mmPerTick, "Gama"}, //axis 2
-    {
-        {1, 1.0, "Extruder"}, // Motor
-        {10, 1.0, "Heater"}// Heater
-    }, //Extruder 0
-    {
-        {AXIS_UNUSED, 1.0, ""},
-        {AXIS_UNUSED, 1.0, ""}
-    }, //Extruder 1
-    {
-        {AXIS_UNUSED, 1.0, ""},
-        {AXIS_UNUSED, 1.0, ""}
-    }, //Extruder 2
-    (forwardKinematics *)& servostock_calcForward,
-    (inverseKinematics *) & servostock_calcInverse,
-    (velInverse *) & servostock_velInverse,
-    (velForward *) & servostock_velForward,
-    true
-};
+
+static char Alpha [] = "Alpha";
+static char Beta [] = "Beta";
+static char Gama [] = "Gama";
+static char Extruder [] = "Extruder";
+static char Heater [] = "Heater";
+
+void setKinematicsMath(){
+    switch(localData.kinematicsIndex){
+        case 0:
+        default:
+            localData.hwMap.fK_callback = (forwardKinematics *)& servostock_calcForward;
+            localData.hwMap.iK_callback=(inverseKinematics *) & servostock_calcInverse;
+            localData.hwMap.iVel_callback = (velInverse *) & servostock_velInverse;
+            localData.hwMap.fVel_callback = (velForward *) & servostock_velForward;
+            localData.hwMap.useStateBasedVelocity=true;
+            break;
+        case 1:
+            localData.hwMap.fK_callback = (forwardKinematics *)& box_calcForward;
+            localData.hwMap.iK_callback=(inverseKinematics *) & box_calcInverse;
+            localData.hwMap.useStateBasedVelocity=false;
+            break;
+        case 2:
+            localData.hwMap.fK_callback = (forwardKinematics *)& frog_calcForward;
+            localData.hwMap.iK_callback=(inverseKinematics *) & frog_calcInverse;
+            localData.hwMap.useStateBasedVelocity=false;
+            break;
+    }
+}
 
 int linkToHWIndex(int index) {
     int localIndex = 0;
     switch (index) {
         case 0:
-            localIndex = hwMap.Alpha.index;
+            localIndex = localData.hwMap.Alpha.index;
             break;
         case 1:
-            localIndex = hwMap.Beta.index;
+            localIndex = localData.hwMap.Beta.index;
             break;
         case 2:
-            localIndex = hwMap.Gama.index;
+            localIndex = localData.hwMap.Gama.index;
             break;
         case 3:
-            localIndex = hwMap.Extruder0.index;
+            localIndex = localData.hwMap.Extruder0.index;
             break;
         case 4:
-            localIndex = hwMap.Heater0.index;
+            localIndex = localData.hwMap.Heater0.index;
             break;
     }
     return localIndex;
@@ -98,15 +106,15 @@ int linkToHWIndex(int index) {
 float getLinkScale(int index) {
     switch (index) {
         case 0:
-            return hwMap.Alpha.scale;
+            return localData.hwMap.Alpha.scale;
         case 1:
-            return hwMap.Beta.scale;
+            return localData.hwMap.Beta.scale;
         case 2:
-            return hwMap.Gama.scale;
+            return localData.hwMap.Gama.scale;
         case 3:
-            return hwMap.Extruder0.scale;
+            return localData.hwMap.Extruder0.scale;
         case 4:
-            return hwMap.Heater0.scale;
+            return localData.hwMap.Heater0.scale;
     }
     return 0.0;
 }
@@ -114,21 +122,21 @@ float getLinkScale(int index) {
 char * getName(int index) {
     switch (index) {
         case 0:
-            return hwMap.Alpha.name;
+            return localData.hwMap.Alpha.name;
         case 1:
-            return hwMap.Beta.name;
+            return localData.hwMap.Beta.name;
         case 2:
-            return hwMap.Gama.name;
+            return localData.hwMap.Gama.name;
         case 3:
-            return hwMap.Extruder0.name;
+            return localData.hwMap.Extruder0.name;
         case 4:
-            return hwMap.Heater0.name;
+            return localData.hwMap.Heater0.name;
     }
     return NULL;
 }
 
 HardwareMap * getHardwareMap() {
-    return &hwMap;
+    return &localData.hwMap;
 }
 
 boolean onControllerConfigurationGet(BowlerPacket *Packet) {
@@ -171,12 +179,125 @@ boolean onControllerConfigurationSet(BowlerPacket *Packet) {
     writeFlashLocal();
 }
 
+boolean onConfigurationGet(BowlerPacket *Packet) {
+    Packet->use.head.DataLegnth = 4;
+    uint8_t index = Packet->use.data[0]; // joint space requested index
+    Packet->use.data[0] = linkToHWIndex(index); // the PID link maped
+    Packet->use.data[1] = 5; // 5 active axis
+    set32bit(Packet, getPidGroupDataTable(Packet->use.data[0])->config.IndexLatchValue, 2);
+    set32bit(Packet, -100000, 6);
+    set32bit(Packet, 100000, 10);
+    set32bit(Packet, getLinkScale(index)*1000, 14);
+
+    int i = 0;
+    int offset = Packet->use.head.DataLegnth - 4;
+    while (getName(index)[i]) {
+        Packet->use.data[offset + i] = getName(index)[i];
+        i++;
+        Packet->use.head.DataLegnth++;
+    }
+    Packet->use.data[offset + i] = 0;
+    Packet->use.head.DataLegnth++;
+    return true;
+
+}
+
+boolean onConfigurationSet(BowlerPacket *Packet) {
+    int index = Packet->use.data[0];
+    
+    switch (index) {
+        case 0:
+            localData.hwMap.Alpha.index = Packet->use.data[1];
+            localData.hwMap.Alpha.scale = get32bit(Packet,2);
+            break;
+        case 1:
+            localData.hwMap.Beta.index = Packet->use.data[1];
+            localData.hwMap.Beta.scale = get32bit(Packet,2);
+            break;
+        case 2:
+            localData.hwMap.Gama.index = Packet->use.data[1];
+            localData.hwMap.Gama.scale = get32bit(Packet,2);
+            break;
+        case 3:
+            localData.hwMap.Extruder0.index = Packet->use.data[1];
+            localData.hwMap.Extruder0.scale = get32bit(Packet,2);
+            break;
+        case 4:
+            localData.hwMap.Heater0.index = Packet->use.data[1];
+            localData.hwMap.Heater0.scale = get32bit(Packet,2);
+            break;
+    }
+
+    writeFlashLocal();
+    return true;
+
+}
+boolean onKinematicsModelGet(BowlerPacket *Packet) {
+    Packet->use.data[0] = localData.kinematicsIndex;
+    return true;
+}
+
+boolean onKinematicsModelSet(BowlerPacket *Packet) {
+    localData.kinematicsIndex = Packet->use.data[0];
+    setKinematicsMath();
+    writeFlashLocal();
+    return true;
+}
 boolean onSlic3rConfigurationGet(BowlerPacket *Packet) {
-    //TODO load slicer configs
+        int i=1;
+        set32bit(Packet,(int)(localData.slic3r.nozzle_diameter * 1000.0),i);i+=4;
+        set32bit(Packet,(int)(localData.slic3r.printCenter [0]                * 1000.0),i);i+=4;
+        set32bit(Packet,(int)(localData.slic3r.printCenter [1]                * 1000.0),i);i+=4;
+        set32bit(Packet,(int)(localData.slic3r.filimentDiameter               * 1000.0),i);i+=4;
+        set32bit(Packet,(int)(localData.slic3r.extrusionMultiplier            * 1000.0),i);i+=4;
+        set32bit(Packet,(int)(localData.slic3r.tempreture                     * 1000.0),i);i+=4;
+        set32bit(Packet,(int)(localData.slic3r.bedTempreture                  * 1000.0),i);i+=4;
+        set32bit(Packet,(int)(localData.slic3r.layerHeight                    * 1000.0),i);i+=4;
+        set32bit(Packet,(int)(localData.slic3r.wallThickness                  * 1000.0),i);i+=4;
+        set32bit(Packet,(int)(localData.slic3r.useSupportMaterial             * 1000.0),i);i+=4;
+        set32bit(Packet,(int)(localData.slic3r.retractLength                  * 1000.0),i);i+=4;
+        set32bit(Packet,(int)(localData.slic3r.travilSpeed                    * 1000.0),i);i+=4;
+        set32bit(Packet,(int)(localData.slic3r.perimeterSpeed                 * 1000.0),i);i+=4;
+        set32bit(Packet,(int)(localData.slic3r.bridgeSpeed                    * 1000.0),i);i+=4;
+        set32bit(Packet,(int)(localData.slic3r.gapFillSpeed                   * 1000.0),i);i+=4;
+        set32bit(Packet,(int)(localData.slic3r.infillSpeed                    * 1000.0),i);i+=4;
+        set32bit(Packet,(int)(localData.slic3r.supportMaterialSpeed           * 1000.0),i);i+=4;
+        set32bit(Packet,(int)(localData.slic3r.smallPerimeterSpeedPercent     * 1000.0),i);i+=4;
+        set32bit(Packet,(int)(localData.slic3r.externalPerimeterSpeedPercent  * 1000.0),i);i+=4;
+        set32bit(Packet,(int)(localData.slic3r.solidInfillSpeedPercent        * 1000.0),i);i+=4;
+        set32bit(Packet,(int)(localData.slic3r.topSolidInfillSpeedPercent     * 1000.0),i);i+=4;
+        set32bit(Packet,(int)(localData.slic3r.supportMaterialInterfaceSpeedPercent   * 1000.0),i);i+=4;
+        set32bit(Packet,(int)(localData.slic3r.firstLayerSpeedPercent         * 1000.0),i);
+        Packet->use.data[0] = (i-1)/4;
+        writeFlashLocal();
 }
 
 boolean onSlic3rConfigurationSet(BowlerPacket *Packet) {
-    //TODO set slicer configs
+
+        int i=1;
+        localData.slic3r.nozzle_diameter                = get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.printCenter [0]                =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.printCenter [1]                =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.filimentDiameter               =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.extrusionMultiplier            =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.tempreture                     =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.bedTempreture                  =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.layerHeight                    =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.wallThickness                  =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.useSupportMaterial             =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.retractLength                  =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.travilSpeed                    =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.perimeterSpeed                 =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.bridgeSpeed                    =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.gapFillSpeed                   =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.infillSpeed                    =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.supportMaterialSpeed           =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.smallPerimeterSpeedPercent     =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.externalPerimeterSpeedPercent  =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.solidInfillSpeedPercent        =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.topSolidInfillSpeedPercent     =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.supportMaterialInterfaceSpeedPercent   =  get32bit(Packet,i)/1000.0;i+=4;
+        localData.slic3r.firstLayerSpeedPercent         =  get32bit(Packet,i)/1000.0;i+=4;
 
 }
 
@@ -267,9 +388,9 @@ boolean initFlashLocal() {
         p_int_W(bytesOfRaw % 4);
         while (1);
     }
-    println_W("Size of Flash page data = ");
+    println_W("Size of Flash page pages = ");
     p_int_W(bytesOfRaw / 4);
-    print_W(" ");
+    print_W(", bytes = ");
     p_int_W(bytesOfRaw);
 
     SetFlashData((uint32_t *) & localData, bytesOfRaw / 4);
@@ -334,76 +455,83 @@ boolean initFlashLocal() {
         localData.VKP = 1;
         localData.VKD = 0;
         localData.mmPositionResolution =.5;
-        localData.maximumMMperSec = 30;
+        localData.maximumMMperSec = 60;
         localData.defaultConfig.BaseRadius = 140;
         localData.defaultConfig.EndEffectorRadius = 25;
         localData.defaultConfig.MaxZ = 100;
         localData.defaultConfig.MinZ = -10;
         localData.defaultConfig.RodLength = 203.82;
-//        HardwareMap hwMap = {
-//    {0, -1.0 * mmPerTick, "Alpha"}, //axis 0
-//    {2, -1.0 * mmPerTick, "Beta"}, //axis 1
-//    {4, -1.0 * mmPerTick, "Gama"}, //axis 2
-//    {
-//        {1, 1.0, "Extruder"}, // Motor
-//        {11, 1.0, "Heater"}// Heater
-//    }, //Extruder 0
-//    {
-//        {AXIS_UNUSED, 1.0, ""},
-//        {AXIS_UNUSED, 1.0, ""}
-//    }, //Extruder 1
-//    {
-//        {AXIS_UNUSED, 1.0, ""},
-//        {AXIS_UNUSED, 1.0, ""}
-//    }, //Extruder 2
-//    (forwardKinematics *)& servostock_calcForward,
-//    (inverseKinematics *) & servostock_calcInverse,
-//    (velInverse *) & servostock_velInverse,
-//    (velForward *) & servostock_velForward,
-//    true
-//};
+
+        //Default hardware map
         localData.hwMap.Alpha.index=0;
         localData.hwMap.Alpha.scale= -1.0 * mmPerTick;
-        localData.hwMap.Alpha.name="Alpha";
+        localData.hwMap.Alpha.name=Alpha;
 
         localData.hwMap.Beta.index=2;
         localData.hwMap.Beta.scale= -1.0 * mmPerTick;
-        localData.hwMap.Beta.name="Beta";
+        localData.hwMap.Beta.name=Beta;
 
         localData.hwMap.Gama.index=4;
         localData.hwMap.Gama.scale= -1.0 * mmPerTick;
-        localData.hwMap.Gama.name="Gama";
+        localData.hwMap.Gama.name=Gama;
         
         localData.hwMap.Extruder0.index=1;
         localData.hwMap.Extruder0.scale= 1.0 ;
-        localData.hwMap.Extruder0.name="Extruder";
+        localData.hwMap.Extruder0.name=Extruder;
+
+        localData.hwMap.Heater0.index=10;
+        localData.hwMap.Heater0.scale= 1.0 ;
+        localData.hwMap.Heater0.name=Heater;
         
         localData.hwMap.Extruder1.index=AXIS_UNUSED;
         localData.hwMap.Extruder1.scale= -1.0 ;
-        localData.hwMap.Extruder1.name="Alpha";
+        localData.hwMap.Extruder1.name=NULL;
         
         localData.hwMap.Extruder2.index=AXIS_UNUSED;
         localData.hwMap.Extruder2.scale= -1.0 ;
-        localData.hwMap.Extruder2.name="Alpha";
-
-        localData.hwMap.Heater0.index=11;
-        localData.hwMap.Heater0.scale= 1.0 ;
-        localData.hwMap.Heater0.name="Heater";
+        localData.hwMap.Extruder2.name=NULL;
 
         localData.hwMap.Heater1.index=AXIS_UNUSED;
         localData.hwMap.Heater1.scale= -1.0 ;
-        localData.hwMap.Heater1.name="Alpha";
+        localData.hwMap.Heater1.name=NULL;
 
         localData.hwMap.Heater2.index=AXIS_UNUSED;
         localData.hwMap.Heater2.scale= -1.0 ;
-        localData.hwMap.Heater2.name="Alpha";
+        localData.hwMap.Heater2.name=NULL;
+
+        localData.kinematicsIndex=0;
+        setKinematicsMath();
+
+        //Default Slic3r configurations
+        localData.slic3r.nozzle_diameter                = .4;
+        localData.slic3r.printCenter [0]                = 0;
+        localData.slic3r.printCenter [1]                = 0;
+        localData.slic3r.filimentDiameter               = 1.75;
+        localData.slic3r.extrusionMultiplier            = 1;
+        localData.slic3r.tempreture                     = 200;
+        localData.slic3r.bedTempreture                  = 0;
+        localData.slic3r.layerHeight                    = .3;
+        localData.slic3r.wallThickness                  = 3;
+        localData.slic3r.useSupportMaterial             = true;
+        localData.slic3r.retractLength                  = 1.1;
+        localData.slic3r.travilSpeed                    = localData.maximumMMperSec;
+        localData.slic3r.perimeterSpeed                 = 20;
+        localData.slic3r.bridgeSpeed                    = 40;
+        localData.slic3r.gapFillSpeed                   = 20;
+        localData.slic3r.infillSpeed                    = 60;
+        localData.slic3r.supportMaterialSpeed           = 60;
+        localData.slic3r.smallPerimeterSpeedPercent     = 100;
+        localData.slic3r.externalPerimeterSpeedPercent  = 70;
+        localData.slic3r.solidInfillSpeedPercent        = 100;
+        localData.slic3r.topSolidInfillSpeedPercent     = 80;
+        localData.slic3r.supportMaterialInterfaceSpeedPercent   = 100;
+        localData.slic3r.firstLayerSpeedPercent         = 30;
+
 
 
     } else {
         println_W("Flash image ok");
-        //        for (i = 0; i < numPidTotal; i++) {
-        //            printPIDvals(i);
-        //        }
+        setKinematicsMath();
     }
     if (rawFlashDetect)
         writeFlashLocal();

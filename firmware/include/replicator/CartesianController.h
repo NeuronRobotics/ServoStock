@@ -141,6 +141,9 @@ typedef struct _Transform {
     int frog_calcForward(float Alpha, float Beta, float Gamma, float * X, float *Y, float * Z);
     int frog_calcInverse(float X, float Y, float Z, float *Alpha, float *Beta, float *Gamma);
 
+    int box_calcForward(float Alpha, float Beta, float Gamma, float * X, float *Y, float * Z);
+    int box_calcInverse(float X, float Y, float Z, float *Alpha, float *Beta, float *Gamma);
+
 boolean onConfigurationGet(BowlerPacket *Packet);
 boolean onConfigurationSet(BowlerPacket *Packet);
 
@@ -149,6 +152,9 @@ boolean onControllerConfigurationSet(BowlerPacket *Packet);
 
 boolean onSlic3rConfigurationGet(BowlerPacket *Packet);
 boolean onSlic3rConfigurationSet(BowlerPacket *Packet);
+
+boolean onKinematicsModelGet(BowlerPacket *Packet);
+boolean onKinematicsModelSet(BowlerPacket *Packet) ;
 
 boolean onRunKinematicsSet(BowlerPacket *Packet);
 boolean onCartesianPacket(BowlerPacket *Packet);
