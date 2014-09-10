@@ -84,7 +84,7 @@ float getRecentEncoderReading(int index) {
 
 void updateAllEncoders() {
     int i,j;
-    float integralSize=5;
+    float integralSize=10;
     for (i = 0; i < numPidMotors; i++) {
 
         recent[i] = 0;
