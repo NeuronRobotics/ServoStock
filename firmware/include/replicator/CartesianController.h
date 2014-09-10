@@ -31,6 +31,22 @@ typedef int velInverse(float X, float Y, float Z, float Xd, float Yd, float Zd, 
 typedef int velForward(float A, float B, float C, float Ad, float Bd, float Cd, float * Xd, float * Yd, float * Zd);
 
 
+boolean forwardKinematicsLocal(float Alpha, float Beta, float Gama, float * x0, float *y0, float * z0);
+boolean inverseKinematicsLocal(float x0, float y0, float z0, float *Alpha, float *Beta, float *Gama);
+/* Function: Inverse Velocity
+ * Inputs: current task position (X, Y, Z) and desired task velocities (Xd, Yd, Zd)
+ * Outputs: resulting joint velocities (Ad, Bd, Cd)
+ */
+int velInverseLocal(float X, float Y, float Z, float Xd, float Yd, float Zd, float * Ad, float * Bd, float * Cd);
+
+/* Function: Forward Velocity
+ * Inputs: current joint position (A, B, C) and desired joint velocities (Ad, Bd, Cd)
+ * Outputs: resulting task velocities (Xd, Yd, Zd)
+ */
+int velForwardLocal(float A, float B, float C, float Ad, float Bd, float Cd, float * Xd, float * Yd, float * Zd);
+
+boolean kinematicsUseStateBasedVelocity();
+
 typedef struct _IndexScale {
     int index;
     float scale;
@@ -163,7 +179,7 @@ boolean getCurrentTaskSpaceTransform(BowlerPacket *Packet);
 boolean setDesiredJointSpaceVector(BowlerPacket *Packet);
 boolean setDesiredJointAxisValue(BowlerPacket *Packet);
 
-HardwareMap * getHardwareMap();
+//HardwareMap * getHardwareMap();
 
 
 float getEndEffectorRadius();

@@ -58,6 +58,39 @@ static char Gama [] = "Gama";
 static char Extruder [] = "Extruder";
 static char Heater [] = "Heater";
 
+boolean forwardKinematicsLocal( float Alpha, float Beta, float Gama,
+                                float * x0, float *y0, float * z0){
+    localData.hwMap.fK_callback(Alpha,Beta,Gama,x0,y0,z0);
+}
+boolean inverseKinematicsLocal( float x0, float y0, float z0,
+                                float *Alpha, float *Beta, float *Gama){
+    localData.hwMap.iK_callback(x0,y0,z0,Alpha,Beta,Gama);
+}
+
+/* Function: Inverse Velocity
+ * Inputs: current task position (X, Y, Z) and desired task velocities (Xd, Yd, Zd)
+ * Outputs: resulting joint velocities (Ad, Bd, Cd)
+ */
+int velInverseLocal(float X, float Y, float Z, 
+                    float Xd, float Yd, float Zd,
+                    float * Ad, float * Bd, float * Cd){
+     localData.hwMap.iVel_callback(X,Y,Z,Xd,Yd,Zd,Ad,Bd,Cd);
+}
+/* Function: Forward Velocity
+ * Inputs: current joint position (A, B, C) and desired joint velocities (Ad, Bd, Cd)
+ * Outputs: resulting task velocities (Xd, Yd, Zd)
+ */
+int velForwardLocal(float A, float B, float C, 
+                    float Ad, float Bd, float Cd,
+                    float * Xd, float * Yd, float * Zd){
+    localData.hwMap.fVel_callback(A,B,C,Ad,Bd,Cd,Xd,Yd,Zd);
+}
+
+boolean kinematicsUseStateBasedVelocity(){
+    return localData.hwMap.useStateBasedVelocity;
+}
+
+
 void setKinematicsMath(){
     switch(localData.kinematicsIndex){
         case 0:
@@ -119,25 +152,10 @@ float getLinkScale(int index) {
     return 0.0;
 }
 
-char * getName(int index) {
-    switch (index) {
-        case 0:
-            return localData.hwMap.Alpha.name;
-        case 1:
-            return localData.hwMap.Beta.name;
-        case 2:
-            return localData.hwMap.Gama.name;
-        case 3:
-            return localData.hwMap.Extruder0.name;
-        case 4:
-            return localData.hwMap.Heater0.name;
-    }
-    return NULL;
-}
-
-HardwareMap * getHardwareMap() {
-    return &localData.hwMap;
-}
+//
+//HardwareMap * getHardwareMap() {
+//    return &localData.hwMap;
+//}
 
 boolean onControllerConfigurationGet(BowlerPacket *Packet) {
 
@@ -190,14 +208,40 @@ boolean onConfigurationGet(BowlerPacket *Packet) {
     set32bit(Packet, getLinkScale(index)*1000, 14);
 
     int i = 0;
-    int offset = Packet->use.head.DataLegnth - 4;
-    while (getName(index)[i]) {
-        Packet->use.data[offset + i] = getName(index)[i];
-        i++;
-        Packet->use.head.DataLegnth++;
+    int offset = 18;
+    switch (index) {
+        default:
+        case 0:
+            do {
+                Packet->use.data[offset + i] = Alpha[i];
+
+            }while (Packet->use.data[offset + i++]);
+            break;
+        case 1:
+
+            do {
+                Packet->use.data[offset + i] = Beta[i];
+            }while (Packet->use.data[offset + i++]);
+            break;
+        case 2:
+
+            do {
+                Packet->use.data[offset + i] = Gama[i];
+            }while (Packet->use.data[offset + i++]);
+            break;
+        case 3:
+            do {
+                Packet->use.data[offset + i] = Extruder[i];
+            }while (Packet->use.data[offset + i++]);
+            break;
+        case 4:
+            do {
+                Packet->use.data[offset + i] = Heater[i];
+            }while (Packet->use.data[offset + i++]);
+            break;
     }
+
     Packet->use.data[offset + i] = 0;
-    Packet->use.head.DataLegnth++;
     return true;
 
 }

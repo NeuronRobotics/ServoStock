@@ -13,6 +13,21 @@
 extern "C" {
 #endif
 
+typedef struct _DeltaConfig{
+	float RodLength;
+	float BaseRadius;
+	float EndEffectorRadius;
+	float MaxZ;
+	float MinZ;
+}DeltaConfig;
+
+NAMESPACE_LIST * getBcsCartesianNamespace();
+AbsPID * getFlashPidGroupDataTable();
+boolean initFlashLocal();
+void writeFlashLocal();
+
+
+
     // ATX MAcros and defines
 #define     ATX_PWR_ON_TRIS    _TRISF0 // tris
 #define     ATX_PWR_ON(s)      setPicIOPin(s, 'F',0)

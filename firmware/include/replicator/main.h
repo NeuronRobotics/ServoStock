@@ -2,8 +2,8 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-#define Rev4
-//#define Rev3
+//#define Rev4
+#define Rev3
 
 #include "Bowler/Bowler.h"
 #include "AuxUartServer.h"
@@ -24,22 +24,9 @@
 
 
 
-typedef struct _DeltaConfig{
-	float RodLength;
-	float BaseRadius;
-	float EndEffectorRadius;
-	float MaxZ;
-	float MinZ;
-}DeltaConfig;
-
 uint8_t SPITransceve(uint8_t b);
 
 boolean asyncCallback(BowlerPacket *Packet);
-
-NAMESPACE_LIST * getBcsCartesianNamespace();
-AbsPID * getFlashPidGroupDataTable();
-boolean initFlashLocal();
-void writeFlashLocal();
 
 void bowlerSystem();
 

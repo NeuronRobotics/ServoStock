@@ -80,7 +80,7 @@ void setServoTimer(int value){
 }
 
 void setTimerLowTime(){
-    setServoTimer(300*16);
+    setServoTimer(300*(18-(encoderIntegralSize/2)));
     servoStateMachineCurrentState = LOW;
 }
 
