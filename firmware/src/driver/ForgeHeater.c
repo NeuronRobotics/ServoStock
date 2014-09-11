@@ -12,17 +12,17 @@ void heaterPin(int index, int value){
 
     // THis needs to be toggel pins only
     
-//    switch(index){
-//        case 0:
-//             setHeater0(1);
-//            break;
-//        case 1:
-//            setHeater1(1);
-//            break;
-//        case 2:
-//            setHeater2(1);
-//            break;
-//    }
+    switch(index){
+        case 0:
+             setHeater0(1);
+            break;
+        case 1:
+            setHeater1(1);
+            break;
+        case 2:
+            setHeater2(1);
+            break;
+    }
 }
 
 int mapHeaterIndex(int group){
