@@ -36,6 +36,7 @@ static int interpolationCounter = 0;
 static boolean runKinematics = false;
 static boolean pausePrint = false;
 
+
 boolean onRunKinematicsSet(BowlerPacket *Packet) {
     runKinematics = Packet->use.data[0]; // Boolean to run the kinematics or not
     return true;
@@ -169,7 +170,8 @@ boolean isCartesianInterpolationDone() {
                     return false;
                 }
             }else{
-                return true;
+                //return true;
+                return useHardPositionSetteling()?false:true;
             }
         }
         if ((isPIDArrivedAtSetpoint(linkToHWIndex(i), setpointBound) == false) && (i == 3)) {

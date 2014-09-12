@@ -181,7 +181,7 @@ boolean setDesiredJointAxisValue(BowlerPacket *Packet);
 
 //HardwareMap * getHardwareMap();
 
-
+boolean useHardPositionSetteling();
 float getEndEffectorRadius();
 float getBaseRadius();
 float getRodLength();
