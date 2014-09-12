@@ -489,7 +489,11 @@ boolean initFlashLocal() {
             getPidGroupDataTable(i)->config.upperHistoresis = 0;
             getPidGroupDataTable(i)->config.lowerHistoresis = 0;
             getPidGroupDataTable(i)->config.offset = 0.0;
-            getPidGroupDataTable(i)->config.calibrationState = CALIBRARTION_Uncalibrated;
+            if(i<numPidMotors)
+                getPidGroupDataTable(i)->config.calibrationState = CALIBRARTION_Uncalibrated;
+            else
+                getPidGroupDataTable(i)->config.calibrationState = CALIBRARTION_DONE;
+
             getPidGroupDataTable(i)->config.tipsScale = 1;
             printPIDvals(i);
         }

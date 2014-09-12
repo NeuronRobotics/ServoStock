@@ -1,5 +1,5 @@
 
-#define encoderIntegralSize 5.0
+#define encoderIntegralSize 10
 
 typedef union __attribute__((__packed__)) _AS5055CommandPacket
 		{
