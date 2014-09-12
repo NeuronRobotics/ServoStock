@@ -311,7 +311,7 @@ boolean onSlic3rConfigurationGet(BowlerPacket *Packet) {
         set32bit(Packet,(int)(localData.slic3r.solidInfillSpeedPercent        * 1000.0),i);i+=4;
         set32bit(Packet,(int)(localData.slic3r.topSolidInfillSpeedPercent     * 1000.0),i);i+=4;
         set32bit(Packet,(int)(localData.slic3r.supportMaterialInterfaceSpeedPercent   * 1000.0),i);i+=4;
-        set32bit(Packet,(int)(localData.slic3r.firstLayerSpeedPercent         * 1000.0),i);
+        set32bit(Packet,(int)(localData.slic3r.firstLayerSpeedPercent         * 1000.0),i);i+=4;
         Packet->use.data[0] = (i-1)/4;
         writeFlashLocal();
 }
