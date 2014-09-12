@@ -1,13 +1,13 @@
 #include "main.h"
 
 
-int overflow[numPidTotal];
-//int offset[numPidTotal];
-int raw[numPidTotal];
-float recent[numPidTotal];
-uint8_t initialized = false;
-uint8_t busy = 0;
-#define jump 3000
+int64_t overflow[numPidTotal];
+//int64_t offset[numPidTotal];
+int64_t raw[numPidTotal];
+int64_t recent[numPidTotal];
+boolean initialized = false;
+boolean busy = 0;
+#define jump 3500
 void encoderSPIInit();
 void AS5055ResetErrorFlag(uint8_t index);
 void printSystemConfig(uint8_t index);
@@ -21,7 +21,7 @@ void disableWrapping() {
 
 void initializeEncoders() {
     DelayMs(200);
-    int i;
+    int8_t i;
     println_I("Starting SPI");
     encoderSPIInit();
     // AC: Do we still need this?
@@ -41,9 +41,9 @@ void initializeEncoders() {
     }
 }
 
-float readEncoderWithoutOffset(uint8_t index) {
-    int tmp = 0;
-    int diff = 0;
+int64_t readEncoderWithoutOffset(uint8_t index) {
+    int64_t tmp = 0;
+    int64_t diff = 0;
     if (!busy) {
         busy = 1;
         tmp = AS5055readAngle(index);
@@ -55,7 +55,7 @@ float readEncoderWithoutOffset(uint8_t index) {
     } else {
         diff = 0;
     }
-    float oflw = 0;
+    int64_t oflw = 0;
     if (enableWrapping) {
         if (diff > jump || diff < (-1 * jump)) {
             if (diff > 0)
@@ -71,19 +71,20 @@ float readEncoderWithoutOffset(uint8_t index) {
     //    p_fl_E(oflw);
 
 
-    float ret = ((((float) tmp) + oflw));
+    int64_t ret = ( tmp + oflw);
     //    print_W(" Return value : ");
     //    p_fl_W(ret);
     return ret;
 }
 
 float getRecentEncoderReading(int index) {
-    float value = recent[index];
+    float value = (float)recent[index];
     return value;
 }
 
 void updateAllEncoders() {
     int i,j;
+    int mask = 0x3;// Mask off the last 2 bits for rounding noise error correction;
     for (i = 0; i < numPidMotors; i++) {
 
         recent[i] = 0;
@@ -97,7 +98,7 @@ void updateAllEncoders() {
         for (i = 0; i < numPidMotors; i++) {
             // Take a reading after waiting
             //        println_I("RAW Data:  ");p_int_I(i);
-            recent[i] += readEncoderWithoutOffset(i)/ encoderIntegralSize;
+            recent[i] += readEncoderWithoutOffset(i) ^ mask;
             //        print_I(" raw : ");p_int_I( raw[i]);
             //        print_I(" val: ");p_int_I( recent[i]);
             //        print_I(" Done\r\n");
@@ -105,13 +106,18 @@ void updateAllEncoders() {
             AS5055ResetErrorFlag(i);
         }
     }
+
+    for (i = 0; i < numPidMotors; i++) {
+
+        recent[i] = (recent[i]/encoderIntegralSize) ^ mask;
+    }
  
 }
 
 //float readEncoder(uint8_t index){
 //    float size=1;
 //    float ret=0;
-//    int i;
+//    int64_t i;
 //    for(i=0;i<size;i++)
 //        ret += (readEncoderWithoutOffset(index));
 //    recent[index]=ret/size;
@@ -209,12 +215,12 @@ uint16_t AS5055readAngle(uint8_t index) {
 
     AS5055AngularDataPacket read;
 
-    int tmp = AS5055send(index, 0xffff);
+    int64_t tmp = AS5055send(index, 0xffff);
     read.uint0_15 = tmp;
 
 
     setPrintLevel(l);
-    return read.regs.Data;
+    return read.regs.Data ;
 }
 
 uint8_t lock = false;

@@ -180,6 +180,7 @@ static RPC_LIST cartesian_PRCL = {BOWLER_POST, // Method
     NULL, // Response arguments
     NULL //Termination
 };
+
 // Pause the running print
 static RPC_LIST cartesian_PAUS = {BOWLER_POST, // Method
     "paus", //RPC as string
@@ -190,6 +191,19 @@ static RPC_LIST cartesian_PAUS = {BOWLER_POST, // Method
     }), // Calling arguments
     BOWLER_STATUS, // response method
     NULL, // Response arguments
+    NULL //Termination
+};
+
+// Get Pause the running print
+static RPC_LIST cartesian_PAUS_g = {BOWLER_GET, // Method
+    "paus", //RPC as string
+    &onPausePrinter, //function pointer to a packet parsing function
+    NULL,
+    BOWLER_POST, // response method
+   ((const char [2]) {
+        BOWLER_BOOL, // pause state
+        0
+    }), // Calling arguments
     NULL //Termination
 };
 
@@ -335,7 +349,7 @@ NAMESPACE_LIST * getBcsCartesianNamespace() {
         addRpcToNamespace(&bcsCartesian, & cartesian_HOME);
         addRpcToNamespace(&bcsCartesian, & cartesian_KMOD_p);
         addRpcToNamespace(&bcsCartesian, & cartesian_KMOD_g);
-
+        addRpcToNamespace(&bcsCartesian, & cartesian_PAUS_g);
         namespcaedAdded = true;
     }
 

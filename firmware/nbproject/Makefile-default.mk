@@ -95,194 +95,194 @@ ${OBJECTDIR}/src/driver/AS5055.o: src/driver/AS5055.c  nbproject/Makefile-${CND_
 	@${MKDIR} ${OBJECTDIR}/src/driver 
 	@${RM} ${OBJECTDIR}/src/driver/AS5055.o.d 
 	@${RM} ${OBJECTDIR}/src/driver/AS5055.o 
-	@${FIXDEPS} "${OBJECTDIR}/src/driver/AS5055.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/driver/AS5055.o.d" -o ${OBJECTDIR}/src/driver/AS5055.o src/driver/AS5055.c   
+	@${FIXDEPS} "${OBJECTDIR}/src/driver/AS5055.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/driver/AS5055.o.d" -o ${OBJECTDIR}/src/driver/AS5055.o src/driver/AS5055.c   
 	
 ${OBJECTDIR}/src/driver/ForgeHeater.o: src/driver/ForgeHeater.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/src/driver 
 	@${RM} ${OBJECTDIR}/src/driver/ForgeHeater.o.d 
 	@${RM} ${OBJECTDIR}/src/driver/ForgeHeater.o 
-	@${FIXDEPS} "${OBJECTDIR}/src/driver/ForgeHeater.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/driver/ForgeHeater.o.d" -o ${OBJECTDIR}/src/driver/ForgeHeater.o src/driver/ForgeHeater.c   
+	@${FIXDEPS} "${OBJECTDIR}/src/driver/ForgeHeater.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/driver/ForgeHeater.o.d" -o ${OBJECTDIR}/src/driver/ForgeHeater.o src/driver/ForgeHeater.c   
 	
 ${OBJECTDIR}/src/driver/SPIClient.o: src/driver/SPIClient.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/src/driver 
 	@${RM} ${OBJECTDIR}/src/driver/SPIClient.o.d 
 	@${RM} ${OBJECTDIR}/src/driver/SPIClient.o 
-	@${FIXDEPS} "${OBJECTDIR}/src/driver/SPIClient.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/driver/SPIClient.o.d" -o ${OBJECTDIR}/src/driver/SPIClient.o src/driver/SPIClient.c   
+	@${FIXDEPS} "${OBJECTDIR}/src/driver/SPIClient.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/driver/SPIClient.o.d" -o ${OBJECTDIR}/src/driver/SPIClient.o src/driver/SPIClient.c   
 	
 ${OBJECTDIR}/src/driver/FlashStorageLocal.o: src/driver/FlashStorageLocal.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/src/driver 
 	@${RM} ${OBJECTDIR}/src/driver/FlashStorageLocal.o.d 
 	@${RM} ${OBJECTDIR}/src/driver/FlashStorageLocal.o 
-	@${FIXDEPS} "${OBJECTDIR}/src/driver/FlashStorageLocal.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/driver/FlashStorageLocal.o.d" -o ${OBJECTDIR}/src/driver/FlashStorageLocal.o src/driver/FlashStorageLocal.c   
+	@${FIXDEPS} "${OBJECTDIR}/src/driver/FlashStorageLocal.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/driver/FlashStorageLocal.o.d" -o ${OBJECTDIR}/src/driver/FlashStorageLocal.o src/driver/FlashStorageLocal.c   
 	
 ${OBJECTDIR}/src/driver/Servo.o: src/driver/Servo.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/src/driver 
 	@${RM} ${OBJECTDIR}/src/driver/Servo.o.d 
 	@${RM} ${OBJECTDIR}/src/driver/Servo.o 
-	@${FIXDEPS} "${OBJECTDIR}/src/driver/Servo.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/driver/Servo.o.d" -o ${OBJECTDIR}/src/driver/Servo.o src/driver/Servo.c   
+	@${FIXDEPS} "${OBJECTDIR}/src/driver/Servo.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/driver/Servo.o.d" -o ${OBJECTDIR}/src/driver/Servo.o src/driver/Servo.c   
 	
 ${OBJECTDIR}/src/kinematics/KosselKinematics.o: src/kinematics/KosselKinematics.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/src/kinematics 
 	@${RM} ${OBJECTDIR}/src/kinematics/KosselKinematics.o.d 
 	@${RM} ${OBJECTDIR}/src/kinematics/KosselKinematics.o 
-	@${FIXDEPS} "${OBJECTDIR}/src/kinematics/KosselKinematics.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/kinematics/KosselKinematics.o.d" -o ${OBJECTDIR}/src/kinematics/KosselKinematics.o src/kinematics/KosselKinematics.c   
+	@${FIXDEPS} "${OBJECTDIR}/src/kinematics/KosselKinematics.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/kinematics/KosselKinematics.o.d" -o ${OBJECTDIR}/src/kinematics/KosselKinematics.o src/kinematics/KosselKinematics.c   
 	
 ${OBJECTDIR}/src/kinematics/delta.o: src/kinematics/delta.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/src/kinematics 
 	@${RM} ${OBJECTDIR}/src/kinematics/delta.o.d 
 	@${RM} ${OBJECTDIR}/src/kinematics/delta.o 
-	@${FIXDEPS} "${OBJECTDIR}/src/kinematics/delta.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/kinematics/delta.o.d" -o ${OBJECTDIR}/src/kinematics/delta.o src/kinematics/delta.c   
+	@${FIXDEPS} "${OBJECTDIR}/src/kinematics/delta.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/kinematics/delta.o.d" -o ${OBJECTDIR}/src/kinematics/delta.o src/kinematics/delta.c   
 	
 ${OBJECTDIR}/src/kinematics/FrogLegs.o: src/kinematics/FrogLegs.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/src/kinematics 
 	@${RM} ${OBJECTDIR}/src/kinematics/FrogLegs.o.d 
 	@${RM} ${OBJECTDIR}/src/kinematics/FrogLegs.o 
-	@${FIXDEPS} "${OBJECTDIR}/src/kinematics/FrogLegs.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/kinematics/FrogLegs.o.d" -o ${OBJECTDIR}/src/kinematics/FrogLegs.o src/kinematics/FrogLegs.c   
+	@${FIXDEPS} "${OBJECTDIR}/src/kinematics/FrogLegs.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/kinematics/FrogLegs.o.d" -o ${OBJECTDIR}/src/kinematics/FrogLegs.o src/kinematics/FrogLegs.c   
 	
 ${OBJECTDIR}/src/kinematics/CartesianController.o: src/kinematics/CartesianController.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/src/kinematics 
 	@${RM} ${OBJECTDIR}/src/kinematics/CartesianController.o.d 
 	@${RM} ${OBJECTDIR}/src/kinematics/CartesianController.o 
-	@${FIXDEPS} "${OBJECTDIR}/src/kinematics/CartesianController.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/kinematics/CartesianController.o.d" -o ${OBJECTDIR}/src/kinematics/CartesianController.o src/kinematics/CartesianController.c   
+	@${FIXDEPS} "${OBJECTDIR}/src/kinematics/CartesianController.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/kinematics/CartesianController.o.d" -o ${OBJECTDIR}/src/kinematics/CartesianController.o src/kinematics/CartesianController.c   
 	
 ${OBJECTDIR}/src/kinematics/CartesianBoxKinematics.o: src/kinematics/CartesianBoxKinematics.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/src/kinematics 
 	@${RM} ${OBJECTDIR}/src/kinematics/CartesianBoxKinematics.o.d 
 	@${RM} ${OBJECTDIR}/src/kinematics/CartesianBoxKinematics.o 
-	@${FIXDEPS} "${OBJECTDIR}/src/kinematics/CartesianBoxKinematics.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/kinematics/CartesianBoxKinematics.o.d" -o ${OBJECTDIR}/src/kinematics/CartesianBoxKinematics.o src/kinematics/CartesianBoxKinematics.c   
+	@${FIXDEPS} "${OBJECTDIR}/src/kinematics/CartesianBoxKinematics.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/kinematics/CartesianBoxKinematics.o.d" -o ${OBJECTDIR}/src/kinematics/CartesianBoxKinematics.o src/kinematics/CartesianBoxKinematics.c   
 	
 ${OBJECTDIR}/src/motion/Calibration.o: src/motion/Calibration.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/src/motion 
 	@${RM} ${OBJECTDIR}/src/motion/Calibration.o.d 
 	@${RM} ${OBJECTDIR}/src/motion/Calibration.o 
-	@${FIXDEPS} "${OBJECTDIR}/src/motion/Calibration.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/motion/Calibration.o.d" -o ${OBJECTDIR}/src/motion/Calibration.o src/motion/Calibration.c   
+	@${FIXDEPS} "${OBJECTDIR}/src/motion/Calibration.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/motion/Calibration.o.d" -o ${OBJECTDIR}/src/motion/Calibration.o src/motion/Calibration.c   
 	
 ${OBJECTDIR}/src/motion/StepperSim.o: src/motion/StepperSim.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/src/motion 
 	@${RM} ${OBJECTDIR}/src/motion/StepperSim.o.d 
 	@${RM} ${OBJECTDIR}/src/motion/StepperSim.o 
-	@${FIXDEPS} "${OBJECTDIR}/src/motion/StepperSim.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/motion/StepperSim.o.d" -o ${OBJECTDIR}/src/motion/StepperSim.o src/motion/StepperSim.c   
+	@${FIXDEPS} "${OBJECTDIR}/src/motion/StepperSim.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/motion/StepperSim.o.d" -o ${OBJECTDIR}/src/motion/StepperSim.o src/motion/StepperSim.c   
 	
 ${OBJECTDIR}/src/motion/PID.o: src/motion/PID.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/src/motion 
 	@${RM} ${OBJECTDIR}/src/motion/PID.o.d 
 	@${RM} ${OBJECTDIR}/src/motion/PID.o 
-	@${FIXDEPS} "${OBJECTDIR}/src/motion/PID.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/motion/PID.o.d" -o ${OBJECTDIR}/src/motion/PID.o src/motion/PID.c   
+	@${FIXDEPS} "${OBJECTDIR}/src/motion/PID.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/motion/PID.o.d" -o ${OBJECTDIR}/src/motion/PID.o src/motion/PID.c   
 	
 ${OBJECTDIR}/src/namespace/Namespace_bcs_cartesian.o: src/namespace/Namespace_bcs_cartesian.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/src/namespace 
 	@${RM} ${OBJECTDIR}/src/namespace/Namespace_bcs_cartesian.o.d 
 	@${RM} ${OBJECTDIR}/src/namespace/Namespace_bcs_cartesian.o 
-	@${FIXDEPS} "${OBJECTDIR}/src/namespace/Namespace_bcs_cartesian.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/namespace/Namespace_bcs_cartesian.o.d" -o ${OBJECTDIR}/src/namespace/Namespace_bcs_cartesian.o src/namespace/Namespace_bcs_cartesian.c   
+	@${FIXDEPS} "${OBJECTDIR}/src/namespace/Namespace_bcs_cartesian.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/namespace/Namespace_bcs_cartesian.o.d" -o ${OBJECTDIR}/src/namespace/Namespace_bcs_cartesian.o src/namespace/Namespace_bcs_cartesian.c   
 	
 ${OBJECTDIR}/src/namespace/Namespace_bcs_rtd.o: src/namespace/Namespace_bcs_rtd.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/src/namespace 
 	@${RM} ${OBJECTDIR}/src/namespace/Namespace_bcs_rtd.o.d 
 	@${RM} ${OBJECTDIR}/src/namespace/Namespace_bcs_rtd.o 
-	@${FIXDEPS} "${OBJECTDIR}/src/namespace/Namespace_bcs_rtd.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/namespace/Namespace_bcs_rtd.o.d" -o ${OBJECTDIR}/src/namespace/Namespace_bcs_rtd.o src/namespace/Namespace_bcs_rtd.c   
+	@${FIXDEPS} "${OBJECTDIR}/src/namespace/Namespace_bcs_rtd.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/namespace/Namespace_bcs_rtd.o.d" -o ${OBJECTDIR}/src/namespace/Namespace_bcs_rtd.o src/namespace/Namespace_bcs_rtd.c   
 	
 ${OBJECTDIR}/src/main.o: src/main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/src 
 	@${RM} ${OBJECTDIR}/src/main.o.d 
 	@${RM} ${OBJECTDIR}/src/main.o 
-	@${FIXDEPS} "${OBJECTDIR}/src/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/main.o.d" -o ${OBJECTDIR}/src/main.o src/main.c   
+	@${FIXDEPS} "${OBJECTDIR}/src/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/main.o.d" -o ${OBJECTDIR}/src/main.o src/main.c   
 	
 else
 ${OBJECTDIR}/src/driver/AS5055.o: src/driver/AS5055.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/src/driver 
 	@${RM} ${OBJECTDIR}/src/driver/AS5055.o.d 
 	@${RM} ${OBJECTDIR}/src/driver/AS5055.o 
-	@${FIXDEPS} "${OBJECTDIR}/src/driver/AS5055.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/driver/AS5055.o.d" -o ${OBJECTDIR}/src/driver/AS5055.o src/driver/AS5055.c   
+	@${FIXDEPS} "${OBJECTDIR}/src/driver/AS5055.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/driver/AS5055.o.d" -o ${OBJECTDIR}/src/driver/AS5055.o src/driver/AS5055.c   
 	
 ${OBJECTDIR}/src/driver/ForgeHeater.o: src/driver/ForgeHeater.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/src/driver 
 	@${RM} ${OBJECTDIR}/src/driver/ForgeHeater.o.d 
 	@${RM} ${OBJECTDIR}/src/driver/ForgeHeater.o 
-	@${FIXDEPS} "${OBJECTDIR}/src/driver/ForgeHeater.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/driver/ForgeHeater.o.d" -o ${OBJECTDIR}/src/driver/ForgeHeater.o src/driver/ForgeHeater.c   
+	@${FIXDEPS} "${OBJECTDIR}/src/driver/ForgeHeater.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/driver/ForgeHeater.o.d" -o ${OBJECTDIR}/src/driver/ForgeHeater.o src/driver/ForgeHeater.c   
 	
 ${OBJECTDIR}/src/driver/SPIClient.o: src/driver/SPIClient.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/src/driver 
 	@${RM} ${OBJECTDIR}/src/driver/SPIClient.o.d 
 	@${RM} ${OBJECTDIR}/src/driver/SPIClient.o 
-	@${FIXDEPS} "${OBJECTDIR}/src/driver/SPIClient.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/driver/SPIClient.o.d" -o ${OBJECTDIR}/src/driver/SPIClient.o src/driver/SPIClient.c   
+	@${FIXDEPS} "${OBJECTDIR}/src/driver/SPIClient.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/driver/SPIClient.o.d" -o ${OBJECTDIR}/src/driver/SPIClient.o src/driver/SPIClient.c   
 	
 ${OBJECTDIR}/src/driver/FlashStorageLocal.o: src/driver/FlashStorageLocal.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/src/driver 
 	@${RM} ${OBJECTDIR}/src/driver/FlashStorageLocal.o.d 
 	@${RM} ${OBJECTDIR}/src/driver/FlashStorageLocal.o 
-	@${FIXDEPS} "${OBJECTDIR}/src/driver/FlashStorageLocal.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/driver/FlashStorageLocal.o.d" -o ${OBJECTDIR}/src/driver/FlashStorageLocal.o src/driver/FlashStorageLocal.c   
+	@${FIXDEPS} "${OBJECTDIR}/src/driver/FlashStorageLocal.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/driver/FlashStorageLocal.o.d" -o ${OBJECTDIR}/src/driver/FlashStorageLocal.o src/driver/FlashStorageLocal.c   
 	
 ${OBJECTDIR}/src/driver/Servo.o: src/driver/Servo.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/src/driver 
 	@${RM} ${OBJECTDIR}/src/driver/Servo.o.d 
 	@${RM} ${OBJECTDIR}/src/driver/Servo.o 
-	@${FIXDEPS} "${OBJECTDIR}/src/driver/Servo.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/driver/Servo.o.d" -o ${OBJECTDIR}/src/driver/Servo.o src/driver/Servo.c   
+	@${FIXDEPS} "${OBJECTDIR}/src/driver/Servo.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/driver/Servo.o.d" -o ${OBJECTDIR}/src/driver/Servo.o src/driver/Servo.c   
 	
 ${OBJECTDIR}/src/kinematics/KosselKinematics.o: src/kinematics/KosselKinematics.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/src/kinematics 
 	@${RM} ${OBJECTDIR}/src/kinematics/KosselKinematics.o.d 
 	@${RM} ${OBJECTDIR}/src/kinematics/KosselKinematics.o 
-	@${FIXDEPS} "${OBJECTDIR}/src/kinematics/KosselKinematics.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/kinematics/KosselKinematics.o.d" -o ${OBJECTDIR}/src/kinematics/KosselKinematics.o src/kinematics/KosselKinematics.c   
+	@${FIXDEPS} "${OBJECTDIR}/src/kinematics/KosselKinematics.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/kinematics/KosselKinematics.o.d" -o ${OBJECTDIR}/src/kinematics/KosselKinematics.o src/kinematics/KosselKinematics.c   
 	
 ${OBJECTDIR}/src/kinematics/delta.o: src/kinematics/delta.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/src/kinematics 
 	@${RM} ${OBJECTDIR}/src/kinematics/delta.o.d 
 	@${RM} ${OBJECTDIR}/src/kinematics/delta.o 
-	@${FIXDEPS} "${OBJECTDIR}/src/kinematics/delta.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/kinematics/delta.o.d" -o ${OBJECTDIR}/src/kinematics/delta.o src/kinematics/delta.c   
+	@${FIXDEPS} "${OBJECTDIR}/src/kinematics/delta.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/kinematics/delta.o.d" -o ${OBJECTDIR}/src/kinematics/delta.o src/kinematics/delta.c   
 	
 ${OBJECTDIR}/src/kinematics/FrogLegs.o: src/kinematics/FrogLegs.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/src/kinematics 
 	@${RM} ${OBJECTDIR}/src/kinematics/FrogLegs.o.d 
 	@${RM} ${OBJECTDIR}/src/kinematics/FrogLegs.o 
-	@${FIXDEPS} "${OBJECTDIR}/src/kinematics/FrogLegs.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/kinematics/FrogLegs.o.d" -o ${OBJECTDIR}/src/kinematics/FrogLegs.o src/kinematics/FrogLegs.c   
+	@${FIXDEPS} "${OBJECTDIR}/src/kinematics/FrogLegs.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/kinematics/FrogLegs.o.d" -o ${OBJECTDIR}/src/kinematics/FrogLegs.o src/kinematics/FrogLegs.c   
 	
 ${OBJECTDIR}/src/kinematics/CartesianController.o: src/kinematics/CartesianController.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/src/kinematics 
 	@${RM} ${OBJECTDIR}/src/kinematics/CartesianController.o.d 
 	@${RM} ${OBJECTDIR}/src/kinematics/CartesianController.o 
-	@${FIXDEPS} "${OBJECTDIR}/src/kinematics/CartesianController.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/kinematics/CartesianController.o.d" -o ${OBJECTDIR}/src/kinematics/CartesianController.o src/kinematics/CartesianController.c   
+	@${FIXDEPS} "${OBJECTDIR}/src/kinematics/CartesianController.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/kinematics/CartesianController.o.d" -o ${OBJECTDIR}/src/kinematics/CartesianController.o src/kinematics/CartesianController.c   
 	
 ${OBJECTDIR}/src/kinematics/CartesianBoxKinematics.o: src/kinematics/CartesianBoxKinematics.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/src/kinematics 
 	@${RM} ${OBJECTDIR}/src/kinematics/CartesianBoxKinematics.o.d 
 	@${RM} ${OBJECTDIR}/src/kinematics/CartesianBoxKinematics.o 
-	@${FIXDEPS} "${OBJECTDIR}/src/kinematics/CartesianBoxKinematics.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/kinematics/CartesianBoxKinematics.o.d" -o ${OBJECTDIR}/src/kinematics/CartesianBoxKinematics.o src/kinematics/CartesianBoxKinematics.c   
+	@${FIXDEPS} "${OBJECTDIR}/src/kinematics/CartesianBoxKinematics.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/kinematics/CartesianBoxKinematics.o.d" -o ${OBJECTDIR}/src/kinematics/CartesianBoxKinematics.o src/kinematics/CartesianBoxKinematics.c   
 	
 ${OBJECTDIR}/src/motion/Calibration.o: src/motion/Calibration.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/src/motion 
 	@${RM} ${OBJECTDIR}/src/motion/Calibration.o.d 
 	@${RM} ${OBJECTDIR}/src/motion/Calibration.o 
-	@${FIXDEPS} "${OBJECTDIR}/src/motion/Calibration.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/motion/Calibration.o.d" -o ${OBJECTDIR}/src/motion/Calibration.o src/motion/Calibration.c   
+	@${FIXDEPS} "${OBJECTDIR}/src/motion/Calibration.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/motion/Calibration.o.d" -o ${OBJECTDIR}/src/motion/Calibration.o src/motion/Calibration.c   
 	
 ${OBJECTDIR}/src/motion/StepperSim.o: src/motion/StepperSim.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/src/motion 
 	@${RM} ${OBJECTDIR}/src/motion/StepperSim.o.d 
 	@${RM} ${OBJECTDIR}/src/motion/StepperSim.o 
-	@${FIXDEPS} "${OBJECTDIR}/src/motion/StepperSim.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/motion/StepperSim.o.d" -o ${OBJECTDIR}/src/motion/StepperSim.o src/motion/StepperSim.c   
+	@${FIXDEPS} "${OBJECTDIR}/src/motion/StepperSim.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/motion/StepperSim.o.d" -o ${OBJECTDIR}/src/motion/StepperSim.o src/motion/StepperSim.c   
 	
 ${OBJECTDIR}/src/motion/PID.o: src/motion/PID.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/src/motion 
 	@${RM} ${OBJECTDIR}/src/motion/PID.o.d 
 	@${RM} ${OBJECTDIR}/src/motion/PID.o 
-	@${FIXDEPS} "${OBJECTDIR}/src/motion/PID.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/motion/PID.o.d" -o ${OBJECTDIR}/src/motion/PID.o src/motion/PID.c   
+	@${FIXDEPS} "${OBJECTDIR}/src/motion/PID.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/motion/PID.o.d" -o ${OBJECTDIR}/src/motion/PID.o src/motion/PID.c   
 	
 ${OBJECTDIR}/src/namespace/Namespace_bcs_cartesian.o: src/namespace/Namespace_bcs_cartesian.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/src/namespace 
 	@${RM} ${OBJECTDIR}/src/namespace/Namespace_bcs_cartesian.o.d 
 	@${RM} ${OBJECTDIR}/src/namespace/Namespace_bcs_cartesian.o 
-	@${FIXDEPS} "${OBJECTDIR}/src/namespace/Namespace_bcs_cartesian.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/namespace/Namespace_bcs_cartesian.o.d" -o ${OBJECTDIR}/src/namespace/Namespace_bcs_cartesian.o src/namespace/Namespace_bcs_cartesian.c   
+	@${FIXDEPS} "${OBJECTDIR}/src/namespace/Namespace_bcs_cartesian.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/namespace/Namespace_bcs_cartesian.o.d" -o ${OBJECTDIR}/src/namespace/Namespace_bcs_cartesian.o src/namespace/Namespace_bcs_cartesian.c   
 	
 ${OBJECTDIR}/src/namespace/Namespace_bcs_rtd.o: src/namespace/Namespace_bcs_rtd.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/src/namespace 
 	@${RM} ${OBJECTDIR}/src/namespace/Namespace_bcs_rtd.o.d 
 	@${RM} ${OBJECTDIR}/src/namespace/Namespace_bcs_rtd.o 
-	@${FIXDEPS} "${OBJECTDIR}/src/namespace/Namespace_bcs_rtd.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/namespace/Namespace_bcs_rtd.o.d" -o ${OBJECTDIR}/src/namespace/Namespace_bcs_rtd.o src/namespace/Namespace_bcs_rtd.c   
+	@${FIXDEPS} "${OBJECTDIR}/src/namespace/Namespace_bcs_rtd.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/namespace/Namespace_bcs_rtd.o.d" -o ${OBJECTDIR}/src/namespace/Namespace_bcs_rtd.o src/namespace/Namespace_bcs_rtd.c   
 	
 ${OBJECTDIR}/src/main.o: src/main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/src 
 	@${RM} ${OBJECTDIR}/src/main.o.d 
 	@${RM} ${OBJECTDIR}/src/main.o 
-	@${FIXDEPS} "${OBJECTDIR}/src/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/main.o.d" -o ${OBJECTDIR}/src/main.o src/main.c   
+	@${FIXDEPS} "${OBJECTDIR}/src/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -mips16 -O1 -I"include/replicator" -I"../../c-bowler/Platform/include" -I"../../c-bowler/BowlerStack/include" -MMD -MF "${OBJECTDIR}/src/main.o.d" -o ${OBJECTDIR}/src/main.o src/main.c   
 	
 endif
 

@@ -311,7 +311,7 @@ boolean onSlic3rConfigurationGet(BowlerPacket *Packet) {
         set32bit(Packet,(int)(localData.slic3r.solidInfillSpeedPercent        * 1000.0),i);i+=4;
         set32bit(Packet,(int)(localData.slic3r.topSolidInfillSpeedPercent     * 1000.0),i);i+=4;
         set32bit(Packet,(int)(localData.slic3r.supportMaterialInterfaceSpeedPercent   * 1000.0),i);i+=4;
-        set32bit(Packet,(int)(localData.slic3r.firstLayerSpeedPercent         * 1000.0),i);
+        set32bit(Packet,(int)(localData.slic3r.firstLayerSpeedPercent         * 1000.0),i);i+=4;
         Packet->use.data[0] = (i-1)/4;
         writeFlashLocal();
 }
@@ -489,7 +489,11 @@ boolean initFlashLocal() {
             getPidGroupDataTable(i)->config.upperHistoresis = 0;
             getPidGroupDataTable(i)->config.lowerHistoresis = 0;
             getPidGroupDataTable(i)->config.offset = 0.0;
-            getPidGroupDataTable(i)->config.calibrationState = CALIBRARTION_Uncalibrated;
+            if(i<numPidMotors)
+                getPidGroupDataTable(i)->config.calibrationState = CALIBRARTION_Uncalibrated;
+            else
+                getPidGroupDataTable(i)->config.calibrationState = CALIBRARTION_DONE;
+
             getPidGroupDataTable(i)->config.tipsScale = 1;
             printPIDvals(i);
         }
