@@ -333,10 +333,14 @@ void processLinearInterpPacket(BowlerPacket * Packet) {
 }
 
 boolean onPausePrinter(BowlerPacket *Packet) {
-    pausePrint = Packet->use.data[0];
-    println_W("Pausing print ");
-    p_int_W(pausePrint);
-    READY(Packet, 35, 35);
+    if(Packet->use.head.Method == BOWLER_POST){
+        pausePrint = Packet->use.data[0];
+        println_W("Pausing print ");
+        p_int_W(pausePrint);
+        READY(Packet, 35, 35);
+    }else{
+        Packet->use.data[0] = pausePrint;
+    }
 
     return true;
 }
