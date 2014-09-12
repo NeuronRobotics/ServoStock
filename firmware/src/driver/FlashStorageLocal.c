@@ -508,7 +508,7 @@ boolean initFlashLocal() {
         localData.KD = 0;
         localData.VKP = 1;
         localData.VKD = 0;
-        localData.mmPositionResolution =.5;
+        localData.mmPositionResolution =.1;
         localData.maximumMMperSec = 60;
         localData.defaultConfig.BaseRadius = 140;
         localData.defaultConfig.EndEffectorRadius = 25;
@@ -531,7 +531,7 @@ boolean initFlashLocal() {
         localData.hwMap.Gama.name=Gama;
         
         localData.hwMap.Extruder0.index=1;
-        localData.hwMap.Extruder0.scale= 1.0 ;
+        localData.hwMap.Extruder0.scale= (40 *3.14159/ticksPerRev) ;
         localData.hwMap.Extruder0.name=Extruder;
 
         localData.hwMap.Heater0.index=10;

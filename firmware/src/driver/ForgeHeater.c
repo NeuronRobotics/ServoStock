@@ -131,11 +131,11 @@ void setHeater(int group, float v){
     if(v<0){
         v=0;
         heaterPin(group, 0);
-        setLED(1,0,1);
+        //setLED(1,0,1);
         p_fl_I(v);println_I("G");
     } else {
         heaterPin(group, 1);
-        setLED(0,1,1);
+        //setLED(0,1,1);
         p_fl_I(v);println_I("R");
     }
     //heaterDutty[group-numPidMotors]=(int)v;

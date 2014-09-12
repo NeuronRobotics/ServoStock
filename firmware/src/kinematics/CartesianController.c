@@ -36,7 +36,6 @@ static int interpolationCounter = 0;
 static boolean runKinematics = false;
 static boolean pausePrint = false;
 
-
 boolean onRunKinematicsSet(BowlerPacket *Packet) {
     runKinematics = Packet->use.data[0]; // Boolean to run the kinematics or not
     return true;
@@ -149,7 +148,6 @@ boolean setDesiredJointAxisValue(BowlerPacket *Packet) {
     return true;
 }
 
-
 boolean isCartesianInterpolationDone() {
     updateCurrentPositions();
 
@@ -158,21 +156,23 @@ boolean isCartesianInterpolationDone() {
     int i;
     for (i = 0; i < 4; i++) {
         if (i < 3) {
-            //check to see if it timed out
-            if (getMs()<(taskPID[i].interpolate.startTime + taskPID[i].interpolate.setTime) ) {
-                //check to see if it has arrived
-                if (!bound(taskPID[i].interpolate.set,
-                        current[i],
-                        getmmPositionResolution(),
-                        getmmPositionResolution())
-                        ) {
-                    //println_W("Interpolation not done on to: ");p_fl_W(taskPID[i].interpolate.set);print_W(" is = ");p_fl_W(targets[i]);
-                    return false;
-                }
-            }else{
-                //return true;
-                return useHardPositionSetteling()?false:true;
+
+            if (getMs()>(taskPID[i].interpolate.startTime + taskPID[i].interpolate.setTime)) {
+                // Interpolation has timed out, check for hard positioning
+                if(useHardPositionSetteling() == false)
+                    return true;
             }
+            //check to see if it has arrived
+            if (!bound(taskPID[i].interpolate.set,
+                    current[i],
+                    getmmPositionResolution(),
+                    getmmPositionResolution())
+                    ) {
+                
+                    // Not in position and not timed out
+                    return false;
+            }
+
         }
         if ((isPIDArrivedAtSetpoint(linkToHWIndex(i), setpointBound) == false) && (i == 3)) {
             //            println_W("LINK not done moving index = ");
@@ -197,6 +197,7 @@ void initializeCartesianController() {
         InitAbsPIDWithPosition(&taskPID[i], getKP(), getKI(), getKD(), getMs(), 0);
 
     }
+    pidReset(linkToHWIndex(3), 0);
 }
 
 void pushBufferEmpty() {
@@ -335,12 +336,12 @@ void processLinearInterpPacket(BowlerPacket * Packet) {
 }
 
 boolean onPausePrinter(BowlerPacket *Packet) {
-    if(Packet->use.head.Method == BOWLER_POST){
+    if (Packet->use.head.Method == BOWLER_POST) {
         pausePrint = Packet->use.data[0];
         println_W("Pausing print ");
         p_int_W(pausePrint);
         READY(Packet, 35, 35);
-    }else{
+    } else {
         Packet->use.data[0] = pausePrint;
     }
 
@@ -411,7 +412,6 @@ void cancelPrint() {
     //ZeroPID(getHardwareMap()->Extruder0.index);
     //SetPIDTimed(getHardwareMap()->Heater0.index,0,0);
 }
-
 
 void runInterpolatedPositions() {
     float x = 0, y = 0, z = 0;
@@ -512,23 +512,23 @@ void interpolateZXY() {
     if (!runKinematics) {
         return;
     }
- 
-        if (kinematicsUseStateBasedVelocity()==true) {
-            runStateBasedController();
-        } else {
-            runInterpolatedPositions();
-        }
-        if (isCartesianInterpolationDone() == true) {
-            if (FifoGetPacketCount(&packetFifo) > 0) {
-                if (pausePrint == false) {
-                    println_W("Loading new packet ");
-                    if (FifoGetPacket(&packetFifo, &linTmpPack)) {
-                        processLinearInterpPacket(&linTmpPack);
-                    }
+
+    if (kinematicsUseStateBasedVelocity() == true) {
+        runStateBasedController();
+    } else {
+        runInterpolatedPositions();
+    }
+    if (isCartesianInterpolationDone() == true) {
+        if (FifoGetPacketCount(&packetFifo) > 0) {
+            if (pausePrint == false) {
+                println_W("Loading new packet ");
+                if (FifoGetPacket(&packetFifo, &linTmpPack)) {
+                    processLinearInterpPacket(&linTmpPack);
                 }
-            } 
+            }
         }
-    
+    }
+
 }
 
 uint8_t setInterpolateXYZ(float x, float y, float z, float ms) {
