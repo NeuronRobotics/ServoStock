@@ -143,8 +143,9 @@ void hardwareInit(){
         ATX_DISENABLE();
         CloseTimer2();
         initLEDs();
-        setLED(0,1,0);
 
+        setLED(0,1,0);
+        //while(1);
         Pic32_Bowler_HAL_Init();
 
 	Bowler_Init();
@@ -252,10 +253,11 @@ int main(){
     RunEveryData loop = {0.0,2000.0};
 
     while(1){
+
         if (getResetButton()==1){
             setPrintLevelErrorPrint();
 		p_int_E(0);print_E(" Reset Button Pressed from loop");
-		SetColor(1,1,1);
+		//SetColor(1,1,1);
 		U1CON = 0x0000;
 		DelayMs(100);
 		Reset();
