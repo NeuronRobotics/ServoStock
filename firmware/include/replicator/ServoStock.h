@@ -97,14 +97,14 @@ void writeFlashLocal();
 #define     ENC7_SERVO(s)         setPicIOPin(s, 'B',9)
 
 
-#define     setHeater0(s)         setPicIOPin(s, 'B',5)//
-#define     HEATER_0_TRIS       setPicIOTristateOutput('B',5)
+#define     setHeater0(s)         setPicIOPin(s, 'B',0)//
+#define     HEATER_0_TRIS       setPicIOTristateOutput('B',0)
 
-#define     setHeater1(s)        setPicIOPin(s, 'B',0)//
-#define    HEATER_1_TRIS       setPicIOTristateOutput('B',0)
+#define     setHeater1(s)        setPicIOPin(s, 'B',2)//
+#define    HEATER_1_TRIS       setPicIOTristateOutput('B',2)
 
-#define     setHeater2(s)        setPicIOPin(s, 'B',2)//
-#define    HEATER_2_TRIS       setPicIOTristateOutput('B',2)
+#define     setHeater2(s)        setPicIOPin(s, 'B',5)//
+#define    HEATER_2_TRIS       setPicIOTristateOutput('B',5)
 
 #define    HEATER_0_ADC         1
 #define    HEATER_1_ADC         3
