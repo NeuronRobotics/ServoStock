@@ -14,13 +14,13 @@ void heaterPin(int index, int value){
     
     switch(index){
         case 0:
-             setHeater0(1);
+             setHeater0(value);
             break;
         case 1:
-            setHeater1(1);
+            setHeater1(value);
             break;
         case 2:
-            setHeater2(1);
+            setHeater2(value);
             break;
     }
 }
@@ -80,7 +80,7 @@ int resetHeater(int group, int current){
 
 // these 3 coefs charecterize a sensor
 // each sesnor should be able to have it's own set of coefs. this should be an array.
-double SH_A=0.0007229943855,SH_B=0.00021619777,SH_C=0.000000093022549; //celcius
+double SH_A=0.0007056873184,SH_B=0.0002194268848,SH_C=0.00000008000198646; //celcius
 
 // Resistance (ohms) to temperature (kelvin)
 float steinhart_RtoK(float r,double a,double b,double c){
@@ -106,17 +106,17 @@ float steinhart_KtoR(float t , double a,double b,double c){
     return r;
 }
 
-    #define pullupRes 10000.0
+    #define pullupRes 1000.0
 // get heater temperature in celcius
 float getHeaterTempreture(int group){    
     float adcVolts=getAdcVoltage(mapHeaterIndex(group),10);
-        
+    print_E("\tvolts=");p_fl_E(adcVolts);println_E("");
     // we should run ADC from the pic's 3.3v supply
     float  rtdOhms= ((3.4/adcVolts)-1)*pullupRes; // convert voltage to ohms of thermistor
 
     float temp = steinhart_RtoK(rtdOhms,SH_A,SH_B,SH_C); // convert to kelvin/celcius from ohms using thermistor coefs
 
-    return       temp; // return temp in celcius.
+    return       temp/2; // return temp in celcius.
 }
 
 
@@ -128,21 +128,27 @@ void setHeater(int group, float v){
 //    v+=50;
 //    if(v>99)
 //        v=99;
+    int heater = group-8;
+    setLED(1,1,1);
+    //p_int_E(heater);println_E("");
     if(v<0){
         v=0;
-        heaterPin(group, 0);
-        setLED(1,0,1);
-        p_fl_I(v);println_I("G");
+        //heaterPin(heater, 0);
+        if(heater==0){ setLED(1,0,1);
+        //p_fl_E(v);println_E("G");
+        }
     } else {
-        heaterPin(group, 1);
-        setLED(0,1,1);
-        p_fl_I(v);println_I("R");
+        //heaterPin(heater, 1);
+        if(heater==0){ setLED(0,1,1);
+        //p_fl_E(v);println_E("R");
+        }
     }
-    //heaterDutty[group-numPidMotors]=(int)v;
+    
+    heaterDutty[group-numPidMotors]=((int)v)*4;
 }
 
 void __ISR(_TIMER_3_VECTOR, ipl4) Timer3Handler(void){
-    /*
+    
     int i;
     for(i=0;i<4;i++){
         if(heaterIndex == heaterDutty[i]){
@@ -153,10 +159,10 @@ void __ISR(_TIMER_3_VECTOR, ipl4) Timer3Handler(void){
     if(heaterIndex==100){
        heaterIndex=0;
        for(i=0;i<4;i++){
-            heaterPin(i, 0);
+           if (heaterDutty[i]!=0) heaterPin(i, 0);
         }
     }
-    */
+    
     mT3ClearIntFlag();
 }
 
