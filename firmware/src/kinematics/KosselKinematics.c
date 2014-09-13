@@ -33,12 +33,6 @@ float sq(float num) {
     return num*num; 
 }
 
-//TODO hack!
-//#define E_AXIS 0
-#define N_ARC_CORRECTION 0
-#define MM_PER_ARC_SEGMENT 1
-//TODO end hack!
-
 int servostock_calcInverse(float X, float Y, float Z, float *Alpha, float *Beta, float *Gamma){
     float L = getRodLength();
     float R = getBaseRadius()-getEndEffectorRadius();
