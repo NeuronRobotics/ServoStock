@@ -659,21 +659,6 @@ float getLinkAngle(int index) {
 float setLinkAngle(int index, float value, float ms) {
     int localIndex = linkToHWIndex(index);
     float v = value / getLinkScale(index);
-    if (index == 0 ||
-            index == 1 ||
-            index == 2
-            ) {
-        //        if(v>1650){
-        //            println_E("Upper Capped link ");p_int_E(index);print_E(", attempted: ");p_fl_E(value);
-        //            v=1650;
-        //        }
-        //        if(v<-6500){
-        //            v=-6500;
-        //            println_E("Lower Capped link ");p_int_E(index);print_E(", attempted: ");p_fl_E(value);
-        //        }
-    }
-    //    println_I("Setting position from cartesian controller ");p_int_I(localIndex);print_I(" to ");p_fl_I(v);
-    //    print_I(" in ");p_fl_I(ms); print_I("ms ");
 
     SetPIDEnabled(localIndex, true);
 
