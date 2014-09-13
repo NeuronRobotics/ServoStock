@@ -129,20 +129,20 @@ void setHeater(int group, float v){
 //    if(v>99)
 //        v=99;
     int heater = group-8;
-    setLED(1,1,1);
+    //setLED(1,1,1);
     //p_int_E(heater);println_E("");
     if(v<0){
         v=0;
 
         //heaterPin(heater, 0);
-        if(heater==0){ setLED(1,0,1);
+        if(heater==0){ //setLED(1,0,1);
         //p_fl_E(v);println_E("G");
         }
 
     } else {
 
         //heaterPin(heater, 1);
-        if(heater==0){ setLED(0,1,1);
+        if(heater==0){ //setLED(0,1,1);
         //p_fl_E(v);println_E("R");
         }
 
