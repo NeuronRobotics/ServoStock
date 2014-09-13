@@ -205,8 +205,8 @@ boolean onConfigurationGet(BowlerPacket *Packet) {
     Packet->use.data[0] = linkToHWIndex(index); // the PID link maped
     Packet->use.data[1] = 5; // 5 active axis
     set32bit(Packet, getPidGroupDataTable(Packet->use.data[0])->config.IndexLatchValue, 2);
-    set32bit(Packet, -100000, 6);
-    set32bit(Packet, 100000, 10);
+    set32bit(Packet, -10000000, 6);
+    set32bit(Packet,  10000000, 10);
     set32bit(Packet, getLinkScale(index)*1000, 14);
 
     int i = 0;
@@ -516,7 +516,7 @@ boolean initFlashLocal() {
         localData.defaultConfig.MinZ = -10;
         localData.defaultConfig.RodLength = 203.82;
         localData.useHardPositionSetteling=true;
-
+#if defined(Rev3)
         //Default hardware map
         localData.hwMap.Alpha.index=0;
         localData.hwMap.Alpha.scale= -1.0 * mmPerTick;
@@ -531,9 +531,26 @@ boolean initFlashLocal() {
         localData.hwMap.Gama.name=Gama;
         
         localData.hwMap.Extruder0.index=1;
-        localData.hwMap.Extruder0.scale= (40 *3.14159/ticksPerRev) ;
+        localData.hwMap.Extruder0.scale= (40 *3.14159/(ticksPerRev*2)) ;
         localData.hwMap.Extruder0.name=Extruder;
+#elif defined(Rev4)
+        //Default hardware map
+        localData.hwMap.Alpha.index=0;
+        localData.hwMap.Alpha.scale= -1.0 * mmPerTick;
+        localData.hwMap.Alpha.name=Alpha;
 
+        localData.hwMap.Beta.index=1;
+        localData.hwMap.Beta.scale= -1.0 * mmPerTick;
+        localData.hwMap.Beta.name=Beta;
+
+        localData.hwMap.Gama.index=2;
+        localData.hwMap.Gama.scale= -1.0 * mmPerTick;
+        localData.hwMap.Gama.name=Gama;
+
+        localData.hwMap.Extruder0.index=3;
+        localData.hwMap.Extruder0.scale= (40 *3.14159/(ticksPerRev*2)) ;
+        localData.hwMap.Extruder0.name=Extruder;
+#endif
         localData.hwMap.Heater0.index=10;
         localData.hwMap.Heater0.scale= 1.0 ;
         localData.hwMap.Heater0.name=Heater;
