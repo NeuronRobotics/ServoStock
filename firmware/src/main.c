@@ -95,7 +95,7 @@ uint8_t Bowler_Server_Local(BowlerPacket * Packet){
         Print_Level l = getPrintLevel();
         //setPrintLevelNoPrint();
 	if (GetBowlerPacket_arch(Packet)){
-		//setLed(1,1,1);
+            setLED(0,1,1);
                 if(Packet->use.head.RPC != _PNG){
                     println_I("Got:");printPacket(Packet,INFO_PRINT);
                 }
@@ -120,8 +120,9 @@ uint8_t Bowler_Server_Local(BowlerPacket * Packet){
 		}else{
 			//println_I("Packet not addressed to me: ");printByteArray(Packet->use.head.MAC.v,6); print_I(" is not mine: ");printByteArray(MyMAC.v,6);
 		}
-		//setLed(0,0,1);
+
                 setPrintLevel(l);
+                setLED(0,0,1);
 		return true; 
 	}//Have a packet
         setPrintLevel(l);
@@ -144,7 +145,7 @@ void hardwareInit(){
         CloseTimer2();
         initLEDs();
 
-        setLED(0,1,0);
+        setLED(0,1,1);
         //while(1);
         Pic32_Bowler_HAL_Init();
 
@@ -195,8 +196,8 @@ void hardwareInit(){
         println_I("Starting PID");
         initPIDLocal();
 #endif
-        initializeCartesianController();
         DelayMs(100);
+        initializeCartesianController();
         if(     GetPIDCalibrateionState(linkToHWIndex(0))!=CALIBRARTION_DONE&&
                 GetPIDCalibrateionState(linkToHWIndex(1))!=CALIBRARTION_DONE&&
                 GetPIDCalibrateionState(linkToHWIndex(2))!=CALIBRARTION_DONE
@@ -216,7 +217,8 @@ void hardwareInit(){
         }else{
             println_W("Axis are already calibrated");
         }
-
+        
+        
         pid.MsTime=getMs();
         //startHomingLinks();
 
@@ -244,13 +246,14 @@ void bowlerSystem(){
 }
 
 boolean printCalibrations = false; 
+boolean toggle = false;
 
 int main(){
     //setPrintLevelInfoPrint();
     setPrintLevelWarningPrint();
     //setPrintLevelNoPrint();
     hardwareInit();
-    RunEveryData loop = {0.0,2000.0};
+    RunEveryData loop = {0.0,500.0};
 
     while(1){
 
@@ -262,36 +265,40 @@ int main(){
 		DelayMs(100);
 		Reset();
 	}
-        if(RunEvery(&loop)>0){
-            //clearPrint();
-            //printCartesianData();
-
-        }
-        if(     printCalibrations == false &&
-                GetPIDCalibrateionState(linkToHWIndex(0))==CALIBRARTION_DONE&&
+        
+        if(     GetPIDCalibrateionState(linkToHWIndex(0))==CALIBRARTION_DONE&&
                 GetPIDCalibrateionState(linkToHWIndex(1))==CALIBRARTION_DONE&&
                 GetPIDCalibrateionState(linkToHWIndex(2))==CALIBRARTION_DONE
 
                 ){
-            printCalibrations = true; 
-            int index=0;
-            for(index=0;index<3;index++){
-                int group = linkToHWIndex(index);
-                println_E("For Axis ");p_int_E(group);
-                print_E(" upper: ");p_int_E(getPidGroupDataTable(group)->config.upperHistoresis);
-                print_E(" lower: ");p_int_E(getPidGroupDataTable(group)->config.lowerHistoresis);
-                print_E(" stop: ");p_int_E(getPidGroupDataTable(group)->config.stop);
-            }
-            startHomingLinks();
-            //Print_Level l= getPrintLevel();
+            if(printCalibrations == false ){
+                printCalibrations = true;
+                int index=0;
+                for(index=0;index<3;index++){
+                    int group = linkToHWIndex(index);
+                    println_E("For Axis ");p_int_E(group);
+                    print_E(" upper: ");p_int_E(getPidGroupDataTable(group)->config.upperHistoresis);
+                    print_E(" lower: ");p_int_E(getPidGroupDataTable(group)->config.lowerHistoresis);
+                    print_E(" stop: ");p_int_E(getPidGroupDataTable(group)->config.stop);
+                }
+                startHomingLinks();
+                //Print_Level l= getPrintLevel();
 
-            //setPrintLevelInfoPrint();
-            printCartesianData();
-            int i;
-            for(i=0;i<numPidMotors;i++){
-                printPIDvals(i);
+                //setPrintLevelInfoPrint();
+                printCartesianData();
+                int i;
+                for(i=0;i<numPidMotors;i++){
+                    printPIDvals(i);
+                }
+            }else{
+                setLED(0,0,1);
             }
             //setPrintLevel(l);
+        }else{
+            if(RunEvery(&loop)>0){
+                setLED(printCalibrations?0:1,toggle,printCalibrations);
+                toggle = toggle?0:1;
+            }
         }
         
         bowlerSystem();

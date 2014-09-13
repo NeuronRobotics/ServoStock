@@ -42,6 +42,7 @@ typedef struct _flashStorageData {
     HardwareMap hwMap;
     DeltaConfig defaultConfig;
     int32_t kinematicsIndex;
+    int32_t useHardPositionSetteling;
     // this should be changed to garuntee that the struct is exactly a multiple of 4 bytes
     unsigned char buffer[1];
 } flashStorageData;
@@ -174,7 +175,7 @@ boolean onControllerConfigurationGet(BowlerPacket *Packet) {
 
     set32bit(Packet, localData.defaultConfig.MinZ * 1000.0, 40); //
     set32bit(Packet, localData.defaultConfig.RodLength * 1000.0, 44); //
-
+    Packet->use.data[48] =localData.useHardPositionSetteling;
 }
 
 boolean onControllerConfigurationSet(BowlerPacket *Packet) {
@@ -193,6 +194,7 @@ boolean onControllerConfigurationSet(BowlerPacket *Packet) {
 
     localData.defaultConfig.MinZ = get32bit(Packet, 40) / 1000.0; //
     localData.defaultConfig.RodLength = get32bit(Packet, 44) / 1000.0; //
+    localData.useHardPositionSetteling = Packet->use.data[48];
 
     writeFlashLocal();
 }
@@ -343,6 +345,10 @@ boolean onSlic3rConfigurationSet(BowlerPacket *Packet) {
         localData.slic3r.supportMaterialInterfaceSpeedPercent   =  get32bit(Packet,i)/1000.0;i+=4;
         localData.slic3r.firstLayerSpeedPercent         =  get32bit(Packet,i)/1000.0;i+=4;
 
+}
+
+boolean useHardPositionSetteling(){
+    return localData.useHardPositionSetteling;
 }
 
 float getEndEffectorRadius() {
@@ -502,13 +508,14 @@ boolean initFlashLocal() {
         localData.KD = 0;
         localData.VKP = 1;
         localData.VKD = 0;
-        localData.mmPositionResolution =.5;
+        localData.mmPositionResolution =.1;
         localData.maximumMMperSec = 60;
         localData.defaultConfig.BaseRadius = 140;
         localData.defaultConfig.EndEffectorRadius = 25;
         localData.defaultConfig.MaxZ = 100;
         localData.defaultConfig.MinZ = -10;
         localData.defaultConfig.RodLength = 203.82;
+        localData.useHardPositionSetteling=true;
 
         //Default hardware map
         localData.hwMap.Alpha.index=0;
@@ -524,7 +531,7 @@ boolean initFlashLocal() {
         localData.hwMap.Gama.name=Gama;
         
         localData.hwMap.Extruder0.index=1;
-        localData.hwMap.Extruder0.scale= 1.0 ;
+        localData.hwMap.Extruder0.scale= (40 *3.14159/ticksPerRev) ;
         localData.hwMap.Extruder0.name=Extruder;
 
         localData.hwMap.Heater0.index=10;

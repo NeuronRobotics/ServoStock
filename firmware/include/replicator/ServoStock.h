@@ -47,7 +47,7 @@ void writeFlashLocal();
 
 
 #define     initLEDs()      LED_RED_TRIS;LED_GRN_TRIS;LED_BLU_TRIS;
-#define     setLED(r,g,b)  ioPortD(r, 10);ioPortD(g, 11);ioPortD(b, 0);
+#define     setLED(r,g,b)  ioPortD(r>0?0:1, 10);ioPortD(g>0?0:1, 11);ioPortD(b>0?0:1, 0);
 
 
 #define     resetButtionInit()      setPicIOTristateInput('F',5)//(_TRISF5)=INPUT; // for the reset sw
