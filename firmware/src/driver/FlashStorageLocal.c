@@ -509,13 +509,15 @@ boolean initFlashLocal() {
         localData.VKP = 1;
         localData.VKD = 0;
         localData.mmPositionResolution =.1;
-        localData.maximumMMperSec = 60;
+        localData.maximumMMperSec = 30;
         localData.defaultConfig.BaseRadius = 140;
         localData.defaultConfig.EndEffectorRadius = 25;
         localData.defaultConfig.MaxZ = 100;
         localData.defaultConfig.MinZ = -10;
         localData.defaultConfig.RodLength = 203.82;
         localData.useHardPositionSetteling=true;
+
+
 #if defined(Rev3)
         //Default hardware map
         localData.hwMap.Alpha.index=0;
@@ -533,6 +535,10 @@ boolean initFlashLocal() {
         localData.hwMap.Extruder0.index=1;
         localData.hwMap.Extruder0.scale= (40 *3.14159/(ticksPerRev*2)) ;
         localData.hwMap.Extruder0.name=Extruder;
+
+        localData.hwMap.Heater0.index=10;
+        localData.hwMap.Heater0.scale= 1.0 ;
+        localData.hwMap.Heater0.name=Heater;
 #elif defined(Rev4)
         //Default hardware map
         localData.hwMap.Alpha.index=0;
@@ -550,10 +556,12 @@ boolean initFlashLocal() {
         localData.hwMap.Extruder0.index=3;
         localData.hwMap.Extruder0.scale= (40 *3.14159/(ticksPerRev*2)) ;
         localData.hwMap.Extruder0.name=Extruder;
-#endif
-        localData.hwMap.Heater0.index=10;
+
+        localData.hwMap.Heater0.index=8;
         localData.hwMap.Heater0.scale= 1.0 ;
         localData.hwMap.Heater0.name=Heater;
+#endif
+        
         
         localData.hwMap.Extruder1.index=AXIS_UNUSED;
         localData.hwMap.Extruder1.scale= -1.0 ;
@@ -580,7 +588,7 @@ boolean initFlashLocal() {
         localData.slic3r.printCenter [1]                = 0;
         localData.slic3r.filimentDiameter               = 1.75;
         localData.slic3r.extrusionMultiplier            = 1;
-        localData.slic3r.tempreture                     = 200;
+        localData.slic3r.tempreture                     = 240;
         localData.slic3r.bedTempreture                  = 0;
         localData.slic3r.layerHeight                    = .3;
         localData.slic3r.wallThickness                  = 3;
@@ -588,10 +596,10 @@ boolean initFlashLocal() {
         localData.slic3r.retractLength                  = 1.1;
         localData.slic3r.travilSpeed                    = localData.maximumMMperSec;
         localData.slic3r.perimeterSpeed                 = 20;
-        localData.slic3r.bridgeSpeed                    = 40;
+        localData.slic3r.bridgeSpeed                    = localData.maximumMMperSec;
         localData.slic3r.gapFillSpeed                   = 20;
-        localData.slic3r.infillSpeed                    = 60;
-        localData.slic3r.supportMaterialSpeed           = 60;
+        localData.slic3r.infillSpeed                    = localData.maximumMMperSec;
+        localData.slic3r.supportMaterialSpeed           = localData.maximumMMperSec;
         localData.slic3r.smallPerimeterSpeedPercent     = 100;
         localData.slic3r.externalPerimeterSpeedPercent  = 70;
         localData.slic3r.solidInfillSpeedPercent        = 100;
