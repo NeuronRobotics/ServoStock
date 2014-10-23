@@ -55,7 +55,7 @@ boolean setDesiredTaskSpaceTransform(BowlerPacket *Packet) {
     Packet->use.data[0] = 5;
     float t0 = 0, t1 = 0, t2 = 0;
     if (inverseKinematicsLocal(x, y, z, &t0, &t1, &t2) == 0) {
-        setInterpolateXYZ(x, y, z, ms);
+        setInterpolateXYZ(x, y, z, ms,true);
         set32bit(Packet, t0 * 1000, 1);
         set32bit(Packet, t1 * 1000, 5);
         set32bit(Packet, t2 * 1000, 9);
@@ -116,7 +116,7 @@ boolean setDesiredJointSpaceVector(BowlerPacket *Packet) {
     float x = 0, y = 0, z = 0;
     if (forwardKinematicsLocal(j0, j1, j2, &x, &y, &z) == 0) {
         if (inverseKinematicsLocal(x, y, z, &j0, &j1, &j2) == 0) {
-            setInterpolateXYZ(x, y, z, ms);
+            setInterpolateXYZ(x, y, z, ms,true);
             setLinkAngle(3, extrusion, ms);
             setLinkAngle(4, tempreture, ms);
             // load data into packet
@@ -325,7 +325,7 @@ void processLinearInterpPacket(BowlerPacket * Packet) {
         //set extruder
         setLinkAngle(3, tmpData[4], tmpData[0]);
         if (inverseKinematicsLocal(tmpData[1], tmpData[2], tmpData[3], &t0, &t1, &t2) == 0) {
-            setInterpolateXYZ(tmpData[1], tmpData[2], tmpData[3], tmpData[0]);
+            setInterpolateXYZ(tmpData[1], tmpData[2], tmpData[3], tmpData[0],Packet->use.data[0] );
         } else {
             ERR(Packet, 33, 34);
         }
@@ -531,7 +531,7 @@ void interpolateZXY() {
 
 }
 
-uint8_t setInterpolateXYZ(float x, float y, float z, float ms) {
+uint8_t setInterpolateXYZ(float x, float y, float z, float ms, boolean force) {
     int i = 0;
     float start = getMs();
     float valocity_calculated;
@@ -552,34 +552,35 @@ uint8_t setInterpolateXYZ(float x, float y, float z, float ms) {
     p_fl_W(current[1]);
     print_W(" cz=");
     p_fl_W(current[2]);
-
-    for (i = 0; i < 3; i++) {
-        mmToGo = (tmp[i] - current[i]);
-        if (mmToGo < 0)
-            mmToGo *= -1;
-        if (ms <= 0.0) {
-            ms = (mmToGo / getmmaximumMMperSec())*1000.0;
-            println_W("Degenerate Capped to ");
-            p_fl_W(ms);
-            print_W(" mm=");
-            p_fl_W(mmToGo);
-            print_W(" max=");
-            p_fl_W(getmmaximumMMperSec());
-        } else {
-            valocity_calculated = (mmToGo /
-                    (ms / 1000.0));
-            println_W("Setting new position FEED RATE =");
-            p_fl_W(valocity_calculated);
-            print_W(" mm=");
-            p_fl_W(mmToGo);
-            if (valocity_calculated > getmmaximumMMperSec()) {
-
-                ms = (mmToGo / getmmaximumMMperSec()) * 1000.0;
-                print_W(" Capped to=");
+    if(force == false){
+        for (i = 0; i < 3; i++) {
+            mmToGo = (tmp[i] - current[i]);
+            if (mmToGo < 0)
+                mmToGo *= -1;
+            if (ms <= 0.0) {
+                ms = (mmToGo / getmmaximumMMperSec())*1000.0;
+                println_W("Degenerate Capped to ");
                 p_fl_W(ms);
+                print_W(" mm=");
+                p_fl_W(mmToGo);
                 print_W(" max=");
                 p_fl_W(getmmaximumMMperSec());
+            } else {
+                valocity_calculated = (mmToGo /
+                        (ms / 1000.0));
+                println_W("Setting new position FEED RATE =");
+                p_fl_W(valocity_calculated);
+                print_W(" mm=");
+                p_fl_W(mmToGo);
+                if (valocity_calculated > getmmaximumMMperSec()) {
 
+                    ms = (mmToGo / getmmaximumMMperSec()) * 1000.0;
+                    print_W(" Capped to=");
+                    p_fl_W(ms);
+                    print_W(" max=");
+                    p_fl_W(getmmaximumMMperSec());
+
+                }
             }
         }
     }
@@ -694,7 +695,7 @@ void HomeLinks() {
             println_W("All linkes reported in");
 
             cancelPrint();
-            setInterpolateXYZ(0, 0, getmaxZ(), 0);
+            setInterpolateXYZ(0, 0, getmaxZ(), 0,false);
         }
     }
 }

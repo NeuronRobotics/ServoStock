@@ -104,8 +104,7 @@ typedef struct _Transform {
 
     int linkToHWIndex(int index);
 
-    uint8_t setInterpolateXYZ(float x, float y, float z, float ms);
-
+    uint8_t setInterpolateXYZ(float x, float y, float z, float ms, boolean force);
     void interpolateZXY();
 
     uint8_t setXYZ(float x, float y, float z, float ms);

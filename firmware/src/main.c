@@ -250,8 +250,8 @@ boolean toggle = false;
 
 int main(){
     //setPrintLevelInfoPrint();
-    setPrintLevelWarningPrint();
-    //setPrintLevelNoPrint();
+    //setPrintLevelWarningPrint();
+    setPrintLevelNoPrint();
     hardwareInit();
     RunEveryData loop = {0.0,500.0};
 
