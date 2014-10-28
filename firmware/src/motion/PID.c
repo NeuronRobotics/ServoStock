@@ -1,6 +1,6 @@
 #include "main.h"
 
-static PD_VEL vel[numPidTotal];
+//static PD_VEL vel[numPidTotal];
 static PidLimitEvent limits[numPidTotal];
 
 static AbsPID pidGroupsLocal[numPidTotal];
@@ -18,7 +18,7 @@ void initPIDLocal() {
     //uint16_t loop;
     for (i = 0; i < numPidTotal; i++) {
         println_I("Loading PID ");p_int_I(i);
-        vel[i].enabled = false;
+        pidGroupsLocal[i].vel.enabled = false;
         limits[i].type = NO_LIMIT;
         pidGroupsLocal[i].config.Enabled = false;
         pidGroupsLocal[i].config.Async = 0;
@@ -45,7 +45,6 @@ void initPIDLocal() {
     }
 
     InitilizePidController(pidGroupsLocal,
-            vel,
             numPidTotal,
             &getPositionMine,
             &setOutputMine,
