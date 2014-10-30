@@ -7,7 +7,7 @@ int64_t raw[numPidTotal];
 int64_t recent[numPidTotal];
 boolean initialized = false;
 boolean busy = 0;
-#define jump 3500
+#define jump 3700
 void encoderSPIInit();
 void AS5055ResetErrorFlag(uint8_t index);
 void printSystemConfig(uint8_t index);
