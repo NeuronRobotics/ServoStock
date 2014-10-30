@@ -43,11 +43,12 @@ typedef struct _flashStorageData {
     DeltaConfig defaultConfig;
     int32_t kinematicsIndex;
     int32_t useHardPositionSetteling;
+    int32_t flashUsageKey;
     // this should be changed to garuntee that the struct is exactly a multiple of 4 bytes
     unsigned char buffer[1];
 } flashStorageData;
 
-
+#define FLASHKEY 1234567
 
 flashStorageData localData;
 #define bytesOfRaw (sizeof(localData))
@@ -438,6 +439,8 @@ boolean initFlashLocal() {
         p_int_W(bytesOfRaw % 4);
         while (1);
     }
+    
+
     println_W("Size of Flash page pages = ");
     p_int_W(bytesOfRaw / 4);
     print_W(", bytes = ");
@@ -449,7 +452,7 @@ boolean initFlashLocal() {
 
     int i = 0, j = 0; // index;
 
-    boolean rawFlashDetect = false;
+    boolean rawFlashDetect = true;
 
     for (i = 0; i < numPidTotal; i++) {
         println_W("Setting PID #");
@@ -464,22 +467,16 @@ boolean initFlashLocal() {
 
 
     println_W("Checking for bare flash");
-    for (i = 0; i < numPidTotal; i++) {
-        if (((getPidGroupDataTable(i)->config.Enabled > 1 ||
-                getPidGroupDataTable(i)->config.Enabled < 0))
-                ) {
-            rawFlashDetect = true;
-        }
+    if(localData.flashUsageKey == FLASHKEY){
+        rawFlashDetect = false;
     }
-
-
     if (rawFlashDetect) {
         println_W("Writing default values");
         for (i = 0; i < numPidTotal; i++) {
-
+            localData.flashUsageKey=FLASHKEY;
             println_E("Detected raw flash, setting defaults : ");
             p_int_E(i);
-            printPIDvals(i);
+
             getPidGroupDataTable(i)->config.Enabled = false;
             getPidGroupDataTable(i)->config.Async = true;
             getPidGroupDataTable(i)->config.IndexLatchValue = 0;
@@ -521,7 +518,7 @@ boolean initFlashLocal() {
 #if defined(Rev3)
         //Default hardware map
         localData.hwMap.Alpha.index=0;
-        localData.hwMap.Alpha.scale= -1.0 * mmPerTick;
+        localData.hwMap.Alpha.scale= -1.0 * mmPerTick;setLED(0,0,1);
         localData.hwMap.Alpha.name=Alpha;
 
         localData.hwMap.Beta.index=2;

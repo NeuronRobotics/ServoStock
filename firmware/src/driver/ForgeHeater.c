@@ -110,7 +110,7 @@ float steinhart_KtoR(float t , double a,double b,double c){
 // get heater temperature in celcius
 float getHeaterTempreture(int group){    
     float adcVolts=getAdcVoltage(mapHeaterIndex(group),10);
-    print_E("\tvolts=");p_fl_E(adcVolts);println_E("");
+    //print_E("\tvolts=");p_fl_E(adcVolts);println_E("");
     // we should run ADC from the pic's 3.3v supply
     float  rtdOhms= ((3.4/adcVolts)-1)*pullupRes; // convert voltage to ohms of thermistor
 

@@ -129,7 +129,7 @@ void setOutputMine(int group, float v) {
         //            setServo(group,getServoStop(group),0);
         //            return;
         //        }
-        println_I("Setting output value=");p_fl_I(val);print_I(" on ");p_int_I(group);
+        //println_I("Setting output value=");p_fl_I(val);print_I(" on ");p_int_I(group);
         setServo(group, val, 0);
     } else {
         setHeater(group, v);

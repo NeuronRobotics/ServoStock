@@ -86,8 +86,8 @@ static RunEveryData pid ={0,10};
 //static RunEveryData pos ={0,5};
 
 
-float height = 0;
-int j=0,i=0;
+static float height = 0;
+static int j=0,i=0;
 
 
 uint8_t Bowler_Server_Local(BowlerPacket * Packet){
@@ -125,6 +125,7 @@ uint8_t Bowler_Server_Local(BowlerPacket * Packet){
                 setLED(0,0,1);
 		return true; 
 	}//Have a packet
+        setLED(0,0,1);
         setPrintLevel(l);
 	return false; 
 }
@@ -152,7 +153,7 @@ void hardwareInit(){
 	Bowler_Init();
         //clearPrint();
         println_I("\n\n\nStarting PIC initialization");
-
+        enableFlashStorage(true);
         FlashGetMac(MyMAC.v);
 
 
@@ -198,6 +199,7 @@ void hardwareInit(){
 #endif
         DelayMs(100);
         initializeCartesianController();
+#if defined(CALIBRATE_ON_BOOT)
         if(     GetPIDCalibrateionState(linkToHWIndex(0))!=CALIBRARTION_DONE&&
                 GetPIDCalibrateionState(linkToHWIndex(1))!=CALIBRARTION_DONE&&
                 GetPIDCalibrateionState(linkToHWIndex(2))!=CALIBRARTION_DONE
@@ -217,7 +219,13 @@ void hardwareInit(){
         }else{
             println_W("Axis are already calibrated");
         }
+#else
         
+        for (i = 0; i < numPidTotal; i++) {
+            getPidGroupDataTable(i)->config.calibrationState = CALIBRARTION_DONE;
+        }
+        OnPidConfigure(0);
+#endif
         
         pid.MsTime=getMs();
         //startHomingLinks();
@@ -249,10 +257,12 @@ boolean printCalibrations = false;
 boolean toggle = false;
 
 int main(){
-    //setPrintLevelInfoPrint();
-    //setPrintLevelWarningPrint();
-    setPrintLevelNoPrint();
+    setPrintLevelInfoPrint();
     hardwareInit();
+    //setPrintLevelInfoPrint();
+    setPrintLevelWarningPrint();
+    //setPrintLevelNoPrint();
+    
     RunEveryData loop = {0.0,500.0};
 
     while(1){
@@ -265,7 +275,7 @@ int main(){
 		DelayMs(100);
 		Reset();
 	}
-        
+ #if defined(CALIBRATE_ON_BOOT)
         if(     GetPIDCalibrateionState(linkToHWIndex(0))==CALIBRARTION_DONE&&
                 GetPIDCalibrateionState(linkToHWIndex(1))==CALIBRARTION_DONE&&
                 GetPIDCalibrateionState(linkToHWIndex(2))==CALIBRARTION_DONE
@@ -300,7 +310,7 @@ int main(){
                 toggle = toggle?0:1;
             }
         }
-        
+#endif
         bowlerSystem();
     }
 }
