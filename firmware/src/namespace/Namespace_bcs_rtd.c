@@ -4,15 +4,15 @@ static const char rtdNSName[] = "neuronrobotics.pid.rtd.*;0.3;;";
 static RPC_LIST pid_setSteinHartHartCoefs = {BOWLER_POST, // Method
     "sshh", //RPC as string
     &setSensorCoefs, //function pointer to a packet parsinf function
-    ((const char [5]) {
+    {
         BOWLER_I08, //chan
         BOWLER_FIXED1K,//a
         BOWLER_FIXED1K,//b
         BOWLER_FIXED1K,//c
         0
-    }), // Response arguments
+    }, // Response arguments
     BOWLER_POST, // response method
-    NULL, // Response arguments
+    {0}, // Response arguments
     NULL //Termination
 };
 
