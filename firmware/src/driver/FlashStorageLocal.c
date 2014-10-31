@@ -50,15 +50,15 @@ typedef struct _flashStorageData {
 
 #define FLASHKEY 1234567
 
-flashStorageData localData;
+static flashStorageData localData;
 #define bytesOfRaw (sizeof(localData))
 
 
-static char Alpha [] = "Alpha";
-static char Beta [] = "Beta";
-static char Gama [] = "Gama";
-static char Extruder [] = "Extruder";
-static char Heater [] = "Heater";
+char Alpha [] = "Alpha";
+char Beta [] = "Beta";
+char Gama [] = "Gama";
+char Extruder [] = "Extruder";
+char Heater [] = "Heater";
 
 boolean forwardKinematicsLocal( float Alpha, float Beta, float Gama,
                                 float * x0, float *y0, float * z0){
@@ -215,36 +215,21 @@ boolean onConfigurationGet(BowlerPacket *Packet) {
     switch (index) {
         default:
         case 0:
-            do {
-                Packet->use.data[offset + i] = Alpha[i];
-
-            }while (Packet->use.data[offset + i++]);
+            setString(Packet,Alpha,offset);
             break;
         case 1:
-
-            do {
-                Packet->use.data[offset + i] = Beta[i];
-            }while (Packet->use.data[offset + i++]);
+            setString(Packet,Beta,offset);
             break;
         case 2:
-
-            do {
-                Packet->use.data[offset + i] = Gama[i];
-            }while (Packet->use.data[offset + i++]);
+            setString(Packet,Gama,offset);
             break;
         case 3:
-            do {
-                Packet->use.data[offset + i] = Extruder[i];
-            }while (Packet->use.data[offset + i++]);
+            setString(Packet,Extruder,offset);
             break;
         case 4:
-            do {
-                Packet->use.data[offset + i] = Heater[i];
-            }while (Packet->use.data[offset + i++]);
+            setString(Packet,Heater,offset);
             break;
     }
-
-    Packet->use.data[offset + i] = 0;
     return true;
 
 }
@@ -469,11 +454,17 @@ boolean initFlashLocal() {
     println_W("Checking for bare flash");
     if(localData.flashUsageKey == FLASHKEY){
         rawFlashDetect = false;
+        println_I("OK Flash Key:  ");
+         p_int_I(localData.flashUsageKey);
+    }else{
+        println_E("Detected raw flash, Key:  ");
+         p_int_E(localData.flashUsageKey);
     }
     if (rawFlashDetect) {
         println_W("Writing default values");
+        localData.flashUsageKey=FLASHKEY;
         for (i = 0; i < numPidTotal; i++) {
-            localData.flashUsageKey=FLASHKEY;
+            
             println_E("Detected raw flash, setting defaults : ");
             p_int_E(i);
 

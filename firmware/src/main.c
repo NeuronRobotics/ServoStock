@@ -260,8 +260,8 @@ int main(){
     setPrintLevelInfoPrint();
     hardwareInit();
     //setPrintLevelInfoPrint();
-    setPrintLevelWarningPrint();
-    //setPrintLevelNoPrint();
+    //setPrintLevelWarningPrint();
+    setPrintLevelNoPrint();
     
     RunEveryData loop = {0.0,500.0};
 
