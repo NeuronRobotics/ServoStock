@@ -81,7 +81,7 @@ extern MAC_ADDR MyMAC __attribute__ ((section (".scs_global_var")));
 //  const unsigned char printNSName[]  = "bcs.printer.*;0.3;;";
 
   BowlerPacket MyPacket;
-  RunEveryData pid ={0,10};
+  RunEveryData pidRobotAsyncTimer ={0,10};
 
 //  RunEveryData pos ={0,5};
 
@@ -227,7 +227,7 @@ void hardwareInit(){
         OnPidConfigure(0);
 #endif
         
-        pid.MsTime=getMs();
+        pidRobotAsyncTimer.MsTime=getMs();
         //startHomingLinks();
 
         disableSerialComs(true) ;
@@ -240,13 +240,13 @@ void bowlerSystem(){
 
     Bowler_Server_Local(&MyPacket);
 
-    float diff = RunEvery(&pid);
+    float diff = RunEvery(&pidRobotAsyncTimer);
 
     if(diff>0){
         RunNamespaceAsync(&MyPacket,&asyncCallback);
-        if(diff>pid.setPoint){
+        if(diff>pidRobotAsyncTimer.setPoint){
             println_E("Time diff ran over! ");p_fl_E(diff);
-            pid.MsTime=getMs();
+            pidRobotAsyncTimer.MsTime=getMs();
         }
          cartesianAsync();
     }
