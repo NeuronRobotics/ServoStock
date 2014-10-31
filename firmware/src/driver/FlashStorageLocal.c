@@ -50,7 +50,7 @@ typedef struct _flashStorageData {
 
 #define FLASHKEY 1234567
 
-static flashStorageData localData;
+ flashStorageData localData;
 #define bytesOfRaw (sizeof(localData))
 
 

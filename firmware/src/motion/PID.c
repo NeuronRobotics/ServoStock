@@ -1,9 +1,9 @@
 #include "main.h"
 
-//static PD_VEL vel[numPidTotal];
-static PidLimitEvent limits[numPidTotal];
+//  PD_VEL vel[numPidTotal];
+  PidLimitEvent limits[numPidTotal];
 
-static AbsPID pidGroupsLocal[numPidTotal];
+  AbsPID pidGroupsLocal[numPidTotal];
 
 float getPositionMine(int group);
 void setOutputMine(int group, float val);

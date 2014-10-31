@@ -77,17 +77,17 @@ extern const MAC_ADDR Broadcast __attribute__ ((section (".scs_global_var")));
 extern MAC_ADDR MyMAC __attribute__ ((section (".scs_global_var")));
 
 
-//static const unsigned char deltaNSName[] = "bcs.delta.*;0.3;;";
-//static const unsigned char printNSName[]  = "bcs.printer.*;0.3;;";
+//  const unsigned char deltaNSName[] = "bcs.delta.*;0.3;;";
+//  const unsigned char printNSName[]  = "bcs.printer.*;0.3;;";
 
-static BowlerPacket MyPacket;
-static RunEveryData pid ={0,10};
+  BowlerPacket MyPacket;
+  RunEveryData pid ={0,10};
 
-//static RunEveryData pos ={0,5};
+//  RunEveryData pos ={0,5};
 
 
-static float height = 0;
-static int j=0,i=0;
+  float height = 0;
+  int j=0,i=0;
 
 
 uint8_t Bowler_Server_Local(BowlerPacket * Packet){

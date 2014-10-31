@@ -1,7 +1,7 @@
 #include "main.h"
-static const char rtdNSName[] = "neuronrobotics.pid.rtd.*;0.3;;";
+  const char rtdNSName[] = "neuronrobotics.pid.rtd.*;0.3;;";
 
-static RPC_LIST pid_setSteinHartHartCoefs = {BOWLER_POST, // Method
+  RPC_LIST pid_setSteinHartHartCoefs = {BOWLER_POST, // Method
     "sshh", //RPC as string
     &setSensorCoefs, //function pointer to a packet parsinf function
     {
@@ -16,23 +16,23 @@ static RPC_LIST pid_setSteinHartHartCoefs = {BOWLER_POST, // Method
     NULL //Termination
 };
 
-static NAMESPACE_LIST neuronroboticsPidRTD = {rtdNSName, // The string defining the namespace
+  NAMESPACE_LIST neuronroboticsPidRTD = {rtdNSName, // The string defining the namespace
     NULL, // the first element in the RPC list
     &PidRTDAsyncEventCallback, // async for this namespace
     NULL// no initial elements to the other namesapce field.
 };
 
-static boolean namespcaedAdded = false;
+boolean namespcaedAddedBcsRtd = false;
 
 NAMESPACE_LIST * getNeuronroboticsPidRTD() {
-    if (!namespcaedAdded) {
+    if (!namespcaedAddedBcsRtd) {
         //POST
         //Add the RPC structs to the namespace
         addRpcToNamespace(&neuronroboticsPidRTD, & pid_setSteinHartHartCoefs);
         //addRpcToNamespace(&neuronroboticsPidRTD, & cartesian__SLI);
 
 
-        namespcaedAdded = true;
+        namespcaedAddedBcsRtd = true;
     }
 
     return &neuronroboticsPidRTD; //Return pointer to the struct

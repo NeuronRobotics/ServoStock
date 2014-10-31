@@ -9,32 +9,32 @@ void updateCurrentPositions();
 float getLinkScale(int index);
 
 
-static int homingAllLinks = false;
+  int homingAllLinks = false;
 
-static PACKET_FIFO_STORAGE packetFifo;
-static BowlerPacket buffer[SIZE_OF_PACKET_BUFFER];
-static BowlerPacket linTmpPack;
-static BowlerPacket packetTemp;
-static PD_VEL velCartesian[3];
-static AbsPID taskPID[3];
+  PACKET_FIFO_STORAGE packetFifo;
+  BowlerPacket buffer[SIZE_OF_PACKET_BUFFER];
+  BowlerPacket linTmpPack;
+  BowlerPacket packetTemp;
+  PD_VEL velCartesian[3];
+  AbsPID taskPID[3];
 
 //float scale = -1.0*mmPerTick;
-//static float extrusionScale = 1/(((float)ticksPerRev)/100.00);
+//  float extrusionScale = 1/(((float)ticksPerRev)/100.00);
 
-static float current[3];
-static boolean full = false;
-static boolean configured = false;
+  float current[3];
+  boolean full = false;
+  boolean configured = false;
 
 
-static int lastPushedBufferSize = 0;
-static float lastXYZE[6];
+  int lastPushedBufferSize = 0;
+  float lastXYZE[6];
 
-static RunEveryData pid = {0, 100};
+  RunEveryData pid = {0, 100};
 
-//static boolean keepCartesianPosition = false;
-static int interpolationCounter = 0;
-static boolean runKinematics = false;
-static boolean pausePrint = false;
+//  boolean keepCartesianPosition = false;
+  int interpolationCounter = 0;
+  boolean runKinematics = false;
+  boolean pausePrint = false;
 
 boolean onRunKinematicsSet(BowlerPacket *Packet) {
     runKinematics = Packet->use.data[0]; // Boolean to run the kinematics or not
