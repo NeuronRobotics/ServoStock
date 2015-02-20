@@ -4,17 +4,24 @@
 # NOCDDL
 #
 CND_BASEDIR=`pwd`
-# debug configuration
-CND_ARTIFACT_DIR_debug=dist/debug/production
-CND_ARTIFACT_NAME_debug=firmware.production.hex
-CND_ARTIFACT_PATH_debug=dist/debug/production/firmware.production.hex
-CND_PACKAGE_DIR_debug=${CND_DISTDIR}/debug/package
-CND_PACKAGE_NAME_debug=firmware.tar
-CND_PACKAGE_PATH_debug=${CND_DISTDIR}/debug/package/firmware.tar
-# Bootload configuration
-CND_ARTIFACT_DIR_Bootload=dist/Bootload/production
-CND_ARTIFACT_NAME_Bootload=firmware.production.hex
-CND_ARTIFACT_PATH_Bootload=dist/Bootload/production/firmware.production.hex
-CND_PACKAGE_DIR_Bootload=${CND_DISTDIR}/Bootload/package
-CND_PACKAGE_NAME_Bootload=firmware.tar
-CND_PACKAGE_PATH_Bootload=${CND_DISTDIR}/Bootload/package/firmware.tar
+# debugRev3 configuration
+CND_ARTIFACT_DIR_debugRev3=dist/debugRev3/production
+CND_ARTIFACT_NAME_debugRev3=firmware.production.hex
+CND_ARTIFACT_PATH_debugRev3=dist/debugRev3/production/firmware.production.hex
+CND_PACKAGE_DIR_debugRev3=${CND_DISTDIR}/debugRev3/package
+CND_PACKAGE_NAME_debugRev3=firmware.tar
+CND_PACKAGE_PATH_debugRev3=${CND_DISTDIR}/debugRev3/package/firmware.tar
+# BootloadRev3 configuration
+CND_ARTIFACT_DIR_BootloadRev3=dist/BootloadRev3/production
+CND_ARTIFACT_NAME_BootloadRev3=firmware.production.hex
+CND_ARTIFACT_PATH_BootloadRev3=dist/BootloadRev3/production/firmware.production.hex
+CND_PACKAGE_DIR_BootloadRev3=${CND_DISTDIR}/BootloadRev3/package
+CND_PACKAGE_NAME_BootloadRev3=firmware.tar
+CND_PACKAGE_PATH_BootloadRev3=${CND_DISTDIR}/BootloadRev3/package/firmware.tar
+# debugRev4 configuration
+CND_ARTIFACT_DIR_debugRev4=dist/debugRev4/production
+CND_ARTIFACT_NAME_debugRev4=firmware.production.hex
+CND_ARTIFACT_PATH_debugRev4=dist/debugRev4/production/firmware.production.hex
+CND_PACKAGE_DIR_debugRev4=${CND_DISTDIR}/debugRev4/package
+CND_PACKAGE_NAME_debugRev4=firmware.tar
+CND_PACKAGE_PATH_debugRev4=${CND_DISTDIR}/debugRev4/package/firmware.tar

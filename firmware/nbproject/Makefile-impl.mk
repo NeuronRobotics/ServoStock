@@ -27,11 +27,11 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 PROJECTNAME=firmware
 
 # Active Configuration
-DEFAULTCONF=Bootload
+DEFAULTCONF=debugRev4
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=debug Bootload 
+ALLCONFS=debugRev3 BootloadRev3 debugRev4 
 
 
 # build
@@ -45,15 +45,17 @@ ALLCONFS=debug Bootload
 
 # clobber
 .clobber-impl: .clobber-pre .depcheck-impl
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=debug clean
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=Bootload clean
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=debugRev3 clean
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=BootloadRev3 clean
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=debugRev4 clean
 
 
 
 # all
 .all-impl: .all-pre .depcheck-impl
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=debug build
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=Bootload build
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=debugRev3 build
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=BootloadRev3 build
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=debugRev4 build
 
 
 
