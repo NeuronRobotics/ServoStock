@@ -17,7 +17,7 @@ void initPIDLocal() {
     uint8_t i;
     //uint16_t loop;
     for (i = 0; i < numPidTotal; i++) {
-        println_I("Loading PID ");p_int_I(i);
+//        println_I("Loading PID ");p_int_I(i);
         pidGroupsLocal[i].vel.enabled = false;
         limits[i].type = NO_LIMIT;
         pidGroupsLocal[i].config.Enabled = false;
@@ -40,7 +40,7 @@ void initPIDLocal() {
         pidGroupsLocal[i].interpolate.setTime=0;
         pidGroupsLocal[i].interpolate.start=0;
         pidGroupsLocal[i].interpolate.startTime=0;
-        println_I("Interpolation check ");
+//        println_I("Interpolation check ");
         interpolate(&pidGroupsLocal[i].interpolate,getMs());
     }
 
@@ -87,12 +87,12 @@ PidLimitEvent * checkPIDLimitEventsMine(uint8_t group) {
 }
 
 int resetPositionMine(int group, int current) {
-    println_I("Resetting PID Local ");
-    p_int_I(group);
-    print_I(" to ");
-    p_int_I(current);
-    print_I(" from ");
-    p_fl_I(getPositionMine(group));
+//    println_I("Resetting PID Local ");
+//    p_int_I(group);
+//    print_I(" to ");
+//    p_int_I(current);
+//    print_I(" from ");
+//    p_fl_I(getPositionMine(group));
     if (group < numPidMotors) {
         //setCurrentValue(group, current);
     } else {

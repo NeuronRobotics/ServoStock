@@ -30,7 +30,7 @@
  ********************************************************************/
 
 #include "main.h"
-
+#if !defined(Bootloader)
 #ifdef USB_A0_SILICON_WORK_AROUND
 	#pragma config UPLLEN   = OFF       // USB PLL Enabled (A0 bit inverted)
 #else
@@ -63,8 +63,9 @@
     #pragma config FVBUSONIO = OFF //Shuts off control of VBUSON pin on RB5
 #endif
 
-#define SYS_FREQ 			(80000000L)
+#endif
 
+#define SYS_FREQ 			(80000000L)
 //#define CALIBRATE_SERVO
 //#define CALIBRATE
 //#define NO_PID

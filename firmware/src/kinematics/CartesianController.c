@@ -2,7 +2,7 @@
 #if defined(__32MX795F512L__)
 #define SIZE_OF_PACKET_BUFFER 400
 #elif defined(__32MX440F128H__)
-#define SIZE_OF_PACKET_BUFFER 60
+#define SIZE_OF_PACKET_BUFFER 2
 #endif
 
 void updateCurrentPositions();
@@ -12,8 +12,8 @@ float getLinkScale(int index);
   int homingAllLinks = false;
 
   PACKET_FIFO_STORAGE packetFifo;
-  BowlerPacket buffer[SIZE_OF_PACKET_BUFFER];
-  BowlerPacket linTmpPack;
+ BowlerPacket buffer[SIZE_OF_PACKET_BUFFER];
+//BowlerPacket linTmpPack;
   BowlerPacket packetTemp;
   PD_VEL velCartesian[3];
   AbsPID taskPID[3];
@@ -42,7 +42,7 @@ boolean onRunKinematicsSet(BowlerPacket *Packet) {
 }
 
 boolean setDesiredTaskSpaceTransform(BowlerPacket *Packet) {
-    println_E("setDesiredTaskSpaceTransform");
+//    println_E("setDesiredTaskSpaceTransform");
     float x = get32bit(Packet, 0) / 1000;
     float y = get32bit(Packet, 4) / 1000;
     float z = get32bit(Packet, 8) / 1000;
@@ -63,18 +63,18 @@ boolean setDesiredTaskSpaceTransform(BowlerPacket *Packet) {
         set32bit(Packet, getLinkAngle(3)*1000, 13);
         set32bit(Packet, getLinkAngle(4)*1000, 17);
     } else {
-        println_E("Ignoring: Can't reach: x=");
-        p_fl_E(x);
-        print_E(" y=");
-        p_fl_E(y);
-        print_E(" z=");
-        p_fl_E(z);
+//        println_E("Ignoring: Can't reach: x=");
+//        p_fl_E(x);
+//        print_E(" y=");
+//        p_fl_E(y);
+//        print_E(" z=");
+//        p_fl_E(z);
     }
     return true;
 }
 
 boolean getCurrentTaskSpaceTransform(BowlerPacket *Packet) {
-    println_E("getCurrentTaskSpaceTransform");
+    //println_E("getCurrentTaskSpaceTransform");
 
     float x = 0, y = 0, z = 0;
     if (forwardKinematicsLocal(getLinkAngle(0), getLinkAngle(1), getLinkAngle(2), &x, &y, &z) == 0) {
@@ -88,12 +88,12 @@ boolean getCurrentTaskSpaceTransform(BowlerPacket *Packet) {
         set32bit(Packet, 0 * 1000, 20);
         set32bit(Packet, 1 * 1000, 24);
     } else {
-        println_E("Ignoring: Can't reach: x=");
-        p_fl_E(x);
-        print_E(" y=");
-        p_fl_E(y);
-        print_E(" z=");
-        p_fl_E(z);
+//        println_E("Ignoring: Can't reach: x=");
+//        p_fl_E(x);
+//        print_E(" y=");
+//        p_fl_E(y);
+//        print_E(" z=");
+//        p_fl_E(z);
     }
     return true;
 }
@@ -109,9 +109,9 @@ boolean setDesiredJointSpaceVector(BowlerPacket *Packet) {
     float tempreture = get32bit(Packet, 17) / 1000;
 
     float ms = get32bit(Packet, 1 + numJoints * 4);
-    println_E("setDesiredJointSpaceVector ");
-    p_int_E(numJoints);
-    printPacket(Packet, ERROR_PRINT);
+//    println_E("setDesiredJointSpaceVector ");
+//    p_int_E(numJoints);
+//    printPacket(Packet, ERROR_PRINT);
 
     float x = 0, y = 0, z = 0;
     if (forwardKinematicsLocal(j0, j1, j2, &x, &y, &z) == 0) {
@@ -130,18 +130,18 @@ boolean setDesiredJointSpaceVector(BowlerPacket *Packet) {
             set32bit(Packet, 1 * 1000, 24);
         }
     } else {
-        println_E("Ignoring: Can't reach x=");
-        p_fl_E(x);
-        print_E(" y=");
-        p_fl_E(y);
-        print_E(" z=");
-        p_fl_E(z);
+//        println_E("Ignoring: Can't reach x=");
+//        p_fl_E(x);
+//        print_E(" y=");
+//        p_fl_E(y);
+//        print_E(" z=");
+//        p_fl_E(z);
     }
     return true;
 }
 
 boolean setDesiredJointAxisValue(BowlerPacket *Packet) {
-    println_E("setDesiredJointAxisValue");
+//    println_E("setDesiredJointAxisValue");
 
     setLinkAngle(Packet->use.data[0], get32bit(Packet, 1) / 1000, get32bit(Packet, 5));
 
@@ -330,7 +330,7 @@ void processLinearInterpPacket(BowlerPacket * Packet) {
             ERR(Packet, 33, 34);
         }
     } else {
-        println_E("Wrong packet type!");
+//        println_E("Wrong packet type!");
         printPacket(Packet, ERROR_PRINT);
     }
 }
@@ -338,8 +338,8 @@ void processLinearInterpPacket(BowlerPacket * Packet) {
 boolean onPausePrinter(BowlerPacket *Packet) {
     if (Packet->use.head.Method == BOWLER_POST) {
         pausePrint = Packet->use.data[0];
-        println_W("Pausing print ");
-        p_int_W(pausePrint);
+//        println_W("Pausing print ");
+//        p_int_W(pausePrint);
         READY(Packet, 35, 35);
     } else {
         Packet->use.data[0] = pausePrint;
@@ -370,8 +370,8 @@ boolean onCartesianPost(BowlerPacket *Packet) {
         if (Packet->use.data[0] == 1) {
             processLinearInterpPacket(Packet);
         } else {
-            println_I("Cached linear Packet ");
-            p_int_I(FifoGetPacketSpaceAvailible(&packetFifo));
+//            println_I("Cached linear Packet ");
+//            p_int_I(FifoGetPacketSpaceAvailible(&packetFifo));
             FifoAddPacket(&packetFifo, Packet);
         }
         Packet->use.head.Method = BOWLER_STATUS;
@@ -394,8 +394,8 @@ boolean onCartesianPost(BowlerPacket *Packet) {
         }
 
     } else {
-        println_I("###ERROR BUFFER FULL!!");
-        p_int_I(FifoGetPacketSpaceAvailible(&packetFifo));
+//        println_I("###ERROR BUFFER FULL!!");
+//        p_int_I(FifoGetPacketSpaceAvailible(&packetFifo));
 
         ERR(Packet, 33, 33);
     }
@@ -405,7 +405,7 @@ boolean onCartesianPost(BowlerPacket *Packet) {
 void cancelPrint() {
     Print_Level l = getPrintLevel();
 
-    println_W("Cancel Print");
+//    println_W("Cancel Print");
     setPrintLevel(l);
     InitPacketFifo(&packetFifo, buffer, SIZE_OF_PACKET_BUFFER);
 
@@ -428,12 +428,12 @@ void runInterpolatedPositions() {
 void setVelocity(int index, float jointSpace) {
     float value = (jointSpace /
             getLinkScale(index));
-    println_I("V ");
-    p_int_I(index);
-    print_I(" = ");
-    p_fl_I(jointSpace);
-    print_I(" : ");
-    p_fl_I(value);
+//    println_I("V ");
+//    p_int_I(index);
+//    print_I(" = ");
+//    p_fl_I(jointSpace);
+//    print_I(" : ");
+//    p_fl_I(value);
     setOutput(linkToHWIndex(index),
             value);
 }
@@ -495,7 +495,7 @@ void runStateBasedController() {
         setVelocity(2, Cd * getVKP());
 
     } else {
-        println_E("Inverse velocity kinematics failed");
+//        println_E("Inverse velocity kinematics failed");
     }
     //    setPrintLevelNoPrint();
 
@@ -521,9 +521,9 @@ void interpolateZXY() {
     if (isCartesianInterpolationDone() == true) {
         if (FifoGetPacketCount(&packetFifo) > 0) {
             if (pausePrint == false) {
-                println_W("Loading new packet ");
-                if (FifoGetPacket(&packetFifo, &linTmpPack)) {
-                    processLinearInterpPacket(&linTmpPack);
+//                println_W("Loading new packet ");
+                if (FifoGetPacket(&packetFifo, &packetTemp)) {
+                    processLinearInterpPacket(&packetTemp);
                 }
             }
         }
@@ -538,20 +538,20 @@ uint8_t setInterpolateXYZ(float x, float y, float z, float ms, boolean force) {
     updateCurrentPositions();
     float tmp[3] = {x, y, z};
     float mmToGo = 0;
-    println_W("Setting new position x=");
-    p_fl_W(x);
-    print_W(" y=");
-    p_fl_W(y);
-    print_W(" z=");
-    p_fl_W(z);
-    print_W(" Time MS=");
-    p_fl_W(ms);
-    println_W("Current  position cx=");
-    p_fl_W(current[0]);
-    print_W(" cy=");
-    p_fl_W(current[1]);
-    print_W(" cz=");
-    p_fl_W(current[2]);
+//    println_W("Setting new position x=");
+//    p_fl_W(x);
+//    print_W(" y=");
+//    p_fl_W(y);
+//    print_W(" z=");
+//    p_fl_W(z);
+//    print_W(" Time MS=");
+//    p_fl_W(ms);
+//    println_W("Current  position cx=");
+//    p_fl_W(current[0]);
+//    print_W(" cy=");
+//    p_fl_W(current[1]);
+//    print_W(" cz=");
+//    p_fl_W(current[2]);
     if(force == false){
         for (i = 0; i < 3; i++) {
             mmToGo = (tmp[i] - current[i]);
@@ -559,26 +559,26 @@ uint8_t setInterpolateXYZ(float x, float y, float z, float ms, boolean force) {
                 mmToGo *= -1;
             if (ms <= 0.0) {
                 ms = (mmToGo / getmmaximumMMperSec())*1000.0;
-                println_W("Degenerate Capped to ");
-                p_fl_W(ms);
-                print_W(" mm=");
-                p_fl_W(mmToGo);
-                print_W(" max=");
-                p_fl_W(getmmaximumMMperSec());
+//                println_W("Degenerate Capped to ");
+//                p_fl_W(ms);
+//                print_W(" mm=");
+//                p_fl_W(mmToGo);
+//                print_W(" max=");
+//                p_fl_W(getmmaximumMMperSec());
             } else {
                 valocity_calculated = (mmToGo /
                         (ms / 1000.0));
-                println_W("Setting new position FEED RATE =");
-                p_fl_W(valocity_calculated);
-                print_W(" mm=");
-                p_fl_W(mmToGo);
+//                println_W("Setting new position FEED RATE =");
+//                p_fl_W(valocity_calculated);
+//                print_W(" mm=");
+//                p_fl_W(mmToGo);
                 if (valocity_calculated > getmmaximumMMperSec()) {
 
                     ms = (mmToGo / getmmaximumMMperSec()) * 1000.0;
-                    print_W(" Capped to=");
-                    p_fl_W(ms);
-                    print_W(" max=");
-                    p_fl_W(getmmaximumMMperSec());
+//                    print_W(" Capped to=");
+//                    p_fl_W(ms);
+//                    print_W(" max=");
+//                    p_fl_W(getmmaximumMMperSec());
 
                 }
             }
@@ -600,18 +600,18 @@ uint8_t setInterpolateXYZ(float x, float y, float z, float ms, boolean force) {
     runKinematics = true;
 
     if (ms == 0) {
-        println_I("Setting values directly");
+//        println_I("Setting values directly");
         setXYZ(x, y, z, 0);
     } else {
         if (kinematicsUseStateBasedVelocity() == false) {
-            println_I("Setting values with linear interpolation");
+//            println_I("Setting values with linear interpolation");
             start = getMs();
             x = interpolate(& taskPID[0].interpolate, start);
             y = interpolate(& taskPID[1].interpolate, start);
             z = interpolate(& taskPID[2].interpolate, start);
             setXYZ(x, y, z, 0);
         } else {
-            println_I("Using the State-based velocity controller");
+//            println_I("Using the State-based velocity controller");
 
         }
     }
@@ -627,22 +627,22 @@ uint8_t setXYZ(float x, float y, float z, float ms) {
     updateCurrentPositions();
     float t0 = 0, t1 = 0, t2 = 0;
     if (inverseKinematicsLocal(x, y, z, &t0, &t1, &t2) == 0) {
-        println_I("New target angles t1=");
-        p_fl_I(t0);
-        print_I(" t2=");
-        p_fl_I(t1);
-        print_I(" t3=");
-        p_fl_I(t2);
+//        println_I("New target angles t1=");
+//        p_fl_I(t0);
+//        print_I(" t2=");
+//        p_fl_I(t1);
+//        print_I(" t3=");
+//        p_fl_I(t2);
         setLinkAngle(0, t0, ms);
         setLinkAngle(1, t1, ms);
         setLinkAngle(2, t2, ms);
     } else {
-        println_E("Interpolate failed, can't reach: x=");
-        p_fl_E(x);
-        print_E(" y=");
-        p_fl_E(y);
-        print_E(" z=");
-        p_fl_E(z);
+//        println_E("Interpolate failed, can't reach: x=");
+//        p_fl_E(x);
+//        print_E(" y=");
+//        p_fl_E(y);
+//        print_E(" z=");
+//        p_fl_E(z);
     }
     return 0;
 }
@@ -667,7 +667,7 @@ float setLinkAngle(int index, float value, float ms) {
 }
 
 void startHomingLinks() {
-    println_W("Homing links for kinematics");
+//    println_W("Homing links for kinematics");
 
     homingAllLinks = true;
     int i;
@@ -678,7 +678,7 @@ void startHomingLinks() {
                 CALIBRARTION_home_down,
                 (data[i] + getRodLength() - 100) / getLinkScale(i));
     }
-    println_W("Started Homing...");
+//    println_W("Started Homing...");
 }
 
 void HomeLinks() {
@@ -692,7 +692,7 @@ void HomeLinks() {
                 ) {
             homingAllLinks = false;
             configured = true;
-            println_W("All linkes reported in");
+//            println_W("All linkes reported in");
 
             cancelPrint();
             setInterpolateXYZ(0, 0, getmaxZ(), 0,false);
@@ -701,17 +701,17 @@ void HomeLinks() {
 }
 
 void printXYZ(int xyz) {
-    switch (xyz) {
-        case 0:
-            print_W("X");
-            break;
-        case 1:
-            print_W("Y");
-            break;
-        case 2:
-            print_W("Z");
-            break;
-    }
+//    switch (xyz) {
+//        case 0:
+//            print_W("X");
+//            break;
+//        case 1:
+//            print_W("Y");
+//            break;
+//        case 2:
+//            print_W("Z");
+//            break;
+//    }
 }
 
 void printCartesianData() {
@@ -720,20 +720,20 @@ void printCartesianData() {
 
     float error = 0;
     for (i = 0; i < 3; i++) {
-        println_W(" ");
-        printXYZ(i);
-        print_W(" Data: ");
-        println_W("\tCurrent");
-        p_fl_W(current[i]);
-        println_W("\tTarget");
-        p_fl_W(taskPID[i].interpolate.set);
+//        println_W(" ");
+//        printXYZ(i);
+//        print_W(" Data: ");
+//        println_W("\tCurrent");
+//        p_fl_W(current[i]);
+//        println_W("\tTarget");
+//        p_fl_W(taskPID[i].interpolate.set);
         error = taskPID[i].interpolate.set - current[i];
         if (bound(0, error, getmmPositionResolution(), getmmPositionResolution())) {
-            println_W("\tERROR=");
-            p_fl_W(error);
+//            println_W("\tERROR=");
+//            p_fl_W(error);
         } else {
-            println_E("\tERROR=");
-            p_fl_E(error);
+//            println_E("\tERROR=");
+//            p_fl_E(error);
         }
     }
 }
