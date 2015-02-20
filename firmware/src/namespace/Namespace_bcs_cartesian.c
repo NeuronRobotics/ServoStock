@@ -1,6 +1,6 @@
 #include "main.h"
 
-  const char cartNSName[] = "bcs.cartesian.*;0.3;;";
+ // const char cartNSName[] = "bcs.cartesian.*;0.3;;";
 
 boolean cartesianAsyncEventCallback(BowlerPacket * Packet, boolean(*pidAsyncCallbackPtr)(BowlerPacket *Packet)) {
 
@@ -307,7 +307,7 @@ boolean cartesianAsyncEventCallback(BowlerPacket * Packet, boolean(*pidAsyncCall
 };
 
 
-  NAMESPACE_LIST bcsCartesian = {cartNSName, // The string defining the namespace
+  NAMESPACE_LIST bcsCartesian = {"bcs.cartesian.*;0.3;;", // The string defining the namespace
     NULL, // the first element in the RPC list
     &cartesianAsyncEventCallback, // async for this namespace
     NULL// no initial elements to the other namesapce field.

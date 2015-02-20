@@ -1,5 +1,5 @@
 #include "main.h"
-  const char rtdNSName[] = "neuronrobotics.pid.rtd.*;0.3;;";
+  //const char rtdNSName[] = "neuronrobotics.pid.rtd.*;0.3;;";
 
   RPC_LIST pid_setSteinHartHartCoefs = {BOWLER_POST, // Method
     "sshh", //RPC as string
@@ -16,7 +16,7 @@
     NULL //Termination
 };
 
-  NAMESPACE_LIST neuronroboticsPidRTD = {rtdNSName, // The string defining the namespace
+  NAMESPACE_LIST neuronroboticsPidRTD = { "neuronrobotics.pid.rtd.*;0.3;;", // The string defining the namespace
     NULL, // the first element in the RPC list
     &PidRTDAsyncEventCallback, // async for this namespace
     NULL// no initial elements to the other namesapce field.
