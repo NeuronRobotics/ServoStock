@@ -23,7 +23,7 @@ extern "C" {
     #define     CloseSPIOpenCollector() mPORTGOpenDrainClose(BIT_6);\
                                         mPORTGOpenDrainClose(BIT_7);
 
-#define Rev4
+//#define Rev4
 #ifdef Rev4
  // eNCODER Connector macros and defines
 	//PORT 0

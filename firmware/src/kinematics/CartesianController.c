@@ -35,6 +35,7 @@ static boolean keepCartesianPosition = false;
 static int interpolationCounter = 0;
 static boolean runKinematics = false;
 static boolean pausePrint = false;
+uint8_t linkIndexInternal ;
 
 boolean onRunKinematicsSet(BowlerPacket *Packet) {
     runKinematics = Packet->use.data[0]; // Boolean to run the kinematics or not
@@ -156,9 +157,9 @@ boolean onConfigurationSet(BowlerPacket *Packet) {
 
 boolean onConfigurationGet(BowlerPacket *Packet) {
     Packet->use.head.DataLegnth = 4;
-    uint8_t index = Packet->use.data[0]; // joint space requested index
-
-    Packet->use.data[0] = linkToHWIndex(index); // the PID link maped
+    linkIndexInternal = Packet->use.data[0]; // joint space requested index
+    Packet->use.head.DataLegnth=4;
+    Packet->use.data[0] = linkToHWIndex(linkIndexInternal); // the PID link maped
     Packet->use.head.DataLegnth++;
     Packet->use.data[1] = 5; // 5 active axis
     Packet->use.head.DataLegnth++;
@@ -168,13 +169,13 @@ boolean onConfigurationGet(BowlerPacket *Packet) {
     Packet->use.head.DataLegnth += 4;
     set32bit(Packet, 100000, 10);
     Packet->use.head.DataLegnth += 4;
-    set32bit(Packet, getLinkScale(index)*1000, 14);
+    set32bit(Packet, getLinkScale(linkIndexInternal)*1000, 14);
     Packet->use.head.DataLegnth += 4;
 
     int i = 0;
     int offset = Packet->use.head.DataLegnth - 4;
-    while (getName(index)[i]) {
-        Packet->use.data[offset + i] = getName(index)[i];
+    while (getName(linkIndexInternal)[i] && i<10) {
+        Packet->use.data[offset + i] = getName(linkIndexInternal)[i];
         i++;
         Packet->use.head.DataLegnth++;
     }
