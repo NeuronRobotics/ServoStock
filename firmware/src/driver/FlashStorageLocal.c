@@ -108,11 +108,11 @@ void setKinematicsMath(){
             localData.hwMap.iK_callback=(inverseKinematics *) & box_calcInverse;
             localData.hwMap.useStateBasedVelocity=false;
             break;
-        case 2:
-            localData.hwMap.fK_callback = (forwardKinematics *)& frog_calcForward;
-            localData.hwMap.iK_callback=(inverseKinematics *) & frog_calcInverse;
-            localData.hwMap.useStateBasedVelocity=false;
-            break;
+//        case 2:
+//            localData.hwMap.fK_callback = (forwardKinematics *)& frog_calcForward;
+//            localData.hwMap.iK_callback=(inverseKinematics *) & frog_calcInverse;
+//            localData.hwMap.useStateBasedVelocity=false;
+//            break;
     }
 }
 
@@ -416,32 +416,32 @@ void checkDataTable() {
 boolean initFlashLocal() {
 
     if (bytesOfRaw > 0x1000 - FLASHSTORE) {
-        println_E("Too much data to store");
+//        println_E("Too much data to store");
         Reset();
     }
     if (bytesOfRaw % 4) {
-        println_E("BAD FLASH size = ");
-        p_int_W(bytesOfRaw % 4);
+//        println_E("BAD FLASH size = ");
+//        p_int_W(bytesOfRaw % 4);
         while (1);
     }
     
 
-    println_W("Size of Flash page pages = ");
-    p_int_W(bytesOfRaw / 4);
-    print_W(", bytes = ");
-    p_int_W(bytesOfRaw);
+//    println_W("Size of Flash page pages = ");
+//    p_int_W(bytesOfRaw / 4);
+//    print_W(", bytes = ");
+//    p_int_W(bytesOfRaw);
 
     SetFlashData((uint32_t *) & localData, bytesOfRaw / 4);
     FlashLoad();
-    println_W("Flash loaded");
+//    println_W("Flash loaded");
 
     int i = 0, j = 0; // index;
 
     boolean rawFlashDetect = true;
 
     for (i = 0; i < numPidTotal; i++) {
-        println_W("Setting PID #");
-        p_int_W(i);
+//        println_W("Setting PID #");
+//        p_int_W(i);
         unsigned char * raw = (unsigned char *) & getPidGroupDataTable(i)->config;
         unsigned char * data = (unsigned char *) & localData.localPid[i];
         for (j = 0; j<sizeof (AbsPID_Config); j++) {
@@ -451,22 +451,22 @@ boolean initFlashLocal() {
 
 
 
-    println_W("Checking for bare flash");
+//    println_W("Checking for bare flash");
     if(localData.flashUsageKey == FLASHKEY){
         rawFlashDetect = false;
-        println_I("OK Flash Key:  ");
-         p_int_I(localData.flashUsageKey);
+//        println_I("OK Flash Key:  ");
+//         p_int_I(localData.flashUsageKey);
     }else{
-        println_E("Detected raw flash, Key:  ");
-         p_int_E(localData.flashUsageKey);
+//        println_E("Detected raw flash, Key:  ");
+//         p_int_E(localData.flashUsageKey);
     }
     if (rawFlashDetect) {
-        println_W("Writing default values");
+//        println_W("Writing default values");
         localData.flashUsageKey=FLASHKEY;
         for (i = 0; i < numPidTotal; i++) {
             
-            println_E("Detected raw flash, setting defaults : ");
-            p_int_E(i);
+//            println_E("Detected raw flash, setting defaults : ");
+//            p_int_E(i);
 
             getPidGroupDataTable(i)->config.Enabled = false;
             getPidGroupDataTable(i)->config.Async = true;
@@ -598,7 +598,7 @@ boolean initFlashLocal() {
 
 
     } else {
-        println_W("Flash image ok");
+//        println_W("Flash image ok");
         setKinematicsMath();
     }
     if (rawFlashDetect)
@@ -610,10 +610,10 @@ boolean initFlashLocal() {
 void writeFlashLocal() {
 
     if (bytesOfRaw > 0x1000 - FLASHSTORE) {
-        println_E("Too much data to store");
+//        println_E("Too much data to store");
         Reset();
     }
-    println_W("Writing values to Flash");
+//    println_W("Writing values to Flash");
     int i = 0, j = 0; //, index;
     for (i = 0; i < numPidTotal; i++) {
 

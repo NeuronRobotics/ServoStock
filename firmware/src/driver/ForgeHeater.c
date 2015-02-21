@@ -48,7 +48,7 @@ void initializeHeater(){
     ConfigIntTimer3(T3_INT_ON | T3_INT_PRIOR_4);
     Print_Level l = getPrintLevel();
     setPrintLevelInfoPrint();
-    println_I("Starting PID ISR");
+//    println_I("Starting PID ISR");
     setPrintLevel(l);
     HEATER_0_TRIS;
     HEATER_1_TRIS;

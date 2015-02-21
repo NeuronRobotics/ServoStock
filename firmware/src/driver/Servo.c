@@ -13,7 +13,7 @@ int sort[dataTableSize];
 int lastValue=0;
 int sortedIndex = 0;
 
-void delayLoop();
+//void delayLoop();
 
 ServoState servoStateMachineCurrentState = LOW;
 
@@ -46,27 +46,27 @@ void runSort(){
 }
 
 void printSortedData(){
-    int x;
-    print_I("Servo Data \r\n[ ");
-
-    for(x=0;x<dataTableSize;x++){
-        p_int_I(positionTemp[x]);print_I(" , ");
-    }
-    print_I(" ] ");
-
-    print_I("\r\n[ ");
-
-    for(x=0;x<dataTableSize;x++){
-        p_int_I(sort[x]);print_I(" , ");
-    }
-    print_I(" ] ");
-
-    print_I("\r\n[ ");
-
-    for(x=0;x<dataTableSize;x++){
-        p_int_I(positionTemp[sort[x]]);print_I(" , ");
-    }
-    print_I(" ] ");
+//    int x;
+//    print_I("Servo Data \r\n[ ");
+//
+//    for(x=0;x<dataTableSize;x++){
+//        p_int_I(positionTemp[x]);print_I(" , ");
+//    }
+//    print_I(" ] ");
+//
+//    print_I("\r\n[ ");
+//
+//    for(x=0;x<dataTableSize;x++){
+//        p_int_I(sort[x]);print_I(" , ");
+//    }
+//    print_I(" ] ");
+//
+//    print_I("\r\n[ ");
+//
+//    for(x=0;x<dataTableSize;x++){
+//        p_int_I(positionTemp[sort[x]]);print_I(" , ");
+//    }
+//    print_I(" ] ");
 }
 
 void setServoTimer(int value){
@@ -103,7 +103,7 @@ boolean setUpNextServo(){
     lastValue = positionTemp[sort[sortedIndex]];
     if(diff<0){
         setPrintLevelErrorPrint();
-        println_E("Servo.c: Something is wrong!! Current minus last value is less then 0");
+//        println_E("Servo.c: Something is wrong!! Current minus last value is less then 0");
         while(1);
     }
 
@@ -302,29 +302,29 @@ void pinOff(uint8_t pin){
 void DelayPreServoPulse(void){
     Delay10us(90);
 }
-
-void delayLoop(){
-    int loop = 16;
-    while(loop--);
-    Nop();
-    Nop();
-    Nop();
-    Nop();
-    Nop();
-    Nop();
-    Nop();
-    Nop();
-    Nop();
-    Nop();
-    Nop();
-    Nop();
-    Nop();
-    Nop();
-    Nop();
-    Nop();
-    Nop();
-    Nop();
-    Nop();
-}
+//
+//void delayLoop(){
+//    int loop = 16;
+//    while(loop--);
+//    Nop();
+//    Nop();
+//    Nop();
+//    Nop();
+//    Nop();
+//    Nop();
+//    Nop();
+//    Nop();
+//    Nop();
+//    Nop();
+//    Nop();
+//    Nop();
+//    Nop();
+//    Nop();
+//    Nop();
+//    Nop();
+//    Nop();
+//    Nop();
+//    Nop();
+//}
 
 

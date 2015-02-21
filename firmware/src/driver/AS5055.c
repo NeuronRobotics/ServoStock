@@ -22,16 +22,16 @@ void disableWrapping() {
 void initializeEncoders() {
     DelayMs(200);
     int8_t i;
-    println_I("Starting SPI");
+//    println_I("Starting SPI");
     encoderSPIInit();
     // AC: Do we still need this?
     mJTAGPortEnable(0); // Disable JTAG and free up channels 0 and 1
     ENC_CSN_INIT(); // Set pin modes for CS pins
     for (i = 0; i < numPidTotal; i++) {
-        println_I("Encoder ");
-        p_int_I(i);
+//        println_I("Encoder ");
+//        p_int_I(i);
         AS5055reset(i);
-        print_I(" | reset ");
+//        print_I(" | reset ");
         overflow[i] = 0;
         //offset[i]=0;
         recent[i] = 0;
@@ -192,20 +192,20 @@ void printSystemConfig(uint8_t index) {
     read.uint0_15 = AS5055send(index, cmd.uint0_15);
     Print_Level l = getPrintLevel();
     if (l != NO_PRINT) {
-        println_I("System config: ");
-        prHEX16(read.uint0_15, INFO_PRINT);
-        println_I("\tResolution: ");
-        p_int(read.regs.resolution, INFO_PRINT);
-        println_I("\tchip ID: ");
-        p_int(read.regs.id, INFO_PRINT);
-        println_I("\tinvert_spinning: ");
-        p_int(read.regs.invert, INFO_PRINT);
-        println_I("\tFE_bw_setting: ");
-        p_int(read.regs.bw, INFO_PRINT);
-        println_I("\tFE_gain_setting: ");
-        p_int(read.regs.gain, INFO_PRINT);
-        println_I("\tbreak_AGC_loop: ");
-        p_int(read.regs.break_loop, INFO_PRINT);
+//        println_I("System config: ");
+//        prHEX16(read.uint0_15, INFO_PRINT);
+//        println_I("\tResolution: ");
+//        p_int(read.regs.resolution, INFO_PRINT);
+//        println_I("\tchip ID: ");
+//        p_int(read.regs.id, INFO_PRINT);
+//        println_I("\tinvert_spinning: ");
+//        p_int(read.regs.invert, INFO_PRINT);
+//        println_I("\tFE_bw_setting: ");
+//        p_int(read.regs.bw, INFO_PRINT);
+//        println_I("\tFE_gain_setting: ");
+//        p_int(read.regs.gain, INFO_PRINT);
+//        println_I("\tbreak_AGC_loop: ");
+//        p_int(read.regs.break_loop, INFO_PRINT);
     }
     setPrintLevel(l);
 }

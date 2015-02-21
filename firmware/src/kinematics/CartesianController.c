@@ -2,7 +2,7 @@
 #if defined(__32MX795F512L__)
 #define SIZE_OF_PACKET_BUFFER 400
 #elif defined(__32MX440F128H__)
-#define SIZE_OF_PACKET_BUFFER 2
+#define SIZE_OF_PACKET_BUFFER 10
 #endif
 
 void updateCurrentPositions();
