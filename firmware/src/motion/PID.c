@@ -52,6 +52,11 @@ void initPIDLocal() {
             &onPidConfigureMine,
             &checkPIDLimitEventsMine);
     while (!initFlashLocal());
+    for (i = 0; i < numPidTotal; i++) {
+    //always startup with PID disabled
+        getPidGroupDataTable(i)->config.Enabled = false;
+    }
+    writeFlashLocal();
     setPidIsr(true);
 }
 

@@ -509,7 +509,7 @@ boolean initFlashLocal() {
 #if defined(Rev3)
         //Default hardware map
         localData.hwMap.Alpha.index=0;
-        localData.hwMap.Alpha.scale= -1.0 * mmPerTick;setLED(0,0,1);
+        localData.hwMap.Alpha.scale= -1.0 * mmPerTick;
         localData.hwMap.Alpha.name=Alpha;
 
         localData.hwMap.Beta.index=2;
@@ -601,6 +601,7 @@ boolean initFlashLocal() {
 //        println_W("Flash image ok");
         setKinematicsMath();
     }
+
     if (rawFlashDetect)
         writeFlashLocal();
 

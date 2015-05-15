@@ -98,7 +98,7 @@ uint8_t Bowler_Server_Local(BowlerPacket * Packet){
 	if (GetBowlerPacket_arch(Packet)){
             setLED(0,1,1);
                 if(Packet->use.head.RPC != _PNG){
-                    println_I("Got:");printPacket(Packet,INFO_PRINT);
+                    //println_I("Got:");printPacket(Packet,INFO_PRINT);
                 }
 		if ( (CheckAddress(MyMAC.v,Packet->use.head.MAC.v) == true)  || ((CheckAddress((uint8_t *)Broadcast.v,(uint8_t *)Packet->use.head.MAC.v) == true)  )) {
                         float start=getMs();
@@ -116,7 +116,7 @@ uint8_t Bowler_Server_Local(BowlerPacket * Packet){
                             println_E("Return too long: ");p_fl_E(getMs()-start);
                         }
                          if(Packet->use.head.RPC != _PNG){
-                            println_I("Response:");printPacket(Packet,INFO_PRINT);
+                            //println_I("Response:");printPacket(Packet,INFO_PRINT);
                          }
 		}else{
 			//println_I("Packet not addressed to me: ");printByteArray(Packet->use.head.MAC.v,6); print_I(" is not mine: ");printByteArray(MyMAC.v,6);
@@ -126,7 +126,7 @@ uint8_t Bowler_Server_Local(BowlerPacket * Packet){
                 setLED(0,0,1);
 		return true; 
 	}//Have a packet
-        setLED(0,0,1);
+        //setLED(0,0,1);
         setPrintLevel(l);
 	return false; 
 }
@@ -147,7 +147,7 @@ void hardwareInit(){
         CloseTimer2();
         initLEDs();
 
-        setLED(0,1,1);
+        setLED(0,0,0);
         //while(1);
         Pic32_Bowler_HAL_Init();
 
@@ -171,7 +171,7 @@ void hardwareInit(){
 	macStr[12]=0;
 	println_I("MAC address is =");
 	print_I(macStr);
-	char * dev = "BowlerDevice";
+	char * dev = "CNCBoard";
         println_I(dev);
 	//This Method calls INTEnableSystemMultiVectoredInt();
 	usb_CDC_Serial_Init(dev,macStr,0x04D8,0x0001);
@@ -256,16 +256,18 @@ void bowlerSystem(){
 
 boolean printCalibrations = false; 
 boolean toggle = false;
-
+boolean idleState=false;
 int main(){
-    setPrintLevelInfoPrint();
+    setPrintLevelWarningPrint();
     hardwareInit();
     //setPrintLevelInfoPrint();
     //setPrintLevelWarningPrint();
-    setPrintLevelNoPrint();
+    //setPrintLevelNoPrint();
     
-    RunEveryData loop = {0.0,500.0};
-
+    RunEveryData loop = {0.0,10.0};
+    int i=0;
+    for(;i<numPidMotors;i++)
+        SetPIDEnabled(i,false);
     while(1){
 
         if (getResetButton()==1){
@@ -312,6 +314,24 @@ int main(){
             }
         }
 #endif
+        if(RunEvery(&loop)>0){
+            float diff =(getMs()-getLastPacketTime());
+            boolean idle = ((diff>1000)||(getMs()<1000))?TRUE:FALSE;
+            if(idleState !=idle ){
+                idleState=idle;
+                if(idleState==TRUE){
+                    println_W("Stopping motors");
+                     setLED(1,0,1);
+                    int i=0;
+                    for(;i<numPidMotors;i++)
+                        SetPIDEnabled(i,false);
+                }else{
+                    println_W("Coms safe for motors");
+                    setLED(0,0,1);
+                }
+            }
+        }
+       
         bowlerSystem();
     }
 }
