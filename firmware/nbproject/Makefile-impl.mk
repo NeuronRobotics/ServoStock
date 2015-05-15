@@ -31,7 +31,7 @@ DEFAULTCONF=BootloadRev4
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=debugRev3 BootloadRev4 debugRev4 
+ALLCONFS=debugRev3 BootloadRev4 debugRev4 BootloadRev3 
 
 
 # build
@@ -48,6 +48,7 @@ ALLCONFS=debugRev3 BootloadRev4 debugRev4
 	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=debugRev3 clean
 	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=BootloadRev4 clean
 	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=debugRev4 clean
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=BootloadRev3 clean
 
 
 
@@ -56,6 +57,7 @@ ALLCONFS=debugRev3 BootloadRev4 debugRev4
 	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=debugRev3 build
 	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=BootloadRev4 build
 	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=debugRev4 build
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=BootloadRev3 build
 
 
 
