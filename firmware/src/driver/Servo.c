@@ -256,6 +256,9 @@ uint8_t getServoPosition(uint8_t PIN){
 //}
 
 void SetDIO(uint8_t PIN, boolean state){
+    if(!getPidGroupDataTable(PIN).config.Enabled)
+        state=0;
+
     switch(PIN){
     case 0:
             ENC0_SERVO( state);

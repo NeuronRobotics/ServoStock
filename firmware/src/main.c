@@ -325,6 +325,7 @@ int main(){
                     int i=0;
                     for(;i<numPidMotors;i++)
                         SetPIDEnabled(i,false);
+                    resetUsbSystem();
                 }else{
                     println_W("Coms safe for motors");
                     setLED(0,0,1);
